@@ -37,8 +37,16 @@
 %% process, or `all' to process all files which you \include.
 %% Krishna Sethuraman (1990).
 
-\typein [\files]{Enter file names to process, (chap1,chap2 ...), or `all' to
-process all files:}
+% Vim's LaTeX-Suite does not seem to like non-continuous compilation
+% that requires user input (e.g. with `\typein` below). Following
+% suggestion (http://tex.stackexchange.com/a/97109) to simply
+% hard code value of `\files` rather than asking for user input
+% upon each compilation. The value of `\files` can always be
+% redefined should we just wish to compile a subset of our chapters.
+%
+% \typein [\files]{Enter file names to process, (chap1,chap2 ...), or `all' to
+% process all files:}
+\def\files{all}
 \def\all{all}
 \ifx\files\all \typeout{Including all files.} \else \typeout{Including only \files.} \includeonly{\files} \fi
 
