@@ -111,13 +111,13 @@
 %% \end{abstractpage} commands.
 
 % First copy: start a new page, and save the page number.
-\cleardoublepage
+\cleardoublepage%
 % Uncomment the next line if you do NOT want a page number on your
 % abstract and acknowledgments pages.
 % \pagestyle{empty}
 \setcounter{savepage}{\thepage}
 \begin{abstractpage}
-\input{abstract}
+\input{FrontBackmatter/abstract}
 \end{abstractpage}
 
 % Additional copy: start a new page, and reset the page number.  This way,
@@ -129,7 +129,7 @@
 % \input{abstract}
 % \end{abstractpage}
 
-\cleardoublepage
+\cleardoublepage%
 
 \section*{Acknowledgments}
 
