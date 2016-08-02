@@ -1,70 +1,117 @@
 % -*- Mode:TeX -*-
 
-%% IMPORTANT: The official thesis specifications are available at:
-%%            http://libraries.mit.edu/archives/thesis-specs/
-%%
-%%            Please verify your thesis' formatting and copyright
-%%            assignment before submission.  If you notice any
-%%            discrepancies between these templates and the 
-%%            MIT Libraries' specs, please let us know
-%%            by e-mailing thesis@mit.edu
 
-%% The documentclass options along with the pagestyle can be used to generate
-%% a technical report, a draft copy, or a regular thesis.  You may need to
-%% re-specify the pagestyle after you \include  cover.tex.  For more
-%% information, see the first few lines of mitthesis.cls. 
-
-%\documentclass[12pt,vi,twoside]{mitthesis}
-%%
-%%  If you want your thesis copyright to you instead of MIT, use the
-%%  ``vi'' option, as above.
-%%
-%\documentclass[12pt,twoside,leftblank]{mitthesis}
-%%
-%% If you want blank pages before new chapters to be labelled ``This
-%% Page Intentionally Left Blank'', use the ``leftblank'' option, as
-%% above. 
-
-\documentclass[12pt,twoside]{mitthesis}
-\usepackage{lgrind}
-%% These have been added at the request of the MIT Libraries, because
-%% some PDF conversions mess up the ligatures.  -LB, 1/22/2014
-\usepackage{cmap}
-\usepackage[T1]{fontenc}
-\usepackage{mystyle}
-\pagestyle{plain}
-
-%% This bit allows you to either specify only the files which you wish to
-%% process, or `all' to process all files which you \include.
-%% Krishna Sethuraman (1990).
-
-% Vim's LaTeX-Suite does not seem to like non-continuous compilation
-% that requires user input (e.g. with `\typein` below). Following
-% suggestion (http://tex.stackexchange.com/a/97109) to simply
-% hard code value of `\files` rather than asking for user input
-% upon each compilation. The value of `\files` can always be
-% redefined should we just wish to compile a subset of our chapters.
+% IMPORTANT: The official thesis specifications are available at:
 %
-% \typein [\files]{Enter file names to process, (chap1,chap2 ...), or `all' to
-% process all files:}
-\def\files{all}
-\def\all{all}
-\ifx\files\all \typeout{Including all files.} \else \typeout{Including only \files.} \includeonly{\files} \fi
+%            http://libraries.mit.edu/archives/thesis-specs/
+
+
+% **************************************************************************************************************
+% A Classic Thesis Style
+% An Homage to The Elements of Typographic Style
+%
+% Copyright (C) 2015 André Miede http://www.miede.de
+%
+% If you like the style then I would appreciate a postcard. My address 
+% can be found in the file ClassicThesis.pdf. A collection of the 
+% postcards I received so far is available online at 
+% http://postcards.miede.de
+%
+% License:
+% This program is free software; you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation; either version 2 of the License, or
+% (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with this program; see the file COPYING.  If not, write to
+% the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+% Boston, MA 02111-1307, USA.
+%
+% **************************************************************************************************************
+\RequirePackage{fix-cm} % fix some latex issues see: http://texdoc.net/texmf-dist/doc/latex/base/fixltx2e.pdf
+\documentclass[ twoside,openright,titlepage,numbers=noenddot,headinclude,%1headlines,% letterpaper a4paper
+                footinclude=true,cleardoublepage=empty,abstractoff, % <--- obsolete, remove (todo)
+                BCOR=5mm,paper=a4,fontsize=11pt,%11pt,a4paper,%
+                ngerman,american,%
+                ]{scrreprt}
+
+
+% ***************************************
+% Note: Make all your adjustments in here
+% ***************************************
+\input{classicthesis-config}
+
+\numberwithin{equation}{chapter}
+\numberwithin{figure}{chapter}
+\numberwithin{table}{chapter}
+
+\usepackage{nomenlev}\makenomen
+\usepackage{verbatim}
+
+\newcommand{\erf}{\text{erf}}
+\newcommand{\atan}{\tan^{-1}}
+\newcommand{\vect}{\boldsymbol}
+\newcommand{\cross}{\times}
+\newcommand{\ts}{\textsuperscript}
+
+
+% **************
+% Bibliographies
+% **************
+% \addbibresource{Bibliography.bib}
+% \addbibresource[label=ownpubs]{AMiede_Publications.bib}
+
+
+% ***********
+% Hyphenation
+% ***********
+%\hyphenation{put special hyphenation here}
+
 
 \begin{document}
 
-\include{cover}
-% Some departments (e.g. 5) require an additional signature page.  See
-% signature.tex for more information and uncomment the following line if
-% applicable.
-% \include{signature}
+
+\frenchspacing
+\raggedbottom
+\selectlanguage{american} % american ngerman
+%\renewcommand*{\bibname}{new name}
+%\setbibpreamble{}
+%\pagenumbering{roman}
+% \pagenumbering{roman}
 \pagestyle{plain}
-\include{contents}
+
+
+% ***********
+% Frontmatter
+% ***********
+\include{cover}
+\pagestyle{scrheadings}
+\cleardoublepage\include{contents}
+
+
+% **********
+% Mainmatter
+% **********
+\cleardoublepage\pagenumbering{arabic}
 \include{chap1}
-\include{chap2}
+
+
+% **********
+% Backmatter
+% **********
 \appendix
+\cleardoublepage
 \include{appa}
 \include{appb/appb}
 \include{biblio}
-\end{document}
 
+\cleardoublepage\include{Colophon}
+
+
+\end{document}
