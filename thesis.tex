@@ -59,6 +59,7 @@
 \newcommand{\vect}{\boldsymbol}
 \newcommand{\cross}{\times}
 \newcommand{\ts}{\textsuperscript}
+\newcommand{\diiid}{\mbox{DIII-D}}
 
 
 % **************
@@ -91,6 +92,7 @@
 % Frontmatter
 % ***********
 \include{FrontBackmatter/Cover}
+\include{FrontBackmatter/Acknowledgements}
 \pagestyle{scrheadings}
 \cleardoublepage\include{FrontBackmatter/Contents}
 
@@ -99,7 +101,13 @@
 % Mainmatter
 % **********
 \cleardoublepage\pagenumbering{arabic}
-\include{Chapters/Chap1}
+\include{Chapters/Introduction}
+\include{Chapters/InterferometricMethods}
+\include{Chapters/Implementation}
+\include{Chapters/ToroidalCorrelation}
+\include{Chapters/FastIonTheory}
+\include{Chapters/Measurements}
+\include{Chapters/Conclusions}
 
 
 % **********
