@@ -1,3 +1,168 @@
 \chapter{Correlation of \diiid's toroidally separated interferometers}
 
-Almost written already\ldots
+
+\section{Perturbed plasma density}
+An MHD mode displaces a plasma from it's equilibrium position
+by $\vect{\xi} = \vect{\xi}(\vect{r}, t)$.
+The perturbed velocity is given as
+$\vect{v_1} = \partial \vect{\xi} / \partial t$
+and, assuming harmonic variations, reduces to
+\begin{equation}
+  \vect{v_1}
+  \equiv
+  \frac{\partial \vect{\xi}}{\partial t}
+  =
+  -i \omega \vect{\xi}
+  \notag
+\end{equation}
+where $\omega$ is the mode's angular frequency.
+The plasma density $n_i$ is given as
+\begin{equation}
+  n_i = \bar{n}_i + \tilde{n}_i
+  \notag
+\end{equation}
+where $\bar{n}_i$ and $\tilde{n}_i$ are
+the equilibrium and fluctuating components, respectively.
+Assuming a stationary equilibrium ($\vect{v_0} = 0$) and
+using the above relations,
+the linearized continuity equation reduces to
+\begin{equation}
+  \tilde{n}_i = -\nabla \cdot (\bar{n}_i \vect{\xi})
+  \label{eq:ToroidalCorrelation:density_fluctuations}
+\end{equation}
+If we relax the assumption on $\vect{v_0}$ to allow
+finite equilibrium flow ($\vect{v_0} \neq 0$),
+then the right-hand side of (\ref{eq:ToroidalCorrelation:density_fluctuations})
+is simply multiplied by the prefactor
+$[1
+- (\vect{v_0} \cdot \vect{k} / \omega)
++ i (\nabla \cdot \vect{v_0} / \omega)]^{-1}$, where
+$\vect{k}$ is the mode wavevector.
+
+
+\section{Interferometer phase fluctuations}
+For a CO$_2$ laser beam ($\lambda_0 =$ \SI{10.6}{\micro \meter})
+in a tokamak plasma, the index of refraction $N$ is
+\begin{equation}
+  N
+  \approx
+  1 - \frac{1}{2} \left( \frac{\omega_{pe}}{\omega_0} \right)^2
+  \notag
+\end{equation}
+where $\omega_{pe}$ is the electron angular plasma frequency and
+$\omega_0 = 2 \pi c / \lambda_0 = 2 \pi \cdot \SI{28.3}{\tera\hertz}$
+is the laser's angular frequency.
+Thus, a CO$_2$ beam propagating through a tokamak plasma
+will acquire a phase shift $\phi$ \emph{relative} to vacuum
+\begin{equation}
+    \phi
+    =
+    \frac{\omega}{c} \int (N - 1) dl
+    =
+    - r_e \lambda_0 \int n_e dl \notag
+\end{equation}
+where $r_e = \SI{2.8e-15}{\meter}$ is the classical electron radius.
+Further, if there are electron density fluctuations $\tilde{n}_e$
+about the equilibrium $\bar{n}_e$, there will be corresponding
+phase fluctuations $\tilde{\phi}$
+\begin{align}
+  \tilde{\phi} = -r_e \lambda_0 \int \tilde{n}_e dl
+  \label{eq:ToroidalCorrelation:phase_fluctuations_generic}
+\end{align}
+Assuming quasineutrality $n_e \approx n_i$ and
+invoking (\ref{eq:ToroidalCorrelation:density_fluctuations}),
+the phase fluctuations reduce to
+\begin{align}
+  \tilde{\phi}
+  =
+  r_e \lambda_0
+  \int [\nabla \cdot (\bar{n}_e \vect{\xi})] dl
+  \label{eq:ToroidalCorrelation:phase_fluctuations_from_displacement}
+\end{align}
+
+Now, \diiid's V2 and PCI interferometers have \emph{vertical} beam paths
+located at major radial ($R$) and toroidal ($\zeta$) coordinates
+$(R_1, \zeta_1) = (\SI{1.94}{\meter}, \; 240^{\circ})$ and
+$(R_2, \zeta_2) = (\SI{1.98}{\meter}, \; 285^{\circ})$, respectively.
+Fourier decomposing the displacement $\vect{\xi}$ as
+\begin{equation}
+  \vect{\xi}(\vect{r}, t)
+  =
+  \vect{\xi_0}(r) e^{i(m \theta + n \zeta - \omega t)}
+  \notag
+\end{equation}
+for poloidal ($m$) and toroidal ($n$) mode numbers and
+$\vect{\xi_0}(r) \in \mathbb{R}^3$,
+(\ref{eq:ToroidalCorrelation:phase_fluctuations_from_displacement}) becomes
+\begin{align}
+  \tilde{\phi}
+  =
+  r_e \lambda_0
+  \int \left\{
+    \nabla
+    \cdot
+    \left[
+      \bar{n}_e \, \vect{\xi_0}(r) e^{i(m \theta + n \zeta - \omega t)}
+    \right]
+  \right\} dl
+  \notag
+\end{align}
+Finally, noting that $dl = dl(r, \theta)$ for vertical beam paths,
+the phase fluctuations reduce to
+\begin{equation}
+  \tilde{\phi}
+  =
+  \Phi e^{i(n \zeta - \omega t)}
+  \label{eq:ToroidalCorrelation:phase_fluctuations_vertical_beam1}
+\end{equation}
+where
+$\Phi
+\equiv
+\Phi(R, m, n, \vect{\xi_0}(r), \bar{n}_e(r), \vect{G}) \in \mathbb{C}$
+is a complex-valued function of
+the beam's major radial location,
+the mode structure,
+the equilibrium density profile, and
+the plasma geometry $\vect{G} = \vect{G}(R_0, a, \kappa, \delta, \cdots)$.
+$\Phi$ can be written explicitly
+as a complex value $\Phi = |\Phi| e^{i \sigma}$.
+
+For a given mode and plasma,
+the V2 and PCI interferometer beams see the \emph{same}
+$\{m, n, \vect{\xi_0}(r), \bar{n}_e(r), \vect{G}\}$, and
+$\Phi$ reduces to a one-dimensional function $\Phi = \Phi(R)$.
+Thus, (\ref{eq:ToroidalCorrelation:phase_fluctuations_vertical_beam1}) can
+alternatively be written as
+\begin{equation}
+  \tilde{\phi}
+  =
+  |\Phi(R)| e^{i[n \zeta - \omega t + \sigma(R)]}
+  \label{eq:ToroidalCorrelation:phase_fluctuations_vertical_beam2}
+\end{equation}
+where the dependence on $R$ for a given mode and plasma
+has been noted explicitly.
+The phase angle $\alpha$ of $\tilde{\phi}$ is defined as
+\begin{equation}
+  \alpha \equiv n \zeta - \omega t + \sigma(R)
+  \label{eq:ToroidalCorrelation:phase_angle}
+\end{equation}
+such that $\tilde{\phi} = |\Phi| e^{i \alpha}$.
+
+
+\section{Toroidal correlations --- the ideal case}
+In the ideal case, phase fluctuations $\tilde{\phi}_1$ and $\tilde{\phi}_2$
+are made at different toroidal locations $\zeta_1 \neq \zeta_2$ but
+the \emph{same} radial locations $R_1 = R_2 = R$.
+The one-sided cross-spectral density
+$G_{12}(f) = |G_{12}(f)| e^{i \alpha_{12}(f)}$
+then yields an estimate of the relative phase angle
+$\alpha_{12} \equiv \alpha_2 - \alpha_1 = n(\zeta_2 - \zeta_1)$,
+inspiring the definition of the measured toroidal mode number as
+\begin{equation}
+  n_{\text{meas}}
+  \equiv
+  \frac{\alpha_{12}}{\Delta \zeta}
+  \quad \text{where} \quad
+  \Delta \zeta \equiv \zeta_2 - \zeta_1
+  \label{eq:ToroidalCorrelation:toroidal_mode_number_ideal}
+\end{equation}
