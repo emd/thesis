@@ -14,7 +14,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.5 r10040"
-   sodipodi:docname="pci_interf_locs_plan_view.svg">
+   sodipodi:docname="pci_interf_locs.svg">
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -176,7 +176,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -34277,7 +34277,7 @@
          x="621.85815"
          y="181.38342"><tspan
    style="font-weight:normal;-inkscape-font-specification:Bitstream Vera Sans"
-   id="tspan66578">(b)</tspan> DIII-D cross-section</tspan></text>
+   id="tspan66578">(b)</tspan> DIII-D cross section</tspan></text>
     <text
        sodipodi:linespacing="125%"
        id="text10849"
@@ -34290,7 +34290,7 @@
          id="tspan10851"
          sodipodi:role="line"><tspan
    style="font-weight:normal;-inkscape-font-specification:Bitstream Vera Sans"
-   id="tspan66572">(a)</tspan> DIII-D plan view</tspan></text>
+   id="tspan66572">(a)</tspan> DIII-D top-down view</tspan></text>
     <g
        id="g72758"
        transform="translate(-0.04029846,0)">
