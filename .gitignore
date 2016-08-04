@@ -7,3 +7,5 @@
 *.swp
 *.out
 *.nlo
+*.bbl
+*.blg
