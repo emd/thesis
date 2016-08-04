@@ -1,7 +1,44 @@
 \chapter{Correlation of \diiid's toroidally separated interferometers}
+The toroidal structure of an MHD mode can strongly influence
+the mode's stability and its interaction with the surrounding plasma.
+A mode's toroidal structure is typically characterized
+via the toroidal mode number $n$.
+Historically, measurement of toroidal (and poloidal) mode numbers
+with magnetic loops has provided rich insight
+into the physics governing numerous operational regimes and stability limits.
+However, core-localized MHD produces weak signals outside of the plasma volume,
+making measurement of mode numbers via magnetic loops difficult or impossible.
+Recently, measurements from toroidally separated
+electron cyclotron emission imaging (ECEI) systems
+on the KSTAR tokamak have identified mode numbers of
+edge-localized modes~\cite{lee_rsi_2014} and
+sawteeth~\cite{choe_nf_2015},
+raising the question as to the utility of using more exotic measurements
+to probe the structure of core-localized MHD.
 
+This chapter describes the use of toroidally separated interferometers
+to measure toroidal mode numbers.
+To the author's knowledge, this is the first such implementation in a tokamak.
+The addition of the heterodyne interferometer channel
+to \diiid's pre-existing phase contrast imaging (PCI) system
+enabled this novel measurement.
+As shown in Fig.~\ref{fig:ToroidalCorrelation:pci_interf_locs}
+the beampaths of the PCI and V2 interferometers
+are toroidally separated by $\Delta \zeta = 45^{\circ}$ and
+are very nearly radially overlapping.
+Section~\ref{sec:ToroidalCorrelation:two_point_correlations}
+reviews the mathematics of the two-point-correlation technique
+used to extract toroidal mode numbers and
+derives the resulting Nyquist mode number.
+Section~\ref{sec:ToroidalCorrelation:interferometer_measurements}
+examines the interferometer measurements in detail and
+develops a formula for the measured toroidal mode number.
+Section~\ref{sec:ToroidalCorrelation:nonideal_effects}
+characterizes the effects of time-base offsets and radial offsets
+between the two interferometer systems and
+describes methods to minimize their influence
+on the measured toroidal mode number.
 
-\section{Foundations}
 \begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
@@ -16,6 +53,24 @@
     the PCI beam's major-radial location is $R_2 = \SI{1.98}{\meter}$.}
 \label{fig:ToroidalCorrelation:pci_interf_locs}
 \end{figure}
+
+
+\section{Two-point correlations}
+\label{sec:ToroidalCorrelation:two_point_correlations}
+
+
+\subsection{Cross-spectral density}
+Blah blah blah\ldots
+
+
+\subsection{Nyquist mode number}
+
+
+\section{Toroidal correlation of interferometers}
+\label{sec:ToroidalCorrelation:interferometer_measurements}
+
+
+\subsection{\diiid's interferometers}
 
 
 \subsection{Perturbed plasma density}
@@ -166,7 +221,7 @@ The phase angle $\alpha$ of $\tilde{\phi}$ is defined as
 such that $\tilde{\phi} = |\Phi| e^{i \alpha}$.
 
 
-\subsection{Toroidal correlations --- the ideal case}
+\subsection{The measured mode number --- the ideal case}
 In the ideal case, phase fluctuations $\tilde{\phi}_1$ and $\tilde{\phi}_2$
 are made at different toroidal locations $\zeta_1 \neq \zeta_2$ but
 the \emph{same} radial locations $R_1 = R_2 = R$.
@@ -186,6 +241,7 @@ inspiring the definition of the measured toroidal mode number as
 
 
 \section{Non-ideal effects}
+\label{sec:ToroidalCorrelation:nonideal_effects}
 Offsets in the time bases and major radial positions
 of the V2 and PCI interferometers can bias
 the measured toroidal mode number
@@ -555,3 +611,7 @@ via e.g.\ forward modeling and synthetic diagnostics.
       the newly installed interferometer channel of the PCI).}
 \label{fig:ToroidalCorrelation:PCI_coherence}
 \end{figure}
+
+
+\bibliographystyle{plainurl}
+\bibliography{references}

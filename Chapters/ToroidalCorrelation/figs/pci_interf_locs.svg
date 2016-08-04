@@ -9,12 +9,12 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="1071.9939"
+   width="1077.7881"
    height="671.4563"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.5 r10040"
-   sodipodi:docname="pci_interf_locs.svg">
+   sodipodi:docname="pci_interf_locs.eps">
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -24,7 +24,7 @@
      inkscape:pageshadow="2"
      inkscape:zoom="0.80217896"
      inkscape:cx="500.00757"
-     inkscape:cy="386.43529"
+     inkscape:cy="386.43528"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -176,7 +176,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -34216,13 +34216,17 @@
              x="1080.5398"
              sodipodi:role="line"><tspan
    id="tspan60635"
-   style="font-style:normal;-inkscape-font-specification:Bitstream Vera Sans">ζ</tspan> = 240°</tspan><tspan
+   style="font-style:normal;-inkscape-font-specification:Bitstream Vera Sans">ζ<tspan
+   style="font-size:65.00091553%;baseline-shift:sub"
+   id="tspan111195">1</tspan></tspan> = 240°</tspan><tspan
              id="tspan60637"
              y="819.534"
              x="1080.5398"
              sodipodi:role="line"><tspan
    id="tspan60639"
-   style="font-style:oblique;-inkscape-font-specification:Bitstream Vera Sans Oblique">R</tspan> = 1.94 m</tspan></text>
+   style="font-style:oblique;-inkscape-font-specification:Bitstream Vera Sans Oblique">R</tspan><tspan
+   id="tspan111203"
+   style="font-size:65.00091553%;font-style:normal;baseline-shift:sub;-inkscape-font-specification:Bitstream Vera Sans">1</tspan> = 1.94 m</tspan></text>
         <path
            style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend)"
            d="M 1068.7502,719.59373 C 1014.0179,663.45071 956.28618,661.2967 896.8611,689.62332"
@@ -34249,13 +34253,17 @@
              y="328.534"
              id="tspan60623"><tspan
    style="font-style:normal;-inkscape-font-specification:Bitstream Vera Sans"
-   id="tspan60627">ζ</tspan> = 285°</tspan><tspan
+   id="tspan60627">ζ<tspan
+   style="font-size:65.00091553%;baseline-shift:sub"
+   id="tspan111183">2</tspan></tspan> = 285°</tspan><tspan
              sodipodi:role="line"
              x="1080.5398"
              y="363.534"
              id="tspan60619"><tspan
    style="font-style:oblique;-inkscape-font-specification:Bitstream Vera Sans Oblique"
-   id="tspan60625">R</tspan> = 1.98 m</tspan></text>
+   id="tspan60625">R</tspan><tspan
+   id="tspan111191"
+   style="font-size:65.00091553%;font-style:normal;baseline-shift:sub;-inkscape-font-specification:Bitstream Vera Sans">2</tspan> = 1.98 m</tspan></text>
         <path
            style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend)"
            d="m 757.19354,125.81858 c -41.20137,0.95072 -47.71952,23.57845 -52.00747,47.60006"
