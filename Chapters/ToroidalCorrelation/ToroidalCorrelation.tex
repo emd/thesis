@@ -26,7 +26,7 @@ As shown in Fig.~\ref{fig:ToroidalCorrelation:pci_interf_locs}
 the beampaths of the PCI and V2 interferometers
 are toroidally separated by $\Delta \zeta = 45^{\circ}$ and
 are very nearly radially overlapping.
-Section~\ref{sec:ToroidalCorrelation:two_point_correlations}
+Section~\ref{sec:ToroidalCorrelation:random_processes}
 reviews the mathematics of the two-point-correlation technique
 used to extract toroidal mode numbers and
 derives the resulting Nyquist mode number.
@@ -55,11 +55,8 @@ on the measured toroidal mode number.
 \end{figure}
 
 
-\section{Two-point correlations}
-\label{sec:ToroidalCorrelation:two_point_correlations}
-
-
-\subsection{Spectral characterization of random processes}
+\section{Random processes}
+\label{sec:ToroidalCorrelation:random_processes}
 In contrast to deterministic processes,
 random processes cannot be modeled via an explicit mathematical relationship.
 Rather, random processes are characterized
@@ -77,8 +74,14 @@ The statistical properties of a stationary random process
 do not vary in time, and
 the spectral tools discussed below
 were all developed for analysis of stationary random processes.
+Most of the discussion below was distilled from
+the seminal work by Bendat and Piersol \cite{bendat_and_piersol}, and
+inquisitive readers are directed there
+for a more extensive treatment of the subject.
 
-The \emph{finite} Fourier transform $X_k(f, T)$
+
+\subsection{Spectral characterization}
+The finite Fourier transform $X_k(f, T)$
 of a continuous signal $x_k(t)$ is defined as
 \begin{equation}
   X_k(f, T)
@@ -169,6 +172,9 @@ The author has not explored more exotic means of detrending, and
 no detrending was applied to signals prior to spectral computations
 in this work.
 
+\subsection{Spectral estimation}
+
+\subsection{Two-point correlation}
 
 \subsection{Nyquist mode number}
 
