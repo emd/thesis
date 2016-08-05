@@ -59,8 +59,115 @@ on the measured toroidal mode number.
 \label{sec:ToroidalCorrelation:two_point_correlations}
 
 
-\subsection{Cross-spectral density}
-Blah blah blah\ldots
+\subsection{Spectral characterization of random processes}
+In contrast to deterministic processes,
+random processes cannot be modeled via an explicit mathematical relationship.
+Rather, random processes are characterized
+in terms of probabilities and statistical properties.
+Any given observation of a random process represents
+only one of many possible observations;
+each such observation is referred to as
+a ``sample'' or a ``realization'' of the random process
+and is denoted as $x_k(t)$.
+The random process itself consists of
+the ensemble of all of the potential observations
+and is denoted as $\{x_k(t)\}$.
+Random processes can be stationary or nonstationary.
+The statistical properties of a stationary random process
+do not vary in time, and
+the spectral tools discussed below
+were all developed for analysis of stationary random processes.
+
+The \emph{finite} Fourier transform $X_k(f, T)$
+of a continuous signal $x_k(t)$ is defined as
+\begin{equation}
+  X_k(f, T)
+  =
+  \int_{-T / 2}^{T / 2}
+  dt \, x_k(t) e^{-i \, 2 \pi f t}
+  \label{eq:ToroidalCorrelation:finite_Fourier_transform}
+\end{equation}
+Note that $x_k(t)$ need \emph{not} be integrable over the infinite domain,
+making the finite Fourier transform a suitable tool for stationary signals,
+whose statistical properties (e.g.\ mean, variance, etc.) are
+constant and potentially finite in time.
+
+For real-valued, stationary random processes $\{x_k(t)\}$ and $\{y_k(t)\}$,
+the one-sided cross-spectral density function $G_{xy}(f)$ is defined as
+\begin{equation}
+  G_{xy}(f)
+  \equiv
+  \lim_{T \rightarrow \infty}
+  \frac{2}{T} E \left[ X_k^*(f, T) Y_k(f, T) \right]
+  \label{eq:ToroidalCorrelation:cross_spectral_density_defn}
+\end{equation}
+for $0 < f < \infty$;
+$G_{xy}(f)$ is not defined for $f < 0$, and
+it is reduced by a factor of two relative to
+(\ref{eq:ToroidalCorrelation:cross_spectral_density_defn}) at $f = 0$
+(the value of $G_{xy}(0)$ is of little relevance to this work).
+Note that $E[\cdot]$ is the expectation value operator;
+this operator averages over all of the realizations in the ensemble, and
+its application ensures that
+(\ref{eq:ToroidalCorrelation:cross_spectral_density_defn})
+is a statistically consistent definition of the cross-spectral density
+(that is, ensemble averaging is needed for $G_{xy}(f)$
+to approach the true cross-spectral density as $T \rightarrow \infty$).
+In general $G_{xy}(f)$ is a complex-valued function;
+this can be explicitly written as
+\begin{equation}
+  G_{xy}(f) = \left| G_{xy}(f) \right| e^{i \theta_{xy}(f)}
+  \label{eq:ToroidalCorrelation:cross_spectral_density_explicit_complex}
+\end{equation}
+where $\theta_{xy}(f)$ is the \emph{phase angle}.
+For the special case $\{x_k(t)\} = \{y_k(t)\}$,
+$G_{xx}(f)$ is real-valued (i.e.\ $G_{xx}(f) = |G_{xx}(f)|$) and
+is referred to as the one-sided autospectral density function.
+
+The degree of correlation between random processes
+$\{x_k(t)\}$ and $\{y_k(t)\}$ can be easily quantified
+with the corresponding spectral density functions.
+In particular, the magnitude-squared coherence function
+$\gamma_{xy}^2(f)$ is defined as
+\begin{equation}
+  \gamma_{xy}^2(f)
+  \equiv
+  \frac{|G_{xy}(f)|^2}{G_{xx}(f) G_{yy}(f)}
+  \label{eq:ToroidalCorrelation:magnitude_squared_coherence_defn}
+\end{equation}
+and it satisfies
+\begin{equation}
+  0 \leq \gamma_{xy}^2(f) \leq 1
+  \label{eq:ToroidalCorrelation:magnitude_squared_coherence_bounds}
+\end{equation}
+for $0 \leq f < \infty$, with
+$\gamma_{xy}^2(f) = 1$ indicating that
+$\{x_k(t)\}$ and $\{y_k(t)\}$ are 100\% correlated at frequency $f$ and
+$\gamma_{xy}^2(f) = 0$ indicating that
+$\{x_k(t)\}$ and $\{y_k(t)\}$ are completely uncorrelated at frequency $f$.
+Note that the ensemble-averaging operation in
+(\ref{eq:ToroidalCorrelation:cross_spectral_density_defn})
+is paramount to the computation
+of \emph{informative} values for $\gamma_{xy}^2(f)$;
+that is, if ensemble averaging is ignored, and
+only single realizations of the random processes are used,
+$\gamma_{xy}^2(f) \equiv 1$ for all $f$,
+\emph{regardless} of the actual degree of coherence
+between between $\{x_k(t)\}$ and $\{y_k(t)\}$.
+
+Care should be taken when computing spectral densities.
+In various programming languages,
+it is not uncommon to ``detrend'' realizations $x_k(t)$ and $y_k(t)$
+by subtracting the signal mean or linear trend
+prior to application of
+(\ref{eq:ToroidalCorrelation:cross_spectral_density_defn}).
+However, the author has empirically found that
+such detrending can lead to values of $\gamma_{xy}^2(f)$
+that unphysically exceed the bounds established in
+(\ref{eq:ToroidalCorrelation:magnitude_squared_coherence_bounds}).
+The author has not explored more exotic means of detrending, and
+no detrending was applied to signals prior to spectral computations
+in this work.
 
 
 \subsection{Nyquist mode number}
