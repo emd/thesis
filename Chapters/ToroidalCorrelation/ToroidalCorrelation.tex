@@ -81,22 +81,34 @@ for a more extensive treatment of the subject.
 
 
 \subsection{Spectral characterization}
-The finite Fourier transform $X_k(f, T)$
-of a continuous signal $x_k(t)$ is defined as
+The windowed, finite Fourier transform $X_k(f, T)$
+of a continuous signal $x_k(t)$
+sampled for $-T / 2 \leq t < T / 2$
+is defined as
 \begin{equation}
   X_k(f, T)
   =
   \int_{-T / 2}^{T / 2}
-  dt \, x_k(t) e^{-i \, 2 \pi f t}
+  dt \, [w(t) \cdot x_k(t)] e^{-i \, 2 \pi f t}
   \label{eq:ToroidalCorrelation:finite_Fourier_transform}
 \end{equation}
-Note that $x_k(t)$ need \emph{not} be integrable over the infinite domain,
-making the finite Fourier transform a suitable tool for stationary signals,
-whose statistical properties (e.g.\ mean, variance, etc.) are
-constant and potentially finite in time.
+where $w(t)$ is an arbitrary windowing function.
+Typically, the selected windowing function smoothly tapers
+as $|t| \rightarrow T / 2$
+to minimize side-lobe ``leakage''
+that results from discontinuities at the start and end of the sample record.
+Further, to prevent power loss, the windowing function
+is also typically normalized such that
+\begin{equation}
+  \frac{1}{T} \int_{-T/2}^{T/2} dt \, [w(t)]^2 = 1
+  \notag
+\end{equation}
+The normalized Hanning window is perhaps
+the most commonly used windowing function, and
+it is used uniformly throughout this work.
 
 For real-valued, stationary random processes $\{x_k(t)\}$ and $\{y_k(t)\}$,
-the one-sided cross-spectral density function $G_{xy}(f)$ is defined as
+the one-sided \emph{cross-spectral density} function $G_{xy}(f)$ is defined as
 \begin{equation}
   G_{xy}(f)
   \equiv
@@ -115,22 +127,40 @@ its application ensures that
 (\ref{eq:ToroidalCorrelation:cross_spectral_density_defn})
 is a statistically consistent definition of the cross-spectral density
 (that is, ensemble averaging is needed for $G_{xy}(f)$
-to approach the true cross-spectral density as $T \rightarrow \infty$).
-In general $G_{xy}(f)$ is a complex-valued function;
-this can be explicitly written as
+to approach the true cross-spectral density
+as $T \rightarrow \infty$). % see pgs. 127, 128 of Bendat & Piersol, 4th ed.
+If, in addition to being stationary, the random process is also \emph{ergodic},
+the ensemble averaging operation can be replaced
+with an average of $X_k(f, T)$ from successive,
+potentially partially overlapping time slices
+of a single sample record.
+Unless otherwise noted,
+all of the ensemble averages in this work are computed
+using this assumption of ergodicity, and
+successive slices are selected to overlap by 50\%.
+
+In general $G_{xy}(f)$ is a complex-valued function.
+This can be made explicit by writing
 \begin{equation}
   G_{xy}(f) = \left| G_{xy}(f) \right| e^{i \alpha_{xy}(f)}
   \label{eq:ToroidalCorrelation:cross_spectral_density_explicit_complex}
 \end{equation}
 where $\alpha_{xy}(f)$ is the \emph{phase angle}.
-For the special case $\{x_k(t)\} = \{y_k(t)\}$,
+Note that if
+$\lim_{T \rightarrow \infty} E[X_k(f, T)] \propto e^{i \alpha_x}$ and
+$\lim_{T \rightarrow \infty} E[Y_k(f, T)] \propto e^{i \alpha_y}$, then
+\begin{equation}
+  \alpha_{xy} = \alpha_y - \alpha_x
+  \notag
+\end{equation}
+Further, note that for the special case $\{x_k(t)\} = \{y_k(t)\}$,
 $G_{xx}(f)$ is real-valued (i.e.\ $G_{xx}(f) = |G_{xx}(f)|$) and
-is referred to as the one-sided autospectral density function.
+is referred to as the one-sided \emph{autospectral density} function.
 
 The degree of correlation between random processes
 $\{x_k(t)\}$ and $\{y_k(t)\}$ can be easily quantified
 with the corresponding spectral density functions.
-In particular, the magnitude-squared coherence function
+In particular, the \emph{magnitude-squared coherence} function
 $\gamma_{xy}^2(f)$ is defined as
 \begin{equation}
   \gamma_{xy}^2(f)
@@ -143,10 +173,10 @@ and it satisfies
   0 \leq \gamma_{xy}^2(f) \leq 1
   \label{eq:ToroidalCorrelation:magnitude_squared_coherence_bounds}
 \end{equation}
-for $0 \leq f < \infty$, with
-$\gamma_{xy}^2(f) = 1$ indicating that
-$\{x_k(t)\}$ and $\{y_k(t)\}$ are 100\% correlated at frequency $f$ and
-$\gamma_{xy}^2(f) = 0$ indicating that
+for $0 \leq f < \infty$.
+If $\gamma_{xy}^2(f) = 1$,
+$\{x_k(t)\}$ and $\{y_k(t)\}$ are 100\% correlated at frequency $f$, and
+if $\gamma_{xy}^2(f) = 0$,
 $\{x_k(t)\}$ and $\{y_k(t)\}$ are completely uncorrelated at frequency $f$.
 Note that the ensemble-averaging operation in
 (\ref{eq:ToroidalCorrelation:cross_spectral_density_defn})
@@ -158,8 +188,19 @@ $\gamma_{xy}^2(f) \equiv 1$ for all $f$,
 \emph{regardless} of the actual degree of coherence
 between between $\{x_k(t)\}$ and $\{y_k(t)\}$.
 
-Care should be taken when computing spectral densities.
-In various programming languages,
+Care should be taken when computing spectral density estimates.
+Table~\ref{table:ToroidalCorrelation:spectral_estimate_random_errors}
+summarizes the random errors associated with the estimates
+of various spectral properties.
+Note that the number of realizations $N_r$ used
+in the computation of the ensemble average
+is a parameter that can be specified
+at the time of analysis and that
+increasing $N_r$ reduces the random errors of each spectral estimate.
+(While increased $\gamma_{xy}^2(f)$ also reduces random errors,
+$\gamma_{xy}^2(f)$ is an intrinsic property of the data
+rather than a parameter that can be specified at the time of analysis).
+Further, in various programming languages,
 it is not uncommon to ``detrend'' realizations $x_k(t)$ and $y_k(t)$
 by subtracting the signal mean or linear trend
 prior to application of
@@ -168,11 +209,50 @@ However, the author has empirically found that
 such detrending can lead to values of $\gamma_{xy}^2(f)$
 that unphysically exceed the bounds established in
 (\ref{eq:ToroidalCorrelation:magnitude_squared_coherence_bounds}).
-The author has not explored more exotic means of detrending, and
-no detrending was applied to signals prior to spectral computations
-in this work.
+The author has not thoroughly investigated the subtleties of this discrepancy,
+nor has he explored more exotic means of detrending.
+As a result, no detrending was applied to signals
+prior to spectral computations in this work.
 
-\subsection{Spectral estimation}
+\begin{table}[t]
+  \centering
+  \renewcommand{\arraystretch}{1.5}% Spread rows out...
+  \begin{tabular}{%
+    >{\centering}m{5.0cm} >{\centering}m{5.0cm}
+  }
+    \toprule%
+    \textbf{Spectral estimate}
+    & \textbf{Random error} \cite{bendat_and_piersol}
+    \tabularnewline%
+    \midrule
+    $G_{xy}(f)$
+    & $\varepsilon \left[G_{xy}(f) \right]
+    =
+    \frac{1}{|\gamma_{xy}(f)| \sqrt{N_r}}$
+    \tabularnewline%
+    $\alpha_{xy}(f)$
+    & s.d.$\left[ \alpha_{xy}(f) \right]
+    \approx
+    \frac{[1 - \gamma_{xy}^2(f)]^{1/2}}{|\gamma_{xy}(f)| \sqrt{2 N_r}}$
+    \tabularnewline%
+    $\gamma_{xy}^2(f)$
+    & $\varepsilon \left[ \gamma_{xy}^2(f) \right]
+    =
+    \frac{\sqrt{2} [1 - \gamma_{xy}^2(f)]}{|\gamma_{xy}(f)| \sqrt{N_r}}$
+    \tabularnewline%
+    \toprule%
+  \end{tabular}
+  \caption[Random errors in spectral estimates]{%
+    Random errors in estimates of spectral properties are functions of
+    the number of realizations $N_r$ used
+    in the computation of the ensemble average and
+    the coherence magnitude $|\gamma_{xy}(f)|$.
+    Here, s.d$[\cdot]$ represents the standard deviation of the estimate, and
+    $\varepsilon[\cdot]$ represents the standard deviation of the estimate
+    \emph{normalized} to the true value of the spectral property.
+    }%
+\label{table:ToroidalCorrelation:spectral_estimate_random_errors}
+\end{table}
 
 \subsection{Two-point correlation}
 
