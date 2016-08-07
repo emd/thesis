@@ -26,8 +26,8 @@ As shown in Fig.~\ref{fig:ToroidalCorrelation:pci_interf_locs}
 the beampaths of the PCI and V2 interferometers
 are toroidally separated by $\Delta \zeta = 45^{\circ}$ and
 are very nearly radially overlapping.
-Section~\ref{sec:ToroidalCorrelation:random_processes}
-reviews the mathematics of the two-point-correlation technique
+Section~\ref{sec:ToroidalCorrelation:two_point_correlation}
+reviews the mathematics of the two-point correlation technique
 used to extract toroidal mode numbers and
 derives the resulting Nyquist mode number.
 Section~\ref{sec:ToroidalCorrelation:interferometer_measurements}
@@ -55,8 +55,16 @@ on the measured toroidal mode number.
 \end{figure}
 
 
-\section{Random processes}
-\label{sec:ToroidalCorrelation:random_processes}
+\section{Two-point correlation}
+\label{sec:ToroidalCorrelation:two_point_correlation}
+\begin{itemize}
+  \item Basic idea
+  \item \ldots but what to do in the presence of noise?
+\end{itemize}
+
+
+\subsection{Spectral characterization of random processes}
+\label{sec:ToroidalCorrelation:spectral_characterization_of_random_processes}
 In contrast to deterministic processes,
 random processes cannot be modeled via an explicit mathematical relationship.
 Rather, random processes are characterized
@@ -79,8 +87,6 @@ the seminal work by Bendat and Piersol \cite{bendat_and_piersol}, and
 inquisitive readers are directed there
 for a more extensive treatment of the subject.
 
-
-\subsection{Spectral characterization}
 The windowed, finite Fourier transform $X_k(f, T)$
 of a continuous signal $x_k(t)$
 sampled for $-T / 2 \leq t < T / 2$
@@ -254,9 +260,101 @@ prior to spectral computations in this work.
 \label{table:ToroidalCorrelation:spectral_estimate_random_errors}
 \end{table}
 
-\subsection{Two-point correlation}
 
-\subsection{Nyquist mode number}
+\subsection{Wavenumber estimation via two-point correlation}
+To apply the spectral machinery discussed in Section%
+~\ref{sec:ToroidalCorrelation:spectral_characterization_of_random_processes},
+let random process $\{y_k(t)\}$ consist of the sum of
+random process $\{x_k(t)\}$ \emph{delayed} by time $\tau$ and
+uncorrelated noise $\{n_k(t)\}$; that is
+\begin{equation}
+  y_k(t) = x_k(t - \tau) + n_k(t)
+  \label{eq:ToroidalCorrelation:time_delay_random_process_y}
+\end{equation}
+Then, using the linear and time-shift properties of the Fourier transform,
+\begin{equation}
+  Y_k(f, T)
+  =
+  e^{-i 2 \pi f \tau} X_k(f, T)
+  +
+  N_k(f, T)
+  \notag
+\end{equation}
+and it naturally follows from application of
+(\ref{eq:ToroidalCorrelation:cross_spectral_density_defn})
+that the resulting cross-spectral density is
+\begin{equation}
+  G_{xy}(f) = e^{-i 2 \pi f \tau} G_{xx}(f) + G_{xn}(f)
+  \label{eq:ToroidalCorrelation:time_delay_cross_spectral_density}
+\end{equation}
+Now, if $G_{xx}(f) \gg |G_{xn}(f)|$,
+$G_{xy}(f) \approx e^{-i 2 \pi f \tau} G_{xx}(f)$ and
+the corresponding phase angle is
+\begin{equation}
+  \alpha_{xy}(f) \approx -2 \pi f \tau
+  \label{eq:ToroidalCorrelation:time_delay_phase_angle}
+\end{equation}
+\textcolor{red}{Criterion for $G_{xx}(f) \gg |G_{xn}(f)|$.}
+
+If $\{x_k(t)\}$ represents a wave propagating in the $+z$-direction
+and $\{y_k(t)\}$ corresponds to measurements made
+$\Delta z$ \emph{upstream} of $\{x_k(t)\}$,
+(\ref{eq:ToroidalCorrelation:time_delay_random_process_y})
+can alternatively be written as
+\begin{equation}
+  y_k(t) = x_k\left(t + \frac{k \Delta z}{2 \pi f}\right) + n_k(t)
+  \label{eq:ToroidalCorrelation:spatial_separation_random_process_y}
+\end{equation}
+where $k$ and $f$ are the wavenumber and frequency, respectively,
+of the propagating wave.
+Comparison of (\ref{eq:ToroidalCorrelation:time_delay_random_process_y})
+and (\ref{eq:ToroidalCorrelation:spatial_separation_random_process_y})
+readily yields the equivalence relation $\tau \equiv -k \Delta z / 2 \pi f$;
+substituting this value of $\tau$ into
+(\ref{eq:ToroidalCorrelation:time_delay_phase_angle}) and
+solving for $k$ yields a measured wavenumber
+\begin{equation}
+  k_{\text{meas}} \equiv \frac{\alpha_{xy}(f)}{\Delta z}
+  \label{eq:ToroidalCorrelation:measured_wavenumber}
+\end{equation}
+Note that this wavenumber estimate is based solely on
+the measured phase angle $\alpha_{xy}(f)$ and
+the spatial separation of the two measurements.
+
+
+\subsection{Nyquist wavenumber}
+The phase angle is only unique up to a $2 \pi$ factor.
+That is, $\alpha_{xy}(f)$ and
+$\alpha_{xy}(f) + (2 \pi \cdot l)$ for integer $l$
+are mathematically equivalent,
+which can lead to ambiguities in the application of
+(\ref{eq:ToroidalCorrelation:wavenumber_estimate}).
+This is the well-known effect of \emph{aliasing}.
+
+When the wave's direction of propagation is unknown,
+both positive and negative values of the wavenumber must be allowed, and
+$-\pi < \alpha_{xy}(f) \leq \pi$;
+this yields a maximum-resolvable wavenumber
+(the ``Nyquist'' wavenumber)
+\begin{equation}
+  k_{\text{Ny}} \equiv \frac{\pi}{\Delta z}
+  \qquad \text{for unknown propagation direction}
+  \label{eq:ToroidalCorrelation:Nyquist_criterion_unknown_prop_direction}
+\end{equation}
+Note that
+(\ref{eq:ToroidalCorrelation:Nyquist_criterion_unknown_prop_direction})
+is equivalent to the famed Nyquist frequency:
+making the transformations $\Delta z \rightarrow 1 / F_s$
+for sampling rate $F_s$ and
+$k \rightarrow 2 \pi f$,
+(\ref{eq:ToroidalCorrelation:Nyquist_criterion_unknown_prop_direction})
+readily becomes $f_{\text{Ny}} = F_s / 2$.
+Thus, $1 / \Delta z$ can be thought of as the spatial sampling rate,
+with a larger sampling rate (i.e.\ smaller $\Delta z$)
+allowing discrimination of larger wavenumbers.
+
+If the wavenumber exceeds $k_{\text{Ny}}$,
+the measured wavenumber will be aliased.
 
 
 \section{Toroidal correlation of interferometers}
