@@ -57,11 +57,18 @@ on the measured toroidal mode number.
 
 \section{Two-point correlation}
 \label{sec:ToroidalCorrelation:two_point_correlation}
-\begin{itemize}
-  \item Basic idea
-  \item \ldots but what to do in the presence of noise?
-\end{itemize}
-
+The principle idea behind two-point correlation
+is to determine the spatial structure of a propagating wave
+by comparing two measurements made
+at distinct spatial locations $z_1$ and $z_2$.
+Ideally, other than a time delay, measurements 1 and 2 are identical, and
+the wave's spatial structure can be determined from the measured time delay.
+If only one spectral feature is present in the signals and noise is minimal,
+a simple cross-correlation calculation may suffice to extract the time delay.
+However, real-world signals often contain multiple spectral components and
+may have large amounts of noise;
+accurate characterization of such signals requires the more powerful
+machinery developed below.
 
 \subsection{Spectral characterization of random processes}
 \label{sec:ToroidalCorrelation:spectral_characterization_of_random_processes}
@@ -107,7 +114,6 @@ Further, to prevent power loss, the windowing function
 is also typically normalized such that
 \begin{equation}
   \frac{1}{T} \int_{-T/2}^{T/2} dt \, [w(t)]^2 = 1
-  \notag
 \end{equation}
 The normalized Hanning window is perhaps
 the most commonly used windowing function, and
@@ -157,7 +163,6 @@ $\lim_{T \rightarrow \infty} E[X_k(f, T)] \propto e^{i \alpha_x}$ and
 $\lim_{T \rightarrow \infty} E[Y_k(f, T)] \propto e^{i \alpha_y}$, then
 \begin{equation}
   \alpha_{xy} = \alpha_y - \alpha_x
-  \notag
 \end{equation}
 Further, note that for the special case $\{x_k(t)\} = \{y_k(t)\}$,
 $G_{xx}(f)$ is real-valued (i.e.\ $G_{xx}(f) = |G_{xx}(f)|$) and
@@ -278,7 +283,6 @@ Then, using the linear and time-shift properties of the Fourier transform,
   e^{-i 2 \pi f \tau} X_k(f, T)
   +
   N_k(f, T)
-  \notag
 \end{equation}
 and it naturally follows from application of
 (\ref{eq:ToroidalCorrelation:cross_spectral_density_defn})
@@ -328,7 +332,7 @@ That is, $\alpha_{xy}(f)$ and
 $\alpha_{xy}(f) + (2 \pi \cdot l)$ for integer $l$
 are mathematically equivalent,
 which can lead to ambiguities in the application of
-(\ref{eq:ToroidalCorrelation:wavenumber_estimate}).
+(\ref{eq:ToroidalCorrelation:measured_wavenumber}).
 This is the well-known effect of \emph{aliasing}.
 
 When the wave's direction of propagation is unknown,
@@ -338,16 +342,16 @@ this yields a maximum-resolvable wavenumber
 (the ``Nyquist'' wavenumber)
 \begin{equation}
   k_{\text{Ny}} \equiv \frac{\pi}{\Delta z}
-  \qquad \text{for unknown propagation direction}
-  \label{eq:ToroidalCorrelation:Nyquist_criterion_unknown_prop_direction}
+  \qquad \text{for \emph{unknown} propagation direction}
+  \label{eq:ToroidalCorrelation:Nyquist_wavenumber_unknown_prop_direction}
 \end{equation}
 Note that
-(\ref{eq:ToroidalCorrelation:Nyquist_criterion_unknown_prop_direction})
+(\ref{eq:ToroidalCorrelation:Nyquist_wavenumber_unknown_prop_direction})
 is equivalent to the famed Nyquist frequency:
 making the transformations $\Delta z \rightarrow 1 / F_s$
 for sampling rate $F_s$ and
 $k \rightarrow 2 \pi f$,
-(\ref{eq:ToroidalCorrelation:Nyquist_criterion_unknown_prop_direction})
+(\ref{eq:ToroidalCorrelation:Nyquist_wavenumber_unknown_prop_direction})
 readily becomes $f_{\text{Ny}} = F_s / 2$.
 Thus, $1 / \Delta z$ can be thought of as the spatial sampling rate,
 with a larger sampling rate (i.e.\ smaller $\Delta z$)
@@ -355,6 +359,77 @@ allowing discrimination of larger wavenumbers.
 
 If the wavenumber exceeds $k_{\text{Ny}}$,
 the measured wavenumber will be aliased.
+To see this, let the raw phase angle $\alpha(f)$
+corresponding to the true wavenumber $k$ be given as
+\begin{equation}
+  \alpha = k \Delta z = \alpha_{xy}(f) + (2 \pi \cdot l)
+\end{equation}
+for integer $l$ and measured phase angle $\alpha_{xy}(f)$ satisfying
+$-\pi < \alpha_{xy}(f) \leq \pi$.
+Note that $l \neq 0$ implies
+$|\alpha| > \pi$ or, equivalently, $|k| > k_{\text{Ny}}$.
+Now, dividing by $\Delta z$ and applying
+(\ref{eq:ToroidalCorrelation:measured_wavenumber}) and
+(\ref{eq:ToroidalCorrelation:Nyquist_wavenumber_unknown_prop_direction}),
+the above expression can be rewritten as
+\begin{equation}
+  k_{\text{meas}} = k - (l \cdot k_{\text{Ny}})
+  \qquad \text{for integer $l$}
+  \label{eq:ToroidalCorrelation:wavenumber_aliasing}
+\end{equation}
+That is, for $l \neq 0$ (i.e.\ $|k| > k_{\text{Ny}}$)
+the measured wavenumber $k_{\text{meas}}$
+is aliased away from the true wavenumber $k$.
+
+Finally, if the direction of the wave's propagation is known,
+the measured phase angle instead satisfies $0 \leq \alpha_{xy}(f) < 2 \pi$.
+Following the same reasoning used above,
+the Nyquist wavenumber becomes
+\begin{equation}
+  k_{\text{Ny}} \equiv \frac{2 \pi}{\Delta z}
+  \qquad \text{for \emph{known} propagation direction}
+  \label{eq:ToroidalCorrelation:Nyquist_wavenumber_known_prop_direction}
+\end{equation}
+Aliasing formula (\ref{eq:ToroidalCorrelation:wavenumber_aliasing})
+remains valid, but the Nyquist wavenumber is, of course, given by
+(\ref{eq:ToroidalCorrelation:Nyquist_wavenumber_known_prop_direction})
+in this case.
+
+
+\subsection{Application to measurement of toroidal mode numbers}
+For major radius $R$,
+The toroidal mode number $n$ is related
+to the toroidal wavenumber $k_{\zeta}$ as
+\begin{equation}
+  k_{\zeta} = \frac{n}{R}
+\end{equation}
+and the toroidal angular separation $\Delta \zeta$
+is related to the spatial separation $\Delta z$ as
+\begin{equation}
+  \Delta \zeta = \frac{\Delta z}{R}
+\end{equation}
+Using these definitions the above formulas for
+the measured wavenumber, the Nyquist wavenumber, and wavenumber aliasing
+can be rewritten in terms of toroidal mode numbers as follows:
+\begin{align}
+  n_{\text{meas}}
+  &\equiv
+  \frac{\alpha_{xy}(f)}{\Delta \zeta}
+  \\
+  n_{\text{Ny}}
+  &\equiv
+  \begin{cases}
+    \frac{\pi}{\Delta \zeta}
+    \qquad \text{for \emph{unknown} propagation direction} \\
+    \frac{2 \pi}{\Delta \zeta}
+    \qquad \text{for \emph{known} propagation direction}
+  \end{cases}
+  \\
+  n_{\text{meas}}
+  &=
+  n - (l \cdot n_{\text{Ny}})
+  \qquad \text{for integer $l$ if $|n| > n_{\text{Ny}}$}
+\end{align}
 
 
 \section{Toroidal correlation of interferometers}
