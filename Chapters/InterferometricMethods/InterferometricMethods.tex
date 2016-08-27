@@ -1,5 +1,70 @@
 \chapter{Interferometric methods in tokamak plasmas}
 
+
+\section{Gaussian beam diffraction}
+
+
+\subsection{Definition of a Gaussian beam}
+A Gaussian beam of angular frequency $\omega_0$
+propagating along the $z$-axis
+has an electric field
+\begin{equation}
+  E(\vect{r}, t)
+  =
+  E(\vect{r}) e^{-i \omega_0 t}
+\end{equation}
+with spatial dependence~\cite{siegman_lasers}
+\begin{equation}
+  E(\vect{r})
+  =
+  E_0
+  \frac{w_0}{w(z)}
+  \exp\left[ \frac{-\rho^2}{w(z)^2} \right]
+  \exp\left\{ i \left[
+    k_0 z
+    +
+    \frac{k_0 \rho^2}{2 R(z)}
+    -
+    \psi(z) \right] \right\}
+  \label{eq:InterferometricMethods:Gaussian_beam}
+\end{equation}
+Here,
+$\rho = [x^2 + y^2]^{1/2}$ is the transverse distance from the optical axis,
+$w_0$ is the width of the beam's waist, and
+$k_0 = \omega_0 / c = 2 \pi / \lambda_0$ is the beam's wavenumber.
+The beam's width $w(z)$, radius of curvature $R(z)$, and
+Gouy phase $\psi(z)$ are defined as
+\begin{align}
+  w(z)
+  &=
+  w_0 \left[ 1 + \left( \frac{z}{z_R} \right)^2 \right]^{1/2}
+  \label{eq:InterferometricMethods:Gaussian_beam_width}
+  \\
+  R(z)
+  &=
+  z \left[ 1 + \left( \frac{z_R}{z} \right)^2 \right]
+  \label{eq:InterferometricMethods:Gaussian_beam_radius_of_curvature}
+  \\
+  \psi(z)
+  &=
+  \atan\left( \frac{z}{z_R} \right)
+  \label{eq:InterferometricMethods:Gouy_phase}
+\end{align}
+where the Rayleigh range
+\begin{equation}
+  z_R \equiv \frac{\pi w_0^2}{\lambda_0}
+  \label{eq:InterferometricMethods:Rayleigh_range}
+\end{equation}
+is the nominal division between the beam's
+near-field ($|z| \ll z_R$) and far-field ($|z| \gg z_R$) behaviors.
+
+
+\subsection{Kirchhoff diffraction theory}
+\subsection{Fraunhofer diffraction of a free-space Gaussian beam}
+\subsection{Fraunhofer diffraction of a phase-modulated Gaussian beam}
+
+
+
 \section{Laser-plasma interactions in a tokamak}
 \begin{itemize}
   \item Cold-plasma dispersion relation and derivation of $N$
@@ -21,3 +86,7 @@
   \item Principle
   \item $k$-response
 \end{itemize}
+
+
+\bibliographystyle{plainurl}
+\bibliography{references}
