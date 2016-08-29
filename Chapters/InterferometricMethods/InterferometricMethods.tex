@@ -91,7 +91,7 @@ in Fig.~\ref{fig:InterferometricMethods:Kirchhoff_geometry}(a).
   \centering
   \includegraphics[width = \textwidth]{%
     Chapters/InterferometricMethods/figs/kirchhoff_geometry.eps}
-  \caption{Geometries for Kirchhoff diffraction calculations.}
+  \caption{Geometries for Kirchhoff diffraction calculations}
 \label{fig:InterferometricMethods:Kirchhoff_geometry}
 \end{figure}
 
@@ -319,14 +319,212 @@ i.e.\ $E(\vect{r}) \approx E_G(\vect{r})$.
     (a) Typical Fraunhofer diffraction geometry and
     (b) a close up that displays the path-length difference $x' \sin\theta$
     between a wave emanating from the origin and
-    a wave emanating from $x'$.}
+    a wave emanating from $x'$}
 \label{fig:InterferometricMethods:Fraunhofer_geometric_phase_factor}
 \end{figure}
 
 
-
 \subsection{Fraunhofer diffraction of a phase-modulated Gaussian beam}
+Now, assume that the phase of the incident beam
+is sinusoidally modulated at $S_1$ as
+\begin{equation}
+  \tilde{\phi}(x', t) = \tilde{\phi}_0 \cos(k x' - \omega t)
+\end{equation}
+This adds an additional phase contribution to
+(\ref{eq:InterferometricMethods:Fraunhofer_diffraction_integral_free_space})
+such that the diffraction pattern in the $x$-direction is given as
+\begin{align}
+  D_x
+  &=
+  \int_{-\infty}^{\infty}
+  e^{-( x' / w_0 )^2}
+  e^{-i k_0 x x' / r}
+  e^{i \tilde{\phi}(x', t)}
+  dx'
+  \notag \\
+  &=
+  \int_{-\infty}^{\infty}
+  e^{-( x' / w_0 )^2}
+  e^{-i k_0 x x' / r}
+  e^{i \tilde{\phi}_0 \cos(k x' - \omega t)}
+  dx'
+  \notag \\
+  &=
+  \int_{-\infty}^{\infty}
+  e^{-( x' / w_0 )^2}
+  e^{-i k_0 x x' / r}
+  \left\{%
+    \sum_{m = -\infty}^{\infty}
+    i^m \left[ J_m(\tilde{\phi}_0) \right]
+    e^{i m (k x' - \omega t)}
+  \right\}
+  dx'
+  \notag \\
+  &=
+  \sum_{m = -\infty}^{\infty}
+  i^m \left[ J_m(\tilde{\phi}_0) \right]
+  e^{-i m \omega t}
+  \int_{-\infty}^{\infty}
+  e^{-( x' / w_0 )^2}
+  e^{-i \left( \frac{k_0 x}{r} - m k \right) x'}
+  dx'
+  \notag \\
+  &=
+  \sqrt{\pi} w_0
+  \sum_{m = -\infty}^{\infty}
+  i^m \left[ J_m(\tilde{\phi}_0) \right]
+  e^{-i m \omega t}
+  e^{-\left[ \frac{w_0}{2} \left( \frac{k_0 x}{r} - m k \right) \right]^2}
+  \label{eq:InterferometricMethods:Fraunhofer_diffraction_integral_phase_modulated}
+\end{align}
+where the expression in the third line follows from
+application of the well-known Jacobi-Anger expansion, and
+$J_m$ is the $m$\ts{th} Bessel function of the first kind.
+Noting that $E(\vect{r}, t) = E(\vect{r}) e^{-i \omega_0 t}$,
+substitution of
+(\ref{eq:InterferometricMethods:Fraunhofer_diffraction_integral_phase_modulated})
+into (\ref{eq:InterferometricMethods:Fraunhofer_diffracted_field}) yields
+\begin{align}
+  \begin{aligned}
+    E(\vect{r}, t)
+    \approx
+    &\sum_{m = -\infty}^{\infty}
+    i^m \left[ J_m(\tilde{\phi}_0) \right]
+    e^{-i m \omega t}
+    e^{-\left[ \frac{w_0}{2} \left( \frac{k_0 x}{r} - m k \right) \right]^2}
+    \\
+    &\times
+    \left[
+      -i E_0
+      \left( \frac{z_R}{z} \right)
+      e^{-(k_0 w_0 y / 2 r)^2}
+      e^{i (k_0 r - \omega_0 t)}
+    \right]
+  \label{eq:InterferometricMethods:Fraunhofer_phase_modulated_Gaussian_beam_diffraction}
+  \end{aligned}
+\end{align}
 
+\begin{figure}
+  \centering
+  \includegraphics[width = 0.4 \textwidth]{%
+    Chapters/InterferometricMethods/figs/coordinate_rotation.eps}
+  \caption{Coordinate transformation for interpretation of
+    the diffraction pattern of a phase-modulated Gaussian beam}
+\label{fig:InterferometricMethods:coordinate_rotation}
+\end{figure}
+
+To put
+(\ref{eq:InterferometricMethods:Fraunhofer_phase_modulated_Gaussian_beam_diffraction})
+in a more familiar form,
+consider the coordinate transformation
+\begin{align}
+  z &= z_m \cos\theta_m - x_m \sin\theta_m
+  \\
+  x &= x_m \cos\theta_m + z_m \sin\theta_m
+\end{align}
+where
+\begin{equation}
+  \sin \theta_m
+  \equiv
+  \frac{m k}{k_0}
+  \label{eq:InterferometricMethods:scattering_angles}
+\end{equation}
+This coordinate transformation is depicted graphically
+in Fig.~\ref{fig:InterferometricMethods:coordinate_rotation}.
+Typically, $\theta_m \ll 1$ such that
+the far-field limit ($z \gg x$) implies that $z_m \gg x_m$ and
+\begin{align}
+  z &\approx z_m
+  \\
+  x &\approx x_m + z_m \theta_m
+  \label{eq:InterferometricMethods:coordinate_rotation_transverse_dimension}
+\end{align}
+Substituting
+(\ref{eq:InterferometricMethods:coordinate_rotation_transverse_dimension})
+into
+(\ref{eq:InterferometricMethods:Fraunhofer_phase_modulated_Gaussian_beam_diffraction})
+and defining $\rho_m = (x_m^2 + y^2)^{1/2}$ yields
+\begin{equation}
+  \begin{aligned}
+    E(\vect{r}, t)
+    \approx
+    &\sum_{m = -\infty}^{\infty}
+    i^m \left[ J_m(\tilde{\phi}_0) \right]
+    e^{-i m (\omega_0 + \omega) t}
+    \\
+    &\times
+    \left[
+      -i E_0
+      \left( \frac{z_R}{z} \right)
+      e^{-(k_0 w_0 \rho_m / 2 r)^2}
+      e^{i k_0 r}
+    \right]
+  \end{aligned}
+\end{equation}
+Note that the bracketed expression has the form of
+(\ref{eq:InterferometricMethods:Fraunhofer_Gaussian_beam_diffraction})
+for a far-field Gaussian beam such that
+the diffracted electric field can be more compactly written as
+\begin{equation}
+  E(\vect{r}, t)
+  \approx
+  \sum_{m = -\infty}^{\infty}
+  i^m \left[ J_m(\tilde{\phi}_0) \right]
+  E_G(\vect{r_m})
+  e^{-i m (\omega_0 + \omega) t}
+  \label{eq:InterferometricMethods:Fraunhofer_phase_modulated_Gaussian_beam_diffraction_compact}
+\end{equation}
+where $\vect{r_m} \equiv (x_m, y, z_m)$.
+
+Thus, a sinusoidal phase modulation diffracts an incident Gaussian beam
+into an infinite number of \emph{scattered} Gaussian beams.
+The incident beam is coupled into the $m$\ts{th} scattered beam
+with strength $J_m(\tilde{\phi}_0)$.
+The $m$\ts{th} scattered beam is Doppler shifted
+relative to the incident beam by $m \omega$ and
+propagates at an angle $\theta_m \approx m k / k_0$
+relative to the optical axis.
+Note that the spatial dependence of the scattered beams' phase evolution
+remains $e^{i [k_0 r - \psi(z)]}$; that is,
+the scattering process is elastic,
+with $|\vect{k^{(i)}}| = |\vect{k_m}| = k_0$.
+This constraint of elasticity
+coupled with knowledge of the scattering angle $\theta_m$
+allows determination of the scattered wavevector
+\begin{equation}
+  \vect{k_m}
+  =
+  (m k) \hat{\vect{x}}
+  +
+  k_0 \left[ 1 - \left(\frac{m k}{k_0}\right)^2 \right]^{1/2} \hat{\vect{z}}
+  %k_0 \sqrt{1 - \left(\frac{m k}{k_0}\right)^2} \hat{\vect{z}}
+  \label{eq:InterferometricMethods:scattered_beam_wavevector}
+\end{equation}
+Obviously, the scalar nature of the above diffraction calculation
+is insufficient to capture
+the small polarization changes that accompany beam scattering.
+However, the field must remain transverse.
+Thus, if the incident beam polarization is
+$\hat{\vect{e}}^{(i)}
+=
+(1 - p_y^2)^{1/2} \hat{\vect{x}}
++
+p_y \hat{\vect{y}}$,
+the polarization of the $m$\ts{th} scattered beam is
+\begin{equation}
+  \hat{\vect{e}}_m
+  \approx
+  \sqrt{\frac{1 - p_y^2}{1 + \theta_m^2}}
+  \left( \hat{\vect{x}} - \theta_m \hat{\vect{z}} \right)
+  +
+  p_y \hat{\vect{y}}
+  \label{eq:InterferometricMethods:scattered_beam_polarization}
+\end{equation}
+
+\begin{itemize}
+  \item Imaging
+  \item Typical limit with $\tilde{\phi}_0 \ll 1$
+\end{itemize}
 
 
 \section{Laser-plasma interactions in a tokamak}
