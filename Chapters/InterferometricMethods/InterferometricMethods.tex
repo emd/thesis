@@ -309,7 +309,14 @@ such that
 can be cast in the form of a typical Gaussian beam
 as expressed in
 (\ref{eq:InterferometricMethods:Gaussian_beam}),
-i.e.\ $E(\vect{r}) \approx E_G(\vect{r})$.
+i.e.\ $E(\vect{r}) = E_G(\vect{r})$ for $z \gg z_R$.
+Of course, when considering free-space propagation,
+$E(\vect{r}) \equiv E_G(\vect{r})$ for $0 \leq z < \infty$, but
+the above work \emph{proves} that
+the Fraunhofer diffraction formalism
+gives the correct results under the appropriate limits;
+it also lays the groundwork for examining
+the diffraction of a phase-modulated Gaussian beam.
 
 \begin{figure}
   \centering
@@ -418,9 +425,11 @@ To put
 in a more familiar form,
 consider the coordinate transformation
 \begin{align}
-  z &= z_m \cos\theta_m - x_m \sin\theta_m
-  \\
-  x &= x_m \cos\theta_m + z_m \sin\theta_m
+  \begin{aligned}
+    z &= z_m \cos\theta_m - x_m \sin\theta_m
+    \\
+    x &= x_m \cos\theta_m + z_m \sin\theta_m
+  \end{aligned}
 \end{align}
 where
 \begin{equation}
@@ -431,16 +440,18 @@ where
 \end{equation}
 This coordinate transformation is depicted graphically
 in Fig.~\ref{fig:InterferometricMethods:coordinate_rotation}.
-Typically, $\theta_m \ll 1$ such that
-the far-field limit ($z \gg x$) implies that $z_m \gg x_m$ and
+Note that the transformation preserves lengths, i.e.\ $r_m = r$.
+Typically, $k / k_0 \ll 1$ such that
 \begin{align}
-  z &\approx z_m
-  \\
-  x &\approx x_m + z_m \theta_m
-  \label{eq:InterferometricMethods:coordinate_rotation_transverse_dimension}
+  \begin{aligned}
+    z &\approx z_m - x_m \theta_m
+    \\
+    x &\approx x_m + z_m \theta_m
+  \end{aligned}
+  \label{eq:InterferometricMethods:coordinate_rotation}
 \end{align}
 Substituting
-(\ref{eq:InterferometricMethods:coordinate_rotation_transverse_dimension})
+(\ref{eq:InterferometricMethods:coordinate_rotation})
 into
 (\ref{eq:InterferometricMethods:Fraunhofer_phase_modulated_Gaussian_beam_diffraction})
 and defining $\rho_m = (x_m^2 + y^2)^{1/2}$ yields
@@ -455,16 +466,17 @@ and defining $\rho_m = (x_m^2 + y^2)^{1/2}$ yields
     &\times
     \left[
       -i E_0
-      \left( \frac{z_R}{z} \right)
+      \left( \frac{z_R}{z_m} \right)
       e^{-(k_0 w_0 \rho_m / 2 r)^2}
       e^{i k_0 r}
     \right]
   \end{aligned}
 \end{equation}
-Note that the bracketed expression has the form of
+where the far-field limit has been used to approximate $1/z \approx 1/z_m$.
+Now, the bracketed expression has the form of
 (\ref{eq:InterferometricMethods:Fraunhofer_Gaussian_beam_diffraction})
-for a far-field Gaussian beam such that
-the diffracted electric field can be more compactly written as
+for a far-field Gaussian beam; thus,
+the diffracted electric field can be more compactly and generally written as
 \begin{equation}
   E(\vect{r}, t)
   \approx
@@ -474,7 +486,12 @@ the diffracted electric field can be more compactly written as
   e^{-i m (\omega_0 + \omega) t}
   \label{eq:InterferometricMethods:Fraunhofer_phase_modulated_Gaussian_beam_diffraction_compact}
 \end{equation}
-where $\vect{r_m} \equiv (x_m, y, z_m)$.
+where $\vect{r_m} \approx (x - z \theta_m,\, y,\, z + x \theta_m)$.
+Note that
+(\ref{eq:InterferometricMethods:Fraunhofer_phase_modulated_Gaussian_beam_diffraction_compact})
+is valid for $0 \leq z < \infty$ rather than only for $z \gg z_R$;
+that is, computing the far-field diffraction pattern
+has additionally allowed inferring the corresponding near-field.
 
 Thus, a sinusoidal phase modulation diffracts an incident Gaussian beam
 into an infinite number of \emph{scattered} Gaussian beams.
