@@ -542,7 +542,7 @@ the polarization of the $m$\ts{th} scattered beam is
 \subsection{Imaging of the scattered radiation}
 It is often desirable to \emph{image} the above scattered radiation
 in order to determine the spatiotemporal aspects
-of the phase fluctuations that are responsible for the scattering.
+of the responsible phase fluctuations.
 The optical axis of each scattered Gaussian beam
 behaves as a ray in the geometric-optics sense
 \cite{tovar_generalized_beam_matrices_IV}, and
@@ -553,11 +553,8 @@ $\vect{\rho'} = \mathcal{I}(\vect{\rho}) = M \vect{\rho}$ in the image plane.
 Here, $M$ is the \emph{magnification} of the imaging system, and
 $M < 0$ implies that the image is inverted relative to the object.
 Thus, the phase-fluctuation wavevector $k$
-is imaged as $k / M$, and
-the coordinate system of the $m$\ts{th} scattered beam in the image plane
-is rotated by angle $\theta_m / M$
-relative to the optical axis of the unscattered beam;
-that is, in the image plane
+is imaged as $k / M$ such that
+the wavevector of the $m$\ts{th} scattered beam in the image plane is
 \begin{align}
   \vect{k_m'}
   &=
@@ -568,26 +565,34 @@ that is, in the image plane
   k_0 \left[ 1 - \left(\frac{m k}{M k_0}\right)^2 \right]^{1/2} \hat{\vect{z}}
   %k_0 \sqrt{1 - \left(\frac{m k}{k_0}\right)^2} \hat{\vect{z}}
   \label{eq:InterferometricMethods:scattered_beam_wavevector_image_plane}
-  \\
-  \vect{r_m'}
-  &=
-  \mathcal{I}(\vect{r_m})
-  =
-  \left( x - \frac{z \theta_m}{M},\, y,\, z + \frac{x \theta_m}{M} \right)
-  \label{eq:InterferometricMethods:coordinate_rotation_image_plane}
 \end{align}
-In (\ref{eq:InterferometricMethods:coordinate_rotation_image_plane})
-note that $x$ and $y$ refer to the image plane's transverse coordinates
-relative to the optical axis of the unscattered Gaussian beam,
-whereas $z$ refers to the axial distance
-between the image plane and the waist of the unscattered Gaussian beam ---
-in general, the beam waist does \emph{not} sit at the image plane
-(i.e.\ $z \neq 0$).
+and the $m$\ts{th} scattered beam is rotated by angle $\theta_m / M$
+relative to the unscattered beam in the imaging plane,
+as shown in Fig.~\ref{fig:InterferometricMethods:imaging_geometry}.
 
-As hinted at above, the imaging optics additionally alter
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/InterferometricMethods/figs/imaging_geometry.eps}
+  \caption[Imaging geometry]{%
+    Beam geometries in an imaging system with magnification $M$.
+    Beam scattering occurs in the object plane at the probe beam's waist.
+    Thus, the $m$\ts{th} scattered beam
+    shares the origin $\vect{O}$ with the unscattered beam but
+    is angularly separated by $\theta_m$.
+    The imaging system redirects all beams emanating from $\vect{O}$
+    to intersect at angle $\theta_m / M$ in the image plane.
+    In general, the image plane does \emph{not} sit at a beam waist
+    such that the post-imaging-system beam waists
+    of the scattered and unscattered beams do not coincide,
+    i.e.\ $\vect{O'} \neq \vect{O_m'}$.}
+\label{fig:InterferometricMethods:imaging_geometry}
+\end{figure}
+
+The imaging optics also alter
 the properties of the incident Gaussian beams.
 In addition to its in-medium wavelength $\lambda_0 / N$,
-a Gaussian beam is fully specified by
+a Gaussian beam is fully characterized by
 its width $w(z_i)$ and
 its radius of curvature $R(z_i)$
 at a single location $z_i$.
@@ -598,13 +603,40 @@ using the corresponding ray matrices of geometric optics
 Further, for a given optical train in the paraxial limit,
 a Gaussian beam's width and radius of curvature evolve independently of
 its transverse and angular displacements from
-the nominal axis of the optical train
+the optical train's nominal axis
 \cite{tovar_generalized_beam_matrices_IV}.
 That is, as any given scattered beam
 propagates through an imaging system $\mathcal{I}$,
 the evolution of its width and radius of curvature
 will be \emph{identical} to that of the unscattered beam
 propagating through the same imaging system.
+However, the waists of the post-imaging-system beams
+do \emph{not} necessarily sit at the image plane,
+in which case the beams' native coordinate systems
+are necessarily displaced from each other (i.e.\ $\vect{O'} \neq \vect{O'_m}$),
+as indicated in Fig.~\ref{fig:InterferometricMethods:imaging_geometry}.
+
+It will be convenient to know the transformation
+from the native coordinate system of the $m$\ts{th} scattered beam
+to that of the unscattered beam in the image plane,
+which is hereafter referred to as the lab-frame coordinate system.
+See Fig\ldots for the relevant geometry\ldots
+
+Now, without further ado,
+let $\mathcal{I}$ image the object plane $S_1$
+such that the image of diffracted field
+(\ref{eq:InterferometricMethods:Fraunhofer_phase_modulated_Gaussian_beam_diffraction_compact})
+is
+\begin{equation}
+  \mathcal{I}[ E(\vect{r}, t) ]
+  =
+  \sum_{m = -\infty}^{\infty}
+  i^m \left[ J_m(\tilde{\phi}_0) \right]
+  \mathcal{I}[E_G(\vect{r_m})]
+  e^{-i m (\omega_0 + \omega) t}
+\end{equation}
+where the linearity of $\mathcal{I}$ has been invoked
+to bring the operator within the summation.
 
 \begin{itemize}
   \item Typical limit with $\tilde{\phi}_0 \ll 1$
