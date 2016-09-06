@@ -26,8 +26,8 @@ As shown in Fig.~\ref{fig:ToroidalCorrelation:pci_interf_locs}
 the beampaths of the PCI and V2 interferometers
 are toroidally separated by $\Delta \zeta = 45^{\circ}$ and
 are very nearly radially overlapping.
-Section~\ref{sec:ToroidalCorrelation:two_point_correlations}
-reviews the mathematics of the two-point-correlation technique
+Section~\ref{sec:ToroidalCorrelation:two_point_correlation}
+reviews the mathematics of the two-point correlation technique
 used to extract toroidal mode numbers and
 derives the resulting Nyquist mode number.
 Section~\ref{sec:ToroidalCorrelation:interferometer_measurements}
@@ -55,11 +55,23 @@ on the measured toroidal mode number.
 \end{figure}
 
 
-\section{Two-point correlations}
-\label{sec:ToroidalCorrelation:two_point_correlations}
-
+\section{Two-point correlation}
+\label{sec:ToroidalCorrelation:two_point_correlation}
+The principle idea behind two-point correlation
+is to determine the spatial structure of a propagating wave
+by comparing two measurements made
+at distinct spatial locations $z_1$ and $z_2$.
+Ideally, other than a time delay, measurements 1 and 2 are identical, and
+the wave's spatial structure can be determined from the measured time delay.
+If only one spectral feature is present in the signals and noise is minimal,
+a simple cross-correlation calculation may suffice to extract the time delay.
+However, real-world signals often contain multiple spectral components and
+may have large amounts of noise;
+accurate characterization of such signals requires the more powerful
+machinery developed below.
 
 \subsection{Spectral characterization of random processes}
+\label{sec:ToroidalCorrelation:spectral_characterization_of_random_processes}
 In contrast to deterministic processes,
 random processes cannot be modeled via an explicit mathematical relationship.
 Rather, random processes are characterized
@@ -77,23 +89,38 @@ The statistical properties of a stationary random process
 do not vary in time, and
 the spectral tools discussed below
 were all developed for analysis of stationary random processes.
+Most of the discussion below was distilled from
+the seminal work by Bendat and Piersol \cite{bendat_and_piersol}, and
+inquisitive readers are directed there
+for a more extensive treatment of the subject.
 
-The \emph{finite} Fourier transform $X_k(f, T)$
-of a continuous signal $x_k(t)$ is defined as
+The windowed, finite Fourier transform $X_k(f, T)$
+of a continuous signal $x_k(t)$
+sampled for $-T / 2 \leq t < T / 2$
+is defined as
 \begin{equation}
   X_k(f, T)
   =
   \int_{-T / 2}^{T / 2}
-  dt \, x_k(t) e^{-i \, 2 \pi f t}
+  dt \, [w(t) \cdot x_k(t)] e^{-i \, 2 \pi f t}
   \label{eq:ToroidalCorrelation:finite_Fourier_transform}
 \end{equation}
-Note that $x_k(t)$ need \emph{not} be integrable over the infinite domain,
-making the finite Fourier transform a suitable tool for stationary signals,
-whose statistical properties (e.g.\ mean, variance, etc.) are
-constant and potentially finite in time.
+where $w(t)$ is an arbitrary windowing function.
+Typically, the selected windowing function smoothly tapers
+as $|t| \rightarrow T / 2$
+to minimize side-lobe ``leakage''
+that results from discontinuities at the start and end of the sample record.
+Further, to prevent power loss, the windowing function
+is also typically normalized such that
+\begin{equation}
+  \frac{1}{T} \int_{-T/2}^{T/2} dt \, [w(t)]^2 = 1
+\end{equation}
+The normalized Hanning window is perhaps
+the most commonly used windowing function, and
+it is used uniformly throughout this work.
 
 For real-valued, stationary random processes $\{x_k(t)\}$ and $\{y_k(t)\}$,
-the one-sided cross-spectral density function $G_{xy}(f)$ is defined as
+the one-sided \emph{cross-spectral density} function $G_{xy}(f)$ is defined as
 \begin{equation}
   G_{xy}(f)
   \equiv
@@ -112,22 +139,39 @@ its application ensures that
 (\ref{eq:ToroidalCorrelation:cross_spectral_density_defn})
 is a statistically consistent definition of the cross-spectral density
 (that is, ensemble averaging is needed for $G_{xy}(f)$
-to approach the true cross-spectral density as $T \rightarrow \infty$).
-In general $G_{xy}(f)$ is a complex-valued function;
-this can be explicitly written as
+to approach the true cross-spectral density
+as $T \rightarrow \infty$). % see pgs. 127, 128 of Bendat & Piersol, 4th ed.
+If, in addition to being stationary, the random process is also \emph{ergodic},
+the ensemble averaging operation can be replaced
+with an average of $X_k(f, T)$ from successive,
+potentially partially overlapping time slices
+of a single sample record.
+Unless otherwise noted,
+all of the ensemble averages in this work are computed
+using this assumption of ergodicity, and
+successive slices are selected to overlap by 50\%.
+
+In general $G_{xy}(f)$ is a complex-valued function.
+This can be made explicit by writing
 \begin{equation}
-  G_{xy}(f) = \left| G_{xy}(f) \right| e^{i \theta_{xy}(f)}
+  G_{xy}(f) = \left| G_{xy}(f) \right| e^{i \alpha_{xy}(f)}
   \label{eq:ToroidalCorrelation:cross_spectral_density_explicit_complex}
 \end{equation}
-where $\theta_{xy}(f)$ is the \emph{phase angle}.
-For the special case $\{x_k(t)\} = \{y_k(t)\}$,
+where $\alpha_{xy}(f)$ is the \emph{phase angle}.
+Note that if
+$\lim_{T \rightarrow \infty} E[X_k(f, T)] \propto e^{i \alpha_x}$ and
+$\lim_{T \rightarrow \infty} E[Y_k(f, T)] \propto e^{i \alpha_y}$, then
+\begin{equation}
+  \alpha_{xy} = \alpha_y - \alpha_x
+\end{equation}
+Further, note that for the special case $\{x_k(t)\} = \{y_k(t)\}$,
 $G_{xx}(f)$ is real-valued (i.e.\ $G_{xx}(f) = |G_{xx}(f)|$) and
-is referred to as the one-sided autospectral density function.
+is referred to as the one-sided \emph{autospectral density} function.
 
 The degree of correlation between random processes
 $\{x_k(t)\}$ and $\{y_k(t)\}$ can be easily quantified
 with the corresponding spectral density functions.
-In particular, the magnitude-squared coherence function
+In particular, the \emph{magnitude-squared coherence} function
 $\gamma_{xy}^2(f)$ is defined as
 \begin{equation}
   \gamma_{xy}^2(f)
@@ -140,10 +184,10 @@ and it satisfies
   0 \leq \gamma_{xy}^2(f) \leq 1
   \label{eq:ToroidalCorrelation:magnitude_squared_coherence_bounds}
 \end{equation}
-for $0 \leq f < \infty$, with
-$\gamma_{xy}^2(f) = 1$ indicating that
-$\{x_k(t)\}$ and $\{y_k(t)\}$ are 100\% correlated at frequency $f$ and
-$\gamma_{xy}^2(f) = 0$ indicating that
+for $0 \leq f < \infty$.
+If $\gamma_{xy}^2(f) = 1$,
+$\{x_k(t)\}$ and $\{y_k(t)\}$ are 100\% correlated at frequency $f$, and
+if $\gamma_{xy}^2(f) = 0$,
 $\{x_k(t)\}$ and $\{y_k(t)\}$ are completely uncorrelated at frequency $f$.
 Note that the ensemble-averaging operation in
 (\ref{eq:ToroidalCorrelation:cross_spectral_density_defn})
@@ -155,8 +199,19 @@ $\gamma_{xy}^2(f) \equiv 1$ for all $f$,
 \emph{regardless} of the actual degree of coherence
 between between $\{x_k(t)\}$ and $\{y_k(t)\}$.
 
-Care should be taken when computing spectral densities.
-In various programming languages,
+Care should be taken when computing spectral density estimates.
+Table~\ref{table:ToroidalCorrelation:spectral_estimate_random_errors}
+summarizes the random errors associated with the estimates
+of various spectral properties.
+Note that the number of realizations $N_r$ used
+in the computation of the ensemble average
+is a parameter that can be specified
+at the time of analysis and that
+increasing $N_r$ reduces the random errors of each spectral estimate.
+(While increased $\gamma_{xy}^2(f)$ also reduces random errors,
+$\gamma_{xy}^2(f)$ is an intrinsic property of the data
+rather than a parameter that can be specified at the time of analysis).
+Further, in various programming languages,
 it is not uncommon to ``detrend'' realizations $x_k(t)$ and $y_k(t)$
 by subtracting the signal mean or linear trend
 prior to application of
@@ -165,12 +220,216 @@ However, the author has empirically found that
 such detrending can lead to values of $\gamma_{xy}^2(f)$
 that unphysically exceed the bounds established in
 (\ref{eq:ToroidalCorrelation:magnitude_squared_coherence_bounds}).
-The author has not explored more exotic means of detrending, and
-no detrending was applied to signals prior to spectral computations
-in this work.
+The author has not thoroughly investigated the subtleties of this discrepancy,
+nor has he explored more exotic means of detrending.
+As a result, no detrending was applied to signals
+prior to spectral computations in this work.
+
+\begin{table}[t]
+  \centering
+  \renewcommand{\arraystretch}{1.5}% Spread rows out...
+  \begin{tabular}{%
+    >{\centering}m{5.0cm} >{\centering}m{5.0cm}
+  }
+    \toprule%
+    \textbf{Spectral estimate}
+    & \textbf{Random error} \cite{bendat_and_piersol}
+    \tabularnewline%
+    \midrule
+    $G_{xy}(f)$
+    & $\varepsilon \left[G_{xy}(f) \right]
+    =
+    \frac{1}{|\gamma_{xy}(f)| \sqrt{N_r}}$
+    \tabularnewline%
+    $\alpha_{xy}(f)$
+    & s.d.$\left[ \alpha_{xy}(f) \right]
+    \approx
+    \frac{[1 - \gamma_{xy}^2(f)]^{1/2}}{|\gamma_{xy}(f)| \sqrt{2 N_r}}$
+    \tabularnewline%
+    $\gamma_{xy}^2(f)$
+    & $\varepsilon \left[ \gamma_{xy}^2(f) \right]
+    =
+    \frac{\sqrt{2} [1 - \gamma_{xy}^2(f)]}{|\gamma_{xy}(f)| \sqrt{N_r}}$
+    \tabularnewline%
+    \toprule%
+  \end{tabular}
+  \caption[Random errors in spectral estimates]{%
+    Random errors in estimates of spectral properties are functions of
+    the number of realizations $N_r$ used
+    in the computation of the ensemble average and
+    the coherence magnitude $|\gamma_{xy}(f)|$.
+    Here, s.d$[\cdot]$ represents the standard deviation of the estimate, and
+    $\varepsilon[\cdot]$ represents the standard deviation of the estimate
+    \emph{normalized} to the true value of the spectral property.
+    }%
+\label{table:ToroidalCorrelation:spectral_estimate_random_errors}
+\end{table}
 
 
-\subsection{Nyquist mode number}
+\subsection{Wavenumber estimation via two-point correlation}
+To apply the spectral machinery discussed in Section%
+~\ref{sec:ToroidalCorrelation:spectral_characterization_of_random_processes},
+let random process $\{y_k(t)\}$ consist of the sum of
+random process $\{x_k(t)\}$ \emph{delayed} by time $\tau$ and
+uncorrelated noise $\{n_k(t)\}$; that is
+\begin{equation}
+  y_k(t) = x_k(t - \tau) + n_k(t)
+  \label{eq:ToroidalCorrelation:time_delay_random_process_y}
+\end{equation}
+Then, using the linear and time-shift properties of the Fourier transform,
+\begin{equation}
+  Y_k(f, T)
+  =
+  e^{-i 2 \pi f \tau} X_k(f, T)
+  +
+  N_k(f, T)
+\end{equation}
+and it naturally follows from application of
+(\ref{eq:ToroidalCorrelation:cross_spectral_density_defn})
+that the resulting cross-spectral density is
+\begin{equation}
+  G_{xy}(f) = e^{-i 2 \pi f \tau} G_{xx}(f) + G_{xn}(f)
+  \label{eq:ToroidalCorrelation:time_delay_cross_spectral_density}
+\end{equation}
+Now, if $G_{xx}(f) \gg |G_{xn}(f)|$,
+$G_{xy}(f) \approx e^{-i 2 \pi f \tau} G_{xx}(f)$ and
+the corresponding phase angle is
+\begin{equation}
+  \alpha_{xy}(f) \approx -2 \pi f \tau
+  \label{eq:ToroidalCorrelation:time_delay_phase_angle}
+\end{equation}
+\textcolor{red}{Criterion for $G_{xx}(f) \gg |G_{xn}(f)|$.}
+
+If $\{x_k(t)\}$ represents a wave propagating in the $+z$-direction
+and $\{y_k(t)\}$ corresponds to measurements made
+$\Delta z$ \emph{upstream} of $\{x_k(t)\}$,
+(\ref{eq:ToroidalCorrelation:time_delay_random_process_y})
+can alternatively be written as
+\begin{equation}
+  y_k(t) = x_k\left(t + \frac{k \Delta z}{2 \pi f}\right) + n_k(t)
+  \label{eq:ToroidalCorrelation:spatial_separation_random_process_y}
+\end{equation}
+where $k$ and $f$ are the wavenumber and frequency, respectively,
+of the propagating wave.
+Comparison of (\ref{eq:ToroidalCorrelation:time_delay_random_process_y})
+and (\ref{eq:ToroidalCorrelation:spatial_separation_random_process_y})
+readily yields the equivalence relation $\tau \equiv -k \Delta z / 2 \pi f$;
+substituting this value of $\tau$ into
+(\ref{eq:ToroidalCorrelation:time_delay_phase_angle}) and
+solving for $k$ yields a measured wavenumber
+\begin{equation}
+  k_{\text{meas}} \equiv \frac{\alpha_{xy}(f)}{\Delta z}
+  \label{eq:ToroidalCorrelation:measured_wavenumber}
+\end{equation}
+Note that this wavenumber estimate is based solely on
+the measured phase angle $\alpha_{xy}(f)$ and
+the spatial separation of the two measurements.
+
+
+\subsection{Nyquist wavenumber}
+The phase angle is only unique up to a $2 \pi$ factor.
+That is, $\alpha_{xy}(f)$ and
+$\alpha_{xy}(f) + (2 \pi \cdot l)$ for integer $l$
+are mathematically equivalent,
+which can lead to ambiguities in the application of
+(\ref{eq:ToroidalCorrelation:measured_wavenumber}).
+This is the well-known effect of \emph{aliasing}.
+
+When the wave's direction of propagation is unknown,
+both positive and negative values of the wavenumber must be allowed, and
+$-\pi < \alpha_{xy}(f) \leq \pi$;
+this yields a maximum-resolvable wavenumber
+(the ``Nyquist'' wavenumber)
+\begin{equation}
+  k_{\text{Ny}} \equiv \frac{\pi}{\Delta z}
+  \qquad \text{for \emph{unknown} propagation direction}
+  \label{eq:ToroidalCorrelation:Nyquist_wavenumber_unknown_prop_direction}
+\end{equation}
+Note that
+(\ref{eq:ToroidalCorrelation:Nyquist_wavenumber_unknown_prop_direction})
+is equivalent to the famed Nyquist frequency:
+making the transformations $\Delta z \rightarrow 1 / F_s$
+for sampling rate $F_s$ and
+$k \rightarrow 2 \pi f$,
+(\ref{eq:ToroidalCorrelation:Nyquist_wavenumber_unknown_prop_direction})
+readily becomes $f_{\text{Ny}} = F_s / 2$.
+Thus, $1 / \Delta z$ can be thought of as the spatial sampling rate,
+with a larger sampling rate (i.e.\ smaller $\Delta z$)
+allowing discrimination of larger wavenumbers.
+
+If the wavenumber exceeds $k_{\text{Ny}}$,
+the measured wavenumber will be aliased.
+To see this, let the raw phase angle $\alpha(f)$
+corresponding to the true wavenumber $k$ be given as
+\begin{equation}
+  \alpha = k \Delta z = \alpha_{xy}(f) + (2 \pi \cdot l)
+\end{equation}
+for integer $l$ and measured phase angle $\alpha_{xy}(f)$ satisfying
+$-\pi < \alpha_{xy}(f) \leq \pi$.
+Note that $l \neq 0$ implies
+$|\alpha| > \pi$ or, equivalently, $|k| > k_{\text{Ny}}$.
+Now, dividing by $\Delta z$ and applying
+(\ref{eq:ToroidalCorrelation:measured_wavenumber}) and
+(\ref{eq:ToroidalCorrelation:Nyquist_wavenumber_unknown_prop_direction}),
+the above expression can be rewritten as
+\begin{equation}
+  k_{\text{meas}} = k - (l \cdot k_{\text{Ny}})
+  \qquad \text{for integer $l$}
+  \label{eq:ToroidalCorrelation:wavenumber_aliasing}
+\end{equation}
+That is, for $l \neq 0$ (i.e.\ $|k| > k_{\text{Ny}}$)
+the measured wavenumber $k_{\text{meas}}$
+is aliased away from the true wavenumber $k$.
+
+Finally, if the direction of the wave's propagation is known,
+the measured phase angle instead satisfies $0 \leq \alpha_{xy}(f) < 2 \pi$.
+Following the same reasoning used above,
+the Nyquist wavenumber becomes
+\begin{equation}
+  k_{\text{Ny}} \equiv \frac{2 \pi}{\Delta z}
+  \qquad \text{for \emph{known} propagation direction}
+  \label{eq:ToroidalCorrelation:Nyquist_wavenumber_known_prop_direction}
+\end{equation}
+Aliasing formula (\ref{eq:ToroidalCorrelation:wavenumber_aliasing})
+remains valid, but the Nyquist wavenumber is, of course, given by
+(\ref{eq:ToroidalCorrelation:Nyquist_wavenumber_known_prop_direction})
+in this case.
+
+
+\subsection{Application to measurement of toroidal mode numbers}
+For major radius $R$,
+The toroidal mode number $n$ is related
+to the toroidal wavenumber $k_{\zeta}$ as
+\begin{equation}
+  k_{\zeta} = \frac{n}{R}
+\end{equation}
+and the toroidal angular separation $\Delta \zeta$
+is related to the spatial separation $\Delta z$ as
+\begin{equation}
+  \Delta \zeta = \frac{\Delta z}{R}
+\end{equation}
+Using these definitions the above formulas for
+the measured wavenumber, the Nyquist wavenumber, and wavenumber aliasing
+can be rewritten in terms of toroidal mode numbers as follows:
+\begin{align}
+  n_{\text{meas}}
+  &\equiv
+  \frac{\alpha_{xy}(f)}{\Delta \zeta}
+  \\
+  n_{\text{Ny}}
+  &\equiv
+  \begin{cases}
+    \frac{\pi}{\Delta \zeta}
+    \qquad \text{for \emph{unknown} propagation direction} \\
+    \frac{2 \pi}{\Delta \zeta}
+    \qquad \text{for \emph{known} propagation direction}
+  \end{cases}
+  \\
+  n_{\text{meas}}
+  &=
+  n - (l \cdot n_{\text{Ny}})
+  \qquad \text{for integer $l$ if $|n| > n_{\text{Ny}}$}
+\end{align}
 
 
 \section{Toroidal correlation of interferometers}
