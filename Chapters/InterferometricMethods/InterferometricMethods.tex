@@ -461,7 +461,7 @@ and defining $\rho_m = (x_m^2 + y^2)^{1/2}$ yields
     \approx
     &\sum_{m = -\infty}^{\infty}
     i^m \left[ J_m(\tilde{\phi}_0) \right]
-    e^{-i m (\omega_0 + \omega) t}
+    e^{-i (\omega_0 + m \omega) t}
     \\
     &\times
     \left[
@@ -483,7 +483,7 @@ the diffracted electric field can be more compactly and generally written as
   \sum_{m = -\infty}^{\infty}
   i^m \left[ J_m(\tilde{\phi}_0) \right]
   E_G(\vect{r_m})
-  e^{-i m (\omega_0 + \omega) t}
+  e^{-i (\omega_0 + m \omega) t}
   \label{eq:InterferometricMethods:Fraunhofer_phase_modulated_Gaussian_beam_diffraction_compact}
 \end{equation}
 where $\vect{r_m} \approx (x - z \theta_m,\, y,\, z + x \theta_m)$.
@@ -616,11 +616,97 @@ in which case the beams' native coordinate systems
 are necessarily displaced from each other (i.e.\ $\vect{O'} \neq \vect{O'_m}$),
 as indicated in Fig.~\ref{fig:InterferometricMethods:imaging_geometry}.
 
-It will be convenient to know the transformation
-from the native coordinate system of the $m$\ts{th} scattered beam
-to that of the unscattered beam in the image plane,
-which is hereafter referred to as the lab-frame coordinate system.
-See Fig\ldots for the relevant geometry\ldots
+As will be demonstrated shortly,
+the transformation between
+the native coordinate system of the $m$\ts{th} scattered beam and
+that of the unscattered beam in the image plane
+is needed.
+It may be useful to refer to
+Fig.~\ref{fig:InterferometricMethods:coordinate_transformation_imaging_plane}
+in the following discussion.
+The coordinate transformation is easily found
+through a series of translations and rotations.
+Let point $P$ be represented
+in the native coordinate system of the unscattered beam
+by the ordered pair $(z_0', x_0')$.
+Then, the representation of $P$ in the $\alpha$-base is
+\begin{equation}
+  \begin{pmatrix}
+    z_{\alpha}' \\
+    x_{\alpha}'
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    z_0' - z' \\
+    x_0'
+  \end{pmatrix}
+\end{equation}
+The $\alpha$- and $\beta$-bases are related via a rotation
+\begin{equation}
+  \begin{pmatrix}
+    z_{\beta}' \\
+    x_{\beta}'
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    \cos\left( \frac{\theta_m}{M} \right)
+    &
+    \sin\left( \frac{\theta_m}{M} \right)
+    \\
+    -\sin\left( \frac{\theta_m}{M} \right)
+    &
+    \cos\left( \frac{\theta_m}{M} \right)
+  \end{pmatrix}
+  \begin{pmatrix}
+    z_{\alpha}' \\
+    x_{\alpha}'
+  \end{pmatrix}
+\end{equation}
+Finally, a linear translation converts the $\beta$-base
+into the native coordinate system of the $m$\ts{th} scattered beam
+in the image plane
+\begin{equation}
+  \begin{pmatrix}
+    z_m' \\
+    x_m'
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    z_{\beta}' +  z' \\
+    x_{\beta}'
+  \end{pmatrix}
+\end{equation}
+Combining the above steps and
+evaluating at the image plane ($z_0' = z', \, x_0' = x'$)
+yields the image-plane coordinate transformation
+\begin{equation}
+  \begin{pmatrix}
+    z_m' \\
+    x_m'
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    z' + x' \sin\left( \frac{\theta_m}{M} \right) \\
+    x' \cos\left( \frac{\theta_m}{M} \right)
+  \end{pmatrix}
+  \approx
+  \begin{pmatrix}
+    z' + \left( \frac{m k}{M k_0} \right) x' \\
+    x' - \frac{1}{2} \left( \frac{m k}{M k_0} \right)^2 x'
+  \end{pmatrix}
+  \label{eq:InterferometricMethods:coordinate_transformation_imaging_plane}
+\end{equation}
+where the approximation holds for
+the typical small-angle scattering limit ($\theta_m \ll 1$).
+
+\begin{figure}
+  \centering
+  \includegraphics[width = 0.9 \textwidth]{%
+    Chapters/InterferometricMethods/figs/coordinate_transformation_imaging_plane.eps}
+  \caption[Imaging-plane coordinate transformation]{%
+    Imaging-plane coordinate transformation}
+\label{fig:InterferometricMethods:coordinate_transformation_imaging_plane}
+\end{figure}
 
 Now, without further ado,
 let $\mathcal{I}$ image the object plane $S_1$
@@ -633,10 +719,94 @@ is
   \sum_{m = -\infty}^{\infty}
   i^m \left[ J_m(\tilde{\phi}_0) \right]
   \mathcal{I}[E_G(\vect{r_m})]
-  e^{-i m (\omega_0 + \omega) t}
+  e^{-i (\omega_0 + m \omega) t}
 \end{equation}
 where the linearity of $\mathcal{I}$ has been invoked
 to bring the operator within the summation.
+The imaging optics simply transform
+the $m$\ts{th} scattered Gaussian beam as
+\begin{align}
+  \mathcal{I}[E_G(\vect{r_m})]
+  &=
+  E_{G'}(\vect{r_m'})
+  \notag \\
+  &
+  \begin{aligned}
+    &= E_0
+    \frac{w_0'}{w'(z_m')}
+    \exp\left[ \frac{-\rho_m'^2}{w'(z_m')^2} \right]
+    \\
+    &\quad\times
+    \exp\left\{ i \left[
+      k_0 z_m'
+      +
+      \frac{k_0 \rho_m'^2}{2 R'(z_m')}
+      -
+      \psi'(z_m') \right] \right\}
+  \end{aligned}
+\end{align}
+where $w'(z_m')$, $R'(z_m')$, and $\psi'(z_m')$ are the beam's image-plane
+width, radius of curvature, and Gouy phase shift, respectively.
+Under the typical small-angle scattering limit,
+$w'(z_m') \approx w'(z')$,
+$R'(z_m') \approx R'(z')$, and
+$\psi'(z_m') \approx \psi'(z')$.
+Then, neglecting the small variation in the Gaussian envelope and
+retaining phase-factor terms only to second order in $k / k_0$,
+the $m$\ts{th} scattered Gaussian beam in the image plane is
+\begin{equation}
+  \mathcal{I}[E_G(\vect{r_m})]
+  =
+  E_{G'}(\vect{r'})
+  \exp\left\{%
+    i \left[%
+      \frac{m k x'}{M}
+      -
+      \frac{1}{2 k_0 R'(z')} \left( \frac{m k x'}{M} \right)^2
+    \right]
+  \right\}
+  \label{eq:InterferometricMethods:imaged_scattered_beam_second_order}
+\end{equation}
+where
+\begin{align}
+  \begin{aligned}
+    E_{G'}(\vect{r'})
+    =
+    &\, E_0
+    \frac{w_0'}{w'(z')}
+    \exp\left[ \frac{-\rho'^2}{w'(z')^2} \right]
+    \\
+    &\times
+    \exp\left\{ i \left[
+        k_0 z'
+        +
+        \frac{k_0 \rho'^2}{2 R'(z')}
+        -
+        \psi'(z')
+      \right]
+    \right\}
+  \end{aligned}
+  \label{eq:InterferometricMethods:eq:InterferometricMethods:imaged_unscattered_beam}
+\end{align}
+corresponds to the field pattern of the unscattered Gaussian beam
+in the image plane.
+The quadratic term in the phase factor of
+(\ref{eq:InterferometricMethods:imaged_scattered_beam_second_order})
+is typically negligible but can become important during calibrations
+(\textcolor{red}{cite Naoto and Dorris. Or even save for later chapter?}).
+In the remainder of this chapter's discussion,
+the quadratic term in the phase factor is dropped.
+Thus, the total scattered field in the image plane becomes
+\begin{equation}
+  \mathcal{I}[ E(\vect{r}, t) ]
+  =
+  \left[ E_{G'}(\vect{r'}) e^{-i \omega_0 t} \right]
+  \sum_{m = -\infty}^{\infty}
+  i^m \left[ J_m(\tilde{\phi}_0) \right]
+  e^{i m \left( \frac{k x'}{M} - \omega t \right)}
+  \label{eq:InterferometricMethods:imaged_total_field}
+\end{equation}
+
 
 \begin{itemize}
   \item Typical limit with $\tilde{\phi}_0 \ll 1$
