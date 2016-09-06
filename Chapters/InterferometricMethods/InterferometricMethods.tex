@@ -9,7 +9,7 @@ A Gaussian beam of angular frequency $\omega_0$
 propagating along the $z$-axis
 has an electric field
 \begin{equation}
-  E(\vect{r}, t)
+  E_G(\vect{r}, t)
   =
   E_G(\vect{r}) e^{-i \omega_0 t}
 \end{equation}
@@ -800,7 +800,7 @@ Thus, the total scattered field in the image plane becomes
 \begin{equation}
   \mathcal{I}[ E(\vect{r}, t) ]
   =
-  \left[ E_{G'}(\vect{r'}) e^{-i \omega_0 t} \right]
+  E_{G'}(\vect{r'}, t)
   \sum_{m = -\infty}^{\infty}
   i^m \left[ J_m(\tilde{\phi}_0) \right]
   e^{i m \left( \frac{k x'}{M} - \omega t \right)}
@@ -808,9 +808,47 @@ Thus, the total scattered field in the image plane becomes
 \end{equation}
 
 
-\begin{itemize}
-  \item Typical limit with $\tilde{\phi}_0 \ll 1$
-\end{itemize}
+\subsection{The weak-coupling limit}
+Typically, the phase-fluctuation amplitude
+is very small ($\tilde{\phi}_0 \ll 1$), and
+only the lowest order $m = 0, \pm 1$ terms contribute substantially to
+(\ref{eq:InterferometricMethods:imaged_total_field}).
+Noting that $J_{-m}(z) = (-1)^m J_m(z)$~\cite{abramowitz_and_stegun},
+the total scattered field in the image plane is
+\begin{equation}
+  \mathcal{I}[ E(\vect{r}, t) ]
+  \approx
+  E_{G'}(\vect{r'}, t)
+  \left\{%
+    J_0(\tilde{\phi}_0)
+    +
+    2 i [J_1(\tilde{\phi}_0)] \cos \left( \frac{k x'}{M} - \omega t \right)
+  \right\}
+\end{equation}
+Further, the Bessel function's small-argument limiting form is
+\cite{abramowitz_and_stegun}
+\begin{equation}
+  \lim_{z \rightarrow 0} J_m(z)
+  \sim
+  \frac{1}{\Gamma(m + 1)} \left( \frac{z}{2} \right)^m
+  , \qquad
+  m \neq -1, -2, -3, \cdots
+\end{equation}
+where $\Gamma$ is the gamma function, and
+$\Gamma(m + 1) = m!$ for positive integer $m$.
+Thus, the total scattered field in the image plane further simplifies to
+\begin{equation}
+  \mathcal{I}[ E(\vect{r}, t) ]
+  \approx
+  E_{G'}(\vect{r'}, t)
+  \left[%
+    1
+    +
+    i \tilde{\phi}_0 \cos \left( \frac{k x'}{M} - \omega t \right)
+  \right]
+  \label{eq:InterferometricMethods:imaged_total_field_weak_coupling}
+\end{equation}
+
 
 
 \section{Laser-plasma interactions in a tokamak}
