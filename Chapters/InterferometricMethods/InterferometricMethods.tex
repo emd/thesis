@@ -275,10 +275,129 @@ with slightly more substantial corrections for
 polarimetric measurements~\cite{mirnov_07}.
 
 
-\subsection{WKB approximation}
+\subsection{Wave propagation in an inhomogeneous medium}
+No physical plasma is truly homogeneous in space.
+While the above Fourier approach can still be employed,
+the inhomogeneities tend to couple the various modes together,
+greatly complicating the analysis.
+However, if the plasma varies sufficiently slowly,
+the plasma can be treated as \emph{locally} uniform, and
+the wave field can be ``stitched'' together
+as the wave propagates from one region of the plasma to another
+via the WKB approximation
+\begin{equation}
+  E(\vect{r}, t)
+  \approx
+  E \exp \left[i \left(%
+    \int \vect{k}(\vect{r}) \cdot d\vect{l}
+    -
+    \omega t
+  \right) \right]
+  \label{eq:InterferometricMethods:WKB_field}
+\end{equation}
+Here, $\vect{k}(\vect{r})$ is the local wavevector and
+the integration is performed along the wave's trajectory.
+
+What exactly is meant by ``sufficiently slowly'', though?
+To approximate the plasma as locally uniform,
+the change in wavelength $\delta \lambda$ over one wave cycle
+should be small relative to the wavelength,
+i.e.\ $|\delta \lambda| / \lambda \ll 1$.
+This constraint can be written in a slightly more convenient form.
+Note that $\delta \lambda = - (2 \pi / k^2) \delta k $.
+Further, as the change in wavelength is being examined over one wavelength,
+$|\delta k| / \lambda \approx |\nabla k|$.
+Thus, the criterion for the validity of the WKB approximation becomes
+\begin{equation}
+  \frac{|\nabla k|}{k^2} \ll \frac{1}{2 \pi}
+  \label{eq:InterferometricMethods:WKB_validity}
+\end{equation}
+Now, using the definition of $N$ from
+(\ref{eq:InterferometricMethods:refraction_index}),
+the cold-plasma index of refraction in
+(\ref{eq:InterferometricMethods:index_of_refraction})
+can be rewritten as $k = (\omega / c) (1 - X / 2)$, and, to lowest order,
+\begin{equation}
+  \nabla k
+  \approx
+  -\left( \frac{2 \pi \, r_e}{k} \right) \nabla n_e
+\end{equation}
+where
+\begin{equation}
+  r_e
+  =
+  \frac{e^2}{4 \pi \varepsilon_0 m_e c^2}
+  =
+  \SI{2.8e-15}{\meter}
+  \label{eq:InterferometricMethods:classical_electron_radius}
+\end{equation}
+is the classical electron radius.
+The most extreme density gradients in a tokamak
+often occur in the so-called ``pedestal'',
+where the density changes by
+$\Delta n_e \lesssim \SI{e20}{\per\meter\cubed}$
+over a scale length $\Delta r \gtrsim \SI{1}{\centi\meter}$;
+for a CO$_2$ laser beam ($k = \SI{5.9e5}{\per\meter}$)
+propagating through such a pedestal
+\begin{equation}
+  \frac{|\nabla k|}{k^2}
+  =
+  \left( \frac{2 \pi \, r_e}{k^3} \right) \nabla n_e
+  \lesssim
+  10^{-9}
+\end{equation}
+such that (\ref{eq:InterferometricMethods:WKB_validity})
+is very well satisfied.
+
+
+\subsection{Plasma-induced phase delay}
+The WKB field solution (\ref{eq:InterferometricMethods:WKB_field})
+indicates that the wave's phase at a given point in time
+is determined by the properties of the medium
+that the wave has passed through.
+In particular, a wave passing through a plasma
+will acquire a phase shift $\phi$ relative to vacuum given by
+\begin{align}
+  \phi
+  &=
+  \int \left[ k(\vect{r}) - \frac{\omega}{c} \right] dl
+  \notag \\
+  &=
+  \int \left[%
+    \frac{\omega}{c}\left( 1 - \frac{X}{2} \right)
+    -
+    \frac{\omega}{c}
+  \right] dl
+  \notag \\
+  &=
+  -r_e \lambda \int n_e dl
+  \notag
+\end{align}
+where $r_e$ is again the classical electron radius
+defined in (\ref{eq:InterferometricMethods:classical_electron_radius}).
+Now, if the plasma fluctuates about its equilibrium density $\bar{n}_e$ as
+$n_e = \bar{n}_e + \tilde{n}_e$,
+there will be a corresponding phase fluctuation
+\begin{equation}
+  \tilde{\phi}
+  =
+  - r_e \lambda \int \tilde{n}_e dl
+  \label{eq:InterferometricMethods:phase_fluctuation}
+\end{equation}
+It is exactly the intent of
+Section~\ref{sec:InterferometricMethods:Gaussian_beam_diffraction}
+to determine how such density fluctuations
+interact with an incident Gaussian probe beam.
+As a final note before leaving this section,
+accurate interpretation of very rapid phase-fluctuation measurements
+(such as those resulting from RF-wave perturbations)
+may require accounting for the beam's finite propagation time
+through the plasma to the point of measurement
+\cite[Sec.~3.1]{tsujii_phd}.
 
 
 \section{Gaussian beam diffraction and imaging}
+\label{sec:InterferometricMethods:Gaussian_beam_diffraction}
 
 
 \subsection{Definition of a Gaussian beam}
