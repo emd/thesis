@@ -1,7 +1,284 @@
-\chapter{Interferometric methods in tokamak plasmas}
+\chapter{Interferometric methods for tokamak-plasma fluctuations}
 
 
-\section{Gaussian beam diffraction}
+\section{Electromagnetic waves in a plasma}
+
+
+\subsection{Derivation of the wave equation}
+An electromagnetic wave's electric and magnetic fields
+are related via Faraday's law
+\begin{equation}
+  \nabla \cross \vect{E} = - \frac{\partial \vect{B}}{\partial t}
+  \label{eq:InterferometricMethods:Faradays_law}
+\end{equation}
+Taking the curl of (\ref{eq:InterferometricMethods:Faradays_law}) and
+using Ampere's law to eliminate $\vect{B}$ yields
+the electric field's wave equation
+\begin{equation}
+  \nabla^2 \vect{E}
+  -
+  \frac{1}{c^2} \vect{E}
+  =
+  \nabla(\nabla \cdot \vect{E})
+  +
+  \mu_0 \frac{\partial \vect{J}}{\partial t}
+\end{equation}
+where $\mu_0$ is the permeability of free space.
+The current density $\vect{J}$ is related to the electric field via
+\begin{equation}
+  \vect{J} = \vect{\sigma} \cdot \vect{E}
+  \label{eq:InterferometricMethods:current_density_sigma_E}
+\end{equation}
+where $\vect{\sigma}$ is the conductivity of the surrounding medium.
+Typically, the electromagnetic wave's oscillations occur on timescales
+that are orders-of-magnitude faster than any changes to the medium, and
+the wave equation becomes
+\begin{equation}
+  \nabla^2 \vect{E}
+  -
+  \frac{1}{c^2} \vect{E}
+  =
+  \nabla(\nabla \cdot \vect{E})
+  +
+  \mu_0 \vect{\sigma} \cdot \frac{\partial \vect{E}}{\partial t}
+  \label{eq:InterferometricMethods:wave_equation_pde}
+\end{equation}
+
+
+\subsection{Wave equation in a homogeneous medium}
+Assume that the medium is homogeneous in space and time such that
+the field can be Fourier analyzed~\cite[Sec.~3-2]{stix}
+\begin{equation}
+  \vect{E}(\vect{r}, t)
+  =
+  \frac{1}{(2 \pi)^4}
+  \int
+  \vect{E}(\vect{k}, \omega) d\vect{k} \, d\omega
+\end{equation}
+Then, (\ref{eq:InterferometricMethods:wave_equation_pde}) reduces
+to an algebraic equation for each Fourier component.
+In particular, for Fourier mode
+$E e^{i(\vect{k} \cdot \vect{r} - \omega t)}$,
+the derivative operators become
+$\nabla \rightarrow i \vect{k}$ and
+$\partial / \partial t \rightarrow -i \omega$, and
+the wave equation reduces to an eigenvalue equation
+\begin{equation}
+  \left[%
+    \vect{N}\vect{N}
+    -
+    N^2\vect{I}
+    +
+    \left(%
+      \vect{I}
+      +
+      \frac{i \vect{\sigma}}{\varepsilon_0 \omega}
+    \right)
+  \right]
+  \cdot
+  \vect{E}
+  =
+  0
+  \label{eq:InterferometricMethods:wave_equation_eigenvalue}
+\end{equation}
+where
+\begin{equation}
+  \vect{N} \equiv \frac{c \vect{k}}{\omega}
+  \label{eq:InterferometricMethods:refraction_index}
+\end{equation}
+is the index of refraction seen by the given Fourier mode,
+$\varepsilon_0$ is the permittivity of free space, and
+$\vect{I}$ is the identity matrix.
+To proceed further, a model is needed
+for the medium's conductivity $\vect{\sigma}$.
+
+
+\subsection{The cold-plasma dispersion relation}
+Although plasmas in contemporary fusion devices
+routinely approach temperatures $\lesssim 100$ million degrees Celsius
+($\sim10\times$ the temperature of the core of the sun!),
+the thermal velocities of the constituent particles are
+still far below the speed of light.
+The lightest, and consequently the fastest,
+of such a plasma's constituent particles are its electrons,
+which have thermal velocities $\lesssim 0.1 c$.
+In contrast, as will be shown shortly,
+the electromagnetic waves used to make interferometric measurements
+in such plasmas have phase velocities very close to the speed of light.
+Thus, in the context of the wave-plasma interaction,
+the unperturbed plasma can be modeled as a collection
+of motionless (i.e.\ zero-temperature or ``cold'') charged particles.
+Consequently, the pressure of this model plasma is zero.
+For the present application, it is also appropriate
+to neglect the perturbed motion of the ions,
+whose inertia greatly exceeds that of the electrons, and
+to neglect collisions,
+which are relatively rare in fusion plasmas.
+The electron-fluid momentum equation for such a plasma is
+\begin{equation}
+  m_e n_e \frac{d \vect{v_e}}{dt}
+  =
+  -e n_e \left( \vect{E} + \vect{v_e} \cross \vect{B} \right)
+  \label{eq:InterferometricMethods:cold_plasma_momentum_equation}
+\end{equation}
+where $n_e$ is the electron density,
+$\vect{v_e}$ is the perturbed electron-fluid velocity, and
+$d/dt = \partial / \partial t + (\vect{v_e} \cdot \nabla)$
+is the advective time derivative.
+Linearizing and Fourier analyzing reduces
+(\ref{eq:InterferometricMethods:cold_plasma_momentum_equation}) to
+\begin{equation}
+  i \omega m_e \vect{v_e}
+  =
+  e \left( \vect{E} + \vect{v_e} \cross \vect{B_0} \right)
+  \label{eq:InterferometricMethods:cold_plasma_momentum_equation_linear_and_Fourier}
+\end{equation}
+where $\vect{B_0}$ is the equilibrium magnetic field.
+Let $\vect{B_0} = B_0 \hat{\vect{z}}$.
+Then, the perturbed electron-fluid velocity $\vect{v_e}$
+is easily found to be~\cite[Sec.~4.1.2]{hutchinson_diagnostics}
+\begin{align}
+  \begin{aligned}
+  v_{e,x}
+  &=
+  \frac{-i e}{\omega m_e}
+  \frac{1}{1 - \Omega_e^2 / \omega^2}
+  \left( E_x - i \frac{\Omega_e}{\omega} E_y \right)
+  \\
+  v_{e,y}
+  &=
+  \frac{- i e}{\omega m_e}
+  \frac{1}{1 - \Omega_e^2 / \omega^2}
+  \left( i \frac{\Omega_e}{\omega} E_x + E_y \right)
+  \\
+  v_{e,z}
+  &=
+  \frac{- i e}{\omega m_e} E_z
+  \end{aligned}
+  \label{eq:InterferometricMethods:cold_plasma_perturbed_velocity}
+\end{align}
+where
+\begin{equation}
+  \Omega_e \equiv \frac{e B_0}{m_e}
+  \label{eq:InterferometricMethods:cyclotron_frequency_electron}
+\end{equation}
+is the electron cyclotron frequency.
+Having neglected the ion's motion,
+the current density is simply
+\begin{equation}
+  \vect{J} = -e n_e \vect{v_e}
+  \label{eq:InterferometricMethods:current_density_electron_motion}
+\end{equation}
+Equating (\ref{eq:InterferometricMethods:current_density_sigma_E}) and
+(\ref{eq:InterferometricMethods:current_density_electron_motion})
+and substituting the solution for $\vect{v_e}$ yields
+the plasma's conductivity~\cite[Sec.~4.1.2]{hutchinson_diagnostics}
+\begin{equation}
+  \vect{\sigma}
+  =
+  \frac{i n_e e^2}{m_e \omega}
+  \frac{1}{1 - \Omega_e^2 / \omega^2}
+  \begin{pmatrix}
+    1                   & -i \Omega_e / \omega & 0
+    \\
+    i \Omega_e / \omega &  1                   & 0
+    \\
+    0                   & 0                    & 1 - \Omega_e^2 / \omega^2
+  \end{pmatrix}
+  \label{eq:InterferometricMethods:cold_plasma_conductivity}
+\end{equation}
+Choose axes such that
+\begin{equation}
+  \vect{k} = k ( \sin\theta \hat{\vect{y}} + \cos\theta \hat{\vect{z}} )
+\end{equation}
+Then, substituting (\ref{eq:InterferometricMethods:cold_plasma_conductivity})
+into (\ref{eq:InterferometricMethods:wave_equation_eigenvalue})
+and solving for the corresponding eigenvalues yields
+the well-known Appleton-Hartree formula
+for the plasma's index of refraction
+\cite[Sec.~4.1.2]{hutchinson_diagnostics}
+\begin{equation}
+  N^2
+  =
+  1
+  -
+  \frac{X (1 - X)}{ 1 - X - \frac{1}{2} Y^2 \sin^2 \theta \pm \Delta }
+  \label{eq:InterferometricMethods:Appleton_Hartree}
+\end{equation}
+where
+\begin{align}
+  X &\equiv \frac{\omega_{pe}^2}{\omega^2}
+  \label{eq:InterferometricMethods:X}
+  \\
+  Y &\equiv \frac{\Omega_e}{\omega}
+  \label{eq:InterferometricMethods:Y}
+  \\
+  \Delta
+  &=
+  \left[
+    \left( \frac{1}{2} Y^2 \sin^2\theta \right)^2
+    +
+    (1 - X)^2 Y^2 \cos^2\theta
+  \right]^{1/2}
+  \\
+  \omega_{pe}^2 &\equiv \frac{n_e e^2}{m_e \varepsilon_0}
+  \label{eq:InterferometricMethods:angular_electron_plasma_frequency}
+\end{align}
+Here, $\omega_{pe}$ is referred to as the angular electron plasma frequency.
+
+The refractive index formula
+can be dramatically simplified
+for high-frequency electromagnetic waves
+propagating in typical tokamak plasmas.
+For example, a CO$_2$ beam ($\omega = 2 \pi \cdot \SI{28.3}{\tera\hertz}$)
+propagating in a typical \diiid\space plasma sees
+\begin{align}
+  n_e
+  \lesssim
+  \SI{e20}{\per\meter\cubed}
+  \qquad
+  &\Rightarrow
+  \qquad
+  X \lesssim 10^{-5}
+  \notag \\
+  B
+  \lesssim
+  \SI{2}{\tesla}
+  \qquad
+  &\Rightarrow
+  \qquad
+  Y \lesssim 2 \times 10^{-3}
+  \notag
+\end{align}
+Now, the smallness of $X$ and $Y$ can be exploited
+to approximate (\ref{eq:InterferometricMethods:Appleton_Hartree})
+by retaining only the terms that are linear in $X$ or linear in $Y$;
+this yields $N^2 \approx 1 - X$ or, equivalently,
+\begin{equation}
+  N \approx 1 - \frac{X}{2}
+  \label{eq:InterferometricMethods:index_of_refraction}
+\end{equation}
+Note that the corresponding phase velocity is
+$v_{\text{ph}} = c / N \approx c$.
+Thus, the cold-plasma assumption that the wave's phase velocity
+is much larger than the thermal velocities ($\lesssim 0.1 c$)
+of the plasma's constituent particles is valid.
+While cold-plasma theory is adequate for the current purposes,
+it should be noted for completeness that
+finite-temperature and relativistic effects
+will affect the interpretation of refractive index measurements
+in a fusion reactor.
+For example, the thermal correction
+to the cold-plasma interferometric phase
+in a $T_e \approx 10 \, \text{keV}$ plasma is $-3\%$,
+with slightly more substantial corrections for
+polarimetric measurements~\cite{mirnov_07}.
+
+
+\subsection{WKB approximation}
+
+
+\section{Gaussian beam diffraction and imaging}
 
 
 \subsection{Definition of a Gaussian beam}
@@ -83,7 +360,7 @@ where $S$ is an arbitrary surface that encloses $P$,
 $\vect{s}$ is the vector from point $P$ to differential area element $dS$,
 $\vect{n}$ is the \emph{inward}-pointing normal of surface $S$, and
 $U$ is assumed to be differentiable to second order within and on $S$
-\cite{born_and_wolf}.
+\cite[Sec.~8.3]{born_and_wolf}.
 The relevant geometry is sketched
 in Fig.~\ref{fig:InterferometricMethods:Kirchhoff_geometry}(a).
 
@@ -804,6 +1081,20 @@ Thus, the total scattered field in the image plane becomes
   \sum_{m = -\infty}^{\infty}
   i^m \left[ J_m(\tilde{\phi}_0) \right]
   e^{i m \left( \frac{k x'}{M} - \omega t \right)}
+\end{equation}
+Noting that $J_{-m}(z) = (-1)^m J_m(z)$~\cite{abramowitz_and_stegun},
+the image-plane field can be written alternatively as
+\begin{equation}
+  \mathcal{I}[ E(\vect{r}, t) ]
+  =
+  E_{G'}(\vect{r'}, t)
+  \left\{%
+    J_0(\tilde{\phi}_0)
+    +
+    2 \sum_{m = 1}^{\infty}
+    i^m \left[ J_m(\tilde{\phi}_0) \right]
+    \cos\left[ m \left( \frac{k x'}{M} - \omega t \right) \right]
+  \right\}
   \label{eq:InterferometricMethods:imaged_total_field}
 \end{equation}
 
@@ -811,22 +1102,8 @@ Thus, the total scattered field in the image plane becomes
 \subsection{The weak-coupling limit}
 Typically, the phase-fluctuation amplitude
 is very small ($\tilde{\phi}_0 \ll 1$), and
-only the lowest order $m = 0, \pm 1$ terms contribute substantially to
-(\ref{eq:InterferometricMethods:imaged_total_field}).
-Noting that $J_{-m}(z) = (-1)^m J_m(z)$~\cite{abramowitz_and_stegun},
-the total scattered field in the image plane is
-\begin{equation}
-  \mathcal{I}[ E(\vect{r}, t) ]
-  \approx
-  E_{G'}(\vect{r'}, t)
-  \left\{%
-    J_0(\tilde{\phi}_0)
-    +
-    2 i [J_1(\tilde{\phi}_0)] \cos \left( \frac{k x'}{M} - \omega t \right)
-  \right\}
-\end{equation}
-Further, the Bessel function's small-argument limiting form is
-\cite{abramowitz_and_stegun}
+the Bessel function's small-argument limiting form \cite{abramowitz_and_stegun}
+can be used
 \begin{equation}
   \lim_{z \rightarrow 0} J_m(z)
   \sim
@@ -834,9 +1111,10 @@ Further, the Bessel function's small-argument limiting form is
   , \qquad
   m \neq -1, -2, -3, \cdots
 \end{equation}
-where $\Gamma$ is the gamma function, and
+Here, $\Gamma$ is the gamma function, and
 $\Gamma(m + 1) = m!$ for positive integer $m$.
-Thus, the total scattered field in the image plane further simplifies to
+Dropping terms exceeding first order in $\tilde{\phi}_0$,
+(\ref{eq:InterferometricMethods:imaged_total_field}) becomes
 \begin{equation}
   \mathcal{I}[ E(\vect{r}, t) ]
   \approx
@@ -850,28 +1128,16 @@ Thus, the total scattered field in the image plane further simplifies to
 \end{equation}
 
 
+\section{External reference beam interferometry}
+\subsection{Homodyne interferometry}
+\subsection{Heterodyne interferometry}
+\subsection{Finite sampling-volume effects}
+\subsection{Vibrations}
 
-\section{Laser-plasma interactions in a tokamak}
-\begin{itemize}
-  \item Cold-plasma dispersion relation and derivation of $N$
-  \item Expected phase shifts in tokamak plasma
-  \item Refraction
-  \item Scattering/diffraction
-\end{itemize}
-
-\section{Interferometry}
-\begin{itemize}
-  \item Homodyne
-  \item Heterodyne
-  \item Vibrations
-  \item $k$-response
-\end{itemize}
 
 \section{Phase contrast imaging}
-\begin{itemize}
-  \item Principle
-  \item $k$-response
-\end{itemize}
+\subsection{Reference beam generation via spatial filtering}
+\subsection{Low-$k$ cutoff}
 
 
 \bibliographystyle{plainurl}
