@@ -384,14 +384,14 @@ there will be a corresponding phase fluctuation
   - r_e \lambda \int \tilde{n}_e dl
   \label{eq:InterferometricMethods:phase_fluctuation}
 \end{equation}
-It is exactly the intent of
+It is precisely the intent of
 Section~\ref{sec:InterferometricMethods:Gaussian_beam_diffraction}
 to determine how such density fluctuations
 interact with an incident Gaussian probe beam.
 As a final note before leaving this section,
 accurate interpretation of very rapid phase-fluctuation measurements
 (such as those resulting from RF-wave perturbations)
-may require accounting for the beam's finite propagation time
+may require accounting for the beam's finite transit time
 through the plasma to the point of measurement
 \cite[Sec.~3.1]{tsujii_phd}.
 
@@ -409,7 +409,7 @@ has an electric field
   =
   E_G(\vect{r}) e^{-i \omega_0 t}
 \end{equation}
-with spatial dependence~\cite{siegman_lasers}
+with spatial dependence~\cite[Ch.~17]{siegman_lasers}
 \begin{equation}
   E_G(\vect{r})
   =
@@ -631,7 +631,7 @@ To proceed further, $s$ must be approximated:
 \end{align}
 where only terms linear in $(x' / r)$ and $(y' / r)$ have been retained.
 This is known as the Fraunhofer limit, and
-it is valid for $z \gg z_R$~\cite{born_and_wolf}.
+it is valid for $z \gg z_R$~\cite[Sec.~8.3.3]{born_and_wolf}.
 Under the Fraunhofer limit
 (\ref{eq:InterferometricMethods:Kirchhoff_diffraction_integral}) becomes
 \begin{equation}
@@ -995,7 +995,7 @@ at a single location $z_i$.
 The beam can then be propagated
 forwards or backwards in a given optical train
 using the corresponding ray matrices of geometric optics
-\cite{siegman_lasers}.
+\cite[Ch.~15]{siegman_lasers}.
 Further, for a given optical train in the paraxial limit,
 a Gaussian beam's width and radius of curvature evolve independently of
 its transverse and angular displacements from
@@ -1247,7 +1247,39 @@ Dropping terms exceeding first order in $\tilde{\phi}_0$,
 \end{equation}
 
 
+\subsection{The need for a reference beam}
+Most detectors of interest are square-law detectors
+in that they produce a response proportional to
+the square (i.e.\ intensity) of the incident field.
+If such a detector is placed at the image plane,
+the local intensity is
+\begin{align}
+  I(\vect{r}, t)
+  &\equiv
+  \frac{c \varepsilon_0}{2} |\mathcal{I}[E(\vect{r}, t)]|^2
+  \notag \\
+  &=
+  \frac{c \varepsilon_0 |E_{G'}(\vect{r'}, t)|^2}{2}
+  [1 + \mathcal{O}(\tilde{\phi}_0)^2]
+  \notag
+\end{align}
+Thus, for the typical limit $\tilde{\phi}_0 \ll 1$,
+the measured response will be very weak
+if the detector is only exposed to the imaged probe beam.
+Physically, this is attributable to the $m = \pm 1$ beams
+being $\pi / 2$ out of phase with the unscattered $m = 0$ beam.
+As will be shown in Sections
+\ref{sec:InterferometricMethods:interferometry} and
+\ref{sec:InterferometricMethods:pci},
+the system response can be substantially improved
+by interfering the scattered beams with a reference beam.
+The generation of such a reference beam, then, is the trait
+that differentiates a given interferometric method from another.
+
+
 \section{External reference beam interferometry}
+\label{sec:InterferometricMethods:interferometry}
+
 \subsection{Homodyne interferometry}
 \subsection{Heterodyne interferometry}
 \subsection{Finite sampling-volume effects}
@@ -1255,6 +1287,8 @@ Dropping terms exceeding first order in $\tilde{\phi}_0$,
 
 
 \section{Phase contrast imaging}
+\label{sec:InterferometricMethods:pci}
+
 \subsection{Reference beam generation via spatial filtering}
 \subsection{Low-$k$ cutoff}
 
