@@ -1110,18 +1110,6 @@ the image-plane complex beam parameter $q'$ is given as
 where $q$ is the object-plane complex beam parameter,
 and $M$ and $C$ are both real.
 
-% Two of the limiting cases for $q'$ take on physical significance
-% when the waist of the probe beam sits at the object plane
-% (i.e.\ $q = i z_R$ and $z = 0$).
-% If $C q \ll 1 / M$,
-% then $q' \approx M^2 q = i M^2 z_R$, and
-% $z' = \text{Re}(q') \approx 0$;
-% that is, the waists of the imaged beams sit at the image plane.
-% If, however, $C q \gg 1 / M$,
-% then $q' \approx M / C$, and
-% $z' = \text{Re}(q') = M / C \neq 0$;
-% that is, the waists of the imaged beams do \emph{not} sit at the image plane.
-
 To determine the imaged field,
 both the undiffracted and the diffracted beams
 must be propagated through the imaging system.
@@ -1240,8 +1228,7 @@ the typical small-angle scattering limit ($\theta_m \ll 1$).
 \end{figure}
 
 
-
-\subsection{Imaging of diffracted beams}
+\subsection{The imaged field}
 Now, without further ado,
 let $\mathcal{I}$ image the object plane $S_1$
 such that the image of diffracted field
@@ -1289,22 +1276,16 @@ Then, neglecting the small variation in the Gaussian envelope and
 retaining phase-factor terms only to second order in $k / k_0$,
 the $m$\ts{th} scattered Gaussian beam in the image plane is
 \begin{equation}
-  \mathcal{I}[E_G(\vect{r_m})]
+  \mathcal{I}[E_G(\vect{r_m})] e^{-i (\omega_0 + m \omega) t}
   =
-  E_{G'}(\vect{r'})
-  \exp\left\{%
-    i \left[%
-      \frac{m k x'}{M}
-      -
-      \frac{1}{2 k_0 R'(z')} \left( \frac{m k x'}{M} \right)^2
-    \right]
-  \right\}
+  [E_{G'}(\vect{r', t})]
+  e^{i (m \xi - m^2 \kappa)}
   \label{eq:InterferometricMethods:imaged_scattered_beam_second_order}
 \end{equation}
 where
 \begin{align}
   \begin{aligned}
-    E_{G'}(\vect{r'})
+    E_{G'}(\vect{r'}, t)
     =
     &\, E_0
     \frac{w_0'}{w'(z')}
@@ -1319,18 +1300,27 @@ where
         \psi'(z')
       \right]
     \right\}
+    e^{-i \omega_0 t}
   \end{aligned}
   \label{eq:InterferometricMethods:eq:InterferometricMethods:imaged_unscattered_beam}
 \end{align}
-corresponds to the field pattern of the unscattered Gaussian beam
-in the image plane.
-The quadratic term in the phase factor of
-(\ref{eq:InterferometricMethods:imaged_scattered_beam_second_order})
-is typically negligible but can become important during calibrations.
+corresponds to the undiffracted Gaussian beam in the image plane and
+\begin{align}
+  \xi
+  &=
+  \frac{k x'}{M} - \omega t
+  \label{eq:InterferometricMethods:xi_imaged_wave_phase}
+  \\
+  \kappa
+  &=
+  \frac{1}{2 k_0 R'(z')} \left( \frac{k x'}{M} \right)^2
+  \label{eq:InterferometricMethods:kappa_image_plane_curvature_effect}
+\end{align}
+The curvature-induced phase factor $\kappa$ is typically negligible and
+is dropped in the remainder of this chapter's discussion.
 \graffito{\textcolor{red}{%
+  But $\kappa$ can become important during calibrations.
   Cite Naoto and Dorris. Or even save for later chapter?}}
-In the remainder of this chapter's discussion,
-the quadratic term in the phase factor is dropped.
 Thus, the total scattered field in the image plane becomes
 \begin{equation}
   \mathcal{I}[ E(\vect{r}, t) ]
@@ -1338,7 +1328,7 @@ Thus, the total scattered field in the image plane becomes
   E_{G'}(\vect{r'}, t)
   \sum_{m = -\infty}^{\infty}
   i^m \left[ J_m(\tilde{\phi}_0) \right]
-  e^{i m \left( \frac{k x'}{M} - \omega t \right)}
+  e^{i m \xi}
 \end{equation}
 Noting that $J_{-m}(z) = (-1)^m J_m(z)$~\cite{abramowitz_and_stegun},
 the image-plane field can be written alternatively as
@@ -1351,7 +1341,7 @@ the image-plane field can be written alternatively as
     +
     2 \sum_{m = 1}^{\infty}
     i^m \left[ J_m(\tilde{\phi}_0) \right]
-    \cos\left[ m \left( \frac{k x'}{M} - \omega t \right) \right]
+    \cos( m \xi )
   \right\}
   \label{eq:InterferometricMethods:imaged_total_field}
 \end{equation}
@@ -1380,7 +1370,7 @@ Dropping terms exceeding first order in $\tilde{\phi}_0$,
   \left[%
     1
     +
-    i \tilde{\phi}_0 \cos \left( \frac{k x'}{M} - \omega t \right)
+    i \tilde{\phi}_0 \cos\xi
   \right]
   \label{eq:InterferometricMethods:imaged_total_field_weak_coupling}
 \end{equation}
@@ -1429,7 +1419,7 @@ Thus, the probe radiation in the image plane is given as
   \left[%
     1
     +
-    i \tilde{\phi}_0 \cos\left( \frac{k x}{M} - \omega t \right)
+    i \tilde{\phi}_0 \cos\xi
   \right]
 \end{equation}
 Now, assume that the imaged probe radiation
@@ -1449,7 +1439,7 @@ The total field impinging on the detector is then
     +
     1
     +
-    i \tilde{\phi}_0 \cos\left( \frac{k x}{M} - \omega t \right)
+    i \tilde{\phi}_0 \cos\xi
   \right]
 \end{equation}
 and, to first order in $\tilde{\phi}_0$, the corresponding intensity is
@@ -1463,12 +1453,14 @@ and, to first order in $\tilde{\phi}_0$, the corresponding intensity is
       \\
       &+
       2 A \sin\phi_R \tilde{\phi}_0
-      \cos\left( \frac{k x}{M} - \omega t \right)
+      \cos\xi
     \biggl]
   \end{aligned}
   \label{eq:InterferometricMethods:interferometer_intensity_arbitrary_reference}
 \end{equation}
 where
+\graffito{\textcolor{red}{%
+  Wait. Is factor of 2 attributable to averaging over optical cycles?}}
 \begin{equation}
   I_G(\vect{r}, t)
   \equiv
