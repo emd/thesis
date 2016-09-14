@@ -396,13 +396,15 @@ through the plasma to the point of measurement
 \cite[Sec.~3.1]{tsujii_phd}.
 
 
-\section{Gaussian beam diffraction and imaging}
+\section{Diffraction of a Gaussian probe beam}
 \label{sec:InterferometricMethods:Gaussian_beam_diffraction}
+\graffito{\textcolor{red}{Why do we care about Gaussian beams?}}
 
 
 \subsection{Definition of a Gaussian beam}
 A Gaussian beam of angular frequency $\omega_0$
 propagating along the $z$-axis
+in a medium with index of refraction $N$
 has an electric field
 \begin{equation}
   E_G(\vect{r}, t)
@@ -427,7 +429,8 @@ with spatial dependence~\cite[Ch.~17]{siegman_lasers}
 Here,
 $\rho = (x^2 + y^2)^{1/2}$ is the transverse distance from the optical axis,
 $w_0$ is the radius of the beam's waist, and
-$k_0 = \omega_0 / c = 2 \pi / \lambda_0$ is the beam's wavenumber.
+$k_0 = N \omega_0 / c = (2 \pi / \lambda_0) N$
+is the beam's in-medium wavenumber.
 The beam's width $w(z)$, radius of curvature $R(z)$, and
 Gouy phase $\psi(z)$ are defined as
 \begin{align}
@@ -448,11 +451,12 @@ Gouy phase $\psi(z)$ are defined as
 \end{align}
 where the Rayleigh range
 \begin{equation}
-  z_R \equiv \frac{\pi w_0^2}{\lambda_0}
+  z_R \equiv \left( \frac{\pi w_0^2}{\lambda_0} \right) N
   \label{eq:InterferometricMethods:Rayleigh_range}
 \end{equation}
 is the nominal division between the beam's
 near-field ($|z| \ll z_R$) and far-field ($|z| \gg z_R$) behaviors.
+Note that the beam's waist sits at $z = 0$.
 
 
 \subsection{Kirchhoff diffraction theory}
@@ -935,26 +939,94 @@ the polarization of the $m$\ts{th} scattered beam is
 \end{equation}
 
 
-\subsection{Imaging of the scattered radiation}
-It is often desirable to \emph{image} the above scattered radiation
+\section{Imaging of the diffracted beams}
+It is often desirable to \emph{image} the above diffracted beams
 in order to determine the spatiotemporal aspects
 of the responsible phase fluctuations.
-The optical axis of each scattered Gaussian beam
-behaves as a ray in the geometric-optics sense
-\cite{tovar_generalized_beam_matrices_IV}, and
-an imaging system $\mathcal{I}$ redirects all such rays
-emanating from position $\vect{\rho}$ in the object plane $S_1$
-to intersect at position
-$\vect{\rho'} = \mathcal{I}(\vect{\rho}) = M \vect{\rho}$ in the image plane.
+Below, the geometric optics and Gaussian beam propagation
+of relevance to imaging systems is briefly reviewed
+prior to computing the imaged field.
+
+
+\subsection{The geometric optics of an imaging system}
+Let the optical axis of an arbitrary optical system lie along the $z$-axis,
+and let all optical rays lie in a plane with the optical axis.
+At a given position $z_j$, an optical ray is fully described by
+its transverse distance $\rho$ to the optical axis and
+its slope $d\rho / dz$.
+In the paraxial limit $d\rho / dz \approx \theta$
+where $\theta$ is the angle between the ray and the optical axis.
+Ray propagation through homogeneous media and refractive interfaces
+are well-governed by the so-called $ABCD$ ray matrix formalism
+\cite[Ch.~15]{siegman_lasers};
+that is, a ray propagating from point $j$ to point $j + 1$ evolves as
+\begin{equation}
+  \begin{pmatrix}
+    \rho_{j + 1}
+    \\
+    \theta_{j + 1}
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    A & B
+    \\
+    C & D
+  \end{pmatrix}
+  \begin{pmatrix}
+    \rho_j
+    \\
+    \theta_j
+  \end{pmatrix}
+  \label{eq:InterferometricMethods:ABCD_ray_tracing_general}
+\end{equation}
+where the $ABCD$ matrix elements are determined
+by the optical properties of the media between points $j$ and $j + 1$.
+
+An imaging system $\mathcal{I}$, by definition,
+redirects all rays emanating from transverse position $\rho$
+in the object plane
+to intersect at transverse position $\rho' = M \rho$
+in the image plane.
 Here, $M$ is the \emph{magnification} of the imaging system, and
 $M < 0$ implies that the image is inverted relative to the object.
-Thus, the phase-fluctuation wavevector $k$
-is imaged as $k / M$ such that
-the wavevector of the $m$\ts{th} scattered beam in the image plane is
+The imaging system's $A$, $B$, and $D$ matrix elements
+are easily determined by inspection.
+Recalling the definition in
+(\ref{eq:InterferometricMethods:ABCD_ray_tracing_general}),
+note that $\rho' = M \rho = A \rho + B \theta$
+such that $A = M$ and $B = 0$.
+Further, assuming the image plane and object plane refractive indices
+are identical, as is often the case,
+the determinant of the ray matrix is unity
+(i.e.\ $AD - BC = 1$)~\cite{halbach_63}
+such that $D = 1 / M$.
+The final matrix element $C$ is determined by the particulars
+of the imaging system;
+for propagation through ``simple'' optical components,
+such as lenses and homogeneous media, $C$ is constrained to be real.
+Thus, an imaging system of magnification $M$ is characterized
+by a ray matrix of the form
+\begin{equation}
+  \mathcal{I}
+  =
+  \begin{pmatrix}
+    M & 0
+    \\
+    C & 1 / M
+  \end{pmatrix}
+  \label{eq:InterferometricMethods:ABCD_imaging}
+\end{equation}
+
+Now, the optical axis of each diffracted Gaussian beam
+behaves as a ray in the geometric-optics sense
+\cite{tovar_generalized_beam_matrices_IV}.
+Thus, the $m$\ts{th} diffracted beam is rotated by angle $\theta_m / M$
+relative to the undiffracted beam in the imaging plane,
+as shown in Fig.~\ref{fig:InterferometricMethods:imaging_geometry}.
+Further, the phase-fluctuation wavevector $k$ is imaged as $k / M$ such that
+the wavevector of the $m$\ts{th} diffracted beam in the image plane is
 \begin{align}
   \vect{k_m'}
-  &=
-  \mathcal{I}(\vect{k_m})
   =
   \left( \frac{m k}{M} \right) \hat{\vect{x}}
   +
@@ -962,9 +1034,10 @@ the wavevector of the $m$\ts{th} scattered beam in the image plane is
   %k_0 \sqrt{1 - \left(\frac{m k}{k_0}\right)^2} \hat{\vect{z}}
   \label{eq:InterferometricMethods:scattered_beam_wavevector_image_plane}
 \end{align}
-and the $m$\ts{th} scattered beam is rotated by angle $\theta_m / M$
-relative to the unscattered beam in the imaging plane,
-as shown in Fig.~\ref{fig:InterferometricMethods:imaging_geometry}.
+Note that
+(\ref{eq:InterferometricMethods:scattered_beam_wavevector_image_plane})
+is consistent with the $m$\ts{th} diffracted beam having an angle
+$\theta_m / M$ relative to the optical axis in the image plane.
 
 \begin{figure}
   \centering
@@ -985,43 +1058,105 @@ as shown in Fig.~\ref{fig:InterferometricMethods:imaging_geometry}.
 \label{fig:InterferometricMethods:imaging_geometry}
 \end{figure}
 
-The imaging optics also alter
-the properties of the incident Gaussian beams.
-In addition to its in-medium wavelength $\lambda_0 / N$,
-a Gaussian beam is fully characterized by
-its width $w(z_i)$ and
-its radius of curvature $R(z_i)$
-at a single location $z_i$.
-The beam can then be propagated
-forwards or backwards in a given optical train
-using the corresponding ray matrices of geometric optics
-\cite[Ch.~15]{siegman_lasers}.
-Further, for a given optical train in the paraxial limit,
+
+\subsection{Gaussian beam transformation in an imaging system}
+In addition to manipulating the ray-like trajectory
+of a Gaussian beam's optical axis,
+an imaging system also alters
+other important properties of an incident Gaussian beam.
+A Gaussian beam is fully characterized by
+its in-medium wavelength $\lambda_0 / N$
+and its width $w(z_j)$ radius of curvature $R(z_j)$
+at a single location $z_j$.
+These parameters can be conveniently combined
+to define the so-called complex beam parameter $q$
+\cite[Sec.~17.1]{siegman_lasers}
+\begin{equation}
+  \frac{1}{q}
+  \equiv
+  \frac{1}{R}
+  -
+  i \left( \frac{\lambda_0}{N \pi w^2} \right)
+  \label{eq:InterferometricMethods:complex_beam_parameter_inverse}
+\end{equation}
+Referencing (\ref{eq:InterferometricMethods:Gaussian_beam_width}) and
+(\ref{eq:InterferometricMethods:Gaussian_beam_radius_of_curvature}),
+the complex beam parameter can be rewritten as
+\begin{equation}
+  q = z + i z_R
+  \label{eq:InterferometricMethods:complex_beam_parameter}
+\end{equation}
+where, again, $z$ is the axial distance from the beam waist.
+The Gaussian beam can then be propagated from point $j$ to point $j + 1$ via
+\begin{equation}
+  q_{j+1}
+  =
+  \frac{A q_j + B}{C q_j + D}
+  \label{eq:InterferometricMethods:complex_beam_parameter_propagation}
+\end{equation}
+where, amazingly, $A$, $B$, $C$, and $D$
+are equal to the corresponding values
+of the $ABCD$ ray matrix from geometric optics
+\cite[Sec.~20.2]{siegman_lasers}.
+Using the ray matrix of an imaging system from
+(\ref{eq:InterferometricMethods:ABCD_imaging}),
+the image-plane complex beam parameter $q'$ is given as
+\begin{equation}
+  q'
+  =
+  \frac{M q}{C q + (1 / M)}
+  \label{eq:InterferometricMethods:complex_beam_parameter_image_plane}
+\end{equation}
+where $q$ is the object-plane complex beam parameter,
+and $M$ and $C$ are both real.
+
+% Two of the limiting cases for $q'$ take on physical significance
+% when the waist of the probe beam sits at the object plane
+% (i.e.\ $q = i z_R$ and $z = 0$).
+% If $C q \ll 1 / M$,
+% then $q' \approx M^2 q = i M^2 z_R$, and
+% $z' = \text{Re}(q') \approx 0$;
+% that is, the waists of the imaged beams sit at the image plane.
+% If, however, $C q \gg 1 / M$,
+% then $q' \approx M / C$, and
+% $z' = \text{Re}(q') = M / C \neq 0$;
+% that is, the waists of the imaged beams do \emph{not} sit at the image plane.
+
+To determine the imaged field,
+both the undiffracted and the diffracted beams
+must be propagated through the imaging system.
+Fortunately, for a given optical system in the paraxial limit,
 a Gaussian beam's width and radius of curvature evolve independently of
 its transverse and angular displacements from
-the optical train's nominal axis
+the nominal optical axis
 \cite{tovar_generalized_beam_matrices_IV}.
-That is, as any given scattered beam
+That is, as any given diffracted beam
 propagates through an imaging system $\mathcal{I}$,
 the evolution of its width and radius of curvature
-will be \emph{identical} to that of the unscattered beam
+will be \emph{identical} to that of the undiffracted beam
 propagating through the same imaging system.
-However, the waists of the post-imaging-system beams
+However, the post-imaging-system beam waists
 do \emph{not} necessarily sit at the image plane,
 in which case the beams' native coordinate systems
 are necessarily displaced from each other (i.e.\ $\vect{O'} \neq \vect{O'_m}$),
 as indicated in Fig.~\ref{fig:InterferometricMethods:imaging_geometry}.
+Examining (\ref{eq:InterferometricMethods:complex_beam_parameter_image_plane})
+it is easy to see that the beam waists will not sit at the image plane
+when $C q \gg 1 / M$ such that
+$z' = \text{Re}(q') \approx M / C \neq 0$.
 
-As will be demonstrated shortly,
-the transformation between
-the native coordinate system of the $m$\ts{th} scattered beam and
-that of the unscattered beam in the image plane
-is needed.
-It may be useful to refer to
+As the native coordinate systems of
+the undiffracted beam and the $m$\ts{th} diffracted beam
+do not align in the image plane,
+it will be convenient to determine the relevant coordinate transformation.
+The transformation is derived for the most general case
+in which the beam waists do not sit at the image plane
+(i.e.\ $\vect{O'} \neq \vect{O'_m}$).
+The coordinate transformation is easily found
+through a series of translations and rotations, but
+it may be useful to refer to
 Fig.~\ref{fig:InterferometricMethods:coordinate_transformation_imaging_plane}
 in the following discussion.
-The coordinate transformation is easily found
-through a series of translations and rotations.
 Let point $P$ be represented
 in the native coordinate system of the unscattered beam
 by the ordered pair $(z_0', x_0')$.
@@ -1099,11 +1234,14 @@ the typical small-angle scattering limit ($\theta_m \ll 1$).
   \centering
   \includegraphics[width = 0.9 \textwidth]{%
     Chapters/InterferometricMethods/figs/coordinate_transformation_imaging_plane.eps}
-  \caption[Imaging-plane coordinate transformation]{%
-    Imaging-plane coordinate transformation}
+  \caption[Image-plane coordinate transformation]{%
+    Image-plane coordinate transformation}
 \label{fig:InterferometricMethods:coordinate_transformation_imaging_plane}
 \end{figure}
 
+
+
+\subsection{Imaging of diffracted beams}
 Now, without further ado,
 let $\mathcal{I}$ image the object plane $S_1$
 such that the image of diffracted field
@@ -1188,8 +1326,9 @@ corresponds to the field pattern of the unscattered Gaussian beam
 in the image plane.
 The quadratic term in the phase factor of
 (\ref{eq:InterferometricMethods:imaged_scattered_beam_second_order})
-is typically negligible but can become important during calibrations
-(\textcolor{red}{cite Naoto and Dorris. Or even save for later chapter?}).
+is typically negligible but can become important during calibrations.
+\graffito{\textcolor{red}{%
+  Cite Naoto and Dorris. Or even save for later chapter?}}
 In the remainder of this chapter's discussion,
 the quadratic term in the phase factor is dropped.
 Thus, the total scattered field in the image plane becomes
@@ -1263,7 +1402,7 @@ the local intensity is
   [1 + \mathcal{O}(\tilde{\phi}_0)^2]
   \notag
 \end{align}
-Thus, for the typical limit $\tilde{\phi}_0 \ll 1$,
+Thus, for the typical $\tilde{\phi}_0 \ll 1$ limit,
 the measured response will be very weak
 if the detector is only exposed to the imaged probe beam.
 Physically, this is attributable to the $m = \pm 1$ beams
@@ -1279,6 +1418,63 @@ that differentiates a given interferometric method from another.
 
 \section{External reference beam interferometry}
 \label{sec:InterferometricMethods:interferometry}
+The computations in this section all occur in the image plane.
+For notational simplicity, the ``primes'' used in the previous section
+to indicate image-plane coordinates and quantities are dropped.
+Thus, the probe radiation in the image plane is given as
+\begin{equation}
+  E_P(\vect{r}, t)
+  \approx
+  E_G(\vect{r}, t)
+  \left[%
+    1
+    +
+    i \tilde{\phi}_0 \cos\left( \frac{k x}{M} - \omega t \right)
+  \right]
+\end{equation}
+Now, assume that the imaged probe radiation
+is interfered with a reference beam of known phase $\phi_R$
+\begin{equation}
+  E_R(\vect{r}, t) = [E_G(\vect{r}, t)] A e^{i \phi_R}
+  \label{eq:InterferometricMethods:external_reference_beam_arbitrary}
+\end{equation}
+Here, $A$ and $\phi_R$ are real quantities.
+The total field impinging on the detector is then
+\begin{equation}
+  E(\vect{r}, t)
+  =
+  E_G(\vect{r}, t)
+  \left[%
+    A e^{i \phi_R}
+    +
+    1
+    +
+    i \tilde{\phi}_0 \cos\left( \frac{k x}{M} - \omega t \right)
+  \right]
+\end{equation}
+and, to first order in $\tilde{\phi}_0$, the corresponding intensity is
+\begin{equation}
+  \begin{aligned}
+    I(\vect{r}, t)
+    =
+    I_G(\vect{r}, t)
+    \biggl[%
+      &A^2 + 2 A \cos\phi_R + 1
+      \\
+      &+
+      2 A \sin\phi_R \tilde{\phi}_0
+      \cos\left( \frac{k x}{M} - \omega t \right)
+    \biggl]
+  \end{aligned}
+  \label{eq:InterferometricMethods:interferometer_intensity_arbitrary_reference}
+\end{equation}
+where
+\begin{equation}
+  I_G(\vect{r}, t)
+  \equiv
+  \frac{c \varepsilon_0 |E_G(\vect{r}, t)|^2}{2}
+\end{equation}
+
 
 \subsection{Homodyne interferometry}
 \subsection{Heterodyne interferometry}
