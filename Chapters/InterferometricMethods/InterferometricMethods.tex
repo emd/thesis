@@ -1388,10 +1388,19 @@ the local intensity is
   \frac{c \varepsilon_0}{2} |\mathcal{I}[E(\vect{r}, t)]|^2
   \notag \\
   &=
-  \frac{c \varepsilon_0 |E_{G'}(\vect{r'}, t)|^2}{2}
+  I_{G'}(\vect{r'})
   [1 + \mathcal{O}(\tilde{\phi}_0)^2]
-  \notag
+  \label{eq:InterferometricMethods:imaged_field_intensity}
 \end{align}
+where
+\begin{equation}
+  I_{G'}(\vect{r'})
+  =
+  \frac{c \varepsilon_0 |E_{G'}(\vect{r'})|^2}{2}
+  \label{eq:InterferometricMethods:Gaussian_beam_intensity}
+\end{equation}
+is the intensity profile (averaged over an optical cycle)
+of the undiffracted Gaussian beam.
 Thus, for the typical $\tilde{\phi}_0 \ll 1$ limit,
 the measured response will be very weak
 if the detector is only exposed to the imaged probe beam.
@@ -1425,17 +1434,17 @@ Thus, the probe radiation in the image plane is given as
 Now, assume that the imaged probe radiation
 is interfered with a reference beam of known phase $\phi_R$
 \begin{equation}
-  E_R(\vect{r}, t) = [E_G(\vect{r}, t)] A e^{i \phi_R}
+  E_R(\vect{r}, t) = E_G(\vect{r}, t) e^{i \phi_R}
   \label{eq:InterferometricMethods:external_reference_beam_arbitrary}
 \end{equation}
-Here, $A$ and $\phi_R$ are real quantities.
 The total field impinging on the detector is then
+\graffito{\textcolor{red}{What about bulk plasma phase $\bar{\phi}$?}}
 \begin{equation}
   E(\vect{r}, t)
   =
   E_G(\vect{r}, t)
   \left[%
-    A e^{i \phi_R}
+    e^{i \phi_R}
     +
     1
     +
@@ -1444,32 +1453,185 @@ The total field impinging on the detector is then
 \end{equation}
 and, to first order in $\tilde{\phi}_0$, the corresponding intensity is
 \begin{equation}
-  \begin{aligned}
-    I(\vect{r}, t)
-    =
-    I_G(\vect{r}, t)
-    \biggl[%
-      &A^2 + 2 A \cos\phi_R + 1
-      \\
-      &+
-      2 A \sin\phi_R \tilde{\phi}_0
-      \cos\xi
-    \biggl]
-  \end{aligned}
+  I(\vect{r}, t)
+  =
+  2 I_G(\vect{r})
+  (1 + \cos\phi_R + \tilde{\phi}_0 \sin\phi_R \cos\xi)
   \label{eq:InterferometricMethods:interferometer_intensity_arbitrary_reference}
 \end{equation}
-where
-\graffito{\textcolor{red}{%
-  Wait. Is factor of 2 attributable to averaging over optical cycles?}}
+where $I_G(\vect{r})$ is
+the intensity profile of the undiffracted Gaussian beam on the detector
+as defined in (\ref{eq:InterferometricMethods:Gaussian_beam_intensity}).
+Reference-beam generation prescribes $\phi_R$ and
+consequently dictates the method of interferometric detection.
+
+
+\subsection{Homodyne detection}
+A constant reference phase $(d\phi_R / dt = 0)$ allows homodyne detection.
+The amplitude of the fluctuating signal is then maximized when
+$\phi_R = \pi / 2 + m \pi$ for integer $m$.
+For concreteness, take $\phi_R = \pi / 2$,
+for which the intensity on the detector becomes
 \begin{equation}
-  I_G(\vect{r}, t)
-  \equiv
-  \frac{c \varepsilon_0 |E_G(\vect{r}, t)|^2}{2}
+  I(\vect{r}, t)
+  =
+  2 I_G(\vect{r})
+  (1 + \tilde{\phi}_0 \cos\xi)
+  \qquad
+  \text{for} \quad
+  \phi_R = \frac{\pi}{2}
 \end{equation}
+Physically, $\phi_R = \pi / 2$ means that the reference beam is
+out-of-phase with the undiffracted beam but
+in-phase with the diffracted beams.
+Note that interfering the diffracted beams with this in-phase reference beam
+produces an intensity linear in $\tilde{\phi}_0$;
+this should be contrasted with the situation
+that produces the quadratic intensity variation in
+(\ref{eq:InterferometricMethods:imaged_field_intensity}).
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/InterferometricMethods/figs/detector_array.eps}
+  \caption[Finite sampling-volume effects in a detector array]{%
+    The probe radiation and the reference beam
+    are interfered on a detector array.
+    The array consists of numerous detector elements,
+    each of size $s_x \times s_y$ and with interelement spacing $\delta_x$.
+    The undiffracted beam is centered on $x_0 = 0$ and $y = 0$, and
+    its intensity profile varies only weakly over any given element.
+    The finite size of each detector element tends to attenuate
+    short wavelength components of the incident optical signal.
+  }
+  \label{fig:InterferometricMethods:detector_array}
+\end{figure}
+
+Finite sampling-volume effects~\cite{bravenec_rsi95} dictate
+the homodyne interferometer's wavenumber response~\cite{davis_rsi16}.
+Assume that the probe radiation and the reference beam
+are interfered on a detector array,
+as shown in Fig.~\ref{fig:InterferometricMethods:detector_array}.
+Let the $j$\ts{th} detector element be centered on $x_j$ and $y = 0$;
+the total power $P_j$ incident on this element is then
+\begin{align}
+  P_j(t)
+  &=
+  \int_{\text{det}_j} I(\vect{r}, t) dA
+  \notag \\
+  &\approx
+  2 I_G(\vect{r_j}) s_y
+  \int_{x_j - s_x / 2}^{x_j + s_x / 2}
+  (1 + \tilde{\phi}_0 \cos\xi) dx
+  \notag \\
+  &=
+  2 I_G(\vect{r_j}) A
+  \left[%
+    %1 + \tilde{\phi}_0 \cos\xi_j \sinc\left( \frac{k}{k_c} \right)
+    1 + \tilde{\phi}_0 \sinc( k / k_c ) \cos\xi_j
+  \right]
+  \label{eq:InterferometricMethods:homodyne_interferometer_total_power_per_element}
+\end{align}
+where
+\begin{equation}
+  \sinc(x) = \frac{\sin(\pi x)}{\pi x}
+  \label{eq:InterferometricMethods:nomralized_sinc}
+\end{equation}
+is the normalized sinc function,
+\begin{equation}
+  k_c = \frac{2 \pi M}{s_x}
+  \label{eq:InterferometricMethods:finite_sampling_volume_cutoff}
+\end{equation}
+is the first zero (i.e.\ ``cutoff'')
+in the fluctuating power's amplitude,
+$\xi_j = (k x_j / M) - \omega t$, and
+$A = s_x s_y$ is the area of the detector element.
+The approximation in the above computation results
+from assuming that the intensity profile $I_G(\vect{r})$
+varies weakly over any given detector element
+such that the intensity can be approximated as constant.
+
+The typical engineering constraint of such a system
+is the saturation intensity of the detector elements.
+Beyond the linear saturation intensity $I_{\text{sat}}$,
+the detector's response ceases to be a linear function
+of the incident optical power.
+Note that the homodyne optical power in
+(\ref{eq:InterferometricMethods:homodyne_interferometer_total_power_per_element})
+can be separated into equilibrium and fluctuating components as
+$P_j(t) = \bar{P}_j + \tilde{P}_j(t)$, where
+\begin{align}
+  \bar{P}_j
+  &=
+  2 I_G(\vect{r_j}) A
+  \\
+  \tilde{P}_j(t)
+  &=
+  \bar{P}_j
+  \tilde{\phi}_0 \sinc( k / k_c ) \cos\xi_j
+\end{align}
+Because $\tilde{\phi}_0 \ll 1$, $I_{\text{max}} \approx 2 I_G(0)$,
+where $I_G(0)$ is the peak intensity of the undiffracted Gaussian probe beam.
+Optimal performance of the system then requires that
+$I_G(0) \approx I_{\text{sat}} / 2$.
+To make ``apples-to-apples'' comparisons of different interference schemes,
+it is useful to examine the ratio of fluctuating to equilibrium powers;
+for homodyne interferometry, this ratio is
+\begin{equation}
+  \frac{\tilde{P}_j(t)}{\bar{P}_j}
+  =
+  T_{\text{hom}}(k) \cdot \tilde{\phi}_0 \cos\xi_j
+\end{equation}
+where
+\begin{equation}
+  T_{\text{hom}}(k)
+  \equiv
+  \sinc\left( \frac{k}{k_c} \right)
+  \label{eq:InterferometricMethods:homodyne_interferometer_wavenumber_transfer_function}
+\end{equation}
+is the homodyne interferometer's wavenumber transfer function.
+That is, the homodyne interferometer
+weights the phase-fluctuation images $\tilde{\phi}_0 \cos\xi_j$
+by its transfer function $T_{\text{hom}}(k)$.
+
+Despite its relative simplicity,
+all is not rosy in the land of the homodyne interferometer.
+Recall that the above discussion follows
+from the assumption that $\phi_R = \pi / 2$.
+However, this is much easier said than done.
+Fusion experiments are often characterized
+by large, pulsed electromagnets
+that can produce vibration-induced path-length changes.
+A path-length change $\delta l$ produces
+a corresponding reference-phase change $\delta \phi_R = k_0 \delta l$,
+where $k_0$ is the wavenumber of the probe radiation.
+For a $\SI{10.6}{\micro\meter}$ CO$_2$ probe beam,
+a path-length variation $\sim \SI{2.5}{\micro\meter}$
+is sufficient to produce $\delta \phi_R \sim \pi / 2$,
+pushing the homodyne interferometer from
+its configuration of peak sensitivity into one of its nulls.
+Even vacuum-pump vibrations can provide such a push!
+On small fusion devices,
+actively controlled mirrors have been used
+in an attempt to cancel vibration-induced path-length changes,
+minimizing excursions from $\phi_R \approx \pi / 2$
+\cite{nazikian_rsi87}, but
+such an approach has not found application on larger
+(and presumably more vibration-prone) fusion experiments.
+Further, the homodyne-measured fluctuation power $\tilde{P}_j$
+is \emph{not} an absolute measurement
+of the phase fluctuation amplitude $\tilde{\phi}_0$.
+For example, vibration-induced misalignment or
+power fluctuations at the beam source
+can alter the equilibrium power $\bar{P}_j$;
+this, in turn, alters the amplitude of the fluctuating power $\tilde{P}_j$.
+Thus, it is generally impossible to distinguish
+whether changes in the amplitude of the homodyne-measured $\tilde{P}_j$
+are attributable to real changes in $\tilde{\phi}_0$ or
+are simply an artifact of the system alignment or radiation source.
 
 
-\subsection{Homodyne interferometry}
-\subsection{Heterodyne interferometry}
+\subsection{Heterodyne detection}
 \subsection{Finite sampling-volume effects}
 \subsection{Vibrations}
 
