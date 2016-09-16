@@ -371,13 +371,14 @@ will acquire a phase shift $\phi$ relative to vacuum given by
   \notag \\
   &=
   -r_e \lambda \int n_e dl
-  \notag
+  \label{eq:InterferometricMethods:phase}
 \end{align}
 where $r_e$ is again the classical electron radius
 defined in (\ref{eq:InterferometricMethods:classical_electron_radius}).
 Now, if the plasma fluctuates about its equilibrium density $\bar{n}_e$ as
 $n_e = \bar{n}_e + \tilde{n}_e$,
-there will be a corresponding phase fluctuation
+the phase will similarly fluctuate about its equilibrium as
+$\phi = \bar{\phi} + \tilde{\phi}$ where
 \begin{equation}
   \tilde{\phi}
   =
@@ -732,12 +733,23 @@ the diffraction of a phase-modulated Gaussian beam.
 
 
 \subsection{Fraunhofer diffraction of a phase-modulated Gaussian beam}
-Now, assume that the phase of the incident beam
-is sinusoidally modulated at $S_1$ as
+Now, at $S_1$ allow the incident beam to see
+an additional phase contribution $\phi$ that takes the form
+\begin{equation}
+  \phi(x', t) = \bar{\phi}(t) + \tilde{\phi}(x', t)
+\end{equation}
+Typically, $\tilde{\phi}$ varies on much faster time scales than $\bar{\phi}$
+(quantitatively, $d(\ln \tilde{\phi})/dt \gg d(\ln \bar{\phi})/dt$), but
+this is not required.
+The response functions of the diagnostics investigated in
+Sections~\ref{sec:InterferometricMethods:interferometry} and
+\ref{sec:InterferometricMethods:pci} will be shown to be linear, so
+it is sufficient to examine phase fluctuations $\tilde{\phi}$
+consisting of a single Fourier mode
 \begin{equation}
   \tilde{\phi}(x', t) = \tilde{\phi}_0 \cos(k x' - \omega t)
 \end{equation}
-This adds an additional phase contribution to
+This additional phase contribution modifies
 (\ref{eq:InterferometricMethods:Fraunhofer_diffraction_integral_free_space})
 such that the diffraction pattern in the $x$-direction is given as
 \begin{align}
@@ -746,10 +758,11 @@ such that the diffraction pattern in the $x$-direction is given as
   \int_{-\infty}^{\infty}
   e^{-( x' / w_0 )^2}
   e^{-i k_0 x x' / r}
-  e^{i \tilde{\phi}(x', t)}
+  e^{i \phi(x', t)}
   dx'
   \notag \\
   &=
+  e^{i \bar{\phi}}
   \int_{-\infty}^{\infty}
   e^{-( x' / w_0 )^2}
   e^{-i k_0 x x' / r}
@@ -757,6 +770,7 @@ such that the diffraction pattern in the $x$-direction is given as
   dx'
   \notag \\
   &=
+  e^{i \bar{\phi}}
   \int_{-\infty}^{\infty}
   e^{-( x' / w_0 )^2}
   e^{-i k_0 x x' / r}
@@ -768,6 +782,7 @@ such that the diffraction pattern in the $x$-direction is given as
   dx'
   \notag \\
   &=
+  e^{i \bar{\phi}}
   \sum_{m = -\infty}^{\infty}
   i^m \left[ J_m(\tilde{\phi}_0) \right]
   e^{-i m \omega t}
@@ -778,6 +793,7 @@ such that the diffraction pattern in the $x$-direction is given as
   \notag \\
   &=
   \sqrt{\pi} w_0
+  e^{i \bar{\phi}}
   \sum_{m = -\infty}^{\infty}
   i^m \left[ J_m(\tilde{\phi}_0) \right]
   e^{-i m \omega t}
@@ -795,6 +811,7 @@ into (\ref{eq:InterferometricMethods:Fraunhofer_diffracted_field}) yields
   \begin{aligned}
     E(\vect{r}, t)
     \approx
+    e^{i \bar{\phi}}
     &\sum_{m = -\infty}^{\infty}
     i^m \left[ J_m(\tilde{\phi}_0) \right]
     e^{-i m \omega t}
@@ -859,6 +876,7 @@ and defining $\rho_m = (x_m^2 + y^2)^{1/2}$ yields
   \begin{aligned}
     E(\vect{r}, t)
     \approx
+    e^{i \bar{\phi}}
     &\sum_{m = -\infty}^{\infty}
     i^m \left[ J_m(\tilde{\phi}_0) \right]
     e^{-i (\omega_0 + m \omega) t}
@@ -880,6 +898,7 @@ the diffracted electric field can be more compactly and generally written as
 \begin{equation}
   E(\vect{r}, t)
   \approx
+  e^{i \bar{\phi}}
   \sum_{m = -\infty}^{\infty}
   i^m \left[ J_m(\tilde{\phi}_0) \right]
   E_G(\vect{r_m})
@@ -1237,6 +1256,7 @@ is
 \begin{equation}
   \mathcal{I}[ E(\vect{r}, t) ]
   =
+  e^{i \bar{\phi}}
   \sum_{m = -\infty}^{\infty}
   i^m \left[ J_m(\tilde{\phi}_0) \right]
   \mathcal{I}[E_G(\vect{r_m})]
@@ -1326,6 +1346,7 @@ Thus, the total scattered field in the image plane becomes
   \mathcal{I}[ E(\vect{r}, t) ]
   =
   E_{G'}(\vect{r'}, t)
+  e^{i \bar{\phi}}
   \sum_{m = -\infty}^{\infty}
   i^m \left[ J_m(\tilde{\phi}_0) \right]
   e^{i m \xi}
@@ -1333,16 +1354,19 @@ Thus, the total scattered field in the image plane becomes
 Noting that $J_{-m}(z) = (-1)^m J_m(z)$~\cite{abramowitz_and_stegun},
 the image-plane field can be written alternatively as
 \begin{equation}
-  \mathcal{I}[ E(\vect{r}, t) ]
-  =
-  E_{G'}(\vect{r'}, t)
-  \left\{%
-    J_0(\tilde{\phi}_0)
-    +
-    2 \sum_{m = 1}^{\infty}
-    i^m \left[ J_m(\tilde{\phi}_0) \right]
-    \cos( m \xi )
-  \right\}
+  \begin{aligned}
+    \mathcal{I}[ E(\vect{r}, t) ]
+    =
+    E_{G'}(\vect{r'}, t)
+    e^{i \bar{\phi}}
+    \left\{%
+      J_0(\tilde{\phi}_0)
+      +
+      2 \sum_{m = 1}^{\infty}
+      i^m \left[ J_m(\tilde{\phi}_0) \right]
+      \cos( m \xi )
+    \right\}
+  \end{aligned}
   \label{eq:InterferometricMethods:imaged_total_field}
 \end{equation}
 
@@ -1367,6 +1391,7 @@ Dropping terms exceeding first order in $\tilde{\phi}_0$,
   \mathcal{I}[ E(\vect{r}, t) ]
   \approx
   E_{G'}(\vect{r'}, t)
+  e^{i \bar{\phi}}
   \left[%
     1
     +
@@ -1425,6 +1450,7 @@ Thus, the probe radiation in the image plane is given as
   E_P(\vect{r}, t)
   \approx
   E_G(\vect{r}, t)
+  e^{i \bar{\phi}}
   \left[%
     1
     +
@@ -1438,7 +1464,6 @@ is interfered with a reference beam of known phase $\phi_R$
   \label{eq:InterferometricMethods:external_reference_beam_arbitrary}
 \end{equation}
 The total field impinging on the detector is then
-\graffito{\textcolor{red}{What about bulk plasma phase $\bar{\phi}$?}}
 \begin{equation}
   E(\vect{r}, t)
   =
@@ -1446,9 +1471,12 @@ The total field impinging on the detector is then
   \left[%
     e^{i \phi_R}
     +
-    1
-    +
-    i \tilde{\phi}_0 \cos\xi
+    e^{i \bar{\phi}}
+    \left(%
+      1
+      +
+      i \tilde{\phi}_0 \cos\xi
+    \right)
   \right]
 \end{equation}
 and, to first order in $\tilde{\phi}_0$, the corresponding intensity is
@@ -1456,7 +1484,13 @@ and, to first order in $\tilde{\phi}_0$, the corresponding intensity is
   I(\vect{r}, t)
   =
   2 I_G(\vect{r})
-  (1 + \cos\phi_R + \tilde{\phi}_0 \sin\phi_R \cos\xi)
+  \left[%
+    1
+    +
+    \cos(\phi_R - \bar{\phi})
+    +
+    \tilde{\phi}_0 \sin(\phi_R - \bar{\phi}) \cos\xi
+  \right]
   \label{eq:InterferometricMethods:interferometer_intensity_arbitrary_reference}
 \end{equation}
 where $I_G(\vect{r})$ is
@@ -1467,10 +1501,12 @@ consequently dictates the method of interferometric detection.
 
 
 \subsection{Homodyne detection}
-A constant reference phase $(d\phi_R / dt = 0)$ allows homodyne detection.
-The amplitude of the fluctuating signal is then maximized when
-$\phi_R = \pi / 2 + m \pi$ for integer $m$.
-For concreteness, take $\phi_R = \pi / 2$,
+Homodyne detection results from using
+a reference phase that is constant in time $(d\phi_R / dt = 0)$.
+For a given equilibrium phase $\bar{\phi}$,
+the amplitude of the fluctuating signal is maximized when
+$\phi_R - \bar{\phi} = \pi / 2 + m \pi$ for integer $m$.
+For concreteness, take $\phi_R - \bar{\phi} = \pi / 2$,
 for which the intensity on the detector becomes
 \begin{equation}
   I(\vect{r}, t)
@@ -1479,9 +1515,9 @@ for which the intensity on the detector becomes
   (1 + \tilde{\phi}_0 \cos\xi)
   \qquad
   \text{for} \quad
-  \phi_R = \frac{\pi}{2}
+  \phi_R - \bar{\phi} = \frac{\pi}{2}
 \end{equation}
-Physically, $\phi_R = \pi / 2$ means that the reference beam is
+Physically, $\phi_R - \bar{\phi} = \pi / 2$ means that the reference beam is
 out-of-phase with the undiffracted beam but
 in-phase with the diffracted beams.
 Note that interfering the diffracted beams with this in-phase reference beam
@@ -1597,30 +1633,39 @@ by its transfer function $T_{\text{hom}}(k)$.
 Despite its relative simplicity,
 all is not rosy in the land of the homodyne interferometer.
 Recall that the above discussion follows
-from the assumption that $\phi_R = \pi / 2$.
+from the assumption that $\phi_R - \bar{\phi} = \pi / 2$.
 However, this is much easier said than done.
-Fusion experiments are often characterized
+First, a CO$_2$ beam passing through $l \sim \SI{1}{\meter}$
+of a plasma of density $n_e \sim \SI{e20}{\per\meter\cubed}$
+will experience a bulk phase delay $\bar{\phi} \sim \pi$;
+thus, for constant $\phi_R$, it will be impossible
+to operate the interferometer at its peak sensitivity
+($\phi_R - \bar{\phi} \approx \pi / 2$)
+across the entire discharge.
+Second, fusion experiments are often characterized
 by large, pulsed electromagnets
-that can produce vibration-induced path-length changes.
+whose vibrations can change the path lengths of the interferometer's arms.
 A path-length change $\delta l$ produces
-a corresponding reference-phase change $\delta \phi_R = k_0 \delta l$,
+$\delta(\phi_R - \bar{\phi}) = k_0 \delta l$,
 where $k_0$ is the wavenumber of the probe radiation.
 For a $\SI{10.6}{\micro\meter}$ CO$_2$ probe beam,
 a path-length variation $\sim \SI{2.5}{\micro\meter}$
-is sufficient to produce $\delta \phi_R \sim \pi / 2$,
+is sufficient to produce $\delta(\phi_R - \bar{\phi}) \sim \pi / 2$,
 pushing the homodyne interferometer from
 its configuration of peak sensitivity into one of its nulls.
 Even vacuum-pump vibrations can provide such a push!
 On small fusion devices,
-actively controlled mirrors have been used
-in an attempt to cancel vibration-induced path-length changes,
-minimizing excursions from $\phi_R \approx \pi / 2$
+actively controlled mirrors have been used in an attempt
+to account for the evolution of the equilibrium phase and
+to cancel vibrational path-length changes,
+minimizing excursions from $\phi_R - \bar{\phi} \approx \pi / 2$
 \cite{nazikian_rsi87}, but
 such an approach has not found application on larger
 (and presumably more vibration-prone) fusion experiments.
-Further, the homodyne-measured fluctuation power $\tilde{P}_j$
+Finally, the homodyne-measured fluctuation power $\tilde{P}_j$
 is \emph{not} an absolute measurement
-of the phase fluctuation amplitude $\tilde{\phi}_0$.
+of the phase fluctuation amplitude $\tilde{\phi}_0$
+\cite[Sec.~4.2.2]{hutchinson_diagnostics}.
 For example, vibration-induced misalignment or
 power fluctuations at the beam source
 can alter the equilibrium power $\bar{P}_j$;
@@ -1632,8 +1677,6 @@ are simply an artifact of the system alignment or radiation source.
 
 
 \subsection{Heterodyne detection}
-\subsection{Finite sampling-volume effects}
-\subsection{Vibrations}
 
 
 \section{Phase contrast imaging}
