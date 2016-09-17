@@ -1550,6 +1550,7 @@ are interfered on a detector array,
 as shown in Fig.~\ref{fig:InterferometricMethods:detector_array}.
 Let the $j$\ts{th} detector element be centered on $x_j$ and $y = 0$;
 the total power $P_j$ incident on this element is then
+\graffito{\textcolor{red}{Modify for arbitrary $\phi_R - \bar{\phi}$}}
 \begin{align}
   P_j(t)
   &=
@@ -1677,6 +1678,80 @@ are simply an artifact of the system alignment or radiation source.
 
 
 \subsection{Heterodyne detection}
+\graffito{\textcolor{blue}{Qualitative figure of baseband vs IF}}
+To avoid the above-mentioned challenges of homodyne interferometry,
+the reference phase can be linearly ramped in time
+as $\phi_R = \Delta \omega_0 t$ such that
+the intensity becomes
+\begin{equation}
+  \begin{aligned}
+    I_{\text{het}}(\vect{r}, t)
+    =
+    2 I_G(\vect{r})
+    \bigl[%
+      1
+      &+
+      \cos(\Delta \omega_0 t - \bar{\phi})
+      \\
+      &+
+      \tilde{\phi}_0
+      \sin(\Delta \omega_0 t - \bar{\phi}) \cos\xi
+    \bigr]
+  \end{aligned}
+\end{equation}
+This approach is known as heterodyne interferometry,
+as the desired baseband phase information is shifted
+to an intermediate frequency $\Delta \omega_0$
+satisfying $(d\phi/dt)_{\text{max}} \ll \Delta \omega_0 \ll \omega_0$.
+\graffito{\textcolor{red}{This will be discussed more in Ch.~3}}
+Practically, the $\phi_R$ ramp is accomplished by modestly Doppler shifting
+the reference beam relative to the plasma beam.
+
+As in the homodyne configuration,
+finite sampling-volume effects~\cite{bravenec_rsi95} also dictate
+the heterodyne interferometer's wavenumber response~\cite{davis_rsi16}.
+Assume that the probe radiation and the reference beam
+are interfered on a detector array,
+as shown in Fig.~\ref{fig:InterferometricMethods:detector_array}.
+Let the $j$\ts{th} detector element be centered on $x_j$ and $y = 0$;
+the total power $P_{j,\,\text{het}}$ incident on this element is then
+\begin{align}
+  P_{j,\,\text{het}}(t)
+  &=
+  \int_{\text{det}_j} I_{\text{het}}(\vect{r}, t) dA
+  \notag \\
+  &\begin{aligned}
+    \approx
+    2 I_G(\vect{r_j}) s_y
+    \int_{x_j - s_x / 2}^{x_j + s_x / 2}
+    \bigl[%
+      1
+      &+
+      \cos(\Delta \omega_0 t - \bar{\phi})
+      \\
+      &+
+      \tilde{\phi}_0
+      \sin(\Delta \omega_0 t - \bar{\phi}) \cos\xi
+    \bigr] dx
+  \end{aligned}
+  \notag \\
+  &\begin{aligned}
+    =
+    2 I_G(\vect{r_j}) A
+    \bigl[%
+      1
+      &+
+      \cos(\Delta \omega_0 t - \bar{\phi})
+      \\
+      &+
+      \tilde{\phi}_0
+      \sin(\Delta \omega_0 t - \bar{\phi})
+      \sinc(k / k_c)
+      \cos\xi
+    \bigr]
+  \end{aligned}
+  %\label{eq:InterferometricMethods:homodyne_interferometer_total_power_per_element}
+\end{align}
 
 
 \section{Phase contrast imaging}
