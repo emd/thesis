@@ -1501,6 +1501,7 @@ consequently dictates the method of interferometric detection.
 
 
 \subsection{Homodyne detection}
+\label{sec:InterferometricMethods:interferometry:homodyne}
 \begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
@@ -1590,7 +1591,10 @@ is the normalized sinc function,
   \label{eq:InterferometricMethods:finite_sampling_volume_cutoff}
 \end{equation}
 is the first zero (i.e.\ ``cutoff'') of the sinc function, and
-$\xi_j = (k x_j / M) - \omega t$.
+\begin{equation}
+  \xi_j = \frac{k x_j}{M} - \omega t
+  \label{eq:InterferometricMethods:xi_j}
+\end{equation}
 Thus, the homodyne optical power becomes
 \begin{align}
   \begin{aligned}
@@ -1775,6 +1779,7 @@ the intensity becomes
       \sin(\Delta \omega_0 t - \bar{\phi}) \cos\xi
     \bigr]
   \end{aligned}
+  \label{eq:InterferometricMethods:heterodyne_intensity}
 \end{equation}
 This approach is known as heterodyne interferometry,
 as the desired baseband phase information is shifted
@@ -1784,18 +1789,23 @@ satisfying $(d\phi/dt)_{\text{max}} \ll \Delta \omega_0 \ll \omega_0$.
 Practically, the $\phi_R$ ramp is accomplished by modestly Doppler shifting
 the reference beam relative to the plasma beam.
 
-As in the homodyne configuration,
-finite sampling-volume effects~\cite{bravenec_rsi95} also dictate
+As is the case for homodyne detection,
+finite sampling-volume effects~\cite{bravenec_rsi95} dictate
 the heterodyne interferometer's wavenumber response~\cite{davis_rsi16}.
+The following discussion closely parallels that
+of the homodyne interferometer in
+Section~\ref{sec:InterferometricMethods:interferometry:homodyne}, and
+readers are encouraged to review that section if needed and
+to compare and contrast homodyne and heterodyne detection.
 Assume that the probe radiation and the reference beam
 are interfered on a detector array,
 as shown in Fig.~\ref{fig:InterferometricMethods:detector_array}.
-Let the $j$\ts{th} detector element be centered on $x_j$ and $y = 0$;
-the total power $P_{j,\,\text{het}}$ incident on this element is then
+Let the $j$\ts{th} detector element $D_j$ be centered on $x_j$ and $y = 0$;
+the total power $P_{j, \, \text{het}}$ incident on this element is then
 \begin{align}
-  P_{j,\,\text{het}}(t)
+  P_{j, \, \text{het}}(t)
   &=
-  \int_{\text{det}_j} I_{\text{het}}(\vect{r}, t) dA
+  \int_{D_j} I_{\text{het}}(\vect{r}, t) dA
   \notag \\
   &\begin{aligned}
     \approx
@@ -1814,21 +1824,231 @@ the total power $P_{j,\,\text{het}}$ incident on this element is then
   \notag \\
   &\begin{aligned}
     =
-    2 I_G(\vect{r_j}) A
+    2 I_G(\vect{r_j}) &A
     \bigl[%
       1
-      &+
+      +
       \cos(\Delta \omega_0 t - \bar{\phi})
       \\
       &+
       \tilde{\phi}_0
       \sin(\Delta \omega_0 t - \bar{\phi})
       \sinc(k / k_c)
-      \cos\xi
+      \cos\xi_j
     \bigr]
   \end{aligned}
-  %\label{eq:InterferometricMethods:homodyne_interferometer_total_power_per_element}
+  \label{eq:InterferometricMethods:heterodyne_interferometer_total_power_per_element}
 \end{align}
+where the weakly varying intensity profile $I_G(\vect{r})$
+has been approximated as a constant
+over the face of the detector element, and
+the finite sampling-volume integral in
+(\ref{eq:InterferometricMethods:finite_sampling_volume_integral})
+has been referenced.
+Note that the dominant Fourier components of $P_{j, \, \text{het}}$
+sit at the intermediate frequency $\pm \Delta \omega_0$ but that
+the phase-fluctuation term $\sin(\Delta \omega_0 t - \bar{\phi}) \cos\xi_j$
+produce sidebands at $\pm (\Delta \omega_0 \pm \omega)$.
+
+The heterodyne interference signal must be demodulated
+in order to retrieve the baseband phase-fluctuation information.
+\graffito{\textcolor{red}{More on demodulation hardware in Ch.~3}}
+Practically speaking, dedicated analog or digital electronics
+are used to demodulate the heterodyne signal;
+however, for the pedagogical purposes of this section,
+it is sufficient to consider the ``equivalent optical powers''
+corresponding to the demodulated signals.
+The so-called in-phase ($I$) and quadrature ($Q$) signals
+are obtained by mixing $P_{j, \, \text{het}}$ with
+$\cos( \Delta \omega_0 t)$ and $\sin( \Delta \omega_0 t)$, respectively, and
+low-pass filtering the resulting signals;
+here, low-pass filtering is implemented
+by averaging over a cycle of the intermediate frequency.
+Thus, the equivalent $I$ and $Q$ optical powers are defined as
+\begin{align}
+  P_{j, I}(t)
+  &\equiv
+  \langle
+    \cos (\Delta \omega_0 t) \cdot P_{j, \, \text{het}}(t)
+  \rangle_{\Delta \omega_0}
+  \\
+  P_{j, Q}(t)
+  &\equiv
+  \langle
+    \sin (\Delta \omega_0 t) \cdot P_{j, \, \text{het}}(t)
+  \rangle_{\Delta \omega_0}
+\end{align}
+where $\langle q \rangle_{\Delta \omega_0}$ denotes
+the average of quantity $q$ over an intermediate-frequency cycle as
+\begin{equation}
+  \langle q \rangle_{\Delta \omega_0}
+  \equiv
+  \frac{\Delta \omega_0}{2 \pi}
+  \int_{0}^{\Delta \omega_0 / 2 \pi}
+  q(t) dt
+  \label{eq:InterferometricMethods:intermediate_frequency_cycle_average}
+\end{equation}
+Note that $P_{j,I}$ and $P_{j,Q}$ can be conveniently combined as
+\begin{align}
+  P_{j,I} + i \cdot P_{j,Q}
+  &=
+  \langle
+    e^{i \Delta \omega_0 t} \cdot P_{j, \, \text{het}}(t)
+  \rangle_{\Delta \omega_0}
+  \notag \\
+  &=
+  I_G(\vect{r_j}) A
+  e^{i \bar{\phi}}
+  \left[%
+    1
+    +
+    i \tilde{\phi}_0 \sinc(k / k_c) \cos\xi_j
+  \right]
+  \label{eq:InterferometricMethods:heterodyne_interferometer_I_and_Q_power_per_element}
+\end{align}
+
+In contrast to the homodyne interferometer,
+the heterodyne interferometer makes an absolute measurement
+of the phase-fluctuation amplitude $\tilde{\phi}_0$.
+To see this, note that $P_{j,I}$ and $P_{j,Q}$ in
+(\ref{eq:InterferometricMethods:homodyne_interferometer_total_power_per_element})
+can be separated into equilibrium and fluctuating components as
+\begin{align}
+  \bar{P}_{j,I}(t)
+  &=
+  I_G(\vect{r_j}) A \cos\bar{\phi}
+  \\
+  \bar{P}_{j,Q}(t)
+  &=
+  I_G(\vect{r_j}) A \sin\bar{\phi}
+  \\
+  \tilde{P}_{j,I}(t)
+  &=
+  -I_G(\vect{r_j}) A
+  \tilde{\phi}_0
+  \sin\bar{\phi} \,
+  \sinc(k / k_c)
+  \cos\xi_j
+  \\
+  \tilde{P}_{j,Q}(t)
+  &=
+  I_G(\vect{r_j}) A
+  \tilde{\phi}_0
+  \cos\bar{\phi} \,
+  \sinc(k / k_c)
+  \cos\xi_j
+\end{align}
+As is the case for the homodyne interferometer,
+there are three potentially dynamic quantities:
+$\{\bar{\phi}, \tilde{\phi}_0, I_G(\vect{r_j})\}$;
+however, in contrast to the homodyne interferometer,
+there are now \emph{four} measured quantities:
+$\{\bar{P}_{j,I}, \bar{P}_{j,Q}, \tilde{P}_{j,I}, \tilde{P}_{j,Q}\}$.
+Therefore, the number of measured quantities
+is sufficient to unambiguously determine
+$\{\bar{\phi}, \tilde{\phi}_0, I_G(\vect{r_j})\}$
+in absolute units.
+
+Finally, it is useful to characterize
+the heterodyne interferometer's performance
+relative to the saturation limits of a given detector.
+Because $\tilde{\phi}_0 \ll 1$,
+(\ref{eq:InterferometricMethods:heterodyne_interferometer_total_power_per_element})
+can be approximated as
+\begin{align}
+  P_{j, \, \text{het}}
+  &\approx
+  2 I_G(\vect{r_j}) A [1 + \cos(\Delta \omega_0 t - \bar{\phi})]
+  \notag \\
+  &\leq
+  4 I_G(0) A
+  \notag
+\end{align}
+where $I_G(0)$ is the peak intensity of the undiffracted Gaussian probe beam.
+To obtain optimal performance, select $I_G(0)$ such that
+\begin{equation}
+  P_{\text{sat}}
+  =
+  4 I_G(0) A
+  \notag
+\end{equation}
+Further, define the total fluctuating power
+in the demodulated signals to be
+\begin{align}
+  \tilde{P}_{j, IQ}(t)
+  \equiv
+  \left\{%
+    [\tilde{P}_{j,I}(t)]^2
+    +
+    [\tilde{P}_{j,Q}(t)]^2
+  \right\}^{1/2}
+  \notag \\
+  &=
+  I_G(\vect{r_j}) A
+  \tilde{\phi}_0
+  \sinc(k / k_c)
+  \cos\xi_j
+\end{align}
+such that
+\begin{equation}
+  \frac{\tilde{P}_{j, IQ}(t)}{P_{\text{sat}}}
+  =
+  \frac{I_G(\vect{r_j})}{I_G(0)}
+  \cdot
+  T_{\text{het}}(k)
+  \cdot
+  \tilde{\phi}_0
+  \cos\xi_j
+  \label{}
+\end{equation}
+where
+\begin{equation}
+  T_{\text{het}}(k)
+  \equiv
+  \frac{1}{4}
+  \sinc\left( \frac{k}{k_c} \right)
+  \label{eq:InterferometricMethods:heterodyne_interferometer_wavenumber_transfer_function}
+\end{equation}
+is the heterodyne interferometer's wavenumber transfer function.
+That is, the heterodyne interferometer
+weights the phase-fluctuation images $\tilde{\phi}_0 \cos\xi_j$
+by its transfer function $T_{\text{het}}(k)$.
+The prefactor $I_G(\vect{r_j}) / I_G(0)$
+can (and should) be accounted for
+if the beam profile is known.
+
+In contrast to the homodyne interferometer,
+the heterodyne interferometer's wavenumber transfer function
+is \emph{not} a function of $\phi_R - \bar{\phi}$.
+Thus, the heterodyne interferometer always operates at its peak sensitivity,
+regardless of the bulk plasma phase or path-length vibrations.
+Robust sensitivity comes at a cost, however.
+Note that
+\begin{equation}
+  \frac{T_{\text{het}}(k)}{T_{\text{hom}}(k)}
+  =
+  \frac{1}{4}
+  \quad
+  \text{for homodyne operation at $\phi_R - \bar{\phi} = \pi / 2$}
+  \notag
+\end{equation}
+Thus, for a given detector,
+a heterodyne interferometer will be four times \emph{less} sensitive
+than a homodyne interferometer operated in its optimal configuration
+($\phi_R - \bar{\phi} = \pi / 2$).
+This factor of four has two physical origins.
+First, the detector of a homodyne interferometer
+with a fixed $\phi_R - \bar{\phi} = \pi / 2$
+only sees small fluctuations about a DC offset, while
+the detector of a heterodyne interferometer
+sees the full sinusoidal waveform of the intermediate frequency;
+to ensure the detector is always within its saturation limits,
+the heterodyne interferometer must necessarily be operated with
+a mean intensity at the detector
+that is a factor of two lower than that for the homodyne interferometer.
+Second, the mixing process
+that is used to demodulate the heterodyne interference signal
+results in a loss of half of the signal power.
 
 
 \section{Phase contrast imaging}
