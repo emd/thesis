@@ -1402,6 +1402,7 @@ Dropping terms exceeding first order in $\tilde{\phi}_0$,
 
 
 \subsection{The need for a reference beam}
+\label{sec:InterferometricMethods:imaging:need_for_reference_beam}
 Most detectors of interest are square-law detectors
 in that they produce a response proportional to
 the square (i.e.\ intensity) of the incident field.
@@ -1440,7 +1441,7 @@ The generation of such a reference beam, then, is the trait
 that differentiates a given interferometric method from another.
 
 
-\section{External reference beam interferometry}
+\section{External reference-beam interferometry}
 \label{sec:InterferometricMethods:interferometry}
 The computations in this section all occur in the image plane.
 For notational simplicity, the ``primes'' used in the previous section
@@ -2051,11 +2052,202 @@ that is used to demodulate the heterodyne interference signal
 results in a loss of half of the signal power.
 
 
-\section{Phase contrast imaging}
+\section{Phase contrast imaging (PCI)}
 \label{sec:InterferometricMethods:pci}
+As discussed in
+Section~\ref{sec:InterferometricMethods:imaging:need_for_reference_beam},
+imaging the probe radiation on a square-law detector
+produces a very weak response
+because the undiffracted and diffracted beams
+are $\pi / 2$ out of phase with each other.
+To produce a measurable response, a traditional interferometer
+interferes the imaged radiation with an external reference beam.
+If the phase of the undiffracted beam could be manipulated, though,
+the external reference beam would no longer be needed.
+This is the approach employed in phase contrast imaging (PCI).
 
-\subsection{Reference beam generation via spatial filtering}
+
+\subsection{Reference-beam generation with a phase plate}
+PCI uses an optical element known as a \emph{phase plate}
+to delay the undiffracted beam by $\pi / 2$
+relative to the diffracted beams.
+The phase plate is typically a reflective optical element
+with a groove that is precisely fabricated
+to have a depth of $\lambda_0 / 8$;
+the undiffracted beam reflects off of this groove, and
+the corresponding $\lambda_0 / 4$-increase in path length
+phase delays the undiffracted beam by $\pi / 2$
+relative to the diffracted beams,
+which reflect off of the non-grooved portions of the phase plate.
+To boost the relative size of the fluctuating signal,
+the phase groove typically reflects only a fraction $\rho < 1$
+of the incident undiffracted beam power, while
+the non-grooved portions of the phase plate
+reflect all of the diffracted beam power.
+Thus, by the action of the phase plate,
+the electric field in the PCI image plane becomes
+\begin{equation}
+  E_{\text{PCI}}(\vect{r}, t)
+  =
+  i E_G(\vect{r}, t) e^{i \bar{\phi}}
+  \left[%
+    \sqrt{\rho} + \tilde{\phi}_0 \cos\xi
+  \right]
+  \label{eq:InterferometricMethods:pci_imaged_field}
+\end{equation}
+and, to first order in $\tilde{\phi}_0$, the corresponding intensity is
+\begin{equation}
+  I_{\text{PCI}}(\vect{r}, t)
+  =
+  I_G(\vect{r})
+  \left[%
+    \rho
+    +
+    2 \sqrt{\rho} \tilde{\phi}_0 \cos\xi
+  \right]
+  \label{eq:InterferometricMethods:pci_intensity}
+\end{equation}
+where $E_G(\vect{r})$ and $I_G(\vect{r})$ would be
+the field and intensity profiles
+of the undiffracted Gaussian beam on the detector
+in the \emph{absence} of the phase plate;
+$I_G(\vect{r})$ is defined in
+(\ref{eq:InterferometricMethods:Gaussian_beam_intensity}).
+Equations
+(\ref{eq:InterferometricMethods:pci_imaged_field}) and
+(\ref{eq:InterferometricMethods:pci_intensity})
+should be contrasted with their corresponding equations
+in the absence of the phase plate:
+(\ref{eq:InterferometricMethods:imaged_total_field_weak_coupling}) and
+(\ref{eq:InterferometricMethods:imaged_field_intensity}), respectively.
+Thus, the phase plate converts the undiffracted probe beam
+into an effective reference beam for the diffracted beams.
+
+
+\subsection{Focal-plane separation of diffracted beams}
+Implicit in the use of the phase plate
+is that the undiffracted and diffracted beams
+are well-separated in space
+such that the phase groove only affects the undiffracted beam.
+The 1\ts{st}-order diffracted beams are angularly separated
+from the undiffracted beam by $\theta = k / k_0$.
+\graffito{\textcolor{red}{Sufficiently large: $k w_0 \gtrsim 2$?}}
+Provided that $\theta$ is sufficiently large,
+the diffracted and undiffracted beams
+will be spatially separated in the far-field
+($z \gg z_R$, with $z_R$ being the Rayleigh length of the in-vessel beam);
+however, $z \gg z_R$ is not easily accessed in typical lab settings.
+Fortunately, the far-field diffraction pattern
+can be equivalently accessed in the focal plane
+\graffito{\textcolor{red}{Chapter???}}
+of a focusing optic~\cite{born_and_wolf}.
+
+The focal-plane location, beam size, and beam separation
+can be easily determined.
+Let the Gaussian probe beam have
+an in-vessel 1/e $E$ waist radius of $w_0$,
+and place a focusing optic of focal length $F$
+a distance $s$ downstream from the in-vessel beam waist.
+Then, the waist of the focused beam
+will be located a distance $s'$ downstream of the focusing optic
+and will have 1/e $E$ radius $w_0'$ given as
+\begin{align}
+  s' &= F \left( 1 + \frac{s - F}{z_R} \right)
+  \label{eq:InterferometricMethods:focal_plane_location_general}
+  \\
+  w_0' &= \frac{w_0 |F|}{\left[ (s - F)^2 + z_R^2 \right]^{1/2}}
+  \label{eq:InterferometricMethods:focal_plane_waist_general}
+\end{align}
+where $z_R$ is the in-vessel Rayleigh length~\cite{self83}.
+When $|s - F| \ll z_R$, as is typical for PCI,
+(\ref{eq:InterferometricMethods:focal_plane_location_general}) and
+(\ref{eq:InterferometricMethods:focal_plane_waist_rayleigh}) become
+\begin{align}
+  s' &\approx F
+  \label{eq:InterferometricMethods:focal_plane_location_rayleigh}
+  \\
+  w_0' &\approx \frac{2 |F|}{k_0 w_0}
+  \label{eq:InterferometricMethods:focal_plane_waist_rayleigh}
+\end{align}
+The spatial separation $\Delta$
+of the diffracted beam from the undiffracted beam
+in the focal lane is found through the corresponding ray matrices
+\begin{align}
+  \begin{pmatrix}
+    \Delta
+    \\
+    \theta_{pp}
+  \end{pmatrix}
+  &=
+  \begin{pmatrix}
+    1 & s'
+    \\
+    0 & 1
+  \end{pmatrix}
+  \begin{pmatrix}
+    1      & 0
+    \\
+    -1 / F & 1
+  \end{pmatrix}
+  \begin{pmatrix}
+    1 & s
+    \\
+    0 & 1
+  \end{pmatrix}
+  \begin{pmatrix}
+    0
+    \\
+    \theta
+  \end{pmatrix}
+\end{align}
+which simplifies to
+\begin{equation}
+  \Delta
+  =
+  \frac{k |F|}{k_0}
+  \label{eq:InterferometricMethods:phase_plate_beam_separation}
+\end{equation}
+
+
 \subsection{Low-$k$ cutoff}
+Now, let the phase plate groove have a width $d$.
+Finite PCI response requires that (most of) the diffracted beams
+fall outside of the phase groove (e.g.\ $\Delta \geq d / 2$
+such that at least half of the scattered beam
+falls outside of the phase groove).
+Application of (\ref{eq:InterferometricMethods:phase_plate_beam_separation})
+then shows that there will be finite PCI response
+for $k \geq k_{\text{min}}$ where
+\begin{equation}
+  k_{\text{min}} \equiv \frac{k_0 d}{2 |F|}
+  \label{eq:InterferometricMethods:pci_kmin_engineering}
+\end{equation}
+Further, the scattering process is usually very weak.
+To avoid saturating the detector with the signal from the unscattered beam,
+the unscattered beam should fall wholly within the phase groove
+($2 w_0' \leq d$), which usually has a reflectivity $\rho \ll 1$.
+Application of (\ref{eq:InterferometricMethods:focal_plane_waist_rayleigh})
+then yields a constraint on the phase groove width
+\begin{equation}
+  d \geq \frac{4 |F|}{k_0 w_0}
+  \label{eq:InterferometricMethods:phase_groove_constraint}
+\end{equation}
+and inserting (\ref{eq:InterferometricMethods:phase_groove_constraint}) into
+(\ref{eq:InterferometricMethods:pci_kmin_engineering}) yields
+\begin{equation}
+  k_{\text{min}} \geq \frac{2}{w_0}
+  \label{eq:pci_kmin_physics}
+\end{equation}
+\graffito{\textcolor{red}{%
+  Note that this is the same limit as for true far-field spatial separation
+  (i.e.\ when not using focal-plane spatial separation)}
+}%
+That is, PCI's minimum detectable wavenumber
+is ultimately constrained by the in-vessel beam size $w_0$,
+with diffraction being the constraining physical mechanism.
+
+
+\subsection{Wavenumber transfer function}
 
 
 \bibliographystyle{plainurl}
