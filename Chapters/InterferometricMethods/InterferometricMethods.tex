@@ -2080,7 +2080,7 @@ phase delays the undiffracted beam by $\pi / 2$
 relative to the diffracted beams,
 which reflect off of the non-grooved portions of the phase plate.
 To boost the relative size of the fluctuating signal,
-the phase groove typically reflects only a fraction $\rho < 1$
+the phase groove typically reflects only a fraction $\eta < 1$
 of the incident undiffracted beam power, while
 the non-grooved portions of the phase plate
 reflect all of the diffracted beam power.
@@ -2091,7 +2091,7 @@ the electric field in the PCI image plane becomes
   =
   i E_G(\vect{r}, t) e^{i \bar{\phi}}
   \left[%
-    \sqrt{\rho} + \tilde{\phi}_0 \cos\xi
+    \sqrt{\eta} + \tilde{\phi}_0 \cos\xi
   \right]
   \label{eq:InterferometricMethods:pci_imaged_field}
 \end{equation}
@@ -2101,9 +2101,9 @@ and, to first order in $\tilde{\phi}_0$, the corresponding intensity is
   =
   I_G(\vect{r})
   \left[%
-    \rho
+    \eta
     +
-    2 \sqrt{\rho} \tilde{\phi}_0 \cos\xi
+    2 \sqrt{\eta} \tilde{\phi}_0 \cos\xi
   \right]
   \label{eq:InterferometricMethods:pci_intensity}
 \end{equation}
@@ -2162,6 +2162,10 @@ where $z_R$ is the in-vessel Rayleigh length~\cite{self83}.
 When $|s - F| \ll z_R$, as is typical for PCI,
 (\ref{eq:InterferometricMethods:focal_plane_location_general}) and
 (\ref{eq:InterferometricMethods:focal_plane_waist_rayleigh}) become
+\graffito{\textcolor{red}{%
+  Simple optics gives correct $s'$, but
+  Gaussian beam physics needed for $w_0'$}
+}%
 \begin{align}
   s' &\approx F
   \label{eq:InterferometricMethods:focal_plane_location_rayleigh}
@@ -2225,7 +2229,7 @@ for $k \geq k_{\text{min}}$ where
 Further, the scattering process is usually very weak.
 To avoid saturating the detector with the signal from the unscattered beam,
 the unscattered beam should fall wholly within the phase groove
-($2 w_0' \leq d$), which usually has a reflectivity $\rho \ll 1$.
+($2 w_0' \leq d$), which usually has a reflectivity $\eta \ll 1$.
 Application of (\ref{eq:InterferometricMethods:focal_plane_waist_rayleigh})
 then yields a constraint on the phase groove width
 \begin{equation}
