@@ -1,0 +1,275 @@
+\chapter{Some identities for the PCI wavenumber response}
+
+
+\section{The phase-plate operator $F$}
+The effect of the phase plate on the $m$\ts{th} diffracted beam is given by
+(\ref{eq:InterferometricMethods:phase_plate_action_on_mth_beam}),
+which is repeated here for completeness
+\begin{equation}
+  F(x, k, m)
+  \equiv
+  \mathcal{F}_x^{-1}
+  \left\{
+    T_{\text{pp}}(k_x)
+    \cdot
+    e^{-\left[ \frac{w_0}{2} \left( k_x - m k \right) \right]^2}
+  \right\}
+  \label{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam}
+\end{equation}
+where
+\begin{equation}
+  \begin{aligned}
+    T_{\text{pp}}(k_x)
+    &=
+    i \sqrt{\eta} \, H(k_g - |k_x|)
+    \\
+    &\quad +
+    H(|k_x| - k_g)
+    H(k_D - |k_x|)
+  \end{aligned}
+  \label{eq:PCIResponseIdentities:phase_plate_transfer_function}
+\end{equation}
+is the phase-plate transfer function and
+$H(x)$ is the Heaviside step function defined as
+\begin{equation}
+  H(x)
+  =
+  \begin{cases}
+    0, \quad &x < 0 \\
+    1, \quad &x \geq 0
+  \end{cases}
+  \label{eq:PCIResponseIdentities:Heaviside_step_function}
+\end{equation}
+Thus,
+\begin{align}
+  \begin{aligned}
+    F(x, k, m)
+    &=
+    \frac{1}{2 \pi}
+    \int_{-k_D}^{-k_g}
+    dk_x
+    e^{i k_x x}
+    e^{-\left[ \frac{w_0}{2} \left( k_x - m k \right) \right]^2}
+    \\
+    &\quad +
+    \frac{i \sqrt{\eta}}{2 \pi}
+    \int_{-k_g}^{k_g}
+    dk_x
+    e^{i k_x x}
+    e^{-\left[ \frac{w_0}{2} \left( k_x - m k \right) \right]^2}
+    \\
+    &\quad +
+    \frac{1}{2 \pi}
+    \int_{k_g}^{k_D}
+    dk_x
+    e^{i k_x x}
+    e^{-\left[ \frac{w_0}{2} \left( k_x - m k \right) \right]^2}
+  \end{aligned}
+  \label{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_integrals}
+\end{align}
+Note that each of the above integrals
+corresponds to a finite-domain inverse Fourier transform
+of a shifted Gaussian.
+
+
+\section{The error function}
+The error function is defined as
+\begin{equation}
+  \erf(z)
+  =
+  \frac{2}{\sqrt{\pi}}
+  \int_0^z e^{-t^2} dt
+  \label{eq:PCIResponseIdentities:error_function}
+\end{equation}
+for complex argument $z$.
+The error function is \emph{odd}
+\begin{equation}
+  \erf(-z) = - \erf(z)
+  \label{eq:PCIResponseIdentities:error_function_is_odd}
+\end{equation}
+as is easily determined by inspection.
+Further, the error function \emph{commutes} with complex conjugation
+\begin{equation}
+  \erf(z^*) = [\erf(z)]^*
+  \label{eq:PCIResponseIdentities:error_function_commutativity}
+\end{equation}
+where $z^*$ is the complex conjugate of $z$.
+
+
+\section{Finite-domain inverse Fourier transform of a shifted Gaussian}
+Each of the integrals in
+(\ref{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_integrals})
+can be easily evaluated by completing the square
+of the exponential arguments to yield
+\begin{equation}
+  \begin{aligned}
+    \int_{k_1}^{k_2}
+    dk'
+    e^{i k' x}
+    e^{-\left[ \frac{w_0}{2} \left( k' - m k \right) \right]^2}
+    =
+    \frac{\sqrt{\pi}}{w_0}
+    &e^{-(x / w_0)^2}
+    e^{i m k x}
+    \\
+    &\times \delta(k_1, k_2, m)
+  \end{aligned}
+  \label{eq:PCIResponseIdentities:inverse_fourier_transform_shifted_Gaussian}
+\end{equation}
+where
+\begin{equation}
+  \delta(k_1, k_2, m)
+  \equiv
+  \erf[u(k_2, m)] - \erf[u(k_1, m)]
+  \label{eq:PCIResponseIdentities:difference_of_error_functions}
+\end{equation}
+and
+\begin{equation}
+  u(k_j, m) \equiv \frac{w_0}{2}(k_j - m k) + i \frac{x}{w_0}
+  \label{eq:PCIResponseIdentities:u}
+\end{equation}
+
+
+\section{Some useful symmetries}
+
+
+\subsection{The error function}
+By applying (\ref{eq:PCIResponseIdentities:error_function_is_odd}) and
+(\ref{eq:PCIResponseIdentities:error_function_commutativity}),
+it naturally follows that
+\begin{equation}
+  erf[u(-k_j, -m)] = - \, \{ erf[u(k_j, m)] \}^*
+  \label{eq:PCIResponseIdentities:error_function_symmetry}
+\end{equation}
+
+
+\subsection{The difference between error functions}
+By applying the error function's symmetry in
+(\ref{eq:PCIResponseIdentities:error_function_symmetry}),
+it naturally follows that
+the difference between two error functions
+satisfies the following symmetry property
+\begin{equation}
+  \delta(-k_1, -k_2, -m)
+  =
+  [\delta(k_2, k_1, m)]^*
+  \label{eq:PCIResponseIdentities:difference_of_error_functions_symmetry}
+\end{equation}
+
+
+\subsection{The phase-plate operator $F$}
+Eq.~(\ref{eq:PCIResponseIdentities:inverse_fourier_transform_shifted_Gaussian})
+allows (\ref{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_integrals})
+to be rewritten as
+\begin{equation}
+  \begin{aligned}
+    F(x, k, m)
+    &=
+    C_m
+    [%
+      \delta(-k_D, -k_g, m)
+      +
+      \delta(k_g, k_D, m)
+    ]
+    \\
+    &\quad+
+    i \sqrt{\eta} C_m \delta(-k_g, k_g, m)
+  \end{aligned}
+  \label{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_simplified}
+\end{equation}
+where
+\begin{equation}
+  C_m
+  =
+  \frac{e^{-(x / w_0)^2} e^{i m k x}}{2 \sqrt{\pi} w_0}
+\end{equation}
+Note that $C_m$ is \emph{Hermitian};
+that is, $C_{-m} = C_m^*$.
+In fact,
+(\ref{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_simplified})
+can be decomposed into Hermitian $F_H$ and anti-Hermitian $F_A$ components
+\begin{equation}
+  F(x, k, m)
+  =
+  F_H(x, k, m)
+  +
+  F_A(x, k, m)
+  \label{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_Hermitian_decomposed}
+\end{equation}
+where
+\begin{align}
+  F_H(x, k, m)
+  &\equiv
+  C_m
+  [%
+    \delta(-k_D, -k_g, m)
+    +
+    \delta(k_g, k_D, m)
+  ]
+  \label{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_Hermitian}
+  \\
+  F_A(x, k, m)
+  &\equiv
+  i \sqrt{\eta} C_m \delta(-k_g, k_g, m)
+  \label{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_antiHermitian}
+\end{align}
+Application of
+(\ref{eq:PCIResponseIdentities:difference_of_error_functions_symmetry})
+readily shows that
+\begin{align}
+  F_H(x, k, -m) &= [F_H(x, k, m)]^*
+  \\
+  F_A(x, k, -m) &= -[F_A(x, k, m)]^*
+\end{align}
+Thus,
+\begin{equation}
+  F(x, k, -m)
+  =
+  [F_H(x, k, m)]^*
+  -
+  [F_A(x, k, m)]^*
+  \label{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_symmetry}
+\end{equation}
+
+Note that the above symmetry also implies a degeneracy when $m = 0$.
+Specifically,
+(\ref{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_Hermitian_decomposed})
+states that
+\begin{equation}
+  F(x, k, +0)
+  =
+  F_H(x, k, 0)
+  +
+  F_A(x, k, 0)
+  \label{eq:PCIResponseIdentities:phase_plate_action_on_+0_beam}
+\end{equation}
+while (\ref{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_symmetry})
+shows that
+\begin{equation}
+  F(x, k, -0)
+  =
+  [F_H(x, k, 0)]^*
+  -
+  [F_A(x, k, 0)]^*
+  \label{eq:PCIResponseIdentities:phase_plate_action_on_-0_beam}
+\end{equation}
+Of course, $F(x, k, +0) = F(x, k, -0)$; that is
+\begin{equation}
+  F_H(x, k, 0)
+  +
+  F_A(x, k, 0)
+  =
+  [F_H(x, k, 0)]^*
+  -
+  [F_A(x, k, 0)]^*
+\end{equation}
+Further, as $F_H$ is dependent on $k_D$ but $F_A$ is not,
+$F_H$ and $F_A$ must be linearly independent;
+that is
+\begin{align}
+  F_H(x, k, 0) &= [F_H(x, k, 0)]^*
+  \\
+  F_A(x, k, 0) &= -[F_A(x, k, 0)]^*
+\end{align}
+This proves that $F_H(x, k, 0)$ is purely real and
+that $F_A(x, k, 0)$ is purely imaginary.
