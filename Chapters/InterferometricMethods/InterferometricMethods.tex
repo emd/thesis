@@ -1977,7 +1977,7 @@ Further, define the total fluctuating power
 in the demodulated signals to be
 \begin{align}
   \tilde{P}_{j, IQ}(t)
-  \equiv
+  &\equiv
   \left\{%
     [\tilde{P}_{j,I}(t)]^2
     +
@@ -2213,7 +2213,7 @@ which simplifies to
 \end{equation}
 
 
-\subsection{Low-$k$ cutoff}
+\subsection{Low-$k$ cutoff of phase plate}
 Now, let the phase plate groove have a width $d$.
 Finite PCI response requires that (most of) the diffracted beams
 fall outside of the phase groove (e.g.\ $\Delta \geq d / 2$
@@ -2221,11 +2221,13 @@ such that at least half of the scattered beam
 falls outside of the phase groove).
 Application of (\ref{eq:InterferometricMethods:phase_plate_beam_separation})
 then shows that there will be finite PCI response
-for $k \geq k_{\text{min}}$ where
+for $k \geq k_g$ where
 \begin{equation}
-  k_{\text{min}} \equiv \frac{k_0 d}{2 |F|}
+  k_g \equiv \frac{k_0 d}{2 F}
   \label{eq:InterferometricMethods:pci_kmin_engineering}
 \end{equation}
+Here, the subscript $g$ is in reference
+to the \emph{groove} of the phase plate.
 Further, the scattering process is usually very weak.
 To avoid saturating the detector with the signal from the unscattered beam,
 the unscattered beam should fall wholly within the phase groove
@@ -2239,19 +2241,142 @@ then yields a constraint on the phase groove width
 and inserting (\ref{eq:InterferometricMethods:phase_groove_constraint}) into
 (\ref{eq:InterferometricMethods:pci_kmin_engineering}) yields
 \begin{equation}
-  k_{\text{min}} \geq \frac{2}{w_0}
+  k_g \geq \frac{2}{w_0}
   \label{eq:pci_kmin_physics}
 \end{equation}
 \graffito{\textcolor{red}{%
   Note that this is the same limit as for true far-field spatial separation
   (i.e.\ when not using focal-plane spatial separation)}
 }%
-That is, PCI's minimum detectable wavenumber
+That is, PCI's low-$k$ cutoff
 is ultimately constrained by the in-vessel beam size $w_0$,
 with diffraction being the constraining physical mechanism.
 
 
+\subsection{High-$k$ cutoff of phase plate}
+Let the phase plate have a diameter $D$.
+Detection of the diffracted radiation
+requires that (most of) the diffracted beam reflect
+from the face of the phase plate
+(e.g.\ $\Delta \leq D / 2$).
+Application of (\ref{eq:InterferometricMethods:phase_plate_beam_separation})
+then shows that there will be finite PCI response for $k \leq k_D$ where
+\begin{equation}
+  k_D \equiv \frac{k_0 D}{2 F}
+  \label{eq:InterferometricMethods:pci_kmax_engineering}
+\end{equation}
+
+
 \subsection{Wavenumber transfer function}
+The action of the phase plate is easily described in wavenumber space
+via the transfer function
+\begin{equation}
+  \begin{aligned}
+    T_{\text{pp}}(k_x)
+    &=
+    i \sqrt{\eta} \, H(k_g - |k_x|)
+    \\
+    &\quad +
+    H(|k_x| - k_g)
+    H(k_D - |k_x|)
+  \end{aligned}
+  \label{eq:InterferometricMethods:phase_plate_transfer_function}
+\end{equation}
+where $H(x)$ is the Heaviside step function defined as
+\begin{equation}
+  H(x)
+  =
+  \begin{cases}
+    0, \quad &x < 0 \\
+    1, \quad &x \geq 0
+  \end{cases}
+  \label{eq:InterferometricMethods:Heaviside_step_function}
+\end{equation}
+$k_g$ is given by
+(\ref{eq:InterferometricMethods:pci_kmin_engineering}), and
+$k_D$ is given by
+(\ref{eq:InterferometricMethods:pci_kmax_engineering}).
+
+While the phase plate is typically located
+at the focal plane of a focusing optic,
+the radiation pattern in the focal plane
+is equivalent to the far-field radiation pattern.
+As the far-field, diffracted electric field is already known from
+(\ref{eq:InterferometricMethods:Fraunhofer_phase_modulated_Gaussian_beam_diffraction}),
+the following calculations will be performed in the far field.
+It should be noted that the far-field radiation pattern
+is simply the Fourier transform of the field
+with wavevectors $k_x = k_0 x / r$ and $k_y = k_0 y / r$.
+Let $\vect{k_{\perp}} = k_x \hat{\vect{x}} + k_y \hat{\vect{y}}$.
+Then, the far-field electric field can be written as
+\begin{equation}
+  \begin{aligned}
+    E(\vect{k_{\perp}}, z, t)
+    =
+    \mathcal{E}
+    &\sum_{m = -\infty}^{\infty}
+    i^m \left[ J_m(\tilde{\phi}_0) \right]
+    e^{-i m \omega t}
+    e^{-\left[ \frac{w_0}{2} \left( k_x - m k \right) \right]^2}
+  \end{aligned}
+\end{equation}
+where
+\begin{equation}
+  \mathcal{E}
+  \equiv
+  e^{i \bar{\phi}}
+  \left[
+    -i E_0
+    \left( \frac{z_R}{z} \right)
+    e^{-(w_0 k_y / 2)^2}
+    e^{i (k_0 r - \omega_0 t)}
+  \right]
+\end{equation}
+The effect effect of the phase plate then is to alter
+the far-field radiation pattern as
+\begin{equation}
+  E_{\text{PCI}}(\vect{k_{\perp}}, z, t)
+  =
+  T_{\text{pp}}(k_x)
+  \cdot
+  E(\vect{k_{\perp}}, z, t)
+\end{equation}
+\graffito{\textcolor{red}{Note that taking inverse Fourier transform
+  effectively transforms from far-field back to object plane}}
+Taking the inverse Fourier transform in the $x$-direction yields
+\begin{align}
+  E_{\text{PCI}}(\vect{r}, t)
+  =
+  \mathcal{E}
+  &\sum_{m = -\infty}^{\infty}
+  i^m \left[ J_m(\tilde{\phi}_0) \right]
+  e^{-i m \omega t}
+  \\
+  &\times
+  \mathcal{F}_x^{-1}
+  \left\{
+    T_{\text{pp}}(k_x)
+    \cdot
+    e^{-\left[ \frac{w_0}{2} \left( k_x - m k \right) \right]^2}
+  \right\}
+\end{align}
+where $\mathcal{F}_x^{-1}$ is
+the inverse Fourier transform operator
+in the $x$-direction.
+For notational simplicity, define the phase-plate operator $\mathcal{P}$
+\begin{equation}
+  \mathcal{P}(x, k, m)
+  \equiv
+  \mathcal{F}_x^{-1}
+  \left\{
+    T_{\text{pp}}(k_x)
+    \cdot
+    e^{-\left[ \frac{w_0}{2} \left( k_x - m k \right) \right]^2}
+  \right\}
+  \label{eq:InterferometricMethods:phase_plate_action_on_mth_beam}
+\end{equation}
+Several useful properties of $\mathcal{P}(x, k, m)$ are derived in
+Appendix~\ref{app:PCIResponseIdentities}.
 
 
 \bibliographystyle{plainurl}
