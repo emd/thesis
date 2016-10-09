@@ -1,12 +1,14 @@
 \chapter{Some identities for the PCI wavenumber response}
+\label{app:PCIResponseIdentities}
 
 
-\section{The phase-plate operator $F$}
+\section{The phase-plate operator $\mathcal{P}$}
 The effect of the phase plate on the $m$\ts{th} diffracted beam is given by
-(\ref{eq:InterferometricMethods:phase_plate_action_on_mth_beam}),
-which is repeated here for completeness
+$\mathcal{P}(x, k, m)$ as defined in
+(\ref{eq:InterferometricMethods:phase_plate_action_on_mth_beam});
+$\mathcal{P}(x, k, m)$ is repeated here for completeness
 \begin{equation}
-  F(x, k, m)
+  \mathcal{P}(x, k, m)
   \equiv
   \mathcal{F}_x^{-1}
   \left\{
@@ -29,7 +31,7 @@ where
   \end{aligned}
   \label{eq:PCIResponseIdentities:phase_plate_transfer_function}
 \end{equation}
-is the phase-plate transfer function and
+is the phase-plate transfer function,
 $H(x)$ is the Heaviside step function defined as
 \begin{equation}
   H(x)
@@ -40,10 +42,14 @@ $H(x)$ is the Heaviside step function defined as
   \end{cases}
   \label{eq:PCIResponseIdentities:Heaviside_step_function}
 \end{equation}
+and $k_g$ and $k_D$ are the low-$k$ and high-$k$ cutoffs of the phase plate
+as defined in
+(\ref{eq:InterferometricMethods:pci_kmin_engineering}) and
+(\ref{eq:InterferometricMethods:pci_kmax_engineering}), respectively.
 Thus,
 \begin{align}
   \begin{aligned}
-    F(x, k, m)
+    \mathcal{P}(x, k, m)
     &=
     \frac{1}{2 \pi}
     \int_{-k_D}^{-k_g}
@@ -147,8 +153,7 @@ it naturally follows that
 By applying the error function's symmetry in
 (\ref{eq:PCIResponseIdentities:error_function_symmetry}),
 it naturally follows that
-the difference between two error functions
-satisfies the following symmetry property
+the difference between two error functions satisfies
 \begin{equation}
   \delta(-k_1, -k_2, -m)
   =
@@ -157,13 +162,13 @@ satisfies the following symmetry property
 \end{equation}
 
 
-\subsection{The phase-plate operator $F$}
+\subsection{The phase-plate operator $\mathcal{P}$}
 Eq.~(\ref{eq:PCIResponseIdentities:inverse_fourier_transform_shifted_Gaussian})
 allows (\ref{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_integrals})
 to be rewritten as
 \begin{equation}
   \begin{aligned}
-    F(x, k, m)
+    \mathcal{P}(x, k, m)
     &=
     C_m
     [%
@@ -187,18 +192,19 @@ Note that $C_m$ is \emph{Hermitian};
 that is, $C_{-m} = C_m^*$.
 In fact,
 (\ref{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_simplified})
-can be decomposed into Hermitian $F_H$ and anti-Hermitian $F_A$ components
+can be decomposed into Hermitian $\mathcal{P}_H$ and
+anti-Hermitian $\mathcal{P}_A$ components
 \begin{equation}
-  F(x, k, m)
+  \mathcal{P}(x, k, m)
   =
-  F_H(x, k, m)
+  \mathcal{P}_H(x, k, m)
   +
-  F_A(x, k, m)
+  \mathcal{P}_A(x, k, m)
   \label{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_Hermitian_decomposed}
 \end{equation}
 where
 \begin{align}
-  F_H(x, k, m)
+  \mathcal{P}_H(x, k, m)
   &\equiv
   C_m
   [%
@@ -208,7 +214,7 @@ where
   ]
   \label{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_Hermitian}
   \\
-  F_A(x, k, m)
+  \mathcal{P}_A(x, k, m)
   &\equiv
   i \sqrt{\eta} C_m \delta(-k_g, k_g, m)
   \label{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_antiHermitian}
@@ -217,17 +223,17 @@ Application of
 (\ref{eq:PCIResponseIdentities:difference_of_error_functions_symmetry})
 readily shows that
 \begin{align}
-  F_H(x, k, -m) &= [F_H(x, k, m)]^*
+  \mathcal{P}_H(x, k, -m) &= [\mathcal{P}_H(x, k, m)]^*
   \\
-  F_A(x, k, -m) &= -[F_A(x, k, m)]^*
+  \mathcal{P}_A(x, k, -m) &= -[\mathcal{P}_A(x, k, m)]^*
 \end{align}
 Thus,
 \begin{equation}
-  F(x, k, -m)
+  \mathcal{P}(x, k, -m)
   =
-  [F_H(x, k, m)]^*
+  [\mathcal{P}_H(x, k, m)]^*
   -
-  [F_A(x, k, m)]^*
+  [\mathcal{P}_A(x, k, m)]^*
   \label{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_symmetry}
 \end{equation}
 
@@ -236,40 +242,40 @@ Specifically,
 (\ref{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_Hermitian_decomposed})
 states that
 \begin{equation}
-  F(x, k, +0)
+  \mathcal{P}(x, k, +0)
   =
-  F_H(x, k, 0)
+  \mathcal{P}_H(x, k, 0)
   +
-  F_A(x, k, 0)
-  \label{eq:PCIResponseIdentities:phase_plate_action_on_+0_beam}
+  \mathcal{P}_A(x, k, 0)
+  \label{eq:PCIResponseIdentities:phase_plate_action_on_plus0_beam}
 \end{equation}
 while (\ref{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_symmetry})
 shows that
 \begin{equation}
-  F(x, k, -0)
+  \mathcal{P}(x, k, -0)
   =
-  [F_H(x, k, 0)]^*
+  [\mathcal{P}_H(x, k, 0)]^*
   -
-  [F_A(x, k, 0)]^*
-  \label{eq:PCIResponseIdentities:phase_plate_action_on_-0_beam}
+  [\mathcal{P}_A(x, k, 0)]^*
+  \label{eq:PCIResponseIdentities:phase_plate_action_on_minus0_beam}
 \end{equation}
-Of course, $F(x, k, +0) = F(x, k, -0)$; that is
+Of course, $\mathcal{P}(x, k, +0) = \mathcal{P}(x, k, -0)$; that is
 \begin{equation}
-  F_H(x, k, 0)
+  \mathcal{P}_H(x, k, 0)
   +
-  F_A(x, k, 0)
+  \mathcal{P}_A(x, k, 0)
   =
-  [F_H(x, k, 0)]^*
+  [\mathcal{P}_H(x, k, 0)]^*
   -
-  [F_A(x, k, 0)]^*
+  [\mathcal{P}_A(x, k, 0)]^*
 \end{equation}
-Further, as $F_H$ is dependent on $k_D$ but $F_A$ is not,
-$F_H$ and $F_A$ must be linearly independent;
+Further, as $\mathcal{P}_H$ is dependent on $k_D$ but $\mathcal{P}_A$ is not,
+$\mathcal{P}_H$ and $\mathcal{P}_A$ must be linearly independent;
 that is
 \begin{align}
-  F_H(x, k, 0) &= [F_H(x, k, 0)]^*
+  \mathcal{P}_H(x, k, 0) &= [\mathcal{P}_H(x, k, 0)]^*
   \\
-  F_A(x, k, 0) &= -[F_A(x, k, 0)]^*
+  \mathcal{P}_A(x, k, 0) &= -[\mathcal{P}_A(x, k, 0)]^*
 \end{align}
-This proves that $F_H(x, k, 0)$ is purely real and
-that $F_A(x, k, 0)$ is purely imaginary.
+This proves that $\mathcal{P}_H(x, k, 0)$ is purely \emph{real} and
+that $\mathcal{P}_A(x, k, 0)$ is purely \emph{imaginary}.
