@@ -136,7 +136,7 @@ and
 \end{equation}
 
 
-\section{Some useful symmetries}
+\section{Some useful symmetries and degeneracies}
 
 
 \subsection{The error function}
@@ -279,3 +279,18 @@ that is
 \end{align}
 This proves that $\mathcal{P}_H(x, k, 0)$ is purely \emph{real} and
 that $\mathcal{P}_A(x, k, 0)$ is purely \emph{imaginary}.
+
+Another useful degeneracy occurs
+when the fluctuation wavenumber vanishes (i.e.\ $k = 0$).
+Note that $\mathcal{P}(x, k, m) = \mathcal{P}(x, m \cdot k)$;
+that is, the $m$ and $k$ dependence of $\mathcal{P}$
+only appears as the \emph{product} $(m \cdot k)$.
+Just as $m = 0$ at finite $k$ yields $(m \cdot k) = 0$,
+$k = 0$ at finite $m$ also gives $(m \cdot k) = 0$;
+thus,
+\begin{equation}
+  \mathcal{P}(x, k=0, m) = \mathcal{P}(x, k, m=0)
+  \label{eq:PCIResponseIdentities:phase_plate_action_on_wavenumber_0}
+\end{equation}
+Eq.~(\ref{eq:PCIResponseIdentities:phase_plate_action_on_wavenumber_0})
+will be helpful in showing that the PCI response vanishes at $k = 0$.
