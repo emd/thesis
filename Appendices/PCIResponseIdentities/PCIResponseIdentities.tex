@@ -10,6 +10,7 @@ $\mathcal{P}(x, k, m)$ is repeated here for completeness
 \begin{equation}
   \mathcal{P}(x, k, m)
   \equiv
+  \sqrt{\pi} w_0
   \mathcal{F}_x^{-1}
   \left\{
     T_{\text{pp}}(k_x)
@@ -50,26 +51,29 @@ Thus,
 \begin{align}
   \begin{aligned}
     \mathcal{P}(x, k, m)
-    &=
-    \frac{1}{2 \pi}
-    \int_{-k_D}^{-k_g}
-    dk_x
-    e^{i k_x x}
-    e^{-\left[ \frac{w_0}{2} \left( k_x - m k \right) \right]^2}
-    \\
-    &\quad +
-    \frac{i \sqrt{\eta}}{2 \pi}
-    \int_{-k_g}^{k_g}
-    dk_x
-    e^{i k_x x}
-    e^{-\left[ \frac{w_0}{2} \left( k_x - m k \right) \right]^2}
-    \\
-    &\quad +
-    \frac{1}{2 \pi}
-    \int_{k_g}^{k_D}
-    dk_x
-    e^{i k_x x}
-    e^{-\left[ \frac{w_0}{2} \left( k_x - m k \right) \right]^2}
+    =
+    \sqrt{\pi} w_0
+    &\biggl\{
+      \frac{1}{2 \pi}
+      \int_{-k_D}^{-k_g}
+      dk_x
+      e^{i k_x x}
+      e^{-\left[ \frac{w_0}{2} \left( k_x - m k \right) \right]^2}
+      \\
+      &+
+      \frac{i \sqrt{\eta}}{2 \pi}
+      \int_{-k_g}^{k_g}
+      dk_x
+      e^{i k_x x}
+      e^{-\left[ \frac{w_0}{2} \left( k_x - m k \right) \right]^2}
+      \\
+      &+
+      \frac{1}{2 \pi}
+      \int_{k_g}^{k_D}
+      dk_x
+      e^{i k_x x}
+      e^{-\left[ \frac{w_0}{2} \left( k_x - m k \right) \right]^2}
+    \biggr\}
   \end{aligned}
   \label{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_integrals}
 \end{align}
@@ -186,7 +190,7 @@ where
 \begin{equation}
   C_m
   =
-  \frac{e^{-(x / w_0)^2} e^{i m k x}}{2 \sqrt{\pi} w_0}
+  \frac{1}{2} \left[ e^{-(x / w_0)^2} e^{i m k x} \right]
 \end{equation}
 Note that $C_m$ is \emph{Hermitian};
 that is, $C_{-m} = C_m^*$.

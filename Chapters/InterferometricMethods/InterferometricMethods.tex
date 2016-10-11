@@ -2355,86 +2355,75 @@ $k_g$ is given by
 (\ref{eq:InterferometricMethods:pci_kmin_engineering}), and
 $k_D$ is given by
 (\ref{eq:InterferometricMethods:pci_kmax_engineering}).
-
-While the phase plate is typically located
-at the focal plane of a focusing optic,
-the radiation pattern in the focal plane
-is equivalent to the far-field radiation pattern.
-As the far-field, diffracted electric field is already known from
-(\ref{eq:InterferometricMethods:Fraunhofer_phase_modulated_Gaussian_beam_diffraction}),
-the following calculations will be performed in the far field.
-It should be noted that the far-field radiation pattern
-is simply the Fourier transform of the field
-with wavevectors $k_x = k_0 x / r$ and $k_y = k_0 y / r$.
-Let $\vect{k_{\perp}} = k_x \hat{\vect{x}} + k_y \hat{\vect{y}}$.
-Then, the far-field electric field can be written as
-\begin{equation}
-  \begin{aligned}
-    E(\vect{k_{\perp}}, z, t)
-    =
-    \mathcal{E}
-    &\sum_{m = -\infty}^{\infty}
+The effective object-plane field is then given by
+(\ref{eq:InterferometricMethods:effective_object_plane_field})
+with $D_x$ given by
+(\ref{eq:InterferometricMethods:Fraunhofer_diffraction_integral_phase_modulated})
+and $D_y$ given by
+(\ref{eq:InterferometricMethods:Fourier_transform_free_space_Gaussian},
+with the substitution $x \rightarrow y$); specifically,
+\begin{align}
+  E_{\text{eff}}(\vect{\rho}', z=0)
+  &=
+  \mathcal{F}^{-1} \left[%
+    T_{\text{pp}}(k_x') \cdot E_0 D_x D_y
+  \right](\vect{\rho}')
+  \notag \\
+  &=
+  E_0
+  \left\{ \mathcal{F}^{-1} \left[ D_y \right](y') \right\}
+  \left\{ \mathcal{F}^{-1} \left[%
+    T_{\text{pp}}(k_x') \cdot D_x
+  \right](x') \right\}
+  \notag \\
+  &\begin{aligned}
+    &=
+    \sqrt{\pi} w_0
+    E_0 e^{i \bar{\phi}}
+    e^{-(y' / w_0)^2}
+    \\
+    &\quad\times
+    \sum_{m = -\infty}^{\infty}
     i^m \left[ J_m(\tilde{\phi}_0) \right]
     e^{-i m \omega t}
-    e^{-\left[ \frac{w_0}{2} \left( k_x - m k \right) \right]^2}
+    \\
+    &\quad\times
+    \mathcal{F}^{-1} \left\{%
+      T_{\text{pp}}(k_x')
+      \cdot
+      e^{-\left[ \frac{w_0}{2} \left( k_x' - m k \right) \right]^2}
+    \right\}(x')
   \end{aligned}
-\end{equation}
-where
-\begin{equation}
-  \mathcal{E}
-  \equiv
-  e^{i \bar{\phi}}
-  \left[
-    -i E_0
-    \left( \frac{z_R}{z} \right)
-    e^{-(w_0 k_y / 2)^2}
-    e^{i (k_0 r - \omega_0 t)}
-  \right]
-\end{equation}
-The effect effect of the phase plate then is to alter
-the far-field radiation pattern as
-\begin{equation}
-  E_{\text{PCI}}(\vect{k_{\perp}}, z, t)
-  =
-  T_{\text{pp}}(k_x)
-  \cdot
-  E(\vect{k_{\perp}}, z, t)
-\end{equation}
-\graffito{\textcolor{red}{Note that taking inverse Fourier transform
-  effectively transforms from far-field back to object plane}}
-Taking the inverse Fourier transform in the $x$-direction yields
-\begin{align}
-  E_{\text{PCI}}(\vect{r}, t)
-  =
-  \mathcal{E}
-  &\sum_{m = -\infty}^{\infty}
-  i^m \left[ J_m(\tilde{\phi}_0) \right]
-  e^{-i m \omega t}
-  \\
-  &\times
-  \mathcal{F}_x^{-1}
-  \left\{
-    T_{\text{pp}}(k_x)
-    \cdot
-    e^{-\left[ \frac{w_0}{2} \left( k_x - m k \right) \right]^2}
-  \right\}
+  \notag
 \end{align}
-where $\mathcal{F}_x^{-1}$ is
-the inverse Fourier transform operator
-in the $x$-direction.
 For notational simplicity, define the phase-plate operator $\mathcal{P}$
 \begin{equation}
-  \mathcal{P}(x, k, m)
+  \mathcal{P}(x', k, m)
   \equiv
-  \mathcal{F}_x^{-1}
-  \left\{
-    T_{\text{pp}}(k_x)
+  \sqrt{\pi} w_0
+  \mathcal{F}^{-1} \left\{%
+    T_{\text{pp}}(k_x')
     \cdot
-    e^{-\left[ \frac{w_0}{2} \left( k_x - m k \right) \right]^2}
-  \right\}
+    e^{-\left[ \frac{w_0}{2} \left( k_x' - m k \right) \right]^2}
+  \right\}(x')
   \label{eq:InterferometricMethods:phase_plate_action_on_mth_beam}
 \end{equation}
-Several useful properties of $\mathcal{P}(x, k, m)$ are derived in
+such that
+\begin{align}
+  \begin{aligned}
+    E_{\text{eff}}(\vect{\rho}', 0)
+    &=
+    E_0 e^{i \bar{\phi}}
+    e^{-(y' / w_0)^2}
+    \\
+    &\quad\times
+    \sum_{m = -\infty}^{\infty}
+    i^m \left[ J_m(\tilde{\phi}_0) \right]
+    \mathcal{P}(x', k, m)
+    e^{-i m \omega t}
+  \end{aligned}
+\end{align}
+Several useful properties of $\mathcal{P}(x', k, m)$ are derived in
 Appendix~\ref{app:PCIResponseIdentities}.
 
 
