@@ -461,6 +461,8 @@ Note that the beam's waist sits at $z = 0$.
 
 
 \subsection{Kirchhoff diffraction theory}
+\graffito{\textcolor{red}{%
+  $\vect{r}' \rightarrow \vect{\rho}'$ in Kirchhoff geometry figure}}
 A monochromatic scalar wave $U(\vect{r}) e^{-i \omega t}$ in vacuum
 satisfies the Helmholtz equation
 \begin{equation}
@@ -951,6 +953,67 @@ is insufficient to capture
 the small polarization changes that accompany beam scattering.
 Such polarization changes are of little interest in this work, so
 their theoretical treatment is not pursued here.
+
+
+\subsection{The Fraunhofer diffraction pattern and the Fourier transform}
+Examine again (\ref{eq:InterferometricMethods:Fraunhofer_diffracted_field}),
+which gives the electric field in the Fraunhofer limit.
+The field is proportional to $E_0 D_x D_y$.
+Note that
+\begin{equation}
+  E_0 D_x D_y
+  =
+  \mathcal{F} \left[ E(\vect{\rho}', z=0) \right](\vect{k}_{\perp}')
+  \label{eq:InterferometricMethods:Fraunhofer_diffraction_relation_to_Fourier_transform}
+\end{equation}
+where $\mathcal{F}$ is the Fourier transform operator,
+$E(\vect{\rho}', z=0)$ is the field on surface $S_1$, and
+\begin{equation}
+  \vect{k}_{\perp}'
+  \equiv
+  \frac{k_0}{r} \vect{\rho}
+  =
+  k_x' \hat{\vect{x}}
+  +
+  k_y' \hat{\vect{y}}
+  \label{eq:InterferometricMethods:k_perp_prime}
+\end{equation}
+is the wavenumber perpendicular to the optical axis.
+Thus, knowledge of the field on surface $S_1$ can be used
+to determine the Fraunhofer diffraction patterns $D_x$ and $D_y$
+or vice versa.
+In particular, if $D_x$ and $D_y$ are known,
+the field at $S_1$ must be
+\begin{equation}
+  E(\vect{\rho}', z=0)
+  =
+  \mathcal{F}^{-1} \left[ E_0 D_x D_y \right](\vect{\rho}')
+  \label{eq:InterferometricMethods:S1_field_from_Fraunhofer_diffraction_pattern}
+\end{equation}
+
+While
+(\ref{eq:InterferometricMethods:S1_field_from_Fraunhofer_diffraction_pattern})
+is trivial,
+it gives a natural foundation for more sophisticated analysis.
+For example, let $S_1$ sit at the object plane of an imaging system.
+However, in between the object plane and the image plane,
+imagine that the Fraunhofer field is somehow manipulated;
+if this manipulation can be described
+in terms of a transfer function $T(\vect{k}_{\perp}')$, then
+the \emph{effective} object-plane field $E_{\text{eff}}$
+is no longer $E(\vect{\rho}', z=0)$ but is instead
+\begin{equation}
+  E_{\text{eff}}(\vect{\rho}', z=0)
+  =
+  \mathcal{F}^{-1} \left[%
+    T(\vect{k}_{\perp}') \cdot E_0 D_x D_y
+  \right](\vect{\rho}')
+  \label{eq:InterferometricMethods:effective_object_plane_field}
+\end{equation}
+This effective object-plane field will be used in
+Section~\ref{sec:InterferometricMethods:pci:wavenumber_response}
+to determine the wavenumber response
+of a phase contrast imaging (PCI) system.
 
 
 \section{Imaging of the diffracted beams}
@@ -2263,6 +2326,7 @@ then shows that there will be finite PCI response for $k \leq k_D$ where
 
 
 \subsection{Wavenumber transfer function}
+\label{sec:InterferometricMethods:pci:wavenumber_response}
 The action of the phase plate is easily described in wavenumber space
 via the transfer function
 \begin{equation}
