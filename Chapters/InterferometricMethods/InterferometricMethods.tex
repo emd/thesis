@@ -653,33 +653,37 @@ Under the Fraunhofer limit
   \label{eq:InterferometricMethods:Fraunhofer_diffracted_field}
 \end{equation}
 where
-\begin{equation}
+\begin{align}
   D_x
-  =
+  &=
   \int_{-\infty}^{\infty}
   e^{-( x' / w_0 )^2}
-  e^{-i k_0 x x' / r}
+  e^{-i k_0 x' x / r}
   dx'
   \label{eq:InterferometricMethods:Fraunhofer_diffraction_integral_free_space}
-\end{equation}
+  \\
+  &=
+  \mathcal{F} \left[%
+    e^{-( x' / w_0 )^2}
+  \right](k_0 x / r)
+  \\
+  &=
+  \sqrt{\pi} w_0 e^{-(k_0 w_0 x / 2 r)^2}
+  \label{eq:InterferometricMethods:Fourier_transform_free_space_Gaussian}
+\end{align}
 gives the diffraction pattern in the $x$-direction, and
-replacing $x$ with $y$ in
+the integral has been easily evaluated by noting that
+it is simply the Fourier transform of a Gaussian.
+The diffraction pattern in the $y$-direction, $D_y$, is similarly determined.
+Note that the $e^{-i k_0 x' x / r} = e^{-i k_0 x' \sin\theta}$ term in
 (\ref{eq:InterferometricMethods:Fraunhofer_diffraction_integral_free_space})
-yields the expression for the diffraction pattern in the $y$-direction, $D_y$.
-Note that the $e^{-i k_0 x x' / r} = e^{-i k_0 x' \sin\theta}$ term
 is the typical geometric phase factor
-of interference and diffraction calculations
 that results from path-length differences between
 points on surface $S_1$ and the field point $\vect{r}$, as shown in
 Fig.~{\ref{fig:InterferometricMethods:Fraunhofer_geometric_phase_factor}}.
-Eq.~(\ref{eq:InterferometricMethods:Fraunhofer_diffraction_integral_free_space})
-is easily evaluated, as it is simply the Fourier transform of a Gaussian
-\begin{equation}
-  D_x
-  =
-  \sqrt{\pi} w_0 e^{-(k_0 w_0 x / 2 r)^2}
-\end{equation}
-and (\ref{eq:InterferometricMethods:Fraunhofer_diffracted_field}) becomes
+Substituting
+(\ref{eq:InterferometricMethods:Fourier_transform_free_space_Gaussian}) into
+(\ref{eq:InterferometricMethods:Fraunhofer_diffracted_field}) yields
 \begin{equation}
   E(\vect{r})
   \approx
