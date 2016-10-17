@@ -1333,7 +1333,7 @@ the typical small-angle scattering limit ($\theta_m \ll 1$).
 Now, without further ado,
 let $\mathcal{I}$ image the object plane $S_1$
 such that the image of diffracted field
-(\ref{eq:InterferometricMethods:phase_modulated_Gaussian_beam_diffraction})
+(\ref{eq:InterferometricMethods:phase_modulated_Gaussian_beam_diffraction_Fourier_filtered})
 is
 \begin{equation}
   \mathcal{I}[ E(\vect{r}, t) ]
@@ -1341,20 +1341,25 @@ is
   e^{i \bar{\phi}}
   \sum_{m = -\infty}^{\infty}
   i^m \left[ J_m(\tilde{\phi}_0) \right]
-  \mathcal{I}[E_G(\vect{r_m})]
+  \mathcal{I}[\mathcal{E}_G(\vect{r_m})]
   e^{-i (\omega_0 + m \omega) t}
 \end{equation}
 where the linearity of $\mathcal{I}$ has been invoked
 to bring the operator within the summation.
-The imaging optics simply transform
-the $m$\ts{th} scattered Gaussian beam as
-\begin{align}
-  \mathcal{I}[E_G(\vect{r_m})]
-  &=
-  E_{G'}(\vect{r_m'})
-  \notag \\
-  &
+For all the cases considered in this work,
+$\mathcal{E}_G(\vect{r_m}) = E_G(\vect{r_m}) \cdot \mathcal{P}(\vect{r_m})$
+for some complex-valued function $\mathcal{P}$ such that
+the imaging optics simply transform
+the $m$\ts{th} diffracted beam as
+\begin{equation}
+  \mathcal{I} \left[ \mathcal{E}_G(\vect{r_m}) \right]
+  =
+  E_{G'}(\vect{r_m'}) \cdot \mathcal{P}(\vect{r_m'})
+\end{equation}
+where
+\begin{equation}
   \begin{aligned}
+    E_{G'}(\vect{r_m'})
     &= E_0
     \frac{w_0'}{w'(z_m')}
     \exp\left[ \frac{-\rho_m'^2}{w'(z_m')^2} \right]
@@ -1367,8 +1372,8 @@ the $m$\ts{th} scattered Gaussian beam as
       -
       \psi'(z_m') \right] \right\}
   \end{aligned}
-\end{align}
-where $w'(z_m')$, $R'(z_m')$, and $\psi'(z_m')$ are the beam's image-plane
+\end{equation}
+and $w'(z_m')$, $R'(z_m')$, and $\psi'(z_m')$ are the beam's image-plane
 width, radius of curvature, and Gouy phase shift, respectively.
 Under the typical small-angle scattering limit,
 $w'(z_m') \approx w'(z')$,
@@ -1378,9 +1383,11 @@ Then, neglecting the small variation in the Gaussian envelope and
 retaining phase-factor terms only to second order in $k / k_0$,
 the $m$\ts{th} scattered Gaussian beam in the image plane is
 \begin{equation}
-  \mathcal{I}[E_G(\vect{r_m})] e^{-i (\omega_0 + m \omega) t}
+  \mathcal{I}[\mathcal{E}_G(\vect{r_m})] e^{-i (\omega_0 + m \omega) t}
   =
-  [E_{G'}(\vect{r', t})]
+  E_{G'}(\vect{r', t})
+  \cdot
+  \mathcal{P}(\vect{r_m'})
   e^{i (m \xi - m^2 \kappa)}
   \label{eq:InterferometricMethods:imaged_scattered_beam_second_order}
 \end{equation}
@@ -1431,24 +1438,8 @@ Thus, the total scattered field in the image plane becomes
   e^{i \bar{\phi}}
   \sum_{m = -\infty}^{\infty}
   i^m \left[ J_m(\tilde{\phi}_0) \right]
+  \mathcal{P}(\vect{r_m'})
   e^{i m \xi}
-\end{equation}
-Noting that $J_{-m}(z) = (-1)^m J_m(z)$~\cite{abramowitz_and_stegun},
-the image-plane field can be written alternatively as
-\begin{equation}
-  \begin{aligned}
-    \mathcal{I}[ E(\vect{r}, t) ]
-    =
-    E_{G'}(\vect{r'}, t)
-    e^{i \bar{\phi}}
-    \left\{%
-      J_0(\tilde{\phi}_0)
-      +
-      2 \sum_{m = 1}^{\infty}
-      i^m \left[ J_m(\tilde{\phi}_0) \right]
-      \cos( m \xi )
-    \right\}
-  \end{aligned}
   \label{eq:InterferometricMethods:imaged_total_field}
 \end{equation}
 
@@ -1461,23 +1452,54 @@ can be used
 \begin{equation}
   \lim_{z \rightarrow 0} J_m(z)
   \sim
-  \frac{1}{\Gamma(m + 1)} \left( \frac{z}{2} \right)^m
-  , \qquad
-  m \neq -1, -2, -3, \cdots
+  \begin{cases}
+    \frac{1}{\Gamma(m + 1)} \left( \frac{z}{2} \right)^m
+    , \qquad
+    &m = 0, 1, 2, 3, \cdots
+    \\
+    \frac{1}{\Gamma(|m| + 1)} \left( \frac{-z}{2} \right)^{|m|}
+    , \qquad
+    &m = -1, -2, -3, \cdots
+  \end{cases}
 \end{equation}
 Here, $\Gamma$ is the gamma function, and
 $\Gamma(m + 1) = m!$ for positive integer $m$.
 Dropping terms exceeding first order in $\tilde{\phi}_0$,
 (\ref{eq:InterferometricMethods:imaged_total_field}) becomes
 \begin{equation}
+  \begin{aligned}
   \mathcal{I}[ E(\vect{r}, t) ]
-  \approx
+  &\approx
+  E_{G'}(\vect{r'}, t)
+  e^{i \bar{\phi}}
+  \biggl\{%
+    \mathcal{P}(\vect{r'})
+    \\
+    &\quad\qquad+
+    i \frac{\tilde{\phi}_0}{2}
+    \left[
+      \mathcal{P}(\vect{r'}_1) e^{i \zeta}
+      +
+      \mathcal{P}(\vect{r'}_{-1}) e^{-i \zeta}
+    \right]
+  \biggr\}
+  \end{aligned}
+  \label{eq:InterferometricMethods:imaged_total_field_weak_coupling_Fourier_filtered}
+\end{equation}
+where the substitution $\vect{r'}_0 = \vect{r'}$ has been used.
+When there is no wavenumber-dependent manipulation of the diffracted beams
+(i.e.\ $T(\vect{k}_{\perp}) = 1$ or, correspondingly,
+$\mathcal{P}(\vect{r_m'}) = 1$ for all $m$),
+the imaged field further simplifies to
+\begin{equation}
+  \mathcal{I}[ E(\vect{r}, t) ]
+  =
   E_{G'}(\vect{r'}, t)
   e^{i \bar{\phi}}
   \left[%
     1
     +
-    i \tilde{\phi}_0 \cos\xi
+    i \tilde{\phi}_0 \cos\zeta
   \right]
   \label{eq:InterferometricMethods:imaged_total_field_weak_coupling}
 \end{equation}
@@ -1485,13 +1507,17 @@ Dropping terms exceeding first order in $\tilde{\phi}_0$,
 
 \subsection{The need for a reference beam}
 \label{sec:InterferometricMethods:imaging:need_for_reference_beam}
-Most detectors of interest are square-law detectors
+Assume that there is
+no wavenumber-dependent manipulation of the diffracted beams
+such that
+(\ref{eq:InterferometricMethods:imaged_total_field_weak_coupling}) applies.
+Now, most detectors of interest are square-law detectors
 in that they produce a response proportional to
 the square (i.e.\ intensity) of the incident field.
 If such a detector is placed at the image plane,
 the local intensity is
 \begin{align}
-  I(\vect{r}, t)
+  I(\vect{r'}, t)
   &\equiv
   \frac{c \varepsilon_0}{2} |\mathcal{I}[E(\vect{r}, t)]|^2
   \notag \\
@@ -1511,7 +1537,7 @@ is the intensity profile (averaged over an optical cycle)
 of the undiffracted Gaussian beam.
 Thus, for the typical $\tilde{\phi}_0 \ll 1$ limit,
 the measured response will be very weak
-if the detector is only exposed to the imaged probe beam.
+if the detector is only exposed to the imaged radiation.
 Physically, this is attributable to the $m = \pm 1$ beams
 being $\pi / 2$ out of phase with the unscattered $m = 0$ beam.
 As will be shown in Sections
@@ -1528,6 +1554,9 @@ that differentiates a given interferometric method from another.
 The computations in this section all occur in the image plane.
 For notational simplicity, the ``primes'' used in the previous section
 to indicate image-plane coordinates and quantities are dropped.
+Further, there is no wavenumber-dependent manipulation of the diffracted beams
+such that
+(\ref{eq:InterferometricMethods:imaged_total_field_weak_coupling}) applies.
 Thus, the probe radiation in the image plane is given as
 \begin{equation}
   E_P(\vect{r}, t)
@@ -2379,76 +2408,6 @@ $k_g$ is given by
 (\ref{eq:InterferometricMethods:pci_kmin_engineering}), and
 $k_D$ is given by
 (\ref{eq:InterferometricMethods:pci_kmax_engineering}).
-The effective object-plane field is then given by
-(\ref{eq:InterferometricMethods:effective_object_plane_field})
-with $D_x$ given by
-(\ref{eq:InterferometricMethods:Fraunhofer_diffraction_integral_phase_modulated})
-and $D_y$ given by
-(\ref{eq:InterferometricMethods:Fourier_transform_free_space_Gaussian},
-with the substitution $x \rightarrow y$); specifically,
-\begin{align}
-  E_{\text{eff}}(\vect{\rho}', z=0)
-  &=
-  \mathcal{F}^{-1} \left[%
-    T_{\text{pp}}(k_x') \cdot E_0 D_x D_y
-  \right](\vect{\rho}')
-  \notag \\
-  &=
-  E_0
-  \left\{ \mathcal{F}^{-1} \left[ D_y \right](y') \right\}
-  \left\{ \mathcal{F}^{-1} \left[%
-    T_{\text{pp}}(k_x') \cdot D_x
-  \right](x') \right\}
-  \notag \\
-  &\begin{aligned}
-    &=
-    \sqrt{\pi} w_0
-    E_0 e^{i \bar{\phi}}
-    e^{-(y' / w_0)^2}
-    \\
-    &\quad\times
-    \sum_{m = -\infty}^{\infty}
-    i^m \left[ J_m(\tilde{\phi}_0) \right]
-    e^{-i m \omega t}
-    \\
-    &\quad\times
-    \mathcal{F}^{-1} \left\{%
-      T_{\text{pp}}(k_x')
-      \cdot
-      e^{-\left[ \frac{w_0}{2} \left( k_x' - m k \right) \right]^2}
-    \right\}(x')
-  \end{aligned}
-  \notag
-\end{align}
-For notational simplicity, define the phase-plate operator $\mathcal{P}$
-\begin{equation}
-  \mathcal{P}(x', k, m)
-  \equiv
-  \sqrt{\pi} w_0
-  \mathcal{F}^{-1} \left\{%
-    T_{\text{pp}}(k_x')
-    \cdot
-    e^{-\left[ \frac{w_0}{2} \left( k_x' - m k \right) \right]^2}
-  \right\}(x')
-  \label{eq:InterferometricMethods:phase_plate_action_on_mth_beam}
-\end{equation}
-such that
-\begin{align}
-  \begin{aligned}
-    E_{\text{eff}}(\vect{\rho}', 0)
-    &=
-    E_0 e^{i \bar{\phi}}
-    e^{-(y' / w_0)^2}
-    \\
-    &\quad\times
-    \sum_{m = -\infty}^{\infty}
-    i^m \left[ J_m(\tilde{\phi}_0) \right]
-    \mathcal{P}(x', k, m)
-    e^{-i m \omega t}
-  \end{aligned}
-\end{align}
-Several useful properties of $\mathcal{P}(x', k, m)$ are derived in
-Appendix~\ref{app:PCIResponseIdentities}.
 
 
 \bibliographystyle{plainurl}
