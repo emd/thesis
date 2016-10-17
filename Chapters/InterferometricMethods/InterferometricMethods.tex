@@ -914,11 +914,11 @@ the diffracted electric field can be more compactly and generally written as
   i^m \left[ J_m(\tilde{\phi}_0) \right]
   E_G(\vect{r_m})
   e^{-i (\omega_0 + m \omega) t}
-  \label{eq:InterferometricMethods:Fraunhofer_phase_modulated_Gaussian_beam_diffraction_compact}
+  \label{eq:InterferometricMethods:phase_modulated_Gaussian_beam_diffraction}
 \end{equation}
 where $\vect{r_m} \approx (x - z \theta_m,\, y,\, z + x \theta_m)$.
 Note that
-(\ref{eq:InterferometricMethods:Fraunhofer_phase_modulated_Gaussian_beam_diffraction_compact})
+(\ref{eq:InterferometricMethods:phase_modulated_Gaussian_beam_diffraction})
 is valid for $0 \leq z < \infty$ rather than only for $z \gg z_R$;
 that is, computing the far-field diffraction pattern
 has additionally allowed inferring the corresponding near-field.
@@ -955,65 +955,85 @@ Such polarization changes are of little interest in this work, so
 their theoretical treatment is not pursued here.
 
 
-\subsection{The Fraunhofer diffraction pattern and the Fourier transform}
-Examine again (\ref{eq:InterferometricMethods:Fraunhofer_diffracted_field}),
-which gives the electric field in the Fraunhofer limit.
-The field is proportional to $E_0 D_x D_y$.
-Note that
-\begin{equation}
-  E_0 D_x D_y
-  =
-  \mathcal{F} \left[ E(\vect{\rho}', z=0) \right](\vect{k}_{\perp}')
-  \label{eq:InterferometricMethods:Fraunhofer_diffraction_relation_to_Fourier_transform}
-\end{equation}
-where $\mathcal{F}$ is the Fourier transform operator,
-$E(\vect{\rho}', z=0)$ is the field on surface $S_1$, and
-\begin{equation}
-  \vect{k}_{\perp}'
-  \equiv
-  \frac{k_0}{r} \vect{\rho}
-  =
-  k_x' \hat{\vect{x}}
-  +
-  k_y' \hat{\vect{y}}
-  \label{eq:InterferometricMethods:k_perp_prime}
-\end{equation}
-is the wavenumber perpendicular to the optical axis.
-Thus, knowledge of the field on surface $S_1$ can be used
-to determine the Fraunhofer diffraction patterns $D_x$ and $D_y$
-or vice versa.
-In particular, if $D_x$ and $D_y$ are known,
-the field at $S_1$ must be
-\begin{equation}
-  E(\vect{\rho}', z=0)
-  =
-  \mathcal{F}^{-1} \left[ E_0 D_x D_y \right](\vect{\rho}')
-  \label{eq:InterferometricMethods:S1_field_from_Fraunhofer_diffraction_pattern}
-\end{equation}
+\subsection{Wavenumber-dependent manipulation of diffracted Gaussian beams}
+Examine again
+(\ref{eq:InterferometricMethods:phase_modulated_Gaussian_beam_diffraction}).
+Note that the spatial dependence of the diffracted field
+is governed entirely by the factor $E_G(\vect{r_m})$,
+which specifies the spatial structure of the $m$\ts{th} diffracted beam.
+Note that $E_G(\vect{r_m})$ can be Fourier decomposed as
+\begin{align}
+  E_G(\vect{r_m})
+  &=
+  \mathcal{F}^{-1}[E_G(\vect{k}_{\perp}, z)](\vect{r_m})
+  \notag \\
+  &=
+  \frac{1}{(2 \pi)^2}
+  \int d\vect{k}_{\perp}
+  e^{i \vect{k}_{\perp} \cdot \vect{r_m}}
+  E_G(\vect{k}_{\perp}, z)
+  \notag \\
+  &=
+  \frac{1}{(2 \pi)^2}
+  \int d\vect{k}_{\perp}
+  e^{i \vect{k}_{\perp} \cdot \vect{r_m}}
+  \left[
+    \int d\vect{\rho'} \,
+    e^{-i \vect{k}_{\perp} \cdot \vect{r}'}
+    E_G(\vect{r}')
+  \right]
+  \notag \\
+  &=
+  \frac{1}{(2 \pi)^2}
+  \int d\vect{\rho}' \,
+  E_G(\vect{r}')
+  \int d\vect{k}_{\perp} \,
+  e^{i \vect{k}_{\perp} \cdot (\vect{r_m} - \vect{r'})}
+  \notag
+\end{align}
+where
+$\vect{k}_{\perp} \equiv k_x \hat{\vect{x}} + k_y \hat{\vect{y}}$
+is the perpendicular wavevector, and
+$\vect{\rho}' = x' \hat{\vect{x}} + y' \hat{\vect{y}}$
+is the perpendicular distance from the optical axis.
 
-While
-(\ref{eq:InterferometricMethods:S1_field_from_Fraunhofer_diffraction_pattern})
-is trivial,
-it gives a natural foundation for more sophisticated analysis.
-For example, let $S_1$ sit at the object plane of an imaging system.
-However, in between the object plane and the image plane,
-imagine that the Fraunhofer field is somehow manipulated;
+While the above Fourier decomposition is trivial,
+it lays the foundation for more sophisticated analysis.
+For example, imagine that the Fourier components of $E_G(\vect{r_m})$
+are somehow manipulated
+based upon perpendicular wavenumber $\vect{k}_{\perp}$;
 if this manipulation can be described
-in terms of a transfer function $T(\vect{k}_{\perp}')$, then
-the \emph{effective} object-plane field $E_{\text{eff}}$
-is no longer $E(\vect{\rho}', z=0)$ but is instead
+in terms of a transfer function $T(\vect{k}_{\perp})$,
+then the resulting spatial dependence
+of the $m$\ts{th} diffracted beam is
 \begin{equation}
-  E_{\text{eff}}(\vect{\rho}', z=0)
+  \mathcal{E}_G(\vect{r_m})
   =
-  \mathcal{F}^{-1} \left[%
-    T(\vect{k}_{\perp}') \cdot E_0 D_x D_y
-  \right](\vect{\rho}')
-  \label{eq:InterferometricMethods:effective_object_plane_field}
+  \frac{1}{(2 \pi)^2}
+  \int d\vect{\rho}' \,
+  E_G(\vect{r}')
+  \int d\vect{k}_{\perp}
+  T(\vect{k}_{\perp})
+  e^{i \vect{k}_{\perp} \cdot (\vect{r_m} - \vect{r'})}
+  \label{eq:InterferometricMethods:mth_diffracted_beam_Fourier_filtered}
 \end{equation}
-This effective object-plane field will be used in
-Section~\ref{sec:InterferometricMethods:pci:wavenumber_response}
-to determine the wavenumber response
-of a phase contrast imaging (PCI) system.
+where the notation $\mathcal{E}_G(\vect{r_m})$
+has been selected to emphasize that
+this spatial dependence may differ from $E_G(\vect{r_m})$.
+Generalizing
+(\ref{eq:InterferometricMethods:phase_modulated_Gaussian_beam_diffraction})
+to allow for such wavenumber-dependent manipulation
+yields a total diffracted electric field
+\begin{equation}
+  E(\vect{r}, t)
+  \approx
+  e^{i \bar{\phi}}
+  \sum_{m = -\infty}^{\infty}
+  i^m \left[ J_m(\tilde{\phi}_0) \right]
+  \mathcal{E}_G(\vect{r_m})
+  e^{-i (\omega_0 + m \omega) t}
+  \label{eq:InterferometricMethods:phase_modulated_Gaussian_beam_diffraction_Fourier_filtered}
+\end{equation}
 
 
 \section{Imaging of the diffracted beams}
@@ -1309,7 +1329,7 @@ the typical small-angle scattering limit ($\theta_m \ll 1$).
 Now, without further ado,
 let $\mathcal{I}$ image the object plane $S_1$
 such that the image of diffracted field
-(\ref{eq:InterferometricMethods:Fraunhofer_phase_modulated_Gaussian_beam_diffraction_compact})
+(\ref{eq:InterferometricMethods:phase_modulated_Gaussian_beam_diffraction})
 is
 \begin{equation}
   \mathcal{I}[ E(\vect{r}, t) ]
