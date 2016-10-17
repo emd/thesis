@@ -1,0 +1,290 @@
+\chapter{Fourier filtering}
+\label{app:FourierFiltering}
+
+
+\section{Fourier decomposition}
+The diffracted field varies as
+$E(\vect{r}, t)
+\propto
+\sum_{m}
+E_G(\vect{r_m})$
+where
+\begin{equation}
+  \vect{r_m} \equiv \vect{r} + \vect{\delta_m}
+\end{equation}
+The field $E_G(\vect{r_m})$ can be Fourier decomposed as
+\begin{align}
+  E_G(\vect{r_m})
+  &=
+  \mathcal{F}[E_G(\vect{k_{\perp}}, z)](\vect{r_m})
+  \notag \\
+  &=
+  \frac{1}{(2 \pi)^2}
+  \int d\vect{k_{\perp}}
+  e^{i \vect{k_{\perp}} \cdot \vect{r_m}}
+  E_G(\vect{k_{\perp}}, z)
+  \notag \\
+  &=
+  \frac{1}{(2 \pi)^2}
+  \int d\vect{k_{\perp}}
+  e^{i \vect{k_{\perp}} \cdot \vect{r_m}}
+  \left\{
+    \int d\vect{\rho'}
+    e^{-i \vect{k_{\perp}} \cdot \vect{r'}}
+    E_G(\vect{r'})
+  \right\}
+  \notag \\
+  &=
+  \frac{1}{(2 \pi)^2}
+  \int d\vect{\rho'}
+  E_G(\vect{r'})
+  \int d\vect{k_{\perp}}
+  e^{i \vect{k_{\perp}} \cdot (\vect{r_m} - \vect{r'})}
+  \label{eq:FourierFiltering:Fourier_decomposition}
+  \\
+  &=
+  \frac{1}{(2 \pi)^2}
+  \int d\vect{\rho'}
+  E_G(\vect{r'})
+  \left[
+    (2 \pi)^2
+    \delta(\vect{r_m} - \vect{r'})
+  \right]
+  \notag \\
+  &=
+  \int d\vect{\rho'}
+  E_G(\vect{r'})
+  \delta(\vect{r_m} - \vect{r'})
+  \notag \\
+  &=
+  E_G(\vect{r_m})
+  \notag
+\end{align}
+
+
+\section{Fourier filtering}
+
+
+\subsection{General case}
+Now imagine that there is
+\emph{filtering} in Fourier space $T(\vect{k_{\perp}})$
+such that (\ref{eq:FourierFiltering:Fourier_decomposition}) becomes
+\begin{equation}
+  \mathcal{E}_G(\vect{r_m})
+  =
+  \frac{1}{(2 \pi)^2}
+  \int d\vect{\rho'}
+  E_G(\vect{r'})
+  \int d\vect{k_{\perp}}
+  T(\vect{k_{\perp}})
+  e^{i \vect{k_{\perp}} \cdot (\vect{r_m} - \vect{r'})}
+  \label{eq:FourierFiltering:Fourier_filtering_general}
+\end{equation}
+where $\mathcal{E}_G(\vect{r_m})$ has been used
+to denote the filtered field.
+
+
+\subsection{Phase plate}
+The phase plate filters in Fourier space as
+\begin{equation}
+  \begin{aligned}
+    T_{\text{pp}}(k_x)
+    &=
+    i \sqrt{\eta} \, H(k_g - |k_x|)
+    \\
+    &\quad +
+    H(|k_x| - k_g)
+    H(k_D - |k_x|)
+  \end{aligned}
+  \label{eq:FourierFiltering:phase_plate_transfer_function}
+\end{equation}
+where $H(x)$ is the Heaviside step function defined as
+\begin{equation}
+  H(x)
+  =
+  \begin{cases}
+    0, \quad &x < 0 \\
+    1, \quad &x \geq 0
+  \end{cases}
+  \label{eq:FourierFiltering:Heaviside_step_function}
+\end{equation}
+and $k_g$ and $k_D$ are the low-$k$ and high-$k$ cutoffs of the phase plate
+as defined in
+(\ref{eq:InterferometricMethods:pci_kmin_engineering}) and
+(\ref{eq:InterferometricMethods:pci_kmax_engineering}), respectively.
+The integrals over $k_y$ and $y'$ are easily evaluated, yielding
+\begin{equation}
+  \mathcal{E}_G(\vect{r_m})
+  =
+  E_G(\vect{r}) e^{[x / w(z)]^2} I_x
+\end{equation}
+where
+\begin{align}
+  I_x
+  &\equiv
+  \frac{1}{2 \pi}
+  \int dx'
+  e^{-[x' / w(z)]^2}
+  \int dk_x
+  T(k_x) e^{i k_x (x_m - x')}
+  \notag \\
+  &\begin{aligned}
+    =
+    \frac{1}{2 \pi}
+    \int dx'
+    e^{-[x' / w(z)]^2}
+    \biggl\{
+      &\int_{-k_D}^{-k_g} dk_x
+      e^{i k_x (x_m - x')}
+      \\
+      &+
+      i \sqrt{\eta} \int_{-k_g}^{k_g} dk_x
+      e^{i k_x (x_m - x')}
+      \\
+      &+
+      \int_{k_g}^{k_D} dk_x
+      e^{i k_x (x_m - x')}
+    \biggr\}
+  \end{aligned}
+\end{align}
+
+
+\subsection{Useful integral relations}
+Note that
+\begin{equation}
+  \int_{k_1}^{k_2} dk_x
+  e^{i k_x (x_m - x')}
+  =
+  \frac{1}{i(x_m - x')}
+  \left[
+    e^{i k_2 (x_m - x')}
+    -
+    e^{i k_1 (x_m - x')}
+  \right]
+\end{equation}
+Now, if $k_1 = -k_2$, this simplifies to
+\begin{equation}
+  \int_{-k_2}^{k_2} dk_x
+  e^{i k_x (x_m - x')}
+  =
+  2 k_2 \sinc [k_2 (x_m - x') / \pi]
+\end{equation}
+where
+\begin{equation}
+  \sinc(x) = \frac{\sin(\pi x)}{\pi x}
+\end{equation}
+is the normalized sinc function.
+Note further that
+\begin{align}
+  \int_{-k_2}^{-k_1}
+  &dk_x
+  e^{i k_x (x_m - x')}
+  +
+  \int_{k_1}^{k_2} dk_x
+  e^{i k_x (x_m - x')}
+  \notag \\
+  &=
+  \int_{-k_2}^{k_2} dk_x
+  e^{i k_x (x_m - x')}
+  -
+  \int_{-k_1}^{k_1} dk_x
+  e^{i k_x (x_m - x')}
+  \notag \\
+  &=
+  2 k_2 \sinc [k_2 (x_m - x') / \pi]
+  -
+  2 k_1 \sinc [k_1 (x_m - x') / \pi]
+\end{align}
+
+Finally, examine the full-space integral of a Gaussian
+weighted by an offset sinc function;
+in the following, $a, b, x_0 \in \mathbb{R}$
+\begin{align}
+  I
+  &=
+  \int_{-\infty}^{\infty}
+  dx \,
+  e^{-a x^2}
+  \sinc \left[\frac{b}{\pi} (x - x_0) \right]
+  \notag \\
+  &=
+  \frac{1}{b}
+  \int_{-\infty}^{\infty}
+  dx \,
+  e^{-a x^2}
+  \frac{\sin[b (x - x_0)]}{x - x_0}
+  \notag \\
+  &=
+  \frac{1}{b}
+  \int_0^b d\beta
+  \int_{-\infty}^{\infty}
+  dx \,
+  e^{-a x^2}
+  \cos [\beta (x - x_0)]
+  \notag \\
+  &=
+  \frac{1}{b}
+  \int_0^b d\beta \,
+  \real \int_{-\infty}^{\infty}
+  dx \,
+  e^{-a x^2 + i \beta (x - x_0)}
+  \notag \\
+  &=
+  \frac{1}{b}
+  \int_0^b d\beta \,
+  \real \left[
+    e^{-\frac{\beta^2}{4a} - i \beta x_0}
+    \int_{-\infty}^{\infty}
+    dx \,
+    e^{-a \left( x - \frac{i \beta}{2 a} \right)^2}
+  \right]
+  \notag \\
+  &=
+  \frac{1}{b}
+  \sqrt{\frac{\pi}{a}}
+  \int_0^b d\beta \,
+  \real \left[
+    e^{-\frac{\beta^2}{4a} - i \beta x_0}
+  \right]
+  \notag \\
+  &=
+  \frac{1}{b}
+  \sqrt{\frac{\pi}{a}} \,
+  \real \int_0^b d\beta \,
+  e^{-\frac{\beta^2}{4a} - i \beta x_0}
+  \notag \\
+  &=
+  \frac{1}{b}
+  \sqrt{\frac{\pi}{a}}
+  e^{-a x_0^2} \,
+  \real \int_0^b d\beta \,
+  e^{-\frac{1}{4a} (\beta + i 2 a x_0)^2}
+  \notag \\
+  &=
+  \frac{\pi}{b}
+  e^{-a x_0^2} \,
+  \real
+  \left\{ \erf[u(b)] - \erf[u(0)] \right\}
+  \notag \\
+  &=
+  \frac{\pi}{b}
+  e^{-a x_0^2} \,
+  \real
+  \left\{ \erf[u(b)] \right\}
+\end{align}
+where
+\begin{equation}
+  \erf(z)
+  =
+  \frac{2}{\sqrt{\pi}} \int_0^z e^{-t^2} dt
+\end{equation}
+is the error function and
+\begin{equation}
+  u(\beta) = \frac{1}{2 \sqrt{a}} (\beta + i 2 a x_0)
+\end{equation}
+Noting that $\erf(-z) = -\erf(z)$ and
+$\erf(z^*) = [\erf(z)]^*$,
+it is straightforward to see that
+$\erf[u(0)] = \erf(i \sqrt{a} x_0) = i A$ for $A \in \mathbb{R}$;
+that is, $\real{\erf[u(0)]} = 0$.
+
