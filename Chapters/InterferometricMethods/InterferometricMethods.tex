@@ -1072,31 +1072,214 @@ Note that $E_G(\vect{r_m})$ can be Fourier decomposed as
   e^{i \vect{k_m}' \cdot (\vect{r_m} - \vect{r}')}
   \notag
 \end{align}
-where\ldots
+where $\vect{k_m}'$ is the wavevector basis that is \emph{dual} to
+the coordinate system of the $m$\ts{th} scattered beam, $\vect{r_m}$.
+To understand the significance of this duality,
+note that $\vect{k_m}' \cdot \vect{r_m}$ is a physical quantity,
+independent of any given coordinate system; that is,
+if $\vect{k}'$ is the wavevector basis dual to
+the lab-frame (i.e. $m = 0$ beam) coordinate system, then, by definition,
+$\vect{k_m}' \cdot \vect{r_m} = \vect{k}' \cdot \vect{r}$.
+Enforcing this coordinate-independent requirement and
+exploiting the orthogonality of $\vect{R_m}$ yields
+\begin{align}
+  \vect{k}' \cdot \vect{r}
+  &=
+  \vect{k}'^T \vect{r}
+  \notag \\
+  &=
+  \vect{k}'^T (\vect{R_m}^T \vect{R_m}) \vect{r}
+  \notag \\
+  &=
+  (\vect{R_m} \vect{k}')^T (\vect{R_m} \vect{r})
+  \notag \\
+  &=
+  (\vect{R_m} \vect{k}') \cdot \vect{r_m}
+  \notag \\
+  &=
+  \vect{k_m}' \cdot \vect{r_m}
+  \notag
+\end{align}
+such that
+\begin{equation}
+  \vect{k_m}'
+  =
+  \vect{R_m} \vect{k}'
+  \label{eq:InterferometricMethods:wavevector_dual_to_mth_beam}
+\end{equation}
 
 While the above Fourier decomposition is trivial,
 it lays the foundation for more sophisticated analysis.
 For example, imagine that the Fourier components of $E_G(\vect{r_m})$
 are somehow manipulated
-based upon perpendicular wavenumber $\vect{k}_{\perp}$;
+based upon lab-frame wavenumber $\vect{k}'$;
 if this manipulation can be described
-in terms of a transfer function $T(\vect{k}_{\perp})$,
+in terms of a transfer function $T(\vect{k}')$,
 then the resulting spatial dependence
 of the $m$\ts{th} diffracted beam is
-\begin{equation}
+\begin{align}
   \mathcal{E}_G(\vect{r_m})
-  =
-  \frac{1}{(2 \pi)^2}
-  \int d\vect{\rho}' \,
+  &=
+  \frac{1}{(2 \pi)^3}
+  \int d\vect{r}' \,
   E_G(\vect{r}')
-  \int d\vect{k}_{\perp}
-  T(\vect{k}_{\perp})
-  e^{i \vect{k}_{\perp} \cdot (\vect{r_m} - \vect{r'})}
-  \label{eq:InterferometricMethods:mth_diffracted_beam_Fourier_filtered}
-\end{equation}
+  \int d\vect{k_m}' \,
+  T(\vect{k}')
+  e^{i \vect{k_m}' \cdot (\vect{r_m} - \vect{r}')}
+\end{align}
 where the notation $\mathcal{E}_G(\vect{r_m})$
 has been selected to emphasize that
 this spatial dependence may differ from $E_G(\vect{r_m})$.
+Note that the wavevector integration variables are
+with respect to the basis of the $m$\ts{th} scattered beam $\vect{k_m}'$
+whereas the transfer function is expressed in terms of
+the lab-frame basis $\vect{k}'$.
+To proceed, change the variables of integration
+from $\vect{k_m}'$ to $\vect{k}'$ by noting that
+\begin{equation}
+  d\vect{k_m}'
+  =
+  \left| \frac{\partial \vect{k_m}'}{\partial \vect{k}'} \right|
+  d\vect{k}'
+  =
+  |\vect{R_m}|
+  d\vect{k}'
+  =
+  d\vect{k}'
+  \notag
+\end{equation}
+and
+\begin{align}
+  \vect{k_m}' \cdot (\vect{r_m} - \vect{r}')
+  &=
+  (\vect{R_m}\vect{k}') \cdot (\vect{R_m}\vect{r} - \vect{r}')
+  \notag \\
+  &=
+  (\vect{R_m}\vect{k}')^T (\vect{R_m}\vect{r} - \vect{r}')
+  \notag \\
+  &=
+  \vect{k}'^T \vect{R_m}^T (\vect{R_m}\vect{r} - \vect{r}')
+  \notag \\
+  &=
+  \vect{k}'^T (\vect{R_m}^T\vect{R_m}\vect{r} - \vect{R_m}^T\vect{r}')
+  \notag \\
+  &=
+  \vect{k}' \cdot \left[ \vect{r} - \left(\vect{R_{-m}}\vect{r}'\right) \right]
+  \notag \\
+  &=
+  \vect{k}' \cdot \left( \vect{r} - \vect{r_{-m}}' \right)
+  \notag
+\end{align}
+such that $\mathcal{E}_G(\vect{r_m})$ becomes
+\begin{align}
+  \mathcal{E}_G(\vect{r_m})
+  &=
+  \frac{1}{(2 \pi)^3}
+  \int d\vect{r}' \,
+  E_G(\vect{r}')
+  \int d\vect{k}' \,
+  T(\vect{k}')
+  e^{i \vect{k}' \cdot (\vect{r} - \vect{r_{-m}}')}
+  \label{eq:InterferometricMethods:mth_diffracted_beam_Fourier_filtered}
+\end{align}
+
+To make further progress,
+a particular form of $T(\vect{k}')$ is needed.
+Assume that $T(\vect{k}') = T(k_x')$ such that
+wavenumbers are filtered only in the direction of beam scattering.
+Then (\ref{eq:InterferometricMethods:mth_diffracted_beam_Fourier_filtered})
+becomes
+\begin{align}
+  \mathcal{E}_G(\vect{r_m})
+  &=
+  \frac{1}{(2 \pi)^3}
+  \int d\vect{r}' \,
+  E_G(\vect{r}')
+  \int dk_x' \,
+  T(k_x')
+  e^{i k_x' (x - x_{-m}')}
+  \notag \\
+  &\qquad\qquad \times
+  \int dk_y' \,
+  e^{i k_y' (y - y_{-m}')}
+  \int dk_z' \,
+  e^{i k_z' (z - z_{-m}')}
+  \notag \\
+  &=
+  \frac{1}{2 \pi}
+  \int d\vect{r}' \,
+  E_G(\vect{r}')
+  \delta(y - y_{-m}')
+  \delta(z - z_{-m}')
+  \notag \\
+  &\qquad\qquad \times
+  \int dk_x' \,
+  T(k_x')
+  e^{i k_x' (x - x_{-m}')}
+  \notag \\
+  &=
+  \frac{1}{2 \pi}
+  \int dx' \,
+  E_G(x', y, z + x' \theta_m)
+  \int dk_x' \,
+  T(k_x')
+  e^{i k_x' (x - x_{-m}')}
+  \label{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_v1}
+\end{align}
+The Gaussian envelope suppresses contributions
+from $|x - x'| \gg w(z)$ such that
+\begin{align}
+  w(z + x' \theta_m)
+  &\approx
+  w(z)
+  \notag \\
+  R(z + x' \theta_m)
+  &\approx
+  R(z)
+  \notag \\
+  \psi(z + x' \theta_m)
+  &\approx
+  \psi(z)
+  \notag
+\end{align}
+are very good approximations
+when evaluating $E_G(x', y, z + x' \theta_m)$.
+After making these approximations,
+(\ref{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_v1})
+reduces to
+\begin{equation}
+  \mathcal{E}_G(\vect{r_m})
+  \approx
+  E_G(0, y, z)
+  \cdot
+  \mathcal{P}(x, m, k)
+  \label{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_compact}
+\end{equation}
+where
+\begin{equation}
+  \begin{aligned}
+    \mathcal{P}(x, m, k)
+    &=
+    \frac{1}{2 \pi}
+    \int dx' \,
+    \exp\left[ \frac{-x'^2}{w(z)^2} \right]
+    \exp\left\{%
+      i \left[%
+        m k x'
+        +
+        \frac{k_0 x'^2}{2 R(z)}
+      \right]
+    \right\}
+    \\
+    &\qquad \times
+    \int dk_x' \,
+    T(k_x')
+    e^{i k_x' (x - x_{-m}')}
+  \end{aligned}
+  \label{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_phase_factor}
+\end{equation}
+is a complex-valued phase factor
+that results from filtering the scattered radiation by $T(k_x')$.
 Generalizing
 (\ref{eq:InterferometricMethods:phase_modulated_Gaussian_beam_diffraction})
 to allow for such wavenumber-dependent manipulation
@@ -1104,11 +1287,12 @@ yields a total diffracted electric field
 \begin{equation}
   E(\vect{r}, t)
   \approx
+  E_G(0, y, z, t)
   e^{i \bar{\phi}}
   \sum_{m = -\infty}^{\infty}
   i^m \left[ J_m(\tilde{\phi}_0) \right]
-  \mathcal{E}_G(\vect{r_m})
-  e^{-i (\omega_0 + m \omega) t}
+  \mathcal{P}(x, m, k)
+  e^{-i m \omega t}
   \label{eq:InterferometricMethods:phase_modulated_Gaussian_beam_diffraction_Fourier_filtered}
 \end{equation}
 Manipulating the total diffracted electric field in such a manner
