@@ -852,13 +852,38 @@ To put
 (\ref{eq:InterferometricMethods:Fraunhofer_phase_modulated_Gaussian_beam_diffraction})
 in a more familiar form,
 consider the coordinate transformation
-\begin{align}
-  \begin{aligned}
-    z &= z_m \cos\theta_m - x_m \sin\theta_m
+from the lab-frame coordinate system $\vect{r}$
+to the coordinate system of the $m$\ts{th} scattered beam $\vect{r_m}$,
+as depicted graphically
+in Fig.~\ref{fig:InterferometricMethods:coordinate_rotation}.
+As the transformation is simply
+a rotation about the $y$-axis by angle $\theta_m$,
+the coordinate systems are related via
+\begin{equation}
+  \begin{pmatrix}
+    x_m
     \\
-    x &= x_m \cos\theta_m + z_m \sin\theta_m
-  \end{aligned}
-\end{align}
+    y_m
+    \\
+    z_m
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    \cos\theta_m & 0 & -\sin\theta_m
+    \\
+    0            & 1 & 0
+    \\
+    \sin\theta_m & 0 & \cos\theta_m
+  \end{pmatrix}
+  \begin{pmatrix}
+    x
+    \\
+    y
+    \\
+    z
+  \end{pmatrix}
+  \label{eq:InterferometricMethods:object_plane_coordinate_transformation_explicit}
+\end{equation}
 where
 \begin{equation}
   \sin \theta_m
@@ -866,23 +891,80 @@ where
   \frac{m k}{k_0}
   \label{eq:InterferometricMethods:scattering_angles}
 \end{equation}
-This coordinate transformation is depicted graphically
-in Fig.~\ref{fig:InterferometricMethods:coordinate_rotation}.
-Note that the transformation preserves lengths, i.e.\ $r_m = r$.
-Typically, $k / k_0 \ll 1$ such that
-\begin{align}
-  \begin{aligned}
-    z &\approx z_m - x_m \theta_m
+This coordinate transformation can be written more compactly as
+\begin{equation}
+  \vect{r_m}
+  =
+  \vect{R_m} \vect{r}
+  \label{eq:InterferometricMethods:object_plane_coordinate_transformation_compact}
+\end{equation}
+where $\vect{R_m}$ is the rotation matrix in
+(\ref{eq:InterferometricMethods:object_plane_coordinate_transformation_explicit}).
+Rotation matrices are \emph{orthogonal},
+which endows $\vect{R_m}$ with some useful properties
+\cite[Ch.~6]{FB_linear_algebra};
+namely, its inverse is equal to its transpose $\vect{R_m}^T$
+\begin{equation}
+  \vect{R_m}^T
+  =
+  \vect{R_m}^{-1}
+  =
+  \vect{R_{-m}}
+  \label{eq:InterferometricMethods:rotation_matrix_inverse_relationships}
+\end{equation}
+and its determinant is unity
+\begin{equation}
+  \text{det}(\vect{R_m}) = |\vect{R_m}| = 1
+  \label{eq:InterferometricMethods:rotation_matrix_determinant}
+\end{equation}
+such that the rotation preserves lengths, i.e.\ $r_m = r$.
+Typically, $k / k_0 \ll 1$ such that the coordinate transforms reduce to
+\begin{equation}
+  \vect{r_m}
+  =
+  \begin{pmatrix}
+    x_m
     \\
-    x &\approx x_m + z_m \theta_m
-  \end{aligned}
-  \label{eq:InterferometricMethods:coordinate_rotation}
-\end{align}
+    y_m
+    \\
+    z_m
+  \end{pmatrix}
+  \approx
+  \begin{pmatrix}
+    x - z \theta_m
+    \\
+    y
+    \\
+    z + x \theta_m
+  \end{pmatrix}
+  \label{eq:InterferometricMethods:object_plane_coordinate_transformation_explicit_small_angle}
+\end{equation}
+and
+\begin{equation}
+  \vect{r}
+  =
+  \begin{pmatrix}
+    x
+    \\
+    y
+    \\
+    z
+  \end{pmatrix}
+  \approx
+  \begin{pmatrix}
+    x_m + z_m \theta_m
+    \\
+    y_m
+    \\
+    z_m - x_m \theta_m
+  \end{pmatrix}
+  \label{eq:InterferometricMethods:object_plane_coordinate_transformation_explicit_small_angle_inverse}
+\end{equation}
 Substituting
-(\ref{eq:InterferometricMethods:coordinate_rotation})
+(\ref{eq:InterferometricMethods:object_plane_coordinate_transformation_explicit_small_angle_inverse})
 into
 (\ref{eq:InterferometricMethods:Fraunhofer_phase_modulated_Gaussian_beam_diffraction})
-and defining $\rho_m = (x_m^2 + y^2)^{1/2}$ yields
+and defining $\rho_m = (x_m^2 + y_m^2)^{1/2}$ yields
 \begin{equation}
   \begin{aligned}
     E(\vect{r}, t)
@@ -916,7 +998,6 @@ the diffracted electric field can be more compactly and generally written as
   e^{-i (\omega_0 + m \omega) t}
   \label{eq:InterferometricMethods:phase_modulated_Gaussian_beam_diffraction}
 \end{equation}
-where $\vect{r_m} \approx (x - z \theta_m,\, y,\, z + x \theta_m)$.
 Note that
 (\ref{eq:InterferometricMethods:phase_modulated_Gaussian_beam_diffraction})
 is valid for $0 \leq z < \infty$ rather than only for $z \gg z_R$;
@@ -930,7 +1011,7 @@ with strength $J_m(\tilde{\phi}_0)$.
 The $m$\ts{th} scattered beam is Doppler shifted
 relative to the incident beam by $m \omega$ and
 propagates at an angle $\theta_m \approx m k / k_0$
-relative to the optical axis.
+relative to the lab-frame optical axis.
 Note that the spatial dependence of the scattered beams' phase evolution
 remains $e^{i [k_0 r - \psi(z)]}$; that is,
 the scattering process is elastic,
