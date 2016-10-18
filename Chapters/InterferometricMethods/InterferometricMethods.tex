@@ -965,37 +965,33 @@ Note that $E_G(\vect{r_m})$ can be Fourier decomposed as
 \begin{align}
   E_G(\vect{r_m})
   &=
-  \mathcal{F}^{-1}[E_G(\vect{k}_{\perp}, z)](\vect{r_m})
+  \mathcal{F}^{-1}[E_G(\vect{k_m}')](\vect{r_m})
   \notag \\
   &=
-  \frac{1}{(2 \pi)^2}
-  \int d\vect{k}_{\perp}
-  e^{i \vect{k}_{\perp} \cdot \vect{r_m}}
-  E_G(\vect{k}_{\perp}, z)
+  \frac{1}{(2 \pi)^3}
+  \int d\vect{k_m}'
+  e^{i \vect{k_m}' \cdot \vect{r_m}}
+  E_G(\vect{k_m}')
   \notag \\
   &=
-  \frac{1}{(2 \pi)^2}
-  \int d\vect{k}_{\perp}
-  e^{i \vect{k}_{\perp} \cdot \vect{r_m}}
+  \frac{1}{(2 \pi)^3}
+  \int d\vect{k_m}'
+  e^{i \vect{k_m}' \cdot \vect{r_m}}
   \left[
-    \int d\vect{\rho'} \,
-    e^{-i \vect{k}_{\perp} \cdot \vect{r}'}
+    \int d\vect{r}' \,
+    e^{-i \vect{k_m}' \cdot \vect{r}'}
     E_G(\vect{r}')
   \right]
   \notag \\
   &=
-  \frac{1}{(2 \pi)^2}
-  \int d\vect{\rho}' \,
+  \frac{1}{(2 \pi)^3}
+  \int d\vect{r}' \,
   E_G(\vect{r}')
-  \int d\vect{k}_{\perp} \,
-  e^{i \vect{k}_{\perp} \cdot (\vect{r_m} - \vect{r'})}
+  \int d\vect{k_m}' \,
+  e^{i \vect{k_m}' \cdot (\vect{r_m} - \vect{r}')}
   \notag
 \end{align}
-where
-$\vect{k}_{\perp} \equiv k_x \hat{\vect{x}} + k_y \hat{\vect{y}}$
-is the perpendicular wavevector, and
-$\vect{\rho}' = x' \hat{\vect{x}} + y' \hat{\vect{y}}$
-is the perpendicular distance from the optical axis.
+where\ldots
 
 While the above Fourier decomposition is trivial,
 it lays the foundation for more sophisticated analysis.
