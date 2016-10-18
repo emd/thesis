@@ -1226,8 +1226,8 @@ becomes
   e^{i k_x' (x - x_{-m}')}
   \label{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_v1}
 \end{align}
-The Gaussian envelope suppresses contributions
-from $|x - x'| \gg w(z)$ such that
+Contributions to the integral from regions outside of $|x'| \lesssim w(z)$
+are suppressed by the Gaussian envelope such that
 \begin{align}
   w(z + x' \theta_m)
   &\approx
@@ -1244,6 +1244,9 @@ from $|x - x'| \gg w(z)$ such that
 \end{align}
 are very good approximations
 when evaluating $E_G(x', y, z + x' \theta_m)$.
+Note that the phase factor $\exp[i k_0 (z + x' \theta_m)]$
+must be fully retained
+(that is, $\exp[i k_0 (z + x' \theta_m)] \not\approx\exp[i k_0 z]$).
 After making these approximations,
 (\ref{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_v1})
 reduces to
