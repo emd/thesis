@@ -1290,12 +1290,11 @@ yields a total diffracted electric field
 \begin{equation}
   E(\vect{r}, t)
   \approx
-  E_G(0, y, z, t)
   e^{i \bar{\phi}}
   \sum_{m = -\infty}^{\infty}
   i^m \left[ J_m(\tilde{\phi}_0) \right]
-  \mathcal{P}(x, m, k)
-  e^{-i m \omega t}
+  \mathcal{E}_G(\vect{r_m})
+  e^{-i (\omega_0 + m \omega) t}
   \label{eq:InterferometricMethods:phase_modulated_Gaussian_beam_diffraction_Fourier_filtered}
 \end{equation}
 Manipulating the total diffracted electric field in such a manner
@@ -1599,113 +1598,52 @@ let $\mathcal{I}$ image the object plane $S_1$
 such that the image of diffracted field
 (\ref{eq:InterferometricMethods:phase_modulated_Gaussian_beam_diffraction_Fourier_filtered})
 is
-\begin{equation}
+\begin{align}
+  E(\vect{r}', t)
+  &=
   \mathcal{I}[ E(\vect{r}, t) ]
-  =
+  \notag \\
+  &=
   e^{i \bar{\phi}}
   \sum_{m = -\infty}^{\infty}
   i^m \left[ J_m(\tilde{\phi}_0) \right]
   \mathcal{I}[\mathcal{E}_G(\vect{r_m})]
   e^{-i (\omega_0 + m \omega) t}
-\end{equation}
+  \label{eq:InterferometricMethods:imaged_total_field_v1}
+\end{align}
 where the linearity of $\mathcal{I}$ has been invoked
 to bring the operator within the summation.
-For all the cases considered in this work,
-$\mathcal{E}_G(\vect{r_m}) = E_G(\vect{r_m}) \cdot \mathcal{P}(\vect{r_m})$
-for some complex-valued function $\mathcal{P}$ such that
-the imaging optics simply transform
-the $m$\ts{th} diffracted beam as
-\begin{equation}
-  \mathcal{I} \left[ \mathcal{E}_G(\vect{r_m}) \right]
-  =
-  E_{G'}(\vect{r_m'}) \cdot \mathcal{P}(\vect{r_m'})
-\end{equation}
-where
+Referencing
+(\ref{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_compact}),
+it readily follows that
+\begin{align}
+  \mathcal{I}[\mathcal{E}_G(\vect{r_m})]
+  &=
+  \mathcal{I}[ E_G(0, y, z) \cdot \mathcal{P}(x, m, k) ]
+  \notag \\
+  &=
+  E_{G'}(0, y', z') \cdot \mathcal{P}(x', m, k / M)
+\end{align}
+where $\vect{r}'$ is the image-plane coordinate system,
+$E_{G'}$ is the image-plane Gaussian beam, and
+the object-plane wavevector $k$ has been imaged as $k / M$.
+Thus, (\ref{eq:InterferometricMethods:imaged_total_field_v1}) becomes
 \begin{equation}
   \begin{aligned}
-    E_{G'}(\vect{r_m'})
-    &= E_0
-    \frac{w_0'}{w'(z_m')}
-    \exp\left[ \frac{-\rho_m'^2}{w'(z_m')^2} \right]
+    E(\vect{r}', t)
+    &=
+    E_{G'}(0, y', z', t)
+    e^{i \bar{\phi}}
     \\
-    &\quad\times
-    \exp\left\{ i \left[
-      k_0 z_m'
-      +
-      \frac{k_0 \rho_m'^2}{2 R'(z_m')}
-      -
-      \psi'(z_m') \right] \right\}
+    &\quad \times
+    \sum_{m = -\infty}^{\infty}
+    i^m \left[ J_m(\tilde{\phi}_0) \right]
+    \mathcal{P}(x', m, k / M)
+    e^{-i m \omega t}
   \end{aligned}
-\end{equation}
-and $w'(z_m')$, $R'(z_m')$, and $\psi'(z_m')$ are the beam's image-plane
-width, radius of curvature, and Gouy phase shift, respectively.
-Under the typical small-angle scattering limit,
-$w'(z_m') \approx w'(z')$,
-$R'(z_m') \approx R'(z')$, and
-$\psi'(z_m') \approx \psi'(z')$.
-Then, neglecting the small variation in the Gaussian envelope and
-retaining phase-factor terms only to second order in $k / k_0$,
-the $m$\ts{th} scattered Gaussian beam in the image plane is
-\begin{equation}
-  \mathcal{I}[\mathcal{E}_G(\vect{r_m})] e^{-i (\omega_0 + m \omega) t}
-  =
-  E_{G'}(\vect{r', t})
-  \cdot
-  \mathcal{P}(\vect{r_m'})
-  e^{i (m \xi - m^2 \kappa)}
-  \label{eq:InterferometricMethods:imaged_scattered_beam_second_order}
-\end{equation}
-where
-\begin{align}
-  \begin{aligned}
-    E_{G'}(\vect{r'}, t)
-    =
-    &\, E_0
-    \frac{w_0'}{w'(z')}
-    \exp\left[ \frac{-\rho'^2}{w'(z')^2} \right]
-    \\
-    &\times
-    \exp\left\{ i \left[
-        k_0 z'
-        +
-        \frac{k_0 \rho'^2}{2 R'(z')}
-        -
-        \psi'(z')
-      \right]
-    \right\}
-    e^{-i \omega_0 t}
-  \end{aligned}
-  \label{eq:InterferometricMethods:eq:InterferometricMethods:imaged_unscattered_beam}
-\end{align}
-corresponds to the undiffracted Gaussian beam in the image plane and
-\begin{align}
-  \xi
-  &=
-  \frac{k x'}{M} - \omega t
-  \label{eq:InterferometricMethods:xi_imaged_wave_phase}
-  \\
-  \kappa
-  &=
-  \frac{1}{2 k_0 R'(z')} \left( \frac{k x'}{M} \right)^2
-  \label{eq:InterferometricMethods:kappa_image_plane_curvature_effect}
-\end{align}
-The curvature-induced phase factor $\kappa$ is typically negligible and
-is dropped in the remainder of this chapter's discussion.
-\graffito{\textcolor{red}{%
-  But $\kappa$ can become important during calibrations.
-  Cite Naoto and Dorris. Or even save for later chapter?}}
-Thus, the total scattered field in the image plane becomes
-\begin{equation}
-  \mathcal{I}[ E(\vect{r}, t) ]
-  =
-  E_{G'}(\vect{r'}, t)
-  e^{i \bar{\phi}}
-  \sum_{m = -\infty}^{\infty}
-  i^m \left[ J_m(\tilde{\phi}_0) \right]
-  \mathcal{P}(\vect{r_m'})
-  e^{i m \xi}
   \label{eq:InterferometricMethods:imaged_total_field}
 \end{equation}
+where $E_{G'}(0, y', z', t) = E_{G'}(0, y', z') e^{-i \omega_0 t}$.
 
 
 \subsection{The weak-coupling limit}
@@ -1728,42 +1666,113 @@ can be used
 \end{equation}
 Here, $\Gamma$ is the gamma function, and
 $\Gamma(m + 1) = m!$ for positive integer $m$.
-Dropping terms exceeding first order in $\tilde{\phi}_0$,
+Dropping terms exceeding first order in $\tilde{\phi}_0$ and
+introducing the notational shorthand
+$\mathcal{P}_m \equiv \mathcal{P}(x', m, k / M)$,
 (\ref{eq:InterferometricMethods:imaged_total_field}) becomes
 \begin{equation}
   \begin{aligned}
-  \mathcal{I}[ E(\vect{r}, t) ]
+  E(\vect{r'}, t)
   &\approx
-  E_{G'}(\vect{r'}, t)
+  E_{G'}(0, y', z', t)
   e^{i \bar{\phi}}
+  \\
+  &\quad\times
   \biggl\{%
-    \mathcal{P}(\vect{r'})
-    \\
-    &\quad\qquad+
+    \mathcal{P}_{0}
+    +
     i \frac{\tilde{\phi}_0}{2}
     \left[
-      \mathcal{P}(\vect{r'}_1) e^{i \zeta}
+      \mathcal{P}_{1} e^{-i \omega t}
       +
-      \mathcal{P}(\vect{r'}_{-1}) e^{-i \zeta}
+      \mathcal{P}_{-1} e^{i \omega t}
     \right]
   \biggr\}
   \end{aligned}
   \label{eq:InterferometricMethods:imaged_total_field_weak_coupling_Fourier_filtered}
 \end{equation}
-where the substitution $\vect{r'}_0 = \vect{r'}$ has been used.
-When there is no wavenumber-dependent manipulation of the diffracted beams
-(i.e.\ $T(\vect{k}_{\perp}) = 1$ or, correspondingly,
-$\mathcal{P}(\vect{r_m'}) = 1$ for all $m$),
-the imaged field further simplifies to
+
+It is enlightening to examine the case where there is
+no wavenumber-dependent manipulation of the scattered beams
+(i.e.\ $T(k_x) = 1$), for which
+the phase factor $\mathcal{P}(x', m, k / M)$ readily reduces to
 \begin{equation}
-  \mathcal{I}[ E(\vect{r}, t) ]
+  \mathcal{P}(x', m, k / M)
+  =
+  \exp\left[\frac{-x_m'^2}{w'(z')^2} \right]
+  \exp\left\{%
+    i \left[%
+      \frac{m k x_m'}{M}
+      +
+      \frac{k_0 x_m'^2}{2 R'(z')}
+    \right]
+  \right\}
+\end{equation}
+Now, the image-plane coordinate transformation from $x_m'$ to $x'$ is given by
+(\ref{eq:InterferometricMethods:coordinate_transformation_imaging_plane}).
+Neglecting the small variation in the Gaussian envelope and
+retaining phase factors only to second order in $k$ yields
+\begin{equation}
+  \begin{aligned}
+  \mathcal{P}(x', m, k / M)
+  &\approx
+  \exp\left[\frac{-x'^2}{w'(z')^2} \right]
+  \exp\left[ \frac{i k_0 x'^2}{2 R'(z')} \right]
+  \\
+  &\quad \times
+  \exp\left\{%
+    i \left[%
+      \frac{m k x'}{M}
+      -
+      \frac{m^2}{2 k_0 R'(z')}
+      \left( \frac{k x'}{M} \right)^2
+    \right]
+  \right\}
+  \end{aligned}
+  \label{eq:InterferometricMethods:mth_diffracted_beam_no_kx_filter_phase_factor}
+\end{equation}
+Here, the top line corresponds to
+the Gaussian envelope and phase-front curvature
+of the unscattered ($m = 0$) beam, whereas
+the second line corresponds to interference effects.
+Substituting
+(\ref{eq:InterferometricMethods:mth_diffracted_beam_no_kx_filter_phase_factor})
+into
+(\ref{eq:InterferometricMethods:imaged_total_field_weak_coupling_Fourier_filtered})
+yields
+\begin{equation}
+  E(\vect{r}', t)
   =
   E_{G'}(\vect{r'}, t)
   e^{i \bar{\phi}}
   \left[%
     1
     +
-    i \tilde{\phi}_0 \cos\zeta
+    i \tilde{\phi}_0 e^{-i \kappa} \cos\xi
+  \right]
+\end{equation}
+where
+\begin{align}
+  \xi
+  &\equiv
+  \frac{k x'}{M} - \omega t
+  \label{eq:InterferometricMethods:image_plane_xi}
+  \\
+  \kappa
+  &\equiv
+  \frac{1}{2 k_0 R'(z')} \left( \frac{k x'}{M} \right)^2
+  \label{eq:InterferometricMethods:image_plane_kappa}
+\end{align}
+Normally, $\kappa \ll 1$ such that the total imaged field reduces to
+\begin{equation}
+  E(\vect{r}', t)
+  \approx
+  E_{G'}(\vect{r'}, t)
+  e^{i \bar{\phi}}
+  \left[%
+    1
+    +
+    i \tilde{\phi}_0 \cos\xi
   \right]
   \label{eq:InterferometricMethods:imaged_total_field_weak_coupling}
 \end{equation}
@@ -1783,7 +1792,7 @@ the local intensity is
 \begin{align}
   I(\vect{r'}, t)
   &\equiv
-  \frac{c \varepsilon_0}{2} |\mathcal{I}[E(\vect{r}, t)]|^2
+  \frac{c \varepsilon_0}{2} |E(\vect{r}', t)|^2
   \notag \\
   &=
   I_{G'}(\vect{r'})
