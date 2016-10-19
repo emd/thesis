@@ -235,6 +235,160 @@ becomes
 \end{equation}
 
 
+\subsection{Integral of offset sinc with complex-Gaussian weighting}
+Note that
+(\ref{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_phase_factor_near_field_sincs})
+consists of several integrals of the form
+\begin{equation}
+  I(x_0, a, b, c)
+  \equiv
+  \frac{b}{\pi}
+  \int dx \,
+  e^{-a x^2}
+  e^{i c x}
+  \sinc\left[ \frac{b}{\pi} (x - x_0) \right]
+  \label{eq:PCIResponseIdentities:I_x0_abc_definition}
+\end{equation}
+where $a > 0$ and $x_0$, $b$, and $c$ are real.
+While daunting, the integral can be evaluated ``analytically''
+in terms of complex error functions as follows
+\begin{align}
+  I(x_0, a, b, c)
+  &=
+  \frac{b}{\pi}
+  \int dx \,
+  e^{-a x^2}
+  e^{i c x}
+  \sinc\left[ \frac{b}{\pi} (x - x_0) \right]
+  \notag \\
+  &=
+  \frac{1}{\pi}
+  \int dx \,
+  e^{-a x^2}
+  e^{i c x}
+  \cdot
+  \frac{\sin[b (x - x_0)]}{x - x_0}
+  \notag \\
+  &=
+  \frac{1}{\pi}
+  \int_{0}^{b} d\beta
+  \int dx \,
+  e^{-a x^2}
+  e^{i c x}
+  \cos[\beta (x - x_0)]
+  \notag \\
+  &=
+  \frac{1}{2 \pi}
+  \int_{0}^{b} d\beta
+  \int dx \,
+  e^{-a x^2}
+  e^{i c x}
+  \left[%
+    e^{i \beta (x - x_0)}
+    +
+    e^{-i \beta (x - x_0)}
+  \right]
+  \notag \\
+  &\begin{aligned}
+    &=
+    \frac{1}{2 \pi}
+    \int_{0}^{b} d\beta
+    \int dx \,
+    e^{-a x^2}
+    e^{i [(\beta + c) x - \beta x_0]}
+    \\
+    &\quad+
+    \frac{1}{2 \pi}
+    \int_{0}^{b} d\beta
+    \int dx \,
+    e^{-a x^2}
+    e^{i [-(\beta - c) x + \beta x_0]}
+  \end{aligned}
+  \notag \\
+  &\begin{aligned}
+    &=
+    \frac{1}{2 \pi}
+    \int_{0}^{b} d\beta
+    \int dx \,
+    e^{-a x^2}
+    e^{i [(\beta + c) x - \beta x_0]}
+    \\
+    &\quad-
+    \frac{1}{2 \pi}
+    \int_{0}^{-b} d\beta'
+    \int dx \,
+    e^{-a x^2}
+    e^{i [(\beta' + c) x - \beta' x_0]}
+  \end{aligned}
+  \notag \\
+  &=
+  \frac{1}{2 \pi}
+  \int_{-b}^{b} d\beta
+  \int dx \,
+  e^{-a x^2}
+  e^{i [(\beta + c) x - \beta x_0]}
+  \notag \\
+  &=
+  \frac{1}{2 \pi}
+  \int_{-b}^{b} d\beta \,
+  e^{-(\beta + c)^2 / 4 a}
+  e^{-i \beta x_0}
+  \int dx \,
+  e^{-a [x - i (\beta + c) / 2a]^2}
+  \notag \\
+  &=
+  \frac{1}{2 \sqrt{\pi a}}
+  \int_{-b}^{b} d\beta \,
+  e^{-(\beta + c)^2 / 4 a}
+  e^{-i \beta x_0}
+  \notag \\
+  &=
+  \frac{1}{2 \sqrt{\pi a}}
+  e^{i c x_0}
+  \int_{c - b}^{c + b} d\beta' \,
+  e^{-\beta'^2 / 4 a}
+  e^{-i \beta' x_0}
+  \notag \\
+  &=
+  \frac{1}{2 \sqrt{\pi a}}
+  e^{-a x_0^2}
+  e^{i c x_0}
+  \int_{c - b}^{c + b} d\beta' \,
+  e^{-(\beta' + i 2 a x_0)^2 / 4 a}
+  \notag \\
+  &=
+  \frac{1}{\sqrt{\pi}}
+  e^{-a x_0^2}
+  e^{i c x_0}
+  \int_{u(c - b)}^{u(c + b)} du \,
+  e^{-u^2}
+  \notag \\
+  &=
+  \frac{1}{2}
+  e^{-a x_0^2}
+  e^{i c x_0}
+  \left\{
+    \erf[u(c + b)]
+    -
+    \erf[u(c - b)]
+  \right\}
+  \label{eq:PCIResponseIdentities:I_x0_abc_evaluated}
+\end{align}
+where the error function is defined for complex argument $z$ as
+\begin{equation}
+  \erf(z)
+  =
+  \frac{2}{\sqrt{\pi}}
+  \int_0^z e^{-t^2} dt
+  \label{eq:PCIResponseIdentities:error_function}
+\end{equation}
+and
+\begin{equation}
+  u(\beta) = \frac{1}{2 \sqrt{a}} (\beta + i 2 a x_0)
+  \label{eq:PCIResponseIdentities:u}
+\end{equation}
+
+
 \section{The error function}
 The error function is defined as
 \begin{equation}
@@ -242,7 +396,7 @@ The error function is defined as
   =
   \frac{2}{\sqrt{\pi}}
   \int_0^z e^{-t^2} dt
-  \label{eq:PCIResponseIdentities:error_function}
+  %\label{eq:PCIResponseIdentities:error_function}
 \end{equation}
 for complex argument $z$.
 The error function is \emph{odd}
@@ -289,7 +443,7 @@ where
 and
 \begin{equation}
   u(k_j, m) \equiv \frac{w_0}{2}(k_j - m k) + i \frac{x}{w_0}
-  \label{eq:PCIResponseIdentities:u}
+  %\label{eq:PCIResponseIdentities:u}
 \end{equation}
 
 
