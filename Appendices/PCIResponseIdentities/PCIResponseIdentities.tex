@@ -2,6 +2,96 @@
 \label{app:PCIResponseIdentities}
 
 
+\section{Phase factor in the beam's near field}
+The effect of wavenumber-dependent manipulation $T(k_x)$
+on the $m$\ts{th} scattered beam is given by
+the phase factor $\mathcal{P}(x, m, k)$ as defined in
+(\ref{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_phase_factor}),
+which is repeated here for completeness
+\begin{equation}
+  \begin{aligned}
+    \mathcal{P}(x, m, k)
+    &=
+    \frac{1}{2 \pi}
+    \int dx' \,
+    \exp\left[ \frac{-x'^2}{w(z)^2} \right]
+    \exp\left\{%
+      i \left[%
+        m k x'
+        +
+        \frac{k_0 x'^2}{2 R(z)}
+      \right]
+    \right\}
+    \\
+    &\qquad \times
+    \int dk_x' \,
+    T(k_x')
+    e^{i k_x' (x_m - x')}
+  \end{aligned}
+  \label{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_phase_factor_full}
+\end{equation}
+Note that contributions to the integral
+from regions outside of $|x'| \lesssim w(z)$
+are suppressed by the Gaussian envelope such that
+the maximum value of the curvature-induced phase factor obeys
+\begin{equation}
+  \left[ \frac{k_0 x'^2}{2 R(z)} \right]_{\text{max}}
+  \sim
+  \frac{k_0 [w(z)]^2}{2 R(z)}
+  \label{eq:PCIResponseIdentities:curvature_phase_factor_constraint_general}
+\end{equation}
+Now, in the beam's near field
+($z \ll z_R$, which is often experimentally relevant),
+the beam's waist and radius of curvature are
+\begin{align}
+  w(z) &\approx w_0
+  \\
+  R(z) &\approx \frac{z_R^2}{z}
+\end{align}
+as can be easily verified by examining the definitions in
+(\ref{eq:InterferometricMethods:Gaussian_beam_width}) and
+(\ref{eq:InterferometricMethods:Gaussian_beam_radius_of_curvature}),
+respectively.
+Thus,
+(\ref{eq:PCIResponseIdentities:curvature_phase_factor_constraint_general})
+becomes
+\begin{align}
+  \left[ \frac{k_0 x'^2}{2 R(z)} \right]_{\text{max}}
+  &\sim
+  \frac{k_0 [w(z)]^2}{2 R(z)}
+  \notag \\
+  &\approx
+  \frac{k_0 w_0^2}{2 (z / z_R)}
+  \notag \\
+  &= \frac{z}{z_R}
+  \notag \\
+  &\ll 1
+  \label{eq:PCIResponseIdentities:curvature_phase_factor_constraint_near_field}
+\end{align}
+where $z / z_R \ll 1$ follows from the near-field assumption.
+Thus, in the beam's near field,
+the curvature-induced phase factor is negligible, and
+$\mathcal{P}(x, m, k)$ reduces to
+\begin{equation}
+  \begin{aligned}
+    \mathcal{P}(x, m, k)
+    &=
+    \frac{1}{2 \pi}
+    \int dx' \,
+    \exp\left[ \frac{-x'^2}{w(z)^2} \right]
+    e^{i m k x'}
+    \\
+    &\qquad \times
+    \int dk_x' \,
+    T(k_x')
+    e^{i k_x' (x_m - x')}
+  \end{aligned}
+  \label{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_phase_factor_near_field}
+\end{equation}
+This near-field assumption will be implicit
+in the remainder of the discussion about PCI.
+
+
 \section{The phase-plate operator $\mathcal{P}$}
 The effect of the phase plate on the $m$\ts{th} diffracted beam is given by
 $\mathcal{P}(x, k, m)$ as defined in
