@@ -30,7 +30,8 @@ which is repeated here for completeness
   \end{aligned}
   \label{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_phase_factor_full}
 \end{equation}
-Note that contributions to the integral
+The integrals are over the full domain of $x'$ and $k_x'$, but
+note that contributions to the integral
 from regions outside of $|x'| \lesssim w(z)$
 are suppressed by the Gaussian envelope such that
 the maximum value of the curvature-induced phase factor obeys
@@ -78,7 +79,7 @@ $\mathcal{P}(x, m, k)$ reduces to
     &=
     \frac{1}{2 \pi}
     \int dx' \,
-    \exp\left[ \frac{-x'^2}{w(z)^2} \right]
+    e^{-\left[ x' / w(z) \right]^2}
     e^{i m k x'}
     \\
     &\qquad \times
@@ -92,27 +93,11 @@ This near-field assumption will be implicit
 in the remainder of the discussion about PCI.
 
 
-\section{The phase-plate operator $\mathcal{P}$}
-The effect of the phase plate on the $m$\ts{th} diffracted beam is given by
-$\mathcal{P}(x, k, m)$ as defined in
-(\ref{eq:InterferometricMethods:phase_plate_action_on_mth_beam});
-$\mathcal{P}(x, k, m)$ is repeated here for completeness
-\begin{equation}
-  \mathcal{P}(x, k, m)
-  \equiv
-  \sqrt{\pi} w_0
-  \mathcal{F}_x^{-1}
-  \left\{
-    T_{\text{pp}}(k_x)
-    \cdot
-    e^{-\left[ \frac{w_0}{2} \left( k_x - m k \right) \right]^2}
-  \right\}
-  \label{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam}
-\end{equation}
-where
+\section{The PCI phase factor}
+The transfer function of the PCI phase plate can be described as
 \begin{equation}
   \begin{aligned}
-    T_{\text{pp}}(k_x)
+    T(k_x)
     &=
     i \sqrt{\eta} \, H(k_g - |k_x|)
     \\
@@ -122,8 +107,7 @@ where
   \end{aligned}
   \label{eq:PCIResponseIdentities:phase_plate_transfer_function}
 \end{equation}
-is the phase-plate transfer function,
-$H(x)$ is the Heaviside step function defined as
+where $H(x)$ is the Heaviside step function defined as
 \begin{equation}
   H(x)
   =
@@ -133,43 +117,42 @@ $H(x)$ is the Heaviside step function defined as
   \end{cases}
   \label{eq:PCIResponseIdentities:Heaviside_step_function}
 \end{equation}
-and $k_g$ and $k_D$ are the low-$k$ and high-$k$ cutoffs of the phase plate
+$\eta$ is the reflectivity of the phase-plate groove, and
+$k_g$ and $k_D$ are the low-$k$ and high-$k$ cutoffs of the phase plate
 as defined in
 (\ref{eq:InterferometricMethods:pci_kmin_engineering}) and
 (\ref{eq:InterferometricMethods:pci_kmax_engineering}), respectively.
-Thus,
-\begin{align}
+Thus, the PCI phase factor $\mathcal{P}(x, m, k)$ is
+\begin{equation}
   \begin{aligned}
-    \mathcal{P}(x, k, m)
-    =
-    \sqrt{\pi} w_0
-    &\biggl\{
-      \frac{1}{2 \pi}
-      \int_{-k_D}^{-k_g}
-      dk_x
-      e^{i k_x x}
-      e^{-\left[ \frac{w_0}{2} \left( k_x - m k \right) \right]^2}
-      \\
-      &+
-      \frac{i \sqrt{\eta}}{2 \pi}
-      \int_{-k_g}^{k_g}
-      dk_x
-      e^{i k_x x}
-      e^{-\left[ \frac{w_0}{2} \left( k_x - m k \right) \right]^2}
-      \\
-      &+
-      \frac{1}{2 \pi}
-      \int_{k_g}^{k_D}
-      dk_x
-      e^{i k_x x}
-      e^{-\left[ \frac{w_0}{2} \left( k_x - m k \right) \right]^2}
-    \biggr\}
+    \mathcal{P}(x, m, k)
+    &=
+    \frac{1}{2 \pi}
+    \int dx' \,
+    e^{-\left[ x' / w(z) \right]^2}
+    e^{i m k x'}
+    \\
+    &\begin{aligned}
+      \quad
+      \times
+      \Biggl\{%
+        &\int_{-k_D}^{-k_g} dk_x' \,
+        e^{i k_x' (x_m - x')}
+        \\
+        &+
+        i \sqrt{\eta}
+        \int_{-k_g}^{k_g} dk_x' \,
+        e^{i k_x' (x_m - x')}
+        \\
+        &+
+        \int_{k_g}^{k_D} dk_x' \,
+        e^{i k_x' (x_m - x')}
+      \Biggr\}
+    \end{aligned}
   \end{aligned}
-  \label{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_integrals}
-\end{align}
-Note that each of the above integrals
-corresponds to a finite-domain inverse Fourier transform
-of a shifted Gaussian.
+  \label{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_phase_factor_near_field_integrals}
+\end{equation}
+
 
 
 \section{The error function}
