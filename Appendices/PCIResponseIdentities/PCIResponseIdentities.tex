@@ -154,7 +154,7 @@ Thus, the PCI phase factor $\mathcal{P}(x, m, k)$ is
 \end{equation}
 
 
-\section{Some useful integrals}
+\section{Some useful integrals for evaluation of $\mathcal{P}(x, m, k)$}
 
 
 \subsection{Finite-domain inverse Fourier transforms of unity}
@@ -202,6 +202,37 @@ Finally, note that
   2 k_1 \sinc \left( \frac{k_1 x}{\pi} \right)
   \label{eq:PCIResponseIdentities:finite_domain_inverse_FT_face}
 \end{align}
+Using (\ref{eq:PCIResponseIdentities:finite_domain_inverse_FT_groove}) and
+(\ref{eq:PCIResponseIdentities:finite_domain_inverse_FT_face}),
+it is easy to see that
+(\ref{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_phase_factor_near_field_integrals})
+becomes
+\begin{equation}
+  \begin{aligned}
+    \mathcal{P}(x, m, k)
+    &=
+    \frac{1}{\pi}
+    \int dx' \,
+    e^{-\left[ x' / w(z) \right]^2}
+    e^{i m k x'}
+    \\
+    &\begin{aligned}
+      \quad
+      \times
+      \Biggl\{%
+        &k_D \sinc\left[ \frac{k_D}{\pi} (x' - x_m) \right]
+        \\
+        &-
+        k_g \sinc\left[ \frac{k_g}{\pi} (x' - x_m) \right]
+        \\
+        &+
+        i \sqrt{\eta}
+        k_g \sinc\left[ \frac{k_g}{\pi} (x' - x_m) \right]
+      \Biggr\}
+    \end{aligned}
+  \end{aligned}
+  \label{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_phase_factor_near_field_sincs}
+\end{equation}
 
 
 \section{The error function}
