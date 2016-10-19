@@ -387,6 +387,57 @@ and
   u(\beta) = \frac{1}{2 \sqrt{a}} (\beta + i 2 a x_0)
   \label{eq:PCIResponseIdentities:u}
 \end{equation}
+Substituting the appropriate values
+\begin{equation}
+  x_0 \equiv x_m,
+  \qquad
+  a \equiv \frac{1}{w(z)^2},
+  \qquad
+  b \equiv k_j,
+  \qquad
+  c \equiv mk
+  \notag
+\end{equation}
+into (\ref{eq:PCIResponseIdentities:I_x0_abc_evaluated}) yields
+\begin{equation}
+  I\left(x_m, 1 / w(z)^2, k_j, m k\right)
+  = 
+  \frac{1}{2}
+  e^{-[x_m / w(z)]^2}
+  e^{i m k x_0}
+  \mathcal{D}(m k, k_j)
+  \label{eq:PCIResponseIdentities:I_x0_abc_evaluated_lab_parameters}
+\end{equation}
+where the difference function $\mathcal{D}$ is defined as
+\begin{equation}
+  \mathcal{D}(m k, k_j)
+  \equiv
+  \erf[u(m k + k_j)]
+  -
+  \erf[u(m k - k_j)]
+  \label{eq:PCIResponseIdentities:difference_function}
+\end{equation}
+
+
+\section{Symmetries in the image plane}
+
+
+\subsection{Properties of $u$}
+The complex-valued function $u$ is defined in
+(\ref{eq:PCIResponseIdentities:u}).
+Note that $\imag(u) = \sqrt{a} x_m$.
+However, according to the image-plane coordinate transformation in
+(\ref{eq:InterferometricMethods:coordinate_transformation_imaging_plane}),
+$x_m' = x'$ to first order in $k / k_0$; that is,
+\begin{equation}
+  \imag(u) =\text{a constant \emph{independent} of $m$ in image plane}
+  \label{eq:PCIResponseIdentities:imag_u_independent_of_m}
+\end{equation}
+
+Using (\ref{eq:PCIResponseIdentities:I_x0_abc_evaluated}),
+the phase factor $\mathcal{P}(x, m, k)$ from
+(\ref{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_phase_factor_near_field_sincs})
+reduces to
 
 
 \section{The error function}
@@ -415,7 +466,7 @@ where $z^*$ is the complex conjugate of $z$.
 
 \section{Finite-domain inverse Fourier transform of a shifted Gaussian}
 Each of the integrals in
-(\ref{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_integrals})
+%(\ref{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_integrals})
 can be easily evaluated by completing the square
 of the exponential arguments to yield
 \begin{equation}
