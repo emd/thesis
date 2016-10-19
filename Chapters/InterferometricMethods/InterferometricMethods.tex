@@ -1217,13 +1217,29 @@ becomes
   T(k_x')
   e^{i k_x' (x - x_{-m}')}
   \notag \\
-  &=
-  \frac{1}{2 \pi}
-  \int dx' \,
-  E_G(x', y, z + x' \theta_m)
-  \int dk_x' \,
-  T(k_x')
-  e^{i k_x' (x - x_{-m}')}
+  &\begin{aligned}
+    &=
+    \frac{1}{2 \pi}
+    \int dx' \,
+    E_G(x', y, z + x' \theta_m)
+    \\
+    &\qquad\qquad \times
+    \int dk_x' \,
+    T(k_x')
+    e^{i k_x' (x - x_{-m}')}
+  \end{aligned}
+  \notag \\
+  &\begin{aligned}
+    &=
+    \frac{1}{2 \pi}
+    \int dx' \,
+    E_G(x', y, z + x' \theta_m)
+    \\
+    &\qquad\qquad \times
+    \int dk_x' \,
+    T(k_x')
+    e^{i k_x' (x_m - x')}
+  \end{aligned}
   \label{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_v1}
 \end{align}
 Contributions to the integral from regions outside of $|x'| \lesssim w(z)$
@@ -1277,7 +1293,7 @@ where
     &\qquad \times
     \int dk_x' \,
     T(k_x')
-    e^{i k_x' (x - x_{-m}')}
+    e^{i k_x' (x_m - x')}
   \end{aligned}
   \label{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_phase_factor}
 \end{equation}
