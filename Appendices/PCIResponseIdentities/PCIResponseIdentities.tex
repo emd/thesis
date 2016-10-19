@@ -154,6 +154,55 @@ Thus, the PCI phase factor $\mathcal{P}(x, m, k)$ is
 \end{equation}
 
 
+\section{Some useful integrals}
+
+
+\subsection{Finite-domain inverse Fourier transforms of unity}
+Note that
+\begin{equation}
+  \int_{k_1}^{k_2} dk_x
+  e^{i k_x x}
+  =
+  \frac{e^{i k_2 x} - e^{i k_1 x}}{ix}
+\end{equation}
+Now, if $k_1 = -k_2$, this simplifies to
+\begin{equation}
+  \int_{-k_2}^{k_2} dk_x
+  e^{i k_x x}
+  =
+  2 k_2 \sinc \left( \frac{k_2 x}{\pi} \right)
+  \label{eq:PCIResponseIdentities:finite_domain_inverse_FT_groove}
+\end{equation}
+where
+\begin{equation}
+  \sinc(x) = \frac{\sin(\pi x)}{\pi x}
+  \label{eq:PCIResponseIdentities:normalized_sinc}
+\end{equation}
+is the normalized sinc function;
+note that sinc is an \emph{even} function.
+Finally, note that
+\begin{align}
+  \int_{-k_2}^{-k_1}
+  &dk_x
+  e^{i k_x x}
+  +
+  \int_{k_1}^{k_2} dk_x
+  e^{i k_x x}
+  \notag \\
+  &=
+  \int_{-k_2}^{k_2} dk_x
+  e^{i k_x x}
+  -
+  \int_{-k_1}^{k_1} dk_x
+  e^{i k_x x}
+  \notag \\
+  &=
+  2 k_2 \sinc \left( \frac{k_2 x}{\pi} \right)
+  -
+  2 k_1 \sinc \left( \frac{k_1 x}{\pi} \right)
+  \label{eq:PCIResponseIdentities:finite_domain_inverse_FT_face}
+\end{align}
+
 
 \section{The error function}
 The error function is defined as
