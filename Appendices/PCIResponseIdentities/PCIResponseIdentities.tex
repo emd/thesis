@@ -537,20 +537,10 @@ proves that $\mathcal{D}(0, k_j)$ is purely \emph{real}.
 Using (\ref{eq:PCIResponseIdentities:difference_function_symmetry})
 the PCI phase factor from
 (\ref{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_phase_factor_near_field_difference_functions})
-can readily be split into Hermitian $\mathcal{P}_H$ and
-anti-Hermitian $\mathcal{P}_A$ components
+can be readily written as
 \begin{equation}
-  \mathcal{P}(x, m, k)
-  =
-  \mathcal{P}_H(x, m, k)
-  +
-  \mathcal{P}_A(x, m, k)
-  \label{eq:PCIResponseIdentities:phase_factor_Hermitian_decomposed}
-\end{equation}
-where
-\begin{align}
-  &\begin{aligned}
-    \mathcal{P}_H(x, m, k)
+  \begin{aligned}
+    \mathcal{P}(x, m, k)
     &=
     \frac{1}{2}
     e^{-[x_m / w(z)]^2}
@@ -558,69 +548,53 @@ where
     \\
     &\quad\times
     \left[%
-       \mathcal{D}(m, k_D)
-       -
-       \mathcal{D}(m, k_g)
+      F(x, m, k)
+      +
+      G(x, m, k)
     \right]
   \end{aligned}
+  \label{eq:PCIResponseIdentities:phase_factor_Hermitian_decomposed}
+\end{equation}
+where
+\begin{align}
+  F(x, m, k)
+  &=
+  \mathcal{D}(m, k_D) - \mathcal{D}(m, k_g)
   \\
-  &\mathcal{P}_A(x, m, k)
-  =
-  \frac{i \sqrt{\eta}}{2}
-  e^{-[x_m / w(z)]^2}
-  e^{i m k x_m}
-  \mathcal{D}(m, k_g)
+  G(x, m, k)
+  &=
+  i \sqrt{\eta} \, \mathcal{D}(m, k_g)
 \end{align}
-such that
+Here, the notation is mnemonic:
+the non-grooved portion of the phase plate (i.e.\ the ``face'')
+acts on the $m$\ts{th} scattered beam via $F$, while
+the phase-plate groove acts on the $m$\ts{th} scattered beam via $G$.
+Note that $F$ is Hermitian
 \begin{equation}
-  \mathcal{P}(x, -m, k)
-  =
-  \mathcal{P}_H^*(x, m, k)
-  -
-  \mathcal{P}_A^*(x, m, k)
-  \label{eq:PCIResponseIdentities:phase_factor_Hermitian_decomposed_symmetry}
+  F(x, -m, k) = F^*(x, m, k)
+  \label{eq:PCIResponseIdentities:mth_beam_interaction_with_face_hermitian}
+\end{equation}
+while $G$ is anti-Hermitian
+\begin{equation}
+  G(x, -m, k) = -G^*(x, m, k)
+  \label{eq:PCIResponseIdentities:mth_beam_interaction_with_groove_antihermitian}
 \end{equation}
 
-Note that the above symmetry also implies a degeneracy when $m = 0$.
+Note that the above symmetries also imply a degeneracy when $m = 0$.
 Specifically,
-(\ref{eq:PCIResponseIdentities:phase_factor_Hermitian_decomposed})
-states that
+(\ref{eq:PCIResponseIdentities:mth_beam_interaction_with_face_hermitian})
+states that $F(x, 0, k) = F^*(x, 0, k)$; that is,
+$F(x, 0, k)$ is purely \emph{real}
 \begin{equation}
-  \mathcal{P}(x, +0, k)
-  =
-  \mathcal{P}_H(x, 0, k)
-  +
-  \mathcal{P}_A(x, 0, k)
+  F(x, 0, k) = \real[F(x, 0, k)]
 \end{equation}
-while (\ref{eq:PCIResponseIdentities:phase_factor_Hermitian_decomposed_symmetry})
-shows that
+Similarly,
+(\ref{eq:PCIResponseIdentities:mth_beam_interaction_with_groove_antihermitian})
+states that $G(x, 0, k) = -G^*(x, 0, k)$; that is,
+$G(x, 0, k)$ is purely \emph{imaginary}
 \begin{equation}
-  \mathcal{P}(x, -0, k)
-  =
-  \mathcal{P}_H^*(x, 0, k)*
-  -
-  \mathcal{P}_A^*(x, 0, k)
+  G(x, 0, k) = i \cdot \imag[G(x, 0, k)]
 \end{equation}
-Of course, $\mathcal{P}(x, +0, k) = \mathcal{P}(x, -0, k)$; that is
-\begin{equation}
-  \mathcal{P}_H(x, 0, k)
-  +
-  \mathcal{P}_A(x, 0, k)
-  =
-  \mathcal{P}_H^*(x, 0, k)
-  -
-  \mathcal{P}_A^*(x, 0, k)
-\end{equation}
-Further, as $\mathcal{P}_H$ is dependent on $k_D$ but $\mathcal{P}_A$ is not,
-$\mathcal{P}_H$ and $\mathcal{P}_A$ must be linearly independent;
-that is
-\begin{align}
-  \mathcal{P}_H(x, 0, k) &= [\mathcal{P}_H(x, 0, k)]^*
-  \\
-  \mathcal{P}_A(x, 0, k) &= -[\mathcal{P}_A(x, 0, k)]^*
-\end{align}
-This proves that $\mathcal{P}_H(x, 0, k)$ is purely \emph{real} and
-that $\mathcal{P}_A(x, 0, k)$ is purely \emph{imaginary}.
 
 Another useful degeneracy occurs
 when the fluctuation wavenumber vanishes (i.e.\ $k = 0$).
