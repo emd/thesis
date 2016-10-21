@@ -596,17 +596,22 @@ $G(x, 0, k)$ is purely \emph{imaginary}
   G(x, 0, k) = i \cdot \imag[G(x, 0, k)]
 \end{equation}
 
-Another useful degeneracy occurs
+Another set of useful degeneracies occurs
 when the fluctuation wavenumber vanishes (i.e.\ $k = 0$).
-Note that $\mathcal{P}(x, k, m) = \mathcal{P}(x, m \cdot k)$;
-that is, the $m$ and $k$ dependence of $\mathcal{P}$
+Note that the $m$ and $k$ dependence of $F$ and $G$
 only appears as the \emph{product} $(m \cdot k)$.
 Just as $m = 0$ at finite $k$ yields $(m \cdot k) = 0$,
 $k = 0$ at finite $m$ also gives $(m \cdot k) = 0$;
 thus,
-\begin{equation}
-  \mathcal{P}(x, m, k=0) = \mathcal{P}(x, m=0, k)
-  \label{eq:PCIResponseIdentities:phase_factor_for_wavenumber_0}
-\end{equation}
-Eq.~(\ref{eq:PCIResponseIdentities:phase_factor_for_wavenumber_0})
-will be helpful in showing that the PCI response vanishes at $k = 0$.
+\begin{align}
+  F(x, m, k=0) &= F(x, m=0, k)
+  \label{eq:PCIResponseIdentities:mth_beam_interaction_with_face_for_wavenumber_0}
+  \\
+  G(x, m, k=0) &= G(x, m=0, k)
+  \label{eq:PCIResponseIdentities:mth_beam_interaction_with_groove_for_wavenumber_0}
+\end{align}
+Eqs.~(\ref{eq:PCIResponseIdentities:mth_beam_interaction_with_face_for_wavenumber_0})
+and
+(\ref{eq:PCIResponseIdentities:mth_beam_interaction_with_groove_for_wavenumber_0})
+will be helpful in analytically showing
+that the PCI response vanishes at $k = 0$.
