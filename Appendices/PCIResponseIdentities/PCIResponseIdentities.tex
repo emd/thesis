@@ -430,9 +430,31 @@ and
   \right]
   \label{eq:PCIResponseIdentities:u}
 \end{equation}
+With these definitions
+the PCI phase factor from
+(\ref{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_phase_factor_near_field_sincs})
+readily reduces to
+\begin{equation}
+  \begin{aligned}
+    \mathcal{P}(x, m, k)
+    &=
+    \frac{1}{2}
+    e^{-[x_m / w(z)]^2}
+    e^{i m k x_m}
+    \\
+    &\quad\times
+    \left[%
+       \mathcal{D}(m, k_D)
+       +
+       (i \sqrt{\eta} - 1)
+       \mathcal{D}(m, k_g)
+    \right]
+  \end{aligned}
+  \label{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_phase_factor_near_field_difference_functions}
+\end{equation}
 
 
-\section{Symmetries in the image plane}
+\section{Symmetries and degeneracies in the image plane}
 According to the image-plane coordinate transformation in
 (\ref{eq:InterferometricMethods:coordinate_transformation_imaging_plane}),
 \begin{equation}
@@ -446,7 +468,7 @@ This leads to several useful symmetries in the image plane.
 \subsection{Properties of $u$}
 The complex-valued function $u$ is defined in
 (\ref{eq:PCIResponseIdentities:u}).
-Note that
+Note that $u$ is anti-Hermitian
 \begin{align}
   u(-m, -k_j)
   &=
@@ -487,14 +509,14 @@ where $z^*$ is the complex conjugate of $z$.
 \subsection{Properties of $\mathcal{D}$}
 The complex-valued difference function $\mathcal{D}$ is defined in
 (\ref{eq:PCIResponseIdentities:difference_function}).
-Note that
+Note that $\mathcal{D}$ is Hermitian with respect to $m$
 \begin{align}
   \mathcal{D}(-m, k_j)
   &=
   \erf[u(-m, k_j)] - \erf[u(-m, -k_j)]
   \notag \\
   &=
-  \erf\{-[u(m, -k_j)]^*\} - \erf\{-u(m, k_j)]^*\}
+  \erf\{-[u(m, -k_j)]^*\} - \erf\{-[u(m, k_j)]^*\}
   \notag \\
   &=
   -\{\erf[u(m, -k_j)]\}^* + \{\erf[u(m, k_j)]\}^*
@@ -503,187 +525,102 @@ Note that
   \{\erf[u(m, k_j)] - \erf[u(m, -k_j)]\}^*
   \notag \\
   &=
-  [\mathcal{D}(m, k_j)]^*
+  \mathcal{D}^*(m, k_j)
+  \label{eq:PCIResponseIdentities:difference_function_symmetry}
 \end{align}
+The above symmetry relation also implies a degeneracy when $m = 0$;
+namely, $\mathcal{D}(0, k_j) = \mathcal{D}^*(0, k_j)$, which
+proves that $\mathcal{D}(0, k_j)$ is purely \emph{real}.
 
 
-\section{Finite-domain inverse Fourier transform of a shifted Gaussian}
-Each of the integrals in
-%(\ref{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_integrals})
-can be easily evaluated by completing the square
-of the exponential arguments to yield
-\begin{equation}
-  \begin{aligned}
-    \int_{k_1}^{k_2}
-    dk'
-    e^{i k' x}
-    e^{-\left[ \frac{w_0}{2} \left( k' - m k \right) \right]^2}
-    =
-    \frac{\sqrt{\pi}}{w_0}
-    &e^{-(x / w_0)^2}
-    e^{i m k x}
-    \\
-    &\times \delta(k_1, k_2, m)
-  \end{aligned}
-  \label{eq:PCIResponseIdentities:inverse_fourier_transform_shifted_Gaussian}
-\end{equation}
-where
-\begin{equation}
-  \delta(k_1, k_2, m)
-  \equiv
-  \erf[u(k_2, m)] - \erf[u(k_1, m)]
-  \label{eq:PCIResponseIdentities:difference_of_error_functions}
-\end{equation}
-and
-\begin{equation}
-  u(k_j, m) \equiv \frac{w_0}{2}(k_j - m k) + i \frac{x}{w_0}
-  %\label{eq:PCIResponseIdentities:u}
-\end{equation}
-
-
-\section{Some useful symmetries and degeneracies}
-
-
-\subsection{The error function}
-By applying (\ref{eq:PCIResponseIdentities:error_function_is_odd}) and
-(\ref{eq:PCIResponseIdentities:error_function_commutativity}),
-it naturally follows that
-\begin{equation}
-  erf[u(-k_j, -m)] = - \, \{ erf[u(k_j, m)] \}^*
-  \label{eq:PCIResponseIdentities:error_function_symmetry}
-\end{equation}
-
-
-\subsection{The difference between error functions}
-By applying the error function's symmetry in
-(\ref{eq:PCIResponseIdentities:error_function_symmetry}),
-it naturally follows that
-the difference between two error functions satisfies
-\begin{equation}
-  \delta(-k_1, -k_2, -m)
-  =
-  [\delta(k_2, k_1, m)]^*
-  \label{eq:PCIResponseIdentities:difference_of_error_functions_symmetry}
-\end{equation}
-
-
-\subsection{The phase-plate operator $\mathcal{P}$}
-Eq.~(\ref{eq:PCIResponseIdentities:inverse_fourier_transform_shifted_Gaussian})
-allows (\ref{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_integrals})
-to be rewritten as
-\begin{equation}
-  \begin{aligned}
-    \mathcal{P}(x, k, m)
-    &=
-    C_m
-    [%
-      \delta(-k_D, -k_g, m)
-      +
-      \delta(k_g, k_D, m)
-    ]
-    \\
-    &\quad+
-    i \sqrt{\eta} C_m \delta(-k_g, k_g, m)
-  \end{aligned}
-  \label{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_simplified}
-\end{equation}
-where
-\begin{equation}
-  C_m
-  =
-  \frac{1}{2} \left[ e^{-(x / w_0)^2} e^{i m k x} \right]
-\end{equation}
-Note that $C_m$ is \emph{Hermitian};
-that is, $C_{-m} = C_m^*$.
-In fact,
-(\ref{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_simplified})
-can be decomposed into Hermitian $\mathcal{P}_H$ and
+\subsection{Properties of $\mathcal{P}$}
+Using (\ref{eq:PCIResponseIdentities:difference_function_symmetry})
+the PCI phase factor from
+(\ref{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_phase_factor_near_field_difference_functions})
+can readily be split into Hermitian $\mathcal{P}_H$ and
 anti-Hermitian $\mathcal{P}_A$ components
 \begin{equation}
-  \mathcal{P}(x, k, m)
+  \mathcal{P}(x, m, k)
   =
-  \mathcal{P}_H(x, k, m)
+  \mathcal{P}_H(x, m, k)
   +
-  \mathcal{P}_A(x, k, m)
-  \label{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_Hermitian_decomposed}
+  \mathcal{P}_A(x, m, k)
+  \label{eq:PCIResponseIdentities:phase_factor_Hermitian_decomposed}
 \end{equation}
 where
 \begin{align}
-  \mathcal{P}_H(x, k, m)
-  &\equiv
-  C_m
-  [%
-    \delta(-k_D, -k_g, m)
-    +
-    \delta(k_g, k_D, m)
-  ]
-  \label{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_Hermitian}
+  &\begin{aligned}
+    \mathcal{P}_H(x, m, k)
+    &=
+    \frac{1}{2}
+    e^{-[x_m / w(z)]^2}
+    e^{i m k x_m}
+    \\
+    &\quad\times
+    \left[%
+       \mathcal{D}(m, k_D)
+       -
+       \mathcal{D}(m, k_g)
+    \right]
+  \end{aligned}
   \\
-  \mathcal{P}_A(x, k, m)
-  &\equiv
-  i \sqrt{\eta} C_m \delta(-k_g, k_g, m)
-  \label{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_antiHermitian}
-\end{align}
-Application of
-(\ref{eq:PCIResponseIdentities:difference_of_error_functions_symmetry})
-readily shows that
-\begin{align}
-  \mathcal{P}_H(x, k, -m) &= [\mathcal{P}_H(x, k, m)]^*
-  \\
-  \mathcal{P}_A(x, k, -m) &= -[\mathcal{P}_A(x, k, m)]^*
-\end{align}
-Thus,
-\begin{equation}
-  \mathcal{P}(x, k, -m)
+  &\mathcal{P}_A(x, m, k)
   =
-  [\mathcal{P}_H(x, k, m)]^*
+  \frac{i \sqrt{\eta}}{2}
+  e^{-[x_m / w(z)]^2}
+  e^{i m k x_m}
+  \mathcal{D}(m, k_g)
+\end{align}
+such that
+\begin{equation}
+  \mathcal{P}(x, -m, k)
+  =
+  \mathcal{P}_H^*(x, m, k)
   -
-  [\mathcal{P}_A(x, k, m)]^*
-  \label{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_symmetry}
+  \mathcal{P}_A^*(x, m, k)
+  \label{eq:PCIResponseIdentities:phase_factor_Hermitian_decomposed_symmetry}
 \end{equation}
 
 Note that the above symmetry also implies a degeneracy when $m = 0$.
 Specifically,
-(\ref{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_Hermitian_decomposed})
+(\ref{eq:PCIResponseIdentities:phase_factor_Hermitian_decomposed})
 states that
 \begin{equation}
-  \mathcal{P}(x, k, +0)
+  \mathcal{P}(x, +0, k)
   =
-  \mathcal{P}_H(x, k, 0)
+  \mathcal{P}_H(x, 0, k)
   +
-  \mathcal{P}_A(x, k, 0)
-  \label{eq:PCIResponseIdentities:phase_plate_action_on_plus0_beam}
+  \mathcal{P}_A(x, 0, k)
 \end{equation}
-while (\ref{eq:PCIResponseIdentities:phase_plate_action_on_mth_beam_symmetry})
+while (\ref{eq:PCIResponseIdentities:phase_factor_Hermitian_decomposed_symmetry})
 shows that
 \begin{equation}
-  \mathcal{P}(x, k, -0)
+  \mathcal{P}(x, -0, k)
   =
-  [\mathcal{P}_H(x, k, 0)]^*
+  \mathcal{P}_H^*(x, 0, k)*
   -
-  [\mathcal{P}_A(x, k, 0)]^*
-  \label{eq:PCIResponseIdentities:phase_plate_action_on_minus0_beam}
+  \mathcal{P}_A^*(x, 0, k)
 \end{equation}
-Of course, $\mathcal{P}(x, k, +0) = \mathcal{P}(x, k, -0)$; that is
+Of course, $\mathcal{P}(x, +0, k) = \mathcal{P}(x, -0, k)$; that is
 \begin{equation}
-  \mathcal{P}_H(x, k, 0)
+  \mathcal{P}_H(x, 0, k)
   +
-  \mathcal{P}_A(x, k, 0)
+  \mathcal{P}_A(x, 0, k)
   =
-  [\mathcal{P}_H(x, k, 0)]^*
+  \mathcal{P}_H^*(x, 0, k)
   -
-  [\mathcal{P}_A(x, k, 0)]^*
+  \mathcal{P}_A^*(x, 0, k)
 \end{equation}
 Further, as $\mathcal{P}_H$ is dependent on $k_D$ but $\mathcal{P}_A$ is not,
 $\mathcal{P}_H$ and $\mathcal{P}_A$ must be linearly independent;
 that is
 \begin{align}
-  \mathcal{P}_H(x, k, 0) &= [\mathcal{P}_H(x, k, 0)]^*
+  \mathcal{P}_H(x, 0, k) &= [\mathcal{P}_H(x, 0, k)]^*
   \\
-  \mathcal{P}_A(x, k, 0) &= -[\mathcal{P}_A(x, k, 0)]^*
+  \mathcal{P}_A(x, 0, k) &= -[\mathcal{P}_A(x, 0, k)]^*
 \end{align}
-This proves that $\mathcal{P}_H(x, k, 0)$ is purely \emph{real} and
-that $\mathcal{P}_A(x, k, 0)$ is purely \emph{imaginary}.
+This proves that $\mathcal{P}_H(x, 0, k)$ is purely \emph{real} and
+that $\mathcal{P}_A(x, 0, k)$ is purely \emph{imaginary}.
 
 Another useful degeneracy occurs
 when the fluctuation wavenumber vanishes (i.e.\ $k = 0$).
@@ -694,8 +631,8 @@ Just as $m = 0$ at finite $k$ yields $(m \cdot k) = 0$,
 $k = 0$ at finite $m$ also gives $(m \cdot k) = 0$;
 thus,
 \begin{equation}
-  \mathcal{P}(x, k=0, m) = \mathcal{P}(x, k, m=0)
-  \label{eq:PCIResponseIdentities:phase_plate_action_on_wavenumber_0}
+  \mathcal{P}(x, m, k=0) = \mathcal{P}(x, m=0, k)
+  \label{eq:PCIResponseIdentities:phase_factor_for_wavenumber_0}
 \end{equation}
-Eq.~(\ref{eq:PCIResponseIdentities:phase_plate_action_on_wavenumber_0})
+Eq.~(\ref{eq:PCIResponseIdentities:phase_factor_for_wavenumber_0})
 will be helpful in showing that the PCI response vanishes at $k = 0$.
