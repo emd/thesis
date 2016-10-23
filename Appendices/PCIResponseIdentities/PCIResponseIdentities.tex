@@ -5,12 +5,12 @@
 \section{Phase factor in the beam's near field}
 The effect of wavenumber-dependent manipulation $T(k_x)$
 on the $m$\ts{th} scattered beam is given by
-the phase factor $\mathcal{P}(x, m, k)$ as defined in
+the phase factor $\mathcal{P}(m, k, x)$ as defined in
 (\ref{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_phase_factor}),
 which is repeated here for completeness
 \begin{equation}
   \begin{aligned}
-    \mathcal{P}(x, m, k)
+    \mathcal{P}(m, k, x)
     &=
     \frac{1}{2 \pi}
     \int dx' \,
@@ -72,10 +72,10 @@ becomes
 where $z / z_R \ll 1$ follows from the near-field assumption.
 Thus, in the beam's near field,
 the curvature-induced phase factor is negligible, and
-$\mathcal{P}(x, m, k)$ reduces to
+$\mathcal{P}(m, k, x)$ reduces to
 \begin{equation}
   \begin{aligned}
-    \mathcal{P}(x, m, k)
+    \mathcal{P}(m, k, x)
     &=
     \frac{1}{2 \pi}
     \int dx' \,
@@ -127,10 +127,10 @@ Note that the first term on the right-hand side of
 corresponds to reflection from the phase-plate groove, while
 the second term corresponds to reflection
 from the non-grooved portion of the phase plate (i.e.\ the ``face'').
-Thus, the PCI phase factor $\mathcal{P}(x, m, k)$ is
+Thus, the PCI phase factor $\mathcal{P}(m, k, x)$ is
 \begin{equation}
   \begin{aligned}
-    \mathcal{P}(x, m, k)
+    \mathcal{P}(m, k, x)
     &=
     \frac{1}{2 \pi}
     \int dx' \,
@@ -159,7 +159,7 @@ Thus, the PCI phase factor $\mathcal{P}(x, m, k)$ is
 \end{equation}
 
 
-\section{Some useful integrals for evaluation of $\mathcal{P}(x, m, k)$}
+\section{Some useful integrals for evaluation of $\mathcal{P}(m, k, x)$}
 
 
 \subsection{Finite-domain inverse Fourier transforms of unity}
@@ -214,7 +214,7 @@ it is easy to see that
 becomes
 \begin{equation}
   \begin{aligned}
-    \mathcal{P}(x, m, k)
+    \mathcal{P}(m, k, x)
     &=
     \frac{1}{\pi}
     \int dx' \,
@@ -411,21 +411,21 @@ yields
   \frac{1}{2}
   e^{-[x_m / w(z)]^2}
   e^{i m k x_m}
-  \mathcal{D}(m, k_j)
+  \mathcal{D}(m, k_j, k, x)
   \label{eq:PCIResponseIdentities:I_x0_abc_evaluated_lab_parameters}
 \end{equation}
 where the difference function $\mathcal{D}$ is defined as
 \begin{equation}
-  \mathcal{D}(m, k_j)
+  \mathcal{D}(m, k_j, k, x)
   =
-  \erf[u(m, k_j)]
+  \erf[u(m, k_j, k, x)]
   -
-  \erf[u(m, -k_j)]
+  \erf[u(m, -k_j, k, x)]
   \label{eq:PCIResponseIdentities:difference_function}
 \end{equation}
 and
 \begin{equation}
-  u(m, k_j)
+  u(m, k_j, k, x)
   =
   \frac{w(z)}{2}
   \left[%
@@ -441,7 +441,7 @@ the PCI phase factor from
 readily reduces to
 \begin{equation}
   \begin{aligned}
-    \mathcal{P}(x, m, k)
+    \mathcal{P}(m, k, x)
     &=
     \frac{1}{2}
     e^{-[x_m / w(z)]^2}
@@ -449,10 +449,10 @@ readily reduces to
     \\
     &\quad\times
     \left[%
-       \mathcal{D}(m, k_D)
+       \mathcal{D}(m, k_D, k, x)
        +
        (i \sqrt{\eta} - 1)
-       \mathcal{D}(m, k_g)
+       \mathcal{D}(m, k_g, k, x)
     \right]
   \end{aligned}
   \label{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_phase_factor_near_field_difference_functions}
@@ -463,33 +463,54 @@ readily reduces to
 According to the image-plane coordinate transformation in
 (\ref{eq:InterferometricMethods:coordinate_transformation_imaging_plane}),
 \begin{equation}
-  x_m' = x'
+  x_{m,\image} = x_{\image}
 \end{equation}
 to first order in $k / k_0$; that is,
-$x_m'$ is \emph{independent} of $m$ in the image plane.
+$x_{m,\image}$ is \emph{independent} of $m$ in the image plane.
 This leads to several useful symmetries in the image plane.
 
 
-\subsection{Properties of $u$}
+\subsection{Properties of $u$ in the image plane}
 The complex-valued function $u$ is defined in
 (\ref{eq:PCIResponseIdentities:u}).
 Note that $u$ is anti-Hermitian
+with respect to $m$ and $k_{j,\image}$
 \begin{align}
-  u(-m, -k_j)
+  u(-m, -k_{j,\image}, k_{\image}, x_{\image})
   &=
-  \frac{w(z)}{2} \left[ (-m k - k_j) + i \frac{2 x_{-m}}{w(z)^2} \right]
+  \frac{w(z_{\image})}{2}
+  \left[%
+    (-m k_{\image} - k_{j,\image})
+    +
+    i \frac{2 x_{m,\image}}{w(z_{\image})^2}
+  \right]
   \notag \\
   &=
-  \frac{w(z)}{2} \left[ -(m k + k_j)+ i \frac{2 x_{m}}{w(z)^2} \right]
+  \frac{w(z_{\image})}{2}
+  \left[%
+    -(m k_{\image} + k_{j,\image})
+    +
+    i \frac{2 x_{\image}}{w(z_{\image})^2}
+  \right]
   \notag \\
   &=
-  \frac{-w(z)}{2} \left[ (m k + k_j) - i \frac{2 x_{m}}{w(z)^2} \right]
+  \frac{-w(z_{\image})}{2}
+  \left[%
+    (m k_{\image} + k_{j,\image})
+    -
+    i \frac{2 x_{\image}}{w(z_{\image})^2}
+  \right]
   \notag \\
   &=
-  \frac{-w(z)}{2} \left[ (m k + k_j) + i \frac{2 x_{m}}{w(z)^2} \right]^*
+  \frac{-w(z_{\image})}{2}
+  \left[%
+    (m k_{\image} + k_{j,\image})
+    +
+    i \frac{2 x_{\image}}{w(z_{\image})^2}
+  \right]^*
   \notag \\
   &=
-  -[u(m, k_j)]^{*}
+  -[u(m, k_{j,\image}, k_{\image}, x_{\image})]^*
 \end{align}
 where $z^*$ indicates the complex conjugate of $z$.
 
@@ -511,112 +532,147 @@ Second, the error function \emph{commutes} with complex conjugation
 where $z^*$ is the complex conjugate of $z$.
 
 
-\subsection{Properties of $\mathcal{D}$}
+\subsection{Properties of $\mathcal{D}$ in the image plane}
 The complex-valued difference function $\mathcal{D}$ is defined in
 (\ref{eq:PCIResponseIdentities:difference_function}).
 Note that $\mathcal{D}$ is Hermitian with respect to $m$
 \begin{align}
-  \mathcal{D}(-m, k_j)
-  &=
-  \erf[u(-m, k_j)] - \erf[u(-m, -k_j)]
+  &\begin{aligned}
+    \mathcal{D}(-m, k_{j,\image}, k_{\image}, x_{\image})
+    &=
+    \erf[u(-m, k_{j,\image}, k_{\image}, x_{\image})]
+    \\
+    &\quad
+    -
+    \erf[u(-m, -k_{j,\image}, k_{\image}, x_{\image})]
+  \end{aligned}
   \notag \\
-  &=
-  \erf\{-[u(m, -k_j)]^*\} - \erf\{-[u(m, k_j)]^*\}
+  &\begin{aligned}
+    \phantom{\mathcal{D}(-m, k_{j,\image}, k_{\image}, x_{\image})}
+    &=
+    \erf\{-[u(m, -k_{j,\image}, k_{\image}, x_{\image})]^*\}
+    \\
+    &\quad
+    -
+    \erf\{-[u(m, k_{j,\image}, k_{\image}, x_{\image})]^*\}
+  \end{aligned}
   \notag \\
-  &=
-  -\{\erf[u(m, -k_j)]\}^* + \{\erf[u(m, k_j)]\}^*
+  &\begin{aligned}
+    \phantom{\mathcal{D}(-m, k_{j,\image}, k_{\image}, x_{\image})}
+    &=
+    -\{\erf[u(m, -k_{j,\image}, k_{\image}, x_{\image})]\}^*
+    \\
+    &\quad
+    +
+    \{\erf[u(m, k_{j,\image}, k_{\image}, x_{\image})]\}^*
+  \end{aligned}
   \notag \\
-  &=
-  \{\erf[u(m, k_j)] - \erf[u(m, -k_j)]\}^*
+  &\begin{aligned}
+    \phantom{\mathcal{D}(-m, k_{j,\image}, k_{\image}, x_{\image})}
+    &=
+    \{\erf[u(m, k_{j,\image}, k_{\image}, x_{\image})]
+    \\
+    &\quad
+    -
+    \erf[u(m, -k_{j,\image}, k_{\image}, x_{\image})]\}^*
+  \end{aligned}
   \notag \\
-  &=
-  \mathcal{D}^*(m, k_j)
+  &\phantom{\mathcal{D}(-m, k_{j,\image}, k_{\image}, x_{\image})}
+  =
+  \mathcal{D}^*(m, k_{j,\image}, k_{\image}, x_{\image})
   \label{eq:PCIResponseIdentities:difference_function_symmetry}
 \end{align}
-The above symmetry relation also implies a degeneracy when $m = 0$;
-namely, $\mathcal{D}(0, k_j) = \mathcal{D}^*(0, k_j)$, which
-proves that $\mathcal{D}(0, k_j)$ is purely \emph{real}.
+The above symmetry relation also implies a degeneracy when $m = 0$; namely,
+$\mathcal{D}(0, k_{j,\image}, k_{\image}, x_{\image})
+=
+\mathcal{D}^*(0, k_{j,\image}, k_{\image}, x_{\image})$,
+which proves that
+$\mathcal{D}(0, k_{j,\image}, k_{\image}, x_{\image})$
+is purely \emph{real}.
 
 
-\subsection{Properties of $\mathcal{P}$}
+\subsection{Properties of $\mathcal{P}$ in the image plane}
 Using (\ref{eq:PCIResponseIdentities:difference_function_symmetry})
 the PCI phase factor from
 (\ref{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_phase_factor_near_field_difference_functions})
 can be readily written as
 \begin{equation}
   \begin{aligned}
-    \mathcal{P}(x, m, k)
+    \mathcal{P}(m, k_{\image}, x_{\image})
     &=
     \frac{1}{2}
-    e^{-[x_m / w(z)]^2}
-    e^{i m k x_m}
+    e^{-[x_{\image} / w(z_{\image})]^2}
+    e^{i m k_{\image} x_{\image}}
     \\
     &\quad\times
     \left[%
-      F(x, m, k)
+      F(m, k_{\image}, x_{\image})
       +
-      G(x, m, k)
+      G(m, k_{\image}, x_{\image})
     \right]
   \end{aligned}
   \label{eq:PCIResponseIdentities:phase_factor_Hermitian_decomposed}
 \end{equation}
 where
 \begin{align}
-  F(x, m, k)
+  F(m, k_{\image}, x_{\image})
   &=
-  \mathcal{D}(m, k_D) - \mathcal{D}(m, k_g)
+  \mathcal{D}(m, k_{D,\image}, k_{\image}, x_{\image})
+  -
+  \mathcal{D}(m, k_{g,\image}, k_{\image}, x_{\image})
   \\
-  G(x, m, k)
+  G(m, k_{\image}, x_{\image})
   &=
-  i \sqrt{\eta} \, \mathcal{D}(m, k_g)
+  i \sqrt{\eta} \, \mathcal{D}(m, k_{g,\image}, k_{\image}, x_{\image})
 \end{align}
 Here, the notation is mnemonic:
 the non-grooved portion of the phase plate (i.e.\ the ``face'')
 acts on the $m$\ts{th} scattered beam via $F$, while
 the phase-plate groove acts on the $m$\ts{th} scattered beam via $G$.
-Note that $F$ is Hermitian
+Note that $F$ is Hermitian with respect to $m$
 \begin{equation}
-  F(x, -m, k) = F^*(x, m, k)
+  F(-m, k_{\image}, x_{\image}) = F^*(m, k_{\image}, x_{\image})
   \label{eq:PCIResponseIdentities:mth_beam_interaction_with_face_hermitian}
 \end{equation}
-while $G$ is anti-Hermitian
+while $G$ is anti-Hermitian with respect to $m$
 \begin{equation}
-  G(x, -m, k) = -G^*(x, m, k)
+  G(-m, k_{\image}, x_{\image}) = -G^*(m, k_{\image}, x_{\image})
   \label{eq:PCIResponseIdentities:mth_beam_interaction_with_groove_antihermitian}
 \end{equation}
 
 Note that the above symmetries also imply a degeneracy when $m = 0$.
 Specifically,
 (\ref{eq:PCIResponseIdentities:mth_beam_interaction_with_face_hermitian})
-states that $F(x, 0, k) = F^*(x, 0, k)$; that is,
-$F(x, 0, k)$ is purely \emph{real}
+states that $F(0, k_{\image}, x_{\image}) = F^*(0, k_{\image}, x_{\image})$;
+that is, $F(0, k_{\image}, x_{\image})$ is purely \emph{real}
 \begin{equation}
-  F(x, 0, k) = \real[F(x, 0, k)]
+  F(0, k_{\image}, x_{\image}) = \real[F(0, k_{\image}, x_{\image})]
 \end{equation}
 Similarly,
 (\ref{eq:PCIResponseIdentities:mth_beam_interaction_with_groove_antihermitian})
-states that $G(x, 0, k) = -G^*(x, 0, k)$; that is,
-$G(x, 0, k)$ is purely \emph{imaginary}
+states that $G(0, k_{\image}, x_{\image}) = -G^*(0, k_{\image}, x_{\image})$;
+that is, $G(0, k_{\image}, x_{\image})$ is purely \emph{imaginary}
 \begin{equation}
-  G(x, 0, k) = i \cdot \imag[G(x, 0, k)]
+  G(0, k_{\image}, x_{\image}) = i \cdot \imag[G(0, k_{\image}, x_{\image})]
 \end{equation}
 
 Another set of useful degeneracies occurs
-when the fluctuation wavenumber vanishes (i.e.\ $k = 0$).
-Note that the $m$ and $k$ dependence of $F$ and $G$
-only appears as the \emph{product} $(m \cdot k)$.
-Just as $m = 0$ at finite $k$ yields $(m \cdot k) = 0$,
-$k = 0$ at finite $m$ also gives $(m \cdot k) = 0$;
+when the fluctuation wavenumber vanishes (i.e.\ $k_{\image} = 0$).
+Note that the $m$ and $k_{\image}$ dependence of $F$ and $G$
+only appears as the \emph{product} $(m \cdot k_{\image})$.
+Just as $m = 0$ at finite $k_{\image}$ yields $(m \cdot k_{\image}) = 0$,
+$k_{\image} = 0$ at finite $m$ also gives $(m \cdot k_{\image}) = 0$;
 thus,
 \begin{align}
-  F(x, m, k=0) &= F(x, m=0, k)
+  F(m, k_{\image}=0, x_{\image}) &= F(m=0, k_{\image}, x_{\image})
   \label{eq:PCIResponseIdentities:mth_beam_interaction_with_face_for_wavenumber_0}
   \\
-  G(x, m, k=0) &= G(x, m=0, k)
+  G(m, k_{\image}=0, x_{\image}) &= G(m=0, k_{\image}, x_{\image})
   \label{eq:PCIResponseIdentities:mth_beam_interaction_with_groove_for_wavenumber_0}
 \end{align}
 Eqs.~(\ref{eq:PCIResponseIdentities:mth_beam_interaction_with_face_for_wavenumber_0})
 and
 (\ref{eq:PCIResponseIdentities:mth_beam_interaction_with_groove_for_wavenumber_0})
 will be helpful in analytically showing
-that the PCI response vanishes at $k = 0$.
+that the PCI response vanishes at $k_{\image} = 0$
+(i.e.\ when the object-plane wavevector vanishes, $k = 0$).
