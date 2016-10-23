@@ -460,7 +460,33 @@ readily reduces to
 
 
 \section{Symmetries and degeneracies in the image plane}
-According to the image-plane coordinate transformation in
+The plasma midplane sits at the object plane
+of a magnification-$M$ imaging system.
+The probe beam's waist also nominally sits at this object plane,
+with a 1/e $E$ radius of $w_{0,\object}$, and
+the plasma dimensions are far smaller than the corresponding Rayleigh length
+such that throughout the plasma volume
+\begin{equation}
+  w(z) \approx w_{0,\object}
+\end{equation}
+As discussed in
+Section~\ref{sec:InterferometricMethods:imaging:Gaussian_beam_transformation},
+the waist of the imaged beam
+does \emph{not} necessarily occur at the image plane.
+However, the derivation of
+(\ref{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_phase_factor_near_field})
+required assuming that the beam was well within its Rayleigh range
+(i.e.\ $|z_{\image}| \ll z_{R,\image}$).
+Thus, valid application of any of the above derived results to the image plane
+requires that the image plane and the waist of the imaged beam
+approximately overlap such that
+\begin{equation}
+  w(z_{\image}) \approx w_{0,\image} \approx M w_{0,\object}
+  \label{eq:PCIResponseIdentities:criterion_on_imaged_beam_radius}
+\end{equation}
+where $w_{0,\image}$ is the 1/e $E$ radius of the imaged beam at its waist.
+
+Further, according to the image-plane coordinate transformation in
 (\ref{eq:InterferometricMethods:coordinate_transformation_imaging_plane}),
 \begin{equation}
   x_{m,\image} = x_{\image}
@@ -513,6 +539,42 @@ with respect to $m$ and $k_{j,\image}$
   -[u(m, k_{j,\image}, k_{\image}, x_{\image})]^*
 \end{align}
 where $z^*$ indicates the complex conjugate of $z$.
+Further, referencing
+(\ref{eq:PCIResponseIdentities:criterion_on_imaged_beam_radius}),
+note that
+\begin{align}
+  u(m, k_{j,\image}, k_{\image}, x_{\image})
+  &=
+  \frac{w(z_{\image})}{2}
+  \left[%
+    (m k_{\image} + k_{j,\image})
+    +
+    i \frac{2 x_{\image}}{w(z_{\image})^2}
+  \right]
+  \notag \\
+  &\approx
+  \frac{M w_{0,\object}}{2}
+  \left[%
+    \left(\frac{m k}{M} + \frac{k_j}{M}\right)
+    +
+    i \frac{2 M x_{\object}}{(M w_{0,\object})^2}
+  \right]
+  \notag \\
+  &=
+  \frac{w_{0,\object}}{2}
+  \left[%
+    \left(m k + k_j \right)
+    +
+    i \frac{2 x_{\object}}{w_{0,\object}}
+  \right]
+  \notag \\
+  &=
+  u(m, k_{j,\object}, k, x_{\object})
+\end{align}
+that is,
+$u(m, k_{j,\image}, k_{\image}, x_{\image})$ and
+$u(m, k_{j,\object}, k, x_{\object})$ are geometrically \emph{similar},
+as is expected in an imaging system.
 
 
 \subsection{Properties of the error function}
