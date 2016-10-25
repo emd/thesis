@@ -2687,36 +2687,119 @@ then shows that there will be finite PCI response for $k \leq k_D$ where
 \end{equation}
 
 
-\subsection{Wavenumber transfer function}
-\label{sec:InterferometricMethods:pci:wavenumber_response}
-The action of the phase plate is easily described in wavenumber space
-via the transfer function
+\subsection{Effect of phase plate on $m$\ts{th} scattered beam}
+The effect of the PCI phase plate on the $m$\ts{th} scattered beam
+is given by the phase factor $\mathcal{P}(m, k, x)$,
+which is derived and thoroughly discussed in
+Appendix~\ref{app:PCIResponseIdentities}.
+The relevant results are briefly summarized here for completeness.
+In the image plane, the PCI phase factor readily reduces to
 \begin{equation}
   \begin{aligned}
-    T_{\text{pp}}(k_x)
+    \mathcal{P}(m, k_{\image}, x_{\image})
     &=
-    i \sqrt{\eta} \, H(k_g - |k_x|)
+    e^{-[x_{\image} / w(z_{\image})]^2}
+    e^{i m k_{\image} x_{\image}}
     \\
-    &\quad +
-    H(|k_x| - k_g)
-    H(k_D - |k_x|)
+    &\quad\times
+    \left[%
+      F(m, k_{\image}, x_{\image})
+      +
+      G(m, k_{\image}, x_{\image})
+    \right]
   \end{aligned}
-  \label{eq:InterferometricMethods:phase_plate_transfer_function}
+  \label{eq:InterferometricMethods:PCI_phase_factor_Hermitian_decomposed}
 \end{equation}
-where $H(x)$ is the Heaviside step function defined as
+where the non-grooved portion of the phase plate (i.e.\ the ``face'')
+acts on the $m$\ts{th} scattered beam via $F$, while
+the phase-plate groove acts on the $m$\ts{th} scattered beam via $G$.
+$F$ and $G$ are themselves defined in
+(\ref{eq:PCIResponseIdentities:phase_factor_face}) and
+(\ref{eq:PCIResponseIdentities:phase_factor_groove}).
+Of particular note, $F$ is Hermitian with respect to $m$
 \begin{equation}
-  H(x)
-  =
-  \begin{cases}
-    0, \quad &x < 0 \\
-    1, \quad &x \geq 0
-  \end{cases}
-  \label{eq:InterferometricMethods:Heaviside_step_function}
+  F(-m, k_{\image}, x_{\image}) = F^*(m, k_{\image}, x_{\image})
+  \label{eq:InterferometricMethods:mth_beam_interaction_with_face_hermitian}
 \end{equation}
-$k_g$ is given by
-(\ref{eq:InterferometricMethods:pci_kmin_engineering}), and
-$k_D$ is given by
-(\ref{eq:InterferometricMethods:pci_kmax_engineering}).
+while $G$ is anti-Hermitian with respect to $m$
+\begin{equation}
+  G(-m, k_{\image}, x_{\image}) = -G^*(m, k_{\image}, x_{\image})
+  \label{eq:InterferometricMethods:mth_beam_interaction_with_groove_antihermitian}
+\end{equation}
+These symmetries imply
+that $F(0, k_{\image}, x_{\image})$ is purely \emph{real} and
+that $G(0, k_{\image}, x_{\image})$ is purely \emph{imaginary}.
+
+
+\subsection{Wavenumber transfer function}
+\label{sec:InterferometricMethods:pci:wavenumber_response}
+Introducing the notational shorthand
+$F_m \equiv F(m, k_{\image}, x_{\image})$ and
+$G_m \equiv G(m, k_{\image}, x_{\image})$,
+the weak-coupling ($\tilde{\phi}_0 \ll 1$), image-plane electric field from
+(\ref{eq:InterferometricMethods:imaged_total_field_weak_coupling_Fourier_filtered})
+readily reduces to
+\begin{equation}
+  \begin{aligned}
+  E(\vect{r}_{\image}, t)
+  \approx
+  E_G(\vect{r}_{\image}, t)
+  e^{i \bar{\phi}}
+  \biggl\{%
+    F_{0} + G_{0}
+    &+
+    i \frac{\tilde{\phi}_0}{2}
+    \biggl[
+      (F_{1} + G_{1}) e^{i \xi}
+      \\
+      &+
+      (F_{-1} + G_{-1}) e^{-i \xi}
+    \biggr]
+  \biggr\}
+  \end{aligned}
+\end{equation}
+where $\xi$ is defined in (\ref{eq:InterferometricMethods:image_plane_xi}) and
+$E_G(\vect{r}_{\image}, t)$ would be the image-plane electric field
+of the unscattered beam in the \emph{absence} of the phase plate.
+Now, recall that $F$ is Hermitian such that
+$F_{-1} = F^{*}_{1}$ and $F_{0} = \real(F_{0})$ and
+that $G$ is anti-Hermitian such that
+$G_{-1} = -G^{*}_{1}$ and $G_{0} = i \cdot \imag(F_{0})$;
+using these substitutions, the field further reduces to
+\begin{equation}
+  \begin{aligned}
+    E(\vect{r}_{\image}, t)
+    =
+    E_G(\vect{r}_{\image}, t)
+    e^{i \bar{\phi}}
+    \biggl\{%
+      &\real(F_0) - \tilde{\phi}_0 \imag(G_1 e^{i \xi})
+      \\
+      &+
+      i \left[ \imag(G_0) + \tilde{\phi}_0 \real(F_1 e^{i \xi}) \right]
+    \biggr\}
+  \end{aligned}
+\end{equation}
+and the corresponding intensity, to first order in $\tilde{\phi}_0$, is
+\begin{equation}
+  \begin{aligned}
+    I(\vect{r}_{\image}, t)
+    &=
+    I_G(\vect{r}_{\image}, t)
+    \biggl\{%
+      |F_0|^2 + |G_0|^2
+      \\
+      &\qquad
+      +
+      2 \tilde{\phi}_0
+      \bigl[%
+        \imag(G_0) \real(F_1 e^{i \xi})
+        -
+        \real(F_0) \imag(G_1 e^{i \xi})
+      \bigr]
+    \biggr\}
+  \end{aligned}
+\end{equation}
 
 
 \bibliographystyle{plainurl}

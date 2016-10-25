@@ -662,7 +662,6 @@ can be readily written as
   \begin{aligned}
     \mathcal{P}(m, k_{\image}, x_{\image})
     &=
-    \frac{1}{2}
     e^{-[x_{\image} / w(z_{\image})]^2}
     e^{i m k_{\image} x_{\image}}
     \\
@@ -679,13 +678,18 @@ where
 \begin{align}
   F(m, k_{\image}, x_{\image})
   &=
-  \mathcal{D}(m, k_{D,\image}, k_{\image}, x_{\image})
-  -
-  \mathcal{D}(m, k_{g,\image}, k_{\image}, x_{\image})
+  \frac{1}{2}
+  \left[%
+    \mathcal{D}(m, k_{D,\image}, k_{\image}, x_{\image})
+    -
+    \mathcal{D}(m, k_{g,\image}, k_{\image}, x_{\image})
+  \right]
+  \label{eq:PCIResponseIdentities:phase_factor_face}
   \\
   G(m, k_{\image}, x_{\image})
   &=
-  i \sqrt{\eta} \, \mathcal{D}(m, k_{g,\image}, k_{\image}, x_{\image})
+  \frac{i \sqrt{\eta}}{2} \, \mathcal{D}(m, k_{g,\image}, k_{\image}, x_{\image})
+  \label{eq:PCIResponseIdentities:phase_factor_groove}
 \end{align}
 Here, the notation is mnemonic:
 the non-grooved portion of the phase plate (i.e.\ the ``face'')
