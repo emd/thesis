@@ -2731,7 +2731,7 @@ that $F(0, k_{\image}, x_{\image})$ is purely \emph{real} and
 that $G(0, k_{\image}, x_{\image})$ is purely \emph{imaginary}.
 
 
-\subsection{Wavenumber transfer function}
+\subsection{The imaged field and its intensity}
 \label{sec:InterferometricMethods:pci:wavenumber_response}
 Introducing the notational shorthand
 $F_m \equiv F(m, k_{\image}, x_{\image})$ and
@@ -2764,7 +2764,7 @@ of the unscattered beam in the \emph{absence} of the phase plate.
 Now, recall that $F$ is Hermitian such that
 $F_{-1} = F^{*}_{1}$ and $F_{0} = \real(F_{0})$ and
 that $G$ is anti-Hermitian such that
-$G_{-1} = -G^{*}_{1}$ and $G_{0} = i \cdot \imag(F_{0})$;
+$G_{-1} = -G^{*}_{1}$ and $G_{0} = {i \cdot \imag(G_{0})}$;
 using these substitutions, the field further reduces to
 \begin{equation}
   \begin{aligned}
@@ -2803,6 +2803,92 @@ and the corresponding intensity, to first order in $\tilde{\phi}_0$, is
 where $I_G(\vect{r}_{\image})$
 would be the intensity profile (averaged over an optical cycle)
 of the unscattered beam in the \emph{absence} of the phase plate.
+Using the fact that $e^{i \xi} = \cos\xi + {i \sin\xi}$,
+$F_1 = \real(F_1) + {i \cdot \imag(F_1)}$, and
+$G_1 = \real(G_1) + {i \cdot \imag(G_1)}$,
+the image-plane intensity further reduces to
+\begin{equation}
+  \begin{aligned}
+    I(\vect{r}_{\image}, t)
+    &=
+    I_G(\vect{r}_{\image})
+    \biggl\{%
+      |F_0|^2 + |G_0|^2
+      \\
+      &\qquad+
+      2 \tilde{\phi}_0
+      \left[ \imag(G_0)\real(F_1) - \real(F_0)\imag(G_1) \right] \cos\xi
+      \\
+      &\qquad-
+      2 \tilde{\phi}_0
+      \left[ \imag(G_0)\imag(F_1) + \real(F_0)\real(G_1) \right] \sin\xi
+    \biggr\}
+  \end{aligned}
+  \label{eq:InterferometricMethods:PCI_image_plane_intensity_linear_combination_of_sine_and_cosine}
+\end{equation}
+Note that the linear combination
+$C_I \cos x - C_Q \sin x$ for real $C_I$, $C_Q$, and $x$
+can be rewritten as
+\begin{equation}
+  C_I \cos x - C_Q \sin x = C \cos(x + \theta)
+  \label{eq:InterferometricMethods:linear_combination_of_sine_and_cosine}
+\end{equation}
+where
+\begin{align}
+  C &= \left( C_I^2 + C_Q^2 \right)^{1/2}
+  \\
+  \theta &= \atantwo(C_Q, C_I)
+\end{align}
+where $\atantwo(C_Q, C_I)$
+is the arctangent function of two arguments;
+$\atantwo(C_Q, C_I)$ gives the angle
+corresponding to a tangent of $C_Q / C_I$,
+and the signs of $C_Q$ and $C_I$
+are used to determine the correct quadrant.
+Taking inspiration from
+(\ref{eq:InterferometricMethods:linear_combination_of_sine_and_cosine}),
+the image-plane intensity from
+(\ref{eq:InterferometricMethods:PCI_image_plane_intensity_linear_combination_of_sine_and_cosine})
+can be rewritten as
+\begin{equation}
+  \begin{aligned}
+    I(\vect{r}_{\image}, t)
+    &=
+    I_G(\vect{r}_{\image})
+    \left( |F_0|^2 + |G_0|^2 \right)
+    \\
+    &\quad\times
+    \left\{%
+      1
+      +
+      T_{\text{pp}}(k_{\image}, x_{\image})
+      \tilde{\phi}_0
+      \cos\left[ \xi + \theta(k_{\image}, x_{\image}) \right]
+    \right\}
+  \end{aligned}
+\end{equation}
+where
+\begin{align}
+  T_{\text{pp}}(k_{\image}, x_{\image})
+  &=
+  \frac{2 C(k_{\image}, x_{\image})}{|F_0|^2 + |G_0|^2}
+  \\
+  C(k_{\image}, x_{\image})
+  &\equiv
+  (C_I^2 + C_Q^2)^{1/2}
+  \\
+  \theta(k_{\image}, x_{\image})
+  &\equiv
+  \atantwo(C_Q, C_I)
+  \\
+  C_I(k_{\image}, x_{\image})
+  &\equiv
+  \imag(G_0)\real(F_1) - \real(F_0)\imag(G_1)
+  \\
+  C_Q(k_{\image}, x_{\image})
+  &\equiv
+  \imag(G_0)\imag(F_1) + \real(F_0)\real(G_1)
+\end{align}
 
 
 \bibliographystyle{plainurl}
