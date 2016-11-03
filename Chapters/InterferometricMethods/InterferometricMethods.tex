@@ -2195,9 +2195,9 @@ as $\phi_R = \Delta \omega_0 t$ such that
 the intensity becomes
 \begin{equation}
   \begin{aligned}
-    I_{\text{het}}(\vect{r}, t)
+    I_{\text{het}}(\vect{r}_{\image}, t)
     =
-    2 I_G(\vect{r})
+    2 I_G(\vect{r}_{\image})
     \bigl[%
       1
       &+
@@ -2234,12 +2234,12 @@ the total power $P_{j, \, \text{het}}$ incident on this element is then
 \begin{align}
   P_{j, \, \text{het}}(t)
   &=
-  \int_{D_j} I_{\text{het}}(\vect{r}, t) dA
+  \int_{D_j} I_{\text{het}}(\vect{r}_{\image}, t) dA
   \notag \\
   &\begin{aligned}
     \approx
-    2 I_G(\vect{r_j}) s_y
-    \int_{x_j - s_x / 2}^{x_j + s_x / 2}
+    2 I_G(\vect{r}_{\image,j}) s_y
+    \int_{x_{\image,j} - s_x / 2}^{x_{\image,j} + s_x / 2}
     \bigl[%
       1
       &+
@@ -2253,22 +2253,22 @@ the total power $P_{j, \, \text{het}}$ incident on this element is then
   \notag \\
   &\begin{aligned}
     =
-    2 I_G(\vect{r_j}) &A
+    2 I_G(\vect{r}_{\image,j}) A
     \bigl[%
-      1
+      &1
       +
       \cos(\Delta \omega_0 t - \bar{\phi})
       \\
       &+
       \tilde{\phi}_0
       \sin(\Delta \omega_0 t - \bar{\phi})
-      \sinc(k / k_c)
+      T_{\text{fsv}}(k)
       \cos\xi_j
     \bigr]
   \end{aligned}
   \label{eq:InterferometricMethods:heterodyne_interferometer_total_power_per_element}
 \end{align}
-where the weakly varying intensity profile $I_G(\vect{r})$
+where the weakly varying intensity profile $I_G(\vect{r}_{\image})$
 has been approximated as a constant
 over the face of the detector element, and
 the finite sampling-volume integral in
@@ -2326,12 +2326,14 @@ Note that $P_{j,I}$ and $P_{j,Q}$ can be conveniently combined as
   \rangle_{\Delta \omega_0}
   \notag \\
   &=
-  I_G(\vect{r_j}) A
+  I_G(\vect{r}_{\image,j}) A
   e^{i \bar{\phi}}
   \left[%
     1
     +
-    i \tilde{\phi}_0 \sinc(k / k_c) \cos\xi_j
+    i \tilde{\phi}_0
+    T_{\text{fsv}}(k)
+    \cos\xi_j
   \right]
   \label{eq:InterferometricMethods:heterodyne_interferometer_I_and_Q_power_per_element}
 \end{align}
@@ -2345,37 +2347,37 @@ can be separated into equilibrium and fluctuating components as
 \begin{align}
   \bar{P}_{j,I}(t)
   &=
-  I_G(\vect{r_j}) A \cos\bar{\phi}
+  I_G(\vect{r}_{\image,j}) A \cos\bar{\phi}
   \\
   \bar{P}_{j,Q}(t)
   &=
-  I_G(\vect{r_j}) A \sin\bar{\phi}
+  I_G(\vect{r}_{\image,j}) A \sin\bar{\phi}
   \\
   \tilde{P}_{j,I}(t)
   &=
-  -I_G(\vect{r_j}) A
+  -I_G(\vect{r}_{\image,j}) A
   \tilde{\phi}_0
   \sin\bar{\phi} \,
-  \sinc(k / k_c)
+  T_{\text{fsv}}(k)
   \cos\xi_j
   \\
   \tilde{P}_{j,Q}(t)
   &=
-  I_G(\vect{r_j}) A
+  I_G(\vect{r}_{\image,j}) A
   \tilde{\phi}_0
   \cos\bar{\phi} \,
-  \sinc(k / k_c)
+  T_{\text{fsv}}(k)
   \cos\xi_j
 \end{align}
 As is the case for the homodyne interferometer,
 there are three potentially dynamic quantities:
-$\{\bar{\phi}, \tilde{\phi}_0, I_G(\vect{r_j})\}$;
+$\{\bar{\phi}, \tilde{\phi}_0, I_G(\vect{r}_{\image,j})\}$;
 however, in contrast to the homodyne interferometer,
 there are now \emph{four} measured quantities:
 $\{\bar{P}_{j,I}, \bar{P}_{j,Q}, \tilde{P}_{j,I}, \tilde{P}_{j,Q}\}$.
 Therefore, the number of measured quantities
 is sufficient to unambiguously determine
-$\{\bar{\phi}, \tilde{\phi}_0, I_G(\vect{r_j})\}$
+$\{\bar{\phi}, \tilde{\phi}_0, I_G(\vect{r}_{\image,j})\}$
 in absolute units.
 
 Finally, it is useful to characterize
@@ -2387,7 +2389,7 @@ can be approximated as
 \begin{align}
   P_{j, \, \text{het}}
   &\approx
-  2 I_G(\vect{r_j}) A [1 + \cos(\Delta \omega_0 t - \bar{\phi})]
+  2 I_G(\vect{r}_{\image,j}) A [1 + \cos(\Delta \omega_0 t - \bar{\phi})]
   \notag \\
   &\leq
   4 I_G(0) A
@@ -2413,16 +2415,16 @@ in the demodulated signals to be
   \right\}^{1/2}
   \notag \\
   &=
-  I_G(\vect{r_j}) A
+  I_G(\vect{r}_{\image,j}) A
   \tilde{\phi}_0
-  \sinc(k / k_c)
+  T_{\text{fsv}}(k)
   \cos\xi_j
 \end{align}
 such that
 \begin{equation}
   \frac{\tilde{P}_{j, IQ}(t)}{P_{\text{sat}}}
   =
-  \frac{I_G(\vect{r_j})}{I_G(0)}
+  \frac{I_G(\vect{r}_{\image,j})}{I_G(0)}
   \cdot
   T_{\text{het}}(k)
   \cdot
@@ -2434,15 +2436,14 @@ where
 \begin{equation}
   T_{\text{het}}(k)
   \equiv
-  \frac{1}{4}
-  \sinc\left( \frac{k}{k_c} \right)
+  \frac{T_{\text{fsv}}(k)}{4}
   \label{eq:InterferometricMethods:heterodyne_interferometer_wavenumber_transfer_function}
 \end{equation}
 is the heterodyne interferometer's wavenumber transfer function.
 That is, the heterodyne interferometer
 weights the phase-fluctuation images $\tilde{\phi}_0 \cos\xi_j$
 by its transfer function $T_{\text{het}}(k)$.
-The prefactor $I_G(\vect{r_j}) / I_G(0)$
+The prefactor $I_G(\vect{r}_{\image,j}) / I_G(0)$
 can (and should) be accounted for
 if the beam profile is known.
 
