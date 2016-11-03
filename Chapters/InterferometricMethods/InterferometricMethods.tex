@@ -2792,13 +2792,13 @@ using these substitutions, the field further reduces to
 and the corresponding intensity, to first order in $\tilde{\phi}_0$, is
 \begin{equation}
   \begin{aligned}
-    I(\vect{r}_{\image}, t)
+    I_{\text{pci}}(\vect{r}_{\image}, t)
     &=
     I_G(\vect{r}_{\image})
     \biggl\{%
       |F_0|^2 + |G_0|^2
       \\
-      &\qquad
+      &
       +
       2 \tilde{\phi}_0
       \bigl[%
@@ -2818,17 +2818,17 @@ $G_1 = \real(G_1) + {i \cdot \imag(G_1)}$,
 the image-plane intensity further reduces to
 \begin{equation}
   \begin{aligned}
-    I(\vect{r}_{\image}, t)
+    I_{\text{pci}}(\vect{r}_{\image}, t)
     &=
     I_G(\vect{r}_{\image})
     \biggl\{%
       |F_0|^2 + |G_0|^2
       \\
-      &\qquad+
+      &+
       2 \tilde{\phi}_0
       \left[ \imag(G_0)\real(F_1) - \real(F_0)\imag(G_1) \right] \cos\xi
       \\
-      &\qquad-
+      &-
       2 \tilde{\phi}_0
       \left[ \imag(G_0)\imag(F_1) + \real(F_0)\real(G_1) \right] \sin\xi
     \biggr\}
@@ -2861,7 +2861,7 @@ the image-plane intensity from
 can be rewritten as
 \begin{equation}
   \begin{aligned}
-    I(\vect{r}_{\image}, t)
+    I_{\text{pci}}(\vect{r}_{\image}, t)
     &=
     I_G(\vect{r}_{\image})
     \left( |F_0|^2 + |G_0|^2 \right)
@@ -2898,6 +2898,67 @@ where
   &\equiv
   \imag(G_0)\imag(F_1) + \real(F_0)\real(G_1)
 \end{align}
+
+
+\subsection{Wavenumber transfer function}
+Assume that the imaged field impinges on a detector array,
+as shown in Fig.~\ref{fig:InterferometricMethods:detector_array}.
+Let the $j$\ts{th} detector element $D_j$ be centered on $x_{\image,j}$
+and $y_{\image} = 0$;
+the total power $P_{j, \, \text{pci}}$ incident on this element is then
+\begin{align}
+  P_{j, \, \text{pci}}(t)
+  &=
+  \int_{D_j} I_{\text{pci}}(\vect{r}_{\image}, t) dA
+  \notag \\
+  &\begin{aligned}
+    &\approx
+    I_G(\vect{r}_{\image,j})
+    \left( |F_0|^2 + |G_0|^2 \right)
+    s_y
+    \\
+    &\quad\times
+    \int_{x_{\image,j} - s_x / 2}^{x_{\image,j} + s_x / 2}
+    \left\{
+      1
+      +
+      T_{\text{pp}}(k_{\image}, x_{\image})
+      \tilde{\phi}_0
+      \cos\left[ \xi + \theta(k_{\image}, x_{\image}) \right]
+    \right\} dx_{\image}
+  \end{aligned}
+  \notag
+  \\
+  &\begin{aligned}
+    &\approx
+    I_G(\vect{r}_{\image,j})
+    \left( |F_0|^2 + |G_0|^2 \right)
+    A
+    \\
+    &\quad\times
+    \left\{
+      1
+      +
+      T_{\text{pp}}(k_{\image}, x_{\image})
+      T_{\text{fsv}}(k)
+      \tilde{\phi}_0
+      \cos\left[ \xi_j + \theta(k_{\image}, x_{\image}) \right]
+    \right\}
+  \end{aligned}
+\end{align}
+where the weakly varying intensity profile $I_G(\vect{r}_{\image})$
+has been approximated as a constant
+over the face of the detector element, and
+the finite sampling-volume integral in
+(\ref{eq:InterferometricMethods:finite_sampling_volume_integral})
+has been referenced.
+
+\begin{itemize}
+  \item Determine $T_{\text{pci}}$
+  \item Show that $T_{\text{pci}}$ vanishes as $k \rightarrow 0$
+  \item Show that $\theta(k_{\image}, x_{\image})$ vanishes as $k \gg k_g$
+  \item Quantitative plots
+\end{itemize}
 
 
 \bibliographystyle{plainurl}
