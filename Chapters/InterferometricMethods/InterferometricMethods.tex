@@ -1858,19 +1858,15 @@ that differentiates a given interferometric method from another.
 
 \section{External reference-beam interferometry}
 \label{sec:InterferometricMethods:interferometry}
-The computations in this section all occur in the image plane.
-For notational simplicity,
-the $\image$ subscript used in the previous section
-to indicate image-plane coordinates is dropped; that is,
-$\vect{r}_{\image} \rightarrow \vect{r}$.
-Further, there is no wavenumber-dependent manipulation of the diffracted beams
+In external reference-beam interferometry,
+there is no wavenumber-dependent manipulation of the diffracted beams
 such that
 (\ref{eq:InterferometricMethods:imaged_total_field_weak_coupling}) applies.
 Thus, the probe radiation in the image plane is given as
 \begin{equation}
-  E_P(\vect{r}, t)
+  E_P(\vect{r}_{\image}, t)
   \approx
-  E_G(\vect{r}, t)
+  E_G(\vect{r}_{\image}, t)
   e^{i \bar{\phi}}
   \left[%
     1
@@ -1881,14 +1877,14 @@ Thus, the probe radiation in the image plane is given as
 Now, assume that the imaged probe radiation
 is interfered with a reference beam of known phase $\phi_R$
 \begin{equation}
-  E_R(\vect{r}, t) = E_G(\vect{r}, t) e^{i \phi_R}
+  E_R(\vect{r}_{\image}, t) = E_G(\vect{r}_{\image}, t) e^{i \phi_R}
   \label{eq:InterferometricMethods:external_reference_beam_arbitrary}
 \end{equation}
 The total field impinging on the detector is then
 \begin{equation}
-  E(\vect{r}, t)
+  E(\vect{r}_{\image}, t)
   =
-  E_G(\vect{r}, t)
+  E_G(\vect{r}_{\image}, t)
   \left[%
     e^{i \phi_R}
     +
@@ -1902,9 +1898,9 @@ The total field impinging on the detector is then
 \end{equation}
 and, to first order in $\tilde{\phi}_0$, the corresponding intensity is
 \begin{equation}
-  I(\vect{r}, t)
+  I(\vect{r}_{\image}, t)
   =
-  2 I_G(\vect{r})
+  2 I_G(\vect{r}_{\image})
   \left[%
     1
     +
@@ -1914,7 +1910,7 @@ and, to first order in $\tilde{\phi}_0$, the corresponding intensity is
   \right]
   \label{eq:InterferometricMethods:interferometer_intensity_arbitrary_reference}
 \end{equation}
-where $I_G(\vect{r})$ is
+where $I_G(\vect{r}_{\image})$ is
 the intensity profile of the undiffracted Gaussian beam on the detector
 as defined in (\ref{eq:InterferometricMethods:Gaussian_beam_intensity}).
 Reference-beam generation prescribes $\phi_R$ and
@@ -1945,9 +1941,9 @@ a reference phase that is constant (or nearly constant) in time
 such that the resulting intensity is
 \begin{equation}
   \begin{aligned}
-    I_{\text{hom}}(\vect{r}, t)
+    I_{\text{hom}}(\vect{r}_{\image}, t)
     =
-    2 I_G(\vect{r})
+    2 I_G(\vect{r}_{\image})
     \bigl[%
       1
       &+
@@ -1965,17 +1961,18 @@ the homodyne interferometer's wavenumber response~\cite{davis_rsi16}.
 Assume that the probe radiation and the reference beam
 are interfered on a detector array,
 as shown in Fig.~\ref{fig:InterferometricMethods:detector_array}.
-Let the $j$\ts{th} detector element $D_j$ be centered on $x_j$ and $y = 0$;
+Let the $j$\ts{th} detector element $D_j$ be centered on $x_{\image,j}$
+and $y_{\image} = 0$;
 the total power $P_{j, \, \text{hom}}$ incident on this element is then
 \begin{align}
   P_{j, \, \text{hom}}(t)
   &=
-  \int_{D_j} I_{\text{hom}}(\vect{r}, t) dA
+  \int_{D_j} I_{\text{hom}}(\vect{r}_{\image}, t) dA
   \notag \\
   &\begin{aligned}
     \approx
-    2 I_G(\vect{r_j}) s_y
-    \int_{x_j - s_x / 2}^{x_j + s_x / 2}
+    2 I_G(\vect{r}_{\image,j}) s_y
+    \int_{x_{\image,j} - s_x / 2}^{x_{\image,j} + s_x / 2}
     \bigl[%
       1
       &+
@@ -1984,24 +1981,35 @@ the total power $P_{j, \, \text{hom}}$ incident on this element is then
       &+
       \tilde{\phi}_0
       \sin(\phi_R - \bar{\phi}) \cos\xi
-    \bigr] dx
+    \bigr] dx_{\image}
   \end{aligned}
   \notag
 \end{align}
-where the weakly varying intensity profile $I_G(\vect{r})$
+where the weakly varying intensity profile $I_G(\vect{r}_{\image})$
 has been approximated as a constant
 over the face of the detector element.
 As the finite sampling-volume integral
 will also be applied in other sections,
 it is explicitly evaluated here for later reference
 \begin{equation}
-  \int_{x_j - s_x / 2}^{x_j + s_x / 2}
-  \cos\xi dx
+  \int_{x_{\image,j} - s_x / 2}^{x_{\image,j} + s_x / 2}
+  \cos(\xi + \theta) dx_{\image}
   =
-  s_x \sinc\left( \frac{k}{k_c} \right) \cos\xi_j
+  s_x
+  \cdot
+  T_{\text{fsv}}(k)
+  \cdot
+  \cos(\xi_j + \theta)
   \label{eq:InterferometricMethods:finite_sampling_volume_integral}
 \end{equation}
 where
+\begin{equation}
+  T_{\text{fsv}}(k)
+  \equiv
+  \sinc\left( \frac{k}{k_c} \right)
+  \label{eq:InterferometricMethods:finite_sampling_volume_transfer_function}
+\end{equation}
+is the finite sampling-volume transfer function
 \begin{equation}
   \sinc(x) = \frac{\sin(\pi x)}{\pi x}
   \label{eq:InterferometricMethods:normalized_sinc}
@@ -2011,17 +2019,18 @@ is the normalized sinc function,
   k_c = \frac{2 \pi M}{s_x}
   \label{eq:InterferometricMethods:finite_sampling_volume_cutoff}
 \end{equation}
-is the first zero (i.e.\ ``cutoff'') of the sinc function, and
+is the first zero (i.e.\ ``cutoff'') of $T_{\text{fsv}}(k)$,
 \begin{equation}
-  \xi_j = \frac{k x_j}{M} - \omega t
+  \xi_j = \frac{k x_{\image,j}}{M} - \omega t
   \label{eq:InterferometricMethods:xi_j}
 \end{equation}
+and $\theta$ is a \emph{constant} with respect to $x_{\image}$.
 Thus, the homodyne optical power becomes
 \begin{align}
   \begin{aligned}
     P_{j, \, \text{hom}}(t)
     =
-    2 I_G(\vect{r_j}) A
+    2 I_G(\vect{r}_{\image,j}) A
     &\bigl[%
       1
       +
@@ -2030,7 +2039,7 @@ Thus, the homodyne optical power becomes
       &+
       \tilde{\phi}_0
       \sin(\phi_R - \bar{\phi})
-      \sinc(k / k_c)
+      T_{\text{fsv}}(k)
       \cos\xi_j
     \bigr]
   \end{aligned}
@@ -2059,15 +2068,15 @@ $P_{j, \, \text{hom}}(t)
 \begin{align}
   \bar{P}_{j, \, \text{hom}}(t)
   &=
-  2 I_G(\vect{r_j}) A
+  2 I_G(\vect{r}_{\image,j}) A
   [1 + \cos(\phi_R - \bar{\phi})]
   \\
   \tilde{P}_{j, \, \text{hom}}(t)
   &=
-  2 I_G(\vect{r_j}) A
+  2 I_G(\vect{r}_{\image,j}) A
   \tilde{\phi}_0
   \sin(\phi_R - \bar{\phi})
-  \sinc(k / k_c)
+  T_{\text{fsv}}(k)
   \cos\xi_j
 \end{align}
 Then, because $\tilde{\phi}_0 \ll 1$
@@ -2091,7 +2100,7 @@ Then
 \begin{equation}
   \frac{\tilde{P}_{j, \, \text{hom}}(t)}{P_{\text{sat}}}
   =
-  \frac{I_G(\vect{r_j})}{I_G(0)}
+  \frac{I_G(\vect{r}_{\image,j})}{I_G(0)}
   \cdot
   T_{\text{hom}}(k)
   \cdot
@@ -2102,16 +2111,15 @@ where
   T_{\text{hom}}(k)
   \equiv
   \frac{\sin(\phi_R - \bar{\phi})}{1 + \cos(\phi_R - \bar{\phi})}
-  \left[
-    \sinc\left( \frac{k}{k_c} \right)
-  \right]
+  \cdot
+  T_{\text{fsv}}(k)
   \label{eq:InterferometricMethods:homodyne_interferometer_wavenumber_transfer_function}
 \end{equation}
 is the homodyne interferometer's wavenumber transfer function.
 That is, the homodyne interferometer
 weights the phase-fluctuation images $\tilde{\phi}_0 \cos\xi_j$
 by its transfer function $T_{\text{hom}}(k)$.
-The prefactor $I_G(\vect{r_j}) / I_G(0)$
+The prefactor $I_G(\vect{r}_{\image,j}) / I_G(0)$
 can (and should) be accounted for
 if the beam profile is known.
 
@@ -2168,9 +2176,9 @@ of the phase fluctuation amplitude $\tilde{\phi}_0$
 \cite[Sec.~4.2.2]{hutchinson_diagnostics}.
 For example, vibration-induced misalignment or
 power fluctuations at the beam source
-can alter the intensity $I_G(\vect{r_j})$.
+can alter the intensity $I_G(\vect{r}_{\image,j})$.
 As a result, there are three potentially dynamic quantities:
-$\{\phi_R - \bar{\phi}, \tilde{\phi}_0, I_G(\vect{r_j})\}$, but
+$\{\phi_R - \bar{\phi}, \tilde{\phi}_0, I_G(\vect{r}_{\image,j})\}$, but
 there are only two measured quantities:
 the equilibrium and fluctuating homodyne powers.
 Thus, it is generally impossible to distinguish
