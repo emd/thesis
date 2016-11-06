@@ -2430,7 +2430,6 @@ such that
   \cdot
   \tilde{\phi}_0
   \cos\xi_j
-  \label{}
 \end{equation}
 where
 \begin{equation}
@@ -2945,6 +2944,7 @@ the total power $P_{j, \, \text{pci}}$ incident on this element is then
       \cos\left[ \xi_j + \theta(k_{\image}, x_{\image}) \right]
     \right\}
   \end{aligned}
+  \label{eq:InterferometricMethods:PCI_total_power_per_element}
 \end{align}
 where the weakly varying intensity profile $I_G(\vect{r}_{\image})$
 has been approximated as a constant
@@ -2953,8 +2953,91 @@ the finite sampling-volume integral in
 (\ref{eq:InterferometricMethods:finite_sampling_volume_integral})
 has been referenced.
 
+As was the case for external reference-beam interferometry,
+it is useful to characterize PCI's performance
+relative to the saturation limits of a given detector.
+Because $\tilde{\phi}_0 \ll 1$,
+(\ref{eq:InterferometricMethods:PCI_total_power_per_element})
+can be approximated as
+\begin{align}
+  P_{j, \, \text{pci}}(t)
+  &\approx
+  I_G(\vect{r}_{\image,j})
+  \left( |F_0|^2 + |G_0|^2 \right)
+  A
+  \notag \\
+  &\leq
+  I_G(0)
+  \left( |F_0|^2 + |G_0|^2 \right)
+  A
+  \notag
+\end{align}
+where $I_G(0)$ is the peak intensity
+of the undiffracted Gaussian probe beam
+in the \emph{absence} of the phase plate.
+To obtain optimal performance, select $I_G(0)$ such that
+\begin{equation}
+  P_{\text{sat}}
+  =
+  I_G(0)
+  \left( |F_0|^2 + |G_0|^2 \right)
+  A
+  \notag
+\end{equation}
+Further, define the fluctuating power in the PCI signal to be
+\begin{equation}
+  \begin{aligned}
+    \tilde{P}_{j, \, \text{pci}}(t)
+    &\equiv
+    I_G(\vect{r}_{\image,j})
+    \left( |F_0|^2 + |G_0|^2 \right)
+    A
+    \\
+    &\quad\times
+    \left\{
+      \tilde{\phi}_0
+      T_{\text{pp}}(k_{\image}, x_{\image})
+      T_{\text{fsv}}(k)
+      \cos\left[ \xi_j + \theta(k_{\image}, x_{\image}) \right]
+    \right\}
+  \end{aligned}
+  \label{eq:InterferometricMethods:PCI_fluctuating_power_per_element}
+\end{equation}
+such that
+\begin{equation}
+  \frac{\tilde{P}_{j, \, \text{pci}}(t)}{P_{\text{sat}}}
+  =
+  \frac{I_G(\vect{r}_{\image,j})}{I_G(0)}
+  \cdot
+  T_{\text{pci}}(k_{\image}, x_{\image})
+  \cdot
+  \tilde{\phi}_0
+  \cos \left[\xi_j + \theta(k_{\image}, x_{\image}) \right]
+\end{equation}
+where
+\begin{equation}
+  T_{\text{pci}}(k_{\image}, x_{\image})
+  \equiv
+  T_{\text{pp}}(k_{\image}, x_{\image})
+  T_{\text{fsv}}(k)
+  \label{eq:InterferometricMethods:PCI_wavenumber_transfer_function}
+\end{equation}
+is the PCI's wavenumber transfer function.
+That is, the PCI weights the phase-fluctuation images
+$\cos \left[\xi_j + \theta(k_{\image}, x_{\image}) \right]$
+by its transfer function $T_{\text{pci}}(k_{\image}, x_{\image})$.
+Note that perfect imaging requires
+that $\theta(k_{\image}, x_{\image}) \equiv 0$;
+\graffito{\textcolor{red}{does it really??}}
+as will be shown shortly,
+$\theta(k_{\image}, x_{\image})$ differs substantially from zero
+when $|k| \lesssim k_g$.
+The prefactor $I_G(\vect{r}_{\image,j}) / I_G(0)$
+can (and should) be accounted for
+if the beam profile is known.
+
+
 \begin{itemize}
-  \item Determine $T_{\text{pci}}$
   \item Show that $T_{\text{pci}}$ vanishes as $k \rightarrow 0$
   \item Show that $\theta(k_{\image}, x_{\image})$ vanishes as $k \gg k_g$
   \item Quantitative plots
