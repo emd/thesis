@@ -744,14 +744,24 @@ the diffraction of a phase-modulated Gaussian beam.
 
 
 \subsection{Fraunhofer diffraction of a phase-modulated Gaussian beam}
-Now, at $S_1$ allow the incident beam to see
-an additional phase contribution $\phi$ that takes the form
+Now, allow the incident beam to see
+an additional phase contribution $\phi(x', t)$ at $S_1$.
+If the beam's optical cycles occur much more rapidly
+than the temporal evolution of $\phi$,
+the problem can be treated adiabatically
+by solving for the beam propagation
+at each instant in time during the relatively slow evolution of $\phi$.
+This adiabatic assumption is very well-satisfied for
+a CO$_2$ probe beam ($\omega_0 = 2 \pi \cdot \SI{28.3}{\tera\hertz}$)
+in a typical tokamak plasma ($\omega \lesssim \SI{1}{\giga\hertz}$).
+
+Now, explicitly divide $\phi$ into bulk $\bar{\phi}(t)$ and
+spatially varying $\tilde{\phi}(x', t)$ components such that
 \begin{equation}
   \phi(x', t) = \bar{\phi}(t) + \tilde{\phi}(x', t)
 \end{equation}
-Typically, $\tilde{\phi}$ varies on much faster time scales than $\bar{\phi}$
-(quantitatively, $d(\ln \tilde{\phi})/dt \gg d(\ln \bar{\phi})/dt$), but
-this is not required.
+Typically, $\tilde{\phi}$ varies on much faster time scales than $\bar{\phi}$,
+but this is not required.
 The response functions of the diagnostics investigated in
 Sections~\ref{sec:InterferometricMethods:interferometry} and
 \ref{sec:InterferometricMethods:pci} will be shown to be linear, so
@@ -1012,10 +1022,16 @@ The $m$\ts{th} scattered beam is Doppler shifted
 relative to the incident beam by $m \omega$ and
 propagates at an angle $\theta_m \approx m k / k_0$
 relative to the lab-frame optical axis.
-Note that the spatial dependence of the scattered beams' phase evolution
-remains $e^{i [k_0 r - \psi(z)]}$; that is,
-the scattering process is elastic,
-with $|\vect{k^{(i)}}| = |\vect{k_m}| = k_0$.
+The adiabatic assumption ($\omega / \omega_0 \ll 1$)
+is very well-satisfied for a CO$_2$ probe beam
+in a typical tokamak plasma
+(i.e.\
+$\omega / \omega_0
+\lesssim
+\SI{1}{\giga\hertz} / \SI{28.3}{\tera\hertz}
+\sim 10^{-5}$).
+Thus, the scattering is very nearly elastic, and
+$|\vect{k_m}| = k_0$ is a very good approximation.
 This constraint of elasticity
 coupled with knowledge of the scattering angle $\theta_m$
 allows determination of the scattered wavevector
@@ -1404,10 +1420,14 @@ behaves as a ray in the geometric-optics sense
 Thus, the $m$\ts{th} diffracted beam is rotated by angle $\theta_m / M$
 relative to the undiffracted beam in the imaging plane,
 as shown in Fig.~\ref{fig:InterferometricMethods:imaging_geometry}.
+However, the imaging optics do \emph{not} alter the beam's wavevector;
+that is, the wavevector of the $m$\ts{th} scattered beam in the image plane
+satisfies $|\vect{k}_{m,\image}| = k_0$.
+
 Further, the phase-fluctuation wavevector $k$ is imaged as $k / M$ such that
 the wavevector of the $m$\ts{th} diffracted beam in the image plane is
 \begin{align}
-  \vect{k_{m,\image}}
+  \vect{k}_{m,\image}
   =
   \left( \frac{m k}{M} \right) \hat{\vect{x}}
   +
