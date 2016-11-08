@@ -1420,25 +1420,29 @@ behaves as a ray in the geometric-optics sense
 Thus, the $m$\ts{th} diffracted beam is rotated by angle $\theta_m / M$
 relative to the undiffracted beam in the imaging plane,
 as shown in Fig.~\ref{fig:InterferometricMethods:imaging_geometry}.
-However, the imaging optics do \emph{not} alter the beam's wavevector;
-that is, the wavevector of the $m$\ts{th} scattered beam in the image plane
-satisfies $|\vect{k}_{m,\image}| = k_0$.
-
-Further, the phase-fluctuation wavevector $k$ is imaged as $k / M$ such that
-the wavevector of the $m$\ts{th} diffracted beam in the image plane is
+Further, the imaging optics do \emph{not} alter
+the magnitude of the beam's wavevector $|\image(\vect{k}_m)| = k_0$
+(this readily follows from the fact that the imaging optics
+do not alter the energy of the beam's constituent photons).
+Knowledge of the wavevector's image-plane magnitude and orientation
+allows determination of the image-plane wavevector as
 \begin{align}
+  \image(\vect{k}_m)
+  =
   \vect{k}_{m,\image}
   =
-  \left( \frac{m k}{M} \right) \hat{\vect{x}}
+  \left( m k_{\image} \right) \hat{\vect{x}}
   +
-  k_0 \left[ 1 - \left(\frac{m k}{M k_0}\right)^2 \right]^{1/2} \hat{\vect{z}}
-  %k_0 \sqrt{1 - \left(\frac{m k}{k_0}\right)^2} \hat{\vect{z}}
+  k_0 \left[ 1 - \left(\frac{m k_{\image}}{k_0}\right)^2 \right]^{1/2}
+  \hat{\vect{z}}
   \label{eq:InterferometricMethods:scattered_beam_wavevector_image_plane}
 \end{align}
-Note that
-(\ref{eq:InterferometricMethods:scattered_beam_wavevector_image_plane})
-is consistent with the $m$\ts{th} diffracted beam having an angle
-$\theta_m / M$ relative to the optical axis in the image plane.
+where
+\begin{equation}
+  k_{\image} \equiv \frac{k}{M}
+  \label{eq:InterferometricMethods:image_plane_fluctuation_wavenumber}
+\end{equation}
+is the imaged wavenumber of the corresponding object-plane phase fluctuation.
 
 \begin{figure}
   \centering
@@ -1671,10 +1675,6 @@ it readily follows that
   \cdot
   \mathcal{P}(m, k_{\image}, x_{\image})
 \end{align}
-where the object-plane wavevector $k$ has been imaged as
-\begin{equation}
-  k_{\image} = \frac{k}{M}
-\end{equation}
 Thus, (\ref{eq:InterferometricMethods:imaged_total_field_v1}) becomes
 \begin{equation}
   \begin{aligned}
@@ -1806,17 +1806,14 @@ where
 \begin{align}
   \xi
   &\equiv
-  \frac{k x_{\image}}{M} - \omega t
+  k_{\image} x_{\image} - \omega t
   \label{eq:InterferometricMethods:image_plane_xi}
   \\
   \kappa
   &\equiv
-  \frac{1}{2 k_0 R(z_{\image})}
-  \left( \frac{k x_{\image}}{M} \right)^2
+  \frac{(k_{\image} x_{\image})^2}{2 k_0 R(z_{\image})}
   \label{eq:InterferometricMethods:image_plane_kappa}
 \end{align}
-Note that the above definitions have used the substitution
-$k_{\image} x_{\image} = k x_{\image} / M$.
 Normally, $\kappa \ll 1$ such that the total imaged field reduces to
 \begin{equation}
   E(\vect{r}_{\image}, t)
@@ -2017,16 +2014,16 @@ it is explicitly evaluated here for later reference
   =
   s_x
   \cdot
-  T_{\text{fsv}}(k)
+  T_{\text{fsv}}(k_{\image})
   \cdot
   \cos(\xi_j + \theta)
   \label{eq:InterferometricMethods:finite_sampling_volume_integral}
 \end{equation}
 where
 \begin{equation}
-  T_{\text{fsv}}(k)
+  T_{\text{fsv}}(k_{\image})
   \equiv
-  \sinc\left( \frac{k}{k_c} \right)
+  \sinc\left( \frac{k_{\image}}{k_{\text{fsv}}} \right)
   \label{eq:InterferometricMethods:finite_sampling_volume_transfer_function}
 \end{equation}
 is the finite sampling-volume transfer function
@@ -2036,12 +2033,12 @@ is the finite sampling-volume transfer function
 \end{equation}
 is the normalized sinc function,
 \begin{equation}
-  k_c = \frac{2 \pi M}{s_x}
+  k_{\text{fsv}} = \frac{2 \pi}{s_x}
   \label{eq:InterferometricMethods:finite_sampling_volume_cutoff}
 \end{equation}
-is the first zero (i.e.\ ``cutoff'') of $T_{\text{fsv}}(k)$,
+is the first zero of $T_{\text{fsv}}(k_{\image})$,
 \begin{equation}
-  \xi_j = \frac{k x_{\image,j}}{M} - \omega t
+  \xi_j = k_{\image} x_{\image,j} - \omega t
   \label{eq:InterferometricMethods:xi_j}
 \end{equation}
 and $\theta$ is a \emph{constant} with respect to $x_{\image}$.
@@ -2059,7 +2056,7 @@ Thus, the homodyne optical power becomes
       &+
       \tilde{\phi}_0
       \sin(\phi_R - \bar{\phi})
-      T_{\text{fsv}}(k)
+      T_{\text{fsv}}(k_{\image})
       \cos\xi_j
     \bigr]
   \end{aligned}
@@ -2096,7 +2093,7 @@ $P_{j, \, \text{hom}}(t)
   2 I_G(\vect{r}_{\image,j}) A
   \tilde{\phi}_0
   \sin(\phi_R - \bar{\phi})
-  T_{\text{fsv}}(k)
+  T_{\text{fsv}}(k_{\image})
   \cos\xi_j
 \end{align}
 Then, because $\tilde{\phi}_0 \ll 1$
@@ -2122,31 +2119,31 @@ Then
   =
   \frac{I_G(\vect{r}_{\image,j})}{I_G(0)}
   \cdot
-  T_{\text{hom}}(k)
+  T_{\text{hom}}(k_{\image})
   \cdot
   \tilde{\phi}_0 \cos\xi_j
 \end{equation}
 where
 \begin{equation}
-  T_{\text{hom}}(k)
+  T_{\text{hom}}(k_{\image})
   \equiv
   \frac{\sin(\phi_R - \bar{\phi})}{1 + \cos(\phi_R - \bar{\phi})}
   \cdot
-  T_{\text{fsv}}(k)
+  T_{\text{fsv}}(k_{\image})
   \label{eq:InterferometricMethods:homodyne_interferometer_wavenumber_transfer_function}
 \end{equation}
 is the homodyne interferometer's wavenumber transfer function.
 That is, the homodyne interferometer
 weights the phase-fluctuation images $\tilde{\phi}_0 \cos\xi_j$
-by its transfer function $T_{\text{hom}}(k)$.
+by its transfer function $T_{\text{hom}}(k_{\image})$.
 The prefactor $I_G(\vect{r}_{\image,j}) / I_G(0)$
 can (and should) be accounted for
 if the beam profile is known.
 
-Note that $T_{\text{hom}}(k)$ is a function
+Note that $T_{\text{hom}}(k_{\image})$ is a function
 of the phase difference $\phi_R - \bar{\phi}$.
 The homodyne interferometer operates at its peak sensitivity
-when $|T_{\text{hom}}(k)|$ is maximal,
+when $|T_{\text{hom}}(k_{\image})|$ is maximal,
 which occurs when $\phi_R - \bar{\phi} = \pi / 2 + m \pi$ for integer $m$.
 For concreteness in the following discussion,
 take $\phi_R - \bar{\phi} = \pi / 2$.
@@ -2282,7 +2279,7 @@ the total power $P_{j, \, \text{het}}$ incident on this element is then
       &+
       \tilde{\phi}_0
       \sin(\Delta \omega_0 t - \bar{\phi})
-      T_{\text{fsv}}(k)
+      T_{\text{fsv}}(k_{\image})
       \cos\xi_j
     \bigr]
   \end{aligned}
@@ -2297,7 +2294,7 @@ has been referenced.
 Note that the dominant Fourier components of $P_{j, \, \text{het}}$
 sit at the intermediate frequency $\pm \Delta \omega_0$ but that
 the phase-fluctuation term $\sin(\Delta \omega_0 t - \bar{\phi}) \cos\xi_j$
-produce sidebands at $\pm (\Delta \omega_0 \pm \omega)$.
+produces sidebands at $\pm (\Delta \omega_0 \pm \omega)$.
 
 The heterodyne interference signal must be demodulated
 in order to retrieve the baseband phase-fluctuation information.
@@ -2352,7 +2349,7 @@ Note that $P_{j,I}$ and $P_{j,Q}$ can be conveniently combined as
     1
     +
     i \tilde{\phi}_0
-    T_{\text{fsv}}(k)
+    T_{\text{fsv}}(k_{\image})
     \cos\xi_j
   \right]
   \label{eq:InterferometricMethods:heterodyne_interferometer_I_and_Q_power_per_element}
@@ -2378,7 +2375,7 @@ can be separated into equilibrium and fluctuating components as
   -I_G(\vect{r}_{\image,j}) A
   \tilde{\phi}_0
   \sin\bar{\phi} \,
-  T_{\text{fsv}}(k)
+  T_{\text{fsv}}(k_{\image})
   \cos\xi_j
   \\
   \tilde{P}_{j,Q}(t)
@@ -2386,7 +2383,7 @@ can be separated into equilibrium and fluctuating components as
   I_G(\vect{r}_{\image,j}) A
   \tilde{\phi}_0
   \cos\bar{\phi} \,
-  T_{\text{fsv}}(k)
+  T_{\text{fsv}}(k_{\image})
   \cos\xi_j
 \end{align}
 As is the case for the homodyne interferometer,
@@ -2437,7 +2434,7 @@ in the demodulated signals to be
   &=
   I_G(\vect{r}_{\image,j}) A
   \tilde{\phi}_0
-  T_{\text{fsv}}(k)
+  T_{\text{fsv}}(k_{\image})
   \cos\xi_j
 \end{align}
 such that
@@ -2446,22 +2443,22 @@ such that
   =
   \frac{I_G(\vect{r}_{\image,j})}{I_G(0)}
   \cdot
-  T_{\text{het}}(k)
+  T_{\text{het}}(k_{\image})
   \cdot
   \tilde{\phi}_0
   \cos\xi_j
 \end{equation}
 where
 \begin{equation}
-  T_{\text{het}}(k)
+  T_{\text{het}}(k_{\image})
   \equiv
-  \frac{T_{\text{fsv}}(k)}{4}
+  \frac{T_{\text{fsv}}(k_{\image})}{4}
   \label{eq:InterferometricMethods:heterodyne_interferometer_wavenumber_transfer_function}
 \end{equation}
 is the heterodyne interferometer's wavenumber transfer function.
 That is, the heterodyne interferometer
 weights the phase-fluctuation images $\tilde{\phi}_0 \cos\xi_j$
-by its transfer function $T_{\text{het}}(k)$.
+by its transfer function $T_{\text{het}}(k_{\image})$.
 The prefactor $I_G(\vect{r}_{\image,j}) / I_G(0)$
 can (and should) be accounted for
 if the beam profile is known.
@@ -2474,7 +2471,7 @@ regardless of the bulk plasma phase or path-length vibrations.
 Robust sensitivity comes at a cost, however.
 Note that
 \begin{equation}
-  \frac{T_{\text{het}}(k)}{T_{\text{hom}}(k)}
+  \frac{T_{\text{het}}(k_{\image})}{T_{\text{hom}}(k_{\image})}
   =
   \frac{1}{4}
   \quad
@@ -2959,7 +2956,7 @@ the total power $P_{j, \, \text{pci}}$ incident on this element is then
       1
       +
       T_{\text{pp}}(k_{\image}, x_{\image})
-      T_{\text{fsv}}(k)
+      T_{\text{fsv}}(k_{\image})
       \tilde{\phi}_0
       \cos\left[ \xi_j + \theta(k_{\image}, x_{\image}) \right]
     \right\}
@@ -3017,7 +3014,7 @@ Further, define the fluctuating power in the PCI signal to be
     \left\{
       \tilde{\phi}_0
       T_{\text{pp}}(k_{\image}, x_{\image})
-      T_{\text{fsv}}(k)
+      T_{\text{fsv}}(k_{\image})
       \cos\left[ \xi_j + \theta(k_{\image}, x_{\image}) \right]
     \right\}
   \end{aligned}
@@ -3039,7 +3036,7 @@ where
   T_{\text{pci}}(k_{\image}, x_{\image})
   \equiv
   T_{\text{pp}}(k_{\image}, x_{\image})
-  T_{\text{fsv}}(k)
+  T_{\text{fsv}}(k_{\image})
   \label{eq:InterferometricMethods:PCI_wavenumber_transfer_function}
 \end{equation}
 is the PCI's wavenumber transfer function.
@@ -3048,10 +3045,9 @@ $\cos \left[\xi_j + \theta(k_{\image}, x_{\image}) \right]$
 by its transfer function $T_{\text{pci}}(k_{\image}, x_{\image})$.
 Note that perfect imaging requires
 that $\theta(k_{\image}, x_{\image}) \equiv 0$;
-\graffito{\textcolor{red}{does it really??}}
 as will be shown shortly,
 $\theta(k_{\image}, x_{\image})$ differs substantially from zero
-when $|k| \lesssim k_g$.
+when $|k_{\image}| \lesssim k_{g,\image}$.
 The prefactor $I_G(\vect{r}_{\image,j}) / I_G(0)$
 can (and should) be accounted for
 if the beam profile is known.
