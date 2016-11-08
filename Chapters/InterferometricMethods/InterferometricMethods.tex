@@ -1421,7 +1421,7 @@ Thus, the $m$\ts{th} diffracted beam is rotated by angle $\theta_m / M$
 relative to the undiffracted beam in the imaging plane,
 as shown in Fig.~\ref{fig:InterferometricMethods:imaging_geometry}.
 Further, the imaging optics do \emph{not} alter
-the magnitude of the beam's wavevector $|\image(\vect{k}_m)| = k_0$
+the magnitude of the beam's wavevector, i.e.\ $|\image(\vect{k}_m)| = k_0$
 (this readily follows from the fact that the imaging optics
 do not alter the energy of the beam's constituent photons).
 Knowledge of the wavevector's image-plane magnitude and orientation
@@ -2026,7 +2026,7 @@ where
   \sinc\left( \frac{k_{\image}}{k_{\text{fsv}}} \right)
   \label{eq:InterferometricMethods:finite_sampling_volume_transfer_function}
 \end{equation}
-is the finite sampling-volume transfer function
+is the finite sampling-volume transfer function,
 \begin{equation}
   \sinc(x) = \frac{\sin(\pi x)}{\pi x}
   \label{eq:InterferometricMethods:normalized_sinc}
@@ -2532,9 +2532,9 @@ reflect all of the diffracted beam power.
 Thus, by the action of the phase plate,
 the electric field in the PCI image plane becomes
 \begin{equation}
-  E_{\text{PCI}}(\vect{r}, t)
+  E_{\text{PCI}}(\vect{r}_{\image}, t)
   =
-  i E_G(\vect{r}, t) e^{i \bar{\phi}}
+  i E_G(\vect{r}_{\image}, t) e^{i \bar{\phi}}
   \left[%
     \sqrt{\eta} + \tilde{\phi}_0 \cos\xi
   \right]
@@ -2542,9 +2542,9 @@ the electric field in the PCI image plane becomes
 \end{equation}
 and, to first order in $\tilde{\phi}_0$, the corresponding intensity is
 \begin{equation}
-  I_{\text{PCI}}(\vect{r}, t)
+  I_{\text{PCI}}(\vect{r}_{\image}, t)
   =
-  I_G(\vect{r})
+  I_G(\vect{r}_{\image})
   \left[%
     \eta
     +
@@ -2552,11 +2552,11 @@ and, to first order in $\tilde{\phi}_0$, the corresponding intensity is
   \right]
   \label{eq:InterferometricMethods:pci_intensity}
 \end{equation}
-where $E_G(\vect{r})$ and $I_G(\vect{r})$ would be
+where $E_G(\vect{r}_{\image})$ and $I_G(\vect{r}_{\image})$ would be
 the field and intensity profiles
 of the undiffracted Gaussian beam on the detector
 in the \emph{absence} of the phase plate;
-$I_G(\vect{r})$ is defined in
+$I_G(\vect{r}_{\image})$ is defined in
 (\ref{eq:InterferometricMethods:Gaussian_beam_intensity}).
 Equations
 (\ref{eq:InterferometricMethods:pci_imaged_field}) and
