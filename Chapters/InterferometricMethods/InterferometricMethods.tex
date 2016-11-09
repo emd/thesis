@@ -2854,17 +2854,22 @@ the image-plane intensity further reduces to
 Note that the linear combination
 $C_I \cos x - C_Q \sin x$ for real $C_I$, $C_Q$, and $x$
 can be rewritten as
-\begin{equation}
-  C_I \cos x - C_Q \sin x = C \cos(x + \theta)
+\begin{align}
+  C_I \cos x - C_Q \sin x
+  &=
+  C \cos(x + \theta)
+  \notag \\
+  &=
+  \real(C e^{i \theta} \cdot e^{i x})
   \label{eq:InterferometricMethods:linear_combination_of_sine_and_cosine}
-\end{equation}
+\end{align}
 where
 \begin{align}
   C &= \left( C_I^2 + C_Q^2 \right)^{1/2}
   \\
   \theta &= \atantwo(C_Q, C_I)
 \end{align}
-where $\atantwo(C_Q, C_I)$
+and $\atantwo(C_Q, C_I)$
 is the arctangent function of two arguments;
 $\atantwo(C_Q, C_I)$ gives the angle
 corresponding to a tangent of $C_Q / C_I$,
@@ -2886,18 +2891,25 @@ can be rewritten as
     \left\{%
       1
       +
-      T_{\text{pp}}(k_{\image}, x_{\image})
       \tilde{\phi}_0
-      \cos\left[ \xi + \theta(k_{\image}, x_{\image}) \right]
+      \real \left[%
+        T_{\text{pp}}(k_{\image}, x_{\image})
+        \cdot
+        e^{i \xi}
+      \right]
     \right\}
   \end{aligned}
 \end{equation}
 where
-\begin{align}
+\begin{equation}
   T_{\text{pp}}(k_{\image}, x_{\image})
-  &=
+  =
   \frac{2 C(k_{\image}, x_{\image})}{|F_0|^2 + |G_0|^2}
-  \\
+  \cdot
+  e^{i \theta(k_{\image}, x_{\image})}
+\end{equation}
+and
+\begin{align}
   C(k_{\image}, x_{\image})
   &\equiv
   (C_I^2 + C_Q^2)^{1/2}
@@ -2914,9 +2926,11 @@ where
   &\equiv
   \imag(G_0)\imag(F_1) + \real(F_0)\real(G_1)
 \end{align}
+Note that $T_{\text{pp}}(k_{\image}, x_{\image})$ is, in general,
+complex valued.
 
 
-\subsection{Wavenumber transfer function}
+\subsection{Derivation of PCI's wavenumber transfer function}
 Assume that the imaged field impinges on a detector array,
 as shown in Fig.~\ref{fig:InterferometricMethods:detector_array}.
 Let the $j$\ts{th} detector element $D_j$ be centered on $x_{\image,j}$
@@ -2938,9 +2952,12 @@ the total power $P_{j, \, \text{pci}}$ incident on this element is then
     \left\{
       1
       +
-      T_{\text{pp}}(k_{\image}, x_{\image})
       \tilde{\phi}_0
-      \cos\left[ \xi + \theta(k_{\image}, x_{\image}) \right]
+      \real \left[%
+        T_{\text{pp}}(k_{\image}, x_{\image})
+        \cdot
+        e^{i \xi}
+      \right]
     \right\} dx_{\image}
   \end{aligned}
   \notag
@@ -2955,10 +2972,13 @@ the total power $P_{j, \, \text{pci}}$ incident on this element is then
     \left\{
       1
       +
-      T_{\text{pp}}(k_{\image}, x_{\image})
-      T_{\text{fsv}}(k_{\image})
       \tilde{\phi}_0
-      \cos\left[ \xi_j + \theta(k_{\image}, x_{\image}) \right]
+      T_{\text{fsv}}(k_{\image})
+      \real \left[%
+        T_{\text{pp}}(k_{\image}, x_{\image})
+        \cdot
+        e^{i \xi_j}
+      \right]
     \right\}
   \end{aligned}
   \label{eq:InterferometricMethods:PCI_total_power_per_element}
@@ -3013,9 +3033,12 @@ Further, define the fluctuating power in the PCI signal to be
     &\quad\times
     \left\{
       \tilde{\phi}_0
-      T_{\text{pp}}(k_{\image}, x_{\image})
       T_{\text{fsv}}(k_{\image})
-      \cos\left[ \xi_j + \theta(k_{\image}, x_{\image}) \right]
+      \real \left[%
+        T_{\text{pp}}(k_{\image}, x_{\image})
+        \cdot
+        e^{i \xi_j}
+      \right]
     \right\}
   \end{aligned}
   \label{eq:InterferometricMethods:PCI_fluctuating_power_per_element}
@@ -3026,25 +3049,36 @@ such that
   =
   \frac{I_G(\vect{r}_{\image,j})}{I_G(0)}
   \cdot
-  T_{\text{pci}}(k_{\image}, x_{\image})
-  \cdot
-  \tilde{\phi}_0
-  \cos \left[\xi_j + \theta(k_{\image}, x_{\image}) \right]
+  \real \left[%
+    T_{\text{pci}}(k_{\image}, x_{\image})
+    \cdot
+    \tilde{\phi}_0
+    e^{i \xi}
+  \right]
 \end{equation}
 where
-\begin{equation}
+\begin{align}
   T_{\text{pci}}(k_{\image}, x_{\image})
-  \equiv
-  T_{\text{pp}}(k_{\image}, x_{\image})
+  &=
   T_{\text{fsv}}(k_{\image})
+  \cdot
+  T_{\text{pp}}(k_{\image}, x_{\image})
   \label{eq:InterferometricMethods:PCI_wavenumber_transfer_function}
-\end{equation}
+  \\
+  &=
+  T_{\text{fsv}}(k_{\image})
+  \cdot
+  |T_{\text{pp}}(k_{\image}, x_{\image})|
+  e^{i \theta(k_{\image}, x_{\image})}
+  \label{eq:InterferometricMethods:PCI_wavenumber_transfer_function_explicitly_complex}
+\end{align}
 is the PCI's wavenumber transfer function.
-That is, the PCI weights the phase-fluctuation images
-$\cos \left[\xi_j + \theta(k_{\image}, x_{\image}) \right]$
+That is, the PCI weights
+the complex-valued phase-fluctuation images $e^{i \xi_j}$
 by its transfer function $T_{\text{pci}}(k_{\image}, x_{\image})$.
-Note that perfect imaging requires
-that $\theta(k_{\image}, x_{\image}) \equiv 0$;
+If the imaging is \emph{perfect},
+$\tilde{P}_{j, \, \text{pci}}(t) \propto \cos \xi_j$,
+which will only occur if $\theta(k_{\image}, x_{\image}) \equiv 0$;
 as will be shown shortly,
 $\theta(k_{\image}, x_{\image})$ differs substantially from zero
 when $|k_{\image}| \lesssim k_{g,\image}$.
@@ -3053,6 +3087,7 @@ can (and should) be accounted for
 if the beam profile is known.
 
 
+\subsection{Properties of PCI's wavenumber transfer function}
 \begin{itemize}
   \item Show that $T_{\text{pci}}$ vanishes as $k \rightarrow 0$
   \item Show that $\theta(k_{\image}, x_{\image})$ vanishes as $k \gg k_g$
