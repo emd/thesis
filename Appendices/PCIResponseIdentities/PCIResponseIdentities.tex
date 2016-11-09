@@ -736,9 +736,69 @@ thus,
   G(m, k_{\image}=0, x_{\image}) &= G(m=0, k_{\image}, x_{\image})
   \label{eq:PCIResponseIdentities:mth_beam_interaction_with_groove_for_wavenumber_0}
 \end{align}
-Eqs.~(\ref{eq:PCIResponseIdentities:mth_beam_interaction_with_face_for_wavenumber_0})
+The PCI response $T_{\text{pci}}(k_{\image}, x_{\image})$ is given by
+(\ref{eq:InterferometricMethods:PCI_wavenumber_transfer_function_explicitly_complex});
+of particular relevance is that
+$T_{\text{pci}}(k_{\image}, x_{\image}) \propto C(k_{\image}, x_{\image})$,
+where $C(k_{\image}, x_{\image}) = (C_I^2 + C_Q^2)^{1/2}$ is a real number
+and $C_I$ and $C_Q$ are given by
+(\ref{eq:InterferometricMethods:PCI_response_CI}) and
+(\ref{eq:InterferometricMethods:PCI_response_CQ}), respectively.
+Note that the notational shorthand
+$F_m \equiv F(m, k_{\image}, x_{\image})$ and
+$G_m \equiv G(m, k_{\image}, x_{\image})$
+is being used in the expressions for $C_I$ and $C_Q$.
+Using
+(\ref{eq:PCIResponseIdentities:mth_beam_interaction_with_face_for_wavenumber_0})
 and
-(\ref{eq:PCIResponseIdentities:mth_beam_interaction_with_groove_for_wavenumber_0})
-will be helpful in analytically showing
-that the PCI response vanishes at $k_{\image} = 0$
-(i.e.\ when the object-plane wavevector vanishes, $k = 0$).
+(\ref{eq:PCIResponseIdentities:mth_beam_interaction_with_groove_for_wavenumber_0}),
+the expression for $C_I$ in the low-$k$ limit becomes
+\begin{align}
+  \lim_{k_{\image} \rightarrow 0}
+  C_I(k_{\image}, x_{\image})
+  &=
+  \imag(G_0) \left[ \lim_{k_{\image} \rightarrow 0} \real(F_1) \right]
+  -
+  \real(F_0) \left[ \lim_{k_{\image} \rightarrow 0} \imag(G_1) \right]
+  \notag \\
+  &=
+  \imag(G_0) \real(F_0)
+  -
+  \real(F_0) \imag(G_0)
+  \notag \\
+  &=
+  0
+  \notag
+\end{align}
+Similarly, the expression for $C_Q$ in the low-$k$ limit becomes
+\begin{align}
+  \lim_{k_{\image} \rightarrow 0}
+  C_Q(k_{\image}, x_{\image})
+  &=
+  \imag(G_0) \left[ \lim_{k_{\image} \rightarrow 0} \imag(F_1) \right]
+  +
+  \real(F_0) \left[ \lim_{k_{\image} \rightarrow 0} \real(G_1) \right]
+  \notag \\
+  &=
+  \imag(G_0) \imag(F_0)
+  +
+  \real(F_0) \real(G_0)
+  \notag \\
+  &=
+  \imag(G_0) \cdot 0
+  +
+  \real(F_0) \cdot 0
+  \notag \\
+  &=
+  0
+  \notag
+\end{align}
+where the third line follows from the fact that
+$F_0$ is purely real and $G_0$ is purely imaginary.
+As $C_I$ and $C_Q$ vanish at $k = 0$,
+$C$ and $T_{\text{pci}}$ must also vanish at $k = 0$.
+This is in agreement with expectations:
+as $k \rightarrow 0$, the upscattered and downscattered beams
+fall into the phase-plate groove,
+reducing the phase contrast, and
+the response vanishes fully for $k = 0$.
