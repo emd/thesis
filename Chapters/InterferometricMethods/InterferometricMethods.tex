@@ -2755,7 +2755,7 @@ that $F(0, k_{\image}, x_{\image})$ is purely \emph{real} and
 that $G(0, k_{\image}, x_{\image})$ is purely \emph{imaginary}.
 
 
-\subsection{The imaged field and its intensity}
+\subsection{The imaged field and the phase-plate transfer function}
 \label{sec:InterferometricMethods:pci:wavenumber_response}
 Introducing the notational shorthand
 $F_m \equiv F(m, k_{\image}, x_{\image})$ and
@@ -2927,6 +2927,81 @@ and
 \end{align}
 Note that $T_{\text{pp}}(k_{\image}, x_{\image})$ is, in general,
 complex valued.
+However, for \emph{perfect} imaging,
+$\theta(k_{\image}, x_{\image}) \equiv 0$ such that
+$\tilde{I}_{\text{pci}}(\vect{r}_{\image}, t) \propto \cos \xi$;
+as will be shown shortly,
+$\theta(k_{\image}, x_{\image})$ differs substantially from zero
+when $|k_{\image}| \lesssim k_{g,\image}$.
+
+It is useful to examine both the low-$k$ and high-$k$ limits
+of $T_{\text{pp}}$ to ensure that they agree with expectations.
+As $k \rightarrow 0$, the PCI response is expected to decrease
+as the scattered beam falls into the phase-plate groove
+and the phase contrast is lost, and
+the response should fully vanish for $k = 0$.
+Eqs.
+(\ref{eq:PCIResponseIdentities:mth_beam_interaction_with_face_for_wavenumber_0})
+and
+(\ref{eq:PCIResponseIdentities:mth_beam_interaction_with_groove_for_wavenumber_0})
+state that
+$\lim_{k_{\image} \rightarrow 0} F_1 = F_0$ and
+$\lim_{k_{\image} \rightarrow 0} G_1 = G_0$, respectively.
+Thus,
+\begin{align}
+  \lim_{k_{\image} \rightarrow 0}
+  C_I(k_{\image}, x_{\image})
+  &=
+  \imag(G_0) \left[ \lim_{k_{\image} \rightarrow 0} \real(F_1) \right]
+  -
+  \real(F_0) \left[ \lim_{k_{\image} \rightarrow 0} \imag(G_1) \right]
+  \notag \\
+  &=
+  \imag(G_0) \real(F_0)
+  -
+  \real(F_0) \imag(G_0)
+  \notag \\
+  &=
+  0
+  \notag
+\end{align}
+and
+\begin{align}
+  \lim_{k_{\image} \rightarrow 0}
+  C_Q(k_{\image}, x_{\image})
+  &=
+  \imag(G_0) \left[ \lim_{k_{\image} \rightarrow 0} \imag(F_1) \right]
+  +
+  \real(F_0) \left[ \lim_{k_{\image} \rightarrow 0} \real(G_1) \right]
+  \notag \\
+  &=
+  \imag(G_0) \imag(F_0)
+  +
+  \real(F_0) \real(G_0)
+  \notag \\
+  &=
+  \imag(G_0) \cdot 0
+  +
+  \real(F_0) \cdot 0
+  \notag \\
+  &=
+  0
+  \notag
+\end{align}
+where the third line in the limiting form of $C_Q$
+follows from the fact that
+$F_0$ is purely real and $G_0$ is purely imaginary.
+As $C_I$ and $C_Q$ vanish at $k = 0$,
+$C$ and $T_{\text{pp}}$ must also vanish at $k = 0$,
+in agreement with expectations.
+In the high-$k$ limit ($k \gg k_g$),
+as long as the unscattered beam is well-within the phase-plate groove
+(i.e.\ $k_g \gtrsim 2 / w_{0,\object}$),
+$F_0 \approx 0$, $G_0 \approx i \sqrt{\eta}$,
+$F_1 \approx 1$, and $G_1 \approx 0$ such that
+$|T_{\text{pp}}| \approx 2 / \sqrt{\eta}$ and $\theta \approx 0$,
+as is expected from
+(\ref{eq:InterferometricMethods:pci_intensity}).
 
 
 \subsection{Derivation of PCI's wavenumber transfer function}
@@ -3075,12 +3150,6 @@ is the PCI's wavenumber transfer function.
 That is, the PCI weights
 the complex-valued phase-fluctuation images $e^{i \xi_j}$
 by its transfer function $T_{\text{pci}}(k_{\image}, x_{\image})$.
-If the imaging is \emph{perfect},
-$\tilde{P}_{j, \, \text{pci}}(t) \propto \cos \xi_j$,
-which will only occur if $\theta(k_{\image}, x_{\image}) \equiv 0$;
-as will be shown shortly,
-$\theta(k_{\image}, x_{\image})$ differs substantially from zero
-when $|k_{\image}| \lesssim k_{g,\image}$.
 The prefactor $I_G(\vect{r}_{\image,j}) / I_G(0)$
 can (and should) be accounted for
 if the beam profile is known.
@@ -3088,8 +3157,6 @@ if the beam profile is known.
 
 \subsection{Properties of PCI's wavenumber transfer function}
 \begin{itemize}
-  \item Show that $T_{\text{pci}}$ vanishes as $k \rightarrow 0$
-  \item Show that $\theta(k_{\image}, x_{\image})$ vanishes as $k \gg k_g$
   \item Quantitative plots
 \end{itemize}
 
