@@ -116,26 +116,26 @@ to neglect collisions,
 which are relatively rare in fusion plasmas.
 The electron-fluid momentum equation for such a plasma is
 \begin{equation}
-  m_e n_e \frac{d \vect{v_e}}{dt}
+  m_e n_e \frac{d \vect{v}_e}{dt}
   =
-  -e n_e \left( \vect{E} + \vect{v_e} \cross \vect{B} \right)
+  -e n_e \left( \vect{E} + \vect{v}_e \cross \vect{B} \right)
   \label{eq:InterferometricMethods:cold_plasma_momentum_equation}
 \end{equation}
 where $n_e$ is the electron density,
-$\vect{v_e}$ is the perturbed electron-fluid velocity, and
-$d/dt = \partial / \partial t + (\vect{v_e} \cdot \nabla)$
+$\vect{v}_e$ is the perturbed electron-fluid velocity, and
+$d/dt = \partial / \partial t + (\vect{v}_e \cdot \nabla)$
 is the advective time derivative.
 Linearizing and Fourier analyzing reduces
 (\ref{eq:InterferometricMethods:cold_plasma_momentum_equation}) to
 \begin{equation}
-  i \omega m_e \vect{v_e}
+  i \omega m_e \vect{v}_e
   =
-  e \left( \vect{E} + \vect{v_e} \cross \vect{B_0} \right)
+  e \left( \vect{E} + \vect{v}_e \cross \vect{B}_0 \right)
   \label{eq:InterferometricMethods:cold_plasma_momentum_equation_linear_and_Fourier}
 \end{equation}
-where $\vect{B_0}$ is the equilibrium magnetic field.
-Let $\vect{B_0} = B_0 \hat{\vect{z}}$.
-Then, the perturbed electron-fluid velocity $\vect{v_e}$
+where $\vect{B}_0$ is the equilibrium magnetic field.
+Let $\vect{B}_0 = B_0 \hat{\vect{z}}$.
+Then, the perturbed electron-fluid velocity $\vect{v}_e$
 is easily found to be~\cite[Sec.~4.1.2]{hutchinson_diagnostics}
 \begin{align}
   \begin{aligned}
@@ -167,12 +167,12 @@ is the electron cyclotron frequency.
 Having neglected the ion's motion,
 the current density is simply
 \begin{equation}
-  \vect{J} = -e n_e \vect{v_e}
+  \vect{J} = -e n_e \vect{v}_e
   \label{eq:InterferometricMethods:current_density_electron_motion}
 \end{equation}
 Equating (\ref{eq:InterferometricMethods:current_density_sigma_E}) and
 (\ref{eq:InterferometricMethods:current_density_electron_motion})
-and substituting the solution for $\vect{v_e}$ yields
+and substituting the solution for $\vect{v}_e$ yields
 the plasma's conductivity~\cite[Sec.~4.1.2]{hutchinson_diagnostics}
 \begin{equation}
   \vect{\sigma}
@@ -603,11 +603,11 @@ the relevant transverse dimensions are much less than
 the Rayleigh range ($w_0 \ll z_R$),
 the Gaussian beam at $S_1$ satisfies
 \begin{align}
-  \left. E_G(\vect{r'}) \right|_{S_1}
+  \left. E_G(\vect{r}') \right|_{S_1}
   &\approx
   E_0 e^{-(\rho' / w_0)^2}
   \\
-  \left. \frac{\partial E_G(\vect{r'})}{\partial n} \right|_{S_1}
+  \left. \frac{\partial E_G(\vect{r}')}{\partial n} \right|_{S_1}
   &\approx
   i k_0 \left[ E_0 e^{-(\rho' / w_0)^2} \right]
 \end{align}
@@ -635,7 +635,7 @@ To proceed further, $s$ must be approximated:
 \begin{align}
   s
   &=
-  | \vect{r'} - \vect{r}|
+  | \vect{r}' - \vect{r}|
   \notag \\
   &=
   \left[ r^2 - 2(x'x + y'y) + (x'^2 + y'^2) \right]^{1/2}
@@ -866,7 +866,7 @@ To put
 in a more familiar form,
 consider the coordinate transformation
 from the lab-frame coordinate system $\vect{r}$
-to the coordinate system of the $m$\ts{th} scattered beam $\vect{r_m}$,
+to the coordinate system of the $m$\ts{th} scattered beam $\vect{r}_m$,
 as depicted graphically
 in Fig.~\ref{fig:InterferometricMethods:coordinate_rotation}.
 As the transformation is simply
@@ -906,34 +906,34 @@ where
 \end{equation}
 This coordinate transformation can be written more compactly as
 \begin{equation}
-  \vect{r_m}
+  \vect{r}_m
   =
-  \vect{R_m} \vect{r}
+  [ \vect{R}(\theta_m) ] \vect{r}
   \label{eq:InterferometricMethods:object_plane_coordinate_transformation_compact}
 \end{equation}
-where $\vect{R_m}$ is the rotation matrix in
+where $\vect{R}(\theta_m)$ is the rotation matrix in
 (\ref{eq:InterferometricMethods:object_plane_coordinate_transformation_explicit}).
 Rotation matrices are \emph{orthogonal},
-which endows $\vect{R_m}$ with some useful properties
+which endows $\vect{R}(\theta_m)$ with some useful properties
 \cite[Ch.~6]{FB_linear_algebra};
-namely, its inverse is equal to its transpose $\vect{R_m}^T$
+namely, its inverse is equal to its transpose $[\vect{R}(\theta_m)]^T$
 \begin{equation}
-  \vect{R_m}^T
+  [\vect{R}(\theta_m)]^T
   =
-  \vect{R_m}^{-1}
+  [\vect{R}(\theta_m)]^{-1}
   =
-  \vect{R_{-m}}
+  \vect{R}(-\theta_m)
   \label{eq:InterferometricMethods:rotation_matrix_inverse_relationships}
 \end{equation}
 and its determinant is unity
 \begin{equation}
-  \text{det}(\vect{R_m}) = |\vect{R_m}| = 1
+  \text{det}[\vect{R}(\theta_m)] = |\vect{R}(\theta_m)| = 1
   \label{eq:InterferometricMethods:rotation_matrix_determinant}
 \end{equation}
 such that the rotation preserves lengths, i.e.\ $r_m = r$.
 Typically, $k / k_0 \ll 1$ such that the coordinate transforms reduce to
 \begin{equation}
-  \vect{r_m}
+  \vect{r}_m
   =
   \begin{pmatrix}
     x_m
@@ -1007,7 +1007,7 @@ the diffracted electric field can be more compactly and generally written as
   e^{i \bar{\phi}}
   \sum_{m = -\infty}^{\infty}
   i^m \left[ J_m(\tilde{\phi}_0) \right]
-  E_G(\vect{r_m})
+  E_G(\vect{r}_m)
   e^{-i (\omega_0 + m \omega) t}
   \label{eq:InterferometricMethods:phase_modulated_Gaussian_beam_diffraction}
 \end{equation}
@@ -1034,12 +1034,12 @@ $\omega / \omega_0
 \SI{1}{\giga\hertz} / \SI{28.3}{\tera\hertz}
 \sim 10^{-5}$).
 Thus, the scattering is very nearly elastic, and
-$|\vect{k_m}| = k_0$ is a very good approximation.
+$|\vect{k}_m| = k_0$ is a very good approximation.
 This constraint of elasticity
 coupled with knowledge of the scattering angle $\theta_m$
 allows determination of the scattered wavevector
 \begin{equation}
-  \vect{k_m}
+  \vect{k}_m
   =
   (m k) \hat{\vect{x}}
   +
@@ -1059,27 +1059,27 @@ their theoretical treatment is not pursued here.
 Examine again
 (\ref{eq:InterferometricMethods:phase_modulated_Gaussian_beam_diffraction}).
 Note that the spatial dependence of the diffracted field
-is governed entirely by the factor $E_G(\vect{r_m})$,
+is governed entirely by the factor $E_G(\vect{r}_m)$,
 which specifies the spatial structure of the $m$\ts{th} scattered beam.
-Note that $E_G(\vect{r_m})$ can be Fourier decomposed as
+Note that $E_G(\vect{r}_m)$ can be Fourier decomposed as
 \begin{align}
-  E_G(\vect{r_m})
+  E_G(\vect{r}_m)
   &=
-  \mathcal{F}^{-1}[E_G(\vect{k_m}')](\vect{r_m})
+  \mathcal{F}^{-1}[E_G(\vect{k}_m')](\vect{r}_m)
   \notag \\
   &=
   \frac{1}{(2 \pi)^3}
-  \int d\vect{k_m}'
-  e^{i \vect{k_m}' \cdot \vect{r_m}}
-  E_G(\vect{k_m}')
+  \int d\vect{k}_m'
+  e^{i \vect{k}_m' \cdot \vect{r}_m}
+  E_G(\vect{k}_m')
   \notag \\
   &=
   \frac{1}{(2 \pi)^3}
-  \int d\vect{k_m}'
-  e^{i \vect{k_m}' \cdot \vect{r_m}}
+  \int d\vect{k}_m'
+  e^{i \vect{k}_m' \cdot \vect{r}_m}
   \left[
     \int d\vect{r}' \,
-    e^{-i \vect{k_m}' \cdot \vect{r}'}
+    e^{-i \vect{k}_m' \cdot \vect{r}'}
     E_G(\vect{r}')
   \right]
   \notag \\
@@ -1087,49 +1087,50 @@ Note that $E_G(\vect{r_m})$ can be Fourier decomposed as
   \frac{1}{(2 \pi)^3}
   \int d\vect{r}' \,
   E_G(\vect{r}')
-  \int d\vect{k_m}' \,
-  e^{i \vect{k_m}' \cdot (\vect{r_m} - \vect{r}')}
+  \int d\vect{k}_m' \,
+  e^{i \vect{k}_m' \cdot (\vect{r}_m - \vect{r}')}
   \notag
 \end{align}
-where $\vect{k_m}'$ is the wavevector basis that is \emph{dual} to
-the coordinate system of the $m$\ts{th} scattered beam, $\vect{r_m}$.
+where $\vect{k}_m'$ is the wavevector basis that is \emph{dual} to
+the coordinate system of the $m$\ts{th} scattered beam, $\vect{r}_m$.
 To understand the significance of this duality,
-note that $\vect{k_m}' \cdot \vect{r_m}$ is a physical quantity,
+note that $\vect{k}_m' \cdot \vect{r}_m$ is a physical quantity,
 independent of any given coordinate system; that is,
 if $\vect{k}'$ is the wavevector basis dual to
 the lab-frame (i.e. $m = 0$ beam) coordinate system, then, by definition,
-$\vect{k_m}' \cdot \vect{r_m} = \vect{k}' \cdot \vect{r}$.
+$\vect{k}_m' \cdot \vect{r}_m = \vect{k}' \cdot \vect{r}$.
 Enforcing this coordinate-independent requirement and
-exploiting the orthogonality of $\vect{R_m}$ yields
+exploiting the orthogonality of $\vect{R}(\theta_m)$
+(abbreviated here as $\vect{R}_m$) yields
 \begin{align}
   \vect{k}' \cdot \vect{r}
   &=
   \vect{k}'^T \vect{r}
   \notag \\
   &=
-  \vect{k}'^T (\vect{R_m}^T \vect{R_m}) \vect{r}
+  \vect{k}'^T (\vect{R}_m^T \vect{R}_m) \vect{r}
   \notag \\
   &=
-  (\vect{R_m} \vect{k}')^T (\vect{R_m} \vect{r})
+  (\vect{R}_m \vect{k}')^T (\vect{R}_m \vect{r})
   \notag \\
   &=
-  (\vect{R_m} \vect{k}') \cdot \vect{r_m}
+  (\vect{R}_m \vect{k}') \cdot \vect{r}_m
   \notag \\
   &=
-  \vect{k_m}' \cdot \vect{r_m}
+  \vect{k}_m' \cdot \vect{r}_m
   \notag
 \end{align}
 such that
 \begin{equation}
-  \vect{k_m}'
+  \vect{k}_m'
   =
-  \vect{R_m} \vect{k}'
+  \vect{R}_m \vect{k}'
   \label{eq:InterferometricMethods:wavevector_dual_to_mth_beam}
 \end{equation}
 
 While the above Fourier decomposition is trivial,
 it lays the foundation for more sophisticated analysis.
-For example, imagine that the Fourier components of $E_G(\vect{r_m})$
+For example, imagine that the Fourier components of $E_G(\vect{r}_m)$
 are somehow manipulated
 based upon lab-frame wavenumber $\vect{k}'$;
 if this manipulation can be described
@@ -1137,31 +1138,31 @@ in terms of a transfer function $T(\vect{k}')$,
 then the resulting spatial dependence
 of the $m$\ts{th} scattered beam is
 \begin{align}
-  \mathcal{E}_G(\vect{r_m})
+  \mathcal{E}_G(\vect{r}_m)
   &=
   \frac{1}{(2 \pi)^3}
   \int d\vect{r}' \,
   E_G(\vect{r}')
-  \int d\vect{k_m}' \,
+  \int d\vect{k}_m' \,
   T(\vect{k}')
-  e^{i \vect{k_m}' \cdot (\vect{r_m} - \vect{r}')}
+  e^{i \vect{k}_m' \cdot (\vect{r}_m - \vect{r}')}
 \end{align}
-where the notation $\mathcal{E}_G(\vect{r_m})$
+where the notation $\mathcal{E}_G(\vect{r}_m)$
 has been selected to emphasize that
-this spatial dependence may differ from $E_G(\vect{r_m})$.
+this spatial dependence may differ from $E_G(\vect{r}_m)$.
 Note that the wavevector integration variables are
-with respect to the basis of the $m$\ts{th} scattered beam $\vect{k_m}'$
+with respect to the basis of the $m$\ts{th} scattered beam $\vect{k}_m'$
 whereas the transfer function is expressed in terms of
 the lab-frame basis $\vect{k}'$.
 To proceed, change the variables of integration
-from $\vect{k_m}'$ to $\vect{k}'$ by noting that
+from $\vect{k}_m'$ to $\vect{k}'$ by noting that
 \begin{equation}
-  d\vect{k_m}'
+  d\vect{k}_m'
   =
-  \left| \frac{\partial \vect{k_m}'}{\partial \vect{k}'} \right|
+  \left| \frac{\partial \vect{k}_m'}{\partial \vect{k}'} \right|
   d\vect{k}'
   =
-  |\vect{R_m}|
+  |\vect{R}_m|
   d\vect{k}'
   =
   d\vect{k}'
@@ -1169,36 +1170,40 @@ from $\vect{k_m}'$ to $\vect{k}'$ by noting that
 \end{equation}
 and
 \begin{align}
-  \vect{k_m}' \cdot (\vect{r_m} - \vect{r}')
+  \vect{k}_m' \cdot (\vect{r}_m - \vect{r}')
   &=
-  (\vect{R_m}\vect{k}') \cdot (\vect{R_m}\vect{r} - \vect{r}')
+  (\vect{R}_m \vect{k}') \cdot (\vect{R}_m \vect{r} - \vect{r}')
   \notag \\
   &=
-  (\vect{R_m}\vect{k}')^T (\vect{R_m}\vect{r} - \vect{r}')
+  (\vect{R}_m \vect{k}')^T (\vect{R}_m \vect{r} - \vect{r}')
   \notag \\
   &=
-  \vect{k}'^T \vect{R_m}^T (\vect{R_m}\vect{r} - \vect{r}')
+  \vect{k}'^T \vect{R}_m^T (\vect{R}_m \vect{r} - \vect{r}')
   \notag \\
   &=
-  \vect{k}'^T (\vect{R_m}^T\vect{R_m}\vect{r} - \vect{R_m}^T\vect{r}')
+  \vect{k}'^T (\vect{R}_m^T \vect{R}_m \vect{r} - \vect{R}_m^T \vect{r}')
   \notag \\
   &=
-  \vect{k}' \cdot \left[ \vect{r} - \left(\vect{R_{-m}}\vect{r}'\right) \right]
+  \vect{k}'
+  \cdot
+  \left[%
+    \vect{r} - \left(\vect{R}_{-m} \vect{r}'\right)
+  \right]
   \notag \\
   &=
-  \vect{k}' \cdot \left( \vect{r} - \vect{r_{-m}}' \right)
+  \vect{k}' \cdot \left( \vect{r} - \vect{r}_{-m}' \right)
   \notag
 \end{align}
-such that $\mathcal{E}_G(\vect{r_m})$ becomes
+such that $\mathcal{E}_G(\vect{r}_m)$ becomes
 \begin{align}
-  \mathcal{E}_G(\vect{r_m})
+  \mathcal{E}_G(\vect{r}_m)
   &=
   \frac{1}{(2 \pi)^3}
   \int d\vect{r}' \,
   E_G(\vect{r}')
   \int d\vect{k}' \,
   T(\vect{k}')
-  e^{i \vect{k}' \cdot (\vect{r} - \vect{r_{-m}}')}
+  e^{i \vect{k}' \cdot (\vect{r} - \vect{r}_{-m}')}
   \label{eq:InterferometricMethods:mth_diffracted_beam_Fourier_filtered}
 \end{align}
 
@@ -1209,7 +1214,7 @@ wavenumbers are filtered only in the direction of beam scattering.
 Then (\ref{eq:InterferometricMethods:mth_diffracted_beam_Fourier_filtered})
 becomes
 \begin{align}
-  \mathcal{E}_G(\vect{r_m})
+  \mathcal{E}_G(\vect{r}_m)
   &=
   \frac{1}{(2 \pi)^3}
   \int d\vect{r}' \,
@@ -1286,7 +1291,7 @@ After making these approximations,
 (\ref{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_v1})
 reduces to
 \begin{equation}
-  \mathcal{E}_G(\vect{r_m})
+  \mathcal{E}_G(\vect{r}_m)
   \approx
   E_G(0, y, z)
   \cdot
@@ -1328,7 +1333,7 @@ yields a total diffracted electric field
   e^{i \bar{\phi}}
   \sum_{m = -\infty}^{\infty}
   i^m \left[ J_m(\tilde{\phi}_0) \right]
-  \mathcal{E}_G(\vect{r_m})
+  \mathcal{E}_G(\vect{r}_m)
   e^{-i (\omega_0 + m \omega) t}
   \label{eq:InterferometricMethods:phase_modulated_Gaussian_beam_diffraction_Fourier_filtered}
 \end{equation}
