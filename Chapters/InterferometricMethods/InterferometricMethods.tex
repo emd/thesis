@@ -2755,7 +2755,7 @@ that $F(0, k_{\image}, x_{\image})$ is purely \emph{real} and
 that $G(0, k_{\image}, x_{\image})$ is purely \emph{imaginary}.
 
 
-\subsection{The imaged field and the phase-plate transfer function}
+\subsection{The imaged field and its intensity}
 \label{sec:InterferometricMethods:pci:wavenumber_response}
 Introducing the notational shorthand
 $F_m \equiv F(m, k_{\image}, x_{\image})$ and
@@ -2850,6 +2850,9 @@ the image-plane intensity further reduces to
   \end{aligned}
   \label{eq:InterferometricMethods:PCI_image_plane_intensity_linear_combination_of_sine_and_cosine}
 \end{equation}
+
+
+\subsection{The phase-plate transfer function}
 Note that the linear combination
 $C_I \cos x - C_Q \sin x$ for real $C_I$, $C_Q$, and $x$
 can be rewritten as
@@ -2937,7 +2940,8 @@ $\theta(k_{\image}, x_{\image})$ differs substantially from zero
 when $|k_{\image}| \lesssim k_{g,\image}$.
 
 
-\subsection{Derivation of PCI's wavenumber transfer function}
+\subsection{Finite sampling-volume effects}
+Finite sampling-volume effects also affect the PCI wavenumber response.
 Assume that the imaged field impinges on a detector array,
 as shown in Fig.~\ref{fig:InterferometricMethods:detector_array}.
 Let the $j$\ts{th} detector element $D_j$ be centered on $x_{\image,j}$
@@ -2997,6 +3001,8 @@ the finite sampling-volume integral in
 (\ref{eq:InterferometricMethods:finite_sampling_volume_integral})
 has been referenced.
 
+
+\subsection{The PCI transfer function}
 As was the case for external reference-beam interferometry,
 it is useful to characterize PCI's performance
 relative to the saturation limits of a given detector.
@@ -3088,10 +3094,7 @@ can (and should) be accounted for
 if the beam profile is known.
 
 
-\subsection{Properties of PCI's wavenumber transfer function}
-\begin{itemize}
-  \item Quantitative plots
-\end{itemize}
+\section{Quantitative comparison of interferometric techniques}
 
 
 \bibliographystyle{plainurl}
