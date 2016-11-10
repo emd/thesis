@@ -1052,12 +1052,12 @@ Such polarization changes are of little interest in this work, so
 their theoretical treatment is not pursued here.
 
 
-\subsection{Wavenumber-dependent manipulation of diffracted Gaussian beams}
+\subsection{Wavenumber-dependent manipulation of the diffracted field}
 Examine again
 (\ref{eq:InterferometricMethods:phase_modulated_Gaussian_beam_diffraction}).
 Note that the spatial dependence of the diffracted field
 is governed entirely by the factor $E_G(\vect{r_m})$,
-which specifies the spatial structure of the $m$\ts{th} diffracted beam.
+which specifies the spatial structure of the $m$\ts{th} scattered beam.
 Note that $E_G(\vect{r_m})$ can be Fourier decomposed as
 \begin{align}
   E_G(\vect{r_m})
@@ -1132,7 +1132,7 @@ based upon lab-frame wavenumber $\vect{k}'$;
 if this manipulation can be described
 in terms of a transfer function $T(\vect{k}')$,
 then the resulting spatial dependence
-of the $m$\ts{th} diffracted beam is
+of the $m$\ts{th} scattered beam is
 \begin{align}
   \mathcal{E}_G(\vect{r_m})
   &=
@@ -1334,8 +1334,8 @@ forms the foundation of phase contrast imaging (PCI),
 as will be demonstrated in Section~\ref{sec:InterferometricMethods:pci}.
 
 
-\section{Imaging of the diffracted beams}
-It is often desirable to \emph{image} the above diffracted beams
+\section{Imaging of the diffracted field}
+It is often desirable to \emph{image} the above diffracted field
 in order to determine the spatiotemporal aspects
 of the responsible phase fluctuations.
 Below, the geometric optics and Gaussian beam propagation
@@ -1414,11 +1414,11 @@ by a ray matrix of the form
   \label{eq:InterferometricMethods:ABCD_imaging}
 \end{equation}
 
-Now, the optical axis of each diffracted Gaussian beam
+Now, the optical axis of each scattered Gaussian beam
 behaves as a ray in the geometric-optics sense
 \cite{tovar_generalized_beam_matrices_IV}.
-Thus, the $m$\ts{th} diffracted beam is rotated by angle $\theta_m / M$
-relative to the undiffracted beam in the imaging plane,
+Thus, the $m$\ts{th} scattered beam is rotated by angle $\theta_m / M$
+relative to the unscattered beam in the imaging plane,
 as shown in Fig.~\ref{fig:InterferometricMethods:imaging_geometry}.
 Further, the imaging optics do \emph{not} alter
 the magnitude of the beam's wavevector, i.e.\ $|\image(\vect{k}_m)| = k_0$
@@ -1518,17 +1518,17 @@ where $q_{\object}$ is the object-plane complex beam parameter,
 and $M$ and $C$ are both real.
 
 To determine the imaged field,
-both the undiffracted and the diffracted beams
+both the unscattered and the scattered beams
 must be propagated through the imaging system.
 Fortunately, for a given optical system in the paraxial limit,
 a Gaussian beam's width and radius of curvature evolve independently of
 its transverse and angular displacements from
 the nominal optical axis
 \cite{tovar_generalized_beam_matrices_IV}.
-That is, as any given diffracted beam
+That is, as any given scattered beam
 propagates through an imaging system $\image$,
 the evolution of its width and radius of curvature
-will be \emph{identical} to that of the undiffracted beam
+will be \emph{identical} to that of the unscattered beam
 propagating through the same imaging system.
 However, the post-imaging-system beam waists
 do \emph{not} necessarily sit at the image plane,
@@ -1542,7 +1542,7 @@ when $C q_{\object} \gg 1 / M$ such that
 $z_{\image} = \text{Re}(q_{\image}) \approx M / C \neq 0$.
 
 As the native coordinate systems of
-the undiffracted beam and the $m$\ts{th} diffracted beam
+the unscattered beam and the $m$\ts{th} scattered beam
 do not align in the image plane,
 it will be convenient to determine the relevant coordinate transformation.
 The transformation is derived for the most general case
@@ -1832,12 +1832,12 @@ Normally, $\kappa \ll 1$ such that the total imaged field reduces to
 \subsection{The need for a reference beam}
 \label{sec:InterferometricMethods:imaging:need_for_reference_beam}
 Assume that there is
-no wavenumber-dependent manipulation of the diffracted beams
+no wavenumber-dependent manipulation of the diffracted field
 such that
 (\ref{eq:InterferometricMethods:imaged_total_field_weak_coupling}) applies.
 Now, most detectors of interest are square-law detectors
 in that they produce a response proportional to
-the square (i.e.\ intensity) of the incident field.
+the square (i.e.\ intensity) of the impinging field.
 If such a detector is placed at the image plane,
 the local intensity is
 \begin{align}
@@ -1858,7 +1858,7 @@ where
   \label{eq:InterferometricMethods:Gaussian_beam_intensity}
 \end{equation}
 is the intensity profile (averaged over an optical cycle)
-of the undiffracted Gaussian beam.
+of the unscattered Gaussian beam.
 Thus, for the typical $\tilde{\phi}_0 \ll 1$ limit,
 the measured response will be very weak
 if the detector is only exposed to the imaged radiation.
@@ -1876,7 +1876,7 @@ that differentiates a given interferometric method from another.
 \section{External reference-beam interferometry}
 \label{sec:InterferometricMethods:interferometry}
 In external reference-beam interferometry,
-there is no wavenumber-dependent manipulation of the diffracted beams
+there is no wavenumber-dependent manipulation of the diffracted field
 such that
 (\ref{eq:InterferometricMethods:imaged_total_field_weak_coupling}) applies.
 Thus, the probe radiation in the image plane is given as
@@ -1928,7 +1928,7 @@ and, to first order in $\tilde{\phi}_0$, the corresponding intensity is
   \label{eq:InterferometricMethods:interferometer_intensity_arbitrary_reference}
 \end{equation}
 where $I_G(\vect{r}_{\image})$ is
-the intensity profile of the undiffracted Gaussian beam on the detector
+the intensity profile of the unscattered Gaussian beam on the detector
 as defined in (\ref{eq:InterferometricMethods:Gaussian_beam_intensity}).
 Reference-beam generation prescribes $\phi_R$ and
 consequently dictates the method of interferometric detection.
@@ -1945,7 +1945,7 @@ consequently dictates the method of interferometric detection.
     are interfered on a detector array.
     The array consists of numerous detector elements,
     each of size $s_x \times s_y$ and with interelement spacing $\delta_x$.
-    The undiffracted beam is centered on $x_0 = 0$ and $y = 0$, and
+    The unscattered beam is centered on $x_0 = 0$ and $y = 0$, and
     its intensity profile varies only weakly over any given element.
     The finite size of each detector element tends to attenuate
     short wavelength components of the incident optical signal.
@@ -2105,7 +2105,7 @@ Then, because $\tilde{\phi}_0 \ll 1$
   2 I_G(0) A [1 + \cos(\phi_R - \bar{\phi})]
   \notag
 \end{equation}
-where $I_G(0)$ is the peak intensity of the undiffracted Gaussian probe beam.
+where $I_G(0)$ is the peak intensity of the unscattered Gaussian probe beam.
 To obtain optimal performance, select $I_G(0)$ such that
 \begin{equation}
   P_{\text{sat}}
@@ -2149,9 +2149,9 @@ For concreteness in the following discussion,
 take $\phi_R - \bar{\phi} = \pi / 2$.
 Physically, $\phi_R - \bar{\phi} = \pi / 2$
 means that the reference beam is
-out-of-phase with the undiffracted beam but
-in-phase with the diffracted beams.
-Note that interfering the diffracted beams with this in-phase reference beam
+out-of-phase with the unscattered beam but
+in-phase with the scattered beams.
+Note that interfering the scattered beams with this in-phase reference beam
 produces an intensity linear in $\tilde{\phi}_0$;
 this should be contrasted with the situation
 that produces the weak, quadratic intensity variation in
@@ -2412,7 +2412,7 @@ can be approximated as
   4 I_G(0) A
   \notag
 \end{align}
-where $I_G(0)$ is the peak intensity of the undiffracted Gaussian probe beam.
+where $I_G(0)$ is the peak intensity of the unscattered Gaussian probe beam.
 To obtain optimal performance, select $I_G(0)$ such that
 \begin{equation}
   P_{\text{sat}}
@@ -2503,32 +2503,32 @@ As discussed in
 Section~\ref{sec:InterferometricMethods:imaging:need_for_reference_beam},
 imaging the probe radiation on a square-law detector
 produces a very weak response
-because the undiffracted and diffracted beams
+because the unscattered and scattered beams
 are $\pi / 2$ out of phase with each other.
 To produce a measurable response, a traditional interferometer
 interferes the imaged radiation with an external reference beam.
-If the phase of the undiffracted beam could be manipulated, though,
+If the phase of the unscattered beam could be manipulated, though,
 the external reference beam would no longer be needed.
 This is the approach employed in phase contrast imaging (PCI).
 
 
 \subsection{Reference-beam generation with a phase plate}
 PCI uses an optical element known as a \emph{phase plate}
-to delay the undiffracted beam by $\pi / 2$
-relative to the diffracted beams.
+to delay the unscattered beam by $\pi / 2$
+relative to the scattered beams.
 The phase plate is typically a reflective optical element
 with a groove that is precisely fabricated
 to have a depth of $\lambda_0 / 8$;
-the undiffracted beam reflects off of this groove, and
+the unscattered beam reflects off of this groove, and
 the corresponding $\lambda_0 / 4$-increase in path length
-phase delays the undiffracted beam by $\pi / 2$
-relative to the diffracted beams,
+phase delays the unscattered beam by $\pi / 2$
+relative to the scattered beams,
 which reflect off of the non-grooved portions of the phase plate.
 To boost the relative size of the fluctuating signal,
 the phase groove typically reflects only a fraction $\eta < 1$
-of the incident undiffracted beam power, while
+of the incident unscattered beam power, while
 the non-grooved portions of the phase plate
-reflect all of the diffracted beam power.
+reflect all of the scattered beam power.
 Thus, by the action of the phase plate,
 the electric field in the PCI image plane becomes
 \begin{equation}
@@ -2554,7 +2554,7 @@ and, to first order in $\tilde{\phi}_0$, the corresponding intensity is
 \end{equation}
 where $E_G(\vect{r}_{\image})$ and $I_G(\vect{r}_{\image})$ would be
 the field and intensity profiles
-of the undiffracted Gaussian beam on the detector
+of the unscattered Gaussian beam on the detector
 in the \emph{absence} of the phase plate;
 $I_G(\vect{r}_{\image})$ is defined in
 (\ref{eq:InterferometricMethods:Gaussian_beam_intensity}).
@@ -2565,20 +2565,20 @@ should be contrasted with their corresponding equations
 in the absence of the phase plate:
 (\ref{eq:InterferometricMethods:imaged_total_field_weak_coupling}) and
 (\ref{eq:InterferometricMethods:imaged_field_intensity}), respectively.
-Thus, the phase plate converts the undiffracted probe beam
-into an effective reference beam for the diffracted beams.
+Thus, the phase plate converts the unscattered probe beam
+into an effective reference beam for the scattered beams.
 
 
-\subsection{Focal-plane separation of diffracted beams}
+\subsection{Focal-plane separation of scattered beams}
 Implicit in the use of the phase plate
-is that the undiffracted and diffracted beams
+is that the unscattered and scattered beams
 are well-separated in space
-such that the phase groove only affects the undiffracted beam.
-The 1\ts{st}-order diffracted beams are angularly separated
-from the undiffracted beam by $\theta = k / k_0$.
+such that the phase groove only affects the unscattered beam.
+The 1\ts{st}-order scattered beams are angularly separated
+from the unscattered beam by $\theta = k / k_0$.
 \graffito{\textcolor{red}{Sufficiently large: $k w_0 \gtrsim 2$?}}
 Provided that $\theta$ is sufficiently large,
-the diffracted and undiffracted beams
+the scattered and unscattered beams
 will be spatially separated in the far-field
 ($z \gg z_R$, with $z_R$ being the Rayleigh length of the in-vessel beam);
 however, $z \gg z_R$ is not easily accessed in typical lab settings.
@@ -2618,7 +2618,7 @@ When $|s - f| \ll z_R$, as is typical for PCI,
   \label{eq:InterferometricMethods:focal_plane_waist_rayleigh}
 \end{align}
 The spatial separation $\Delta$
-of the diffracted beam from the undiffracted beam
+of the scattered beam from the unscattered beam
 in the focal lane is found through the corresponding ray matrices
 \begin{align}
   \begin{pmatrix}
@@ -2659,7 +2659,7 @@ which simplifies to
 
 \subsection{Low-$k$ cutoff of phase plate}
 Now, let the phase plate groove have a width $d$.
-Finite PCI response requires that (most of) the diffracted beams
+Finite PCI response requires that (most of) the scattered beams
 fall outside of the phase groove (e.g.\ $\Delta \geq d / 2$
 such that at least half of the scattered beam
 falls outside of the phase groove).
@@ -2699,8 +2699,8 @@ with diffraction being the constraining physical mechanism.
 
 \subsection{High-$k$ cutoff of phase plate}
 Let the phase plate have a diameter $D$.
-Detection of the diffracted radiation
-requires that (most of) the diffracted beam reflect
+Detection of the scattered radiation
+requires that (most of) the scattered beam reflect
 from the face of the phase plate
 (e.g.\ $\Delta \leq D / 2$).
 Application of (\ref{eq:InterferometricMethods:phase_plate_beam_separation})
@@ -3023,7 +3023,7 @@ can be approximated as
   \notag
 \end{align}
 where $I_G(0)$ is the peak intensity
-of the undiffracted Gaussian probe beam
+of the unscattered Gaussian probe beam
 in the \emph{absence} of the phase plate.
 To obtain optimal performance, select $I_G(0)$ such that
 \begin{equation}
