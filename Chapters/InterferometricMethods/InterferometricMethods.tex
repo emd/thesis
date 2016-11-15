@@ -911,8 +911,21 @@ This coordinate transformation can be written more compactly as
   [ \vect{R}(\theta_m) ] \vect{r}
   \label{eq:InterferometricMethods:object_plane_coordinate_transformation_compact}
 \end{equation}
-where $\vect{R}(\theta_m)$ is the rotation matrix in
-(\ref{eq:InterferometricMethods:object_plane_coordinate_transformation_explicit}).
+where
+\begin{equation}
+  \vect{R}(\theta)
+  =
+  \begin{pmatrix}
+    \cos\theta & 0 & -\sin\theta
+    \\
+    0          & 1 & 0
+    \\
+    \sin\theta & 0 & \cos\theta
+  \end{pmatrix}
+  \label{eq:InterferometricMethods:rotation_matrix}
+\end{equation}
+is the rotation matrix
+that rotates the $(x, z)$-plane about the $y$-axis by angle $\theta$.
 Rotation matrices are \emph{orthogonal},
 which endows $\vect{R}(\theta_m)$ with some useful properties
 \cite[Ch.~6]{FB_linear_algebra};
@@ -1555,94 +1568,47 @@ do not align in the image plane,
 it will be convenient to determine the relevant coordinate transformation.
 The transformation is derived for the most general case
 in which the beam waists do not sit at the image plane
-(i.e.\ $\vect{O}_{\image} \neq \vect{O}_{m,\image}$).
-The coordinate transformation is easily found
-through a series of translations and rotations, but
-it may be useful to refer to
-Fig.~\ref{fig:InterferometricMethods:coordinate_transformation_imaging_plane}
-in the following discussion.
-Let point $P$ be represented
-in the native coordinate system of the unscattered beam
-\graffito{\textcolor{red}{need to correct notation here}}
-by the ordered pair $(z_0', x_0')$.
-Then, the representation of $P$ in the $\alpha$-base is
+(i.e.\ $\vect{O}_{\image} \neq \vect{O}_{m,\image}$,
+as indicated in Fig.~\ref{fig:InterferometricMethods:imaging_geometry}).
+The coordinate transformation is simply a series of translations and rotations
 \begin{equation}
-  \begin{pmatrix}
-    z_{\alpha}' \\
-    x_{\alpha}'
-  \end{pmatrix}
+  \vect{r}_{m, \image}
   =
-  \begin{pmatrix}
-    z_0' - z' \\
-    x_0'
-  \end{pmatrix}
+  \left[ \vect{R}(\theta_m / M) \right]
+  \left[ \vect{r}_{\image} - z_{\image} \hat{\vect{z}} \right]
+  +
+  z_{\image} \hat{\vect{z}}
 \end{equation}
-The $\alpha$- and $\beta$-bases are related via a rotation
+where $\vect{R}(\theta)$ is the rotation matrix given by
+(\ref{eq:InterferometricMethods:rotation_matrix}).
+Explicitly,
 \begin{equation}
   \begin{pmatrix}
-    z_{\beta}' \\
-    x_{\beta}'
-  \end{pmatrix}
-  =
-  \begin{pmatrix}
-    \cos\left( \frac{\theta_m}{M} \right)
-    &
-    \sin\left( \frac{\theta_m}{M} \right)
+    x_{m, \image}
     \\
-    -\sin\left( \frac{\theta_m}{M} \right)
-    &
-    \cos\left( \frac{\theta_m}{M} \right)
-  \end{pmatrix}
-  \begin{pmatrix}
-    z_{\alpha}' \\
-    x_{\alpha}'
-  \end{pmatrix}
-\end{equation}
-Finally, a linear translation converts the $\beta$-base
-into the native coordinate system of the $m$\ts{th} scattered beam
-in the image plane
-\begin{equation}
-  \begin{pmatrix}
-    z_m' \\
-    x_m'
+    y_{m, \image}
+    \\
+    z_{m, \image}
   \end{pmatrix}
   =
   \begin{pmatrix}
-    z_{\beta}' +  z' \\
-    x_{\beta}'
-  \end{pmatrix}
-\end{equation}
-Combining the above steps and
-evaluating at the image plane ($z_0' = z', \, x_0' = x'$)
-yields the image-plane coordinate transformation
-\begin{equation}
-  \begin{pmatrix}
-    z_m' \\
-    x_m'
-  \end{pmatrix}
-  =
-  \begin{pmatrix}
-    z' + x' \sin\left( \frac{\theta_m}{M} \right) \\
-    x' \cos\left( \frac{\theta_m}{M} \right)
+    x_{\image} \cos\left( \frac{\theta_m}{M} \right)
+    \\
+    y_{\image}
+    \\
+    z_{\image} + x_{\image} \sin\left( \frac{\theta_m}{M} \right)
   \end{pmatrix}
   \approx
   \begin{pmatrix}
-    z' + \left( \frac{m k}{M k_0} \right) x' \\
-    x' - \frac{1}{2} \left( \frac{m k}{M k_0} \right)^2 x'
+    x_{\image}
+    \\
+    y_{\image}
+    \\
+    z_{\image} + x_{\image} \left( \frac{\theta_m}{M} \right)
   \end{pmatrix}
   \label{eq:InterferometricMethods:coordinate_transformation_imaging_plane}
 \end{equation}
-where the approximation holds for
-the typical small-angle scattering limit ($\theta_m \ll 1$).
-
-\begin{figure}
-  \centering
-  \includegraphics[width = 0.9 \textwidth]{%
-    Chapters/InterferometricMethods/figs/coordinate_transformation_imaging_plane.eps}
-  \caption[Image-plane coordinate transformation]{%
-    Image-plane coordinate transformation}
-\label{fig:InterferometricMethods:coordinate_transformation_imaging_plane}
-\end{figure}
+where the approximation is valid to first order in $\theta_m / M$.
 
 
 \subsection{The imaged field}
