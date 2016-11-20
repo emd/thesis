@@ -1997,7 +1997,7 @@ where
 \begin{equation}
   T_{\text{fsv}}(k_{\image})
   \equiv
-  \sinc\left( \frac{k_{\image}}{k_{\text{fsv}}} \right)
+  \sinc\left( \frac{k_{\image}}{k_{\text{fsv},\image}} \right)
   \label{eq:InterferometricMethods:finite_sampling_volume_transfer_function}
 \end{equation}
 is the finite sampling-volume transfer function,
@@ -2007,7 +2007,7 @@ is the finite sampling-volume transfer function,
 \end{equation}
 is the normalized sinc function,
 \begin{equation}
-  k_{\text{fsv}} = \frac{2 \pi}{s_x}
+  k_{\text{fsv},\image} = \frac{2 \pi}{s_x}
   \label{eq:InterferometricMethods:finite_sampling_volume_cutoff}
 \end{equation}
 is the first zero of $T_{\text{fsv}}(k_{\image})$,
@@ -2593,7 +2593,7 @@ When $|s - f| \ll z_R$, as is typical for PCI,
 \end{align}
 The spatial separation $\Delta$
 of the scattered beam from the unscattered beam
-in the focal lane is found through the corresponding ray matrices
+in the focal plane is found through the corresponding ray matrices
 \begin{align}
   \begin{pmatrix}
     \Delta
@@ -3067,8 +3067,48 @@ The prefactor $I_G(\vect{r}_{\image,j}) / I_G(0)$
 can (and should) be accounted for
 if the beam profile is known.
 
+As is the case with the homodyne interferometer,
+the PCI technique does \emph{not} make an absolute measurement
+of the phase-fluctuation amplitude $\tilde{\phi}_0$.
+To see this, note that the phase-plate transfer function
+$T_{\text{pp}}(k_{\image}, x_{\image})$
+depends very sensitively on the system alignment,
+with slight excursions of the unscattered beam
+from the partially reflective phase-plate groove
+onto the fully reflective phase-plate face
+can result in macroscopic changes in power reaching the detector.
+Further, power fluctuations at the beam source
+can alter $I_G(\vect{r}_{\image, j})$.
+Thus, there are three potentially dynamic quantities:
+$\{\tilde{\phi}_0, I_G(\vect{r}_{\image, j}), T_{\text{pp}}\}$,
+but there are only two potentially measurable quantities:
+the equilibrium and fluctuating powers.
+PCI systems on large, vibration-prone fusion devices
+typically employ feedback stabilization
+(see e.g.~\cite[Ch.~3.5]{coda_phd})
+in order to dynamically maintain
+the unscattered beam's alignment
+on the phase-plate groove,
+minimizing vibrational contamination of the PCI signal.
+It is then possible, after measuring a calibration constant,
+to \emph{estimate} the phase-fluctuation amplitude $\tilde{\phi}_0$ with PCI.
 
-\section{Quantitative comparison of interferometric techniques}
+
+\section{Selecting an interferometric technique}
+
+
+\begin{itemize}
+  \item Beam-center transfer function for homodyne, heterodyne, and PCI
+    on a y-log plot
+    \begin{itemize}
+      \item Wavenumber hole in PCI
+      \item Amplitude differences
+      \item Absolute calibration
+    \end{itemize}
+  \item Nonlinear upshift of low-$k$ PCI
+  \item A note on finite collection optics via finite $k_D$ cutoff in PCI
+  \item Needed frequency response of detectors
+\end{itemize}
 
 
 \bibliographystyle{plainurl}
