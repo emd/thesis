@@ -3148,6 +3148,9 @@ are taken to be the same for each system.
     which is the minimum value allowed by diffraction,
     as discussed in
     (\ref{eq:InterferometricMethods:pci_kmin_physics}).
+    The phase-plate's high-$k$ cutoff, $k_D$, was assumed to satisfy
+    $k_D \gg k_{\text{fsv}}$ such that
+    $k_D$ minimally affects the PCI transfer function.
     The reflectivity of the PCI phase groove is $\eta = 0.17$,
     which is characteristic of the ZnSe typically
     employed in $\SI{10.6}{\micro\meter}$ optics.
@@ -3230,10 +3233,6 @@ of the heterodyne signal at the detector and
 the subsequent need to demodulate the heterodyne signal.
 
 
-\subsection{Temporal bandwidth}
-The required temporal bandwidth determines the system noise\ldots
-
-
 \subsection{Spatial bandwidth}
 \begin{itemize}
   \item Wavenumber hole in PCI
@@ -3246,6 +3245,10 @@ The required temporal bandwidth determines the system noise\ldots
 
 \subsection{Low-$k$, nonlinear upshift in PCI-measured wavenumber}
 \label{sec:InterferometricMethods:selection:pci_low_k_upshift}
+
+
+\subsection{Temporal bandwidth}
+The required temporal bandwidth determines the system noise\ldots
 
 
 \bibliographystyle{plainurl}
