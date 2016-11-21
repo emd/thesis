@@ -2877,6 +2877,7 @@ can be rewritten as
   \end{aligned}
 \end{equation}
 where
+\graffito{\textcolor{red}{Agreement with past results!}}
 \begin{equation}
   T_{\text{pp}}(k_{\image}, x_{\image})
   =
@@ -2906,10 +2907,11 @@ and
 \end{align}
 Note that $T_{\text{pp}}(k_{\image}, x_{\image})$ is, in general,
 complex valued.
-However, for \emph{perfect} imaging,
+For \emph{perfect} imaging, though,
 $\theta(k_{\image}, x_{\image}) \equiv 0$ such that
-$\tilde{I}_{\text{pci}}(\vect{r}_{\image}, t) \propto \cos \xi$;
-as will be shown shortly,
+$\tilde{I}_{\text{pci}}(\vect{r}_{\image}, t) \propto \cos \xi$.
+However, as will be shown in
+Sec.~\ref{sec:InterferometricMethods:selection:pci_low_k_upshift},
 $\theta(k_{\image}, x_{\image})$ differs substantially from zero
 when $|k_{\image}| \lesssim k_{g,\image}$.
 
@@ -3307,6 +3309,7 @@ Finally, it should be noted that the above transfer functions
 have all been computed assuming that the beams are \emph{not} clipped
 by apertures in their corresponding optical trains.
 Aperture diffraction minimally affects Gaussian beam propagation if
+\graffito{\textcolor{red}{References!!!}}
 \begin{equation}
   a_{\text{eff}} \geq \frac{3}{2} w(z)
   \label{eq:InterferometricMethods:aperture_radius_for_minimal_diffraction}
@@ -3317,6 +3320,98 @@ $w(z)$ is the beam's 1/e $E$ radius at the location of the aperture.
 
 \subsection{Low-$k$, nonlinear upshift in PCI-measured wavenumber}
 \label{sec:InterferometricMethods:selection:pci_low_k_upshift}
+The PCI transfer function is given by
+(\ref{eq:InterferometricMethods:PCI_wavenumber_transfer_function}).
+The transfer function is, in general, complex valued and
+has both a wavenumber and a spatial dependence, i.e.\
+$T_{\text{pci}}(k, x)
+=
+|T_{\text{pci}}(k, x)| e^{i \theta(k, x)}$.
+Perfect imaging requires that $\theta(k, x) \equiv 0$
+such that the spatial structure of the interference pattern
+is geometrically similar to that of the object-plane fluctuations.
+The amplitude and phase of $T_{\text{pci}}(k, x)$
+can be easily evaluated numerically, and
+the results are shown in
+Fig.~\ref{fig:InterferometricMethods:pci_cutoffs}.
+As is colloquially understood, the amplitude of the PCI transfer function
+drops precipitously across the full beam profile for $k \lesssim k_g$.
+However, perhaps less well known, is the fact that
+the phase of the PCI transfer function varies substantially
+in space for $k \lesssim k_g$.
+This destroys the low-$k$ imaging capabilities of the PCI,
+as shown in Fig.~\ref{fig:InterferometricMethods:pci_wavenumber_upshift}.
+\begin{itemize}
+  \item Colorbar units for wavenumber-upshift plot???
+  \item Inability to do low- to medium-$n$ correlation across beam profile
+\end{itemize}
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/InterferometricMethods/figs/pci_transfer_function.pdf}
+    \caption[Amplitude and phase of PCI transfer function,
+      $T_{\text{pci}}(k, x_{\image})$]{%
+    Amplitude and phase of PCI transfer function,
+    $T_{\text{pci}}(k, x_{\image})$.
+    Spatial coordinates are normalized
+    to the image-plane 1/e $E$ radius $M w_0$ with $M = 0.5$, while
+    object-plane wavenumbers $k$ are normalized
+    to the 1/e $E$ radius of the in-vessel probe beam, $w_0$.
+    The horizontal, dashed lines indicate
+    the low-$k$ cutoff of the PCI phase-plate groove, $k_g$;
+    here, $k_g = 2 / w_0$,
+    which is the minimum value allowed by diffraction,
+    as discussed in
+    (\ref{eq:InterferometricMethods:pci_kmin_physics}).
+    The finite sampling-volume cutoff, $k_{\text{fsv}}$, and
+    the phase-plate high-$k$ cutoff, $k_D$,
+    are both taken to be much larger than $10 / w_0$.
+    The reflectivity of the PCI phase groove is $\eta = 0.17$,
+    which is characteristic of the ZnSe typically
+    employed in $\SI{10.6}{\micro\meter}$ optics.
+    Note that the \emph{largest} effect
+    of the transfer function's spatial dependence
+    is to introduce a spatially varying phase
+    for $k \lesssim k_g$,
+    which destroys the PCI's low-$k$ imaging properties.
+  }
+\label{fig:InterferometricMethods:pci_transfer_function}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/InterferometricMethods/figs/pci_wavenumber_upshift.pdf}
+    \caption[Low-$k$, nonlinear upshift in PCI-measured wavenumber]{%
+    Low-$k$, nonlinear upshift in PCI-measured wavenumber
+    % Amplitude and phase of PCI transfer function,
+    % $T_{\text{pci}}(k, x)$.
+    % Object-plane wavenumbers $k$ are normalized
+    % to the 1/e $E$ radius of the in-vessel probe beam, $w_0$.
+    % The horizontal, dashed lines indicate
+    % the low-$k$ cutoff of the PCI phase-plate groove, $k_g$;
+    % here, $k_g = 2 / w_0$,
+    % which is the minimum value allowed by diffraction,
+    % as discussed in
+    % (\ref{eq:InterferometricMethods:pci_kmin_physics}).
+    % The finite sampling-volume cutoff $k_{\text{fsv}} = 30 / w_0$
+    % results from representative ``typical'' values of
+    % system magnification $|M| = 0.5$ and
+    % detector-element size $s_x \approx 0.105$.
+    % The phase-plate high-$k$ cutoff, $k_D$
+    % has been assumed to satisfy $k_D \gg k_{\text{fsv}}$.
+    % The reflectivity of the PCI phase groove is $\eta = 0.17$,
+    % which is characteristic of the ZnSe typically
+    % employed in $\SI{10.6}{\micro\meter}$ optics.
+    % Note that the \emph{largest} effect
+    % of the transfer function's spatial dependence
+    % is to introduce a spatially varying phase
+    % for $k \lesssim k_g$,
+    % which destroys the PCI's low-$k$ imaging properties.
+  }
+\label{fig:InterferometricMethods:pci_wavenumber_upshift}
+\end{figure}
 
 
 \subsection{Temporal bandwidth}
