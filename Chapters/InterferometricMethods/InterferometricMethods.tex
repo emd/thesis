@@ -3158,7 +3158,7 @@ are taken to be the same for each system.
     the displayed transfer function corresponds
     to the beam center ($x = 0$);
     the consequences of the PCI transfer function's spatial dependence
-    will be discussed in
+    are discussed in
     Sec.~\ref{sec:InterferometricMethods:selection:pci_low_k_upshift}.
   }
 \label{fig:InterferometricMethods:interferometric_method_transfer_functions}
@@ -3234,13 +3234,85 @@ the subsequent need to demodulate the heterodyne signal.
 
 
 \subsection{Spatial bandwidth}
-\begin{itemize}
-  \item Wavenumber hole in PCI
-  \item Ability to manipulate wavenumber range by manipulating
-    $M$, $s_x$, and, for PCI, $k_g$, $k_D$
-  \item PCI finite $k_D$
-  \item No clipping of probe beam
-\end{itemize}
+The spatial bandwidth of both homodyne and heterodyne interferometry
+is dictated by the system magnification $M$ and
+the detector element's length $s_x$;
+these parameters give the finite sampling-volume cutoff,
+$k_{\text{fsv}} = 2 \pi M / s_x$.
+Finite sampling-volume effects also influence PCI's spatial bandwidth.
+While $k_{\text{fsv}}$ was specified to be the same
+for all of the interferometric systems displayed in
+Fig.~\ref{fig:InterferometricMethods:interferometric_method_transfer_functions},
+one could easily imagine altering
+a given system's magnification $M$ or detector-element size $s_x$
+in order to expand or contract the system's spatial bandwidth.
+
+In addition to finite sampling-volume effects,
+PCI's spatial bandwidth is also influenced by
+the phase plate's low-$k$ and high-$k$ cutoffs,
+$k_g$ and $k_D$, respectively.
+The effects of $k_g$, $k_D$, and $k_{\text{fsv}}$
+are characterized in
+Fig.~\ref{fig:InterferometricMethods:pci_cutoffs}.
+The most significant effect of the phase plate
+on the spatial bandwidth of the PCI
+is to introduce a ``hole'' in the low-$k$ response of the system.
+The phase plate also introduces a spatial dependence
+into the PCI transfer function;
+the consequences of this spatial dependence are discussed in
+Sec.~\ref{sec:InterferometricMethods:selection:pci_low_k_upshift}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/InterferometricMethods/figs/pci_cutoffs.pdf}
+  \caption[Effects of phase-plate and finite sampling-volume cutoffs
+      on the PCI transfer function]{%
+    Effects of the low-$k$ ($k_g$) and high-$k$ ($k_D$) phase-plate cutoffs
+    on the phase-plate transfer function, $T_{\text{pp}}(k)$;
+    inclusion of finite sampling-volume effects
+    then yields the full PCI transfer function, $T_{\text{pci}}(k)$.
+    Object-plane wavenumbers $k$ are normalized
+    to the 1/e $E$ radius of the in-vessel probe beam, $w_0$.
+    The vertical, dashed lines indicate
+    the low-$k$ cutoff of the PCI phase-plate groove, $k_g$;
+    here, $k_g = 2 / w_0$,
+    which is the minimum value allowed by diffraction,
+    as discussed in
+    (\ref{eq:InterferometricMethods:pci_kmin_physics}).
+    The vertical, dashed-dotted lines indicate
+    the phase-plate's high-$k$ cutoff,
+    chosen here to be $k_D = 20 / w_0$.
+    The finite sampling-volume cutoff $k_{\text{fsv}} = 30 / w_0$
+    results from representative ``typical'' values of
+    system magnification $|M| = 0.5$ and
+    detector-element size $s_x \approx 0.105$.
+    Note that here $k_D < k_{\text{fsv}}$, in contrast to
+    Fig.~\ref{fig:InterferometricMethods:interferometric_method_transfer_functions}.
+    The reflectivity of the PCI phase groove is $\eta = 0.17$,
+    which is characteristic of the ZnSe typically
+    employed in $\SI{10.6}{\micro\meter}$ optics.
+    As the phase-plate transfer function has a spatial dependence,
+    the displayed transfer functions all correspond
+    to the beam center ($x = 0$);
+    the consequences of
+    the phase-plate transfer function's spatial dependence
+    are discussed in
+    Sec.~\ref{sec:InterferometricMethods:selection:pci_low_k_upshift}.
+  }
+\label{fig:InterferometricMethods:pci_cutoffs}
+\end{figure}
+
+Finally, it should be noted that the above transfer functions
+have all been computed assuming that the beams are \emph{not} clipped
+by apertures in their corresponding optical trains.
+Aperture diffraction minimally affects Gaussian beam propagation if
+\begin{equation}
+  a_{\text{eff}} \geq \frac{3}{2} w(z)
+  \label{eq:InterferometricMethods:aperture_radius_for_minimal_diffraction}
+\end{equation}
+where $a_{\text{eff}}$ is the effective aperture radius and
+$w(z)$ is the beam's 1/e $E$ radius at the location of the aperture.
 
 
 \subsection{Low-$k$, nonlinear upshift in PCI-measured wavenumber}

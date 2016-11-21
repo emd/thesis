@@ -46,7 +46,7 @@ if __name__ == '__main__':
 
     plt.semilogy(pci.k, np.abs(pci.Tpp[:, beam_center]),
                  linewidth=linewidth, c=cols[0])
-    plt.semilogy(pci.k, np.abs(pci.Tpci[:, beam_center]),
+    plt.semilogy(pci.k, np.abs(pci_finite_kD.Tpp[:, beam_center]),
                  linewidth=linewidth, c=cols[1])
     plt.semilogy(pci.k, np.abs(pci_finite_kD.Tpci[:, beam_center]),
                  linewidth=linewidth, c=cols[2])
@@ -65,9 +65,9 @@ if __name__ == '__main__':
     plt.title('effects of various PCI cutoffs')
 
     plt.legend([
-        '$T_{\mathrm{pp}}(k)$',
-        '$T_{\mathrm{pci}}(k), \, k_{\mathrm{fsv}} = 30, k_D = \infty$',
-        '$T_{\mathrm{pci}}(k), \, k_{\mathrm{fsv}} = 30, k_D = 20$'],
+        '$T_{\mathrm{pp}}(k), \, k_D = \infty$',
+        '$T_{\mathrm{pp}}(k), \, k_D = 20$',
+        '$T_{\mathrm{pci}}(k), \, k_D = 20$'],
         loc='upper right')
 
     plt.show()
