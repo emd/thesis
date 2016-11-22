@@ -3462,7 +3462,48 @@ when $|k| \lesssim k_g$.
 
 
 \subsection{Temporal bandwidth}
-The required temporal bandwidth determines the system noise\ldots
+Finally, the required temporal bandwidth should also be considered.
+For heterodyne interferometry,
+proper reconstruction of the fluctuating baseband signal
+at angular frequency $\omega$
+from the heterodyne signal
+at angular intermediate frequency $\Delta \omega_0$ requires that
+\begin{equation}
+  \omega < \Delta \omega_0
+  \notag
+\end{equation}
+Further, the detector's angular cutoff frequency $\omega_{\text{det}}$
+should be sufficiently large to capture the relevant dynamics such that
+\begin{equation}
+  \omega_{\text{det}} > \Delta \omega_0 + \omega
+  \qquad
+  \text{(heterodyne interferometry)}
+  \notag
+\end{equation}
+In contrast, homodyne interferometry and PCI only require that
+\begin{equation}
+  \omega_{\text{det}} > \omega
+  \qquad \qquad \quad% \qquad
+  \text{(homodyne interferometry, PCI)}
+  \notag
+\end{equation}
+Thus, heterodyne interferometry requires a faster detector
+than homodyne interferometry or PCI\@.
+For the HgCdTe detectors typically used at $\SI{10.6}{\micro\meter}$,
+cooling the active element of the detector
+reduces detector noise and increases the detector response
+but also reduces $\omega_{\text{det}}$.
+Thus, for low-temporal-bandwidth applications,
+homodyne interferometry and PCI can use
+slower, cooled detectors that will improve
+system signal-to-noise ratio ($\snr$)
+relative to the faster, warmer detectors
+required for heterodyne interferometry.
+Deployment of homodyne interferometry or PCI
+in high-temporal-bandwidth applications, however,
+requires the use of higher bandwidth detectors and/or
+more exotic detection techniques, such as
+optical heterodyning~\cite[Sec.~3.3.1]{tsujii_phd}.
 
 
 \bibliographystyle{plainurl}
