@@ -130,7 +130,7 @@
      inkscape:cx="812.24766"
      inkscape:cy="13.27915"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g3907"
      showgrid="false"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -151,7 +151,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -198,7 +198,7 @@
          style="fill:url(#pattern3070);fill-opacity:1;stroke:#000000;stroke-width:3;stroke-miterlimit:10;stroke-opacity:1;stroke-dashoffset:0" />
       <path
          transform="translate(-6.1874993,-11.402344)"
-         d="m 271.875,356.26843 a 3.90625,3.90625 0 1 1 -7.8125,0 3.90625,3.90625 0 1 1 7.8125,0 z"
+         d="m 271.875,356.26843 c 0,2.15736 -1.74889,3.90625 -3.90625,3.90625 -2.15736,0 -3.90625,-1.74889 -3.90625,-3.90625 0,-2.15736 1.74889,-3.90625 3.90625,-3.90625 2.15736,0 3.90625,1.74889 3.90625,3.90625 z"
          sodipodi:ry="3.90625"
          sodipodi:rx="3.90625"
          sodipodi:cy="356.26843"
@@ -304,7 +304,7 @@
          inkscape:connector-curvature="0" />
       <path
          transform="matrix(1.6944444,0,0,1,-540.49935,-40.510147)"
-         d="m 859.375,336.48953 a 28.125,189.0625 0 1 1 -56.25,0 28.125,189.0625 0 1 1 56.25,0 z"
+         d="m 859.375,336.48953 c 0,104.41634 -12.59199,189.0625 -28.125,189.0625 -15.53301,0 -28.125,-84.64616 -28.125,-189.0625 0,-104.41633 12.59199,-189.0625 28.125,-189.0625 15.53301,0 28.125,84.64617 28.125,189.0625 z"
          sodipodi:ry="189.0625"
          sodipodi:rx="28.125"
          sodipodi:cy="336.48953"
@@ -317,7 +317,7 @@
          sodipodi:end="5.4674934"
          sodipodi:start="0.81953125"
          transform="matrix(-1,0,0,-1,2029.3514,618.34392)"
-         d="m 1165.036,510.8431 a 257.8125,257.8125 0 1 1 0.7221,-376.15513"
+         d="m 1165.036,510.8431 c -104.0593,97.18748 -267.20209,91.61675 -364.38957,-12.44257 -97.18747,-104.05932 -91.61674,-267.20209 12.44258,-364.38956 99.34974,-92.788912 253.67629,-92.492655 352.66909,0.677"
          sodipodi:ry="257.8125"
          sodipodi:rx="257.8125"
          sodipodi:cy="322.42703"
@@ -382,7 +382,7 @@
            sodipodi:role="line"
            id="tspan6494"
            x="950.37909"
-           y="122.05513">s = r - r'</tspan></text>
+           y="122.05513">s = ρ' - r</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:48px;font-style:oblique;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans Bold Oblique"
@@ -393,7 +393,7 @@
            sodipodi:role="line"
            id="tspan6502"
            x="919.52429"
-           y="248.43088">r'</tspan></text>
+           y="248.43088">ρ'</tspan></text>
       <path
          inkscape:connector-curvature="0"
          id="path6506"
