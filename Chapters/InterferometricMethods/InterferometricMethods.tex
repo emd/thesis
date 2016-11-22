@@ -1484,7 +1484,10 @@ An imaging system $\image$, by definition,
 redirects all rays emanating from transverse position $\rho_{\object}$
 in the object plane $S_{\object}$
 to intersect at transverse position
-$\rho_{\image} = M \rho_{\object}$
+\begin{equation}
+  \rho_{\image} = M \rho_{\object}
+  \label{eq:InterferometricMethods:image_plane_transverse_coordinates}
+\end{equation}
 in the image plane $S_{\image}$.
 Here, $M$ is the \emph{magnification} of the imaging system, and
 $M < 0$ implies that the image is inverted relative to the object.
@@ -3190,6 +3193,30 @@ The intent of this section is to synthesize these results and
 to discuss the strengths and limitations
 of these interferometric techniques
 so that a suitable method can be selected for a given application.
+
+
+\subsection{A note on notation}
+The transfer functions derived in the preceding sections
+are all written in terms of image-plane wavenumbers $k_{\image}$ and
+image-plane coordinates $x_{\image}$.
+However, one is often interested in the object-plane wavenumbers $k$,
+as they are directly tied to the underlying physics.
+In contrast, image-plane coordinates $x_{\image}$
+emphasize the importance of the detector dimensions
+on the measured interference signal.
+For these reasons, the below discussions
+use transfer functions with the ``hybrid'' parametrization of
+object-plane wavenumbers $k$ and image-plane coordinates $x_{\image}$.
+If the reader favors a different parametrization, however,
+the transformations between the image-plane and object-plane quantities
+are very simple
+\begin{align}
+  k_{\image} &= \frac{k}{M}
+  \notag \\
+  x_{\image} &= M x_{\object}
+  \notag
+\end{align}
+where $M$ is the imaging system's magnification.
 
 
 \subsection{Amplitude of fluctuating signal}
