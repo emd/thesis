@@ -1396,6 +1396,45 @@ that is, a ray propagating from point $j$ to point $j + 1$ evolves as
 \end{equation}
 where the $ABCD$ matrix elements are determined
 by the optical properties of the media between points $j$ and $j + 1$.
+Some rudimentary $ABCD$ matrices are given in
+Table~\ref{table:InterferometricMethods:ABCD_matrices}, while
+more exhaustive lists can be readily found elsewhere
+\cite[Ch.~15]{siegman_lasers}~\cite{tovar_generalized_beam_matrices_IV}.
+
+\begin{table}
+  \centering
+  \renewcommand{\arraystretch}{1.5}% Spread rows out...
+  \begin{tabular}{%
+    >{\centering}m{6cm} >{\centering}m{4.5cm}
+  }
+    \toprule%
+    \textbf{optical element} & $\mathbf{ABCD}$~\textbf{matrix}
+    \tabularnewline%
+    \midrule
+    \textbf{propagation} by distance $d$ \\
+    through medium of constant \\
+    index of refraction, $N$
+    &
+    $\begin{pmatrix}
+      1 & d
+      \\
+      \phantom{-} 0 \phantom{f} & 1  % phantoms to match thin lens format
+    \end{pmatrix}$
+    \tabularnewline%
+    \textbf{thin lens} with \\
+    focal length $f$
+    &
+    $\begin{pmatrix}
+      1 & 0
+      \\
+      -1/f & 1
+    \end{pmatrix}$
+    \tabularnewline%
+    \toprule%
+  \end{tabular}
+  \caption[Useful $ABCD$ ray matrices]{Useful $ABCD$ ray matrices.}
+\label{table:InterferometricMethods:ABCD_matrices}
+\end{table}
 
 An imaging system $\image$, by definition,
 redirects all rays emanating from transverse position $\rho_{\object}$
