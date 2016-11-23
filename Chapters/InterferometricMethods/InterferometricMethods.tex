@@ -2653,17 +2653,21 @@ into an effective reference beam for the scattered beams.
 
 \subsection{Focal-plane separation of scattered beams}
 Implicit in the use of the phase plate
-is that the unscattered and scattered beams
+is that the scattered and unscattered beams
 are well-separated in space
 such that the phase groove only affects the unscattered beam.
 The 1\ts{st}-order scattered beams are angularly separated
-from the unscattered beam by $\theta = k / k_0$.
-\graffito{\textcolor{red}{Sufficiently large: $k w_0 \gtrsim 2$?}}
-Provided that $\theta$ is sufficiently large,
-the scattered and unscattered beams
-will be spatially separated in the far-field
-($z \gg z_R$, with $z_R$ being the Rayleigh length of the in-vessel beam);
-however, $z \gg z_R$ is not easily accessed in typical lab settings.
+from the unscattered beam by $\theta = k / k_0$, and,
+in the far field ($z \gg z_R$),
+the center of the scattered beam will fall outside of
+the unscattered beam's 1/e $E$ radius if
+\begin{equation}
+  |k| \geq \frac{2}{w_0}
+  \label{eq:InterferometricMethods:kmin_for_far_field_beam_separation}
+\end{equation}
+However, CO$_2$ laser beams used to probe tokamak plasmas often have
+$z_R \gg \SI{10}{\meter}$, so
+the beam's far field is not easily accessible in typical lab settings.
 Fortunately, the far-field diffraction pattern
 can be equivalently accessed in the focal plane
 of a focusing optic~\cite[Ch.~8]{born_and_wolf}.
@@ -2679,19 +2683,14 @@ will be located a distance $s'$ downstream of the focusing optic
 and will have 1/e $E$ radius $w_0'$ given as
 \begin{align}
   s' &= f \left( 1 + \frac{s - f}{z_R} \right)
-  \label{eq:InterferometricMethods:focal_plane_location_general}
+  \notag
   \\
   w_0' &= \frac{w_0 |f|}{\left[ (s - f)^2 + z_R^2 \right]^{1/2}}
-  \label{eq:InterferometricMethods:focal_plane_waist_general}
+  \notag
 \end{align}
 where $z_R$ is the in-vessel Rayleigh length~\cite{self83}.
 When $|s - f| \ll z_R$, as is typical for PCI,
-(\ref{eq:InterferometricMethods:focal_plane_location_general}) and
-(\ref{eq:InterferometricMethods:focal_plane_waist_rayleigh}) become
-\graffito{\textcolor{red}{%
-  Simple optics gives correct $s'$, but
-  Gaussian beam physics needed for $w_0'$}
-}%
+the expressions for $s'$ and $w_0'$ reduce to
 \begin{align}
   s' &\approx f
   \label{eq:InterferometricMethods:focal_plane_location_rayleigh}
@@ -2700,8 +2699,10 @@ When $|s - f| \ll z_R$, as is typical for PCI,
   \label{eq:InterferometricMethods:focal_plane_waist_rayleigh}
 \end{align}
 The spatial separation $\Delta$
-of the scattered beam from the unscattered beam
-in the focal plane is found through the corresponding ray matrices
+of the scattered and unscattered beams in the focal plane
+is found by applying the appropriate $ABCD$ ray matrices
+from Table~\ref{table:InterferometricMethods:ABCD_matrices}
+to a ray scattered in the plasma midplane by angle $\theta$, i.e.\
 \begin{align}
   \begin{pmatrix}
     \Delta
@@ -2729,12 +2730,17 @@ in the focal plane is found through the corresponding ray matrices
     \\
     \theta
   \end{pmatrix}
+  \notag
 \end{align}
-which simplifies to
+which, upon substitution of
+of the focal plane location from
+(\ref{eq:InterferometricMethods:focal_plane_location_rayleigh}) and
+the scattering angle $\theta = k / k_0$,
+simplifies to
 \begin{equation}
   \Delta
-  =
-  \frac{k |f|}{k_0}
+  \approx
+  \frac{k f}{k_0}
   \label{eq:InterferometricMethods:phase_plate_beam_separation}
 \end{equation}
 
