@@ -2604,14 +2604,16 @@ the unscattered beam reflects off of this groove, and
 the corresponding $\lambda_0 / 4$-increase in path length
 phase delays the unscattered beam by $\pi / 2$
 relative to the scattered beams,
-which reflect off of the non-grooved portions of the phase plate.
+which reflect off of the non-grooved portions
+(i.e.\ the ``face'') of the phase plate.
 To boost the relative size of the fluctuating signal,
 the phase groove typically reflects only a fraction $\eta < 1$
 of the incident unscattered beam power, while
-the non-grooved portions of the phase plate
-reflect all of the scattered beam power.
+the phase-plate face reflects all of the scattered beam power.
 Thus, by the action of the phase plate,
-the electric field in the PCI image plane becomes
+$1 \rightarrow i \sqrt{\eta}$ in
+(\ref{eq:InterferometricMethods:imaged_total_field_weak_coupling})
+such that the electric field in the PCI image plane becomes
 \begin{equation}
   E_{\text{PCI}}(\vect{r}_{\image}, t)
   =
@@ -2633,19 +2635,18 @@ and, to first order in $\tilde{\phi}_0$, the corresponding intensity is
   \right]
   \label{eq:InterferometricMethods:pci_intensity}
 \end{equation}
-where $E_G(\vect{r}_{\image})$ and $I_G(\vect{r}_{\image})$ would be
-the field and intensity profiles
+Here, $E_G(\vect{r}_{\image})$ and $I_G(\vect{r}_{\image})$
+are the field and intensity profiles
 of the unscattered Gaussian beam on the detector
-in the \emph{absence} of the phase plate;
-$I_G(\vect{r}_{\image})$ is defined in
+in the \emph{absence} of the phase plate,
+with $I_G(\vect{r}_{\image})$ being explicitly defined in
 (\ref{eq:InterferometricMethods:Gaussian_beam_intensity}).
-Equations
-(\ref{eq:InterferometricMethods:pci_imaged_field}) and
+Equation
 (\ref{eq:InterferometricMethods:pci_intensity})
-should be contrasted with their corresponding equations
-in the absence of the phase plate:
-(\ref{eq:InterferometricMethods:imaged_total_field_weak_coupling}) and
-(\ref{eq:InterferometricMethods:imaged_field_intensity}), respectively.
+should be contrasted with
+(\ref{eq:InterferometricMethods:imaged_field_intensity}),
+which gives the image-plane intensity
+in the absence of the phase plate.
 Thus, the phase plate converts the unscattered probe beam
 into an effective reference beam for the scattered beams.
 
