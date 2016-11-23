@@ -2817,7 +2817,8 @@ is given by the phase factor $\mathcal{P}(m, k, x)$,
 which is derived and thoroughly discussed in
 Appendix~\ref{app:PCIResponseIdentities}.
 The relevant results are briefly summarized here for completeness.
-In the image plane, the PCI phase factor readily reduces to
+Eq.~(\ref{eq:PCIResponseIdentities:phase_factor_Hermitian_decomposed})
+shows that the image-plane PCI phase factor readily reduces to
 \begin{equation}
   \begin{aligned}
     \mathcal{P}(m, k_{\image}, x_{\image})
@@ -2834,8 +2835,7 @@ In the image plane, the PCI phase factor readily reduces to
   \end{aligned}
   \label{eq:InterferometricMethods:PCI_phase_factor_Hermitian_decomposed}
 \end{equation}
-where the non-grooved portion of the phase plate (i.e.\ the ``face'')
-acts on the $m$\ts{th} scattered beam via $F$, while
+where the phase-plate face acts on the $m$\ts{th} scattered beam via $F$, and
 the phase-plate groove acts on the $m$\ts{th} scattered beam via $G$.
 $F$ and $G$ are themselves defined in
 (\ref{eq:PCIResponseIdentities:phase_factor_face}) and
@@ -2971,12 +2971,9 @@ where
   \\
   \theta &= \atantwo(C_Q, C_I)
 \end{align}
-and $\atantwo(C_Q, C_I)$
-is the arctangent function of two arguments;
-$\atantwo(C_Q, C_I)$ gives the angle
-corresponding to a tangent of $C_Q / C_I$,
-and the signs of $C_Q$ and $C_I$
-are used to determine the correct quadrant.
+and $\atantwo(C_Q, C_I)$ is the arctangent function of two arguments, which
+uses the signs of $C_Q$ and $C_I$ to correctly determine the quadrant
+corresponding to a tangent of $C_Q / C_I$.
 Taking inspiration from
 (\ref{eq:InterferometricMethods:linear_combination_of_sine_and_cosine}),
 the image-plane intensity from
@@ -3052,9 +3049,6 @@ as shown in Fig.~\ref{fig:InterferometricMethods:detector_array}.
 Let the $j$\ts{th} detector element $D_j$ be centered on $x_{\image,j}$
 and $y_{\image} = 0$;
 the total power $P_{j, \, \text{pci}}$ incident on this element is then
-\graffito{\textcolor{red}{%
-  $x$-dependence of $T_{\text{pp}}$?
-  $x_{\image} \rightarrow x_{\image, j}$?}}
 \begin{align}
   P_{j, \, \text{pci}}(t)
   &=
@@ -3094,7 +3088,7 @@ the total power $P_{j, \, \text{pci}}$ incident on this element is then
       \tilde{\phi}_0
       T_{\text{fsv}}(k_{\image})
       \real \left[%
-        T_{\text{pp}}(k_{\image}, x_{\image})
+        T_{\text{pp}}(k_{\image}, x_{\image, j})
         \cdot
         e^{i \xi_j}
       \right]
@@ -3151,7 +3145,7 @@ Further, define the fluctuating power in the PCI signal to be
       \tilde{\phi}_0
       T_{\text{fsv}}(k_{\image})
       \real \left[%
-        T_{\text{pp}}(k_{\image}, x_{\image})
+        T_{\text{pp}}(k_{\image}, x_{\image, j})
         \cdot
         e^{i \xi_j}
       \right]
@@ -3166,10 +3160,10 @@ such that
   \frac{I_G(\vect{r}_{\image,j})}{I_G(0)}
   \cdot
   \real \left[%
-    T_{\text{pci}}(k_{\image}, x_{\image})
+    T_{\text{pci}}(k_{\image}, x_{\image, j})
     \cdot
     \tilde{\phi}_0
-    e^{i \xi}
+    e^{i \xi_j}
   \right]
   \label{eq:InterferometricMethods:PCI_ratio_fluctuating_to_equilibrium_power}
 \end{equation}
@@ -3192,7 +3186,7 @@ where
 is the PCI's wavenumber transfer function.
 That is, the PCI weights
 the complex-valued phase-fluctuation images $e^{i \xi_j}$
-by its transfer function $T_{\text{pci}}(k_{\image}, x_{\image})$.
+by its transfer function $T_{\text{pci}}(k_{\image}, x_{\image, j})$.
 The prefactor $I_G(\vect{r}_{\image,j}) / I_G(0)$
 can (and should) be accounted for
 if the beam profile is known.
