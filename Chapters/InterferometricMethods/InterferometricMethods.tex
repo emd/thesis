@@ -176,7 +176,6 @@ Let $\vect{B}_0 = B_0 \hat{\vect{z}}$.
 Then, the perturbed electron-fluid velocity $\vect{v}_e$
 is easily found to be~\cite[Sec.~4.1.2]{hutchinson_diagnostics}
 \begin{align}
-  \begin{aligned}
   v_{e,x}
   &=
   \frac{-i e}{\omega m_e}
@@ -192,8 +191,6 @@ is easily found to be~\cite[Sec.~4.1.2]{hutchinson_diagnostics}
   v_{e,z}
   &=
   \frac{- i e}{\omega m_e} E_z
-  \end{aligned}
-  \label{eq:InterferometricMethods:cold_plasma_perturbed_velocity}
 \end{align}
 where
 \begin{equation}
@@ -207,7 +204,8 @@ the current density is simply
   \vect{J} = -e n_e \vect{v}_e
   \label{eq:InterferometricMethods:current_density_electron_motion}
 \end{equation}
-Equating (\ref{eq:InterferometricMethods:current_density_sigma_E}) and
+Equating the current densities from
+(\ref{eq:InterferometricMethods:current_density_sigma_E}) and
 (\ref{eq:InterferometricMethods:current_density_electron_motion})
 and substituting the solution for $\vect{v}_e$ yields
 the plasma's conductivity~\cite[Sec.~4.1.2]{hutchinson_diagnostics}
@@ -229,8 +227,10 @@ Choose axes such that
 \begin{equation}
   \vect{k} = k ( \sin\theta \hat{\vect{y}} + \cos\theta \hat{\vect{z}} )
 \end{equation}
-Then, substituting (\ref{eq:InterferometricMethods:cold_plasma_conductivity})
-into (\ref{eq:InterferometricMethods:wave_equation_eigenvalue})
+Then, substituting the cold-plasma conductivity
+(\ref{eq:InterferometricMethods:cold_plasma_conductivity})
+into the electric field's eigenvalue equation
+(\ref{eq:InterferometricMethods:wave_equation_eigenvalue})
 and solving for the corresponding eigenvalues yields
 the well-known Appleton-Hartree formula
 for the plasma's index of refraction
@@ -262,7 +262,7 @@ where
   \omega_{pe}^2 &\equiv \frac{n_e e^2}{m_e \varepsilon_0}
   \label{eq:InterferometricMethods:angular_electron_plasma_frequency}
 \end{align}
-Here, $\omega_{pe}$ is referred to as the angular electron plasma frequency.
+and $\omega_{pe}$ is referred to as the angular electron plasma frequency.
 
 The refractive index formula
 can be dramatically simplified
@@ -289,7 +289,8 @@ propagating in a typical \diiid\space plasma sees
   \notag
 \end{align}
 Now, the smallness of $X$ and $Y$ can be exploited
-to approximate (\ref{eq:InterferometricMethods:Appleton_Hartree})
+to approximate the Appleton-Hartree index of refraction
+(\ref{eq:InterferometricMethods:Appleton_Hartree})
 by retaining only the terms that are linear in $X$ or linear in $Y$;
 this yields $N^2 \approx 1 - X$ or, equivalently,
 \begin{equation}
@@ -383,6 +384,7 @@ propagating through such a pedestal
   \left( \frac{2 \pi \, r_e}{k^3} \right) \nabla n_e
   \lesssim
   10^{-9}
+  \notag
 \end{equation}
 such that (\ref{eq:InterferometricMethods:WKB_validity})
 is very well-satisfied.
@@ -585,12 +587,13 @@ instead, the Kirchhoff boundary conditions can be adopted:
   U = U^{(i)},
   \quad
   \frac{\partial U}{\partial n} = \frac{\partial U^{(i)}}{\partial n}
-  \\
+  \notag \\
   \text{opaque surfaces:}&
   \quad \;
   U = 0,
   \qquad
   \frac{\partial U}{\partial n} = 0
+  \notag
 \end{align}
 While these boundary conditions are adequate for the current application,
 it should be noted that they are not physical
@@ -611,11 +614,12 @@ paraxial ($\vect{s} \approx -z \hat{\vect{z}}$) approximations
   \left. \frac{e^{i k_0 s}}{s} \right|_{S_1}
   &\approx
   \frac{e^{i k_0 s}}{z}
-  \\
+  \notag \\
   \left. \frac{\partial}{\partial n}
   \left( \frac{e^{i k_0 s}}{s} \right) \right|_{S_1}
   &\approx
   -i k_0 \left( \frac{e^{i k_0 s}}{z} \right)
+  \notag
 \end{align}
 The $s$-dependence in the phase arguments has been retained,
 as it is the mechanism responsible for diffraction, but
@@ -629,15 +633,16 @@ however, at the beam's waist
   \left. \frac{\partial w(z)}{\partial z} \right|_{\text{waist}}
   &\equiv
   0
-  \\
+  \notag \\
   \left. \frac{\partial}{\partial z}
   \left[ \frac{1}{R(z)} \right] \right|_{\text{waist}}
   &=
   \frac{1}{z_R^2}
-  \\
+  \notag \\
   \left. \frac{\partial \psi(z)}{\partial z} \right|_{\text{waist}}
   &=
   \frac{1}{z_R}
+  \notag
 \end{align}
 Then, if the beam's Rayleigh range is much greater than
 the probe wavelength ($k_0 z_R \gg 1$) and
@@ -648,10 +653,11 @@ the Gaussian beam at $S_1$ satisfies
   \left. E_G(\vect{r}') \right|_{S_1}
   &\approx
   E_0 e^{-(\rho' / w_0)^2}
-  \\
+  \notag \\
   \left. \frac{\partial E_G(\vect{r}')}{\partial n} \right|_{S_1}
   &\approx
   i k_0 \left[ E_0 e^{-(\rho' / w_0)^2} \right]
+  \notag
 \end{align}
 Note that the CO$_2$ laser beams ($k_0 \approx \SI{2 \pi e5}{\per\meter}$)
 that probe tokamak plasmas often have $z_R \gg \SI{10}{\meter}$
@@ -713,7 +719,7 @@ where
   \mathcal{F} \left[%
     e^{-( x' / w_0 )^2}
   \right](k_0 x / r)
-  \\
+  \notag \\
   &=
   \sqrt{\pi} w_0 e^{-(k_0 w_0 x / 2 r)^2}
   \label{eq:InterferometricMethods:Fourier_transform_free_space_Gaussian}
@@ -744,22 +750,23 @@ Is this consistent
 with the expected far-field representation of a Gaussian beam? Yes!
 To see this, note that in the far-field ($z \gg z_R$)
 \begin{align}
-  &\frac{z_R}{z}
-  \approx
+  \frac{z_R}{z}
+  &\approx
   \frac{w_0}{w(z)}
-  \\
-  &\frac{k_0 w_0 \rho}{2 r}
-  \approx
+  \notag \\
+  \frac{k_0 w_0 \rho}{2 r}
+  &\approx
   \frac{\rho}{w(z)}
-  \\
-  &r
-  \approx
+  \notag \\
+  r
+  &\approx
   z + \frac{\rho^2}{2 R(z)}
-  \\
-  &-i
+  \notag \\
+  -i
   = e^{-i \pi / 2}
-  \approx
+  &\approx
   e^{-i \psi(z)}
+  \notag
 \end{align}
 such that
 (\ref{eq:InterferometricMethods:Fraunhofer_Gaussian_beam_diffraction})
@@ -1144,7 +1151,6 @@ Note that $E_G(\vect{r}_m)$ can be Fourier decomposed as
   E_G(\vect{r}')
   \int d\vect{k}_m' \,
   e^{i \vect{k}_m' \cdot (\vect{r}_m - \vect{r}')}
-  \notag
 \end{align}
 where $\vect{k}_m'$ is the wavevector basis that is \emph{dual} to
 the coordinate system of the $m$\ts{th} scattered beam, $\vect{r}_m$.
@@ -1221,7 +1227,6 @@ from $\vect{k}_m'$ to $\vect{k}'$ by noting that
   d\vect{k}'
   =
   d\vect{k}'
-  \notag
 \end{equation}
 and
 \begin{align}
@@ -1247,7 +1252,6 @@ and
   \notag \\
   &=
   \vect{k}' \cdot \left( \vect{r} - \vect{r}_{-m}' \right)
-  \notag
 \end{align}
 such that $\mathcal{E}_G(\vect{r}_m)$ becomes
 \begin{align}
@@ -2048,18 +2052,18 @@ the total power $P_{j, \, \text{hom}}$ incident on this element is then
   &\begin{aligned}
     \approx
     2 I_G(\vect{r}_{\image,j}) s_y
-    \int_{x_{\image,j} - s_x / 2}^{x_{\image,j} + s_x / 2}
-    \bigl[%
+    &\int_{x_{\image,j} - s_x / 2}^{x_{\image,j} + s_x / 2}
+    \biggl[%
       1
-      &+
+      +
       \cos(\phi_R - \bar{\phi})
       \\
-      &+
+      &\qquad+
       \tilde{\phi}_0
       \sin(\phi_R - \bar{\phi}) \cos\xi
-    \bigr] dx_{\image}
+    \biggr] dx_{\image}
   \end{aligned}
-  \notag
+  \label{eq:InterferometricMethods:homodyne_interferometer_total_power_per_element_integral}
 \end{align}
 where the weakly varying intensity profile $I_G(\vect{r}_{\image})$
 has been approximated as a constant
@@ -2334,32 +2338,32 @@ the total power $P_{j, \, \text{het}}$ incident on this element is then
   &\begin{aligned}
     \approx
     2 I_G(\vect{r}_{\image,j}) s_y
-    \int_{x_{\image,j} - s_x / 2}^{x_{\image,j} + s_x / 2}
-    \bigl[%
+    &\int_{x_{\image,j} - s_x / 2}^{x_{\image,j} + s_x / 2}
+    \biggl[%
       1
-      &+
-      \cos(\Delta \omega_0 t - \bar{\phi})
-      \\
-      &+
-      \tilde{\phi}_0
-      \sin(\Delta \omega_0 t - \bar{\phi}) \cos\xi
-    \bigr] dx
-  \end{aligned}
-  \notag \\
-  &\begin{aligned}
-    =
-    2 I_G(\vect{r}_{\image,j}) A
-    \bigl[%
-      &1
       +
       \cos(\Delta \omega_0 t - \bar{\phi})
       \\
-      &+
+      &\qquad+
+      \tilde{\phi}_0
+      \sin(\Delta \omega_0 t - \bar{\phi}) \cos\xi
+    \biggr] dx
+  \end{aligned}
+  \notag \\
+  &\begin{aligned}
+    &=
+    2 I_G(\vect{r}_{\image,j}) A
+    \biggl[%
+      1
+      +
+      \cos(\Delta \omega_0 t - \bar{\phi})
+      \\
+      &\qquad+
       \tilde{\phi}_0
       \sin(\Delta \omega_0 t - \bar{\phi})
       T_{\text{fsv}}(k_{\image})
       \cos\xi_j
-    \bigr]
+    \biggr]
   \end{aligned}
   \label{eq:InterferometricMethods:heterodyne_interferometer_total_power_per_element}
 \end{align}
@@ -2642,7 +2646,7 @@ such that the electric field in the PCI image plane becomes
   \right]
   \label{eq:InterferometricMethods:pci_imaged_field}
 \end{equation}
-and, to first order in $\tilde{\phi}_0$, the corresponding intensity is
+and the corresponding intensity, to first order in $\tilde{\phi}_0$, is
 \begin{equation}
   I_{\text{PCI}}(\vect{r}_{\image}, t)
   =
@@ -2702,10 +2706,8 @@ will be located a distance $s'$ downstream of the focusing optic
 and will have 1/e $E$ radius $w_0'$ given as
 \begin{align}
   s' &= f \left( 1 + \frac{s - f}{z_R} \right)
-  \notag
   \\
   w_0' &= \frac{w_0 |f|}{\left[ (s - f)^2 + z_R^2 \right]^{1/2}}
-  \notag
 \end{align}
 where $z_R$ is the in-vessel Rayleigh length~\cite{self83}.
 When $|s - f| \ll z_R$, as is typical for PCI,
@@ -3266,9 +3268,8 @@ the transformations between the image-plane and object-plane quantities
 are very simple
 \begin{align}
   k_{\image} &= \frac{k}{M}
-  \notag \\
+  \\
   x_{\image} &= M x_{\object}
-  \notag
 \end{align}
 where $M$ is the imaging system's magnification.
 
@@ -3563,7 +3564,6 @@ $\tilde{p}_j(t)$
   \notag \\
   &=
   \cos\left[ \xi_j + \theta(k_{\image}, x_{\image, j}) \right]
-  \notag
 \end{align}
 The set $\{\tilde{p}_j(t)\}$
 can be e.g.\ Fourier analyzed in the spatial dimension
@@ -3636,24 +3636,19 @@ proper reconstruction of the fluctuating baseband signal
 at angular frequency $\omega$
 from the heterodyne signal
 at angular intermediate frequency $\Delta \omega_0$ requires that
-\begin{equation}
-  \omega < \Delta \omega_0
-  \notag
-\end{equation}
+$\omega < \Delta \omega_0$.
 Further, the detector's angular cutoff frequency $\omega_{\text{det}}$
 should be sufficiently large to capture the relevant dynamics such that
 \begin{equation}
-  \omega_{\text{det}} > \Delta \omega_0 + \omega
+  \omega_{\text{det}} > \Delta \omega_0 + \omega,
   \qquad
-  \text{(heterodyne interferometry)}
-  \notag
+  \text{heterodyne interferometry}
 \end{equation}
 In contrast, homodyne interferometry and PCI only require that
 \begin{equation}
-  \omega_{\text{det}} > \omega
+  \omega_{\text{det}} > \omega,
   \qquad \qquad \quad% \qquad
-  \text{(homodyne interferometry, PCI)}
-  \notag
+  \text{homodyne interferometry, PCI}
 \end{equation}
 Thus, heterodyne interferometry requires a faster detector
 than homodyne interferometry or PCI\@.
