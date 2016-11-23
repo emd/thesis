@@ -49,7 +49,8 @@ are related via Faraday's law
   \nabla \cross \vect{E} = - \frac{\partial \vect{B}}{\partial t}
   \label{eq:InterferometricMethods:Faradays_law}
 \end{equation}
-Taking the curl of (\ref{eq:InterferometricMethods:Faradays_law}) and
+Taking the curl of Faraday's law
+(\ref{eq:InterferometricMethods:Faradays_law}) and
 using Ampere's law to eliminate $\vect{B}$ yields
 the electric field's wave equation
 \begin{equation}
@@ -93,7 +94,8 @@ the field can be Fourier analyzed~\cite[Sec.~3-2]{stix}
   \int
   \vect{E}(\vect{k}, \omega) d\vect{k} \, d\omega
 \end{equation}
-Then, (\ref{eq:InterferometricMethods:wave_equation_pde}) reduces
+Then, the electric field's wave equation
+(\ref{eq:InterferometricMethods:wave_equation_pde}) reduces
 to an algebraic equation for each Fourier component.
 In particular, for Fourier mode
 $E e^{i(\vect{k} \cdot \vect{r} - \omega t)}$,
@@ -163,8 +165,10 @@ where $n_e$ is the electron density,
 $\vect{v}_e$ is the perturbed electron-fluid velocity, and
 $d/dt = \partial / \partial t + (\vect{v}_e \cdot \nabla)$
 is the advective time derivative.
-Linearizing and Fourier analyzing reduces
-(\ref{eq:InterferometricMethods:cold_plasma_momentum_equation}) to
+Linearizing and Fourier analyzing
+the electron-fluid momentum equation
+(\ref{eq:InterferometricMethods:cold_plasma_momentum_equation})
+yields
 \begin{equation}
   i \omega m_e \vect{v}_e
   =
@@ -386,7 +390,8 @@ propagating through such a pedestal
   10^{-9}
   \notag
 \end{equation}
-such that (\ref{eq:InterferometricMethods:WKB_validity})
+such that criterion for WKB validity
+(\ref{eq:InterferometricMethods:WKB_validity})
 is very well-satisfied.
 
 
@@ -567,15 +572,15 @@ requires relaxation of the monochromatic assumption.
 Finite turn-on time does not preclude a pseudo-monochromatic source, however,
 and such a source is assumed hereafter).
 Thus, the integral over $S_2$ vanishes, and
-(\ref{eq:InterferometricMethods:Helmholtz_Kirchhoff_integral_theorem})
-reduces to an integral over $S_1$.
+the diffraction calculation reduces to an integral over $S_1$.
 
-Evaluation of
+Now, evaluation of
+the Helmholtz-Kirchhoff integral
 (\ref{eq:InterferometricMethods:Helmholtz_Kirchhoff_integral_theorem})
 requires knowledge of $U$ on $S_1$.
 For free-space propagation,
 $S_1$ is an imagined (rather than a physical) surface
-that does not impede the propagation of the incident beam $U^{(i)}$
+that does not impede the propagation of the incident wave $U^{(i)}$
 (that is, $U = U^{(i)}$ and
 $\partial U / \partial n = \partial U^{(i)} / \partial n$ on $S_1$).
 If, however, $S_1$ contains opaque obstacles,
@@ -667,6 +672,7 @@ such that $w_0 \ll \SI{1}{\meter}$) are very well-satisfied.
 
 Substituting the above expressions for
 the incident waves and their surface-normal derivatives into
+the Helmholtz-Kirchhoff integral
 (\ref{eq:InterferometricMethods:Helmholtz_Kirchhoff_integral_theorem})
 and simplifying yields
 \begin{equation}
@@ -696,6 +702,7 @@ where only terms linear in $(x' / r)$ and $(y' / r)$ have been retained.
 This is known as the Fraunhofer limit, and
 it is valid in the far-field $z \gg z_R$~\cite[Sec.~8.3.3]{born_and_wolf}.
 Under the Fraunhofer limit
+the diffraction integral
 (\ref{eq:InterferometricMethods:Kirchhoff_diffraction_integral}) becomes
 \begin{equation}
   E(\vect{r})
@@ -768,7 +775,7 @@ To see this, note that in the far-field ($z \gg z_R$)
   e^{-i \psi(z)}
   \notag
 \end{align}
-such that
+such that the diffracted field in the Fraunhofer limit
 (\ref{eq:InterferometricMethods:Fraunhofer_Gaussian_beam_diffraction})
 can be cast in the form of a typical Gaussian beam
 as expressed in
@@ -1035,9 +1042,9 @@ and
   \end{pmatrix}
   \label{eq:InterferometricMethods:object_plane_coordinate_transformation_explicit_small_angle_inverse}
 \end{equation}
-Substituting
+Substituting coordinate transformation
 (\ref{eq:InterferometricMethods:object_plane_coordinate_transformation_explicit_small_angle_inverse})
-into
+into the Fraunhofer diffracted field
 (\ref{eq:InterferometricMethods:Fraunhofer_phase_modulated_Gaussian_beam_diffraction})
 and defining $\rho_m = (x_m^2 + y_m^2)^{1/2}$ yields
 \begin{equation}
@@ -1077,7 +1084,7 @@ Note that
 (\ref{eq:InterferometricMethods:phase_modulated_Gaussian_beam_diffraction})
 is valid for $0 \leq z < \infty$ rather than only for $z \gg z_R$;
 that is, computing the far-field diffraction pattern
-has additionally allowed inferring the corresponding near-field.
+has additionally allowed \emph{inferring} the corresponding near field.
 
 Thus, a sinusoidal phase modulation diffracts an incident Gaussian beam
 into an infinite number of \emph{scattered} Gaussian beams.
@@ -1118,9 +1125,9 @@ their theoretical treatment is not pursued here.
 
 
 \subsection{Wavenumber-dependent manipulation of the diffracted field}
-Examine again
+Examine again the diffracted field
 (\ref{eq:InterferometricMethods:phase_modulated_Gaussian_beam_diffraction}).
-Note that the spatial dependence of the diffracted field
+Note that the spatial dependence
 is governed entirely by the factor $E_G(\vect{r}_m)$,
 which specifies the spatial structure of the $m$\ts{th} scattered beam.
 Note that $E_G(\vect{r}_m)$ can be Fourier decomposed as
@@ -1497,7 +1504,7 @@ Here, $M$ is the \emph{magnification} of the imaging system, and
 $M < 0$ implies that the image is inverted relative to the object.
 The imaging system's $A$, $B$, and $D$ matrix elements
 are easily determined by inspection.
-Recalling the definition in
+Recalling the ray-matrix definitions in
 (\ref{eq:InterferometricMethods:ABCD_ray_tracing_general}),
 note that
 $\rho_{\image} = M \rho_{\object} = A \rho_{\object} + B \theta_{\object}$
@@ -1596,7 +1603,9 @@ to define the so-called complex beam parameter $q$
   i \left( \frac{\lambda_0}{N \pi w^2} \right)
   \label{eq:InterferometricMethods:complex_beam_parameter_inverse}
 \end{equation}
-Referencing (\ref{eq:InterferometricMethods:Gaussian_beam_width}) and
+Referencing the Gaussian-beam width
+(\ref{eq:InterferometricMethods:Gaussian_beam_width}) and
+the Gaussian-beam radius of curvature
 (\ref{eq:InterferometricMethods:Gaussian_beam_radius_of_curvature}),
 the complex beam parameter can be rewritten as
 \begin{equation}
@@ -1646,7 +1655,8 @@ in which case the beams' native coordinate systems
 are necessarily displaced from each other
 (i.e.\ $\vect{O}_{\image} \neq \vect{O}_{m,\image}$),
 as indicated in Fig.~\ref{fig:InterferometricMethods:imaging_geometry}.
-Examining (\ref{eq:InterferometricMethods:complex_beam_parameter_image_plane})
+Examining the image-plane complex beam parameter
+(\ref{eq:InterferometricMethods:complex_beam_parameter_image_plane})
 it is easy to see that the beam waists will not sit at the image plane
 when $C q_{\object} \gg 1 / M$ such that
 $z_{\image} = \text{Re}(q_{\image}) \approx M / C \neq 0$.
@@ -1703,9 +1713,9 @@ where the approximation is valid to first order in $\theta_m / M$.
 \subsection{The imaged field}
 Now, without further ado,
 let $\image$ image the object plane $S_{\object}$
-such that the image of diffracted field
+such that the diffracted field
 (\ref{eq:InterferometricMethods:phase_modulated_Gaussian_beam_diffraction_Fourier_filtered})
-is
+is imaged as
 \begin{align}
   E(\vect{r}_{\image}, t)
   &=
@@ -1721,7 +1731,7 @@ is
 \end{align}
 where the linearity of $\image$ has been invoked
 to bring the operator within the summation.
-Referencing
+Referencing the definition of $\mathcal{E}_G(\vect{r}_{m})$
 (\ref{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_compact}),
 it readily follows that
 \begin{align}
@@ -1738,7 +1748,8 @@ it readily follows that
   \cdot
   \mathcal{P}(m, k_{\image}, x_{\image})
 \end{align}
-Thus, (\ref{eq:InterferometricMethods:imaged_total_field_v1}) becomes
+Thus, the imaged field
+(\ref{eq:InterferometricMethods:imaged_total_field_v1}) becomes
 \begin{equation}
   \begin{aligned}
     E(\vect{r}_{\image}, t)
@@ -1783,7 +1794,7 @@ $\Gamma(m + 1) = m!$ for positive integer $m$.
 Dropping terms exceeding first order in $\tilde{\phi}_0$ and
 introducing the notational shorthand
 $\mathcal{P}_m \equiv \mathcal{P}(m, k_{\image}, x_{\image})$,
-(\ref{eq:InterferometricMethods:imaged_total_field}) becomes
+the imaged field (\ref{eq:InterferometricMethods:imaged_total_field}) becomes
 \begin{equation}
   \begin{aligned}
   E(\vect{r}_{\image}, t)
@@ -1877,7 +1888,7 @@ where
   \frac{(k_{\image} x_{\image})^2}{2 k_0 R(z_{\image})}
   \label{eq:InterferometricMethods:image_plane_kappa}
 \end{align}
-Normally, $\kappa \ll 1$ such that the total imaged field reduces to
+Normally, $\kappa \ll 1$ such that the imaged field reduces to
 \begin{equation}
   E(\vect{r}_{\image}, t)
   \approx
@@ -1897,7 +1908,8 @@ Normally, $\kappa \ll 1$ such that the total imaged field reduces to
 Assume that there is
 no wavenumber-dependent manipulation of the diffracted field
 such that
-(\ref{eq:InterferometricMethods:imaged_total_field_weak_coupling}) applies.
+(\ref{eq:InterferometricMethods:imaged_total_field_weak_coupling})
+yields the imaged field.
 Now, most detectors of interest are square-law detectors
 in that they produce a response proportional to
 the square (i.e.\ intensity) of the impinging field.
@@ -1941,7 +1953,8 @@ that differentiates a given interferometric method from another.
 In external reference-beam interferometry,
 there is no wavenumber-dependent manipulation of the diffracted field
 such that
-(\ref{eq:InterferometricMethods:imaged_total_field_weak_coupling}) applies.
+(\ref{eq:InterferometricMethods:imaged_total_field_weak_coupling})
+yields the imaged field.
 Thus, the probe radiation in the image plane is given as
 \begin{equation}
   E_P(\vect{r}_{\image}, t)
@@ -2216,9 +2229,9 @@ out-of-phase with the unscattered beam but
 in-phase with the scattered beams.
 Note that interfering the scattered beams with this in-phase reference beam
 produces an intensity linear in $\tilde{\phi}_0$;
-this should be contrasted with the situation
-that produces the weak, quadratic intensity variation in
-(\ref{eq:InterferometricMethods:imaged_field_intensity}).
+this should be contrasted with the weak, quadratic intensity variation
+of (\ref{eq:InterferometricMethods:imaged_field_intensity})
+that occurs in the absence of a reference beam
 
 Practically speaking, however,
 it is very difficult to keep $\phi_R - \bar{\phi}$ fixed at $\pi / 2$.
@@ -2440,8 +2453,10 @@ Note that $P_{j,I}$ and $P_{j,Q}$ can be conveniently combined as
 In contrast to the homodyne interferometer,
 the heterodyne interferometer makes an absolute measurement
 of the phase-fluctuation amplitude $\tilde{\phi}_0$.
-To see this, note that $P_{j,I}$ and $P_{j,Q}$ in
-(\ref{eq:InterferometricMethods:homodyne_interferometer_total_power_per_element})
+To see this, note that $P_{j,I}$ and $P_{j,Q}$
+(the real and imaginary components of
+(\ref{eq:InterferometricMethods:heterodyne_interferometer_I_and_Q_power_per_element}),
+respectively)
 can be separated into equilibrium and fluctuating components as
 \begin{align}
   \bar{P}_{j,I}(t)
@@ -2483,6 +2498,7 @@ Finally, it is useful to characterize
 the heterodyne interferometer's performance
 relative to the saturation limits of a given detector.
 Because $\tilde{\phi}_0 \ll 1$,
+the heterodyne power incident on the $j$\ts{th} detector element
 (\ref{eq:InterferometricMethods:heterodyne_interferometer_total_power_per_element})
 can be approximated as
 \begin{align}
@@ -2634,9 +2650,9 @@ the phase groove typically reflects only a fraction $\eta < 1$
 of the incident unscattered beam power, while
 the phase-plate face reflects all of the scattered beam power.
 Thus, by the action of the phase plate,
-$1 \rightarrow i \sqrt{\eta}$ in
+$1 \rightarrow i \sqrt{\eta}$ in the imaged electric field
 (\ref{eq:InterferometricMethods:imaged_total_field_weak_coupling})
-such that the electric field in the PCI image plane becomes
+such that
 \begin{equation}
   E_{\text{PCI}}(\vect{r}_{\image}, t)
   =
@@ -2771,7 +2787,8 @@ Now, let the phase-plate groove have a width $d$, as is shown in
 Fig.~\ref{fig:InterferometricMethods:phase_plate_beam_separation}.
 Finite PCI response requires that (most of) the scattered beams
 fall outside of the phase groove (i.e.\ $|\Delta| \geq d / 2$).
-Application of (\ref{eq:InterferometricMethods:phase_plate_beam_separation})
+Application of the phase-plate beam-separation formula
+(\ref{eq:InterferometricMethods:phase_plate_beam_separation})
 then shows that there will be finite PCI response
 for $|k| \geq k_g$ where
 \begin{equation}
@@ -2784,8 +2801,8 @@ Further, the scattering process is usually very weak.
 To provide the strongest phase contrast,
 the unscattered beam should fall wholly within the phase groove
 (i.e.\ $2 w_0' \leq d$);
-application of (\ref{eq:InterferometricMethods:focal_plane_waist_rayleigh})
-then yields a constraint on the phase groove width
+substituting (\ref{eq:InterferometricMethods:focal_plane_waist_rayleigh})
+for $w_0'$ then yields a constraint on the phase groove width
 \begin{equation}
   d \geq \frac{4 f}{k_0 w_0}
   \label{eq:InterferometricMethods:phase_groove_constraint}
@@ -2824,8 +2841,9 @@ Detection of the scattered radiation
 requires that (most of) the scattered beam reflect
 from the face of the phase plate
 (e.g.\ $\Delta \leq D / 2$).
-Application of (\ref{eq:InterferometricMethods:phase_plate_beam_separation})
-then shows that there will be finite PCI response for $k \leq k_D$ where
+Application of the phase-plate beam-separation formula
+(\ref{eq:InterferometricMethods:phase_plate_beam_separation})
+then shows that there will be finite PCI response for $|k| \leq k_D$ where
 \begin{equation}
   k_D \equiv \frac{k_0 D}{2 f}
   \label{eq:InterferometricMethods:pci_kmax_engineering}
@@ -2997,7 +3015,7 @@ uses the signs of $C_Q$ and $C_I$ to correctly determine the quadrant
 corresponding to a tangent of $C_Q / C_I$.
 Taking inspiration from
 (\ref{eq:InterferometricMethods:linear_combination_of_sine_and_cosine}),
-the image-plane intensity from
+the image-plane PCI intensity from
 (\ref{eq:InterferometricMethods:PCI_image_plane_intensity_linear_combination_of_sine_and_cosine})
 can be rewritten as
 \begin{equation}
@@ -3130,6 +3148,7 @@ As was the case for external reference-beam interferometry,
 it is useful to characterize PCI's performance
 relative to the saturation limits of a given detector.
 Because $\tilde{\phi}_0 \ll 1$,
+the optical power incident on the $j$\ts{th} detector element
 (\ref{eq:InterferometricMethods:PCI_total_power_per_element})
 can be approximated as
 \begin{align}
@@ -3550,9 +3569,7 @@ in space for $k \lesssim k_g$.
 The transfer function's spatially varying phase
 prevents low-$k$ imaging with PCI\@.
 It is easiest to see the effects of this phase variation
-after referencing
-(\ref{eq:InterferometricMethods:PCI_ratio_fluctuating_to_equilibrium_power})
-and defining the corresponding normalized fluctuating power
+by defining the normalized fluctuating power
 $\tilde{p}_j(t)$
 \begin{align}
   \tilde{p}_j(t)
@@ -3565,6 +3582,8 @@ $\tilde{p}_j(t)$
   &=
   \cos\left[ \xi_j + \theta(k_{\image}, x_{\image, j}) \right]
 \end{align}
+(This choice of normalization becomes readily apparent after referencing
+(\ref{eq:InterferometricMethods:PCI_ratio_fluctuating_to_equilibrium_power})).
 The set $\{\tilde{p}_j(t)\}$
 can be e.g.\ Fourier analyzed in the spatial dimension
 to provide an estimate of the corresponding
