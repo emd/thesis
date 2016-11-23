@@ -2264,7 +2264,6 @@ are simply an artifact of the system alignment or radiation source.
 
 
 \subsection{Heterodyne detection}
-\graffito{\textcolor{blue}{Qualitative figure of baseband vs IF}}
 To avoid the above-mentioned challenges of homodyne interferometry,
 the reference phase can be linearly ramped in time
 as $\phi_R = \Delta \omega_0 t$ such that
@@ -2290,9 +2289,29 @@ This approach is known as heterodyne interferometry,
 as the desired baseband phase information is shifted
 to an intermediate frequency $\Delta \omega_0$
 satisfying $(d\phi/dt)_{\text{max}} \ll \Delta \omega_0 \ll \omega_0$.
+The effect on the frequency-space representation
+of the interference signal is sketched in
+Fig.~\ref{fig:InterferometricMethods:baseband_vs_intermediate_frequency}.
 \graffito{\textcolor{red}{This will be discussed more in Ch.~3}}
 Practically, the $\phi_R$ ramp is accomplished by modestly Doppler shifting
 the reference beam relative to the plasma beam.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/InterferometricMethods/figs/baseband_vs_intermediate_frequency.pdf}
+  \caption[Schematic of homodyne vs.\ heterodyne signals in frequency space]{%
+    Schematic of (a) homodyne vs.\ (b) heterodyne signals in frequency space.
+    A homodyne signal is predominantly DC, and
+    a sinusoidal fluctuation with angular frequency $\omega$
+    produces sidebands at $\pm \omega$.
+    In contrast, the power in a heterodyne signal is shifted
+    to the intermediate frequencies $\pm \Delta \omega_0$, and
+    a sinusoidal fluctuation with angular frequency $\omega$
+    produces sidebands at $\Delta \omega_0 \pm \omega$ and
+    $-\Delta \omega_0 \pm \omega$.}
+  \label{fig:InterferometricMethods:baseband_vs_intermediate_frequency}
+\end{figure}
 
 As is the case for homodyne detection,
 finite sampling-volume effects~\cite{bravenec_rsi95} dictate
