@@ -849,38 +849,52 @@ such that the diffraction pattern in the $x$-direction is given as
   e^{i \tilde{\phi}_0 \cos(k x' - \omega t)}
   dx'
   \notag \\
-  &=
-  e^{i \bar{\phi}}
-  \int_{-\infty}^{\infty}
-  e^{-( x' / w_0 )^2}
-  e^{-i k_0 x x' / r}
-  \left\{%
-    \sum_{m = -\infty}^{\infty}
+  &\begin{aligned}
+    =
+    e^{i \bar{\phi}}
+    &\int_{-\infty}^{\infty}
+    e^{-( x' / w_0 )^2}
+    e^{-i k_0 x x' / r}
+    \\
+    &\times
+    \left\{%
+      \sum_{m = -\infty}^{\infty}
+      i^m \left[ J_m(\tilde{\phi}_0) \right]
+      e^{i m (k x' - \omega t)}
+    \right\}
+    dx'
+  \end{aligned}
+  \notag \\
+  &\begin{aligned}
+    =
+    e^{i \bar{\phi}}
+    &\sum_{m = -\infty}^{\infty}
     i^m \left[ J_m(\tilde{\phi}_0) \right]
-    e^{i m (k x' - \omega t)}
-  \right\}
-  dx'
+    e^{-i m \omega t}
+    \\
+    &\times
+    \int_{-\infty}^{\infty}
+    e^{-( x' / w_0 )^2}
+    e^{-i \left( \frac{k_0 x}{r} - m k \right) x'}
+    dx'
+  \end{aligned}
   \notag \\
-  &=
-  e^{i \bar{\phi}}
-  \sum_{m = -\infty}^{\infty}
-  i^m \left[ J_m(\tilde{\phi}_0) \right]
-  e^{-i m \omega t}
-  \int_{-\infty}^{\infty}
-  e^{-( x' / w_0 )^2}
-  e^{-i \left( \frac{k_0 x}{r} - m k \right) x'}
-  dx'
-  \notag \\
-  &=
-  \sqrt{\pi} w_0
-  e^{i \bar{\phi}}
-  \sum_{m = -\infty}^{\infty}
-  i^m \left[ J_m(\tilde{\phi}_0) \right]
-  e^{-i m \omega t}
-  e^{-\left[ \frac{w_0}{2} \left( \frac{k_0 x}{r} - m k \right) \right]^2}
+  &\begin{aligned}
+    =
+    \sqrt{\pi} w_0
+    e^{i \bar{\phi}}
+    \sum_{m = -\infty}^{\infty}
+    \biggl\{
+      &i^m \left[ J_m(\tilde{\phi}_0) \right]
+      e^{-i m \omega t}
+      \\
+      &\qquad \times
+      e^{-\left[ \frac{w_0}{2} \left( \frac{k_0 x}{r} - m k \right) \right]^2}
+    \biggr\}
+  \end{aligned}
   \label{eq:InterferometricMethods:Fraunhofer_diffraction_integral_phase_modulated}
 \end{align}
-where the expression in the third line follows from
+where the bracketed expression in the third equality follows from
 application of the well-known Jacobi-Anger expansion, and
 $J_m$ is the $m$\ts{th} Bessel function of the first kind.
 Noting that $E(\vect{r}, t) = E(\vect{r}) e^{-i \omega_0 t}$,
@@ -891,13 +905,13 @@ into (\ref{eq:InterferometricMethods:Fraunhofer_diffracted_field}) yields
   \begin{aligned}
     E(\vect{r}, t)
     \approx
-    e^{i \bar{\phi}}
     &\sum_{m = -\infty}^{\infty}
     i^m \left[ J_m(\tilde{\phi}_0) \right]
     e^{-i m \omega t}
     e^{-\left[ \frac{w_0}{2} \left( \frac{k_0 x}{r} - m k \right) \right]^2}
     \\
     &\times
+    e^{i \bar{\phi}}
     \left[
       -i E_0
       \left( \frac{z_R}{z} \right)
