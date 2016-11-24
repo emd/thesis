@@ -1732,12 +1732,18 @@ is imaged as
   &=
   \image[ E(\vect{r}_{\object}, t) ]
   \notag \\
-  &=
-  e^{i \bar{\phi}}
-  \sum_{m = -\infty}^{\infty}
-  i^m \left[ J_m(\tilde{\phi}_0) \right]
-  \image[\mathcal{E}_G(\vect{r}_{m,\object})]
-  e^{-i (\omega_0 + m \omega) t}
+  &\begin{aligned}
+    =
+    e^{i \bar{\phi}}
+    \sum_{m = -\infty}^{\infty}
+    \biggl\{%
+      &i^m \left[ J_m(\tilde{\phi}_0) \right]
+      \\
+      &\times
+      \image[\mathcal{E}_G(\vect{r}_{m,\object})]
+      e^{-i (\omega_0 + m \omega) t}
+    \biggr\}
+  \end{aligned}
   \label{eq:InterferometricMethods:imaged_total_field_v1}
 \end{align}
 where the linearity of $\image$ has been invoked
