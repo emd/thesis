@@ -22,8 +22,8 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="859.25259"
+     inkscape:zoom="0.9899495"
+     inkscape:cx="495.59768"
      inkscape:cy="248.00614"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -376,18 +376,6 @@
          sodipodi:role="line">m<tspan
    id="tspan7461"
    style="font-size:65.00091553%;baseline-shift:super">th</tspan> scattered</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:32px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-       x="14.243662"
-       y="529.00165"
-       id="text6226"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan6228"
-         x="14.243662"
-         y="529.00165"
-         style="font-style:oblique;font-weight:bold;-inkscape-font-specification:Bitstream Vera Sans Bold Oblique">O</tspan></text>
     <g
        id="g6285">
       <path
@@ -564,7 +552,7 @@
          sodipodi:nodetypes="ccc" />
     </g>
     <g
-       id="g5328">
+       id="g3512">
       <text
          xml:space="preserve"
          style="font-size:32px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
@@ -576,7 +564,9 @@
            id="tspan7459"
            x="609.82233"
            y="529.64642"
-           style="font-style:oblique;font-weight:bold;-inkscape-font-specification:Bitstream Vera Sans Bold Oblique">O'</tspan></text>
+           style="font-style:oblique;font-weight:bold;-inkscape-font-specification:Bitstream Vera Sans Bold Oblique">O<tspan
+   style="font-size:65.00091553%;font-style:normal;font-weight:normal;baseline-shift:sub;-inkscape-font-specification:Bitstream Vera Sans"
+   id="tspan3251">ℐ</tspan></tspan></text>
       <path
          inkscape:transform-center-y="0.84703469"
          inkscape:transform-center-x="186.57417"
@@ -589,7 +579,7 @@
          sodipodi:end="3.6651914"
          sodipodi:start="2.6179939"
          transform="matrix(-1,0,0,1,697.37746,0)"
-         d="m -118.44776,597.36219 c -34.45061,-59.6702 -34.45061,-133.18693 0,-192.85713"
+         d="m -118.44776,597.36219 a 192.85715,192.85715 0 0 1 0,-192.85713"
          sodipodi:ry="192.85715"
          sodipodi:rx="192.85715"
          sodipodi:cy="500.93362"
@@ -602,7 +592,7 @@
          sodipodi:end="3.6651914"
          sodipodi:start="2.6179939"
          transform="matrix(-1,0,0,1,697.37746,0)"
-         d="m -158.65609,620.57648 c -42.74427,-74.03526 -42.74427,-165.25045 0,-239.28571"
+         d="m -158.65609,620.57648 a 239.28572,239.28572 0 0 1 0,-239.28571"
          sodipodi:ry="239.28572"
          sodipodi:rx="239.28572"
          sodipodi:cy="500.93362"
@@ -618,7 +608,7 @@
          sodipodi:cy="500.93362"
          sodipodi:rx="287.85715"
          sodipodi:ry="287.85715"
-         d="m -200.72018,644.86219 c -51.42072,-89.06331 -51.42072,-198.79382 0,-287.85713"
+         d="m -200.72018,644.86219 a 287.85715,287.85715 0 0 1 0,-287.85713"
          transform="matrix(-1,0,0,1,697.37746,0)"
          sodipodi:start="2.6179939"
          sodipodi:end="3.6651914"
@@ -628,7 +618,7 @@
          sodipodi:end="3.6651914"
          sodipodi:start="2.6179939"
          transform="matrix(-1,0,0,1,697.37746,0)"
-         d="m -242.78428,669.14791 c -60.09717,-104.09136 -60.09717,-232.33721 0,-336.42857"
+         d="m -242.78428,669.14791 a 336.42859,336.42859 0 0 1 0,-336.42857"
          sodipodi:ry="336.42859"
          sodipodi:rx="336.42859"
          sodipodi:cy="500.93362"
@@ -722,21 +712,21 @@
          sodipodi:type="arc" />
     </g>
     <g
-       id="g5522">
+       id="g3531">
       <text
          sodipodi:linespacing="125%"
-         id="text7989"
-         y="733.87994"
-         x="697.62946"
+         id="text3491"
+         y="723.64642"
+         x="683.82233"
          style="font-size:32px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
          xml:space="preserve"><tspan
            style="font-style:oblique;font-weight:bold;-inkscape-font-specification:Bitstream Vera Sans Bold Oblique"
-           y="733.87994"
-           x="697.62946"
-           id="tspan7991"
-           sodipodi:role="line">O'<tspan
-   style="font-size:65.00091553%;baseline-shift:sub"
-   id="tspan7993">m</tspan></tspan></text>
+           y="723.64642"
+           x="683.82233"
+           id="tspan3493"
+           sodipodi:role="line">O<tspan
+   id="tspan3495"
+   style="font-size:65.00091553%;font-style:normal;font-weight:normal;baseline-shift:sub;-inkscape-font-specification:Bitstream Vera Sans">m,ℐ</tspan></tspan></text>
       <path
          style="fill:none;stroke:#0000ff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3.99999999, 3.99999999;stroke-dashoffset:0"
          d="m 819.45406,378.95436 -37.37872,139.4993 c -18.97043,50.17669 -18.73352,103.48616 -77.27359,153.95002"
@@ -764,7 +754,7 @@
          sodipodi:cy="500.93362"
          sodipodi:rx="177.5"
          sodipodi:ry="177.5"
-         d="m -105.14808,589.68362 c -31.70732,-54.91869 -31.70732,-122.5813 0,-177.49999"
+         d="m -105.14808,589.68362 a 177.5,177.5 0 0 1 0,-177.49999"
          transform="matrix(-0.70710678,0.70710678,0.70710678,0.70710678,413.01698,315.36034)"
          sodipodi:start="2.6179939"
          sodipodi:end="3.6651914"
@@ -777,7 +767,7 @@
          sodipodi:cy="500.93362"
          sodipodi:rx="225"
          sodipodi:ry="225"
-         d="m -146.28429,613.43362 c -40.19237,-69.61524 -40.19237,-155.38475 0,-224.99999"
+         d="m -146.28429,613.43362 a 225,225 0 0 1 0,-224.99999"
          transform="matrix(-0.70710678,0.70710678,0.70710678,0.70710678,413.01698,315.36034)"
          sodipodi:start="2.6179939"
          sodipodi:end="3.6651914"
@@ -787,7 +777,7 @@
          sodipodi:end="3.6651914"
          sodipodi:start="2.6179939"
          transform="matrix(-0.70710678,0.70710678,0.70710678,0.70710678,413.01698,315.36034)"
-         d="m -188.65769,637.89791 c -48.93262,-84.75379 -48.93263,-189.17478 0,-273.92857"
+         d="m -188.65769,637.89791 a 273.92859,273.92859 0 0 1 0,-273.92857"
          sodipodi:ry="273.92859"
          sodipodi:rx="273.92859"
          sodipodi:cy="500.93362"
@@ -803,11 +793,26 @@
          sodipodi:cy="500.93362"
          sodipodi:rx="321.78574"
          sodipodi:ry="321.78574"
-         d="m -230.1032,661.82649 c -57.48148,-99.56085 -57.48148,-222.22488 0,-321.78573"
+         d="m -230.1032,661.82649 a 321.78574,321.78574 0 0 1 0,-321.78573"
          transform="matrix(-0.70710678,0.70710678,0.70710678,0.70710678,413.01698,315.36034)"
          sodipodi:start="2.6179939"
          sodipodi:end="3.6651914"
          sodipodi:open="true" />
     </g>
+    <text
+       xml:space="preserve"
+       style="font-size:32px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       x="-0.79443359"
+       y="517.23334"
+       id="text3263"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3265"
+         x="-0.79443359"
+         y="517.23334"><tspan
+           style="font-style:oblique;font-weight:bold;-inkscape-font-specification:Bitstream Vera Sans Bold Oblique"
+           id="tspan3267">O</tspan><tspan
+           style="font-size:65.00091553%;baseline-shift:sub"
+           id="tspan3271">𝒪</tspan></tspan></text>
   </g>
 </svg>
