@@ -1640,7 +1640,15 @@ The Gaussian beam can then be propagated from point $j$ to point $j + 1$ via
 where, amazingly, $A$, $B$, $C$, and $D$
 are equal to the corresponding values
 of the $ABCD$ ray matrix from geometric optics
-\cite[Sec.~20.2]{siegman_lasers}.
+\cite[Sec.~20.2]{siegman_lasers} \cite{tovar_generalized_beam_matrices_IV}.
+Note that the complex beam parameter and its evolution
+are independent of transverse and angular displacements
+from the nominal optical axis
+(assuming such displacements do not violate the paraxial limit, of course);
+that is, a scattered beam's width and radius of curvature
+evolve identically to those of the unscattered beam.
+
+The properties of the image-plane beams are easily determined.
 Using the ray matrix of an imaging system from
 (\ref{eq:InterferometricMethods:ABCD_imaging}),
 the image-plane complex beam parameter $q_{\image}$ is given as
@@ -1652,26 +1660,12 @@ the image-plane complex beam parameter $q_{\image}$ is given as
 \end{equation}
 where $q_{\object}$ is the object-plane complex beam parameter,
 and $M$ and $C$ are both real.
-
-To determine the imaged field,
-both the unscattered and the scattered beams
-must be propagated through the imaging system.
-Fortunately, for a given optical system in the paraxial limit,
-a Gaussian beam's width and radius of curvature evolve independently of
-its transverse and angular displacements from
-the nominal optical axis
-\cite{tovar_generalized_beam_matrices_IV}.
-That is, as any given scattered beam
-propagates through an imaging system $\image$,
-the evolution of its width and radius of curvature
-will be \emph{identical} to that of the unscattered beam
-propagating through the same imaging system.
-However, the post-imaging-system beam waists
+Note that the post-imaging-system beam waists
 do \emph{not} necessarily sit at the image plane,
 in which case the beams' native coordinate systems
-are necessarily displaced from each other
-(i.e.\ $\vect{O}_{\image} \neq \vect{O}_{m,\image}$),
-as indicated in Fig.~\ref{fig:InterferometricMethods:imaging_geometry}.
+are necessarily \emph{displaced} from each other
+(i.e.\ $\vect{O}_{\image} \neq \vect{O}_{m,\image}$,
+as indicated in Fig.~\ref{fig:InterferometricMethods:imaging_geometry}).
 Examining the image-plane complex beam parameter
 (\ref{eq:InterferometricMethods:complex_beam_parameter_image_plane})
 it is easy to see that the beam waists will not sit at the image plane
@@ -1738,12 +1732,18 @@ is imaged as
   &=
   \image[ E(\vect{r}_{\object}, t) ]
   \notag \\
-  &=
-  e^{i \bar{\phi}}
-  \sum_{m = -\infty}^{\infty}
-  i^m \left[ J_m(\tilde{\phi}_0) \right]
-  \image[\mathcal{E}_G(\vect{r}_{m,\object})]
-  e^{-i (\omega_0 + m \omega) t}
+  &\begin{aligned}
+    =
+    e^{i \bar{\phi}}
+    \sum_{m = -\infty}^{\infty}
+    \biggl\{%
+      &i^m \left[ J_m(\tilde{\phi}_0) \right]
+      \\
+      &\times
+      \image[\mathcal{E}_G(\vect{r}_{m,\object})]
+      e^{-i (\omega_0 + m \omega) t}
+    \biggr\}
+  \end{aligned}
   \label{eq:InterferometricMethods:imaged_total_field_v1}
 \end{align}
 where the linearity of $\image$ has been invoked
@@ -2322,7 +2322,7 @@ the intensity becomes
 This approach is known as heterodyne interferometry,
 as the desired baseband phase information is shifted
 to an intermediate frequency $\Delta \omega_0$
-satisfying $(d\phi/dt)_{\text{max}} \ll \Delta \omega_0 \ll \omega_0$.
+satisfying $\omega \ll \Delta \omega_0 \ll \omega_0$.
 The effect on the frequency-space representation
 of the interference signal is sketched in
 Fig.~\ref{fig:InterferometricMethods:baseband_vs_intermediate_frequency}.
