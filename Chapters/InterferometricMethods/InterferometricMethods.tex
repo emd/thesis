@@ -467,25 +467,28 @@ has an electric field
 \end{equation}
 with spatial dependence~\cite[Ch.~17]{siegman_lasers}
 \begin{equation}
-  E_G(\vect{r})
-  =
-  E_0
-  \frac{w_0}{w(z)}
-  \exp\left[ \frac{-\rho^2}{w(z)^2} \right]
-  \exp\left\{ i \left[
-    k_0 z
-    +
-    \frac{k_0 \rho^2}{2 R(z)}
-    -
-    \psi(z) \right] \right\}
+  \begin{aligned}
+    E_G(\vect{r})
+    &=
+    E_0
+    \frac{w_0}{w(z)}
+    \exp\left[ \frac{-\rho^2}{w(z)^2} \right]
+    \\
+    &\quad\times
+    \exp\left\{ i \left[
+      N k_0 z
+      +
+      \frac{N k_0 \rho^2}{2 R(z)}
+      -
+      \psi(z) \right] \right\}
+  \end{aligned}
   \label{eq:InterferometricMethods:Gaussian_beam}
 \end{equation}
 Here,
 $\rho = (x^2 + y^2)^{1/2}$ is the transverse distance from the optical axis,
 $w_0$ is the radius of the beam's waist, and
-\graffito{\textcolor{red}{not sure if I like this definition of $k_0$}}
-$k_0 = N \omega_0 / c = (2 \pi / \lambda_0) N$
-is the beam's in-medium wavenumber.
+$k_0 = \omega_0 / c = 2 \pi / \lambda_0$
+is the beam's vacuum wavenumber.
 The beam's width $w(z)$, radius of curvature $R(z)$, and
 Gouy phase $\psi(z)$ are defined as
 \begin{align}
