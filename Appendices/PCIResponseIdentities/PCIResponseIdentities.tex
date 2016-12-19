@@ -26,7 +26,7 @@ which is repeated here for completeness
     &\qquad \times
     \int dk_x' \,
     T(k_x')
-    e^{i k_x' (x_m - x')}
+    e^{i k_x' (x_m - x')}.
   \end{aligned}
   \label{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_phase_factor_full}
 \end{equation}
@@ -38,16 +38,16 @@ the maximum value of the curvature-induced phase factor obeys
 \begin{equation}
   \left[ \frac{k_0 x'^2}{2 R(z)} \right]_{\text{max}}
   \sim
-  \frac{k_0 [w(z)]^2}{2 R(z)}
+  \frac{k_0 [w(z)]^2}{2 R(z)}.
   \label{eq:PCIResponseIdentities:curvature_phase_factor_constraint_general}
 \end{equation}
 Now, in the beam's near field
 ($z \ll z_R$, which is often experimentally relevant),
 the beam's waist and radius of curvature are
 \begin{align}
-  w(z) &\approx w_0
+  w(z) &\approx w_0,
   \\
-  R(z) &\approx \frac{z_R^2}{z}
+  R(z) &\approx \frac{z_R^2}{z},
 \end{align}
 as can be easily verified by examining the definitions in
 (\ref{eq:InterferometricMethods:Gaussian_beam_width}) and
@@ -66,7 +66,7 @@ becomes
   \notag \\
   &= \frac{z}{z_R}
   \notag \\
-  &\ll 1
+  &\ll 1,
   \label{eq:PCIResponseIdentities:curvature_phase_factor_constraint_near_field}
 \end{align}
 where $z / z_R \ll 1$ follows from the near-field assumption.
@@ -85,7 +85,7 @@ $\mathcal{P}(m, k, x)$ reduces to
     &\qquad \times
     \int dk_x' \,
     T(k_x')
-    e^{i k_x' (x_m - x')}
+    e^{i k_x' (x_m - x')}.
   \end{aligned}
   \label{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_phase_factor_near_field}
 \end{equation}
@@ -103,7 +103,7 @@ The transfer function of the PCI phase plate can be described as
     \\
     &\quad +
     H(|k_x| - k_g)
-    H(k_D - |k_x|)
+    H(k_D - |k_x|),
   \end{aligned}
   \label{eq:PCIResponseIdentities:phase_plate_transfer_function}
 \end{equation}
@@ -114,7 +114,7 @@ where $H(x)$ is the Heaviside step function defined as
   \begin{cases}
     0, \quad &x < 0 \\
     1, \quad &x \geq 0
-  \end{cases}
+  \end{cases},
   \label{eq:PCIResponseIdentities:Heaviside_step_function}
 \end{equation}
 $\eta$ is the reflectivity of the phase-plate groove, and
@@ -152,7 +152,7 @@ Thus, the PCI phase factor $\mathcal{P}(m, k, x)$ is
         &+
         \int_{k_g}^{k_D} dk_x' \,
         e^{i k_x' (x_m - x')}
-      \Biggr\}
+      \Biggr\}.
     \end{aligned}
   \end{aligned}
   \label{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_phase_factor_near_field_integrals}
@@ -168,14 +168,14 @@ Note that
   \int_{k_1}^{k_2} dk_x
   e^{i k_x x}
   =
-  \frac{e^{i k_2 x} - e^{i k_1 x}}{ix}
+  \frac{e^{i k_2 x} - e^{i k_1 x}}{ix}.
 \end{equation}
 Now, if $k_1 = -k_2$, this simplifies to
 \begin{equation}
   \int_{-k_2}^{k_2} dk_x
   e^{i k_x x}
   =
-  2 k_2 \sinc \left( \frac{k_2 x}{\pi} \right)
+  2 k_2 \sinc \left( \frac{k_2 x}{\pi} \right),
   \label{eq:PCIResponseIdentities:finite_domain_inverse_FT_groove}
 \end{equation}
 where
@@ -204,7 +204,7 @@ Finally, note that
   &=
   2 k_2 \sinc \left( \frac{k_2 x}{\pi} \right)
   -
-  2 k_1 \sinc \left( \frac{k_1 x}{\pi} \right)
+  2 k_1 \sinc \left( \frac{k_1 x}{\pi} \right).
   \label{eq:PCIResponseIdentities:finite_domain_inverse_FT_face}
 \end{align}
 Using (\ref{eq:PCIResponseIdentities:finite_domain_inverse_FT_groove}) and
@@ -233,7 +233,7 @@ becomes
         &+
         i \sqrt{\eta}
         k_g \sinc\left[ \frac{k_g}{\pi} (x' - x_m) \right]
-      \Biggr\}
+      \Biggr\}.
     \end{aligned}
   \end{aligned}
   \label{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_phase_factor_near_field_sincs}
@@ -251,7 +251,7 @@ consists of several integrals of the form
   \int dx \,
   e^{-a x^2}
   e^{i c x}
-  \sinc\left[ \frac{b}{\pi} (x - x_0) \right]
+  \sinc\left[ \frac{b}{\pi} (x - x_0) \right],
   \label{eq:PCIResponseIdentities:I_x0_abc_definition}
 \end{equation}
 where $a > 0$ and $x_0$, $b$, and $c$ are real.
@@ -376,7 +376,7 @@ in terms of complex error functions as follows
     \erf[u(c, b)]
     -
     \erf[u(c, - b)]
-  \right\}
+  \right\},
   \label{eq:PCIResponseIdentities:I_x0_abc_evaluated}
 \end{align}
 where the error function is defined for complex argument $z$ as
@@ -384,12 +384,12 @@ where the error function is defined for complex argument $z$ as
   \erf(z)
   =
   \frac{2}{\sqrt{\pi}}
-  \int_0^z e^{-t^2} dt
+  \int_0^z e^{-t^2} dt,
   \label{eq:PCIResponseIdentities:error_function}
 \end{equation}
 and
 \begin{equation}
-  u(c, b) = \frac{1}{2 \sqrt{a}} [(c + b) + i 2 a x_0]
+  u(c, b) = \frac{1}{2 \sqrt{a}} [(c + b) + i 2 a x_0].
 \end{equation}
 
 Now, substituting the appropriate values
@@ -411,7 +411,7 @@ yields
   \frac{1}{2}
   e^{-[x_m / w(z)]^2}
   e^{i m k x_m}
-  \mathcal{D}(m, k_j, k, x)
+  \mathcal{D}(m, k_j, k, x),
   \label{eq:PCIResponseIdentities:I_x0_abc_evaluated_lab_parameters}
 \end{equation}
 where the difference function $\mathcal{D}$ is defined as
@@ -420,7 +420,7 @@ where the difference function $\mathcal{D}$ is defined as
   =
   \erf[u(m, k_j, k, x)]
   -
-  \erf[u(m, -k_j, k, x)]
+  \erf[u(m, -k_j, k, x)],
   \label{eq:PCIResponseIdentities:difference_function}
 \end{equation}
 and
@@ -432,7 +432,7 @@ and
     (m k + k_j)
     +
     i \frac{2 x_m}{w(z)^2}
-  \right]
+  \right].
   \label{eq:PCIResponseIdentities:u}
 \end{equation}
 With these definitions
@@ -453,7 +453,7 @@ readily reduces to
        +
        (i \sqrt{\eta} - 1)
        \mathcal{D}(m, k_g, k, x)
-    \right]
+    \right].
   \end{aligned}
   \label{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_phase_factor_near_field_difference_functions}
 \end{equation}
@@ -467,7 +467,7 @@ with a 1/e $E$ radius of $w_{0,\object}$, and
 the plasma dimensions are far smaller than the corresponding Rayleigh length
 such that throughout the plasma volume
 \begin{equation}
-  w(z) \approx w_{0,\object}
+  w(z) \approx w_{0,\object}.
 \end{equation}
 As discussed in
 Section~\ref{sec:InterferometricMethods:imaging:Gaussian_beam_transformation},
@@ -481,7 +481,7 @@ Thus, valid application of any of the above derived results to the image plane
 requires that the image plane and the waist of the imaged beam
 approximately overlap such that
 \begin{equation}
-  w(z_{\image}) \approx w_{0,\image} \approx M w_{0,\object}
+  w(z_{\image}) \approx w_{0,\image} \approx M w_{0,\object},
   \label{eq:PCIResponseIdentities:criterion_on_imaged_beam_radius}
 \end{equation}
 where $w_{0,\image}$ is the 1/e $E$ radius of the imaged beam at its waist.
@@ -536,7 +536,7 @@ with respect to $m$ and $k_{j,\image}$
   \right]^*
   \notag \\
   &=
-  -[u(m, k_{j,\image}, k_{\image}, x_{\image})]^*
+  -[u(m, k_{j,\image}, k_{\image}, x_{\image})]^*,
 \end{align}
 where $z^*$ indicates the complex conjugate of $z$.
 Further, referencing
@@ -569,7 +569,7 @@ note that
   \right]
   \notag \\
   &=
-  u(m, k_{j,\object}, k, x_{\object})
+  u(m, k_{j,\object}, k, x_{\object});
 \end{align}
 that is,
 $u(m, k_{j,\image}, k_{\image}, x_{\image})$ and
@@ -582,13 +582,13 @@ The error function has two useful properties
 that will be exploited shortly.
 First, the error function is \emph{odd}
 \begin{equation}
-  \erf(-z) = - \erf(z)
+  \erf(-z) = - \erf(z),
   \label{eq:PCIResponseIdentities:error_function_is_odd}
 \end{equation}
 as is easily determined by inspection.
 Second, the error function \emph{commutes} with complex conjugation
 \begin{equation}
-  \erf(z^*) = [\erf(z)]^*
+  \erf(z^*) = [\erf(z)]^*,
   \label{eq:PCIResponseIdentities:error_function_commutativity}
 \end{equation}
 where $z^*$ is the complex conjugate of $z$.
@@ -641,7 +641,7 @@ Note that $\mathcal{D}$ is Hermitian with respect to $m$
   \notag \\
   &\phantom{\mathcal{D}(-m, k_{j,\image}, k_{\image}, x_{\image})}
   =
-  \mathcal{D}^*(m, k_{j,\image}, k_{\image}, x_{\image})
+  \mathcal{D}^*(m, k_{j,\image}, k_{\image}, x_{\image}).
   \label{eq:PCIResponseIdentities:difference_function_symmetry}
 \end{align}
 The above symmetry relation also implies a degeneracy when $m = 0$; namely,
@@ -670,7 +670,7 @@ can be readily written as
       F(m, k_{\image}, x_{\image})
       +
       G(m, k_{\image}, x_{\image})
-    \right]
+    \right],
   \end{aligned}
   \label{eq:PCIResponseIdentities:phase_factor_Hermitian_decomposed}
 \end{equation}
@@ -683,12 +683,12 @@ where
     \mathcal{D}(m, k_{D,\image}, k_{\image}, x_{\image})
     -
     \mathcal{D}(m, k_{g,\image}, k_{\image}, x_{\image})
-  \right]
+  \right],
   \label{eq:PCIResponseIdentities:phase_factor_face}
   \\
   G(m, k_{\image}, x_{\image})
   &=
-  \frac{i \sqrt{\eta}}{2} \, \mathcal{D}(m, k_{g,\image}, k_{\image}, x_{\image})
+  \frac{i \sqrt{\eta}}{2} \, \mathcal{D}(m, k_{g,\image}, k_{\image}, x_{\image}).
   \label{eq:PCIResponseIdentities:phase_factor_groove}
 \end{align}
 Here, the notation is mnemonic:
@@ -697,12 +697,12 @@ acts on the $m$\ts{th} scattered beam via $F$, while
 the phase-plate groove acts on the $m$\ts{th} scattered beam via $G$.
 Note that $F$ is Hermitian with respect to $m$
 \begin{equation}
-  F(-m, k_{\image}, x_{\image}) = F^*(m, k_{\image}, x_{\image})
+  F(-m, k_{\image}, x_{\image}) = F^*(m, k_{\image}, x_{\image}),
   \label{eq:PCIResponseIdentities:mth_beam_interaction_with_face_hermitian}
 \end{equation}
 while $G$ is anti-Hermitian with respect to $m$
 \begin{equation}
-  G(-m, k_{\image}, x_{\image}) = -G^*(m, k_{\image}, x_{\image})
+  G(-m, k_{\image}, x_{\image}) = -G^*(m, k_{\image}, x_{\image}).
   \label{eq:PCIResponseIdentities:mth_beam_interaction_with_groove_antihermitian}
 \end{equation}
 
@@ -712,14 +712,14 @@ Specifically,
 states that $F(0, k_{\image}, x_{\image}) = F^*(0, k_{\image}, x_{\image})$;
 that is, $F(0, k_{\image}, x_{\image})$ is purely \emph{real}
 \begin{equation}
-  F(0, k_{\image}, x_{\image}) = \real[F(0, k_{\image}, x_{\image})]
+  F(0, k_{\image}, x_{\image}) = \real[F(0, k_{\image}, x_{\image})].
 \end{equation}
 Similarly,
 (\ref{eq:PCIResponseIdentities:mth_beam_interaction_with_groove_antihermitian})
 states that $G(0, k_{\image}, x_{\image}) = -G^*(0, k_{\image}, x_{\image})$;
 that is, $G(0, k_{\image}, x_{\image})$ is purely \emph{imaginary}
 \begin{equation}
-  G(0, k_{\image}, x_{\image}) = i \cdot \imag[G(0, k_{\image}, x_{\image})]
+  G(0, k_{\image}, x_{\image}) = i \cdot \imag[G(0, k_{\image}, x_{\image})].
 \end{equation}
 
 Another set of useful degeneracies occurs
@@ -730,10 +730,10 @@ Just as $m = 0$ at finite $k_{\image}$ yields $(m \cdot k_{\image}) = 0$,
 $k_{\image} = 0$ at finite $m$ also gives $(m \cdot k_{\image}) = 0$;
 thus,
 \begin{align}
-  F(m, k_{\image}=0, x_{\image}) &= F(m=0, k_{\image}, x_{\image})
+  F(m, k_{\image}=0, x_{\image}) &= F(m=0, k_{\image}, x_{\image}),
   \label{eq:PCIResponseIdentities:mth_beam_interaction_with_face_for_wavenumber_0}
   \\
-  G(m, k_{\image}=0, x_{\image}) &= G(m=0, k_{\image}, x_{\image})
+  G(m, k_{\image}=0, x_{\image}) &= G(m=0, k_{\image}, x_{\image}).
   \label{eq:PCIResponseIdentities:mth_beam_interaction_with_groove_for_wavenumber_0}
 \end{align}
 The PCI response $T_{\text{pci}}(k_{\image}, x_{\image})$ is given by
@@ -767,7 +767,7 @@ the expression for $C_I$ in the low-$k$ limit becomes
   \real(F_0) \imag(G_0)
   \notag \\
   &=
-  0
+  0.
   \notag
 \end{align}
 Similarly, the expression for $C_Q$ in the low-$k$ limit becomes
@@ -790,7 +790,7 @@ Similarly, the expression for $C_Q$ in the low-$k$ limit becomes
   \real(F_0) \cdot 0
   \notag \\
   &=
-  0
+  0,
   \notag
 \end{align}
 where the third line follows from the fact that
