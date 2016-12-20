@@ -397,10 +397,10 @@ is very well-satisfied.
 
 \subsection{Plasma-induced phase delay}
 The WKB field solution (\ref{eq:InterferometricMethods:WKB_field})
-indicates that the wave's phase at a given point in time
+indicates that the wave's phase at a given point in space and time
 is determined by the properties of the medium
 that the wave has passed through.
-In particular, a wave passing through a plasma
+In particular, a CO$_2$ laser beam propagating through a tokamak plasma
 will acquire a phase shift $\phi$ relative to vacuum given by
 \begin{align}
   \phi
@@ -408,22 +408,27 @@ will acquire a phase shift $\phi$ relative to vacuum given by
   \int \left[ k(\vect{r}) - \frac{\omega}{c} \right] dl
   \notag \\
   &=
+  \frac{\omega}{c} \int \left[ N(\vect{r}) - 1 \right] dl
+  \notag \\
+  &\approx
+  \frac{\omega}{c}
   \int \left[%
-    \frac{\omega}{c}\left( 1 - \frac{X}{2} \right)
-    -
-    \frac{\omega}{c}
+    \left( 1 - \frac{X}{2} \right) - 1
   \right] dl
   \notag \\
   &=
   -r_e \lambda \int n_e dl,
   \label{eq:InterferometricMethods:phase}
 \end{align}
-where $r_e$ is again the classical electron radius
+where the index of refraction has been approximated via
+(\ref{eq:InterferometricMethods:index_of_refraction}), and
+$r_e$ is again the classical electron radius
 defined in (\ref{eq:InterferometricMethods:classical_electron_radius}).
 Now, if the plasma fluctuates about its equilibrium density $\bar{n}_e$ as
 $n_e = \bar{n}_e + \tilde{n}_e$,
 the phase will similarly fluctuate about its equilibrium as
 $\phi = \bar{\phi} + \tilde{\phi}$ where
+\graffito{\textcolor{red}{Where is $\lambda$ defined?}}
 \begin{equation}
   \tilde{\phi}
   =
