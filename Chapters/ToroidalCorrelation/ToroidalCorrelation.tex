@@ -102,7 +102,7 @@ is defined as
   X_k(f, T)
   =
   \int_{-T / 2}^{T / 2}
-  dt \, [w(t) \cdot x_k(t)] e^{-i \, 2 \pi f t}
+  dt \, [w(t) \cdot x_k(t)] e^{-i \, 2 \pi f t},
   \label{eq:ToroidalCorrelation:finite_Fourier_transform}
 \end{equation}
 where $w(t)$ is an arbitrary windowing function.
@@ -113,7 +113,7 @@ that results from discontinuities at the start and end of the sample record.
 Further, to prevent power loss, the windowing function
 is also typically normalized such that
 \begin{equation}
-  \frac{1}{T} \int_{-T/2}^{T/2} dt \, [w(t)]^2 = 1
+  \frac{1}{T} \int_{-T/2}^{T/2} dt \, [w(t)]^2 = 1.
 \end{equation}
 The normalized Hanning window is perhaps
 the most commonly used windowing function, and
@@ -154,7 +154,7 @@ successive slices are selected to overlap by 50\%.
 In general $G_{xy}(f)$ is a complex-valued function.
 This can be made explicit by writing
 \begin{equation}
-  G_{xy}(f) = \left| G_{xy}(f) \right| e^{i \alpha_{xy}(f)}
+  G_{xy}(f) = \left| G_{xy}(f) \right| e^{i \alpha_{xy}(f)},
   \label{eq:ToroidalCorrelation:cross_spectral_density_explicit_complex}
 \end{equation}
 where $\alpha_{xy}(f)$ is the \emph{phase angle}.
@@ -162,7 +162,7 @@ Note that if
 $\lim_{T \rightarrow \infty} E[X_k(f, T)] \propto e^{i \alpha_x}$ and
 $\lim_{T \rightarrow \infty} E[Y_k(f, T)] \propto e^{i \alpha_y}$, then
 \begin{equation}
-  \alpha_{xy} = \alpha_y - \alpha_x
+  \alpha_{xy} = \alpha_y - \alpha_x.
 \end{equation}
 Further, note that for the special case $\{x_k(t)\} = \{y_k(t)\}$,
 $G_{xx}(f)$ is real-valued (i.e.\ $G_{xx}(f) = |G_{xx}(f)|$) and
@@ -176,7 +176,7 @@ $\gamma_{xy}^2(f)$ is defined as
 \begin{equation}
   \gamma_{xy}^2(f)
   \equiv
-  \frac{|G_{xy}(f)|^2}{G_{xx}(f) G_{yy}(f)}
+  \frac{|G_{xy}(f)|^2}{G_{xx}(f) G_{yy}(f)},
   \label{eq:ToroidalCorrelation:magnitude_squared_coherence_defn}
 \end{equation}
 and it satisfies
@@ -273,7 +273,7 @@ let random process $\{y_k(t)\}$ consist of the sum of
 random process $\{x_k(t)\}$ \emph{delayed} by time $\tau$ and
 uncorrelated noise $\{n_k(t)\}$; that is
 \begin{equation}
-  y_k(t) = x_k(t - \tau) + n_k(t)
+  y_k(t) = x_k(t - \tau) + n_k(t).
   \label{eq:ToroidalCorrelation:time_delay_random_process_y}
 \end{equation}
 Then, using the linear and time-shift properties of the Fourier transform,
@@ -282,20 +282,20 @@ Then, using the linear and time-shift properties of the Fourier transform,
   =
   e^{-i 2 \pi f \tau} X_k(f, T)
   +
-  N_k(f, T)
+  N_k(f, T),
 \end{equation}
 and it naturally follows from application of
 (\ref{eq:ToroidalCorrelation:cross_spectral_density_defn})
 that the resulting cross-spectral density is
 \begin{equation}
-  G_{xy}(f) = e^{-i 2 \pi f \tau} G_{xx}(f) + G_{xn}(f)
+  G_{xy}(f) = e^{-i 2 \pi f \tau} G_{xx}(f) + G_{xn}(f).
   \label{eq:ToroidalCorrelation:time_delay_cross_spectral_density}
 \end{equation}
 Now, if $G_{xx}(f) \gg |G_{xn}(f)|$,
 $G_{xy}(f) \approx e^{-i 2 \pi f \tau} G_{xx}(f)$ and
 the corresponding phase angle is
 \begin{equation}
-  \alpha_{xy}(f) \approx -2 \pi f \tau
+  \alpha_{xy}(f) \approx -2 \pi f \tau.
   \label{eq:ToroidalCorrelation:time_delay_phase_angle}
 \end{equation}
 \textcolor{red}{Criterion for $G_{xx}(f) \gg |G_{xn}(f)|$.}
@@ -306,7 +306,7 @@ $\Delta z$ \emph{upstream} of $\{x_k(t)\}$,
 (\ref{eq:ToroidalCorrelation:time_delay_random_process_y})
 can alternatively be written as
 \begin{equation}
-  y_k(t) = x_k\left(t + \frac{k \Delta z}{2 \pi f}\right) + n_k(t)
+  y_k(t) = x_k\left(t + \frac{k \Delta z}{2 \pi f}\right) + n_k(t),
   \label{eq:ToroidalCorrelation:spatial_separation_random_process_y}
 \end{equation}
 where $k$ and $f$ are the wavenumber and frequency, respectively,
@@ -318,7 +318,7 @@ substituting this value of $\tau$ into
 (\ref{eq:ToroidalCorrelation:time_delay_phase_angle}) and
 solving for $k$ yields a measured wavenumber
 \begin{equation}
-  k_{\text{meas}} \equiv \frac{\alpha_{xy}(f)}{\Delta z}
+  k_{\text{meas}} \equiv \frac{\alpha_{xy}(f)}{\Delta z}.
   \label{eq:ToroidalCorrelation:measured_wavenumber}
 \end{equation}
 Note that this wavenumber estimate is based solely on
@@ -342,7 +342,7 @@ this yields a maximum-resolvable wavenumber
 (the ``Nyquist'' wavenumber)
 \begin{equation}
   k_{\text{Ny}} \equiv \frac{\pi}{\Delta z}
-  \qquad \text{for \emph{unknown} propagation direction}
+  \qquad \text{for \emph{unknown} propagation direction.}
   \label{eq:ToroidalCorrelation:Nyquist_wavenumber_unknown_prop_direction}
 \end{equation}
 Note that
@@ -374,7 +374,7 @@ Now, dividing by $\Delta z$ and applying
 the above expression can be rewritten as
 \begin{equation}
   k_{\text{meas}} = k - (l \cdot k_{\text{Ny}})
-  \qquad \text{for integer $l$}
+  \qquad \text{for integer $l$.}
   \label{eq:ToroidalCorrelation:wavenumber_aliasing}
 \end{equation}
 That is, for $l \neq 0$ (i.e.\ $|k| > k_{\text{Ny}}$)
@@ -387,7 +387,7 @@ Following the same reasoning used above,
 the Nyquist wavenumber becomes
 \begin{equation}
   k_{\text{Ny}} \equiv \frac{2 \pi}{\Delta z}
-  \qquad \text{for \emph{known} propagation direction}
+  \qquad \text{for \emph{known} propagation direction.}
   \label{eq:ToroidalCorrelation:Nyquist_wavenumber_known_prop_direction}
 \end{equation}
 Aliasing formula (\ref{eq:ToroidalCorrelation:wavenumber_aliasing})
@@ -401,12 +401,12 @@ For major radius $R$,
 The toroidal mode number $n$ is related
 to the toroidal wavenumber $k_{\zeta}$ as
 \begin{equation}
-  k_{\zeta} = \frac{n}{R}
+  k_{\zeta} = \frac{n}{R},
 \end{equation}
 and the toroidal angular separation $\Delta \zeta$
 is related to the spatial separation $\Delta z$ as
 \begin{equation}
-  \Delta \zeta = \frac{\Delta z}{R}
+  \Delta \zeta = \frac{\Delta z}{R}.
 \end{equation}
 Using these definitions the above formulas for
 the measured wavenumber, the Nyquist wavenumber, and wavenumber aliasing
@@ -414,7 +414,7 @@ can be rewritten in terms of toroidal mode numbers as follows:
 \begin{align}
   n_{\text{meas}}
   &\equiv
-  \frac{\alpha_{xy}(f)}{\Delta \zeta}
+  \frac{\alpha_{xy}(f)}{\Delta \zeta},
   \\
   n_{\text{Ny}}
   &\equiv
@@ -423,12 +423,12 @@ can be rewritten in terms of toroidal mode numbers as follows:
     \qquad \text{for \emph{unknown} propagation direction} \\
     \frac{2 \pi}{\Delta \zeta}
     \qquad \text{for \emph{known} propagation direction}
-  \end{cases}
+  \end{cases},
   \\
   n_{\text{meas}}
   &=
   n - (l \cdot n_{\text{Ny}})
-  \qquad \text{for integer $l$ if $|n| > n_{\text{Ny}}$}
+  \qquad \text{for integer $l$ if $|n| > n_{\text{Ny}}$.}
 \end{align}
 
 
@@ -450,13 +450,13 @@ and, assuming harmonic variations, reduces to
   \equiv
   \frac{\partial \vect{\xi}}{\partial t}
   =
-  -i \omega \vect{\xi}
+  -i \omega \vect{\xi},
   \notag
 \end{equation}
 where $\omega$ is the mode's angular frequency.
 The plasma density $n_i$ is given as
 \begin{equation}
-  n_i = \bar{n}_i + \tilde{n}_i
+  n_i = \bar{n}_i + \tilde{n}_i,
   \notag
 \end{equation}
 where $\bar{n}_i$ and $\tilde{n}_i$ are
@@ -465,7 +465,7 @@ Assuming a stationary equilibrium ($\vect{v_0} = 0$) and
 using the above relations,
 the linearized continuity equation reduces to
 \begin{equation}
-  \tilde{n}_i = -\nabla \cdot (\bar{n}_i \vect{\xi})
+  \tilde{n}_i = -\nabla \cdot (\bar{n}_i \vect{\xi}).
   \label{eq:ToroidalCorrelation:density_fluctuations}
 \end{equation}
 If we relax the assumption on $\vect{v_0}$ to allow
@@ -484,7 +484,7 @@ in a tokamak plasma, the index of refraction $N$ is
 \begin{equation}
   N
   \approx
-  1 - \frac{1}{2} \left( \frac{\omega_{pe}}{\omega_0} \right)^2
+  1 - \frac{1}{2} \left( \frac{\omega_{pe}}{\omega_0} \right)^2,
   \notag
 \end{equation}
 where $\omega_{pe}$ is the electron angular plasma frequency and
@@ -497,14 +497,14 @@ will acquire a phase shift $\phi$ \emph{relative} to vacuum
     =
     \frac{\omega}{c} \int (N - 1) dl
     =
-    - r_e \lambda_0 \int n_e dl \notag
+    - r_e \lambda_0 \int n_e dl, \notag
 \end{equation}
 where $r_e = \SI{2.8e-15}{\meter}$ is the classical electron radius.
 Further, if there are electron density fluctuations $\tilde{n}_e$
 about the equilibrium $\bar{n}_e$, there will be corresponding
 phase fluctuations $\tilde{\phi}$
 \begin{align}
-  \tilde{\phi} = -r_e \lambda_0 \int \tilde{n}_e dl
+  \tilde{\phi} = -r_e \lambda_0 \int \tilde{n}_e dl.
   \label{eq:ToroidalCorrelation:phase_fluctuations_generic}
 \end{align}
 Assuming quasineutrality $n_e \approx n_i$ and
@@ -514,7 +514,7 @@ the phase fluctuations reduce to
   \tilde{\phi}
   =
   r_e \lambda_0
-  \int [\nabla \cdot (\bar{n}_e \vect{\xi})] dl
+  \int [\nabla \cdot (\bar{n}_e \vect{\xi})] dl.
   \label{eq:ToroidalCorrelation:phase_fluctuations_from_displacement}
 \end{align}
 
@@ -542,7 +542,7 @@ $\vect{\xi_0}(r) \in \mathbb{R}^3$,
     \left[
       \bar{n}_e \, \vect{\xi_0}(r) e^{i(m \theta + n \zeta - \omega t)}
     \right]
-  \right\} dl
+  \right\} dl.
   \notag
 \end{align}
 Finally, noting that $dl = dl(r, \theta)$ for vertical beam paths,
@@ -550,7 +550,7 @@ the phase fluctuations reduce to
 \begin{equation}
   \tilde{\phi}
   =
-  \Phi e^{i(n \zeta - \omega t)}
+  \Phi e^{i(n \zeta - \omega t)},
   \label{eq:ToroidalCorrelation:phase_fluctuations_vertical_beam1}
 \end{equation}
 where
@@ -574,7 +574,7 @@ alternatively be written as
 \begin{equation}
   \tilde{\phi}
   =
-  |\Phi(R)| e^{i[n \zeta - \omega t + \sigma(R)]}
+  |\Phi(R)| e^{i[n \zeta - \omega t + \sigma(R)]},
   \label{eq:ToroidalCorrelation:phase_fluctuations_vertical_beam2}
 \end{equation}
 where the dependence on $R$ for a given mode and plasma
@@ -599,9 +599,9 @@ inspiring the definition of the measured toroidal mode number as
 \begin{equation}
   n_{\text{meas}}
   \equiv
-  \frac{\alpha_{12}}{\Delta \zeta}
+  \frac{\alpha_{12}}{\Delta \zeta},
   \quad \text{where} \quad
-  \Delta \zeta \equiv \zeta_2 - \zeta_1
+  \Delta \zeta \equiv \zeta_2 - \zeta_1.
   \label{eq:ToroidalCorrelation:toroidal_mode_number_ideal}
 \end{equation}
 
@@ -637,7 +637,7 @@ such that application of
 (\ref{eq:ToroidalCorrelation:toroidal_mode_number_ideal})
 yields a measured mode number
 \begin{equation}
-  n_{\text{meas}} = n - \frac{\omega \delta t}{\Delta \zeta}
+  n_{\text{meas}} = n - \frac{\omega \delta t}{\Delta \zeta}.
   \label{eq:ToroidalCorrelation:toroidal_mode_number_dt_constant_omega}
 \end{equation}
 That is, the measured mode number will be biased away from
@@ -660,7 +660,7 @@ yields a measured mode number that also ramps linearly in time
 \begin{equation}
   \dot{n}_{\text{meas}}
   =
-  - \left( \frac{2 \dot{\omega}}{\Delta \zeta} \right) \delta t
+  - \left( \frac{2 \dot{\omega}}{\Delta \zeta} \right) \delta t.
   \label{eq:ToroidalCorrelation:toroidal_mode_number_dt_ramp_rate}
 \end{equation}
 Note that (\ref{eq:ToroidalCorrelation:toroidal_mode_number_dt_ramp_rate}) is
@@ -692,7 +692,7 @@ Thus, (\ref{eq:ToroidalCorrelation:toroidal_mode_number_dt_ramp_rate}) becomes
 \begin{equation}
   \dot{n}_{\text{meas}}
   =
-  - \left( \frac{\dot{\omega}_{\text{meas}}}{\Delta \zeta} \right) \delta t
+  - \left( \frac{\dot{\omega}_{\text{meas}}}{\Delta \zeta} \right) \delta t.
   \label{eq:ToroidalCorrelation:toroidal_mode_number_dt_ramp_rate_lab_frame}
 \end{equation}
 
@@ -769,7 +769,7 @@ the upper and lower bounds of $\delta t$ were found;
 the best estimate for $\delta t$ was then taken as the midpoint
 between these upper and lower bounds, which was found to be
 \begin{equation}
-  \delta t = -\SI{32}{\micro\second}
+  \delta t = -\SI{32}{\micro\second}.
   \label{eq:ToroidalCorrelation:time_delay}
 \end{equation}
 That is, the native PCI-interferometer's time base \emph{leads}
@@ -829,7 +829,7 @@ at the two radial locations:
   \begin{cases}
     0, & \quad \text{$\vect{\xi}(R_1)$ and $\vect{\xi}(R_2)$ in-phase} \\
     \pi, & \quad \text{$\vect{\xi}(R_1)$ and $\vect{\xi}(R_2)$ out-of-phase}
-  \end{cases}
+  \end{cases}.
   \notag
 \end{equation}
 If $\vect{\xi}(R_1)$ and $\vect{\xi}(R_2)$ are in-phase,
@@ -844,7 +844,7 @@ will yield a measured mode number $n_{\text{meas}}$
   \begin{cases}
     n + n_{\text{Ny}}, & \quad n \leq 0 \\
     n - n_{\text{Ny}}, & \quad n > 0
-  \end{cases}
+  \end{cases},
   \label{eq:ToroidalCorrelation:toroidal_mode_number_radially_out_of_phase}
 \end{equation}
 where $n_{\text{Ny}} \equiv \pi / \Delta \zeta$
