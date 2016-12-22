@@ -1129,6 +1129,7 @@ $|\vect{k}_m| = k_0$ is a very good approximation.
 This constraint of elasticity
 coupled with knowledge of the scattering angle $\theta_m$
 allows determination of the scattered wavevector
+\graffito{\textcolor{red}{New notation\ldots}}
 \begin{equation}
   \vect{k}_m
   =
@@ -1149,158 +1150,191 @@ their theoretical treatment is not pursued here.
 \subsection{Wavenumber-dependent manipulation of the diffracted field}
 Examine again the diffracted field
 (\ref{eq:InterferometricMethods:phase_modulated_Gaussian_beam_diffraction}).
-Note that the spatial dependence
-is governed entirely by the factor $E_G(\vect{r}_m)$,
-which specifies the spatial structure of the $m$\ts{th} scattered beam.
-Note that $E_G(\vect{r}_m)$ can be Fourier decomposed as
-\begin{align}
-  E_G(\vect{r}_m)
-  &=
-  \mathcal{F}^{-1}[E_G(\vect{k}_m')](\vect{r}_m)
-  \notag \\
-  &=
-  \frac{1}{(2 \pi)^3}
-  \int d\vect{k}_m'
-  e^{i \vect{k}_m' \cdot \vect{r}_m}
-  E_G(\vect{k}_m')
-  \notag \\
-  &=
-  \frac{1}{(2 \pi)^3}
-  \int d\vect{k}_m'
-  e^{i \vect{k}_m' \cdot \vect{r}_m}
-  \left[
-    \int d\vect{r}' \,
-    e^{-i \vect{k}_m' \cdot \vect{r}'}
-    E_G(\vect{r}')
-  \right]
-  \notag \\
-  &=
-  \frac{1}{(2 \pi)^3}
-  \int d\vect{r}' \,
-  E_G(\vect{r}')
-  \int d\vect{k}_m' \,
-  e^{i \vect{k}_m' \cdot (\vect{r}_m - \vect{r}')},
-\end{align}
-where $\vect{k}_m'$ is the wavevector basis that is \emph{dual} to
-the coordinate system of the $m$\ts{th} scattered beam, $\vect{r}_m$.
-To understand the significance of this duality,
-note that $\vect{k}_m' \cdot \vect{r}_m$ is a physical quantity,
-independent of any given coordinate system; that is,
-if $\vect{k}'$ is the wavevector basis dual to
-the lab-frame (i.e. $m = 0$ beam) coordinate system, then, by definition,
-$\vect{k}_m' \cdot \vect{r}_m = \vect{k}' \cdot \vect{r}$.
-Enforcing this coordinate-independent requirement and
-exploiting the orthogonality of $\vect{R}(\theta_m)$
-(abbreviated here as $\vect{R}_m$) yields
-\begin{align}
-  \vect{k}' \cdot \vect{r}
-  &=
-  \vect{k}'^T \vect{r}
-  \notag \\
-  &=
-  \vect{k}'^T (\vect{R}_m^T \vect{R}_m) \vect{r}
-  \notag \\
-  &=
-  (\vect{R}_m \vect{k}')^T (\vect{R}_m \vect{r})
-  \notag \\
-  &=
-  (\vect{R}_m \vect{k}') \cdot \vect{r}_m
-  \notag \\
-  &=
-  \vect{k}_m' \cdot \vect{r}_m
-  \notag
-\end{align}
-such that
+The spatial dependence of each term in the summation
+is wholly governed by the factor $E_G(\vect{r}_m)$,
+which corresponds to a Gaussian beam
+that emanates from the beam waist
+at an angle $\theta_m$ relative to the lab-frame $z$-axis.
+The coordinate system $\vect{r}_m$ is defined such that
+the $m$\ts{th} Gaussian beam propagates along the $z_m$-axis, and
+it is related to the lab-frame coordinate system $\vect{r}$ via
+(\ref{eq:InterferometricMethods:object_plane_coordinate_transformation_compact}).
+The wavenumber basis $\vect{k}_m$ that is dual to $\vect{r}_m$
+is similarly related to the lab-frame wavenumber basis $\vect{k}$ via
 \begin{equation}
-  \vect{k}_m'
+  \vect{k}_m
   =
-  \vect{R}_m \vect{k}'.
-  \label{eq:InterferometricMethods:wavevector_dual_to_mth_beam}
+  [ \vect{R}(\theta_m) ] \vect{k},
+  \label{eq:InterferometricMethods:object_plane_coordinate_transformation_wavenumber_dual}
 \end{equation}
+which naturally results from the geometric constraint that
+$\vect{k} \cdot \vect{r} = \vect{k}_m \cdot \vect{r}_m$.
 
-While the above Fourier decomposition is trivial,
-it lays the foundation for more sophisticated analysis.
-For example, imagine that the Fourier components of $E_G(\vect{r}_m)$
-are somehow manipulated
-based upon lab-frame wavenumber $\vect{k}'$;
-if this manipulation can be described
-in terms of a transfer function $T(\vect{k}')$,
-then the resulting spatial dependence
-of the $m$\ts{th} scattered beam is
-\begin{align}
-  \mathcal{E}_G(\vect{r}_m)
-  &=
+Imagine now that each of the above Gaussian beams
+is somehow manipulated based upon its Fourier wavenumber content.
+Assume this manipulation can be described
+in terms of a transfer function $T(\vect{k})$,
+where $\vect{k}$ is the lab-frame wavenumber basis.
+A transfer functions of this form is appropriate for investigating e.g.\
+diffraction from an aperture or the action of a phase plate.
+Using the wavenumber basis transformation
+(\ref{eq:InterferometricMethods:object_plane_coordinate_transformation_wavenumber_dual}),
+this transfer function can be written
+in terms of the $\vect{k}_m$ wavenumber basis as
+\begin{equation}
+  T(\vect{k}) = T(\vect{R}_{-m} \vect{k}_m),
+\end{equation}
+where the abbreviation $\vect{R}_m = \vect{R}(\theta_m)$ has been adopted.
+The transformed field $E_T$ then has the Fourier representation
+in the $\vect{k}_m$ wavenumber basis
+\begin{equation}
+  E_T(\vect{k}_m) = T(\vect{R}_{-m} \vect{k}_m) \cdot E_G(\vect{k}_m).
+\end{equation}
+Inverse Fourier transforming $E_T(\vect{k}_m)$ yields
+\begin{equation}
+  E_T(\vect{r}_m)
+  =
+  \frac{1}{(2 \pi)^3}
+  \int d\vect{k}_m \,
+  \left[%
+    T(\vect{R}_{-m} \vect{k}_m)
+    e^{i \vect{k}_m \cdot \vect{r}_m}
+  \right]
+  E_G(\vect{k}_m).
+\end{equation}
+Note that each spectral component $E_G(\vect{k}_m)$
+individually satisfies the wave equation.
+Thus, the above construction of the transformed field $E_T(\vect{r}_m)$,
+which consists of a linear combination of the spectral components
+with arbitrary amplitudes and phases,
+\emph{also} satisfies the wave equation.
+Now, explicitly writing $E_G(\vect{k}_m)$ as the Fourier transform
+of $E_G$ over a dummy spatial coordinate $\vect{r}'$, and
+exchanging the order of integration yields
+\begin{equation}
+  E_T(\vect{r}_m)
+  =
   \frac{1}{(2 \pi)^3}
   \int d\vect{r}' \,
   E_G(\vect{r}')
-  \int d\vect{k}_m' \,
-  T(\vect{k}')
-  e^{i \vect{k}_m' \cdot (\vect{r}_m - \vect{r}')},
-\end{align}
-where the notation $\mathcal{E}_G(\vect{r}_m)$
-has been selected to emphasize that
-this spatial dependence may differ from $E_G(\vect{r}_m)$.
-Note that the wavevector integration variables are
-with respect to the basis of the $m$\ts{th} scattered beam $\vect{k}_m'$
-whereas the transfer function is expressed in terms of
-the lab-frame basis $\vect{k}'$.
-To proceed, change the variables of integration
-from $\vect{k}_m'$ to $\vect{k}'$ by noting that
+  \int d\vect{k}_m \,
+  T(\vect{R}_{-m} \vect{k}_m)
+  e^{i \vect{k}_m \cdot (\vect{r}_m - \vect{r}')}.
+\end{equation}
+Further, for the applications considered here,
+it is advantageous to change the variables of integration
+from the $\vect{k}_m$ wavenumber basis
+to the lab-frame wavenumber basis $\vect{k}$.
+Note that
 \begin{equation}
-  d\vect{k}_m'
+  d\vect{k}_m
   =
-  \left| \frac{\partial \vect{k}_m'}{\partial \vect{k}'} \right|
-  d\vect{k}'
+  \left| \frac{\partial \vect{k}_m}{\partial \vect{k}} \right|
+  d\vect{k}
   =
   |\vect{R}_m|
-  d\vect{k}'
+  d\vect{k}
   =
-  d\vect{k}'
+  d\vect{k}
 \end{equation}
-and
+and that
 \begin{align}
-  \vect{k}_m' \cdot (\vect{r}_m - \vect{r}')
+  \vect{k}_m \cdot (\vect{r}_m - \vect{r}')
   &=
-  (\vect{R}_m \vect{k}') \cdot (\vect{R}_m \vect{r} - \vect{r}')
+  (\vect{R}_m \vect{k}) \cdot (\vect{r}_m - \vect{r}')
   \notag \\
   &=
-  (\vect{R}_m \vect{k}')^T (\vect{R}_m \vect{r} - \vect{r}')
+  (\vect{R}_m \vect{k})^T (\vect{r}_m - \vect{r}')
   \notag \\
   &=
-  \vect{k}'^T \vect{R}_m^T (\vect{R}_m \vect{r} - \vect{r}')
+  \vect{k}^T \vect{R}_m^T (\vect{r}_m - \vect{r}')
   \notag \\
   &=
-  \vect{k}'^T (\vect{R}_m^T \vect{R}_m \vect{r} - \vect{R}_m^T \vect{r}')
-  \notag \\
-  &=
-  \vect{k}'
-  \cdot
-  \left[%
-    \vect{r} - \left(\vect{R}_{-m} \vect{r}'\right)
-  \right]
-  \notag \\
-  &=
-  \vect{k}' \cdot \left( \vect{r} - \vect{r}_{-m}' \right)
+  \vect{k} \cdot [\vect{R}_{-m} (\vect{r}_m - \vect{r}')]
 \end{align}
-such that $\mathcal{E}_G(\vect{r}_m)$ becomes
+such that the transformed field $E_T(\vect{r}_m)$ becomes
+\begin{equation}
+  E_T(\vect{r}_m)
+  =
+  \frac{1}{(2 \pi)^3}
+  \int d\vect{r}' \,
+  E_G(\vect{r}')
+  \int d\vect{k} \,
+  T(\vect{k})
+  e^{i \vect{k} \cdot \left[ \vect{R}_{-m} (\vect{r}_m - \vect{r}') \right]},
+  \label{eq:InterferometricMethods:mth_diffracted_beam_Fourier_filtered}
+\end{equation}
+where, again, the abbreviation $\vect{R}_{-m} = \vect{R}(-\theta_m)$
+has been adopted and $\vect{R}(\theta)$ is the rotation matrix given by
+(\ref{eq:InterferometricMethods:rotation_matrix}).
+
+To make further progress,
+a particular form of $T(\vect{k})$ is needed.
+Assume that wavenumbers are filtered
+only in the direction of beam scattering
+i.e.\ $T(\vect{k}) = T(k_x)$.
+(For example, the groove of a phase plate would be aligned
+with the lab-frame $y$-axis to effect such filtering).
+Then
+\begin{equation}
+  \vect{R}_{-m} (\vect{r}_m - \vect{r}')
+  =
+  \begin{pmatrix}
+    (x_m - x') \cos\theta_m + (z_m - z') \sin\theta_m
+    \\
+    y_m - y'
+    \\
+    (z_m - z') \cos\theta_m - (x_m - x') \sin\theta_m
+  \end{pmatrix}
+\end{equation}
+such that
+(\ref{eq:InterferometricMethods:mth_diffracted_beam_Fourier_filtered})
+becomes
 \begin{align}
-  \mathcal{E}_G(\vect{r}_m)
+  E_T(\vect{r}_m)
   &=
   \frac{1}{(2 \pi)^3}
   \int d\vect{r}' \,
   E_G(\vect{r}')
-  \int d\vect{k}' \,
-  T(\vect{k}')
-  e^{i \vect{k}' \cdot (\vect{r} - \vect{r}_{-m}')}.
-  \label{eq:InterferometricMethods:mth_diffracted_beam_Fourier_filtered}
+  \int dk_y \,
+  e^{i k_y (y_m - y')}
+  \notag \\
+  &\qquad\quad \times
+  \int dk_z \,
+  e^{i k_z [(z_m - z') \cos\theta_m - (x_m - x') \sin\theta_m]}
+  \notag \\
+  &\qquad\quad \times
+  \int dk_x \,
+  T(k_x)
+  e^{i k_x \left[ (x_m - x') \cos\theta_m + (z_m - z') \sin\theta_m \right]}
+  \notag \\
+  &=
+  \frac{1}{2 \pi}
+  \int d\vect{r}' \,
+  E_G(\vect{r}')
+  \delta(y_m - y')
+  \notag \\
+  &\qquad\quad \times
+  \delta\bigl( (z_m - z') \cos\theta_m - (x_m - x') \sin\theta_m \bigr)
+  \notag \\
+  &\qquad\quad \times
+  \int dk_x \,
+  T(k_x)
+  e^{i k_x \left[ (x_m - x') \cos\theta_m + (z_m - z') \sin\theta_m \right]}
+  \notag \\
+  &=
+  \frac{1}{2 \pi}
+  \int dx' \,
+  E_G\bigl( x',\, y_m,\, z_m - (x_m - x')\tan \theta_m \bigr)
+  \notag \\
+  &\qquad\quad \times
+  \int dk_x \,
+  T(k_x)
+  e^{i k_x (x_m - x') \sec\theta_m}
+  \notag
 \end{align}
 
-To make further progress,
-a particular form of $T(\vect{k}')$ is needed.
-Assume that $T(\vect{k}') = T(k_x')$ such that
-wavenumbers are filtered only in the direction of beam scattering.
-Then (\ref{eq:InterferometricMethods:mth_diffracted_beam_Fourier_filtered})
-becomes
+
 \begin{align}
   \mathcal{E}_G(\vect{r}_m)
   &=
