@@ -6,7 +6,7 @@
 The effect of wavenumber-dependent manipulation $T(k_x)$
 on the $m$\ts{th} scattered beam is given by
 the phase factor $\mathcal{P}(m, k, x)$ as defined in
-(\ref{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_phase_factor}),
+(\ref{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_transformation}),
 which is repeated here for completeness
 \begin{equation}
   \begin{aligned}
@@ -28,7 +28,7 @@ which is repeated here for completeness
     T(k_x')
     e^{i k_x' (x_m - x')}.
   \end{aligned}
-  \label{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_phase_factor_full}
+  \label{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_transformation_full}
 \end{equation}
 The integrals are over the full domain of $x'$ and $k_x'$, but
 note that contributions to the integral
@@ -39,7 +39,7 @@ the maximum value of the curvature-induced phase factor obeys
   \left[ \frac{k_0 x'^2}{2 R(z)} \right]_{\text{max}}
   \sim
   \frac{k_0 [w(z)]^2}{2 R(z)}.
-  \label{eq:PCIResponseIdentities:curvature_phase_factor_constraint_general}
+  \label{eq:PCIResponseIdentities:curvature_transformation_constraint_general}
 \end{equation}
 Now, in the beam's near field
 ($z \ll z_R$, which is often experimentally relevant),
@@ -54,7 +54,7 @@ as can be easily verified by examining the definitions in
 (\ref{eq:InterferometricMethods:Gaussian_beam_radius_of_curvature}),
 respectively.
 Thus,
-(\ref{eq:PCIResponseIdentities:curvature_phase_factor_constraint_general})
+(\ref{eq:PCIResponseIdentities:curvature_transformation_constraint_general})
 becomes
 \begin{align}
   \left[ \frac{k_0 x'^2}{2 R(z)} \right]_{\text{max}}
@@ -67,7 +67,7 @@ becomes
   &= \frac{z}{z_R}
   \notag \\
   &\ll 1,
-  \label{eq:PCIResponseIdentities:curvature_phase_factor_constraint_near_field}
+  \label{eq:PCIResponseIdentities:curvature_transformation_constraint_near_field}
 \end{align}
 where $z / z_R \ll 1$ follows from the near-field assumption.
 Thus, in the beam's near field,
@@ -87,7 +87,7 @@ $\mathcal{P}(m, k, x)$ reduces to
     T(k_x')
     e^{i k_x' (x_m - x')}.
   \end{aligned}
-  \label{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_phase_factor_near_field}
+  \label{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_transformation_near_field}
 \end{equation}
 This near-field assumption will be implicit
 in the remainder of the discussion about PCI.
@@ -155,7 +155,7 @@ Thus, the PCI phase factor $\mathcal{P}(m, k, x)$ is
       \Biggr\}.
     \end{aligned}
   \end{aligned}
-  \label{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_phase_factor_near_field_integrals}
+  \label{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_transformation_near_field_integrals}
 \end{equation}
 
 
@@ -210,7 +210,7 @@ Finally, note that
 Using (\ref{eq:PCIResponseIdentities:finite_domain_inverse_FT_groove}) and
 (\ref{eq:PCIResponseIdentities:finite_domain_inverse_FT_face}),
 it is easy to see that
-(\ref{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_phase_factor_near_field_integrals})
+(\ref{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_transformation_near_field_integrals})
 becomes
 \begin{equation}
   \begin{aligned}
@@ -236,13 +236,13 @@ becomes
       \Biggr\}.
     \end{aligned}
   \end{aligned}
-  \label{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_phase_factor_near_field_sincs}
+  \label{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_transformation_near_field_sincs}
 \end{equation}
 
 
 \subsection{Integral of offset sinc with complex-Gaussian weighting}
 Note that
-(\ref{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_phase_factor_near_field_sincs})
+(\ref{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_transformation_near_field_sincs})
 consists of several integrals of the form
 \begin{equation}
   I
@@ -437,7 +437,7 @@ and
 \end{equation}
 With these definitions
 the PCI phase factor from
-(\ref{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_phase_factor_near_field_sincs})
+(\ref{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_transformation_near_field_sincs})
 readily reduces to
 \begin{equation}
   \begin{aligned}
@@ -455,7 +455,7 @@ readily reduces to
        \mathcal{D}(m, k_g, k, x)
     \right].
   \end{aligned}
-  \label{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_phase_factor_near_field_difference_functions}
+  \label{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_transformation_near_field_difference_functions}
 \end{equation}
 
 
@@ -474,7 +474,7 @@ Section~\ref{sec:InterferometricMethods:imaging:Gaussian_beam_transformation},
 the waist of the imaged beam
 does \emph{not} necessarily occur at the image plane.
 However, the derivation of
-(\ref{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_phase_factor_near_field})
+(\ref{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_transformation_near_field})
 required assuming that the beam was well within its Rayleigh range
 (i.e.\ $|z_{\image}| \ll z_{R,\image}$).
 Thus, valid application of any of the above derived results to the image plane
@@ -656,7 +656,7 @@ is purely \emph{real}.
 \subsection{Properties of $\mathcal{P}$ in the image plane}
 Using (\ref{eq:PCIResponseIdentities:difference_function_symmetry})
 the PCI phase factor from
-(\ref{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_phase_factor_near_field_difference_functions})
+(\ref{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_transformation_near_field_difference_functions})
 can be readily written as
 \begin{equation}
   \begin{aligned}
@@ -672,7 +672,7 @@ can be readily written as
       G(m, k_{\image}, x_{\image})
     \right],
   \end{aligned}
-  \label{eq:PCIResponseIdentities:phase_factor_Hermitian_decomposed}
+  \label{eq:PCIResponseIdentities:transformation_Hermitian_decomposed}
 \end{equation}
 where
 \begin{align}
@@ -684,12 +684,12 @@ where
     -
     \mathcal{D}(m, k_{g,\image}, k_{\image}, x_{\image})
   \right],
-  \label{eq:PCIResponseIdentities:phase_factor_face}
+  \label{eq:PCIResponseIdentities:transformation_face}
   \\
   G(m, k_{\image}, x_{\image})
   &=
   \frac{i \sqrt{\eta}}{2} \, \mathcal{D}(m, k_{g,\image}, k_{\image}, x_{\image}).
-  \label{eq:PCIResponseIdentities:phase_factor_groove}
+  \label{eq:PCIResponseIdentities:transformation_groove}
 \end{align}
 Here, the notation is mnemonic:
 the non-grooved portion of the phase plate (i.e.\ the ``face'')

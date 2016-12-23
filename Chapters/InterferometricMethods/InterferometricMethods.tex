@@ -1290,117 +1290,64 @@ becomes
   T(k_x)
   e^{i k_x \left[ (x_m - x') \cos\theta_m + (z_m - z') \sin\theta_m \right]}
   \notag \\
-  &=
-  \frac{1}{2 \pi}
-  \int dx' \,
-  E_G\bigl( x',\, y_m,\, z_m - (x_m - x')\tan \theta_m \bigr)
-  \notag \\
-  &\qquad\quad \times
-  \int dk_x \,
-  T(k_x)
-  e^{i k_x (x_m - x') \sec\theta_m}
-  \notag
-\end{align}
-
-
-\begin{align}
-  \mathcal{E}_G(\vect{r}_m)
-  &=
-  \frac{1}{(2 \pi)^3}
-  \int d\vect{r}' \,
-  E_G(\vect{r}')
-  \int dk_x' \,
-  T(k_x')
-  e^{i k_x' (x - x_{-m}')}
-  \notag \\
-  &\qquad\qquad \times
-  \int dk_y' \,
-  e^{i k_y' (y - y_{-m}')}
-  \int dk_z' \,
-  e^{i k_z' (z - z_{-m}')}
-  \notag \\
-  &=
-  \frac{1}{2 \pi}
-  \int d\vect{r}' \,
-  E_G(\vect{r}')
-  \delta(y - y_{-m}')
-  \delta(z - z_{-m}')
-  \notag \\
-  &\qquad\qquad \times
-  \int dk_x' \,
-  T(k_x')
-  e^{i k_x' (x - x_{-m}')}
-  \notag \\
   &\begin{aligned}
     &=
     \frac{1}{2 \pi}
     \int dx' \,
-    E_G(x', y, z + x' \theta_m)
+    E_G\bigl( x',\, y_m,\, z_m - (x_m - x')\tan \theta_m \bigr)
     \\
-    &\qquad\qquad \times
-    \int dk_x' \,
-    T(k_x')
-    e^{i k_x' (x - x_{-m}')}
-  \end{aligned}
-  \notag \\
-  &\begin{aligned}
-    &=
-    \frac{1}{2 \pi}
-    \int dx' \,
-    E_G(x', y, z + x' \theta_m)
-    \\
-    &\qquad\qquad \times
-    \int dk_x' \,
-    T(k_x')
-    e^{i k_x' (x_m - x')}.
+    &\qquad\quad \times
+    \int dk_x \,
+    T(k_x)
+    e^{i k_x (x_m - x') \sec\theta_m}
   \end{aligned}
   \label{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_v1}
 \end{align}
-Contributions to the integral from regions outside of $|x'| \lesssim w(z)$
+Contributions to the integral from regions outside of $|x'| \lesssim w(z_m)$
 are suppressed by the Gaussian envelope such that
 \begin{align}
-  w(z + x' \theta_m)
+  w\bigl( z_m - (x_m - x')\tan \theta_m \bigr)
   &\approx
-  w(z),
+  w(z_m),
   \notag \\
-  R(z + x' \theta_m)
+  R\bigl( z_m - (x_m - x')\tan \theta_m \bigr)
   &\approx
-  R(z),
+  R(z_m),
   \notag \\
-  \psi(z + x' \theta_m)
+  \psi\bigl( z_m - (x_m - x')\tan \theta_m \bigr)
   &\approx
-  \psi(z)
+  \psi(z_m)
   \notag
 \end{align}
-are very good approximations
-when evaluating $E_G(x', y, z + x' \theta_m)$.
-Note that the phase factor $\exp[i k_0 (z + x' \theta_m)]$
-must be fully retained
-(that is, $\exp[i k_0 (z + x' \theta_m)] \not\approx\exp[i k_0 z]$).
+are very good approximations.
+Note that the phase of the Gaussian beam
+\emph{cannot} be approximated in such a manner;
+instead, terms up to first order in $\theta_m$
+must be retained in the phase.
 After making these approximations,
 (\ref{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_v1})
 reduces to
 \begin{equation}
-  \mathcal{E}_G(\vect{r}_m)
+  E_T(\vect{r}_m)
   \approx
-  E_G(0, y, z)
+  E_G(0, y_m, z_m)
   \cdot
-  \mathcal{P}(m, k, x),
+  \mathcal{E}(\vect{r}_m, k),
   \label{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_compact}
 \end{equation}
 where
 \begin{equation}
   \begin{aligned}
-    \mathcal{P}(m, k, x)
+    \mathcal{E}(\vect{r}_m, k)
     &=
     \frac{1}{2 \pi}
     \int dx' \,
-    \exp\left[ \frac{-x'^2}{w(z)^2} \right]
+    \exp\left[ \frac{-x'^2}{w(z_m)^2} \right]
     \exp\left\{%
       i \left[%
-        m k x'
+        m k (x' - x_m)
         +
-        \frac{k_0 x'^2}{2 R(z)}
+        \frac{k_0 x'^2}{2 R(z_m)}
       \right]
     \right\}
     \\
@@ -1409,10 +1356,11 @@ where
     T(k_x')
     e^{i k_x' (x_m - x')}
   \end{aligned}
-  \label{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_phase_factor}
+  \label{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_transformation}
 \end{equation}
-is a complex-valued phase factor
-that results from filtering the scattered radiation by $T(k_x')$.
+is a complex-valued function
+that describes the amplitude and phase transformations
+that result from filtering the scattered radiation by $T(k_x')$.
 Generalizing
 (\ref{eq:InterferometricMethods:phase_modulated_Gaussian_beam_diffraction})
 to allow for such wavenumber-dependent manipulation
@@ -1423,7 +1371,7 @@ yields a total diffracted electric field
   e^{i \bar{\phi}}
   \sum_{m = -\infty}^{\infty}
   i^m \left[ J_m(\tilde{\phi}_0) \right]
-  \mathcal{E}_G(\vect{r}_m)
+  E_T(\vect{r}_m)
   e^{-i (\omega_0 + m \omega) t}.
   \label{eq:InterferometricMethods:phase_modulated_Gaussian_beam_diffraction_Fourier_filtered}
 \end{equation}
@@ -1878,14 +1826,14 @@ retaining phase factors only to second order in $k$ yields
     \right]
   \right\}.
   \end{aligned}
-  \label{eq:InterferometricMethods:mth_diffracted_beam_no_kx_filter_phase_factor}
+  \label{eq:InterferometricMethods:mth_diffracted_beam_no_kx_filter_transformation}
 \end{equation}
 Here, the top line corresponds to
 the Gaussian envelope and phase-front curvature
 of the unscattered ($m = 0$) beam, whereas
 the second line corresponds to interference effects.
 Substituting
-(\ref{eq:InterferometricMethods:mth_diffracted_beam_no_kx_filter_phase_factor})
+(\ref{eq:InterferometricMethods:mth_diffracted_beam_no_kx_filter_transformation})
 into
 (\ref{eq:InterferometricMethods:imaged_total_field_weak_coupling_Fourier_filtered})
 yields
@@ -2880,7 +2828,7 @@ is given by the phase factor $\mathcal{P}(m, k, x)$,
 which is derived and thoroughly discussed in
 Appendix~\ref{app:PCIResponseIdentities}.
 The relevant results are briefly summarized here for completeness.
-Eq.~(\ref{eq:PCIResponseIdentities:phase_factor_Hermitian_decomposed})
+Eq.~(\ref{eq:PCIResponseIdentities:transformation_Hermitian_decomposed})
 shows that the image-plane PCI phase factor readily reduces to
 \begin{equation}
   \begin{aligned}
@@ -2896,13 +2844,13 @@ shows that the image-plane PCI phase factor readily reduces to
       G(m, k_{\image}, x_{\image})
     \right],
   \end{aligned}
-  \label{eq:InterferometricMethods:PCI_phase_factor_Hermitian_decomposed}
+  \label{eq:InterferometricMethods:PCI_transformation_Hermitian_decomposed}
 \end{equation}
 where the phase-plate face acts on the $m$\ts{th} scattered beam via $F$, and
 the phase-plate groove acts on the $m$\ts{th} scattered beam via $G$.
 $F$ and $G$ are themselves defined in
-(\ref{eq:PCIResponseIdentities:phase_factor_face}) and
-(\ref{eq:PCIResponseIdentities:phase_factor_groove}).
+(\ref{eq:PCIResponseIdentities:transformation_face}) and
+(\ref{eq:PCIResponseIdentities:transformation_groove}).
 Of particular note, $F$ is Hermitian with respect to $m$
 \begin{equation}
   F(-m, k_{\image}, x_{\image}) = F^*(m, k_{\image}, x_{\image}),
