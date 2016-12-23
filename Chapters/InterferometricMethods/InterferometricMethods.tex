@@ -1696,7 +1696,7 @@ is imaged as
       &i^m \left[ J_m(\tilde{\phi}_0) \right]
       \\
       &\times
-      \image[\mathcal{E}_G(\vect{r}_{m,\object})]
+      \image[E_T(\vect{r}_{m, \object})]
       e^{-i (\omega_0 + m \omega) t}
     \biggr\},
   \end{aligned}
@@ -1704,23 +1704,36 @@ is imaged as
 \end{align}
 where the linearity of $\image$ has been invoked
 to bring the operator within the summation.
-Referencing the definition of $\mathcal{E}_G(\vect{r}_{m})$
+Referencing the definition of $E_T(\vect{r}_{m})$
 (\ref{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_compact}),
 it readily follows that
 \begin{align}
-  \image[\mathcal{E}_G(\vect{r}_{m,\object})]
+  \image[E_T(\vect{r}_{m, \object})]
   &=
   \mathcal{I}[%
-    E_G(0, y_{\object}, z_{\object})
+    E_G(0, y_{m, \object}, z_{m, \object})
     \cdot
-    \mathcal{P}(m, k, x_{\object})
+    \mathcal{E}(\vect{r}_{m, \object}, k)
   ]
   \notag \\
   &=
-  E_G(0, y_{\image}, z_{\image})
+  E_G(0, y_{m, \image}, z_{m, \image})
   \cdot
-  \mathcal{P}(m, k_{\image}, x_{\image}).
+  \mathcal{E}(\vect{r}_{m, \image}, k_{\image})
+  \notag \\
+  &\approx
+  E_G(0, y_{\image}, z_{\image})
+  e^{i m k_{\image} x_{\image}}
+  \cdot
+  \mathcal{E}(\vect{r}_{m, \image}, k_{\image}),
 \end{align}
+where the last step naturally follows from
+the image-plane coordinate transformation
+(\ref{eq:InterferometricMethods:coordinate_transformation_imaging_plane})
+and the following approximations:
+$w(z_{m, \image}) \approx w(z_{\image})$,
+$R(z_{m, \image}) \approx R(z_{\image})$, and
+$\psi(z_{m, \image}) \approx \psi(z_{\image})$.
 Thus, the imaged field
 (\ref{eq:InterferometricMethods:imaged_total_field_v1}) becomes
 \begin{equation}
@@ -1733,12 +1746,19 @@ Thus, the imaged field
     &\quad \times
     \sum_{m = -\infty}^{\infty}
     i^m \left[ J_m(\tilde{\phi}_0) \right]
-    \mathcal{P}(m, k_{\image}, x_{\image})
-    e^{-i m \omega t},
+    \mathcal{E}(\vect{r}_{m, \image}, k_{\image})
+    e^{i m \xi},
   \end{aligned}
   \label{eq:InterferometricMethods:imaged_total_field}
 \end{equation}
 where
+\begin{equation}
+  \xi
+  =
+  k_{\image} x_{\image} - \omega t
+  \label{eq:InterferometricMethods:image_plane_xi}
+\end{equation}
+and
 $E_G(0, y_{\image}, z_{\image}, t)
 =
 E_G(0, y_{\image}, z_{\image}) e^{-i \omega_0 t}$.
@@ -1854,7 +1874,7 @@ where
   \xi
   &\equiv
   k_{\image} x_{\image} - \omega t,
-  \label{eq:InterferometricMethods:image_plane_xi}
+  % \label{eq:InterferometricMethods:image_plane_xi}
   \\
   \kappa
   &\equiv
