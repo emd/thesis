@@ -982,7 +982,14 @@ where
   \frac{m k}{k_0}.
   \label{eq:InterferometricMethods:scattering_angles}
 \end{equation}
-This coordinate transformation can be written more compactly as
+Typically, $k / k_0 \ll 1$ such that
+\begin{equation}
+  \cos \theta_m
+  \approx
+  1 - \frac{1}{2} \left( \frac{m k}{k_0} \right)^2
+\end{equation}
+is a very good approximation.
+The above coordinate transformation can be written more compactly as
 \begin{equation}
   \vect{r}_m
   =
@@ -1022,53 +1029,14 @@ and its determinant is unity
   \label{eq:InterferometricMethods:rotation_matrix_determinant}
 \end{equation}
 such that the rotation preserves lengths, i.e.\ $r_m = r$.
-Typically, $k / k_0 \ll 1$ such that the coordinate transforms reduce to
-\begin{equation}
-  \vect{r}_m
-  =
-  \begin{pmatrix}
-    x_m
-    \\
-    y_m
-    \\
-    z_m
-  \end{pmatrix}
-  \approx
-  \begin{pmatrix}
-    x - z \theta_m
-    \\
-    y
-    \\
-    z + x \theta_m
-  \end{pmatrix},
-  \label{eq:InterferometricMethods:object_plane_coordinate_transformation_explicit_small_angle}
-\end{equation}
-and
-\begin{equation}
-  \vect{r}
-  =
-  \begin{pmatrix}
-    x
-    \\
-    y
-    \\
-    z
-  \end{pmatrix}
-  \approx
-  \begin{pmatrix}
-    x_m + z_m \theta_m
-    \\
-    y_m
-    \\
-    z_m - x_m \theta_m
-  \end{pmatrix}.
-  \label{eq:InterferometricMethods:object_plane_coordinate_transformation_explicit_small_angle_inverse}
-\end{equation}
-Substituting coordinate transformation
-(\ref{eq:InterferometricMethods:object_plane_coordinate_transformation_explicit_small_angle_inverse})
-into the Fraunhofer diffracted field
+It is sufficient to retain terms only to first order in
+$k / k_0$ (small scattering angle) and $x / z$ (paraxial limit)
+for the \emph{amplitude} dependencies of the diffracted field
+(this is \emph{not}, in general, true for the phase dependencies).
+Thus, $1 / z \approx 1 / z_m$ and $x \approx x_m + (m k / k_0) z$
+such that the Fraunhofer diffracted field
 (\ref{eq:InterferometricMethods:Fraunhofer_phase_modulated_Gaussian_beam_diffraction})
-and defining $\rho_m = (x_m^2 + y_m^2)^{1/2}$ yields
+can be rewritten as
 \begin{equation}
   \begin{aligned}
     E(\vect{r}, t)
@@ -1087,7 +1055,7 @@ and defining $\rho_m = (x_m^2 + y_m^2)^{1/2}$ yields
     \right],
   \end{aligned}
 \end{equation}
-where the far-field limit has been used to approximate $1/z \approx 1/z_m$.
+where $\rho_m = (x_m^2 + y_m^2)^{1/2}$.
 Now, the bracketed expression has the form of
 (\ref{eq:InterferometricMethods:Fraunhofer_Gaussian_beam_diffraction})
 for a far-field Gaussian beam; thus,
