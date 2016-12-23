@@ -1603,6 +1603,7 @@ from the nominal optical axis
 (assuming such displacements do not violate the paraxial limit, of course);
 that is, a scattered beam's width and radius of curvature
 evolve identically to those of the unscattered beam.
+\graffito{\textcolor{red}{not sure if correct\ldots}}
 
 The properties of the image-plane beams are easily determined.
 Using the ray matrix of an imaging system from
@@ -1786,7 +1787,7 @@ Here, $\Gamma$ is the gamma function, and
 $\Gamma(m + 1) = m!$ for positive integer $m$.
 Dropping terms exceeding first order in $\tilde{\phi}_0$ and
 introducing the notational shorthand
-$\mathcal{P}_m \equiv \mathcal{P}(m, k_{\image}, x_{\image})$,
+$\mathcal{E}_m \equiv \mathcal{E}(\vect{r}_{m, \image}, k_{\image})$,
 the imaged field (\ref{eq:InterferometricMethods:imaged_total_field}) becomes
 \begin{equation}
   \begin{aligned}
@@ -1797,13 +1798,13 @@ the imaged field (\ref{eq:InterferometricMethods:imaged_total_field}) becomes
   \\
   &\quad\times
   \biggl\{%
-    \mathcal{P}_{0}
+    \mathcal{E}_{0}
     +
     i \frac{\tilde{\phi}_0}{2}
     \left[
-      \mathcal{P}_{1} e^{-i \omega t}
+      \mathcal{E}_{1} e^{i \xi}
       +
-      \mathcal{P}_{-1} e^{i \omega t}
+      \mathcal{E}_{-1} e^{-i \xi}
     \right]
   \biggr\}.
   \end{aligned}
@@ -1813,46 +1814,34 @@ the imaged field (\ref{eq:InterferometricMethods:imaged_total_field}) becomes
 It is enlightening to examine the case where there is
 no wavenumber-dependent manipulation of the scattered beams
 (i.e.\ $T(k_x) = 1$), for which
-the phase factor $\mathcal{P}(m, k_{\image}, x_{\image})$ readily reduces to
-\begin{equation}
-  \mathcal{P}(m, k_{\image}, x_{\image})
-  =
-  \exp\left[\frac{-x_{m,\image}^2}{w(z_{\image})^2} \right]
+$\mathcal{E}(\vect{r}_{m, \image}, k_{\image})$
+readily reduces to $x$-dependencies of
+the Gaussian envelope and phase-front curvature
+of the unscattered ($m = 0$) beam:
+\begin{align}
+  \mathcal{E}(\vect{r}_{m, \image}, k_{\image})
+  &=
+  \exp\left[\frac{-x_{m, \image}^2}{w(z_{m, \image})^2} \right]
   \exp\left\{%
     i \left[%
-      m k_{\image} x_{m,\image}
-      +
-      \frac{k_0 x_{m,\image}^2}{2 R(z_{\image})}
+      \frac{k_0 x_{m, \image}^2}{2 R(z_{m, \image})}
     \right]
-  \right\}.
-\end{equation}
-Now, the image-plane coordinate transformation
-from $x_{m,\image}$ to $x_{\image}$ is given by
-(\ref{eq:InterferometricMethods:coordinate_transformation_imaging_plane}).
-Neglecting the small variation in the Gaussian envelope and
-retaining phase factors only to second order in $k$ yields
-\begin{equation}
-  \begin{aligned}
-  \mathcal{P}(m, k_{\image}, x_{\image})
+  \right\}
+  \notag \\
   &\approx
   \exp\left[\frac{-x_{\image}^2}{w(z_{\image})^2} \right]
-  \exp\left[ \frac{i k_0 x_{\image}^2}{2 R(z_{\image})} \right]
-  \\
-  &\quad \times
   \exp\left\{%
     i \left[%
-      m k_{\image} x_{\image}
-      -
-      \frac{(m k_{\image} x_{\image})^2}{2 k_0 R(z_{\image})}
+      \frac{k_0 x_{\image}^2}{2 R(z_{\image})}
     \right]
-  \right\}.
-  \end{aligned}
+  \right\},
   \label{eq:InterferometricMethods:mth_diffracted_beam_no_kx_filter_transformation}
-\end{equation}
-Here, the top line corresponds to
-the Gaussian envelope and phase-front curvature
-of the unscattered ($m = 0$) beam, whereas
-the second line corresponds to interference effects.
+\end{align}
+which follows naturally from the image-plane coordinate transformation
+(\ref{eq:InterferometricMethods:coordinate_transformation_imaging_plane})
+and the following approximations:
+$w(z_{m, \image}) \approx w(z_{\image})$ and
+$R(z_{m, \image}) \approx R(z_{\image})$.
 Substituting
 (\ref{eq:InterferometricMethods:mth_diffracted_beam_no_kx_filter_transformation})
 into
@@ -1861,30 +1850,6 @@ yields
 \begin{equation}
   E(\vect{r}_{\image}, t)
   =
-  E_G(\vect{r}_{\image}, t)
-  e^{i \bar{\phi}}
-  \left[%
-    1
-    +
-    i \tilde{\phi}_0 e^{-i \kappa} \cos\xi
-  \right],
-\end{equation}
-where
-\begin{align}
-  \xi
-  &\equiv
-  k_{\image} x_{\image} - \omega t,
-  % \label{eq:InterferometricMethods:image_plane_xi}
-  \\
-  \kappa
-  &\equiv
-  \frac{(k_{\image} x_{\image})^2}{2 k_0 R(z_{\image})}.
-  \label{eq:InterferometricMethods:image_plane_kappa}
-\end{align}
-Normally, $\kappa \ll 1$ such that the imaged field reduces to
-\begin{equation}
-  E(\vect{r}_{\image}, t)
-  \approx
   E_G(\vect{r}_{\image}, t)
   e^{i \bar{\phi}}
   \left[%
