@@ -1751,16 +1751,16 @@ Thus, the imaged field
     \sum_{m = -\infty}^{\infty}
     i^m \left[ J_m(\tilde{\phi}_0) \right]
     \mathcal{E}(\vect{r}_{m, \image}, k_{\image})
-    e^{i m \xi},
+    e^{i m \nu},
   \end{aligned}
   \label{eq:InterferometricMethods:imaged_total_field}
 \end{equation}
 where
 \begin{equation}
-  \xi
+  \nu
   =
   k_{\image} x_{\image} - \omega t
-  \label{eq:InterferometricMethods:image_plane_xi}
+  \label{eq:InterferometricMethods:image_plane_nu}
 \end{equation}
 and
 $E_G(0, y_{\image}, z_{\image}, t)
@@ -1805,9 +1805,9 @@ the imaged field (\ref{eq:InterferometricMethods:imaged_total_field}) becomes
     +
     i \frac{\tilde{\phi}_0}{2}
     \left[
-      \mathcal{E}_{1} e^{i \xi}
+      \mathcal{E}_{1} e^{i \nu}
       +
-      \mathcal{E}_{-1} e^{-i \xi}
+      \mathcal{E}_{-1} e^{-i \nu}
     \right]
   \biggr\}.
   \end{aligned}
@@ -1858,7 +1858,7 @@ yields
   \left[%
     1
     +
-    i \tilde{\phi}_0 \cos\xi
+    i \tilde{\phi}_0 \cos\nu
   \right].
   \label{eq:InterferometricMethods:imaged_total_field_weak_coupling}
 \end{equation}
@@ -1925,7 +1925,7 @@ Thus, the probe radiation in the image plane is given as
   \left[%
     1
     +
-    i \tilde{\phi}_0 \cos\xi
+    i \tilde{\phi}_0 \cos\nu
   \right].
 \end{equation}
 Now, assume that the imaged probe radiation
@@ -1946,7 +1946,7 @@ The total field impinging on the detector is then
     \left(%
       1
       +
-      i \tilde{\phi}_0 \cos\xi
+      i \tilde{\phi}_0 \cos\nu
     \right)
   \right],
 \end{equation}
@@ -1960,7 +1960,7 @@ and, to first order in $\tilde{\phi}_0$, the corresponding intensity is
     +
     \cos(\phi_R - \bar{\phi})
     +
-    \tilde{\phi}_0 \sin(\phi_R - \bar{\phi}) \cos\xi
+    \tilde{\phi}_0 \sin(\phi_R - \bar{\phi}) \cos\nu
   \right],
   \label{eq:InterferometricMethods:interferometer_intensity_arbitrary_reference}
 \end{equation}
@@ -2005,7 +2005,7 @@ such that the resulting intensity is
       \\
       &+
       \tilde{\phi}_0
-      \sin(\phi_R - \bar{\phi}) \cos\xi
+      \sin(\phi_R - \bar{\phi}) \cos\nu
     \bigr].
   \end{aligned}
   \label{eq:InterferometricMethods:homodyne_intensity}
@@ -2034,7 +2034,7 @@ the total power $P_{j, \, \text{hom}}$ incident on this element is then
       \\
       &\qquad+
       \tilde{\phi}_0
-      \sin(\phi_R - \bar{\phi}) \cos\xi
+      \sin(\phi_R - \bar{\phi}) \cos\nu
     \biggr] dx_{\image},
   \end{aligned}
   \label{eq:InterferometricMethods:homodyne_interferometer_total_power_per_element_integral}
@@ -2047,13 +2047,13 @@ will also be applied in other sections,
 it is explicitly evaluated here for later reference
 \begin{equation}
   \int_{x_{\image,j} - s_x / 2}^{x_{\image,j} + s_x / 2}
-  \cos(\xi + \theta) dx_{\image}
+  \cos(\nu + \theta) dx_{\image}
   =
   s_x
   \cdot
   T_{\text{fsv}}(k_{\image})
   \cdot
-  \cos(\xi_j + \theta),
+  \cos(\nu_j + \theta),
   \label{eq:InterferometricMethods:finite_sampling_volume_integral}
 \end{equation}
 where
@@ -2075,8 +2075,8 @@ is the normalized sinc function,
 \end{equation}
 is the first zero of $T_{\text{fsv}}(k_{\image})$,
 \begin{equation}
-  \xi_j = k_{\image} x_{\image,j} - \omega t,
-  \label{eq:InterferometricMethods:xi_j}
+  \nu_j = k_{\image} x_{\image,j} - \omega t,
+  \label{eq:InterferometricMethods:nu_j}
 \end{equation}
 and $\theta$ is a \emph{constant} with respect to $x_{\image}$.
 Thus, the homodyne optical power becomes
@@ -2094,7 +2094,7 @@ Thus, the homodyne optical power becomes
       \tilde{\phi}_0
       \sin(\phi_R - \bar{\phi})
       T_{\text{fsv}}(k_{\image})
-      \cos\xi_j
+      \cos\nu_j
     \bigr],
   \end{aligned}
   \label{eq:InterferometricMethods:homodyne_interferometer_total_power_per_element}
@@ -2131,7 +2131,7 @@ $P_{j, \, \text{hom}}(t)
   \tilde{\phi}_0
   \sin(\phi_R - \bar{\phi})
   T_{\text{fsv}}(k_{\image})
-  \cos\xi_j.
+  \cos\nu_j.
 \end{align}
 Then, because $\tilde{\phi}_0 \ll 1$
 \begin{equation}
@@ -2158,7 +2158,7 @@ Then
   \cdot
   T_{\text{hom}}(k_{\image})
   \cdot
-  \tilde{\phi}_0 \cos\xi_j,
+  \tilde{\phi}_0 \cos\nu_j,
 \end{equation}
 where
 \begin{equation}
@@ -2171,7 +2171,7 @@ where
 \end{equation}
 is the homodyne interferometer's wavenumber transfer function.
 That is, the homodyne interferometer
-weights the phase-fluctuation images $\tilde{\phi}_0 \cos\xi_j$
+weights the phase-fluctuation images $\tilde{\phi}_0 \cos\nu_j$
 by its transfer function $T_{\text{hom}}(k_{\image})$.
 The prefactor $I_G(\vect{r}_{\image,j}) / I_G(0)$
 can (and should) be accounted for
@@ -2258,7 +2258,7 @@ the intensity becomes
       \\
       &+
       \tilde{\phi}_0
-      \sin(\Delta \omega_0 t - \bar{\phi}) \cos\xi
+      \sin(\Delta \omega_0 t - \bar{\phi}) \cos\nu
     \bigr].
   \end{aligned}
   \label{eq:InterferometricMethods:heterodyne_intensity}
@@ -2320,7 +2320,7 @@ the total power $P_{j, \, \text{het}}$ incident on this element is then
       \\
       &\qquad+
       \tilde{\phi}_0
-      \sin(\Delta \omega_0 t - \bar{\phi}) \cos\xi
+      \sin(\Delta \omega_0 t - \bar{\phi}) \cos\nu
     \biggr] dx
   \end{aligned}
   \notag \\
@@ -2336,7 +2336,7 @@ the total power $P_{j, \, \text{het}}$ incident on this element is then
       \tilde{\phi}_0
       \sin(\Delta \omega_0 t - \bar{\phi})
       T_{\text{fsv}}(k_{\image})
-      \cos\xi_j
+      \cos\nu_j
     \biggr],
   \end{aligned}
   \label{eq:InterferometricMethods:heterodyne_interferometer_total_power_per_element}
@@ -2349,7 +2349,7 @@ the finite sampling-volume integral in
 has been referenced.
 Note that the dominant Fourier components of $P_{j, \, \text{het}}$
 sit at the intermediate frequency $\pm \Delta \omega_0$ but that
-the phase-fluctuation term $\sin(\Delta \omega_0 t - \bar{\phi}) \cos\xi_j$
+the phase-fluctuation term $\sin(\Delta \omega_0 t - \bar{\phi}) \cos\nu_j$
 produces sidebands at $\pm (\Delta \omega_0 \pm \omega)$.
 
 The heterodyne interference signal must be demodulated
@@ -2406,7 +2406,7 @@ Note that $P_{j,I}$ and $P_{j,Q}$ can be conveniently combined as
     +
     i \tilde{\phi}_0
     T_{\text{fsv}}(k_{\image})
-    \cos\xi_j
+    \cos\nu_j
   \right].
   \label{eq:InterferometricMethods:heterodyne_interferometer_I_and_Q_power_per_element}
 \end{align}
@@ -2434,7 +2434,7 @@ can be separated into equilibrium and fluctuating components as
   \tilde{\phi}_0
   \sin\bar{\phi} \,
   T_{\text{fsv}}(k_{\image})
-  \cos\xi_j,
+  \cos\nu_j,
   \\
   \tilde{P}_{j,Q}(t)
   &=
@@ -2442,7 +2442,7 @@ can be separated into equilibrium and fluctuating components as
   \tilde{\phi}_0
   \cos\bar{\phi} \,
   T_{\text{fsv}}(k_{\image})
-  \cos\xi_j.
+  \cos\nu_j.
 \end{align}
 As is the case for the homodyne interferometer,
 there are three potentially dynamic quantities:
@@ -2494,7 +2494,7 @@ in the demodulated signals to be
   I_G(\vect{r}_{\image,j}) A
   \tilde{\phi}_0
   T_{\text{fsv}}(k_{\image})
-  \cos\xi_j
+  \cos\nu_j
 \end{align}
 such that
 \begin{equation}
@@ -2505,7 +2505,7 @@ such that
   T_{\text{het}}(k_{\image})
   \cdot
   \tilde{\phi}_0
-  \cos\xi_j,
+  \cos\nu_j,
 \end{equation}
 where
 \begin{equation}
@@ -2516,7 +2516,7 @@ where
 \end{equation}
 is the heterodyne interferometer's wavenumber transfer function.
 That is, the heterodyne interferometer
-weights the phase-fluctuation images $\tilde{\phi}_0 \cos\xi_j$
+weights the phase-fluctuation images $\tilde{\phi}_0 \cos\nu_j$
 by its transfer function $T_{\text{het}}(k_{\image})$.
 The prefactor $I_G(\vect{r}_{\image,j}) / I_G(0)$
 can (and should) be accounted for
@@ -2619,7 +2619,7 @@ such that
   =
   i E_G(\vect{r}_{\image}, t) e^{i \bar{\phi}}
   \left[%
-    \sqrt{\eta} + \tilde{\phi}_0 \cos\xi
+    \sqrt{\eta} + \tilde{\phi}_0 \cos\nu
   \right],
   \label{eq:InterferometricMethods:pci_imaged_field}
 \end{equation}
@@ -2631,7 +2631,7 @@ and the corresponding intensity, to first order in $\tilde{\phi}_0$, is
   \left[%
     \eta
     +
-    2 \sqrt{\eta} \tilde{\phi}_0 \cos\xi
+    2 \sqrt{\eta} \tilde{\phi}_0 \cos\nu
   \right].
   \label{eq:InterferometricMethods:pci_intensity}
 \end{equation}
@@ -2874,15 +2874,15 @@ readily reduces to
     &+
     i \frac{\tilde{\phi}_0}{2}
     \biggl[
-      (F_{1} + G_{1}) e^{i \xi}
+      (F_{1} + G_{1}) e^{i \nu}
       \\
       &+
-      (F_{-1} + G_{-1}) e^{-i \xi}
+      (F_{-1} + G_{-1}) e^{-i \nu}
     \biggr]
   \biggr\},
   \end{aligned}
 \end{equation}
-where $\xi$ is defined in (\ref{eq:InterferometricMethods:image_plane_xi}) and
+where $\nu$ is defined in (\ref{eq:InterferometricMethods:image_plane_nu}) and
 $E_G(\vect{r}_{\image}, t)$ would be the image-plane electric field
 of the unscattered beam in the \emph{absence} of the phase plate.
 Now, recall that $F$ is Hermitian such that
@@ -2897,10 +2897,10 @@ using these substitutions, the field further reduces to
     E_G(\vect{r}_{\image}, t)
     e^{i \bar{\phi}}
     \biggl\{%
-      &\real(F_0) - \tilde{\phi}_0 \imag(G_1 e^{i \xi})
+      &\real(F_0) - \tilde{\phi}_0 \imag(G_1 e^{i \nu})
       \\
       &+
-      i \left[ \imag(G_0) + \tilde{\phi}_0 \real(F_1 e^{i \xi}) \right]
+      i \left[ \imag(G_0) + \tilde{\phi}_0 \real(F_1 e^{i \nu}) \right]
     \biggr\},
   \end{aligned}
 \end{equation}
@@ -2917,9 +2917,9 @@ and the corresponding intensity, to first order in $\tilde{\phi}_0$, is
       +
       2 \tilde{\phi}_0
       \bigl[%
-        \imag(G_0) \real(F_1 e^{i \xi})
+        \imag(G_0) \real(F_1 e^{i \nu})
         -
-        \real(F_0) \imag(G_1 e^{i \xi})
+        \real(F_0) \imag(G_1 e^{i \nu})
       \bigr]
     \biggr\},
   \end{aligned}
@@ -2927,7 +2927,7 @@ and the corresponding intensity, to first order in $\tilde{\phi}_0$, is
 where $I_G(\vect{r}_{\image})$
 would be the intensity profile (averaged over an optical cycle)
 of the unscattered beam in the \emph{absence} of the phase plate.
-Using the fact that $e^{i \xi} = \cos\xi + {i \sin\xi}$,
+Using the fact that $e^{i \nu} = \cos\nu + {i \sin\nu}$,
 $F_1 = \real(F_1) + {i \cdot \imag(F_1)}$, and
 $G_1 = \real(G_1) + {i \cdot \imag(G_1)}$,
 the image-plane intensity further reduces to
@@ -2941,11 +2941,11 @@ the image-plane intensity further reduces to
       \\
       &+
       2 \tilde{\phi}_0
-      \left[ \imag(G_0)\real(F_1) - \real(F_0)\imag(G_1) \right] \cos\xi
+      \left[ \imag(G_0)\real(F_1) - \real(F_0)\imag(G_1) \right] \cos\nu
       \\
       &-
       2 \tilde{\phi}_0
-      \left[ \imag(G_0)\imag(F_1) + \real(F_0)\real(G_1) \right] \sin\xi
+      \left[ \imag(G_0)\imag(F_1) + \real(F_0)\real(G_1) \right] \sin\nu
     \biggr\}.
   \end{aligned}
   \label{eq:InterferometricMethods:PCI_image_plane_intensity_linear_combination_of_sine_and_cosine}
@@ -2994,7 +2994,7 @@ can be rewritten as
       \real \left[%
         T_{\text{pp}}(k_{\image}, x_{\image})
         \cdot
-        e^{i \xi}
+        e^{i \nu}
       \right]
     \right\},
   \end{aligned}
@@ -3035,7 +3035,7 @@ While the transfer function is real for $x_{\image} = 0$, note that
 $T_{\text{pp}}(k_{\image}, x_{\image})$ is, in general, complex valued.
 Further, perfect imaging requires that
 $\theta(k_{\image}, x_{\image}) \equiv 0$ such that
-$\tilde{I}_{\text{pci}}(\vect{r}_{\image}, t) \propto \cos \xi$.
+$\tilde{I}_{\text{pci}}(\vect{r}_{\image}, t) \propto \cos \nu$.
 However, as will be shown in
 Sec.~\ref{sec:InterferometricMethods:selection:pci_low_k_upshift},
 $\theta(k_{\image}, x_{\image})$ differs substantially from zero
@@ -3069,7 +3069,7 @@ the total power $P_{j, \, \text{pci}}$ incident on this element is then
       \real \left[%
         T_{\text{pp}}(k_{\image}, x_{\image})
         \cdot
-        e^{i \xi}
+        e^{i \nu}
       \right]
     \right\} dx_{\image}
   \end{aligned}
@@ -3090,7 +3090,7 @@ the total power $P_{j, \, \text{pci}}$ incident on this element is then
       \real \left[%
         T_{\text{pp}}(k_{\image}, x_{\image, j})
         \cdot
-        e^{i \xi_j}
+        e^{i \nu_j}
       \right]
     \right\},
   \end{aligned}
@@ -3148,7 +3148,7 @@ Further, define the fluctuating power in the PCI signal to be
       \real \left[%
         T_{\text{pp}}(k_{\image}, x_{\image, j})
         \cdot
-        e^{i \xi_j}
+        e^{i \nu_j}
       \right]
     \right\}
   \end{aligned}
@@ -3164,7 +3164,7 @@ such that
     T_{\text{pci}}(k_{\image}, x_{\image, j})
     \cdot
     \tilde{\phi}_0
-    e^{i \xi_j}
+    e^{i \nu_j}
   \right],
   \label{eq:InterferometricMethods:PCI_ratio_fluctuating_to_equilibrium_power}
 \end{equation}
@@ -3186,7 +3186,7 @@ where
 \end{align}
 is the PCI's wavenumber transfer function.
 That is, the PCI weights
-the complex-valued phase-fluctuation images $e^{i \xi_j}$
+the complex-valued phase-fluctuation images $e^{i \nu_j}$
 by its transfer function $T_{\text{pci}}(k_{\image}, x_{\image, j})$.
 The prefactor $I_G(\vect{r}_{\image,j}) / I_G(0)$
 can (and should) be accounted for
@@ -3541,7 +3541,7 @@ $\tilde{p}_j(t)$
   \left[ \frac{\tilde{P}_{j, \, \text{pci}}(t)}{P_{\text{sat}}} \right]
   \notag \\
   &=
-  \cos\left[ \xi_j + \theta(k_{\image}, x_{\image, j}) \right].
+  \cos\left[ \nu_j + \theta(k_{\image}, x_{\image, j}) \right].
 \end{align}
 (This choice of normalization becomes readily apparent after referencing
 (\ref{eq:InterferometricMethods:PCI_ratio_fluctuating_to_equilibrium_power})).
