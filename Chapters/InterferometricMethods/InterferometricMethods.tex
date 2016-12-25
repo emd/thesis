@@ -1340,21 +1340,23 @@ where
   \begin{aligned}
     \mathcal{E}(\vect{r}_m, k)
     &=
-    \frac{1}{2 \pi}
+    \frac{e^{-i m k x_m}}{2 \pi}
+    \\
+    &\quad \times
     \int dx' \,
     \exp\left[ \frac{-x'^2}{w(z_m)^2} \right]
     \exp\left\{%
       i \left[%
-        m k (x' - x_m)
+        m k x'
         +
         \frac{k_0 x'^2}{2 R(z_m)}
       \right]
     \right\}
     \\
-    &\qquad \times
-    \int dk_x' \,
-    T(k_x')
-    e^{i k_x' (x_m - x')}
+    &\quad \times
+    \int dk_x \,
+    T(k_x)
+    e^{i k_x (x_m - x')}
   \end{aligned}
   \label{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_transformation}
 \end{equation}
