@@ -33,16 +33,18 @@ which is repeated here for completeness
   \label{eq:PCIResponseIdentities:mth_diffracted_beam_kx_filtered_transformation_full}
 \end{equation}
 The integrals are over the full domain of $x'$ and $k_x$, but
-note that contributions to the integral
+contributions to the integral
 from regions outside of $|x'| \lesssim w(z)$
 are suppressed by the Gaussian envelope such that
-the maximum value of the curvature-induced phase factor obeys
 \begin{equation}
-  \left[ \frac{k_0 x'^2}{2 R(z)} \right]_{\text{max}}
-  \sim
-  \frac{k_0 [w(z)]^2}{2 R(z)}.
+  \frac{k_0 x'^2}{2 R(z_m)}
+  \lesssim
+  \frac{k_0 [w(z)]^2}{2 R(z)},
   \label{eq:PCIResponseIdentities:curvature_transformation_constraint_general}
 \end{equation}
+where the approximations
+$w(z_m) \approx w(z)$ and $R(z_m) \approx R(z)$
+have been used.
 Now, in the beam's near field
 ($z \ll z_R$, which is often experimentally relevant),
 the beam's waist and radius of curvature are
@@ -59,12 +61,12 @@ Thus,
 (\ref{eq:PCIResponseIdentities:curvature_transformation_constraint_general})
 becomes
 \begin{align}
-  \left[ \frac{k_0 x'^2}{2 R(z)} \right]_{\text{max}}
-  &\sim
+  \frac{k_0 x'^2}{2 R(z_m)}
+  &\lesssim
   \frac{k_0 [w(z)]^2}{2 R(z)}
   \notag \\
   &\approx
-  \frac{k_0 w_0^2}{2 (z / z_R)}
+  \frac{k_0 w_0^2}{2 (z_R^2 / z)}
   \notag \\
   &= \frac{z}{z_R}
   \notag \\
@@ -81,7 +83,7 @@ $\mathcal{E}(\vect{r}_m, k)$ reduces to
     &\approx
     \frac{e^{-i m k x_m}}{2 \pi}
     \int dx' \,
-    e^{-\left[ x' / w(z) \right]^2}
+    e^{-\left[ x' / w(z_m) \right]^2}
     e^{i m k x'}
     \\
     &\qquad \times
@@ -136,7 +138,7 @@ Thus, for PCI
     &=
     \frac{e^{-i m k x_m}}{2 \pi}
     \int dx' \,
-    e^{-\left[ x' / w(z) \right]^2}
+    e^{-\left[ x' / w(z_m) \right]^2}
     e^{i m k x'}
     \\
     &\begin{aligned}
@@ -367,18 +369,21 @@ in terms of complex error functions as follows
   \frac{1}{\sqrt{\pi}}
   e^{-a x_0^2}
   e^{i c x_0}
-  \int_{u(c, - b)}^{u(c, b)} du \,
+  \int_{u(c - b, a, x_0)}^{u(c + b, a, x_0)} du \,
   e^{-u^2}
   \notag \\
-  &=
-  \frac{1}{2}
-  e^{-a x_0^2}
-  e^{i c x_0}
-  \left\{
-    \erf[u(c, b)]
-    -
-    \erf[u(c, - b)]
-  \right\},
+  &\begin{aligned}
+    =
+    \frac{1}{2}
+    e^{-a x_0^2}
+    e^{i c x_0}
+    \bigl\{
+      &\erf[u(c + b, a, x_0)]
+      \\
+      &-
+      \erf[u(c - b, a, x_0)]
+    \bigr\},
+  \end{aligned}
   \label{eq:PCIResponseIdentities:I_x0_abc_evaluated}
 \end{align}
 where the error function is defined for complex argument $z$ as
@@ -391,7 +396,7 @@ where the error function is defined for complex argument $z$ as
 \end{equation}
 and
 \begin{equation}
-  u(c, b) = \frac{1}{2 \sqrt{a}} [(c + b) + i 2 a x_0].
+  u(\gamma, a, x_0) = \frac{1}{2 \sqrt{a}} (\gamma + i 2 a x_0).
 \end{equation}
 
 Now, substituting the appropriate values
@@ -411,7 +416,7 @@ yields
   I
   =
   \frac{1}{2}
-  e^{-[x_m / w(z)]^2}
+  e^{-[x_m / w(z_m)]^2}
   e^{i m k x_m}
   \mathcal{D}(\vect{r}_m, k, k_j),
   \label{eq:PCIResponseIdentities:I_x0_abc_evaluated_lab_parameters}
@@ -445,7 +450,7 @@ readily reduces to
     \mathcal{E}(\vect{r}_m, k)
     &=
     \frac{1}{2}
-    e^{-[x_m / w(z)]^2}
+    e^{-[x_m / w(z_m)]^2}
     \\
     &\quad\times
     \left[%
@@ -486,57 +491,92 @@ approximately overlap such that
 \end{equation}
 where $w_{0,\image}$ is the 1/e $E$ radius of the imaged beam at its waist.
 
-Further, according to the image-plane coordinate transformation in
+The coordinate system and properties of the $m$\ts{th} scattered beam
+also have certain symmetries in the image plane.
+In particular, according to the image-plane coordinate transformation in
 (\ref{eq:InterferometricMethods:coordinate_transformation_imaging_plane}),
+\begin{align}
+  x_{-m,\image}
+  &=
+  x_{\image} \cos \left( \frac{\theta_{-m}}{M} \right)
+  \notag \\
+  &=
+  x_{\image} \cos \left( \frac{-\theta_m}{M} \right)
+  \notag \\
+  &=
+  x_{\image} \cos \left( \frac{\theta_m}{M} \right)
+  \notag \\
+  &=
+  x_{m,\image}.
+  \label{eq:PCIResponseIdentities:x_symmetry}
+\end{align}
+Additionally, again from the image-plane coordinate transformation in
+(\ref{eq:InterferometricMethods:coordinate_transformation_imaging_plane}),
+$z_{-m,\image} = z_{\image} + x_{\image} \sin (\theta_{-m} / M)$ such that
 \begin{equation}
-  x_{m,\image} = x_{\image}
+  w(z_{-m,\image}) \approx w(z_{\image}) \approx w(z_{m,\image})
+  \label{eq:PCIResponseIdentities:w_symmetry}
 \end{equation}
-to first order in $k / k_0$; that is,
-$x_{m,\image}$ is \emph{independent} of $m$ in the image plane.
-This leads to several useful symmetries in the image plane.
+are very good approximations when $\theta_m / M \ll 1$, as is typical.
+The above symmetries lead to several other symmetries and degeneracies
+that will be useful for evaluating
+$\mathcal{E}(\vect{r}_m, k)$ in the image plane.
 
 
 \subsection{Properties of $u$ in the image plane}
 The complex-valued function $u$ is defined in
 (\ref{eq:PCIResponseIdentities:u}).
-Note that $u$ is anti-Hermitian
-with respect to $m$ and $k_{j,\image}$
+Referencing symmetry properties
+(\ref{eq:PCIResponseIdentities:x_symmetry}) and
+(\ref{eq:PCIResponseIdentities:w_symmetry}) and
+cleverly rearranging terms,
+it readily follows that $u$ is anti-Hermitian
+with respect to $m$ and $k_{j,\image}$:
 \begin{align}
   u(\vect{r}_{-m, \image}, k_{\image}, -k_{j,\image})
   &=
-  \frac{w(z_{\image})}{2}
+  \frac{w(z_{-m,\image})}{2}
   \left[%
     (-m k_{\image} - k_{j,\image})
     +
-    i \frac{2 x_{m,\image}}{w(z_{\image})^2}
+    i \frac{2 x_{-m,\image}}{w(z_{-m,\image})^2}
+  \right]
+  \notag \\
+  &\approx
+  \frac{w(z_{m,\image})}{2}
+  \left[%
+    (-m k_{\image} - k_{j,\image})
+    +
+    i \frac{2 x_{m,\image}}{w(z_{m,\image})^2}
   \right]
   \notag \\
   &=
-  \frac{w(z_{\image})}{2}
+  \frac{w(z_{m,\image})}{2}
   \left[%
     -(m k_{\image} + k_{j,\image})
     +
-    i \frac{2 x_{\image}}{w(z_{\image})^2}
+    i \frac{2 x_{m,\image}}{w(z_{m,\image})^2}
   \right]
   \notag \\
   &=
-  \frac{-w(z_{\image})}{2}
+  \frac{-w(z_{m,\image})}{2}
   \left[%
     (m k_{\image} + k_{j,\image})
     -
-    i \frac{2 x_{\image}}{w(z_{\image})^2}
+    i \frac{2 x_{m,\image}}{w(z_{m,\image})^2}
   \right]
   \notag \\
   &=
-  \frac{-w(z_{\image})}{2}
+  \frac{-w(z_{m,\image})}{2}
   \left[%
     (m k_{\image} + k_{j,\image})
     +
-    i \frac{2 x_{\image}}{w(z_{\image})^2}
+    i \frac{2 x_{m,\image}}{w(z_{m,\image})^2}
   \right]^*
   \notag \\
   &=
   -[u(\vect{r}_{m, \image}, k_{\image}, k_{j,\image})]^*,
+  \label{eq:PCIResponseIdentities:u_symmetry}
 \end{align}
 where $z^*$ indicates the complex conjugate of $z$.
 Further, referencing
@@ -597,7 +637,12 @@ where $z^*$ is the complex conjugate of $z$.
 \subsection{Properties of $\mathcal{D}$ in the image plane}
 The complex-valued difference function $\mathcal{D}$ is defined in
 (\ref{eq:PCIResponseIdentities:difference_function}).
-Note that $\mathcal{D}$ is Hermitian with respect to $m$
+Using the anti-Hermitian properties of $u$ from
+(\ref{eq:PCIResponseIdentities:u_symmetry}) and
+the error-function properties
+(\ref{eq:PCIResponseIdentities:error_function_is_odd}) and
+(\ref{eq:PCIResponseIdentities:error_function_commutativity}),
+it is easy to show that $\mathcal{D}$ is Hermitian with respect to $m$:
 \begin{align}
   &\begin{aligned}
     \mathcal{D}(\vect{r}_{-m, \image}, k_{\image}, k_{j,\image})
@@ -662,7 +707,7 @@ to be rewritten as
   \begin{aligned}
     \mathcal{E}(\vect{r}_{m,\image}, k_{\image})
     &=
-    e^{-[x_{\image} / w(z_{\image})]^2}
+    e^{-[x_{m,\image} / w(z_{m,\image})]^2}
     \\
     &\quad\times
     \left[%
