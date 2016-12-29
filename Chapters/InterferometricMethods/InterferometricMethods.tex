@@ -2791,24 +2791,25 @@ then shows that there will be finite PCI response for $|k| \leq k_D$ where
 
 \subsection{Effect of phase plate on $m$\ts{th} scattered beam}
 The effect of the PCI phase plate on the $m$\ts{th} scattered beam
-is given by the phase factor $\mathcal{P}(m, k, x)$,
+is given by the complex-valued function $\mathcal{E}(\vect{r}_m, k)$,
 which is derived and thoroughly discussed in
 Appendix~\ref{app:PCIResponseIdentities}.
 The relevant results are briefly summarized here for completeness.
 Eq.~(\ref{eq:PCIResponseIdentities:transformation_Hermitian_decomposed})
-shows that the image-plane PCI phase factor readily reduces to
+shows that PCI's image-plane $\mathcal{E}(\vect{r}_m, k)$
+readily reduces to
 \begin{equation}
   \begin{aligned}
-    \mathcal{P}(m, k_{\image}, x_{\image})
+    \mathcal{E}(\vect{r}_{m,\image}, k_{\image})
     &=
-    e^{-[x_{\image} / w(z_{\image})]^2}
+    e^{-[x_{m,\image} / w(z_{m,\image})]^2}
     e^{i m k_{\image} x_{\image}}
     \\
     &\quad\times
     \left[%
-      F(m, k_{\image}, x_{\image})
+      F(\vect{r}_{m,\image}, k_{\image})
       +
-      G(m, k_{\image}, x_{\image})
+      G(\vect{r}_{m,\image}, k_{\image})
     \right],
   \end{aligned}
   \label{eq:InterferometricMethods:PCI_transformation_Hermitian_decomposed}
@@ -2820,24 +2821,28 @@ $F$ and $G$ are themselves defined in
 (\ref{eq:PCIResponseIdentities:transformation_groove}).
 Of particular note, $F$ is Hermitian with respect to $m$
 \begin{equation}
-  F(-m, k_{\image}, x_{\image}) = F^*(m, k_{\image}, x_{\image}),
+  F(\vect{r}_{-m,\image}, k_{\image})
+  =
+  F^*(\vect{r}_{m,\image}, k_{\image}),
   \label{eq:InterferometricMethods:mth_beam_interaction_with_face_hermitian}
 \end{equation}
 while $G$ is anti-Hermitian with respect to $m$
 \begin{equation}
-  G(-m, k_{\image}, x_{\image}) = -G^*(m, k_{\image}, x_{\image}).
+  G(\vect{r}_{-m,\image}, k_{\image})
+  =
+  -G^*(\vect{r}_{m,\image}, k_{\image}).
   \label{eq:InterferometricMethods:mth_beam_interaction_with_groove_antihermitian}
 \end{equation}
 These symmetries imply
-that $F(0, k_{\image}, x_{\image})$ is purely \emph{real} and
-that $G(0, k_{\image}, x_{\image})$ is purely \emph{imaginary}.
+that $F(\vect{r}_{0,\image}, k_{\image})$ is purely \emph{real} and
+that $G(\vect{r}_{0,\image}, k_{\image})$ is purely \emph{imaginary}.
 
 
 \subsection{The imaged field and its intensity}
 \label{sec:InterferometricMethods:pci:wavenumber_response}
 Introducing the notational shorthand
-$F_m \equiv F(m, k_{\image}, x_{\image})$ and
-$G_m \equiv G(m, k_{\image}, x_{\image})$,
+$F_m \equiv F(\vect{r}_{m,\image}, k_{\image})$ and
+$G_m \equiv G(\vect{r}_{m,\image}, k_{\image})$,
 the weak-coupling ($\tilde{\phi}_0 \ll 1$), image-plane electric field from
 (\ref{eq:InterferometricMethods:imaged_total_field_weak_coupling_Fourier_filtered})
 readily reduces to
@@ -2860,7 +2865,8 @@ readily reduces to
   \biggr\},
   \end{aligned}
 \end{equation}
-where $\nu$ is defined in (\ref{eq:InterferometricMethods:image_plane_nu}) and
+where the approximation $w(z_m) \approx w(z)$ has been used,
+$\nu$ is defined in (\ref{eq:InterferometricMethods:image_plane_nu}), and
 $E_G(\vect{r}_{\image}, t)$ would be the image-plane electric field
 of the unscattered beam in the \emph{absence} of the phase plate.
 Now, recall that $F$ is Hermitian such that
