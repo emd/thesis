@@ -989,7 +989,7 @@ into (\ref{eq:InterferometricMethods:Fraunhofer_diffracted_field}) yields
   \begin{aligned}
     E(\vect{r}, t)
     \approx
-    &\sum_{m = -\infty}^{\infty}
+    &\sum_{m = -1}^{1}
     i^m \left[ J_m(\tilde{\phi}_0) \right]
     e^{-i m \omega t}
     e^{-\left[ \frac{w_0}{2} \left( \frac{k_0 x}{r} - m k \right) \right]^2}
@@ -1005,6 +1005,13 @@ into (\ref{eq:InterferometricMethods:Fraunhofer_diffracted_field}) yields
   \label{eq:InterferometricMethods:Fraunhofer_phase_modulated_Gaussian_beam_diffraction}
   \end{aligned}
 \end{align}
+Here, only the $|m| \leq 1$ terms have been retained because
+$|J_m(\tilde{\phi}_0)| \sim \tilde{\phi}_0^{|m|}$
+for experimentally relevant values of $\tilde{\phi}_0 \ll 1$.
+(The complete small-argument, asymptotic form for $J_m$ is discussed in
+Section~\ref{sec:InterferometricMethods:imaging:weak_coupling_limit}).
+The effect of higher order terms can be easily investigated
+by e.g.\ including the $m = \pm 2$ terms etc.
 
 \begin{figure}
   \centering
@@ -1058,7 +1065,7 @@ where
   \frac{m k}{k_0}.
   \label{eq:InterferometricMethods:scattering_angles}
 \end{equation}
-Typically, $k / k_0 \ll 1$ such that
+Typically, $m k / k_0 \ll 1$ such that
 \begin{equation}
   \cos \theta_m
   \approx
@@ -1118,7 +1125,7 @@ can be rewritten as
     E(\vect{r}, t)
     \approx
     e^{i \bar{\phi}}
-    &\sum_{m = -\infty}^{\infty}
+    &\sum_{m = -1}^{1}
     i^m \left[ J_m(\tilde{\phi}_0) \right]
     e^{-i (\omega_0 + m \omega) t}
     \\
@@ -1140,7 +1147,7 @@ the diffracted electric field can be more compactly and generally written as
   E(\vect{r}, t)
   \approx
   e^{i \bar{\phi}}
-  \sum_{m = -\infty}^{\infty}
+  \sum_{m = -1}^{1}
   i^m \left[ J_m(\tilde{\phi}_0) \right]
   E_G(\vect{r}_m)
   e^{-i (\omega_0 + m \omega) t}.
@@ -1489,7 +1496,7 @@ yields a total diffracted electric field
   E(\vect{r}, t)
   \approx
   e^{i \bar{\phi}}
-  \sum_{m = -\infty}^{\infty}
+  \sum_{m = -1}^{1}
   i^m \left[ J_m(\tilde{\phi}_0) \right]
   E_T(\vect{r}_m)
   e^{-i (\omega_0 + m \omega) t}.
@@ -1815,7 +1822,7 @@ is imaged as
   &\begin{aligned}
     =
     e^{i \bar{\phi}}
-    \sum_{m = -\infty}^{\infty}
+    \sum_{m = -1}^{1}
     \biggl\{%
       &i^m \left[ J_m(\tilde{\phi}_0) \right]
       \\
@@ -1868,7 +1875,7 @@ Thus, the imaged field
     e^{i \bar{\phi}}
     \\
     &\quad \times
-    \sum_{m = -\infty}^{\infty}
+    \sum_{m = -1}^{1}
     i^m \left[ J_m(\tilde{\phi}_0) \right]
     \mathcal{E}(\vect{r}_{m, \image}, k_{\image})
     e^{i m \nu},
@@ -1889,6 +1896,7 @@ E_G(0, y_{\image}, z_{\image}) e^{-i \omega_0 t}$.
 
 
 \subsection{The weak-coupling limit}
+\label{sec:InterferometricMethods:imaging:weak_coupling_limit}
 Typically, the phase-fluctuation amplitude
 is very small ($\tilde{\phi}_0 \ll 1$), and
 the Bessel function's small-argument limiting form \cite{abramowitz_and_stegun}
@@ -1908,7 +1916,7 @@ can be used
 \end{equation}
 Here, $\Gamma$ is the gamma function, and
 $\Gamma(m + 1) = m!$ for positive integer $m$.
-Dropping terms exceeding first order in $\tilde{\phi}_0$ and
+Retaining terms only to first order in $\tilde{\phi}_0$ and
 introducing the notational shorthand
 $\mathcal{E}_m \equiv \mathcal{E}(\vect{r}_{m, \image}, k_{\image})$,
 the imaged field (\ref{eq:InterferometricMethods:imaged_total_field}) becomes
