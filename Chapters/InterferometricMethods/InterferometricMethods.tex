@@ -830,22 +830,31 @@ the diffraction of a phase-modulated Gaussian beam.
 \end{figure}
 
 
-\subsection{Fraunhofer diffraction of a phase-modulated Gaussian beam}
-Now, allow the incident beam to see
-an additional phase contribution $\phi(x', t)$ at $S_1$.
-If the beam's optical cycles occur much more rapidly
-than the temporal evolution of $\phi$,
+\subsection{Diffraction of a Gaussian beam from plasma-density fluctuations}
+\label{sec:InterferometricMethods:Gaussian_beam_diffraction:from_plasma_density_fluctuations}
+Now, allow a Gaussian, CO$_2$ probe beam
+to pass through a tokamak plasma.
+The beam acquires the plasma-induced phase delay $\phi(\vect{\rho}', t)$
+given by (\ref{eq:InterferometricMethods:phase}),
+where $\vect{\rho}'$ corresponds to the beam's transverse dimensions.
+
+Following the formalism pioneered by Raman and Nath
+\cite{raman_nath_diffraction_partI,raman_nath_diffraction_partIII},
+this plasma-induced phase delay makes an additional phase contribution
+to the diffraction integral
+(\ref{eq:InterferometricMethods:Fraunhofer_diffraction_integral_free_space}).
+As a CO$_2$ beam's optical cycles
+($\omega_0 = 2 \pi \cdot \SI{28.3}{\tera\hertz}$)
+occur much more rapidly than the temporal evolution of the plasma
+($\omega \lesssim 2 \pi \cdot \SI{1}{\giga\hertz}$),
 the problem can be treated adiabatically
 by solving for the beam propagation
 at each instant in time during the relatively slow evolution of $\phi$.
-This adiabatic assumption is very well-satisfied for
-a CO$_2$ probe beam ($\omega_0 = 2 \pi \cdot \SI{28.3}{\tera\hertz}$)
-in a typical tokamak plasma ($\omega \lesssim \SI{1}{\giga\hertz}$).
-
-Now, explicitly divide $\phi$ into bulk $\bar{\phi}(t)$ and
-spatially varying $\tilde{\phi}(x', t)$ components such that
+Explicitly dividing $\phi$ into bulk $\bar{\phi}(t)$ and
+spatially varying $\tilde{\phi}(\vect{\rho}', t)$ components,
+the plasma-induced phase delay becomes
 \begin{equation}
-  \phi(x', t) = \bar{\phi}(t) + \tilde{\phi}(x', t).
+  \phi(\vect{\rho}', t) = \bar{\phi}(t) + \tilde{\phi}(\vect{\rho}', t).
 \end{equation}
 Typically, $\tilde{\phi}$ varies on much faster time scales than $\bar{\phi}$,
 but this is not required.
@@ -855,10 +864,11 @@ Sections~\ref{sec:InterferometricMethods:interferometry} and
 it is sufficient to examine phase fluctuations $\tilde{\phi}$
 consisting of a single Fourier mode
 \begin{equation}
-  \tilde{\phi}(x', t) = \tilde{\phi}_0 \cos(k x' - \omega t).
+  \tilde{\phi}(\vect{\rho}', t) = \tilde{\phi}_0 \cos(k x' - \omega t).
 \end{equation}
-This additional phase contribution modifies
-(\ref{eq:InterferometricMethods:Fraunhofer_diffraction_integral_free_space})
+This plasma-induced phase delay makes an additional phase contribution
+to the diffraction integral
+(\ref{eq:InterferometricMethods:Fraunhofer_diffraction_integral_free_space}).
 such that the diffraction pattern in the $x$-direction is given as
 \begin{align}
   D_x
@@ -923,7 +933,7 @@ such that the diffraction pattern in the $x$-direction is given as
   \label{eq:InterferometricMethods:Fraunhofer_diffraction_integral_phase_modulated}
 \end{align}
 where the bracketed expression in the third equality follows from
-application of the well-known Jacobi-Anger expansion, and
+application of the well-known Jacobi-Anger expansion and
 $J_m$ is the $m$\ts{th} Bessel function of the first kind.
 Noting that $E(\vect{r}, t) = E(\vect{r}) e^{-i \omega_0 t}$,
 substitution of
@@ -1128,6 +1138,52 @@ allows determination of the scattered wavevector
   \label{eq:InterferometricMethods:scattered_beam_wavevector}
 \end{equation}
 
+
+\subsection{Validity of the Raman-Nath formalism}
+The Raman-Nath formalism employed in
+Section~\ref{sec:InterferometricMethods:Gaussian_beam_diffraction:from_plasma_density_fluctuations}
+is valid as long as the fluctuation wavenumber $k$ is not too large.
+This constraint has been rigorously quantified by Bhatia and Noble
+\cite{bhatia_53_general_theory,bhatia_53_approximate_expressions_for_intensities} and
+is also discussed by Born and Wolf
+\cite[Ch.~12]{born_and_wolf}.
+Specifically, beam diffraction will be in the Raman-Nath regime when
+\begin{equation}
+  \delta = \frac{\tilde{n}_e}{\bar{n}_e} \left( \frac{k_0}{k} \right)^2 \gg 1,
+  \label{eq:InterferometricMethods:raman_nath_validity_criterion}
+\end{equation}
+where
+$\bar{n}_e$ is the bulk plasma density,
+$\tilde{n}_e$ is the amplitude of the plasma-density fluctuation,
+$k_0$ is the vacuum wavenumber of the probe beam, and
+$k$ is the wavenumber of the plasma-density fluctuation.
+Note that the above $\delta$ is equivalent
+to that used by Bhatia and Noble,
+after having made the appropriate substitutions
+for a CO$_2$ probe beam in a tokamak plasma.
+Assuming typical tokamak values
+\begin{align}
+  &\frac{\tilde{n}_e}{\bar{n}_e}
+  \sim
+  10^{-3},
+  \notag \\
+  &k
+  \lesssim
+  \SI{30}{\per\centi\meter}
+  \notag
+\end{align}
+yields $\delta \gtrsim 40$
+for a CO$_2$ probe beam ($k_0 \approx 2 \pi \cdot \SI{e5}{\per\centi\meter}$)
+such that beam's diffraction is well within the Raman-Nath regime.
+In the opposite regime ($\delta \ll 1$)
+the beam can \emph{Bragg scatter} from the phase fluctuation,
+producing a single, strongly-scattered beam
+\cite{bhatia_53_approximate_expressions_for_intensities}
+\cite[Ch.~12]{born_and_wolf};
+such Bragg scattering is the foundation of acousto-optics.
+
+
+\subsection{On the scalar nature of the diffraction theory}
 Obviously, the scalar nature of the above diffraction calculation
 is insufficient to capture
 the small polarization changes that accompany beam scattering.
