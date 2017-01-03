@@ -883,19 +883,6 @@ to pass through a tokamak plasma.
 The beam acquires the plasma-induced phase delay $\phi(\vect{\rho}', t)$
 given by (\ref{eq:InterferometricMethods:phase}),
 where $\vect{\rho}'$ corresponds to the beam's transverse dimensions.
-
-Following the formalism pioneered by Raman and Nath
-\cite{raman_nath_diffraction_partI,raman_nath_diffraction_partIII},
-this plasma-induced phase delay makes an additional phase contribution
-to the diffraction integral
-(\ref{eq:InterferometricMethods:Fraunhofer_diffraction_integral_free_space}).
-As a CO$_2$ beam's optical cycles
-($\omega_0 = 2 \pi \cdot \SI{28.3}{\tera\hertz}$)
-occur much more rapidly than the temporal evolution of the plasma
-($\omega \lesssim 2 \pi \cdot \SI{1}{\giga\hertz}$),
-the problem can be treated adiabatically
-by solving for the beam propagation
-at each instant in time during the relatively slow evolution of $\phi$.
 Explicitly dividing $\phi$ into bulk $\bar{\phi}(t)$ and
 spatially varying $\tilde{\phi}(\vect{\rho}', t)$ components,
 the plasma-induced phase delay becomes
@@ -904,6 +891,16 @@ the plasma-induced phase delay becomes
 \end{equation}
 Typically, $\tilde{\phi}$ varies on much faster time scales than $\bar{\phi}$,
 but this is not required.
+The spatial variation of the plasma-induced phase delay
+contributes to the diffraction of the incident Gaussian probe beam, and
+the remainder of this section uses scalar-diffraction theory
+to determine the diffracted field in the Fraunhofer limit;
+the near-field form consistent with the computed Fraunhofer field
+is then inferred.
+(The object planes of the imaging systems relevant to this work
+sit in the near field, so computation of the imaged field requires
+knowledge of the near-field diffraction pattern).
+
 The response functions of the diagnostics investigated in
 Sections~\ref{sec:InterferometricMethods:interferometry} and
 \ref{sec:InterferometricMethods:pci} will be shown to be linear, so
@@ -912,9 +909,18 @@ consisting of a single Fourier mode
 \begin{equation}
   \tilde{\phi}(\vect{\rho}', t) = \tilde{\phi}_0 \cos(k x' - \omega t).
 \end{equation}
-This plasma-induced phase delay makes an additional phase contribution
+As a CO$_2$ beam's optical cycles
+($\omega_0 = 2 \pi \cdot \SI{28.3}{\tera\hertz}$)
+occur much more rapidly than the temporal evolution of the plasma
+($\omega \lesssim 2 \pi \cdot \SI{1}{\giga\hertz}$),
+the problem can be treated adiabatically
+by solving for the beam propagation
+at each instant in time during the relatively slow evolution of $\phi$.
+Then, following the formalism pioneered by Raman and Nath
+\cite{raman_nath_diffraction_partI,raman_nath_diffraction_partIII},
+this plasma-induced phase delay makes an additional phase contribution
 to the diffraction integral
-(\ref{eq:InterferometricMethods:Fraunhofer_diffraction_integral_free_space}).
+(\ref{eq:InterferometricMethods:Fraunhofer_diffraction_integral_free_space})
 such that the diffraction pattern in the $x$-direction is given as
 \begin{align}
   D_x
