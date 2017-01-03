@@ -104,13 +104,15 @@ the field can be Fourier analyzed~\cite[Sec.~3-2]{stix}
   =
   \frac{1}{(2 \pi)^4}
   \int
-  \vect{E}(\vect{k}, \omega) d\vect{k} \, d\omega.
+  \vect{E}(\vect{k}', \omega')
+  e^{i(\vect{k}' \cdot \vect{r} - \omega' t)}
+  d\vect{k'} \, d\omega'.
 \end{equation}
 Then, the electric field's wave equation
 (\ref{eq:InterferometricMethods:wave_equation_pde}) reduces
 to an algebraic equation for each Fourier component.
 In particular, for Fourier mode
-$E e^{i(\vect{k} \cdot \vect{r} - \omega t)}$,
+$\vect{E}_0 e^{i(\vect{k} \cdot \vect{r} - \omega t)}$,
 the derivative operators become
 $\nabla \rightarrow i \vect{k}$ and
 $\partial / \partial t \rightarrow -i \omega$, and
@@ -128,7 +130,7 @@ the wave equation reduces to an eigenvalue equation
     \right)
   \right]
   \cdot
-  \vect{E}
+  \vect{E}_0
   =
   0,
   \label{eq:InterferometricMethods:wave_equation_eigenvalue}
@@ -145,7 +147,7 @@ To proceed further, a model is needed
 for the medium's conductivity $\vect{\sigma}$.
 
 
-\subsection{The cold-plasma dispersion relation}
+\subsection{The cold-plasma index of refraction}
 \label{sec:InterferometricMethods:EM_waves_in_plasma:cold_plasma_dispersion_relation}
 Although plasmas in contemporary fusion devices
 routinely approach temperatures $\lesssim 100$ million degrees Celsius
@@ -243,6 +245,7 @@ the plasma's conductivity~\cite[Sec.~4.1.2]{hutchinson_diagnostics}
 Choose axes such that
 \begin{equation}
   \vect{k} = k ( \sin\theta \hat{\vect{y}} + \cos\theta \hat{\vect{z}} ).
+  \label{eq:InterferometricMethods:wavevector_in_convenient_basis}
 \end{equation}
 Then, substituting the cold-plasma conductivity
 (\ref{eq:InterferometricMethods:cold_plasma_conductivity})
@@ -319,8 +322,34 @@ $v_{\text{ph}} = c / N \approx c$.
 Thus, the cold-plasma assumption that the wave's phase velocity
 is much larger than the thermal velocities ($\lesssim 0.1 c$)
 of the plasma's constituent particles is valid.
-While cold-plasma theory is adequate for the current purposes,
-it should be noted for completeness that
+
+It is enlightening to also examine
+the corresponding electric-field eigenvectors.
+Substituting the index of refraction
+(\ref{eq:InterferometricMethods:index_of_refraction})
+into the corresponding eigenvalue equation
+(\ref{eq:InterferometricMethods:wave_equation_eigenvalue}) and
+solving to lowest order for the corresponding eigenvector yields
+\begin{equation}
+  \vect{E}_0
+  \approx
+  E_{0,x} \hat{\vect{x}}
+  +
+  E_{0,yz} (\hat{\vect{k}} \cross \hat{\vect{x}}),
+  \label{eq:InterferometricMethods:electric_field_eigenvector}
+\end{equation}
+where $\hat{\vect{k}} = \vect{k} / |\vect{k}|$
+is the unit vector corresponing to the wavector defined in
+(\ref{eq:InterferometricMethods:wavevector_in_convenient_basis}), and
+$E_{0,x}$ and $E_{0,yz}$ are arbitrary, uncoupled constants
+that are independent of the plasma's properties.
+Thus, to lowest order, a CO$_2$ beam in a tokamak plasma
+propagates as a transverse electromagnetic wave
+($\vect{k} \cdot \vect{E}_0 \approx 0$)
+with near-constant polarization.
+
+Finally, it should be noted for completeness that
+while cold-plasma theory is adequate for the current purposes,
 finite-temperature and relativistic effects
 will affect the interpretation of refractive index measurements
 in a fusion reactor.
@@ -343,9 +372,9 @@ the wave field can be ``stitched'' together
 as the wave propagates from position $\vect{r}_0$ to position $\vect{r}$
 via the WKB approximation
 \begin{equation}
-  E(\vect{r}, t)
+  \vect{E}(\vect{r}, t)
   \approx
-  E \exp \left[i \left(%
+  \vect{E}_0 \exp \left[i \left(%
     \int_{\vect{r}_0}^{\vect{r}} \vect{k}(\vect{r}') \cdot d\vect{l}'
     -
     \omega t
@@ -545,7 +574,16 @@ near-field ($|z| \ll z_R$) and far-field ($|z| \gg z_R$) behaviors.
 Note that the beam's waist sits at $z = 0$.
 
 
-\subsection{Kirchhoff diffraction theory}
+\subsection{Kirchhoff scalar-diffraction theory}
+As discussed in the text surrounding
+(\ref{eq:InterferometricMethods:electric_field_eigenvector}),
+a CO$_2$ probe beam in a tokamak plasma propagates
+as a transverse electromagnetic wave with near-constant polarization
+(with any small changes to beam polarization being
+of little practical interest to the present work).
+Thus, it is suitable to pursue a \emph{scalar} theory
+of the beam's interaction with the plasma.
+
 A monochromatic scalar wave $U(\vect{r}) e^{-i \omega t}$ in vacuum
 satisfies the Helmholtz equation
 \begin{equation}
@@ -1189,14 +1227,6 @@ producing a single, strongly-scattered beam
 \cite{bhatia_53_approximate_expressions_for_intensities}
 \cite[Ch.~12]{born_and_wolf};
 such Bragg scattering is the foundation of acousto-optics.
-
-
-\subsection{On the scalar nature of the diffraction theory}
-Obviously, the scalar nature of the above diffraction calculation
-is insufficient to capture
-the small polarization changes that accompany beam scattering.
-Such polarization changes are of little interest in this work, so
-their theoretical treatment is not pursued here.
 
 
 \subsection{Wavenumber-dependent manipulation of the diffracted field}
