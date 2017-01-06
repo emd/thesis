@@ -3639,67 +3639,14 @@ $w(z)$ is the beam's 1/e $E$ radius at the location of the aperture
 \label{sec:InterferometricMethods:selection:pci_low_k_upshift}
 This section discusses a little-known diagnostic artifact of the PCI
 that becomes relevant when the fluctuation wavenumber
-is smaller than the PCI's low-$k$ cutoff (i.e.\ $|k| \leq k_g$).
+is smaller than the PCI's low-$k$ cutoff (i.e.\ $|k| \lesssim k_g$).
 This effect can be important when trying to measure the wavenumber of
 e.g.\ low-$k$ coherent MHD modes, and
-it can be readily explained via the PCI transfer function.
+it results from PCI's nonlinear operation for $|k| \lesssim k_g$,
+which is thoroughly discussed in
+Section~\ref{sec:InterferometricMethods:pci:imaged_field_and_intensity}.
 
-The PCI transfer function is given by
-(\ref{eq:InterferometricMethods:PCI_wavenumber_transfer_function}).
-The transfer function is, in general, complex valued and
-has both a wavenumber and a spatial dependence, i.e.\
-$T_{\text{pci}}(k, x)
-=
-|T_{\text{pci}}(k, x)| e^{i \theta(k, x)}$.
-Perfect imaging requires that $\theta(k, x) \equiv 0$
-such that the spatial structure of the interference pattern
-is geometrically similar to that of the object-plane fluctuations.
-The amplitude and phase of $T_{\text{pci}}(k, x)$
-can be easily evaluated numerically, and
-the results are shown in
-Fig.~\ref{fig:InterferometricMethods:pci_transfer_function}.
-As is colloquially understood, the amplitude of the PCI transfer function
-drops precipitously across the full beam profile for $k \lesssim k_g$.
-However, perhaps less well known, is the fact that
-the phase of the PCI transfer function varies substantially
-in space for $k \lesssim k_g$.
-
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/InterferometricMethods/figs/pci_transfer_function.pdf}
-    \caption[Amplitude and phase of PCI transfer function,
-      $T_{\text{pci}}(k, x_{\image})$]{%
-    Amplitude and phase of PCI transfer function,
-    $T_{\text{pci}}(k, x_{\image})$.
-    Spatial coordinates are normalized
-    to the image-plane 1/e $E$ radius $M w_0$ with $M = 0.5$, while
-    object-plane wavenumbers $k$ are normalized
-    to the 1/e $E$ radius of the in-vessel probe beam, $w_0$.
-    The horizontal, dashed lines indicate
-    the low-$k$ cutoff of the PCI phase-plate groove, $k_g$;
-    here, $k_g = 2 / w_0$,
-    which is the minimum value allowed by diffraction,
-    as discussed in
-    (\ref{eq:InterferometricMethods:pci_kmin_physics}).
-    The finite sampling-volume cutoff, $k_{\text{fsv}}$, and
-    the phase-plate high-$k$ cutoff, $k_D$,
-    are both taken to be much larger than $10 / w_0$.
-    The reflectivity of the PCI phase groove is $\eta = 0.17$,
-    which is characteristic of the ZnSe typically
-    employed in $\SI{10.6}{\micro\meter}$ optics.
-    Note that the \emph{largest} effect
-    of the transfer function's spatial dependence
-    is to introduce a spatially varying phase
-    for $k \lesssim k_g$,
-    which destroys the PCI's low-$k$ imaging properties.
-  }
-\label{fig:InterferometricMethods:pci_transfer_function}
-\end{figure}
-
-The transfer function's spatially varying phase
-prevents low-$k$ imaging with PCI\@.
-It is easiest to see the effects of this phase variation
+It is easiest to see the effects of PCI's nonlinear low-$k$ operation
 by defining the normalized fluctuating power
 $\tilde{p}_j(t)$
 \begin{align}
@@ -3715,18 +3662,18 @@ $\tilde{p}_j(t)$
 \end{align}
 (This choice of normalization becomes readily apparent after referencing
 (\ref{eq:InterferometricMethods:PCI_ratio_fluctuating_to_equilibrium_power})).
-The set $\{\tilde{p}_j(t)\}$
+The set of measurements $\{\tilde{p}_j(t)\}$
 can be e.g.\ Fourier analyzed in the spatial dimension
 to provide an estimate of the corresponding
 wavenumber autospectral density
 $G_{\tilde{p}\tilde{p}}(k_{\text{meas}}, t)$.
 \graffito{\textcolor{red}{more details on $G_{xx}(k)$ in Ch.~4}}
-If the imaging is perfect,
+When PCI operates linearly,
 the measured wavenumber spectrum
-corresponding to a single Fourier mode with wavenumber $k$
-will have a peak at $k_{\text{meas}} = k$.
+has a peak at $k_{\text{meas}} = k$,
+with $k$ corresponding to the true, physical wavenumber.
 As shown in Fig.~\ref{fig:InterferometricMethods:pci_wavenumber_upshift},
-PCI's imaging is near perfect for $k \gtrsim k_g$,
+PCI operates linearly for $k \gtrsim k_g$,
 as the measured wavenumber spectrum peaks at $k_{\text{meas}} = k$;
 however, for $k \lesssim k_g$,
 the measured wavenumber spectrum peaks at $k_{\text{meas}} = k_g$,
@@ -3737,12 +3684,12 @@ traveling in slightly different directions \cite[Ch.~16.7]{siegman_lasers},
 and only the components of the scattered beam
 with transverse lab-frame wavenumbers $k \geq k_g$
 are reflected from the phase-plate face and
-produced measurable interference on the PCI detector.
-Thus, not only does the amplitude of the PCI signal
-drop precipitously for $|k| \lesssim k_g$, but
-the spatially varying phase of the PCI transfer function
-also prevents measurement of the fluctuation wavenumber
-when $|k| \lesssim k_g$.
+produce measurable interference on the PCI detector.
+Thus, when $|k| \lesssim k_g$,
+not only does the PCI signal's amplitude drop precipitously, but
+its spatial content also becomes a nonlinear function
+of the corresponding fluctuation wavenumber,
+destroying any hopes of wavenumber measurement.
 
 \begin{figure}
   \centering
@@ -3765,15 +3712,11 @@ when $|k| \lesssim k_g$.
     (\ref{eq:InterferometricMethods:pci_kmin_physics}).
     The system magnification has
     a representative ``typical'' value $|M| = 0.5$.
-    Note that PCI's imaging is near perfect for $k \gtrsim k_g$,
+    Note that PCI operates linearly for $k \gtrsim k_g$,
     as the measured wavenumber spectrum peaks at $k_{\text{meas}} = k$;
     however, for $k \lesssim k_g$,
     the measured wavenumber spectrum peaks at $k_{\text{meas}} = k_g$,
     regardless of the actual fluctuation wavenumber.
-    This nonlinear upshift in the low-$k$, PCI-measured wavenumber
-    results from the spatially varying phase
-    of the PCI transfer function, which is shown in
-    Fig.~\ref{fig:InterferometricMethods:pci_transfer_function}.
   }
 \label{fig:InterferometricMethods:pci_wavenumber_upshift}
 \end{figure}
