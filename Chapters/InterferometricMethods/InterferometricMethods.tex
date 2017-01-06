@@ -40,9 +40,21 @@ discussing the strengths and limitations of each interferometric technique.
 
 \section{Electromagnetic waves in a plasma}
 \label{sec:InterferometricMethods:EM_waves_in_plasma}
+A great deal can be learned about a plasma
+by probing it with electromagnetic waves.
+Sections~\ref{sec:InterferometricMethods:EM_waves_in_plasma:derivation_of_wave_equation}---
+\ref{sec:InterferometricMethods:EM_waves_in_plasma:cold_plasma_dispersion_relation}
+derive the index of refraction $N$ for a cold, homogeneous plasma.
+Section~\ref{sec:InterferometricMethods:EM_waves_in_plasma:propagation_in_inhomogeneous_medium}
+extends these results to inhomogeneous plasmas via the WKB approximation and
+assesses the validity of this approach for
+a CO$_2$ probe beam in a typical tokamak plasma, and
+Section~\ref{sec:InterferometricMethods:EM_waves_in_plasma:plasma_induced_phase_delay}
+computes the resulting plasma-induced phase delay.
 
 
 \subsection{Derivation of the wave equation}
+\label{sec:InterferometricMethods:EM_waves_in_plasma:derivation_of_wave_equation}
 An electromagnetic wave's electric and magnetic fields
 are related via Faraday's law
 \begin{equation}
@@ -56,7 +68,7 @@ the electric field's wave equation
 \begin{equation}
   \nabla^2 \vect{E}
   -
-  \frac{1}{c^2} \vect{E}
+  \frac{1}{c^2} \frac{\partial^2 \vect{E}}{\partial t^2}
   =
   \nabla(\nabla \cdot \vect{E})
   +
@@ -75,7 +87,7 @@ the wave equation becomes
 \begin{equation}
   \nabla^2 \vect{E}
   -
-  \frac{1}{c^2} \vect{E}
+  \frac{1}{c^2} \frac{\partial^2 \vect{E}}{\partial t^2}
   =
   \nabla(\nabla \cdot \vect{E})
   +
@@ -92,13 +104,15 @@ the field can be Fourier analyzed~\cite[Sec.~3-2]{stix}
   =
   \frac{1}{(2 \pi)^4}
   \int
-  \vect{E}(\vect{k}, \omega) d\vect{k} \, d\omega.
+  \vect{E}(\vect{k}', \omega')
+  e^{i(\vect{k}' \cdot \vect{r} - \omega' t)}
+  d\vect{k'} \, d\omega'.
 \end{equation}
 Then, the electric field's wave equation
 (\ref{eq:InterferometricMethods:wave_equation_pde}) reduces
 to an algebraic equation for each Fourier component.
 In particular, for Fourier mode
-$E e^{i(\vect{k} \cdot \vect{r} - \omega t)}$,
+$\vect{E}_0 e^{i(\vect{k} \cdot \vect{r} - \omega t)}$,
 the derivative operators become
 $\nabla \rightarrow i \vect{k}$ and
 $\partial / \partial t \rightarrow -i \omega$, and
@@ -116,7 +130,7 @@ the wave equation reduces to an eigenvalue equation
     \right)
   \right]
   \cdot
-  \vect{E}
+  \vect{E}_0
   =
   0,
   \label{eq:InterferometricMethods:wave_equation_eigenvalue}
@@ -133,7 +147,8 @@ To proceed further, a model is needed
 for the medium's conductivity $\vect{\sigma}$.
 
 
-\subsection{The cold-plasma dispersion relation}
+\subsection{The cold-plasma index of refraction}
+\label{sec:InterferometricMethods:EM_waves_in_plasma:cold_plasma_dispersion_relation}
 Although plasmas in contemporary fusion devices
 routinely approach temperatures $\lesssim 100$ million degrees Celsius
 ($\sim10\times$ the temperature of the core of the sun!),
@@ -230,6 +245,7 @@ the plasma's conductivity~\cite[Sec.~4.1.2]{hutchinson_diagnostics}
 Choose axes such that
 \begin{equation}
   \vect{k} = k ( \sin\theta \hat{\vect{y}} + \cos\theta \hat{\vect{z}} ).
+  \label{eq:InterferometricMethods:wavevector_in_convenient_basis}
 \end{equation}
 Then, substituting the cold-plasma conductivity
 (\ref{eq:InterferometricMethods:cold_plasma_conductivity})
@@ -306,8 +322,34 @@ $v_{\text{ph}} = c / N \approx c$.
 Thus, the cold-plasma assumption that the wave's phase velocity
 is much larger than the thermal velocities ($\lesssim 0.1 c$)
 of the plasma's constituent particles is valid.
-While cold-plasma theory is adequate for the current purposes,
-it should be noted for completeness that
+
+It is enlightening to also examine
+the corresponding electric-field eigenvectors.
+Substituting the index of refraction
+(\ref{eq:InterferometricMethods:index_of_refraction})
+into the corresponding eigenvalue equation
+(\ref{eq:InterferometricMethods:wave_equation_eigenvalue}) and
+solving to lowest order for the corresponding eigenvector yields
+\begin{equation}
+  \vect{E}_0
+  \approx
+  E_{0,x} \hat{\vect{x}}
+  +
+  E_{0,yz} (\hat{\vect{k}} \cross \hat{\vect{x}}),
+  \label{eq:InterferometricMethods:electric_field_eigenvector}
+\end{equation}
+where $\hat{\vect{k}} = \vect{k} / |\vect{k}|$
+is the unit vector corresponing to the wavector defined in
+(\ref{eq:InterferometricMethods:wavevector_in_convenient_basis}), and
+$E_{0,x}$ and $E_{0,yz}$ are arbitrary, uncoupled constants
+that are independent of the plasma's properties.
+Thus, to lowest order, a CO$_2$ beam in a tokamak plasma
+propagates as a transverse electromagnetic wave
+($\vect{k} \cdot \vect{E}_0 \approx 0$)
+with near-constant polarization.
+
+Finally, it should be noted for completeness that
+while cold-plasma theory is adequate for the current purposes,
 finite-temperature and relativistic effects
 will affect the interpretation of refractive index measurements
 in a fusion reactor.
@@ -319,6 +361,7 @@ polarimetric measurements~\cite{mirnov_07}.
 
 
 \subsection{Wave propagation in an inhomogeneous medium}
+\label{sec:InterferometricMethods:EM_waves_in_plasma:propagation_in_inhomogeneous_medium}
 No physical plasma is truly homogeneous in space.
 While the above Fourier approach can still be employed,
 the inhomogeneities tend to couple the various modes together,
@@ -326,13 +369,13 @@ greatly complicating the analysis.
 However, if the plasma varies sufficiently slowly,
 the plasma can be treated as \emph{locally} uniform, and
 the wave field can be ``stitched'' together
-as the wave propagates from position $\vect{r}_0$ to position $\vect{r}$
-via the WKB approximation
+as the wave propagates from initial position $\vect{r}^{(i)}$
+to position $\vect{r}$ via the WKB approximation~\cite[Ch.~8]{griffiths_QM}
 \begin{equation}
   E(\vect{r}, t)
   \approx
-  E \exp \left[i \left(%
-    \int_{\vect{r}_0}^{\vect{r}} \vect{k}(\vect{r}') \cdot d\vect{l}'
+  E_0 \exp \left[i \left(%
+    \int_{\vect{r}^{(i)}}^{\vect{r}} \vect{k}(\vect{r}') \cdot d\vect{l}'
     -
     \omega t
   \right) \right].
@@ -340,17 +383,19 @@ via the WKB approximation
 \end{equation}
 Here, $\vect{k}(\vect{r}')$ is the local wavevector and
 the integration is performed along the wave's trajectory.
+Note that the amplitude variation and the reflected wave
+that are characteristic of the WKB approximation
+have been neglected because densities in a tokamak plasma
+are much less than a CO$_2$ beam's
+$\sim \SI{e25}{\per\meter\cubed}$ density cutoff.
 
 What exactly is meant by ``sufficiently slowly'', though?
 To approximate the plasma as locally uniform,
-the change in wavelength $\delta \lambda$ over one wave cycle
-should be small relative to the wavelength,
-i.e.\ $|\delta \lambda| / \lambda \ll 1$.
-This constraint can be written in a slightly more convenient form.
-Note that $\delta \lambda = - (2 \pi / k^2) \delta k $.
-Further, as the change in wavelength is being examined over one wavelength,
-$|\delta k| / \lambda \approx |\nabla k|$.
-Thus, the criterion for the validity of the WKB approximation becomes
+the change in the wavenumber $\delta k$ over one wavelength $\lambda$
+should be small relative to the wavenumber $k$.
+Note that the change in wavenumber over one wavelength is
+$\delta k = \nabla k \cdot \lambda = 2 \pi \nabla k / k$.
+Thus, the WKB validity criterion that $\delta k / k \ll 1$ becomes
 \begin{equation}
   \frac{|\nabla k|}{k^2} \ll \frac{1}{2 \pi}.
   \label{eq:InterferometricMethods:WKB_validity}
@@ -385,7 +430,7 @@ propagating through such a pedestal,
 \begin{equation}
   \frac{|\nabla k|}{k^2}
   =
-  \left( \frac{2 \pi \, r_e}{k^3} \right) \nabla n_e
+  \left( \frac{2 \pi \, r_e}{k^3} \right) |\nabla n_e|
   \lesssim
   10^{-9}
   \notag
@@ -393,9 +438,18 @@ propagating through such a pedestal,
 such that the criterion for WKB validity
 (\ref{eq:InterferometricMethods:WKB_validity})
 is very well-satisfied.
+The WKB validity criterion can also be evaluated
+for a CO$_2$ beam propagating through plasma-density fluctuations;
+assuming $\tilde{n}_e / \bar{n}_e \sim 10^{-3}$,
+$\bar{n}_e \lesssim \SI{e20}{\per\meter\cubed}$, and
+density-fluctuation wavenumbers $\lesssim \SI{30}{\per\centi\meter}$,
+$|\nabla k| / k^2 \lesssim 2 \times 10^{-11}$ such that
+the WKB validity criterion is also very well-satisfied
+for typical plasma-density fluctuations.
 
 
 \subsection{Plasma-induced phase delay}
+\label{sec:InterferometricMethods:EM_waves_in_plasma:plasma_induced_phase_delay}
 The WKB field solution (\ref{eq:InterferometricMethods:WKB_field})
 indicates that the wave's phase at a given point in space and time
 is determined by the properties of the medium
@@ -417,22 +471,23 @@ will acquire a phase shift $\phi$ relative to vacuum given by
   \right] dl
   \notag \\
   &=
-  -r_e \lambda \int n_e dl,
+  -r_e \lambda_0 \int n_e dl,
   \label{eq:InterferometricMethods:phase}
 \end{align}
 where the index of refraction has been approximated via
-(\ref{eq:InterferometricMethods:index_of_refraction}), and
+(\ref{eq:InterferometricMethods:index_of_refraction}),
+$\lambda_0 = 2 \pi c / \omega = \SI{10.6}{\micro\meter}$
+is the CO$_2$ beam's vacuum wavelength, and
 $r_e$ is again the classical electron radius
 defined in (\ref{eq:InterferometricMethods:classical_electron_radius}).
 Now, if the plasma fluctuates about its equilibrium density $\bar{n}_e$ as
 $n_e = \bar{n}_e + \tilde{n}_e$,
 the phase will similarly fluctuate about its equilibrium as
 $\phi = \bar{\phi} + \tilde{\phi}$ where
-\graffito{\textcolor{red}{Where is $\lambda$ defined?}}
 \begin{equation}
   \tilde{\phi}
   =
-  - r_e \lambda \int \tilde{n}_e dl.
+  - r_e \lambda_0 \int \tilde{n}_e dl.
   \label{eq:InterferometricMethods:phase_fluctuation}
 \end{equation}
 It is precisely the intent of
@@ -522,7 +577,16 @@ near-field ($|z| \ll z_R$) and far-field ($|z| \gg z_R$) behaviors.
 Note that the beam's waist sits at $z = 0$.
 
 
-\subsection{Kirchhoff diffraction theory}
+\subsection{Kirchhoff scalar-diffraction theory}
+As discussed in the text surrounding
+(\ref{eq:InterferometricMethods:electric_field_eigenvector}),
+a CO$_2$ probe beam in a tokamak plasma propagates
+as a transverse electromagnetic wave with near-constant polarization
+(with any small changes to beam polarization being
+of little practical interest to the present work).
+Thus, it is suitable to pursue a \emph{scalar} theory
+of the beam's interaction with the plasma.
+
 A monochromatic scalar wave $U(\vect{r}) e^{-i \omega t}$ in vacuum
 satisfies the Helmholtz equation
 \begin{equation}
@@ -614,6 +678,11 @@ for points that are very close to the boundaries of the opaque obstacles.
 
 
 \subsection{Fraunhofer diffraction of a free-space Gaussian beam}
+This section demonstrates that the Fraunhofer diffraction formalism
+gives the correct form for a free-space Gaussian beam in the far-field limit,
+and it also lays the groundwork for examining
+the diffraction of a Gaussian beam from plasma-density fluctuations.
+
 Assume that the incident Gaussian beam has a waist at $S_1$, and
 take the radius of $S_1$ to be much larger than the beam waist $w_0$
 such that the domain of integration effectively extends
@@ -810,34 +879,52 @@ the diffraction of a phase-modulated Gaussian beam.
 \end{figure}
 
 
-\subsection{Fraunhofer diffraction of a phase-modulated Gaussian beam}
-Now, allow the incident beam to see
-an additional phase contribution $\phi(x', t)$ at $S_1$.
-If the beam's optical cycles occur much more rapidly
-than the temporal evolution of $\phi$,
-the problem can be treated adiabatically
-by solving for the beam propagation
-at each instant in time during the relatively slow evolution of $\phi$.
-This adiabatic assumption is very well-satisfied for
-a CO$_2$ probe beam ($\omega_0 = 2 \pi \cdot \SI{28.3}{\tera\hertz}$)
-in a typical tokamak plasma ($\omega \lesssim \SI{1}{\giga\hertz}$).
-
-Now, explicitly divide $\phi$ into bulk $\bar{\phi}(t)$ and
-spatially varying $\tilde{\phi}(x', t)$ components such that
+\subsection{Diffraction of a Gaussian beam from plasma-density fluctuations}
+\label{sec:InterferometricMethods:Gaussian_beam_diffraction:from_plasma_density_fluctuations}
+Now, allow a Gaussian, CO$_2$ probe beam
+to pass through a tokamak plasma.
+The beam acquires the plasma-induced phase delay $\phi(\vect{\rho}', t)$
+given by (\ref{eq:InterferometricMethods:phase}),
+where $\vect{\rho}'$ corresponds to the beam's transverse dimensions.
+Explicitly dividing $\phi$ into bulk $\bar{\phi}(t)$ and
+spatially varying $\tilde{\phi}(\vect{\rho}', t)$ components,
+the plasma-induced phase delay becomes
 \begin{equation}
-  \phi(x', t) = \bar{\phi}(t) + \tilde{\phi}(x', t).
+  \phi(\vect{\rho}', t) = \bar{\phi}(t) + \tilde{\phi}(\vect{\rho}', t).
 \end{equation}
 Typically, $\tilde{\phi}$ varies on much faster time scales than $\bar{\phi}$,
 but this is not required.
+The spatial variation of the plasma-induced phase delay
+contributes to the diffraction of the incident Gaussian probe beam, and
+the remainder of this section uses scalar-diffraction theory
+to determine the diffracted field in the Fraunhofer limit;
+the near-field form consistent with the computed Fraunhofer field
+is then inferred.
+(The object planes of the imaging systems relevant to this work
+sit in the near field, so computation of the imaged field requires
+knowledge of the near-field diffraction pattern).
+
 The response functions of the diagnostics investigated in
 Sections~\ref{sec:InterferometricMethods:interferometry} and
-\ref{sec:InterferometricMethods:pci} will be shown to be linear, so
+\ref{sec:InterferometricMethods:pci} will be shown
+to be linear in their regimes of relevance, so
 it is sufficient to examine phase fluctuations $\tilde{\phi}$
 consisting of a single Fourier mode
 \begin{equation}
-  \tilde{\phi}(x', t) = \tilde{\phi}_0 \cos(k x' - \omega t).
+  \tilde{\phi}(\vect{\rho}', t) = \tilde{\phi}_0 \cos(k x' - \omega t).
+  \label{eq:InterferometricMethods:cosine_phase_fluctuation}
 \end{equation}
-This additional phase contribution modifies
+As a CO$_2$ beam's optical cycles
+($\omega_0 = 2 \pi \cdot \SI{28.3}{\tera\hertz}$)
+occur much more rapidly than the temporal evolution of the plasma
+($\omega \lesssim 2 \pi \cdot \SI{1}{\giga\hertz}$),
+the problem can be treated adiabatically
+by solving for the beam propagation
+at each instant in time during the relatively slow evolution of $\phi$.
+Then, following the formalism pioneered by Raman and Nath
+\cite{raman_nath_diffraction_partI,raman_nath_diffraction_partIII},
+this plasma-induced phase delay makes an additional phase contribution
+to the diffraction integral
 (\ref{eq:InterferometricMethods:Fraunhofer_diffraction_integral_free_space})
 such that the diffraction pattern in the $x$-direction is given as
 \begin{align}
@@ -903,7 +990,7 @@ such that the diffraction pattern in the $x$-direction is given as
   \label{eq:InterferometricMethods:Fraunhofer_diffraction_integral_phase_modulated}
 \end{align}
 where the bracketed expression in the third equality follows from
-application of the well-known Jacobi-Anger expansion, and
+application of the well-known Jacobi-Anger expansion and
 $J_m$ is the $m$\ts{th} Bessel function of the first kind.
 Noting that $E(\vect{r}, t) = E(\vect{r}) e^{-i \omega_0 t}$,
 substitution of
@@ -913,7 +1000,7 @@ into (\ref{eq:InterferometricMethods:Fraunhofer_diffracted_field}) yields
   \begin{aligned}
     E(\vect{r}, t)
     \approx
-    &\sum_{m = -\infty}^{\infty}
+    &\sum_{m = -1}^{1}
     i^m \left[ J_m(\tilde{\phi}_0) \right]
     e^{-i m \omega t}
     e^{-\left[ \frac{w_0}{2} \left( \frac{k_0 x}{r} - m k \right) \right]^2}
@@ -929,6 +1016,13 @@ into (\ref{eq:InterferometricMethods:Fraunhofer_diffracted_field}) yields
   \label{eq:InterferometricMethods:Fraunhofer_phase_modulated_Gaussian_beam_diffraction}
   \end{aligned}
 \end{align}
+Here, only the $|m| \leq 1$ terms have been retained because
+$|J_m(\tilde{\phi}_0)| \sim \tilde{\phi}_0^{|m|}$
+for experimentally relevant values of $\tilde{\phi}_0 \ll 1$.
+(The complete small-argument, asymptotic form for $J_m$ is discussed in
+Section~\ref{sec:InterferometricMethods:imaging:weak_coupling_limit}).
+The effect of higher order terms can be easily investigated
+by e.g.\ including the $m = \pm 2$ terms etc.
 
 \begin{figure}
   \centering
@@ -982,7 +1076,14 @@ where
   \frac{m k}{k_0}.
   \label{eq:InterferometricMethods:scattering_angles}
 \end{equation}
-This coordinate transformation can be written more compactly as
+Typically, $m k / k_0 \ll 1$ such that
+\begin{equation}
+  \cos \theta_m
+  \approx
+  1 - \frac{1}{2} \left( \frac{m k}{k_0} \right)^2
+\end{equation}
+is a very good approximation.
+The above coordinate transformation can be written more compactly as
 \begin{equation}
   \vect{r}_m
   =
@@ -1022,59 +1123,20 @@ and its determinant is unity
   \label{eq:InterferometricMethods:rotation_matrix_determinant}
 \end{equation}
 such that the rotation preserves lengths, i.e.\ $r_m = r$.
-Typically, $k / k_0 \ll 1$ such that the coordinate transforms reduce to
-\begin{equation}
-  \vect{r}_m
-  =
-  \begin{pmatrix}
-    x_m
-    \\
-    y_m
-    \\
-    z_m
-  \end{pmatrix}
-  \approx
-  \begin{pmatrix}
-    x - z \theta_m
-    \\
-    y
-    \\
-    z + x \theta_m
-  \end{pmatrix},
-  \label{eq:InterferometricMethods:object_plane_coordinate_transformation_explicit_small_angle}
-\end{equation}
-and
-\begin{equation}
-  \vect{r}
-  =
-  \begin{pmatrix}
-    x
-    \\
-    y
-    \\
-    z
-  \end{pmatrix}
-  \approx
-  \begin{pmatrix}
-    x_m + z_m \theta_m
-    \\
-    y_m
-    \\
-    z_m - x_m \theta_m
-  \end{pmatrix}.
-  \label{eq:InterferometricMethods:object_plane_coordinate_transformation_explicit_small_angle_inverse}
-\end{equation}
-Substituting coordinate transformation
-(\ref{eq:InterferometricMethods:object_plane_coordinate_transformation_explicit_small_angle_inverse})
-into the Fraunhofer diffracted field
+It is sufficient to retain terms only to first order in
+$k / k_0$ (small scattering angle) and $x / z$ (paraxial limit)
+for the \emph{amplitude} dependencies of the diffracted field
+(this is \emph{not}, in general, true for the phase dependencies).
+Thus, $1 / z \approx 1 / z_m$ and $x \approx x_m + (m k / k_0) z$
+such that the Fraunhofer diffracted field
 (\ref{eq:InterferometricMethods:Fraunhofer_phase_modulated_Gaussian_beam_diffraction})
-and defining $\rho_m = (x_m^2 + y_m^2)^{1/2}$ yields
+can be rewritten as
 \begin{equation}
   \begin{aligned}
     E(\vect{r}, t)
     \approx
     e^{i \bar{\phi}}
-    &\sum_{m = -\infty}^{\infty}
+    &\sum_{m = -1}^{1}
     i^m \left[ J_m(\tilde{\phi}_0) \right]
     e^{-i (\omega_0 + m \omega) t}
     \\
@@ -1087,7 +1149,7 @@ and defining $\rho_m = (x_m^2 + y_m^2)^{1/2}$ yields
     \right],
   \end{aligned}
 \end{equation}
-where the far-field limit has been used to approximate $1/z \approx 1/z_m$.
+where $\rho_m = (x_m^2 + y_m^2)^{1/2}$.
 Now, the bracketed expression has the form of
 (\ref{eq:InterferometricMethods:Fraunhofer_Gaussian_beam_diffraction})
 for a far-field Gaussian beam; thus,
@@ -1096,7 +1158,7 @@ the diffracted electric field can be more compactly and generally written as
   E(\vect{r}, t)
   \approx
   e^{i \bar{\phi}}
-  \sum_{m = -\infty}^{\infty}
+  \sum_{m = -1}^{1}
   i^m \left[ J_m(\tilde{\phi}_0) \right]
   E_G(\vect{r}_m)
   e^{-i (\omega_0 + m \omega) t}.
@@ -1109,7 +1171,8 @@ that is, computing the far-field diffraction pattern
 has additionally allowed \emph{inferring} the corresponding near field.
 
 Thus, a sinusoidal phase modulation diffracts an incident Gaussian beam
-into an infinite number of \emph{scattered} Gaussian beams.
+predominantly into downscattered ($m = -1$), unscattered ($m = 0$), and
+upscattered ($m = 1$) Gaussian beams.
 The incident beam is coupled into the $m$\ts{th} scattered beam
 with strength $J_m(\tilde{\phi}_0)$.
 The $m$\ts{th} scattered beam is Doppler shifted
@@ -1125,12 +1188,12 @@ $\omega / \omega_0
 \SI{1}{\giga\hertz} / \SI{28.3}{\tera\hertz}
 \sim 10^{-5}$).
 Thus, the scattering is very nearly elastic, and
-$|\vect{k}_m| = k_0$ is a very good approximation.
+$|\vect{k}_{0,m}| = k_0$ is a very good approximation.
 This constraint of elasticity
 coupled with knowledge of the scattering angle $\theta_m$
 allows determination of the scattered wavevector
 \begin{equation}
-  \vect{k}_m
+  \vect{k}_{0,m}
   =
   (m k) \hat{\vect{x}}
   +
@@ -1138,279 +1201,316 @@ allows determination of the scattered wavevector
   %k_0 \sqrt{1 - \left(\frac{m k}{k_0}\right)^2} \hat{\vect{z}}
   \label{eq:InterferometricMethods:scattered_beam_wavevector}
 \end{equation}
+Finally, note that the simultaneous presence
+of both the upscattered and downscattered beams
+under typical experimental conditions
+has been demonstrated empirically
+\cite[Sec.~2.1]{dorris_phd}.
+In the above formalism, the simultaneous upscattering and downscattering
+of the incident probe beam results from
+the assumption of a sinusoidal phase fluctuation in
+(\ref{eq:InterferometricMethods:cosine_phase_fluctuation});
+if a complex exponential were assumed instead,
+one would erroneously deduce that
+only one such scattering process (either up or down) occurs.
 
-Obviously, the scalar nature of the above diffraction calculation
-is insufficient to capture
-the small polarization changes that accompany beam scattering.
-Such polarization changes are of little interest in this work, so
-their theoretical treatment is not pursued here.
+
+\subsection{Validity of the Raman-Nath formalism}
+The Raman-Nath formalism employed in
+Section~\ref{sec:InterferometricMethods:Gaussian_beam_diffraction:from_plasma_density_fluctuations}
+is valid as long as the fluctuation wavenumber $k$ is not too large.
+This constraint has been rigorously quantified by Bhatia and Noble
+\cite{bhatia_53_general_theory,bhatia_53_approximate_expressions_for_intensities} and
+is also discussed by Born and Wolf
+\cite[Ch.~12]{born_and_wolf}.
+Specifically, beam diffraction will be in the Raman-Nath regime when
+\begin{equation}
+  \delta = \frac{\tilde{n}_e}{\bar{n}_e} \left( \frac{k_0}{k} \right)^2 \gg 1,
+  \label{eq:InterferometricMethods:raman_nath_validity_criterion}
+\end{equation}
+where
+$\bar{n}_e$ is the bulk plasma density,
+$\tilde{n}_e$ is the amplitude of the plasma-density fluctuation,
+$k_0$ is the vacuum wavenumber of the probe beam, and
+$k$ is the wavenumber of the plasma-density fluctuation.
+Note that the above $\delta$ is equivalent
+to that used by Bhatia and Noble,
+after having made the appropriate substitutions
+for a CO$_2$ probe beam in a tokamak plasma.
+Assuming typical tokamak values
+\begin{align}
+  &\frac{\tilde{n}_e}{\bar{n}_e}
+  \sim
+  10^{-3},
+  \notag \\
+  &k
+  \lesssim
+  \SI{30}{\per\centi\meter}
+  \notag
+\end{align}
+yields $\delta \gtrsim 40$
+for a CO$_2$ probe beam ($k_0 \approx 2 \pi \cdot \SI{e5}{\per\meter}$)
+such that beam's diffraction is well within the Raman-Nath regime.
+In the opposite regime ($\delta \ll 1$)
+the beam can \emph{Bragg scatter} from the phase fluctuation,
+producing a single, strongly-scattered beam
+\cite{bhatia_53_approximate_expressions_for_intensities}
+\cite[Ch.~12]{born_and_wolf};
+such Bragg scattering is the foundation of acousto-optics.
 
 
 \subsection{Wavenumber-dependent manipulation of the diffracted field}
 Examine again the diffracted field
 (\ref{eq:InterferometricMethods:phase_modulated_Gaussian_beam_diffraction}).
-Note that the spatial dependence
-is governed entirely by the factor $E_G(\vect{r}_m)$,
-which specifies the spatial structure of the $m$\ts{th} scattered beam.
-Note that $E_G(\vect{r}_m)$ can be Fourier decomposed as
-\begin{align}
-  E_G(\vect{r}_m)
-  &=
-  \mathcal{F}^{-1}[E_G(\vect{k}_m')](\vect{r}_m)
-  \notag \\
-  &=
-  \frac{1}{(2 \pi)^3}
-  \int d\vect{k}_m'
-  e^{i \vect{k}_m' \cdot \vect{r}_m}
-  E_G(\vect{k}_m')
-  \notag \\
-  &=
-  \frac{1}{(2 \pi)^3}
-  \int d\vect{k}_m'
-  e^{i \vect{k}_m' \cdot \vect{r}_m}
-  \left[
-    \int d\vect{r}' \,
-    e^{-i \vect{k}_m' \cdot \vect{r}'}
-    E_G(\vect{r}')
-  \right]
-  \notag \\
-  &=
-  \frac{1}{(2 \pi)^3}
-  \int d\vect{r}' \,
-  E_G(\vect{r}')
-  \int d\vect{k}_m' \,
-  e^{i \vect{k}_m' \cdot (\vect{r}_m - \vect{r}')},
-\end{align}
-where $\vect{k}_m'$ is the wavevector basis that is \emph{dual} to
-the coordinate system of the $m$\ts{th} scattered beam, $\vect{r}_m$.
-To understand the significance of this duality,
-note that $\vect{k}_m' \cdot \vect{r}_m$ is a physical quantity,
-independent of any given coordinate system; that is,
-if $\vect{k}'$ is the wavevector basis dual to
-the lab-frame (i.e. $m = 0$ beam) coordinate system, then, by definition,
-$\vect{k}_m' \cdot \vect{r}_m = \vect{k}' \cdot \vect{r}$.
-Enforcing this coordinate-independent requirement and
-exploiting the orthogonality of $\vect{R}(\theta_m)$
-(abbreviated here as $\vect{R}_m$) yields
-\begin{align}
-  \vect{k}' \cdot \vect{r}
-  &=
-  \vect{k}'^T \vect{r}
-  \notag \\
-  &=
-  \vect{k}'^T (\vect{R}_m^T \vect{R}_m) \vect{r}
-  \notag \\
-  &=
-  (\vect{R}_m \vect{k}')^T (\vect{R}_m \vect{r})
-  \notag \\
-  &=
-  (\vect{R}_m \vect{k}') \cdot \vect{r}_m
-  \notag \\
-  &=
-  \vect{k}_m' \cdot \vect{r}_m
-  \notag
-\end{align}
-such that
+The spatial dependence of each term in the summation
+is wholly governed by the factor $E_G(\vect{r}_m)$,
+which corresponds to a Gaussian beam
+that emanates from the beam waist
+at an angle $\theta_m$ relative to the lab-frame $z$-axis.
+The coordinate system $\vect{r}_m$ is defined such that
+the $m$\ts{th} Gaussian beam propagates along the $z_m$-axis, and
+it is related to the lab-frame coordinate system $\vect{r}$ via
+(\ref{eq:InterferometricMethods:object_plane_coordinate_transformation_compact}).
+The wavenumber basis $\vect{k}_m$ that is dual to $\vect{r}_m$
+is similarly related to the lab-frame wavenumber basis $\vect{k}$ via
 \begin{equation}
-  \vect{k}_m'
+  \vect{k}_m
   =
-  \vect{R}_m \vect{k}'.
-  \label{eq:InterferometricMethods:wavevector_dual_to_mth_beam}
+  [ \vect{R}(\theta_m) ] \vect{k},
+  \label{eq:InterferometricMethods:object_plane_coordinate_transformation_wavenumber_dual}
 \end{equation}
+which naturally results from the geometric constraint that
+$\vect{k} \cdot \vect{r} = \vect{k}_m \cdot \vect{r}_m$.
 
-While the above Fourier decomposition is trivial,
-it lays the foundation for more sophisticated analysis.
-For example, imagine that the Fourier components of $E_G(\vect{r}_m)$
-are somehow manipulated
-based upon lab-frame wavenumber $\vect{k}'$;
-if this manipulation can be described
-in terms of a transfer function $T(\vect{k}')$,
-then the resulting spatial dependence
-of the $m$\ts{th} scattered beam is
-\begin{align}
-  \mathcal{E}_G(\vect{r}_m)
-  &=
+Imagine now that each of the above Gaussian beams
+is somehow manipulated based upon its Fourier wavenumber content.
+Assume this manipulation can be described
+in terms of a transfer function $T(\vect{k})$,
+where $\vect{k}$ is the lab-frame wavenumber basis.
+A transfer functions of this form is appropriate for investigating e.g.\
+diffraction from an aperture or the action of a phase plate.
+Using the wavenumber basis transformation
+(\ref{eq:InterferometricMethods:object_plane_coordinate_transformation_wavenumber_dual}),
+this transfer function can be written
+in terms of the $\vect{k}_m$ wavenumber basis as
+\begin{equation}
+  T(\vect{k}) = T(\vect{R}_{-m} \vect{k}_m),
+\end{equation}
+where the abbreviation $\vect{R}_m = \vect{R}(\theta_m)$ has been adopted.
+The transformed field $E_T$ then has the Fourier representation
+in the $\vect{k}_m$ wavenumber basis
+\begin{equation}
+  E_T(\vect{k}_m) = T(\vect{R}_{-m} \vect{k}_m) \cdot E_G(\vect{k}_m).
+\end{equation}
+Inverse Fourier transforming $E_T(\vect{k}_m)$ yields
+\begin{equation}
+  E_T(\vect{r}_m)
+  =
+  \frac{1}{(2 \pi)^3}
+  \int d\vect{k}_m \,
+  \left[%
+    T(\vect{R}_{-m} \vect{k}_m)
+    e^{i \vect{k}_m \cdot \vect{r}_m}
+  \right]
+  E_G(\vect{k}_m).
+\end{equation}
+Note that each spectral component $E_G(\vect{k}_m)$
+individually satisfies the wave equation.
+Thus, the above construction of the transformed field $E_T(\vect{r}_m)$,
+which consists of a linear combination of the spectral components
+with arbitrary amplitudes and phases,
+\emph{also} satisfies the wave equation.
+Now, explicitly writing $E_G(\vect{k}_m)$ as the Fourier transform
+of $E_G$ over a dummy spatial coordinate $\vect{r}'$, and
+exchanging the order of integration yields
+\begin{equation}
+  E_T(\vect{r}_m)
+  =
   \frac{1}{(2 \pi)^3}
   \int d\vect{r}' \,
   E_G(\vect{r}')
-  \int d\vect{k}_m' \,
-  T(\vect{k}')
-  e^{i \vect{k}_m' \cdot (\vect{r}_m - \vect{r}')},
-\end{align}
-where the notation $\mathcal{E}_G(\vect{r}_m)$
-has been selected to emphasize that
-this spatial dependence may differ from $E_G(\vect{r}_m)$.
-Note that the wavevector integration variables are
-with respect to the basis of the $m$\ts{th} scattered beam $\vect{k}_m'$
-whereas the transfer function is expressed in terms of
-the lab-frame basis $\vect{k}'$.
-To proceed, change the variables of integration
-from $\vect{k}_m'$ to $\vect{k}'$ by noting that
+  \int d\vect{k}_m \,
+  T(\vect{R}_{-m} \vect{k}_m)
+  e^{i \vect{k}_m \cdot (\vect{r}_m - \vect{r}')}.
+\end{equation}
+Further, for the applications considered here,
+it is advantageous to change the variables of integration
+from the $\vect{k}_m$ wavenumber basis
+to the lab-frame wavenumber basis $\vect{k}$.
+Note that
 \begin{equation}
-  d\vect{k}_m'
+  d\vect{k}_m
   =
-  \left| \frac{\partial \vect{k}_m'}{\partial \vect{k}'} \right|
-  d\vect{k}'
+  \left| \frac{\partial \vect{k}_m}{\partial \vect{k}} \right|
+  d\vect{k}
   =
   |\vect{R}_m|
-  d\vect{k}'
+  d\vect{k}
   =
-  d\vect{k}'
+  d\vect{k}
 \end{equation}
-and
+and that
 \begin{align}
-  \vect{k}_m' \cdot (\vect{r}_m - \vect{r}')
+  \vect{k}_m \cdot (\vect{r}_m - \vect{r}')
   &=
-  (\vect{R}_m \vect{k}') \cdot (\vect{R}_m \vect{r} - \vect{r}')
+  (\vect{R}_m \vect{k}) \cdot (\vect{r}_m - \vect{r}')
   \notag \\
   &=
-  (\vect{R}_m \vect{k}')^T (\vect{R}_m \vect{r} - \vect{r}')
+  (\vect{R}_m \vect{k})^T (\vect{r}_m - \vect{r}')
   \notag \\
   &=
-  \vect{k}'^T \vect{R}_m^T (\vect{R}_m \vect{r} - \vect{r}')
+  \vect{k}^T \vect{R}_m^T (\vect{r}_m - \vect{r}')
   \notag \\
   &=
-  \vect{k}'^T (\vect{R}_m^T \vect{R}_m \vect{r} - \vect{R}_m^T \vect{r}')
-  \notag \\
-  &=
-  \vect{k}'
-  \cdot
-  \left[%
-    \vect{r} - \left(\vect{R}_{-m} \vect{r}'\right)
-  \right]
-  \notag \\
-  &=
-  \vect{k}' \cdot \left( \vect{r} - \vect{r}_{-m}' \right)
+  \vect{k} \cdot [\vect{R}_{-m} (\vect{r}_m - \vect{r}')]
 \end{align}
-such that $\mathcal{E}_G(\vect{r}_m)$ becomes
-\begin{align}
-  \mathcal{E}_G(\vect{r}_m)
-  &=
+such that the transformed field $E_T(\vect{r}_m)$ becomes
+\begin{equation}
+  E_T(\vect{r}_m)
+  =
   \frac{1}{(2 \pi)^3}
   \int d\vect{r}' \,
   E_G(\vect{r}')
-  \int d\vect{k}' \,
-  T(\vect{k}')
-  e^{i \vect{k}' \cdot (\vect{r} - \vect{r}_{-m}')}.
+  \int d\vect{k} \,
+  T(\vect{k})
+  e^{i \vect{k} \cdot \left[ \vect{R}_{-m} (\vect{r}_m - \vect{r}') \right]},
   \label{eq:InterferometricMethods:mth_diffracted_beam_Fourier_filtered}
-\end{align}
+\end{equation}
+where, again, the abbreviation $\vect{R}_{-m} = \vect{R}(-\theta_m)$
+has been adopted and $\vect{R}(\theta)$ is the rotation matrix given by
+(\ref{eq:InterferometricMethods:rotation_matrix}).
 
 To make further progress,
-a particular form of $T(\vect{k}')$ is needed.
-Assume that $T(\vect{k}') = T(k_x')$ such that
-wavenumbers are filtered only in the direction of beam scattering.
-Then (\ref{eq:InterferometricMethods:mth_diffracted_beam_Fourier_filtered})
+a particular form of $T(\vect{k})$ is needed.
+Assume that wavenumbers are filtered
+only in the direction of beam scattering
+i.e.\ $T(\vect{k}) = T(k_x)$.
+(For example, the groove of a phase plate would be aligned
+with the lab-frame $y$-axis to effect such filtering).
+Then
+\begin{equation}
+  \vect{R}_{-m} (\vect{r}_m - \vect{r}')
+  =
+  \begin{pmatrix}
+    (x_m - x') \cos\theta_m + (z_m - z') \sin\theta_m
+    \\
+    y_m - y'
+    \\
+    (z_m - z') \cos\theta_m - (x_m - x') \sin\theta_m
+  \end{pmatrix}
+\end{equation}
+such that
+(\ref{eq:InterferometricMethods:mth_diffracted_beam_Fourier_filtered})
 becomes
 \begin{align}
-  \mathcal{E}_G(\vect{r}_m)
+  E_T(\vect{r}_m)
   &=
   \frac{1}{(2 \pi)^3}
   \int d\vect{r}' \,
   E_G(\vect{r}')
-  \int dk_x' \,
-  T(k_x')
-  e^{i k_x' (x - x_{-m}')}
+  \int dk_y \,
+  e^{i k_y (y_m - y')}
   \notag \\
-  &\qquad\qquad \times
-  \int dk_y' \,
-  e^{i k_y' (y - y_{-m}')}
-  \int dk_z' \,
-  e^{i k_z' (z - z_{-m}')}
+  &\qquad\quad \times
+  \int dk_z \,
+  e^{i k_z [(z_m - z') \cos\theta_m - (x_m - x') \sin\theta_m]}
+  \notag \\
+  &\qquad\quad \times
+  \int dk_x \,
+  T(k_x)
+  e^{i k_x \left[ (x_m - x') \cos\theta_m + (z_m - z') \sin\theta_m \right]}
   \notag \\
   &=
   \frac{1}{2 \pi}
   \int d\vect{r}' \,
   E_G(\vect{r}')
-  \delta(y - y_{-m}')
-  \delta(z - z_{-m}')
+  \delta(y_m - y')
   \notag \\
-  &\qquad\qquad \times
-  \int dk_x' \,
-  T(k_x')
-  e^{i k_x' (x - x_{-m}')}
+  &\qquad\quad \times
+  \delta\bigl( (z_m - z') \cos\theta_m - (x_m - x') \sin\theta_m \bigr)
   \notag \\
-  &\begin{aligned}
-    &=
-    \frac{1}{2 \pi}
-    \int dx' \,
-    E_G(x', y, z + x' \theta_m)
-    \\
-    &\qquad\qquad \times
-    \int dk_x' \,
-    T(k_x')
-    e^{i k_x' (x - x_{-m}')}
-  \end{aligned}
+  &\qquad\quad \times
+  \int dk_x \,
+  T(k_x)
+  e^{i k_x \left[ (x_m - x') \cos\theta_m + (z_m - z') \sin\theta_m \right]}
   \notag \\
   &\begin{aligned}
     &=
     \frac{1}{2 \pi}
     \int dx' \,
-    E_G(x', y, z + x' \theta_m)
+    E_G\bigl( x',\, y_m,\, z_m - (x_m - x')\tan \theta_m \bigr)
     \\
-    &\qquad\qquad \times
-    \int dk_x' \,
-    T(k_x')
-    e^{i k_x' (x_m - x')}.
+    &\qquad\quad \times
+    \int dk_x \,
+    T(k_x)
+    e^{i k_x (x_m - x') \sec\theta_m}
   \end{aligned}
   \label{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_v1}
 \end{align}
-Contributions to the integral from regions outside of $|x'| \lesssim w(z)$
+Contributions to the integral from regions outside of $|x'| \lesssim w(z_m)$
 are suppressed by the Gaussian envelope such that
 \begin{align}
-  w(z + x' \theta_m)
+  w\bigl( z_m - (x_m - x')\tan \theta_m \bigr)
   &\approx
-  w(z),
+  w(z_m),
   \notag \\
-  R(z + x' \theta_m)
+  R\bigl( z_m - (x_m - x')\tan \theta_m \bigr)
   &\approx
-  R(z),
+  R(z_m),
   \notag \\
-  \psi(z + x' \theta_m)
+  \psi\bigl( z_m - (x_m - x')\tan \theta_m \bigr)
   &\approx
-  \psi(z)
+  \psi(z_m)
   \notag
 \end{align}
-are very good approximations
-when evaluating $E_G(x', y, z + x' \theta_m)$.
-Note that the phase factor $\exp[i k_0 (z + x' \theta_m)]$
-must be fully retained
-(that is, $\exp[i k_0 (z + x' \theta_m)] \not\approx\exp[i k_0 z]$).
+are very good approximations.
+Note that the phase of the Gaussian beam
+\emph{cannot} be approximated in such a manner;
+instead, terms up to first order in $\theta_m$
+must be retained in the phase.
 After making these approximations,
 (\ref{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_v1})
 reduces to
 \begin{equation}
-  \mathcal{E}_G(\vect{r}_m)
+  E_T(\vect{r}_m)
   \approx
-  E_G(0, y, z)
+  E_G(0, y_m, z_m)
   \cdot
-  \mathcal{P}(m, k, x),
+  \mathcal{E}(\vect{r}_m, k),
   \label{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_compact}
 \end{equation}
 where
 \begin{equation}
   \begin{aligned}
-    \mathcal{P}(m, k, x)
+    \mathcal{E}(\vect{r}_m, k)
     &=
-    \frac{1}{2 \pi}
+    \frac{e^{-i m k x_m}}{2 \pi}
+    \\
+    &\quad \times
     \int dx' \,
-    \exp\left[ \frac{-x'^2}{w(z)^2} \right]
+    \exp\left[ \frac{-x'^2}{w(z_m)^2} \right]
     \exp\left\{%
       i \left[%
         m k x'
         +
-        \frac{k_0 x'^2}{2 R(z)}
+        \frac{k_0 x'^2}{2 R(z_m)}
       \right]
     \right\}
     \\
-    &\qquad \times
-    \int dk_x' \,
-    T(k_x')
-    e^{i k_x' (x_m - x')}
+    &\quad \times
+    \int dk_x \,
+    T(k_x)
+    e^{i k_x (x_m - x')}
   \end{aligned}
-  \label{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_phase_factor}
+  \label{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_transformation}
 \end{equation}
-is a complex-valued phase factor
-that results from filtering the scattered radiation by $T(k_x')$.
+is a complex-valued function
+that describes the amplitude and phase transformations
+that result from filtering the scattered radiation by $T(k_x)$.
+(Note that
+(\ref{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_compact})
+readily reduces to $E_T(\vect{r}_m) = E_G(\vect{r}_m)$ when $T(k_x) = 1$,
+in agreement with expectations).
 Generalizing
 (\ref{eq:InterferometricMethods:phase_modulated_Gaussian_beam_diffraction})
 to allow for such wavenumber-dependent manipulation
@@ -1419,9 +1519,9 @@ yields a total diffracted electric field
   E(\vect{r}, t)
   \approx
   e^{i \bar{\phi}}
-  \sum_{m = -\infty}^{\infty}
+  \sum_{m = -1}^{1}
   i^m \left[ J_m(\tilde{\phi}_0) \right]
-  \mathcal{E}_G(\vect{r}_m)
+  E_T(\vect{r}_m)
   e^{-i (\omega_0 + m \omega) t}.
   \label{eq:InterferometricMethods:phase_modulated_Gaussian_beam_diffraction_Fourier_filtered}
 \end{equation}
@@ -1541,7 +1641,7 @@ of the imaging system;
 for propagation through ``simple'' optical components,
 such as lenses and homogeneous media, $C$ is constrained to be real.
 Thus, an imaging system of magnification $M$ is characterized
-by a ray matrix of the form
+by an $ABCD$ ray matrix of the form
 \begin{equation}
   \mathcal{I}
   =
@@ -1556,8 +1656,11 @@ by a ray matrix of the form
 Now, the optical axis of each scattered Gaussian beam
 behaves as a ray in the geometric-optics sense
 \cite{tovar_generalized_beam_matrices_IV}.
-Thus, the $m$\ts{th} scattered beam is rotated by angle $\theta_m / M$
-relative to the unscattered beam in the imaging plane,
+Application of the imaging $ABCD$ ray matrix
+(\ref{eq:InterferometricMethods:ABCD_imaging})
+to a beam scattered by $\theta_m$ in the object plane
+indicates that this beam will be rotated by angle $\theta_m / M$
+relative to the unscattered beam in the image plane,
 as shown in Fig.~\ref{fig:InterferometricMethods:imaging_geometry}.
 Further, the imaging optics do \emph{not} alter
 the magnitude of the beam's wavevector, i.e.\ $|\image(\vect{k}_m)| = k_0$
@@ -1566,9 +1669,9 @@ do not alter the energy of the beam's constituent photons).
 Knowledge of the wavevector's image-plane magnitude and orientation
 allows determination of the image-plane wavevector as
 \begin{align}
-  \image(\vect{k}_m)
+  \image(\vect{k}_{0,m})
   =
-  \vect{k}_{m,\image}
+  \vect{k}_{0,m,\image}
   =
   \left( m k_{\image} \right) \hat{\vect{x}}
   +
@@ -1646,9 +1749,13 @@ where, amazingly, $A$, $B$, $C$, and $D$
 are equal to the corresponding values
 of the $ABCD$ ray matrix from geometric optics
 \cite[Sec.~20.2]{siegman_lasers} \cite{tovar_generalized_beam_matrices_IV}.
-Note that the complex beam parameter and its evolution
-are independent of transverse and angular displacements
-from the nominal optical axis
+The beam's transverse and angular displacements
+relative to the lab-frame optical axis
+are similarly governed by the so-called ``$S$-parameter transformation''
+\cite{tovar_generalized_beam_matrices_IV}.
+It is important to note that the complex beam parameter and its evolution
+are \emph{independent} of the beam's transverse and angular displacements
+from the lab-frame optical axis
 (assuming such displacements do not violate the paraxial limit, of course);
 that is, a scattered beam's width and radius of curvature
 evolve identically to those of the unscattered beam.
@@ -1740,12 +1847,12 @@ is imaged as
   &\begin{aligned}
     =
     e^{i \bar{\phi}}
-    \sum_{m = -\infty}^{\infty}
+    \sum_{m = -1}^{1}
     \biggl\{%
       &i^m \left[ J_m(\tilde{\phi}_0) \right]
       \\
       &\times
-      \image[\mathcal{E}_G(\vect{r}_{m,\object})]
+      \image[E_T(\vect{r}_{m, \object})]
       e^{-i (\omega_0 + m \omega) t}
     \biggr\},
   \end{aligned}
@@ -1753,23 +1860,36 @@ is imaged as
 \end{align}
 where the linearity of $\image$ has been invoked
 to bring the operator within the summation.
-Referencing the definition of $\mathcal{E}_G(\vect{r}_{m})$
+Referencing the definition of $E_T(\vect{r}_{m})$
 (\ref{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_compact}),
 it readily follows that
 \begin{align}
-  \image[\mathcal{E}_G(\vect{r}_{m,\object})]
+  \image[E_T(\vect{r}_{m, \object})]
   &=
   \mathcal{I}[%
-    E_G(0, y_{\object}, z_{\object})
+    E_G(0, y_{m, \object}, z_{m, \object})
     \cdot
-    \mathcal{P}(m, k, x_{\object})
+    \mathcal{E}(\vect{r}_{m, \object}, k)
   ]
   \notag \\
   &=
-  E_G(0, y_{\image}, z_{\image})
+  E_G(0, y_{m, \image}, z_{m, \image})
   \cdot
-  \mathcal{P}(m, k_{\image}, x_{\image}).
+  \mathcal{E}(\vect{r}_{m, \image}, k_{\image})
+  \notag \\
+  &\approx
+  E_G(0, y_{\image}, z_{\image})
+  e^{i m k_{\image} x_{\image}}
+  \cdot
+  \mathcal{E}(\vect{r}_{m, \image}, k_{\image}),
 \end{align}
+where the last step naturally follows from
+the image-plane coordinate transformation
+(\ref{eq:InterferometricMethods:coordinate_transformation_imaging_plane})
+and the following approximations:
+$w(z_{m, \image}) \approx w(z_{\image})$,
+$R(z_{m, \image}) \approx R(z_{\image})$, and
+$\psi(z_{m, \image}) \approx \psi(z_{\image})$.
 Thus, the imaged field
 (\ref{eq:InterferometricMethods:imaged_total_field_v1}) becomes
 \begin{equation}
@@ -1780,20 +1900,28 @@ Thus, the imaged field
     e^{i \bar{\phi}}
     \\
     &\quad \times
-    \sum_{m = -\infty}^{\infty}
+    \sum_{m = -1}^{1}
     i^m \left[ J_m(\tilde{\phi}_0) \right]
-    \mathcal{P}(m, k_{\image}, x_{\image})
-    e^{-i m \omega t},
+    \mathcal{E}(\vect{r}_{m, \image}, k_{\image})
+    e^{i m \nu},
   \end{aligned}
   \label{eq:InterferometricMethods:imaged_total_field}
 \end{equation}
 where
+\begin{equation}
+  \nu
+  =
+  k_{\image} x_{\image} - \omega t
+  \label{eq:InterferometricMethods:image_plane_nu}
+\end{equation}
+and
 $E_G(0, y_{\image}, z_{\image}, t)
 =
 E_G(0, y_{\image}, z_{\image}) e^{-i \omega_0 t}$.
 
 
 \subsection{The weak-coupling limit}
+\label{sec:InterferometricMethods:imaging:weak_coupling_limit}
 Typically, the phase-fluctuation amplitude
 is very small ($\tilde{\phi}_0 \ll 1$), and
 the Bessel function's small-argument limiting form \cite{abramowitz_and_stegun}
@@ -1813,10 +1941,10 @@ can be used
 \end{equation}
 Here, $\Gamma$ is the gamma function, and
 $\Gamma(m + 1) = m!$ for positive integer $m$.
-Dropping terms exceeding first order in $\tilde{\phi}_0$ and
-introducing the notational shorthand
-$\mathcal{P}_m \equiv \mathcal{P}(m, k_{\image}, x_{\image})$,
-the imaged field (\ref{eq:InterferometricMethods:imaged_total_field}) becomes
+Introducing the notational shorthand
+$\mathcal{E}_m \equiv \mathcal{E}(\vect{r}_{m, \image}, k_{\image})$,
+the imaged field to first order in $\tilde{\phi}_0$
+(\ref{eq:InterferometricMethods:imaged_total_field}) becomes
 \begin{equation}
   \begin{aligned}
   E(\vect{r}_{\image}, t)
@@ -1826,91 +1954,22 @@ the imaged field (\ref{eq:InterferometricMethods:imaged_total_field}) becomes
   \\
   &\quad\times
   \biggl\{%
-    \mathcal{P}_{0}
+    \mathcal{E}_{0}
     +
     i \frac{\tilde{\phi}_0}{2}
     \left[
-      \mathcal{P}_{1} e^{-i \omega t}
+      \mathcal{E}_{1} e^{i \nu}
       +
-      \mathcal{P}_{-1} e^{i \omega t}
+      \mathcal{E}_{-1} e^{-i \nu}
     \right]
   \biggr\}.
   \end{aligned}
   \label{eq:InterferometricMethods:imaged_total_field_weak_coupling_Fourier_filtered}
 \end{equation}
-
-It is enlightening to examine the case where there is
-no wavenumber-dependent manipulation of the scattered beams
-(i.e.\ $T(k_x) = 1$), for which
-the phase factor $\mathcal{P}(m, k_{\image}, x_{\image})$ readily reduces to
-\begin{equation}
-  \mathcal{P}(m, k_{\image}, x_{\image})
-  =
-  \exp\left[\frac{-x_{m,\image}^2}{w(z_{\image})^2} \right]
-  \exp\left\{%
-    i \left[%
-      m k_{\image} x_{m,\image}
-      +
-      \frac{k_0 x_{m,\image}^2}{2 R(z_{\image})}
-    \right]
-  \right\}.
-\end{equation}
-Now, the image-plane coordinate transformation
-from $x_{m,\image}$ to $x_{\image}$ is given by
-(\ref{eq:InterferometricMethods:coordinate_transformation_imaging_plane}).
-Neglecting the small variation in the Gaussian envelope and
-retaining phase factors only to second order in $k$ yields
-\begin{equation}
-  \begin{aligned}
-  \mathcal{P}(m, k_{\image}, x_{\image})
-  &\approx
-  \exp\left[\frac{-x_{\image}^2}{w(z_{\image})^2} \right]
-  \exp\left[ \frac{i k_0 x_{\image}^2}{2 R(z_{\image})} \right]
-  \\
-  &\quad \times
-  \exp\left\{%
-    i \left[%
-      m k_{\image} x_{\image}
-      -
-      \frac{(m k_{\image} x_{\image})^2}{2 k_0 R(z_{\image})}
-    \right]
-  \right\}.
-  \end{aligned}
-  \label{eq:InterferometricMethods:mth_diffracted_beam_no_kx_filter_phase_factor}
-\end{equation}
-Here, the top line corresponds to
-the Gaussian envelope and phase-front curvature
-of the unscattered ($m = 0$) beam, whereas
-the second line corresponds to interference effects.
-Substituting
-(\ref{eq:InterferometricMethods:mth_diffracted_beam_no_kx_filter_phase_factor})
-into
+When there is no wavenumber-dependent manipulation of the scattered beams
+(i.e.\ $T(k_x) = 1$), the imaged field
 (\ref{eq:InterferometricMethods:imaged_total_field_weak_coupling_Fourier_filtered})
-yields
-\begin{equation}
-  E(\vect{r}_{\image}, t)
-  =
-  E_G(\vect{r}_{\image}, t)
-  e^{i \bar{\phi}}
-  \left[%
-    1
-    +
-    i \tilde{\phi}_0 e^{-i \kappa} \cos\xi
-  \right],
-\end{equation}
-where
-\begin{align}
-  \xi
-  &\equiv
-  k_{\image} x_{\image} - \omega t,
-  \label{eq:InterferometricMethods:image_plane_xi}
-  \\
-  \kappa
-  &\equiv
-  \frac{(k_{\image} x_{\image})^2}{2 k_0 R(z_{\image})}.
-  \label{eq:InterferometricMethods:image_plane_kappa}
-\end{align}
-Normally, $\kappa \ll 1$ such that the imaged field reduces to
+readily reduces to
 \begin{equation}
   E(\vect{r}_{\image}, t)
   \approx
@@ -1919,10 +1978,15 @@ Normally, $\kappa \ll 1$ such that the imaged field reduces to
   \left[%
     1
     +
-    i \tilde{\phi}_0 \cos\xi
-  \right].
+    i \tilde{\phi}_0 \cos\nu
+  \right],
   \label{eq:InterferometricMethods:imaged_total_field_weak_coupling}
 \end{equation}
+which follows naturally from the image-plane coordinate transformation
+(\ref{eq:InterferometricMethods:coordinate_transformation_imaging_plane})
+and the following approximations:
+$w(z_{m, \image}) \approx w(z_{\image})$ and
+$R(z_{m, \image}) \approx R(z_{\image})$.
 
 
 \subsection{The need for a reference beam}
@@ -1986,7 +2050,7 @@ Thus, the probe radiation in the image plane is given as
   \left[%
     1
     +
-    i \tilde{\phi}_0 \cos\xi
+    i \tilde{\phi}_0 \cos\nu
   \right].
 \end{equation}
 Now, assume that the imaged probe radiation
@@ -2007,7 +2071,7 @@ The total field impinging on the detector is then
     \left(%
       1
       +
-      i \tilde{\phi}_0 \cos\xi
+      i \tilde{\phi}_0 \cos\nu
     \right)
   \right],
 \end{equation}
@@ -2021,7 +2085,7 @@ and, to first order in $\tilde{\phi}_0$, the corresponding intensity is
     +
     \cos(\phi_R - \bar{\phi})
     +
-    \tilde{\phi}_0 \sin(\phi_R - \bar{\phi}) \cos\xi
+    \tilde{\phi}_0 \sin(\phi_R - \bar{\phi}) \cos\nu
   \right],
   \label{eq:InterferometricMethods:interferometer_intensity_arbitrary_reference}
 \end{equation}
@@ -2066,7 +2130,7 @@ such that the resulting intensity is
       \\
       &+
       \tilde{\phi}_0
-      \sin(\phi_R - \bar{\phi}) \cos\xi
+      \sin(\phi_R - \bar{\phi}) \cos\nu
     \bigr].
   \end{aligned}
   \label{eq:InterferometricMethods:homodyne_intensity}
@@ -2095,7 +2159,7 @@ the total power $P_{j, \, \text{hom}}$ incident on this element is then
       \\
       &\qquad+
       \tilde{\phi}_0
-      \sin(\phi_R - \bar{\phi}) \cos\xi
+      \sin(\phi_R - \bar{\phi}) \cos\nu
     \biggr] dx_{\image},
   \end{aligned}
   \label{eq:InterferometricMethods:homodyne_interferometer_total_power_per_element_integral}
@@ -2108,13 +2172,13 @@ will also be applied in other sections,
 it is explicitly evaluated here for later reference
 \begin{equation}
   \int_{x_{\image,j} - s_x / 2}^{x_{\image,j} + s_x / 2}
-  \cos(\xi + \theta) dx_{\image}
+  \cos(\nu + \theta) dx_{\image}
   =
   s_x
   \cdot
   T_{\text{fsv}}(k_{\image})
   \cdot
-  \cos(\xi_j + \theta),
+  \cos(\nu_j + \theta),
   \label{eq:InterferometricMethods:finite_sampling_volume_integral}
 \end{equation}
 where
@@ -2136,8 +2200,8 @@ is the normalized sinc function,
 \end{equation}
 is the first zero of $T_{\text{fsv}}(k_{\image})$,
 \begin{equation}
-  \xi_j = k_{\image} x_{\image,j} - \omega t,
-  \label{eq:InterferometricMethods:xi_j}
+  \nu_j = k_{\image} x_{\image,j} - \omega t,
+  \label{eq:InterferometricMethods:nu_j}
 \end{equation}
 and $\theta$ is a \emph{constant} with respect to $x_{\image}$.
 Thus, the homodyne optical power becomes
@@ -2155,7 +2219,7 @@ Thus, the homodyne optical power becomes
       \tilde{\phi}_0
       \sin(\phi_R - \bar{\phi})
       T_{\text{fsv}}(k_{\image})
-      \cos\xi_j
+      \cos\nu_j
     \bigr],
   \end{aligned}
   \label{eq:InterferometricMethods:homodyne_interferometer_total_power_per_element}
@@ -2192,7 +2256,7 @@ $P_{j, \, \text{hom}}(t)
   \tilde{\phi}_0
   \sin(\phi_R - \bar{\phi})
   T_{\text{fsv}}(k_{\image})
-  \cos\xi_j.
+  \cos\nu_j.
 \end{align}
 Then, because $\tilde{\phi}_0 \ll 1$
 \begin{equation}
@@ -2219,7 +2283,7 @@ Then
   \cdot
   T_{\text{hom}}(k_{\image})
   \cdot
-  \tilde{\phi}_0 \cos\xi_j,
+  \tilde{\phi}_0 \cos\nu_j,
 \end{equation}
 where
 \begin{equation}
@@ -2232,7 +2296,7 @@ where
 \end{equation}
 is the homodyne interferometer's wavenumber transfer function.
 That is, the homodyne interferometer
-weights the phase-fluctuation images $\tilde{\phi}_0 \cos\xi_j$
+weights the phase-fluctuation images $\tilde{\phi}_0 \cos\nu_j$
 by its transfer function $T_{\text{hom}}(k_{\image})$.
 The prefactor $I_G(\vect{r}_{\image,j}) / I_G(0)$
 can (and should) be accounted for
@@ -2319,7 +2383,7 @@ the intensity becomes
       \\
       &+
       \tilde{\phi}_0
-      \sin(\Delta \omega_0 t - \bar{\phi}) \cos\xi
+      \sin(\Delta \omega_0 t - \bar{\phi}) \cos\nu
     \bigr].
   \end{aligned}
   \label{eq:InterferometricMethods:heterodyne_intensity}
@@ -2381,7 +2445,7 @@ the total power $P_{j, \, \text{het}}$ incident on this element is then
       \\
       &\qquad+
       \tilde{\phi}_0
-      \sin(\Delta \omega_0 t - \bar{\phi}) \cos\xi
+      \sin(\Delta \omega_0 t - \bar{\phi}) \cos\nu
     \biggr] dx
   \end{aligned}
   \notag \\
@@ -2397,7 +2461,7 @@ the total power $P_{j, \, \text{het}}$ incident on this element is then
       \tilde{\phi}_0
       \sin(\Delta \omega_0 t - \bar{\phi})
       T_{\text{fsv}}(k_{\image})
-      \cos\xi_j
+      \cos\nu_j
     \biggr],
   \end{aligned}
   \label{eq:InterferometricMethods:heterodyne_interferometer_total_power_per_element}
@@ -2410,7 +2474,7 @@ the finite sampling-volume integral in
 has been referenced.
 Note that the dominant Fourier components of $P_{j, \, \text{het}}$
 sit at the intermediate frequency $\pm \Delta \omega_0$ but that
-the phase-fluctuation term $\sin(\Delta \omega_0 t - \bar{\phi}) \cos\xi_j$
+the phase-fluctuation term $\sin(\Delta \omega_0 t - \bar{\phi}) \cos\nu_j$
 produces sidebands at $\pm (\Delta \omega_0 \pm \omega)$.
 
 The heterodyne interference signal must be demodulated
@@ -2467,7 +2531,7 @@ Note that $P_{j,I}$ and $P_{j,Q}$ can be conveniently combined as
     +
     i \tilde{\phi}_0
     T_{\text{fsv}}(k_{\image})
-    \cos\xi_j
+    \cos\nu_j
   \right].
   \label{eq:InterferometricMethods:heterodyne_interferometer_I_and_Q_power_per_element}
 \end{align}
@@ -2495,7 +2559,7 @@ can be separated into equilibrium and fluctuating components as
   \tilde{\phi}_0
   \sin\bar{\phi} \,
   T_{\text{fsv}}(k_{\image})
-  \cos\xi_j,
+  \cos\nu_j,
   \\
   \tilde{P}_{j,Q}(t)
   &=
@@ -2503,7 +2567,7 @@ can be separated into equilibrium and fluctuating components as
   \tilde{\phi}_0
   \cos\bar{\phi} \,
   T_{\text{fsv}}(k_{\image})
-  \cos\xi_j.
+  \cos\nu_j.
 \end{align}
 As is the case for the homodyne interferometer,
 there are three potentially dynamic quantities:
@@ -2555,7 +2619,7 @@ in the demodulated signals to be
   I_G(\vect{r}_{\image,j}) A
   \tilde{\phi}_0
   T_{\text{fsv}}(k_{\image})
-  \cos\xi_j
+  \cos\nu_j
 \end{align}
 such that
 \begin{equation}
@@ -2566,7 +2630,7 @@ such that
   T_{\text{het}}(k_{\image})
   \cdot
   \tilde{\phi}_0
-  \cos\xi_j,
+  \cos\nu_j,
 \end{equation}
 where
 \begin{equation}
@@ -2577,7 +2641,7 @@ where
 \end{equation}
 is the heterodyne interferometer's wavenumber transfer function.
 That is, the heterodyne interferometer
-weights the phase-fluctuation images $\tilde{\phi}_0 \cos\xi_j$
+weights the phase-fluctuation images $\tilde{\phi}_0 \cos\nu_j$
 by its transfer function $T_{\text{het}}(k_{\image})$.
 The prefactor $I_G(\vect{r}_{\image,j}) / I_G(0)$
 can (and should) be accounted for
@@ -2680,7 +2744,7 @@ such that
   =
   i E_G(\vect{r}_{\image}, t) e^{i \bar{\phi}}
   \left[%
-    \sqrt{\eta} + \tilde{\phi}_0 \cos\xi
+    \sqrt{\eta} + \tilde{\phi}_0 \cos\nu
   \right],
   \label{eq:InterferometricMethods:pci_imaged_field}
 \end{equation}
@@ -2692,7 +2756,7 @@ and the corresponding intensity, to first order in $\tilde{\phi}_0$, is
   \left[%
     \eta
     +
-    2 \sqrt{\eta} \tilde{\phi}_0 \cos\xi
+    2 \sqrt{\eta} \tilde{\phi}_0 \cos\nu
   \right].
   \label{eq:InterferometricMethods:pci_intensity}
 \end{equation}
@@ -2874,53 +2938,58 @@ then shows that there will be finite PCI response for $|k| \leq k_D$ where
 
 \subsection{Effect of phase plate on $m$\ts{th} scattered beam}
 The effect of the PCI phase plate on the $m$\ts{th} scattered beam
-is given by the phase factor $\mathcal{P}(m, k, x)$,
+is given by the complex-valued function $\mathcal{E}(\vect{r}_m, k)$,
 which is derived and thoroughly discussed in
 Appendix~\ref{app:PCIResponseIdentities}.
 The relevant results are briefly summarized here for completeness.
-Eq.~(\ref{eq:PCIResponseIdentities:phase_factor_Hermitian_decomposed})
-shows that the image-plane PCI phase factor readily reduces to
+Eq.~(\ref{eq:PCIResponseIdentities:transformation_Hermitian_decomposed})
+shows that PCI's image-plane $\mathcal{E}(\vect{r}_m, k)$
+readily reduces to
 \begin{equation}
   \begin{aligned}
-    \mathcal{P}(m, k_{\image}, x_{\image})
+    \mathcal{E}(\vect{r}_{m,\image}, k_{\image})
     &=
-    e^{-[x_{\image} / w(z_{\image})]^2}
+    e^{-[x_{m,\image} / w(z_{m,\image})]^2}
     e^{i m k_{\image} x_{\image}}
     \\
     &\quad\times
     \left[%
-      F(m, k_{\image}, x_{\image})
+      F(\vect{r}_{m,\image}, k_{\image})
       +
-      G(m, k_{\image}, x_{\image})
+      G(\vect{r}_{m,\image}, k_{\image})
     \right],
   \end{aligned}
-  \label{eq:InterferometricMethods:PCI_phase_factor_Hermitian_decomposed}
+  \label{eq:InterferometricMethods:PCI_transformation_Hermitian_decomposed}
 \end{equation}
 where the phase-plate face acts on the $m$\ts{th} scattered beam via $F$, and
 the phase-plate groove acts on the $m$\ts{th} scattered beam via $G$.
 $F$ and $G$ are themselves defined in
-(\ref{eq:PCIResponseIdentities:phase_factor_face}) and
-(\ref{eq:PCIResponseIdentities:phase_factor_groove}).
+(\ref{eq:PCIResponseIdentities:transformation_face}) and
+(\ref{eq:PCIResponseIdentities:transformation_groove}).
 Of particular note, $F$ is Hermitian with respect to $m$
 \begin{equation}
-  F(-m, k_{\image}, x_{\image}) = F^*(m, k_{\image}, x_{\image}),
+  F(\vect{r}_{-m,\image}, k_{\image})
+  =
+  F^*(\vect{r}_{m,\image}, k_{\image}),
   \label{eq:InterferometricMethods:mth_beam_interaction_with_face_hermitian}
 \end{equation}
 while $G$ is anti-Hermitian with respect to $m$
 \begin{equation}
-  G(-m, k_{\image}, x_{\image}) = -G^*(m, k_{\image}, x_{\image}).
+  G(\vect{r}_{-m,\image}, k_{\image})
+  =
+  -G^*(\vect{r}_{m,\image}, k_{\image}).
   \label{eq:InterferometricMethods:mth_beam_interaction_with_groove_antihermitian}
 \end{equation}
 These symmetries imply
-that $F(0, k_{\image}, x_{\image})$ is purely \emph{real} and
-that $G(0, k_{\image}, x_{\image})$ is purely \emph{imaginary}.
+that $F(\vect{r}_{0,\image}, k_{\image})$ is purely \emph{real} and
+that $G(\vect{r}_{0,\image}, k_{\image})$ is purely \emph{imaginary}.
 
 
 \subsection{The imaged field and its intensity}
-\label{sec:InterferometricMethods:pci:wavenumber_response}
+\label{sec:InterferometricMethods:pci:imaged_field_and_intensity}
 Introducing the notational shorthand
-$F_m \equiv F(m, k_{\image}, x_{\image})$ and
-$G_m \equiv G(m, k_{\image}, x_{\image})$,
+$F_m \equiv F(\vect{r}_{m,\image}, k_{\image})$ and
+$G_m \equiv G(\vect{r}_{m,\image}, k_{\image})$,
 the weak-coupling ($\tilde{\phi}_0 \ll 1$), image-plane electric field from
 (\ref{eq:InterferometricMethods:imaged_total_field_weak_coupling_Fourier_filtered})
 readily reduces to
@@ -2935,15 +3004,16 @@ readily reduces to
     &+
     i \frac{\tilde{\phi}_0}{2}
     \biggl[
-      (F_{1} + G_{1}) e^{i \xi}
+      (F_{1} + G_{1}) e^{i \nu}
       \\
       &+
-      (F_{-1} + G_{-1}) e^{-i \xi}
+      (F_{-1} + G_{-1}) e^{-i \nu}
     \biggr]
   \biggr\},
   \end{aligned}
 \end{equation}
-where $\xi$ is defined in (\ref{eq:InterferometricMethods:image_plane_xi}) and
+where the approximation $w(z_m) \approx w(z)$ has been used,
+$\nu$ is defined in (\ref{eq:InterferometricMethods:image_plane_nu}), and
 $E_G(\vect{r}_{\image}, t)$ would be the image-plane electric field
 of the unscattered beam in the \emph{absence} of the phase plate.
 Now, recall that $F$ is Hermitian such that
@@ -2958,10 +3028,10 @@ using these substitutions, the field further reduces to
     E_G(\vect{r}_{\image}, t)
     e^{i \bar{\phi}}
     \biggl\{%
-      &\real(F_0) - \tilde{\phi}_0 \imag(G_1 e^{i \xi})
+      &\real(F_0) - \tilde{\phi}_0 \imag(G_1 e^{i \nu})
       \\
       &+
-      i \left[ \imag(G_0) + \tilde{\phi}_0 \real(F_1 e^{i \xi}) \right]
+      i \left[ \imag(G_0) + \tilde{\phi}_0 \real(F_1 e^{i \nu}) \right]
     \biggr\},
   \end{aligned}
 \end{equation}
@@ -2978,9 +3048,9 @@ and the corresponding intensity, to first order in $\tilde{\phi}_0$, is
       +
       2 \tilde{\phi}_0
       \bigl[%
-        \imag(G_0) \real(F_1 e^{i \xi})
+        \imag(G_0) \real(F_1 e^{i \nu})
         -
-        \real(F_0) \imag(G_1 e^{i \xi})
+        \real(F_0) \imag(G_1 e^{i \nu})
       \bigr]
     \biggr\},
   \end{aligned}
@@ -2988,7 +3058,7 @@ and the corresponding intensity, to first order in $\tilde{\phi}_0$, is
 where $I_G(\vect{r}_{\image})$
 would be the intensity profile (averaged over an optical cycle)
 of the unscattered beam in the \emph{absence} of the phase plate.
-Using the fact that $e^{i \xi} = \cos\xi + {i \sin\xi}$,
+Using the fact that $e^{i \nu} = \cos\nu + {i \sin\nu}$,
 $F_1 = \real(F_1) + {i \cdot \imag(F_1)}$, and
 $G_1 = \real(G_1) + {i \cdot \imag(G_1)}$,
 the image-plane intensity further reduces to
@@ -3002,39 +3072,37 @@ the image-plane intensity further reduces to
       \\
       &+
       2 \tilde{\phi}_0
-      \left[ \imag(G_0)\real(F_1) - \real(F_0)\imag(G_1) \right] \cos\xi
+      \left[ \imag(G_0)\real(F_1) - \real(F_0)\imag(G_1) \right] \cos\nu
       \\
       &-
       2 \tilde{\phi}_0
-      \left[ \imag(G_0)\imag(F_1) + \real(F_0)\real(G_1) \right] \sin\xi
+      \left[ \imag(G_0)\imag(F_1) + \real(F_0)\real(G_1) \right] \sin\nu
     \biggr\}.
   \end{aligned}
   \label{eq:InterferometricMethods:PCI_image_plane_intensity_linear_combination_of_sine_and_cosine}
 \end{equation}
 
-
-\subsection{The phase-plate transfer function}
 Note that the linear combination
-$C_I \cos x - C_Q \sin x$ for real $C_I$, $C_Q$, and $x$
+$C_I \cos \nu - C_Q \sin \nu$ for real $C_I$, $C_Q$, and $\nu$
 can be rewritten as
 \begin{align}
-  C_I \cos x - C_Q \sin x
+  C_I \cos \nu - C_Q \sin \nu
   &=
-  C \cos(x + \theta)
-  \notag \\
-  &=
-  \real(C e^{i \theta} \cdot e^{i x}),
+  C \cos(\nu + \theta),
   \label{eq:InterferometricMethods:linear_combination_of_sine_and_cosine}
 \end{align}
 where
-\begin{align}
-  C &= \left( C_I^2 + C_Q^2 \right)^{1/2},
-  \\
-  \theta &= \atantwo(C_Q, C_I),
-\end{align}
+$C = (C_I^2 + C_Q^2)^{1/2}$,
+$\theta = \atantwo(C_Q, C_I)$,
 and $\atantwo(C_Q, C_I)$ is the arctangent function of two arguments, which
 uses the signs of $C_Q$ and $C_I$ to correctly determine the quadrant
 corresponding to a tangent of $C_Q / C_I$.
+Note that the notation is mnemonic:
+$C_I$ is the amplitude of the ``in-phase'' ($I$) component
+(i.e.\ proportional to the image of the assumed
+cosine phase fluctuation $\tilde{\phi}(x, t)$ from
+(\ref{eq:InterferometricMethods:cosine_phase_fluctuation})), and
+$C_Q$ is the amplitude of the corresponding ``quadrature'' ($Q$) component.
 Taking inspiration from
 (\ref{eq:InterferometricMethods:linear_combination_of_sine_and_cosine}),
 the image-plane PCI intensity from
@@ -3043,7 +3111,7 @@ can be rewritten as
 \begin{equation}
   \begin{aligned}
     I_{\text{pci}}(\vect{r}_{\image}, t)
-    &=
+    &\approx
     I_G(\vect{r}_{\image})
     \left( |F_0|^2 + |G_0|^2 \right)
     \\
@@ -3051,32 +3119,28 @@ can be rewritten as
     \left\{%
       1
       +
+      T_{\text{pp}}(k_{\image}, x_{\image})
+      \cdot
       \tilde{\phi}_0
-      \real \left[%
-        T_{\text{pp}}(k_{\image}, x_{\image})
-        \cdot
-        e^{i \xi}
-      \right]
+      \cos\left[ \nu + \theta_{\text{pp}}(k_{\image}, x_{\image}) \right]
     \right\},
   \end{aligned}
 \end{equation}
 where
-\begin{equation}
+\begin{align}
   T_{\text{pp}}(k_{\image}, x_{\image})
-  =
-  \frac{2 C(k_{\image}, x_{\image})}{|F_0|^2 + |G_0|^2}
-  \cdot
-  e^{i \theta(k_{\image}, x_{\image})},
-\end{equation}
+  &\equiv
+  \frac{2 C(k_{\image}, x_{\image})}{|F_0|^2 + |G_0|^2},
+  \\
+  \theta_{\text{pp}}(k_{\image}, x_{\image})
+  &\equiv
+  \atantwo(C_Q, C_I),
+\end{align}
 and
 \begin{align}
   C(k_{\image}, x_{\image})
   &\equiv
   (C_I^2 + C_Q^2)^{1/2},
-  \\
-  \theta(k_{\image}, x_{\image})
-  &\equiv
-  \atantwo(C_Q, C_I),
   \\
   C_I(k_{\image}, x_{\image})
   &\equiv
@@ -3088,24 +3152,84 @@ and
   \imag(G_0)\imag(F_1) + \real(F_0)\real(G_1).
   \label{eq:InterferometricMethods:PCI_response_CQ}
 \end{align}
-These results are consistent with and generalize previous derivations
-of the phase-plate transfer function valid for $x_{\image} = 0$,
-such as \cite[Eq.~2.141]{coda_phd} and
-\cite[Eq.~20]{rost_low_k_pci}.
-While the transfer function is real for $x_{\image} = 0$, note that
-$T_{\text{pp}}(k_{\image}, x_{\image})$ is, in general, complex valued.
-Further, perfect imaging requires that
-$\theta(k_{\image}, x_{\image}) \equiv 0$ such that
-$\tilde{I}_{\text{pci}}(\vect{r}_{\image}, t) \propto \cos \xi$.
-However, as will be shown in
-Sec.~\ref{sec:InterferometricMethods:selection:pci_low_k_upshift},
-$\theta(k_{\image}, x_{\image})$ differs substantially from zero
-when $|k_{\image}| \lesssim k_{g,\image}$.
+
+Thus, the action of the phase plate results in both
+an amplitude response $T_{\text{pp}}(k_{\image}, x_{\image})$ and
+a phase response $\theta_{\text{pp}}(k_{\image}, x_{\image})$
+in PCI's image-plane intensity.
+The on-axis responses $T_{\text{pp}}(k_{\image}, x_{\image} = 0)$ and
+$\theta_{\text{pp}}(k_{\image}, x_{\image} = 0) = 0$
+are consistent with previous derivations at $x_{\image} = 0$,
+such as \cite[Eq.~2.141]{coda_phd} and \cite[Eq.~20]{rost_low_k_pci}.
+The present work, however, explicitly accounts for
+the spatial variation in the amplitude and phase responses
+across the face of the detector.
+Note that $I_{\text{pci}}$ will be a nonlinear function
+of the scattering phase fluctuation $\tilde{\phi}(x, t)$
+if there are substantial spatial variations in either
+$T_{\text{pp}}$ or $\theta_{\text{pp}}$.
+The amplitude and phase responses
+can be easily evaluated numerically, and
+the results for typical system parameters are shown in
+Fig.~\ref{fig:InterferometricMethods:phase_plate_amplitude_and_phase_response}.
+As is colloquially understood, the amplitude response
+drops precipitously across the full beam profile for $k \lesssim k_g$.
+(Additionally, the spatial variation in the amplitude response is minimal;
+that is,
+$T_{\text{pp}}(k_{\image}, x_{\image})
+\approx
+T_{\text{pp}}(k_{\image}, x_{\image} = 0)$,
+particularly for $|k| \gtrsim 2 k_g$).
+However, perhaps less well known, is the fact that
+the phase response varies substantially in space for $|k| \lesssim k_g$.
+Thus, PCI's operation for $|k| \lesssim k_g$ is \emph{nonlinear} and
+cannot be described in terms of a transfer function;
+this can e.g.\ prevent PCI from measuring wavenumbers
+of low-$k$ coherent MHD modes, as is discussed in
+Section~\ref{sec:InterferometricMethods:selection:pci_low_k_upshift}.
+Fortunately, for $|k| \gtrsim 2 k_g$, spatial variations
+in $\theta_{\text{pp}}$ (and $T_{\text{pp}}$) are negligible, and,
+as a result, PCI's operation is essentially linear and
+can be described in terms of a transfer function.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/InterferometricMethods/figs/phase_plate_amplitude_and_phase_response.pdf}
+    \caption[Amplitude and phase responses of PCI image-plane intensity
+      across detector face
+    ]{%
+    Amplitude response $T_{\text{pp}}(k, x_{\image})$ and
+    phase response $\theta_{\text{pp}}(k, x_{\image})$
+    of PCI image-plane intensity across detector face
+    for a single sinusoidal mode of wavenumber $k$.
+    Spatial coordinates are normalized
+    to the image-plane 1/e $E$ radius $M w_0$ with $M = 0.5$, while
+    object-plane wavenumbers $k$ are normalized
+    to the 1/e $E$ radius of the in-vessel probe beam, $w_0$.
+    The horizontal, dashed lines indicate
+    the low-$k$ cutoff of the PCI phase-plate groove, $k_g$;
+    here, $k_g = 2 / w_0$,
+    which is the minimum value allowed by diffraction,
+    as discussed in
+    (\ref{eq:InterferometricMethods:pci_kmin_physics}).
+    The phase-plate high-$k$ cutoff, $k_D$,
+    is taken to be much larger than $10 / w_0$.
+    The reflectivity of the PCI phase groove is $\eta = 0.17$,
+    which is characteristic of the ZnSe typically
+    employed in $\SI{10.6}{\micro\meter}$ optics.
+    Note that the low-$k$ phase response exhibits dramatic spatial variation,
+    which results in nonlinear PCI operation for $|k| \lesssim k_g$.
+  }
+\label{fig:InterferometricMethods:phase_plate_amplitude_and_phase_response}
+\end{figure}
 
 
-\subsection{Finite sampling-volume effects}
-Finite sampling-volume effects also affect the PCI wavenumber response.
-Assume that the imaged field impinges on a detector array,
+\subsection{The PCI ``transfer function''}
+As was the case for external reference-beam interferometry,
+it is useful to characterize PCI's performance
+relative to the saturation limits of a given detector.
+Assume that PCI's imaged field impinges on a detector array,
 as shown in Fig.~\ref{fig:InterferometricMethods:detector_array}.
 Let the $j$\ts{th} detector element $D_j$ be centered on $x_{\image,j}$
 and $y_{\image} = 0$;
@@ -3114,7 +3238,8 @@ the total power $P_{j, \, \text{pci}}$ incident on this element is then
   P_{j, \, \text{pci}}(t)
   &=
   \int_{D_j} I_{\text{pci}}(\vect{r}_{\image}, t) dA
-  \notag \\
+  \notag
+  \\
   &\begin{aligned}
     &\approx
     I_G(\vect{r}_{\image,j})
@@ -3126,12 +3251,10 @@ the total power $P_{j, \, \text{pci}}$ incident on this element is then
     \left\{
       1
       +
+      T_{\text{pp}}
+      \cdot
       \tilde{\phi}_0
-      \real \left[%
-        T_{\text{pp}}(k_{\image}, x_{\image})
-        \cdot
-        e^{i \xi}
-      \right]
+      \cos\left[ \nu + \theta_{\text{pp}} \right]
     \right\} dx_{\image}
   \end{aligned}
   \notag
@@ -3146,33 +3269,31 @@ the total power $P_{j, \, \text{pci}}$ incident on this element is then
     \left\{
       1
       +
+      T_{\text{fsv}}
+      T_{\text{pp},j}
+      \cdot
       \tilde{\phi}_0
-      T_{\text{fsv}}(k_{\image})
-      \real \left[%
-        T_{\text{pp}}(k_{\image}, x_{\image, j})
-        \cdot
-        e^{i \xi_j}
-      \right]
+      \cos\left[ \nu_j + \theta_{\text{pp},j} \right]
     \right\},
   \end{aligned}
   \label{eq:InterferometricMethods:PCI_total_power_per_element}
 \end{align}
 where the weakly varying intensity profile $I_G(\vect{r}_{\image})$
 has been approximated as a constant
-over the face of the detector element, and
+over the face of the detector element,
 the finite sampling-volume integral in
 (\ref{eq:InterferometricMethods:finite_sampling_volume_integral})
-has been referenced.
-
-
-\subsection{The PCI transfer function}
-As was the case for external reference-beam interferometry,
-it is useful to characterize PCI's performance
-relative to the saturation limits of a given detector.
+has been referenced, and
+the following abbreviations have been used:
+$T_{\text{pp}} = T_{\text{pp}}(k_{\image}, x_{\image})$,
+$\theta_{\text{pp}} = \theta_{\text{pp}}(k_{\image}, x_{\image})$,
+$T_{\text{fsv}} = T_{\text{fsv}}(k_{\image})$,
+$T_{\text{pp},j} = T_{\text{pp}}(k_{\image}, x_{\image,j})$, and
+$\theta_{\text{pp},j} = \theta_{\text{pp}}(k_{\image}, x_{\image,j})$.
 Because $\tilde{\phi}_0 \ll 1$,
 the optical power incident on the $j$\ts{th} detector element
 (\ref{eq:InterferometricMethods:PCI_total_power_per_element})
-can be approximated as
+satisfies
 \begin{align}
   P_{j, \, \text{pci}}(t)
   &\lesssim
@@ -3190,9 +3311,10 @@ To obtain optimal performance, select $I_G(0)$ such that
   =
   I_G(0)
   \left( |F_0|^2 + |G_0|^2 \right)
-  A.
+  A,
   \notag
 \end{equation}
+where $P_{\text{sat}}$ is the saturation power of a single detector element.
 Further, define the fluctuating power in the PCI signal to be
 \begin{equation}
   \begin{aligned}
@@ -3204,13 +3326,11 @@ Further, define the fluctuating power in the PCI signal to be
     \\
     &\quad\times
     \left\{
+      T_{\text{fsv}}
+      T_{\text{pp},j}
+      \cdot
       \tilde{\phi}_0
-      T_{\text{fsv}}(k_{\image})
-      \real \left[%
-        T_{\text{pp}}(k_{\image}, x_{\image, j})
-        \cdot
-        e^{i \xi_j}
-      \right]
+      \cos\left[ \nu_j + \theta_{\text{pp},j} \right]
     \right\}
   \end{aligned}
   \label{eq:InterferometricMethods:PCI_fluctuating_power_per_element}
@@ -3221,37 +3341,28 @@ such that
   =
   \frac{I_G(\vect{r}_{\image,j})}{I_G(0)}
   \cdot
-  \real \left[%
-    T_{\text{pci}}(k_{\image}, x_{\image, j})
-    \cdot
-    \tilde{\phi}_0
-    e^{i \xi_j}
-  \right],
+  T_{\text{pci}}(k_{\image}, x_{\image, j})
+  \cdot
+  \tilde{\phi}_0
+  \cos\left[ \nu_j + \theta_{\text{pp}}(k_{\image}, x_{\image,j}) \right],
   \label{eq:InterferometricMethods:PCI_ratio_fluctuating_to_equilibrium_power}
 \end{equation}
 where
 \begin{align}
   T_{\text{pci}}(k_{\image}, x_{\image})
-  &=
+  =
   T_{\text{fsv}}(k_{\image})
   \cdot
   T_{\text{pp}}(k_{\image}, x_{\image})
   \label{eq:InterferometricMethods:PCI_wavenumber_transfer_function}
-  \\
-  &=
-  T_{\text{fsv}}(k_{\image})
-  \cdot
-  |T_{\text{pp}}(k_{\image}, x_{\image})|
-  e^{i \theta(k_{\image}, x_{\image})}
-  \label{eq:InterferometricMethods:PCI_wavenumber_transfer_function_explicitly_complex}
 \end{align}
-is the PCI's wavenumber transfer function.
-That is, the PCI weights
-the complex-valued phase-fluctuation images $e^{i \xi_j}$
-by its transfer function $T_{\text{pci}}(k_{\image}, x_{\image, j})$.
-The prefactor $I_G(\vect{r}_{\image,j}) / I_G(0)$
-can (and should) be accounted for
-if the beam profile is known.
+is the PCI's wavenumber ``transfer function''.
+Of course, as is discussed in
+Section~\ref{sec:InterferometricMethods:pci:imaged_field_and_intensity},
+$T_{\text{pci}}$ is only a true transfer function when $|k| \gtrsim 2 k_g$,
+for which spatial variations in
+$T_{\text{pp}}$ and $\theta_{\text{pp}}$ are negligible and
+PCI operates linearly.
 
 As is the case with the homodyne interferometer,
 the PCI technique does \emph{not} make an absolute measurement
@@ -3262,7 +3373,7 @@ depends very sensitively on the system alignment,
 with slight excursions of the unscattered beam
 from the partially reflective phase-plate groove
 onto the fully reflective phase-plate face
-can result in macroscopic changes in power reaching the detector.
+resulting in macroscopic changes to the power reaching the detector.
 Further, power fluctuations at the beam source
 can alter $I_G(\vect{r}_{\image, j})$.
 Thus, there are three potentially dynamic quantities:
@@ -3353,7 +3464,7 @@ are taken to be the same for each system.
     Further, to facilitate the comparison,
     the magnification $|M|$ and detector-element size $s_x$
     are taken to be the same for each system
-    (specifically, $|M| = 0.5$ and $s_x \approx 0.105$,
+    (specifically, $|M| = 0.5$ and $s_x \approx 0.105 w_0$,
     which are representative ``typical'' values;
     note that these values of $|M|$ and $s_x$
     yield a finite sampling-volume cutoff $k_{\text{fsv}} = 30 / w_0$).
@@ -3369,12 +3480,16 @@ are taken to be the same for each system.
     The reflectivity of the PCI phase groove is $\eta = 0.17$,
     which is characteristic of the ZnSe typically
     employed in $\SI{10.6}{\micro\meter}$ optics.
-    As the PCI transfer function has a spatial dependence,
-    the displayed transfer function corresponds
-    to the beam center ($x = 0$);
-    the consequences of the PCI transfer function's spatial dependence
-    are discussed in
-    Sec.~\ref{sec:InterferometricMethods:selection:pci_low_k_upshift}.
+    As discussed in
+    Section~\ref{sec:InterferometricMethods:pci:imaged_field_and_intensity},
+    $T_{\text{pci}}$ is only a true transfer function
+    for $|k| \gtrsim 2 k_g$;
+    for smaller wavenumbers, the PCI phase response
+    varies significantly across the beam profile,
+    resulting in nonlinear operation.
+    Regardless, the PCI ``transfer function'' is plotted
+    across the full $k$-range here and
+    corresponds to the beam center ($x = 0$).
   }
 \label{fig:InterferometricMethods:interferometric_method_transfer_functions}
 \end{figure}
@@ -3416,7 +3531,7 @@ calibrations can allow estimates of the absolute scale.
 The merits and limitations of homodyne and heterodyne interferometry
 were discussed at length in
 Sec.~{\ref{sec:InterferometricMethods:interferometry}}, but
-it they are briefly reviewed here for ease of reference.
+they are briefly reviewed here for ease of reference.
 The homodyne interferometer's transfer function depends on
 the difference between the reference-arm phase and
 the equilibrium phase, $\phi_R - \bar{\phi}$,
@@ -3474,9 +3589,10 @@ on the spatial bandwidth of the PCI
 is to introduce a ``hole'' in the low-$k$ response of the system;
 external reference-beam interferometers, in contrast,
 do not suffer from such a low-$k$ cutoff.
-The phase plate also introduces a spatial dependence
-into the PCI transfer function;
-the consequences of this spatial dependence are discussed in
+As discussed in
+Sec.~\ref{sec:InterferometricMethods:pci:imaged_field_and_intensity},
+the PCI also operates nonlinearly in this low-$k$ ``hole'';
+one consequence of this nonlinear operation is discussed in
 Sec.~\ref{sec:InterferometricMethods:selection:pci_low_k_upshift}.
 
 \begin{figure}
@@ -3503,19 +3619,22 @@ Sec.~\ref{sec:InterferometricMethods:selection:pci_low_k_upshift}.
     The finite sampling-volume cutoff $k_{\text{fsv}} = 30 / w_0$
     results from representative ``typical'' values of
     system magnification $|M| = 0.5$ and
-    detector-element size $s_x \approx 0.105$.
+    detector-element size $s_x \approx 0.105 w_0$.
     Note that here $k_D < k_{\text{fsv}}$, in contrast to
     Fig.~\ref{fig:InterferometricMethods:interferometric_method_transfer_functions}.
     The reflectivity of the PCI phase groove is $\eta = 0.17$,
     which is characteristic of the ZnSe typically
     employed in $\SI{10.6}{\micro\meter}$ optics.
-    As the phase-plate transfer function has a spatial dependence,
-    the displayed transfer functions all correspond
-    to the beam center ($x = 0$);
-    the consequences of
-    the phase-plate transfer function's spatial dependence
-    are discussed in
-    Sec.~\ref{sec:InterferometricMethods:selection:pci_low_k_upshift}.
+    As discussed in
+    Section~\ref{sec:InterferometricMethods:pci:imaged_field_and_intensity},
+    $T_{\text{pp}}$ and $T_{\text{pci}}$ are only true transfer functions
+    for $|k| \gtrsim 2 k_g$;
+    for smaller wavenumbers, the PCI phase response
+    varies significantly across the beam profile,
+    resulting in nonlinear operation.
+    Regardless, the corresponding ``transfer functions'' are plotted
+    across the full $k$-range here and
+    correspond to the beam center ($x = 0$).
   }
 \label{fig:InterferometricMethods:pci_cutoffs}
 \end{figure}
@@ -3535,62 +3654,16 @@ $w(z)$ is the beam's 1/e $E$ radius at the location of the aperture
 
 \subsection{Nonlinear upshift in low-$k$, PCI-measured wavenumber}
 \label{sec:InterferometricMethods:selection:pci_low_k_upshift}
-The PCI transfer function is given by
-(\ref{eq:InterferometricMethods:PCI_wavenumber_transfer_function}).
-The transfer function is, in general, complex valued and
-has both a wavenumber and a spatial dependence, i.e.\
-$T_{\text{pci}}(k, x)
-=
-|T_{\text{pci}}(k, x)| e^{i \theta(k, x)}$.
-Perfect imaging requires that $\theta(k, x) \equiv 0$
-such that the spatial structure of the interference pattern
-is geometrically similar to that of the object-plane fluctuations.
-The amplitude and phase of $T_{\text{pci}}(k, x)$
-can be easily evaluated numerically, and
-the results are shown in
-Fig.~\ref{fig:InterferometricMethods:pci_transfer_function}.
-As is colloquially understood, the amplitude of the PCI transfer function
-drops precipitously across the full beam profile for $k \lesssim k_g$.
-However, perhaps less well known, is the fact that
-the phase of the PCI transfer function varies substantially
-in space for $k \lesssim k_g$.
+This section discusses a little-known diagnostic artifact of the PCI
+that becomes relevant when the fluctuation wavenumber
+is smaller than the PCI's low-$k$ cutoff (i.e.\ $|k| \lesssim k_g$).
+This effect can be important when trying to measure the wavenumber of
+e.g.\ low-$k$ coherent MHD modes, and
+it results from PCI's nonlinear operation for $|k| \lesssim k_g$,
+which is thoroughly discussed in
+Section~\ref{sec:InterferometricMethods:pci:imaged_field_and_intensity}.
 
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/InterferometricMethods/figs/pci_transfer_function.pdf}
-    \caption[Amplitude and phase of PCI transfer function,
-      $T_{\text{pci}}(k, x_{\image})$]{%
-    Amplitude and phase of PCI transfer function,
-    $T_{\text{pci}}(k, x_{\image})$.
-    Spatial coordinates are normalized
-    to the image-plane 1/e $E$ radius $M w_0$ with $M = 0.5$, while
-    object-plane wavenumbers $k$ are normalized
-    to the 1/e $E$ radius of the in-vessel probe beam, $w_0$.
-    The horizontal, dashed lines indicate
-    the low-$k$ cutoff of the PCI phase-plate groove, $k_g$;
-    here, $k_g = 2 / w_0$,
-    which is the minimum value allowed by diffraction,
-    as discussed in
-    (\ref{eq:InterferometricMethods:pci_kmin_physics}).
-    The finite sampling-volume cutoff, $k_{\text{fsv}}$, and
-    the phase-plate high-$k$ cutoff, $k_D$,
-    are both taken to be much larger than $10 / w_0$.
-    The reflectivity of the PCI phase groove is $\eta = 0.17$,
-    which is characteristic of the ZnSe typically
-    employed in $\SI{10.6}{\micro\meter}$ optics.
-    Note that the \emph{largest} effect
-    of the transfer function's spatial dependence
-    is to introduce a spatially varying phase
-    for $k \lesssim k_g$,
-    which destroys the PCI's low-$k$ imaging properties.
-  }
-\label{fig:InterferometricMethods:pci_transfer_function}
-\end{figure}
-
-The transfer function's spatially varying phase
-prevents low-$k$ imaging with PCI\@.
-It is easiest to see the effects of this phase variation
+It is easiest to see the effects of PCI's nonlinear low-$k$ operation
 by defining the normalized fluctuating power
 $\tilde{p}_j(t)$
 \begin{align}
@@ -3602,22 +3675,22 @@ $\tilde{p}_j(t)$
   \left[ \frac{\tilde{P}_{j, \, \text{pci}}(t)}{P_{\text{sat}}} \right]
   \notag \\
   &=
-  \cos\left[ \xi_j + \theta(k_{\image}, x_{\image, j}) \right].
+  \cos\left[ \nu_j + \theta(k_{\image}, x_{\image, j}) \right].
 \end{align}
 (This choice of normalization becomes readily apparent after referencing
 (\ref{eq:InterferometricMethods:PCI_ratio_fluctuating_to_equilibrium_power})).
-The set $\{\tilde{p}_j(t)\}$
+The set of measurements $\{\tilde{p}_j(t)\}$
 can be e.g.\ Fourier analyzed in the spatial dimension
 to provide an estimate of the corresponding
 wavenumber autospectral density
 $G_{\tilde{p}\tilde{p}}(k_{\text{meas}}, t)$.
 \graffito{\textcolor{red}{more details on $G_{xx}(k)$ in Ch.~4}}
-If the imaging is perfect,
+When PCI operates linearly,
 the measured wavenumber spectrum
-corresponding to a single Fourier mode with wavenumber $k$
-will have a peak at $k_{\text{meas}} = k$.
+has a peak at $k_{\text{meas}} = k$,
+with $k$ corresponding to the true, physical wavenumber.
 As shown in Fig.~\ref{fig:InterferometricMethods:pci_wavenumber_upshift},
-PCI's imaging is near perfect for $k \gtrsim k_g$,
+PCI operates linearly for $k \gtrsim k_g$,
 as the measured wavenumber spectrum peaks at $k_{\text{meas}} = k$;
 however, for $k \lesssim k_g$,
 the measured wavenumber spectrum peaks at $k_{\text{meas}} = k_g$,
@@ -3628,12 +3701,12 @@ traveling in slightly different directions \cite[Ch.~16.7]{siegman_lasers},
 and only the components of the scattered beam
 with transverse lab-frame wavenumbers $k \geq k_g$
 are reflected from the phase-plate face and
-produced measurable interference on the PCI detector.
-Thus, not only does the amplitude of the PCI signal
-drop precipitously for $|k| \lesssim k_g$, but
-the spatially varying phase of the PCI transfer function
-also prevents measurement of the fluctuation wavenumber
-when $|k| \lesssim k_g$.
+produce measurable interference on the PCI detector.
+Thus, when $|k| \lesssim k_g$,
+not only does the PCI signal's amplitude drop precipitously, but
+its spatial content also becomes a nonlinear function
+of the corresponding fluctuation wavenumber,
+destroying any hopes of wavenumber measurement.
 
 \begin{figure}
   \centering
@@ -3656,15 +3729,11 @@ when $|k| \lesssim k_g$.
     (\ref{eq:InterferometricMethods:pci_kmin_physics}).
     The system magnification has
     a representative ``typical'' value $|M| = 0.5$.
-    Note that PCI's imaging is near perfect for $k \gtrsim k_g$,
+    Note that PCI operates linearly for $k \gtrsim k_g$,
     as the measured wavenumber spectrum peaks at $k_{\text{meas}} = k$;
     however, for $k \lesssim k_g$,
     the measured wavenumber spectrum peaks at $k_{\text{meas}} = k_g$,
     regardless of the actual fluctuation wavenumber.
-    This nonlinear upshift in the low-$k$, PCI-measured wavenumber
-    results from the spatially varying phase
-    of the PCI transfer function, which is shown in
-    Fig.~\ref{fig:InterferometricMethods:pci_transfer_function}.
   }
 \label{fig:InterferometricMethods:pci_wavenumber_upshift}
 \end{figure}

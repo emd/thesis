@@ -23,6 +23,6 @@ if __name__ == '__main__':
     pci = PhaseContrastImaging(kg=kg, M=M, s=s)
     pci.applyTo(kmax=kmax, dk=dk, x_I_max=x_I_max, dx_I=dx_I)
 
-    fig, axes = pci.plotTpci(interpolation='nearest')
+    fig, axes = pci.plotTpp(interpolation='nearest')
 
     plt.show()

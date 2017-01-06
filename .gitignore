@@ -9,4 +9,5 @@
 *.nlo
 *.bbl
 *.blg
+*.DS_Store
 Chapters/InterferometricMethods/rost_comments.txt
