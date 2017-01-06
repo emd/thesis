@@ -908,6 +908,7 @@ it is sufficient to examine phase fluctuations $\tilde{\phi}$
 consisting of a single Fourier mode
 \begin{equation}
   \tilde{\phi}(\vect{\rho}', t) = \tilde{\phi}_0 \cos(k x' - \omega t).
+  \label{eq:InterferometricMethods:cosine_phase_fluctuation}
 \end{equation}
 As a CO$_2$ beam's optical cycles
 ($\omega_0 = 2 \pi \cdot \SI{28.3}{\tera\hertz}$)
@@ -3063,29 +3064,27 @@ the image-plane intensity further reduces to
   \label{eq:InterferometricMethods:PCI_image_plane_intensity_linear_combination_of_sine_and_cosine}
 \end{equation}
 
-
-\subsection{The phase-plate transfer function}
 Note that the linear combination
-$C_I \cos x - C_Q \sin x$ for real $C_I$, $C_Q$, and $x$
+$C_I \cos \nu - C_Q \sin \nu$ for real $C_I$, $C_Q$, and $\nu$
 can be rewritten as
 \begin{align}
-  C_I \cos x - C_Q \sin x
+  C_I \cos \nu - C_Q \sin \nu
   &=
-  C \cos(x + \theta)
-  \notag \\
-  &=
-  \real(C e^{i \theta} \cdot e^{i x}),
+  C \cos(\nu + \theta),
   \label{eq:InterferometricMethods:linear_combination_of_sine_and_cosine}
 \end{align}
 where
-\begin{align}
-  C &= \left( C_I^2 + C_Q^2 \right)^{1/2},
-  \\
-  \theta &= \atantwo(C_Q, C_I),
-\end{align}
+$C = (C_I^2 + C_Q^2)^{1/2}$,
+$\theta = \atantwo(C_Q, C_I)$,
 and $\atantwo(C_Q, C_I)$ is the arctangent function of two arguments, which
 uses the signs of $C_Q$ and $C_I$ to correctly determine the quadrant
 corresponding to a tangent of $C_Q / C_I$.
+Note that the notation is mnemonic:
+$C_I$ is the amplitude of the ``in-phase'' ($I$) component
+(i.e.\ proportional to the image of the assumed
+cosine phase fluctuation $\tilde{\phi}(x, t)$ from
+(\ref{eq:InterferometricMethods:cosine_phase_fluctuation})), and
+$C_Q$ is the amplitude of the corresponding ``quadrature'' ($Q$) component.
 Taking inspiration from
 (\ref{eq:InterferometricMethods:linear_combination_of_sine_and_cosine}),
 the image-plane PCI intensity from
@@ -3094,7 +3093,7 @@ can be rewritten as
 \begin{equation}
   \begin{aligned}
     I_{\text{pci}}(\vect{r}_{\image}, t)
-    &=
+    &\approx
     I_G(\vect{r}_{\image})
     \left( |F_0|^2 + |G_0|^2 \right)
     \\
@@ -3102,32 +3101,28 @@ can be rewritten as
     \left\{%
       1
       +
+      T_{\text{pp}}(k_{\image}, x_{\image})
+      \cdot
       \tilde{\phi}_0
-      \real \left[%
-        T_{\text{pp}}(k_{\image}, x_{\image})
-        \cdot
-        e^{i \nu}
-      \right]
+      \cos\left[ \nu + \theta_{\text{pp}}(k_{\image}, x_{\image}) \right]
     \right\},
   \end{aligned}
 \end{equation}
 where
-\begin{equation}
+\begin{align}
   T_{\text{pp}}(k_{\image}, x_{\image})
-  =
-  \frac{2 C(k_{\image}, x_{\image})}{|F_0|^2 + |G_0|^2}
-  \cdot
-  e^{i \theta(k_{\image}, x_{\image})},
-\end{equation}
+  &\equiv
+  \frac{2 C(k_{\image}, x_{\image})}{|F_0|^2 + |G_0|^2},
+  \\
+  \theta_{\text{pp}}(k_{\image}, x_{\image})
+  &\equiv
+  \atantwo(C_Q, C_I),
+\end{align}
 and
 \begin{align}
   C(k_{\image}, x_{\image})
   &\equiv
   (C_I^2 + C_Q^2)^{1/2},
-  \\
-  \theta(k_{\image}, x_{\image})
-  &\equiv
-  \atantwo(C_Q, C_I),
   \\
   C_I(k_{\image}, x_{\image})
   &\equiv
@@ -3139,19 +3134,77 @@ and
   \imag(G_0)\imag(F_1) + \real(F_0)\real(G_1).
   \label{eq:InterferometricMethods:PCI_response_CQ}
 \end{align}
-These results are consistent with and generalize previous derivations
-of the phase-plate transfer function valid for $x_{\image} = 0$,
-such as \cite[Eq.~2.141]{coda_phd} and
-\cite[Eq.~20]{rost_low_k_pci}.
-While the transfer function is real for $x_{\image} = 0$, note that
-$T_{\text{pp}}(k_{\image}, x_{\image})$ is, in general, complex valued.
-Further, perfect imaging requires that
-$\theta(k_{\image}, x_{\image}) \equiv 0$ such that
-$\tilde{I}_{\text{pci}}(\vect{r}_{\image}, t) \propto \cos \nu$.
-However, as will be shown in
-Sec.~\ref{sec:InterferometricMethods:selection:pci_low_k_upshift},
-$\theta(k_{\image}, x_{\image})$ differs substantially from zero
-when $|k_{\image}| \lesssim k_{g,\image}$.
+
+Thus, the action of the phase plate results in both
+an amplitude response $T_{\text{pp}}(k_{\image}, x_{\image})$ and
+a phase response $\theta_{\text{pp}}(k_{\image}, x_{\image})$
+in PCI's image-plane intensity.
+The on-axis responses $T_{\text{pp}}(k_{\image}, x_{\image} = 0)$ and
+$\theta_{\text{pp}}(k_{\image}, x_{\image} = 0) = 0$
+are consistent with previous derivations at $x_{\image} = 0$,
+such as \cite[Eq.~2.141]{coda_phd} and \cite[Eq.~20]{rost_low_k_pci}.
+The present work, however, explicitly accounts for
+the spatial variation in the amplitude and phase responses
+across the face of the detector.
+Note that $I_{\text{pci}}$ will be a nonlinear function
+of the scattering phase fluctuation $\tilde{\phi}(x, t)$
+if there are substantial spatial variations in either
+$T_{\text{pp}}$ or $\theta_{\text{pp}}$.
+The amplitude and phase responses
+can be easily evaluated numerically, and
+the results for typical system parameters are shown in
+Fig.~\ref{fig:InterferometricMethods:phase_plate_amplitude_and_phase_response}.
+As is colloquially understood, the amplitude response
+drops precipitously across the full beam profile for $k \lesssim k_g$.
+(Additionally, the spatial variation in the amplitude response is minimal;
+that is,
+$T_{\text{pp}}(k_{\image}, x_{\image})
+\approx
+T_{\text{pp}}(k_{\image}, x_{\image} = 0)$,
+particularly for $|k| \gtrsim 2 k_g$).
+However, perhaps less well known, is the fact that
+the phase response varies substantially in space for $|k| \lesssim k_g$.
+Thus, PCI's operation for $|k| \lesssim k_g$ is \emph{nonlinear} and
+cannot be described in terms of a transfer function;
+this can e.g.\ prevent PCI from measuring wavenumbers
+of low-$k$ coherent MHD modes, as is discussed in
+Section~\ref{sec:InterferometricMethods:selection:pci_low_k_upshift}.
+Fortunately, for $|k| \gtrsim 2 k_g$, spatial variations
+in $\theta_{\text{pp}}$ (and $T_{\text{pp}}$) are negligible, and,
+as a result, PCI's operation is essentially linear and
+can be described in terms of a transfer function.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/InterferometricMethods/figs/phase_plate_amplitude_and_phase_response.pdf}
+    \caption[Amplitude and phase responses of PCI image-plane intensity
+      across detector face
+    ]{%
+    Amplitude response $T_{\text{pp}}(k, x_{\image})$ and
+    phase response $\theta_{\text{pp}}(k, x_{\image})$
+    of PCI image-plane intensity across detector face
+    for a single sinusoidal mode of wavenumber $k$.
+    Spatial coordinates are normalized
+    to the image-plane 1/e $E$ radius $M w_0$ with $M = 0.5$, while
+    object-plane wavenumbers $k$ are normalized
+    to the 1/e $E$ radius of the in-vessel probe beam, $w_0$.
+    The horizontal, dashed lines indicate
+    the low-$k$ cutoff of the PCI phase-plate groove, $k_g$;
+    here, $k_g = 2 / w_0$,
+    which is the minimum value allowed by diffraction,
+    as discussed in
+    (\ref{eq:InterferometricMethods:pci_kmin_physics}).
+    The phase-plate high-$k$ cutoff, $k_D$,
+    is taken to be much larger than $10 / w_0$.
+    The reflectivity of the PCI phase groove is $\eta = 0.17$,
+    which is characteristic of the ZnSe typically
+    employed in $\SI{10.6}{\micro\meter}$ optics.
+    Note that the low-$k$ phase response exhibits dramatic spatial variation,
+    which results in nonlinear PCI operation for $|k| \lesssim k_g$.
+  }
+\label{fig:InterferometricMethods:phase_plate_amplitude_and_phase_response}
+\end{figure}
 
 
 \subsection{Finite sampling-volume effects}
