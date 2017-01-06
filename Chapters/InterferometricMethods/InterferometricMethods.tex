@@ -3572,9 +3572,10 @@ on the spatial bandwidth of the PCI
 is to introduce a ``hole'' in the low-$k$ response of the system;
 external reference-beam interferometers, in contrast,
 do not suffer from such a low-$k$ cutoff.
-The phase plate also introduces a spatial dependence
-into the PCI transfer function;
-the consequences of this spatial dependence are discussed in
+As discussed in
+Sec.~\ref{sec:InterferometricMethods:pci:imaged_field_and_intensity},
+the PCI also operates nonlinearly in this low-$k$ ``hole'';
+one consequence of this nonlinear operation is discussed in
 Sec.~\ref{sec:InterferometricMethods:selection:pci_low_k_upshift}.
 
 \begin{figure}
@@ -3601,19 +3602,22 @@ Sec.~\ref{sec:InterferometricMethods:selection:pci_low_k_upshift}.
     The finite sampling-volume cutoff $k_{\text{fsv}} = 30 / w_0$
     results from representative ``typical'' values of
     system magnification $|M| = 0.5$ and
-    detector-element size $s_x \approx 0.105$.
+    detector-element size $s_x \approx 0.105 w_0$.
     Note that here $k_D < k_{\text{fsv}}$, in contrast to
     Fig.~\ref{fig:InterferometricMethods:interferometric_method_transfer_functions}.
     The reflectivity of the PCI phase groove is $\eta = 0.17$,
     which is characteristic of the ZnSe typically
     employed in $\SI{10.6}{\micro\meter}$ optics.
-    As the phase-plate transfer function has a spatial dependence,
-    the displayed transfer functions all correspond
-    to the beam center ($x = 0$);
-    the consequences of
-    the phase-plate transfer function's spatial dependence
-    are discussed in
-    Sec.~\ref{sec:InterferometricMethods:selection:pci_low_k_upshift}.
+    As discussed in
+    Section~\ref{sec:InterferometricMethods:pci:imaged_field_and_intensity},
+    $T_{\text{pp}}$ and $T_{\text{pci}}$ are only true transfer functions
+    for $|k| \gtrsim 2 k_g$;
+    for smaller wavenumbers, the PCI phase response
+    varies significantly across the beam profile,
+    resulting in nonlinear operation.
+    Regardless, the corresponding ``transfer functions'' are plotted
+    across the full $k$-range here and
+    correspond to the beam center ($x = 0$).
   }
 \label{fig:InterferometricMethods:pci_cutoffs}
 \end{figure}
