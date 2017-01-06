@@ -3356,7 +3356,7 @@ depends very sensitively on the system alignment,
 with slight excursions of the unscattered beam
 from the partially reflective phase-plate groove
 onto the fully reflective phase-plate face
-can result in macroscopic changes in power reaching the detector.
+resulting in macroscopic changes to the power reaching the detector.
 Further, power fluctuations at the beam source
 can alter $I_G(\vect{r}_{\image, j})$.
 Thus, there are three potentially dynamic quantities:
@@ -3447,7 +3447,7 @@ are taken to be the same for each system.
     Further, to facilitate the comparison,
     the magnification $|M|$ and detector-element size $s_x$
     are taken to be the same for each system
-    (specifically, $|M| = 0.5$ and $s_x \approx 0.105$,
+    (specifically, $|M| = 0.5$ and $s_x \approx 0.105 w_0$,
     which are representative ``typical'' values;
     note that these values of $|M|$ and $s_x$
     yield a finite sampling-volume cutoff $k_{\text{fsv}} = 30 / w_0$).
@@ -3463,12 +3463,16 @@ are taken to be the same for each system.
     The reflectivity of the PCI phase groove is $\eta = 0.17$,
     which is characteristic of the ZnSe typically
     employed in $\SI{10.6}{\micro\meter}$ optics.
-    As the PCI transfer function has a spatial dependence,
-    the displayed transfer function corresponds
-    to the beam center ($x = 0$);
-    the consequences of the PCI transfer function's spatial dependence
-    are discussed in
-    Sec.~\ref{sec:InterferometricMethods:selection:pci_low_k_upshift}.
+    As discussed in
+    Section~\ref{sec:InterferometricMethods:pci:imaged_field_and_intensity},
+    $T_{\text{pci}}$ is only a true transfer function
+    for $|k| \gtrsim 2 k_g$;
+    for smaller wavenumbers, the PCI phase response
+    varies significantly across the beam profile,
+    resulting in nonlinear operation.
+    Regardless, the PCI ``transfer function'' is plotted
+    across the full $k$-range here and
+    corresponds to the beam center ($x = 0$).
   }
 \label{fig:InterferometricMethods:interferometric_method_transfer_functions}
 \end{figure}
@@ -3510,7 +3514,7 @@ calibrations can allow estimates of the absolute scale.
 The merits and limitations of homodyne and heterodyne interferometry
 were discussed at length in
 Sec.~{\ref{sec:InterferometricMethods:interferometry}}, but
-it they are briefly reviewed here for ease of reference.
+they are briefly reviewed here for ease of reference.
 The homodyne interferometer's transfer function depends on
 the difference between the reference-arm phase and
 the equilibrium phase, $\phi_R - \bar{\phi}$,
