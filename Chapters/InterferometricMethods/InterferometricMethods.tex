@@ -2968,7 +2968,7 @@ that $G(\vect{r}_{0,\image}, k_{\image})$ is purely \emph{imaginary}.
 
 
 \subsection{The imaged field and its intensity}
-\label{sec:InterferometricMethods:pci:wavenumber_response}
+\label{sec:InterferometricMethods:pci:imaged_field_and_intensity}
 Introducing the notational shorthand
 $F_m \equiv F(\vect{r}_{m,\image}, k_{\image})$ and
 $G_m \equiv G(\vect{r}_{m,\image}, k_{\image})$,
@@ -3207,9 +3207,11 @@ can be described in terms of a transfer function.
 \end{figure}
 
 
-\subsection{Finite sampling-volume effects}
-Finite sampling-volume effects also affect the PCI wavenumber response.
-Assume that the imaged field impinges on a detector array,
+\subsection{The PCI ``transfer function''}
+As was the case for external reference-beam interferometry,
+it is useful to characterize PCI's performance
+relative to the saturation limits of a given detector.
+Assume that PCI's imaged field impinges on a detector array,
 as shown in Fig.~\ref{fig:InterferometricMethods:detector_array}.
 Let the $j$\ts{th} detector element $D_j$ be centered on $x_{\image,j}$
 and $y_{\image} = 0$;
@@ -3218,7 +3220,8 @@ the total power $P_{j, \, \text{pci}}$ incident on this element is then
   P_{j, \, \text{pci}}(t)
   &=
   \int_{D_j} I_{\text{pci}}(\vect{r}_{\image}, t) dA
-  \notag \\
+  \notag
+  \\
   &\begin{aligned}
     &\approx
     I_G(\vect{r}_{\image,j})
@@ -3230,12 +3233,10 @@ the total power $P_{j, \, \text{pci}}$ incident on this element is then
     \left\{
       1
       +
+      T_{\text{pp}}
+      \cdot
       \tilde{\phi}_0
-      \real \left[%
-        T_{\text{pp}}(k_{\image}, x_{\image})
-        \cdot
-        e^{i \nu}
-      \right]
+      \cos\left[ \nu + \theta_{\text{pp}} \right]
     \right\} dx_{\image}
   \end{aligned}
   \notag
@@ -3250,33 +3251,31 @@ the total power $P_{j, \, \text{pci}}$ incident on this element is then
     \left\{
       1
       +
+      T_{\text{fsv}}
+      T_{\text{pp},j}
+      \cdot
       \tilde{\phi}_0
-      T_{\text{fsv}}(k_{\image})
-      \real \left[%
-        T_{\text{pp}}(k_{\image}, x_{\image, j})
-        \cdot
-        e^{i \nu_j}
-      \right]
+      \cos\left[ \nu_j + \theta_{\text{pp},j} \right]
     \right\},
   \end{aligned}
   \label{eq:InterferometricMethods:PCI_total_power_per_element}
 \end{align}
 where the weakly varying intensity profile $I_G(\vect{r}_{\image})$
 has been approximated as a constant
-over the face of the detector element, and
+over the face of the detector element,
 the finite sampling-volume integral in
 (\ref{eq:InterferometricMethods:finite_sampling_volume_integral})
-has been referenced.
-
-
-\subsection{The PCI transfer function}
-As was the case for external reference-beam interferometry,
-it is useful to characterize PCI's performance
-relative to the saturation limits of a given detector.
+has been referenced, and
+the following abbreviations have been used:
+$T_{\text{pp}} = T_{\text{pp}}(k_{\image}, x_{\image})$,
+$\theta_{\text{pp}} = \theta_{\text{pp}}(k_{\image}, x_{\image})$,
+$T_{\text{fsv}} = T_{\text{fsv}}(k_{\image})$,
+$T_{\text{pp},j} = T_{\text{pp}}(k_{\image}, x_{\image,j})$, and
+$\theta_{\text{pp},j} = \theta_{\text{pp}}(k_{\image}, x_{\image,j})$.
 Because $\tilde{\phi}_0 \ll 1$,
 the optical power incident on the $j$\ts{th} detector element
 (\ref{eq:InterferometricMethods:PCI_total_power_per_element})
-can be approximated as
+satisfies
 \begin{align}
   P_{j, \, \text{pci}}(t)
   &\lesssim
@@ -3294,9 +3293,10 @@ To obtain optimal performance, select $I_G(0)$ such that
   =
   I_G(0)
   \left( |F_0|^2 + |G_0|^2 \right)
-  A.
+  A,
   \notag
 \end{equation}
+where $P_{\text{sat}}$ is the saturation power of a single detector element.
 Further, define the fluctuating power in the PCI signal to be
 \begin{equation}
   \begin{aligned}
@@ -3308,13 +3308,11 @@ Further, define the fluctuating power in the PCI signal to be
     \\
     &\quad\times
     \left\{
+      T_{\text{fsv}}
+      T_{\text{pp},j}
+      \cdot
       \tilde{\phi}_0
-      T_{\text{fsv}}(k_{\image})
-      \real \left[%
-        T_{\text{pp}}(k_{\image}, x_{\image, j})
-        \cdot
-        e^{i \nu_j}
-      \right]
+      \cos\left[ \nu_j + \theta_{\text{pp},j} \right]
     \right\}
   \end{aligned}
   \label{eq:InterferometricMethods:PCI_fluctuating_power_per_element}
@@ -3325,37 +3323,28 @@ such that
   =
   \frac{I_G(\vect{r}_{\image,j})}{I_G(0)}
   \cdot
-  \real \left[%
-    T_{\text{pci}}(k_{\image}, x_{\image, j})
-    \cdot
-    \tilde{\phi}_0
-    e^{i \nu_j}
-  \right],
+  T_{\text{pci}}(k_{\image}, x_{\image, j})
+  \cdot
+  \tilde{\phi}_0
+  \cos\left[ \nu_j + \theta_{\text{pp}}(k_{\image}, x_{\image,j}) \right],
   \label{eq:InterferometricMethods:PCI_ratio_fluctuating_to_equilibrium_power}
 \end{equation}
 where
 \begin{align}
   T_{\text{pci}}(k_{\image}, x_{\image})
-  &=
+  =
   T_{\text{fsv}}(k_{\image})
   \cdot
   T_{\text{pp}}(k_{\image}, x_{\image})
   \label{eq:InterferometricMethods:PCI_wavenumber_transfer_function}
-  \\
-  &=
-  T_{\text{fsv}}(k_{\image})
-  \cdot
-  |T_{\text{pp}}(k_{\image}, x_{\image})|
-  e^{i \theta(k_{\image}, x_{\image})}
-  \label{eq:InterferometricMethods:PCI_wavenumber_transfer_function_explicitly_complex}
 \end{align}
-is the PCI's wavenumber transfer function.
-That is, the PCI weights
-the complex-valued phase-fluctuation images $e^{i \nu_j}$
-by its transfer function $T_{\text{pci}}(k_{\image}, x_{\image, j})$.
-The prefactor $I_G(\vect{r}_{\image,j}) / I_G(0)$
-can (and should) be accounted for
-if the beam profile is known.
+is the PCI's wavenumber ``transfer function''.
+Of course, as is discussed in
+Section~\ref{sec:InterferometricMethods:pci:imaged_field_and_intensity},
+$T_{\text{pci}}$ is only a true transfer function when $|k| \gtrsim 2 k_g$,
+for which spatial variations in
+$T_{\text{pp}}$ and $\theta_{\text{pp}}$ are negligible and
+PCI operates linearly.
 
 As is the case with the homodyne interferometer,
 the PCI technique does \emph{not} make an absolute measurement
