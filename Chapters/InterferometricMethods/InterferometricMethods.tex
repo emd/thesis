@@ -1184,13 +1184,12 @@ $\omega / \omega_0
 \SI{1}{\giga\hertz} / \SI{28.3}{\tera\hertz}
 \sim 10^{-5}$).
 Thus, the scattering is very nearly elastic, and
-$|\vect{k}_m| = k_0$ is a very good approximation.
+$|\vect{k}_{0,m}| = k_0$ is a very good approximation.
 This constraint of elasticity
 coupled with knowledge of the scattering angle $\theta_m$
 allows determination of the scattered wavevector
-\graffito{\textcolor{red}{New notation\ldots}}
 \begin{equation}
-  \vect{k}_m
+  \vect{k}_{0,m}
   =
   (m k) \hat{\vect{x}}
   +
@@ -1626,7 +1625,7 @@ of the imaging system;
 for propagation through ``simple'' optical components,
 such as lenses and homogeneous media, $C$ is constrained to be real.
 Thus, an imaging system of magnification $M$ is characterized
-by a ray matrix of the form
+by an $ABCD$ ray matrix of the form
 \begin{equation}
   \mathcal{I}
   =
@@ -1641,8 +1640,11 @@ by a ray matrix of the form
 Now, the optical axis of each scattered Gaussian beam
 behaves as a ray in the geometric-optics sense
 \cite{tovar_generalized_beam_matrices_IV}.
-Thus, the $m$\ts{th} scattered beam is rotated by angle $\theta_m / M$
-relative to the unscattered beam in the imaging plane,
+Application of the imaging $ABCD$ ray matrix
+(\ref{eq:InterferometricMethods:ABCD_imaging})
+to a beam scattered by $\theta_m$ in the object plane
+indicates that this beam will be rotated by angle $\theta_m / M$
+relative to the unscattered beam in the image plane,
 as shown in Fig.~\ref{fig:InterferometricMethods:imaging_geometry}.
 Further, the imaging optics do \emph{not} alter
 the magnitude of the beam's wavevector, i.e.\ $|\image(\vect{k}_m)| = k_0$
@@ -1650,11 +1652,10 @@ the magnitude of the beam's wavevector, i.e.\ $|\image(\vect{k}_m)| = k_0$
 do not alter the energy of the beam's constituent photons).
 Knowledge of the wavevector's image-plane magnitude and orientation
 allows determination of the image-plane wavevector as
-\graffito{\textcolor{red}{New notation\ldots}}
 \begin{align}
-  \image(\vect{k}_m)
+  \image(\vect{k}_{0,m})
   =
-  \vect{k}_{m,\image}
+  \vect{k}_{0,m,\image}
   =
   \left( m k_{\image} \right) \hat{\vect{x}}
   +
