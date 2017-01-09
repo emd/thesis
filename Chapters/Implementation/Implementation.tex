@@ -138,6 +138,13 @@ from measured values of $k_R$.
 
 
 \subsection{Spatial bandwidth}
+Several critical wavenumbers were defined in
+Section~\ref{sec:InterferometricMethods:pci} that
+characterize the spatial bandwidth of a PCI system.
+The goal of this section is to evaluate each of these
+wavenumbers with the relevant parameters from
+the \diiid \space PCI system.
+
 PCI's low-$k$ cutoff, $k_g$, is physically constrained by
 the free-space diffraction of the in-vessel probe beam.
 This constraint was derived both
@@ -165,6 +172,7 @@ to produce the widest possible beam
 and the smallest physical constraint on the PCI low-$k$ cutoff
 \begin{equation}
   k_g^{\text{min}} \approx \SI{0.6}{\per\centi\meter}
+  \label{eq:Implementation:kg_min}
 \end{equation}
 while introducing negligible aperture diffraction.
 
@@ -206,16 +214,59 @@ such that the realized low-$k$ cutoff
 (\ref{eq:InterferometricMethods:pci_kmin_engineering})
 becomes
 \begin{equation}
-  k_g = \SI{1.5}{\per\centi\meter},
+  k_g \approx \SI{1.5}{\per\centi\meter},
 \end{equation}
-approximately $2.5 \times$ larger than the diffraction-limited minimum.
+approximately $2.5 \times$ larger than
+the diffraction-limited minimum in (\ref{eq:Implementation:kg_min}).
+
+PCI's high-$k$ limits are dictated by
+finite-sized collection optics and system magnification.
+The \diiid \space phase plate has a diameter
+\begin{equation}
+  D = 2"
+\end{equation}
+such that the phase plate's high-$k$ cutoff
+(\ref{eq:InterferometricMethods:pci_kmax_engineering})
+is
+\begin{equation}
+  k_D \approx \SI{75}{\per\centi\meter}.
+\end{equation}
+Although the $5"$ diameter $285^{\circ}$ R-2 exit window and
+the subsequent $12"$ diameter steering mirrors
+are large enough to accommodate beams scattered
+from fluctuations with wavenumbers $|k| \sim k_D$,
+apertures in the imaging optics
+only allow beams scattered from fluctuations with
+\begin{equation}
+  |k| \lesssim \SI{20}{\per\centi\meter}
+\end{equation}
+to reach the PCI detector.
+Upon reaching the detector,
+the measured PCI signal is subject to finite sampling-volume effects,
+which result from spatial averaging over the face of a detector element.
+The PCI's 32-element, 1-dimensional detector array have elements
+of height $\SI{1}{\milli\meter}$, width
+\begin{equation}
+  s_x^{\text{pci}} = \SI{0.5}{\milli\meter},
+\end{equation}
+and center-to-center element spacing of $\SI{0.55}{\milli\meter}$.
+Coupled with the system's magnification
+\graffito{\textcolor{red}{Correct? Sign?}}
+\begin{equation}
+  |M^{\text{pci}}| = 0.5,
+\end{equation}
+the finite sampling-volume cutoff
+(\ref{eq:InterferometricMethods:finite_sampling_volume_cutoff})
+of the PCI is
+\begin{equation}
+  k_{\text{fsv}}^{\text{pci}} \approx \SI{63}{\per\centi\meter}.
+\end{equation}
 
 
 \subsection{Temporal bandwidth}
 
 
 \begin{itemize}
-  \item $k$-cutoff
   \item Maintenance
     \begin{itemize}
       \item Replacement of laser
