@@ -253,7 +253,7 @@ and center-to-center element spacing of $\SI{0.55}{\milli\meter}$.
 Coupled with the system's magnification
 \graffito{\textcolor{red}{Correct? Sign?}}
 \begin{equation}
-  |M^{\text{pci}}| = 0.5,
+  |M^{\text{pci}}| \approx 0.5,
 \end{equation}
 the finite sampling-volume cutoff
 (\ref{eq:InterferometricMethods:finite_sampling_volume_cutoff})
@@ -264,16 +264,53 @@ of the PCI is
 
 
 \subsection{Temporal bandwidth}
+PCI's detector (Infrared Associates MCT-16-32) and
+its associated preamplifiers (also through Infrared Associates)
+are the dominant constraint on the system's temporal bandwidth.
+The HgCdTe detector array
+operates in the photoconductive regime and
+is cooled by liquid nitrogen;
+the liquid-nitrogen cooling reduces noise and boosts the response such that
+the detector-preamplifier combination has
+a specific detectivity
+$D^* \approx \SI{2e10}{\centi\meter \sqrt\hertz \per\watt}$ and
+a $\SI{500}{\volt\per\watt}$ responsivity
+to incident $\SI{10.6}{\micro\meter}$ light
+(note that the detector also has a saturation intensity
+$I_{\text{sat}} \sim \SI{1}{\milli\watt \per\milli\meter\squared}$).
+The benefits of cooling, however, come at the expense of reduced bandwidth:
+the detector-preamplifier combination has
+a high-frequency, 2-pole cutoff
+at $\sim \SI{800}{\kilo\hertz}$~\cite{rost_pci_detector_response}.
+As the DC PCI signal is of little interest,
+the detector-preamplifier combination also has
+a low-frequency, 1-pole cutoff
+at $\sim \SI{2}{\kilo\hertz}$~\cite{rost_pci_detector_response}.
+
+The components downstream of the detector and preamplifiers
+have a small impact on the system bandwidth, but
+they are briefly summarized below for completeness.
+The Variable Gain and Filter (VGAF) circuits~\cite[Sec.~3.3.3]{dorris_phd}
+are located immediately downstream of the preamplifiers and
+have a low-frequency, 1-pole cutoff that can be easily switched between
+$\SI{10}{\kilo\hertz}$ and $\SI{100}{\kilo\hertz}$;
+the VGAFs are typically operated in the $\SI{10}{\kilo\hertz}$ configuration.
+Following the VGAFs,
+fiber optic links (Analog Modules 732 T/R-2.5-33k)
+with an analog bandwidth of DC to $\SI{10}{\mega\hertz}$
+transmit the signal from the \diiid \space pit to the annex.
+Upon reaching the annex,
+the signals are digitized with two of D-tAcq's ACQ216CPCI boards,
+typically at a sampling rate of $f_s = 4 \, \text{MSPS}$.
 
 
+\section{Maintenance}
 \begin{itemize}
-  \item Maintenance
-    \begin{itemize}
-      \item Replacement of laser
-      \item Replacement of feedback detector
-      \item Replacement of in-vessel mirrors
-    \end{itemize}
+  \item Replacement of laser
+  \item Replacement of feedback detector
+  \item Replacement of in-vessel mirrors
 \end{itemize}
+
 
 \section{Interferometer design}
 \begin{itemize}
