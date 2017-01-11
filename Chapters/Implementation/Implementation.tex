@@ -304,12 +304,106 @@ the signals are digitized with two of D-tAcq's ACQ216CPCI boards,
 typically at a sampling rate of $f_s = 4 \, \text{MSPS}$.
 
 
-\section{Maintenance}
+\section{Component replacement}
+Over the course of this work,
+several components crucial to the operation of the PCI
+(and the soon-to-be-described interferometer)
+failed.
+The failures and replacements are briefly described below.
+
+
+\subsection{Quadrature detector for beam-position feedback}
+A quadrature detector measures the position
+of the unscattered beam on the phase plate,
+providing the input to the feedback control system
+that dynamically centers the unscattered beam
+on the phase-plate groove~\cite[Sec.~3.5]{coda_phd}.
+As the quadrature detector
+cannot physically be co-located with the phase plate,
+a beam splitter samples the unscattered beam
+immediately upstream of the phase plate, and
+a single lens \emph{images} onto the quadrature detector
+the point in the sampled beam that corresponds to the phase-plate location.
+Thus, beam movement on the phase plate is mirrored
+by movement of the sampled beam on the quadrature detector.
+System response is maximized
+with imaging magnification $|M| \approx 1$
+(relative to the beam size at the phase plate) and
+incident optical intensities $I_{\text{opt}}$
+well beyond the linear saturation intensity
+(i.e. $I_{\text{sat}} \ll I_{\text{opt}} < I_{\text{dam}}$)
+~\cite{marinoni_FB_detector_report}~\cite[Sec.~3.5(b)]{coda_phd}.
+
+The old quadrature detector consisted of four
+photoconductive, liquid-nitrogen cooled, HgCdTe elements.
+Quadrature detectors for use at $\SI{10.6}{\micro\meter}$
+had only just become commercially available
+when this unit was procured from Belov Technology in the mid-1990s
+~\cite[Sec.~3.5(b)]{coda_phd}.
+Cooling HgCdTe can
+extend the long-wavelength cutoff beyond $\SI{10.6}{\micro\meter}$,
+reduces noise, and
+increases responsivity~\cite{vigo_catalog}.
+In particular, HgCdTe's responsivity increases by $\sim 10^3$
+when cooled to liquid-nitrogen temperatures such that
+that the incident optical signal
+exceeds the $1 / f$ noise
+characteristic of photoconductive detectors~\cite{vigo_catalog}.
+As the bandwidth requirements for the PCI feedback system
+extend from DC to $\lesssim \SI{10}{\kilo\hertz}$,
+$1 / f$ noise cannot be easily combated by
+e.g.\ mechanically chopping the beam.
+After $\sim 20$ years of operation,
+the old quadrature detector failed in December 2014,
+presumably having reached its expected lifetime.
+Fortunately, in the context of position sensing,
+HgCdTe technology has significantly improved since the mid-1990s.
+
+The new quadrature detector
+(four VIGO PVM-10.6 elements mounted on a VIGO QIP preamplifier)
+is in many ways superior to the old quadrature detector.
+This superiority stems from VIGO's use of
+``multiple heterojunction'' HgCdTe detector elements~\cite{vigo_catalog},
+which endow the detector with several advantageous properties.
+First, the detector is photovoltaic.
+Thus, the detector is \emph{not} plagued by the $1 / f$ noise
+characteristic of photoconductive detectors.
+Second, the detector's long-wavelength cutoff
+sits beyond $\SI{10.6}{\micro\meter}$ at room temperature.
+Taken together, the above two properties imply that
+the new quadrature detector can be operated at room temperature,
+i.e.\ it does \emph{not} need to be cooled by liquid nitrogen.
+Lacking a dewar, the new quadrature detector
+is much smaller than the old quadrature detector;
+the new detector can also be mounted with an arbitrary orientation,
+whereas the dewar of the old detector required an upright orientation.
+This new-found flexibility substantially opened
+the optical design space for the feedback arm and
+the plasma arm of the soon-to-be-described interferometer.
+Additionally, the dewar of the old quadrature detector
+only had a $\sim \SI{6}{\hour}$ hold time,
+which is not sufficient for a full day of \diiid \space operations;
+thus, the use of a room-temperature quadrature detector has
+eliminated the mid-day ``pit runs'' to refill the quadrature detector's dewar,
+allowing easier operation of the system.
+Although room-temperature operation reduces
+the detector's specific detectivity to
+$D^* \sim \SI{e7}{\centi\meter \sqrt\hertz \per\watt}$
+(roughly three orders of magnitude \emph{lower} than
+that of the old quadrature detector),
+the optical signal corresponds to the strong, unscattered probe beam
+(as opposed to e.g.\ weak beams
+scattered from small-amplitude plasma fluctuations), so
+the increase in noise negligibly influences operation of the feedback system.
+
 \begin{itemize}
-  \item Replacement of laser
-  \item Replacement of feedback detector
-  \item Replacement of in-vessel mirrors
+  \item \textcolor{red}{Picture}
+  \item \textcolor{red}{Table of properties (?)}
 \end{itemize}
+
+
+\subsection{Laser}
+\subsection{In-vessel mirrors}
 
 
 \section{Interferometer design}
