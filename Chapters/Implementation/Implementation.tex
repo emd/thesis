@@ -356,6 +356,8 @@ e.g.\ mechanically chopping the beam.
 After $\sim 20$ years of operation,
 the old quadrature detector failed in December 2014,
 presumably having reached its expected lifetime.
+As Belov Technology no longer exists,
+it was not possible to procure a drop-in replacement.
 Fortunately, in the context of position sensing,
 HgCdTe technology has significantly improved since the mid-1990s.
 
@@ -402,7 +404,73 @@ the increase in noise negligibly influences operation of the feedback system.
 \end{itemize}
 
 
-\subsection{Laser}
+\subsection{CO$_2$ laser}
+The old CO$_2$ laser~\cite[Sec.~3.3]{coda_phd},
+manufactured by MPB Technologies,
+had been in service since
+the inception of the \diiid \space PCI system in the mid-1990s.
+Lasing occurred via high voltage, DC-excitation
+inside of a $\SI{2}{\meter}$-long, sealed-off glass tube
+to produce a TEM$_{00}$ (Gaussian) mode with linear polarization.
+The laser nominally had
+a $\lesssim \SI{300}{\kilo\hertz}$ frequency stability
+over short time windows ($\SI{0.1}{\second}$) and
+a $\lesssim \SI{3}{\mega\hertz}$ frequency stability
+over longer time windows ($\SI{e3}{\second}$).
+The laser's tube was replaced in late 1999
+when a precipitous drop in beam power indicated imminent failure.
+Following the tube's replacement,
+the measured beam power consistently hovered at $\sim\SI{14}{\watt}$
+for many years.
+However, in early 2016, the beam power again precipitously dropped.
+The laser's high voltage power supply,
+which was replaced in 2005 after failing,
+was tested and found to be operating nominally,
+suggesting that the drop in beam power
+was attributable to the laser's aging tube.
+Unfortunately, MPB Technologies has abandoned its efforts in CO$_2$ lasers
+and was unable to replace or repair the tube.
+Third-party tube repair was investigated but
+ultimately deemed unacceptable due to
+the required lead times and the lack of a guaranteed repair.
+Fortunately, the MPB laser continued operating, albeit at reduced power,
+throughout the 2016 campaign, allowing continued diagnostic development
+of the soon-to-be-described interferometer.
+
+After an exhaustive search of the CO$_2$-laser market,
+a water-cooled AL30ST CO$_2$ laser was procured
+from Access Laser Company (Everett, WA) in mid-2016.
+Lasing occurs via RF excitation at $\SI{40.68}{\mega\hertz}$;
+RF excitation requires far-lower voltages than DC excitation,
+eliminating the high-voltage safety risk and allowing more efficient lasing
+\cite{he_jap83}.
+As in the old MPB laser,
+the lasing cavity is supported by carbon fiber rods (rather than Invar)
+to mitigate any effects of the tokamak's large, ambient magnetic fields
+on the laser's performance.
+The laser oscillates on a TEM$_{00}$ (Gaussian) mode (spec'd $M^2 < 1.1$)
+with vertical polarization (spec'd extinction ratio $1 / 897$), and
+its $\SI{37}{\watt}$ power output is stable to within $\pm 1.1\%$
+\cite{marinoni_AL30ST_report}.
+Lasing occurs on the $P(20)$ line
+of the $00^{\circ}1 \rightarrow 10^{\circ}0$ transition
+to produce radiation with a vacuum wavelength of
+$\lambda_0 = \SI{10.591}{\micro\meter}$.
+Measurements with wavelength meter 621B
+from Bristol Instruments, Inc. (Victor, NY)
+indicate that the laser's wavelength stability over several seconds
+is characterized by a Voigt distribution with
+full width at half maximum of $\SI{0.0029}{\nano\meter}$, which
+corresponds to a frequency stability (over \emph{several seconds})
+of $\SI{3.8}{\mega\hertz}$ \cite{marinoni_AL30ST_report}.
+
+\begin{itemize}
+  \item Measured stability with interferometer
+  \item \textcolor{red}{Picture}
+  \item \textcolor{red}{Comparison of new vs.\ old laser stability}
+\end{itemize}
+
+
 \subsection{In-vessel mirrors}
 
 
