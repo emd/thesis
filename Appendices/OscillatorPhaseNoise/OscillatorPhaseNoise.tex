@@ -4,7 +4,7 @@
 \section{Motivation}
 An oscillator with negligible amplitude variation is well-described by
 \begin{equation}
-  E(t) = E_0 e^{i [\omega_0 t + \phi(t)]},
+  A(t) = A_0 e^{i [\omega_0 t + \phi(t)]},
 \end{equation}
 where $\phi(t)$ is a zero-mean, random process
 whose temporal variation causes
@@ -13,7 +13,7 @@ to wander about its nominal value $\nu_0 = \omega_0 / (2 \pi)$.
 The oscillator's phase change between
 times $t$ and $t + \tau_j$ is
 \begin{equation}
-  \arg[E(t + \tau_j) \cdot E^*(t)]
+  \arg[A(t + \tau_j) \cdot A^*(t)]
   =
   \omega_0 \tau_j + \phi(t + \tau_j) - \phi(t).
 \end{equation}
@@ -25,7 +25,8 @@ the time difference $\tau_j$.
 Excursions from this ideal result in phase noise.
 
 It is the goal of this appendix
-to investigate an oscillator's phase noise.
+to investigate the spectral properties
+of an oscillator's phase noise.
 Define the phase noise between times $t$ and $t + \tau_j$ to be
 \begin{equation}
   \delta \phi(t, \tau_j)
@@ -38,6 +39,7 @@ the deviation in the oscillator's instantaneous frequency via
   \delta \phi(t, \tau_j)
   =
   2 \pi \int_{t}^{t + \tau_j} \delta \nu(t') dt'.
+  \label{eq:OscillatorPhaseNoise:phase_noise_from_frequency_deviation}
 \end{equation}
 Whereas the phase noise $\delta \phi(t, \tau_j)$
 depends on the externally imposed time difference $\tau_j$,
@@ -47,7 +49,7 @@ the oscillator's instantaneous frequency deviation $\delta \nu(t)$ does not
 
 \section{Autospectral density of phase noise}
 The two-sided autospectral density $S_{xx}(f)$
-of a random process $\{x_k(t)\}$ is simply
+of a stationary random process $\{x_k(t)\}$ is simply
 \begin{equation}
   S_{xx}(f) = \mathcal{F}[R_{xx}(\tau)](f),
 \end{equation}
@@ -62,56 +64,119 @@ by Fourier transforming
 $R_{\delta\phi,\delta\phi}(\tau)$.
 
 
-\section{Simplification of an integral}
-Define the integral
+\subsection{Autocorrelation of phase-noise}
+The autocorrelation $R_{xx}(\tau)$
+of a stationary random process $\{x_k(t)\}$ is defined as
 \begin{equation}
-  I(\tau, \tau_j)
+  R_{xx}(\tau) = E\left[ x_k(t) x_k(t + \tau) \right],
+\end{equation}
+where $E$ is the expectation-value operator
+that averages over all of the realizations in the ensemble $\{x_k(t)\}$
+\cite{bendat_and_piersol}.
+Thus, the phase noise
+(\ref{eq:OscillatorPhaseNoise:phase_noise_from_frequency_deviation})
+has an autocorrelation
+\begin{align}
+  R_{\delta\phi,\delta\phi}(\tau)
+  &=
+  E\left[ \delta\phi(t) \delta\phi(t + \tau) \right]
+  \notag \\
+  &=
+  (2 \pi)^2
+  \int_{t}^{t + \tau_j} dt'
+  \int_{t + \tau}^{t + \tau + \tau_j} dt'' \,
+  E[ \delta \nu(t') \delta \nu(t'') ],
+  \label{eq:OscillatorPhaseNoise:phase_noise_autocorrelation_v1}
+\end{align}
+where the linearity of the expectation-value operator has been used
+to bring $E$ into the integrand of the double integral.
+Note that
+$E[ \delta \nu(t') \delta \nu(t'') ]
+=
+R_{\delta\nu,\delta\nu}(t', t'')
+=
+R_{\delta\nu,\delta\nu}(t' - t'')$, where
+the last equality follows from the fact that
+the autocorrelation of a stationary process
+cannot depend on the absolute times $t'$ and $t''$
+\emph{except} through their difference $t' - t''$.
+Thus, (\ref{eq:OscillatorPhaseNoise:phase_noise_autocorrelation_v1})
+becomes
+\begin{equation}
+  R_{\delta\phi,\delta\phi}(\tau)
+  =
+  (2 \pi)^2
+  \int_{t}^{t + \tau_j} dt'
+  \int_{t + \tau}^{t + \tau + \tau_j} dt'' \,
+  R_{\delta\nu,\delta\nu}(t' - t'').
+  \label{eq:OscillatorPhaseNoise:phase_noise_autocorrelation_v2}
+\end{equation}
+
+Fortunately, a suitable change of variables
+simplifies the expression for
+$R_{\delta\phi,\delta\phi}(\tau)$ in
+(\ref{eq:OscillatorPhaseNoise:phase_noise_autocorrelation_v2}).
+To see this, define the integral
+\begin{equation}
+  I(g, \tau, \tau_j)
   \equiv
   \int_{a}^{a + \tau_j} dx
   \int_{a + \tau}^{a + \tau + \tau_j} dy \,
-  f(x - y),
+  g(x - y),
 \end{equation}
-where $a$, $\tau$, and $\tau_j$ are real.
-Make the change of variables
+and make the change of variables
 \begin{equation}
   x = z + y,
   \label{eq:OscillatorPhaseNoise:change_of_variables}
 \end{equation}
 which transforms the integration domain as shown in
 Fig.~\ref{fig:OscillatorPhaseNoise:integration_domains}.
-Then, $I(\tau, \tau_j)$ becomes
+Then, $I(g, \tau, \tau_j)$ becomes
 \begin{align}
-  I(\tau, \tau_j)
+  I(g, \tau, \tau_j)
   &=
-  \int_{- \tau_j - \tau}^{- \tau} dz \, f(z)
+  \int_{- \tau_j - \tau}^{- \tau} dz \, g(z)
   \int_{a - z}^{a + \tau + \tau_j} dy
   +
-  \int_{-\tau}^{\tau_j - \tau} dz \, f(z)
+  \int_{-\tau}^{\tau_j - \tau} dz \, g(z)
   \int_{a + \tau}^{a + \tau_j - z} dy
   \notag \\
   &=
   \int_{- \tau_j - \tau}^{- \tau} dz \,
   \left[ \tau_j + (z + \tau) \right]
-  f(z)
+  g(z)
   +
   \int_{-\tau}^{\tau_j - \tau} dz \,
   \left[ \tau_j - (z + \tau) \right]
-  f(z)
+  g(z)
   \notag \\
   &=
   \int_{-\tau_j}^{0} dz' \,
   \left[ \tau_j + z' \right]
-  f(z' - \tau)
+  g(z' - \tau)
   +
   \int_{0}^{\tau_j} dz' \,
   \left[ \tau_j - z' \right]
-  f(z' - \tau)
+  g(z' - \tau)
   \notag \\
   &=
   \int_{-\tau_j}^{\tau_j} dz' \,
   \left[ \tau_j - |z'| \right]
-  f(z' - \tau)
+  g(z' - \tau)
+  \label{eq:OscillatorPhaseNoise:integral_after_change_of_variables}
 \end{align}
+Substituting (\ref{eq:OscillatorPhaseNoise:integral_after_change_of_variables})
+into (\ref{eq:OscillatorPhaseNoise:phase_noise_autocorrelation_v2})
+with $g = R_{\delta\nu,\delta\nu}$ yields
+\begin{equation}
+  R_{\delta\phi,\delta\phi}(\tau)
+  =
+  (2 \pi)^2
+  \int_{-\tau_j}^{\tau_j} dt' \,
+  \left[ \tau_j - |t'| \right]
+  R_{\delta\nu,\delta\nu}(t' - \tau).
+  \label{eq:OscillatorPhaseNoise:phase_noise_autocorrelation_final}
+\end{equation}
 
 \begin{figure}
   \centering
