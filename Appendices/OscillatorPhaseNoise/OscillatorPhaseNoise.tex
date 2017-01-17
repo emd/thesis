@@ -1,6 +1,31 @@
 \chapter{Oscillator phase noise}
 
 
+\section{Motivation}
+An oscillator with negligible amplitude variation is well-described by
+\begin{equation}
+  E(t) = E_0 e^{i [\omega_0 t + \phi(t)]},
+\end{equation}
+where $\phi(t)$ is a zero-mean, random process
+whose temporal variation causes
+the oscillator's instantaneous frequency
+to wander about its nominal value $\omega_0 / (2 \pi)$.
+The oscillator's phase change between
+times $t$ and $t + \tau_j$ is
+\begin{equation}
+  \arg[E(t + \tau_j) \cdot E^*(t)]
+  =
+  \omega_0 \tau_j + \phi(t + \tau_j) - \phi(t).
+\end{equation}
+In a perfect oscillator,
+$\phi(t + \tau_j) = \phi(t)$ for all $t$ and $\tau_j$
+such that the phase change is governed only by
+the oscillator's nominal frequency $\omega_0 / (2 \pi)$ and
+the time difference $\tau_j$.
+Excursions from this ideal result in phase noise.
+It is the goal of this appendix to investigate such phase noise.
+
+
 \section{Simplification of an integral}
 Define the integral
 \begin{equation}
