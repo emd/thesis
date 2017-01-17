@@ -9,7 +9,7 @@ An oscillator with negligible amplitude variation is well-described by
 where $\phi(t)$ is a zero-mean, random process
 whose temporal variation causes
 the oscillator's instantaneous frequency
-to wander about its nominal value $\omega_0 / (2 \pi)$.
+to wander about its nominal value $\nu_0 = \omega_0 / (2 \pi)$.
 The oscillator's phase change between
 times $t$ and $t + \tau_j$ is
 \begin{equation}
@@ -23,7 +23,43 @@ such that the phase change is governed only by
 the oscillator's nominal frequency $\omega_0 / (2 \pi)$ and
 the time difference $\tau_j$.
 Excursions from this ideal result in phase noise.
-It is the goal of this appendix to investigate such phase noise.
+
+It is the goal of this appendix
+to investigate an oscillator's phase noise.
+Define the phase noise between times $t$ and $t + \tau_j$ to be
+\begin{equation}
+  \delta \phi(t, \tau_j)
+  \equiv
+  \phi(t + \tau_j) - \phi(t).
+\end{equation}
+This phase noise can be related to
+the deviation in the oscillator's instantaneous frequency via
+\begin{equation}
+  \delta \phi(t, \tau_j)
+  =
+  2 \pi \int_{t}^{t + \tau_j} \delta \nu(t') dt'.
+\end{equation}
+Whereas the phase noise $\delta \phi(t, \tau_j)$
+depends on the externally imposed time difference $\tau_j$,
+the oscillator's instantaneous frequency deviation $\delta \nu(t)$ does not
+(i.e.\ it is an intrinsic property of the oscillator).
+
+
+\section{Autospectral density of phase noise}
+The two-sided autospectral density $S_{xx}(f)$
+of a random process $\{x_k(t)\}$ is simply
+\begin{equation}
+  S_{xx}(f) = \mathcal{F}[R_{xx}(\tau)](f),
+\end{equation}
+where $\mathcal{F}$ is the Fourier transform operator and
+$R_{xx}(\tau)$ is the autocorrelation of $\{x_k(t)\}$
+\cite{bendat_and_piersol}.
+Below, the phase-noise autocorrelation
+$R_{\delta\phi,\delta\phi}(\tau)$ is computed;
+subsequently, the phase-noise autospectral density
+$S_{\delta\phi,\delta\phi}(f)$ is computed
+by Fourier transforming
+$R_{\delta\phi,\delta\phi}(\tau)$.
 
 
 \section{Simplification of an integral}
@@ -87,3 +123,7 @@ Then, $I(\tau, \tau_j)$ becomes
     (\ref{eq:OscillatorPhaseNoise:change_of_variables}).}
   \label{fig:OscillatorPhaseNoise:integration_domains}
 \end{figure}
+
+
+\bibliographystyle{plainurl}
+\bibliography{references}
