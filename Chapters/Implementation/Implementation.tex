@@ -399,6 +399,7 @@ scattered from small-amplitude plasma fluctuations), so
 the increase in noise negligibly influences operation of the feedback system.
 
 \begin{itemize}
+  \item When was new detector acquired?
   \item \textcolor{red}{Picture}
   \item \textcolor{red}{Table of properties (?)}
 \end{itemize}
@@ -464,14 +465,74 @@ full width at half maximum of $\SI{0.0029}{\nano\meter}$, which
 corresponds to a frequency stability (over \emph{several seconds})
 of $\SI{3.8}{\mega\hertz}$ \cite{marinoni_AL30ST_report}.
 
+In the context of measuring plasma-density fluctuations
+with an external reference-beam interferometer,
+the relevant metric is the laser's frequency stability
+over much shorter time windows
+(i.e.\ the time difference corresponding to
+the difference in optical path length between
+the interferometer's plasma and reference arms).
+This is most easily evaluated empirically
+by deploying the laser in the given interferometric system
+and evaluating the corresponding phase noise.
+Successive test shots,
+the first with the old MPB laser and the second with the AL30ST,
+show comparable phase noise (and hence frequency stability)
+between the two lasers.
+Thus, the AL30ST frequency stability is deemed to be sufficient
+for measurement of plasma-density fluctuations
+with the soon-to-be-described external reference-beam interferometer.
+
 \begin{itemize}
-  \item Measured stability with interferometer
   \item \textcolor{red}{Picture}
-  \item \textcolor{red}{Comparison of new vs.\ old laser stability}
+  \item \textcolor{red}{Fig. of new vs.\ old laser stability}
 \end{itemize}
 
 
 \subsection{In-vessel mirrors}
+Two of the PCI mirrors are located
+\emph{inside} of the \diiid \space vacuum vessel.
+As indicated in Fig.~\ref{fig:Implementation:d3d_port_locations}(b),
+the PCI probe beam enters the machine through the $285^{\circ}$ R+2 port,
+reflects off of the first in-vessel mirror,
+propagates vertically downwards through the machine (and the plasma),
+reflects off the second in-vessel mirror, and
+exits the machine through the $285^{\circ}$ R-2 port.
+The in-vessel mirrors are elongated
+along the axis parallel to the plane of incidence
+in order to increase the mirrors' apparent surface area.
+The mirrors were fabricated by Esco Optics, Inc. (Oak Ridge, NJ).
+The mirrors are made of fused quartz with
+a reflective aluminum surface and a protective SiO coating.
+
+In mid-2015 the beam quality of the CO$_2$ laser and the HeNe alignment laser
+after passing through the \diiid \space vessel was noted to be poor
+(i.e. substantially non-Gaussian).
+Numerous tests suggested that the poor beam quality was attributable
+damaged in-vessel mirrors;
+this hypothesis was confirmed via visual inspection
+during the next manned entry of the machine.
+``Drop-in'' replacements were ordered from Esco Optics
+and were installed in mid-2016.
+The removed, damaged mirrors are shown in
+Fig.~\ref{fig:Implementation:in_vessel_mirrors}.
+It is not known whether the mirrors were damaged
+during e.g. plasma operations or high-temperature bakes of the vessel.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = 0.6 \textwidth]{%
+    Chapters/Implementation/figs/in_vessel_mirrors.jpg}
+  \caption[PCI's damaged in-vessel mirrors]{%
+    PCI's damaged in-vessel mirrors, sitting
+    in the \diiid \space ``Hi-Bay''
+    after removal from the vessel in mid-2016.
+    (Note that the reflectivity of each mirror at $\SI{10.6}{\micro\meter}$
+    cannot be gauged from this photograph in the visible spectrum).
+    ``Drop-in'' replacements were installed
+    before the resumption of plasma operations.}
+\label{fig:Implementation:in_vessel_mirrors}
+\end{figure}
 
 
 \section{Interferometer design}
