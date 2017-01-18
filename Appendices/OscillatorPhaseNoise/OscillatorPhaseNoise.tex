@@ -6,7 +6,7 @@ An oscillator with negligible amplitude variation is well-described by
 \begin{equation}
   A(t) = A_0 e^{i [\omega_0 t + \phi(t)]},
 \end{equation}
-where $\phi(t)$ is a zero-mean, random process
+where $\phi(t)$ is a zero-mean, stationary, random process
 whose temporal variation causes
 the oscillator's instantaneous frequency
 to wander about its nominal value $\nu_0 = \omega_0 / (2 \pi)$.
@@ -55,7 +55,7 @@ of a stationary random process $\{x_k(t)\}$ is simply
 \end{equation}
 where $\mathcal{F}$ is the Fourier transform operator and
 $R_{xx}(\tau)$ is the autocorrelation of $\{x_k(t)\}$
-\cite{bendat_and_piersol}.
+\cite[Sec.~5.2.1]{bendat_and_piersol}.
 Below, the phase-noise autocorrelation
 $R_{\delta\phi,\delta\phi}(\tau)$ is computed;
 subsequently, the phase-noise autospectral density
@@ -64,7 +64,7 @@ by Fourier transforming
 $R_{\delta\phi,\delta\phi}(\tau)$.
 
 
-\subsection{Autocorrelation of phase-noise}
+\subsection{Autocorrelation of phase noise}
 The autocorrelation $R_{xx}(\tau)$
 of a stationary random process $\{x_k(t)\}$ is defined as
 \begin{equation}
@@ -72,8 +72,13 @@ of a stationary random process $\{x_k(t)\}$ is defined as
 \end{equation}
 where $E$ is the expectation-value operator
 that averages over all of the realizations in the ensemble $\{x_k(t)\}$
-\cite{bendat_and_piersol}.
-Thus, the phase noise
+\cite[Sec.~5.1.1]{bendat_and_piersol}.
+Note that the autocorrelation of a stationary process
+is an \emph{even} function:
+$R_{xx}(-\tau) = R_{xx}(\tau)$.
+
+Using the above definition,
+the phase noise
 (\ref{eq:OscillatorPhaseNoise:phase_noise_from_frequency_deviation})
 has an autocorrelation
 \begin{align}
@@ -167,14 +172,16 @@ Then, $I(g, \tau, \tau_j)$ becomes
 \end{align}
 Substituting (\ref{eq:OscillatorPhaseNoise:integral_after_change_of_variables})
 into (\ref{eq:OscillatorPhaseNoise:phase_noise_autocorrelation_v2})
-with $g = R_{\delta\nu,\delta\nu}$ yields
+with $g = R_{\delta\nu,\delta\nu}$ and
+using the fact that the autocorrelation is even
+yields
 \begin{equation}
   R_{\delta\phi,\delta\phi}(\tau)
   =
   (2 \pi)^2
   \int_{-\tau_j}^{\tau_j} dt' \,
   \left[ \tau_j - |t'| \right]
-  R_{\delta\nu,\delta\nu}(t' - \tau).
+  R_{\delta\nu,\delta\nu}(\tau - t').
   \label{eq:OscillatorPhaseNoise:phase_noise_autocorrelation_final}
 \end{equation}
 
@@ -188,6 +195,58 @@ with $g = R_{\delta\nu,\delta\nu}$ yields
     (\ref{eq:OscillatorPhaseNoise:change_of_variables}).}
   \label{fig:OscillatorPhaseNoise:integration_domains}
 \end{figure}
+
+
+\subsection{Autospectral density of phase noise}
+Taking the Fourier transform of
+the phase-noise autocorrelation
+(\ref{eq:OscillatorPhaseNoise:phase_noise_autocorrelation_final})
+yields the phase-noise autospectral density
+\begin{align}
+  S_{\delta\phi,\delta\phi}(f)
+  &=
+  \mathcal{F}
+  \left[%
+    R_{\delta\phi,\delta\phi}(\tau)
+  \right](f)
+  \notag \\
+  &=
+  (2 \pi)^2
+  \int_{-\tau_j}^{\tau_j} dt' \,
+  \left[ \tau_j - |t'| \right]
+  \mathcal{F}
+  \left[
+    R_{\delta\nu,\delta\nu}(\tau - t')
+  \right](f)
+  \notag \\
+  &=
+  (2 \pi)^2 \,
+  S_{\delta\nu,\delta\nu}(f)
+  \int_{-\tau_j}^{\tau_j} dt' \,
+  \left[ \tau_j - |t'| \right]
+  e^{i 2 \pi f t'}
+  \notag \\
+  &=
+  [2 \pi \tau_j \sinc(f \tau_j)]^2 \,
+  S_{\delta\nu,\delta\nu}(f)
+  \label{eq:OscillatorPhaseNoise:phase_noise_autospectral_density}
+\end{align}
+where the Fourier transform's
+linear and translational properties have been used and
+$\sinc(x) = \sin(\pi x) / (\pi x)$ is the normalized sinc function.
+Now, if $f \tau_j \ll 1$, as is often of practical relevance,
+\begin{equation}
+  S_{\delta\phi,\delta\phi}(f)
+  \approx
+  [2 \pi \tau_j]^2 \,
+  S_{\delta\nu,\delta\nu}(f);
+  \label{eq:OscillatorPhaseNoise:phase_noise_autospectral_density_approx}
+\end{equation}
+that is, an oscillator's phase-noise autospectral density is
+linearly related to the autospectral density
+of the oscillator's underlying frequency deviation
+(an intrinsic property of the oscillator) and
+quadratically related to the temporal duration $\tau_j$.
 
 
 \bibliographystyle{plainurl}
