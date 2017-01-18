@@ -1,8 +1,17 @@
 \chapter{Oscillator phase noise}
+The below discussion was inspired by Appendix A of
+\cite{stephan_pra05}.
+To better connect to the work discussed in this thesis
+(i.e.\ the development of a heterodyne interferometer),
+the discussion has been modified relative to that in~\cite{stephan_pra05}.
+Further, the calculations have been made more explicit and
+(hopefully) clearer than those in~\cite{stephan_pra05}.
 
 
-\section{Motivation}
-An oscillator with negligible amplitude variation is well-described by
+\section{Motivation and definitions}
+An oscillator with negligible amplitude variation,
+such as the electric field of a single-mode laser,
+is well-described by
 \begin{equation}
   A(t) = A_0 e^{i [\omega_0 t + \phi(t)]},
 \end{equation}
@@ -22,7 +31,9 @@ $\phi(t + \tau_j) = \phi(t)$ for all $t$ and $\tau_j$
 such that the phase change is governed only by
 the oscillator's nominal frequency $\omega_0 / (2 \pi)$ and
 the time difference $\tau_j$.
-Excursions from this ideal result in phase noise.
+Excursions from this ideal result in phase noise, which can e.g.\
+diminish the signal-to-noise ratio of a measurement or,
+in the most extreme cases, destroy a measurement altogether.
 
 It is the goal of this appendix
 to investigate the spectral properties
@@ -228,17 +239,17 @@ yields the phase-noise autospectral density
   \notag \\
   &=
   [2 \pi \tau_j \sinc(f \tau_j)]^2 \,
-  S_{\delta\nu,\delta\nu}(f)
+  S_{\delta\nu,\delta\nu}(f),
   \label{eq:OscillatorPhaseNoise:phase_noise_autospectral_density}
 \end{align}
 where the Fourier transform's
-linear and translational properties have been used and
+linear and translational properties have been used, and
 $\sinc(x) = \sin(\pi x) / (\pi x)$ is the normalized sinc function.
-Now, if $f \tau_j \ll 1$, as is often of practical relevance,
+Now, if $f \tau_j \ll 1$, as is often relevant in practice,
 \begin{equation}
   S_{\delta\phi,\delta\phi}(f)
   \approx
-  [2 \pi \tau_j]^2 \,
+  (2 \pi \tau_j)^2 \,
   S_{\delta\nu,\delta\nu}(f);
   \label{eq:OscillatorPhaseNoise:phase_noise_autospectral_density_approx}
 \end{equation}
@@ -246,7 +257,7 @@ that is, an oscillator's phase-noise autospectral density is
 linearly related to the autospectral density
 of the oscillator's underlying frequency deviation
 (an intrinsic property of the oscillator) and
-quadratically related to the temporal duration $\tau_j$.
+quadratically related to the externally imposed time difference $\tau_j$.
 
 
 \bibliographystyle{plainurl}
