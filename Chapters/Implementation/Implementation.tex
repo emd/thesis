@@ -536,6 +536,30 @@ during e.g. plasma operations or high-temperature bakes of the vessel.
 
 
 \section{Interferometer design study}
+The idea was to as simply as possible implement interferometer detection
+while minimally perturbing the operation of the PCI.
+
+\begin{itemize}
+  \item Ideal interferometer signals derived in Ch.~2
+  \item If reference beam and plasma beam have different shapes,
+    simply results in a geometric factor (?)
+    \begin{itemize}
+      \item Assume spot size is much larger than detector element;
+        motivate by considering an array (even though we just have
+        ``proof of principle'' with one detector element)
+      \item Quote ``general'' formula (assuming radii of curvature matched)
+      \item Define an effective intensity $I_{\text{eff}}$, and
+        by comparing to Ch.~2 formula, simply extend all results
+        from Ch.~2 by appropriately substituting $I_{\text{eff}}$
+    \end{itemize}
+  \item Effects of noise
+    \begin{itemize}
+      \item Assume detector noise (amplitude noise, more or less?)
+      \item Assume ideal demodulation, audio amps, etc.
+      \item Phase noise from laser (mention also from RF, but assume
+        negligible for the design study)
+    \end{itemize}
+\end{itemize}
 \subsection{Signal detection and processing}
 \subsection{Simplifying and constraining the design parameters}
 \subsection{Expected plasma-induced phase shift}
