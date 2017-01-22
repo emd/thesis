@@ -2411,8 +2411,9 @@ are simply an artifact of the system alignment or radiation source.
 \subsection{Heterodyne detection}
 To avoid the above-mentioned challenges of homodyne interferometry,
 the reference phase can be linearly ramped in time
-as $\phi_R = \Delta \omega_0 t$ such that
-the intensity becomes
+as $\phi_R = -\Delta \omega_0 t$ such that the intensity
+(\ref{eq:InterferometricMethods:interferometer_intensity_arbitrary_reference})
+becomes
 \begin{equation}
   \begin{aligned}
     I_{\text{het}}(\vect{r}_{\image}, t)
@@ -2421,11 +2422,11 @@ the intensity becomes
     \bigl[%
       1
       &+
-      \cos(\Delta \omega_0 t - \bar{\phi})
+      \cos(\Delta \omega_0 t + \bar{\phi})
       \\
-      &+
+      &-
       \tilde{\phi}_0
-      \sin(\Delta \omega_0 t - \bar{\phi}) \cos\nu
+      \sin(\Delta \omega_0 t + \bar{\phi}) \cos\nu
     \bigr].
   \end{aligned}
   \label{eq:InterferometricMethods:heterodyne_intensity}
@@ -2440,6 +2441,10 @@ Fig.~\ref{fig:InterferometricMethods:baseband_vs_intermediate_frequency}.
 \graffito{\textcolor{red}{This will be discussed more in Ch.~3}}
 Practically, the $\phi_R$ ramp is accomplished by modestly Doppler shifting
 the reference beam relative to the plasma beam.
+(Note that $\phi_R = -\Delta \omega_0 t$
+corresponds to a Doppler \emph{upshifted} reference beam;
+i.e.\ the reference beam's temporal evolution is given by
+$e^{-i \omega_0 t + i \phi_R} = e^{-i(\omega_0 + \Delta\omega_0) t}$).
 
 \begin{figure}
   \centering
@@ -2483,11 +2488,11 @@ the total power $P_{j, \, \text{het}}$ incident on this element is then
     \biggl[%
       1
       +
-      \cos(\Delta \omega_0 t - \bar{\phi})
+      \cos(\Delta \omega_0 t + \bar{\phi})
       \\
-      &\qquad+
+      &\qquad-
       \tilde{\phi}_0
-      \sin(\Delta \omega_0 t - \bar{\phi}) \cos\nu
+      \sin(\Delta \omega_0 t + \bar{\phi}) \cos\nu
     \biggr] dx
   \end{aligned}
   \notag \\
@@ -2497,11 +2502,11 @@ the total power $P_{j, \, \text{het}}$ incident on this element is then
     \biggl[%
       1
       +
-      \cos(\Delta \omega_0 t - \bar{\phi})
+      \cos(\Delta \omega_0 t + \bar{\phi})
       \\
-      &\qquad+
+      &\qquad-
       \tilde{\phi}_0
-      \sin(\Delta \omega_0 t - \bar{\phi})
+      \sin(\Delta \omega_0 t + \bar{\phi})
       T_{\text{fsv}}(k_{\image})
       \cos\nu_j
     \biggr],
@@ -2516,7 +2521,7 @@ the finite sampling-volume integral in
 has been referenced.
 Note that the dominant Fourier components of $P_{j, \, \text{het}}$
 sit at the intermediate frequency $\pm \Delta \omega_0$ but that
-the phase-fluctuation term $\sin(\Delta \omega_0 t - \bar{\phi}) \cos\nu_j$
+the phase-fluctuation term $\sin(\Delta \omega_0 t + \bar{\phi}) \cos\nu_j$
 produces sidebands at $\pm (\Delta \omega_0 \pm \omega)$.
 
 The heterodyne interference signal must be demodulated
@@ -2529,40 +2534,17 @@ it is sufficient to consider the ``equivalent optical powers''
 corresponding to the demodulated signals.
 The so-called in-phase ($I$) and quadrature ($Q$) signals
 are obtained by mixing $P_{j, \, \text{het}}$ with
-$\cos( \Delta \omega_0 t)$ and $\sin( \Delta \omega_0 t)$, respectively, and
+$\real(e^{-i \Delta\omega_0 t})$ and
+$\imag(e^{-i \Delta\omega_0 t})$, respectively, and
 low-pass filtering the resulting signals;
-here, low-pass filtering is implemented
+here, for simplicity, low-pass filtering is implemented
 by averaging over a cycle of the intermediate frequency.
 Thus, the equivalent $I$ and $Q$ optical powers are defined as
-\begin{align}
-  P_{j, I}(t)
-  &\equiv
-  \langle
-    \cos (\Delta \omega_0 t) \cdot P_{j, \, \text{het}}(t)
-  \rangle_{\Delta \omega_0},
-  \\
-  P_{j, Q}(t)
-  &\equiv
-  \langle
-    \sin (\Delta \omega_0 t) \cdot P_{j, \, \text{het}}(t)
-  \rangle_{\Delta \omega_0},
-\end{align}
-where $\langle q \rangle_{\Delta \omega_0}$ denotes
-the average of quantity $q$ over an intermediate-frequency cycle as
-\begin{equation}
-  \langle q \rangle_{\Delta \omega_0}
-  \equiv
-  \frac{\Delta \omega_0}{2 \pi}
-  \int_{0}^{\Delta \omega_0 / 2 \pi}
-  q(t) dt.
-  \label{eq:InterferometricMethods:intermediate_frequency_cycle_average}
-\end{equation}
-Note that $P_{j,I}$ and $P_{j,Q}$ can be conveniently combined as
 \begin{align}
   P_{j,I} + i \cdot P_{j,Q}
   &=
   \langle
-    e^{i \Delta \omega_0 t} \cdot P_{j, \, \text{het}}(t)
+    e^{-i \Delta \omega_0 t} \cdot P_{j, \, \text{het}}(t)
   \rangle_{\Delta \omega_0}
   \notag \\
   &=
@@ -2574,9 +2556,19 @@ Note that $P_{j,I}$ and $P_{j,Q}$ can be conveniently combined as
     i \tilde{\phi}_0
     T_{\text{fsv}}(k_{\image})
     \cos\nu_j
-  \right].
+  \right],
   \label{eq:InterferometricMethods:heterodyne_interferometer_I_and_Q_power_per_element}
 \end{align}
+where $\langle q \rangle_{\Delta \omega_0}$ denotes
+the average of quantity $q$ over an intermediate-frequency cycle as
+\begin{equation}
+  \langle q \rangle_{\Delta \omega_0}
+  \equiv
+  \frac{\Delta \omega_0}{2 \pi}
+  \int_{0}^{\Delta \omega_0 / 2 \pi}
+  q(t) dt.
+  \label{eq:InterferometricMethods:intermediate_frequency_cycle_average}
+\end{equation}
 
 In contrast to the homodyne interferometer,
 the heterodyne interferometer makes an absolute measurement
@@ -2632,7 +2624,7 @@ can be approximated as
 \begin{align}
   P_{j, \, \text{het}}
   &\approx
-  2 I_G(\vect{r}_{\image,j}) A [1 + \cos(\Delta \omega_0 t - \bar{\phi})]
+  2 I_G(\vect{r}_{\image,j}) A [1 + \cos(\Delta \omega_0 t + \bar{\phi})]
   \notag \\
   &\leq
   4 I_G(0) A,
