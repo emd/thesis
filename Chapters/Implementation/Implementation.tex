@@ -539,6 +539,211 @@ during e.g. plasma operations or high-temperature bakes of the vessel.
 The idea was to as simply as possible implement interferometer detection
 while minimally perturbing the operation of the PCI.
 
+
+\subsection{Geometric effects of umatched beams}
+The derivations in Section~\ref{sec:InterferometricMethods:interferometry}
+assumed that the reference beam was exactly matched
+in both amplitude and spatial structure
+to the unscattered probe beam.
+This is obviously an idealization
+that, at best, can only be approached asymptotically in experiment.
+This section discusses the geometric effects
+of such imperfections in beam matching.
+
+The derivation of the heterodyne intensity
+(\ref{eq:InterferometricMethods:heterodyne_intensity})
+can be easily generalized to account for
+the geometric effects of unmatched reference and probe beams.
+Namely, let the image-plane probe radiation be given by
+\begin{equation}
+  E_P(\vect{r}_{\image}, t)
+  \approx
+  E_{G,P}(\vect{r}_{\image}, t)
+  e^{i \bar{\phi}}
+  \left[%
+    1
+    +
+    i \tilde{\phi}_0 \cos\nu
+  \right],
+\end{equation}
+and let the image-plane reference beam be given by
+\begin{equation}
+  E_R(\vect{r}_{R}, t)
+  =
+  E_{G,R}(\vect{r}_{R}, t) e^{-i \Delta\omega_0 t},
+\end{equation}
+where $\vect{r}_{\image} = (x_{\image}, y_{\image}, z_{\image})$,
+\begin{equation}
+  \vect{r}_{R}
+  =
+  \vect{r}_{\image}
+  +
+  (0, 0, z_{R} - z_{\image}),
+\end{equation}
+and $E_{G,j}$ is a Gaussian beam
+with angular frequency $\omega_0$,
+waist amplitude $E_{0,j}$, and
+waist 1/e $E$ radius $w_{0,j}$.
+If $z_R \neq z_{\image}$,
+the reference beam's waist sits at a different location
+than that of the unscattered probe beam.
+Under these circumstances, the heterodyne intensity becomes
+\begin{equation}
+  \begin{aligned}
+    I_{\text{het}}(\vect{r}_{\image}, z_R, t)
+    =
+    2 I_{G,P}(\vect{r}_{\image})
+    \bigl[%
+      &\alpha_{\text{DC}}
+      +
+      \alpha_{\text{AC}}
+      \cos(\Delta \omega_0 t + \bar{\phi}_{\text{eff}})
+      \\
+      &-
+      \tilde{\phi}_0 \alpha_{\text{AC}}
+      \sin(\Delta \omega_0 t + \bar{\phi}_{\text{eff}}) \cos\nu
+    \bigr],
+  \end{aligned}
+  \label{eq:Implementation:heterodyne_intensity}
+\end{equation}
+where
+\begin{equation}
+  \bar{\phi}_{\text{eff}}
+  =
+  \bar{\phi}
+  +
+  \bigl[ \phi_{G,P}(\vect{r}_{\image}) - \phi_{G,R}(\vect{r}_R) \bigr]
+\end{equation}
+is the effective bulk phase,
+\begin{equation}
+  \phi_{G,j}(\vect{r})
+  =
+  k_0 z + \frac{k_0 \rho^2}{2 R_j(z)} - \psi_j(z)
+\end{equation}
+is the phase of Gaussian beam $j \in \{P, R\}$
+(i.e.\ $E_{G,j}(\vect{r}) = |E_{G,j}(\vect{r})| e^{i \phi_{G,j}(\vect{r})}$),
+\begin{align}
+  \alpha_{\text{DC}}
+  &=
+  \frac{1}{2}\left[%
+    1
+    +
+    \frac{I_{G,R}(\vect{r}_R)}{I_{G,P}(\vect{r}_{\image})}
+  \right],
+  \\
+  \alpha_{\text{AC}}
+  &=
+  \sqrt{\frac{I_{G,R}(\vect{r}_R)}{I_{G,P}(\vect{r}_{\image})}},
+\end{align}
+are geometric factors that describe the amplitudes
+of the DC and AC components of the heterodyne signal, and
+\begin{equation}
+  I_{G,j}(\vect{r})
+  =
+  \frac{c \varepsilon_0 |E_{G,j}(\vect{r})|^2}{2}
+\end{equation}
+is the intensity profile (averaged over an optical cycle)
+of Gaussian beam $j \in \{P, R\}$.
+Note that (\ref{eq:Implementation:heterodyne_intensity}) readily reduces to
+(\ref{eq:InterferometricMethods:heterodyne_intensity})
+if $E_{G,R}(\vect{r}_R) = E_{G,P}(\vect{r}_{\image})$.
+
+It is worth discussing the implications of heterodyne intensity
+(\ref{eq:Implementation:heterodyne_intensity}).
+First, the AC component of the intensity
+carries the desired phase information, and
+maximizing the ratio of the AC signal to the DC signal requires that
+$I_{G,R}(\vect{r}_R) = I_{G,P}(\vect{r}_{\image})$.
+Second, note that the effective bulk phase $\bar{\phi}_{\text{eff}}$
+is dependent on the geometry of the reference beam and
+the unscattered probe beam.
+Specifically, in the context of measuring
+the plasma-induced bulk phase $\bar{\phi}$,
+note that
+\begin{equation}
+  \bar{\phi}_{\text{eff}}(\rho_{\image}=0)
+  =
+  \bar{\phi}
+  +
+  k_0 (z_{\image} - z_R)
+  -
+  \left[ \psi_P(z_{\image}) - \psi_R(z_R) \right].
+\end{equation}
+If $z_{\image}$ and $z_R$ are fixed,
+then the beam-geometry contributions to
+$\bar{\phi}_{\text{eff}}(\rho_{\image} = 0)$
+constitute an unimportant DC offset that can be removed
+via baseline subtraction;
+however, experiments are typically plagued by vibrations, and
+even small changes to $z_{\image}$ and $z_R$
+can make significant time-dependent contributions to
+$\bar{\phi}_{\text{eff}}(\rho_{\image} = 0)$ at CO$_2$ probe wavelengths.
+As such, deconvolving the plasma-induced and vibration-induced contributions
+to $\bar{\phi}_{\text{eff}}(\rho_{\image} = 0)$
+requires interferometric measurements
+at two distinct wavelengths (i.e.\ two-color interferometry)
+\cite{carlstrom_rsi88}.
+However, such vibrations occur on slow time-scales
+(e.g.\ $f_{\text{vib}} \lesssim \SI{5}{\kilo \hertz}$),
+and phase measurements at a \emph{single} wavelength are sufficient
+to quantify plasma-induced phase fluctuations
+at frequencies above $f_{\text{vib}}$
+\cite{vanzeeland_ppcf05}.
+Note that the beam geometry also imparts
+a spatially dependent, curvature-induced phase shift
+\begin{align}
+  \delta\phi_{\kappa}(\rho_{\image})
+  &=
+  \bar{\phi}_{\text{eff}}(\rho_{\image})
+  -
+  \bar{\phi}_{\text{eff}}(\rho_{\image} = 0)
+  \notag \\
+  &=
+  \frac{k_0 \rho_{\image}^2}{2}
+  \left[\frac{1}{R_P(z_{\image})} - \frac{1}{R_R(z_R)} \right],
+\end{align}
+which can result in signal loss and distortion of the measured wavenumber.
+To see this, assume that the radiation is interfered on a detector array,
+as shown in Fig.~\ref{fig:InterferometricMethods:detector_array}.
+As a detector element produces a signal
+proportional to the average intensity across its face,
+there will be substantial signal loss
+if there are large curvature-induced phase shifts
+across the element's face
+(i.e.\ $\delta\phi_{\kappa}(s_x / 2) \gtrsim \pi$ or
+$\delta\phi_{\kappa}(s_y / 2) \gtrsim \pi$).
+Further, if there are large curvature-induced phase shifts
+across the length of the detector array,
+the spatial structure of the intensity
+will \emph{not} correspond to the spatial structure
+of the plasma fluctuation.
+The latter is the more conservative constraint
+on the curvature-induced phase shift.
+Assuming that the detector array shown in
+Fig.~\ref{fig:InterferometricMethods:detector_array}
+consists of $N_{\text{el}}$ detector elements and
+that the inter-element spacing is negligible ($\delta_x \ll s_x$),
+the criterion for negligible curvature-induced phase shifts
+$\delta\phi_{\kappa, \text{max}}
+=
+\delta\phi_{\kappa}(\rho_{\image, \text{max}})
+\ll
+1$
+becomes
+\begin{equation}
+  \frac{k_0}{8}
+  \left[ (N_{\text{el}} s_x)^2 + s_y^2 \right]
+  \left| \frac{1}{R_P(z_{\image})} - \frac{1}{R_R(z_R)}\right|
+  \ll
+  \pi.
+\end{equation}
+
+
+\subsection{Phase effects of umatched beams}
+
+\subsection{LO frequency drift}
+\subsection{Detector amplitude noise}
+
 \begin{itemize}
   \item Ideal interferometer signals derived in Ch.~2
   \item If reference beam and plasma beam have different shapes,
