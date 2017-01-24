@@ -29,7 +29,7 @@ derives the resulting Nyquist mode number.
 Section~\ref{sec:ToroidalCorrelation:interferometer_measurements}
 examines the interferometer measurements in detail and
 develops a formula for the measured toroidal mode number.
-Section~\ref{sec:ToroidalCorrelation:nonideal_effects}
+Section~\ref{sec:ToroidalCorrelation:implementation_details_and_nonideal_effects}
 characterizes the effects of time-base offsets and radial offsets
 between the two interferometer systems and
 describes methods to minimize their influence
@@ -406,6 +406,7 @@ can be rewritten in terms of toroidal mode numbers as follows:
     \frac{2 \pi}{\Delta \zeta}
     \qquad \text{for \emph{known} propagation direction}
   \end{cases},
+  \label{eq:ToroidalCorrelation:Nyquist_modenumber}
   \\
   n_{\text{meas}}
   &=
@@ -433,15 +434,16 @@ The three vertical chords pass through the $V1$, $V2$, and $V3$ ports
 at a toroidal location of $240^{\circ}$, while
 the radial chord passes through the $R0$ port
 at a toroidal location of $225^{\circ}$.
+Of particular relevance to this work is the $V2$ interferometer,
+which has a major-radial location $R = \SI{1.94}{\meter}$ and
+is shown in Fig.~\ref{fig:ToroidalCorrelation:pci_interf_locs}.
 A chord's viewing geometry can influence
 its sensitivity to MHD instabilities,
 with vertical chords being more sensitive to
 toroidal Alfv\'{e}n eigenmodes (TAEs) and
 radial chords being more sensitive to
-reversed-shear Alfv\'{e} eigenmodes (RSAEs).
-Of particular relevance to this work is the $V2$ interferometer,
-which has a major-radial location $R = \SI{1.94}{\meter}$ and
-is shown in Fig.~\ref{fig:ToroidalCorrelation:pci_interf_locs}.
+reversed-shear Alfv\'{e}n eigenmodes (RSAEs)
+\cite{vanzeeland_ppcf05}.
 
 The addition of a heterodyne interferometer channel
 to \diiid's pre-existing phase contrast imaging (PCI) system
@@ -451,20 +453,43 @@ elsewhere~\cite{davis_rsi16}, but
 the details of relevance to the toroidal correlation measurement
 are briefly reviewed here.
 The PCI probe beam sits at a toroidal location $285^{\circ}$ and
-has a major-radial locatioin $R = \SI{1.98}{\meter}$.
-The PCI beampath and its location
-relative to that of the V2 interferometer
+has a major-radial location $R = \SI{1.98}{\meter}$.
+The location of the PCI beampath relative to that of the $V2$ interferometer
 is shown in Fig.~\ref{fig:ToroidalCorrelation:pci_interf_locs}.
 
-Consequences for toroidal-correlation measurement:
-\begin{itemize}
-  \item $\Delta \zeta = 45^{\circ}$
-  \item Very nearly radially overlapping
-  \item $n_{\text{Ny}}$
-  \item Same clock
-  \item Convention for positive $n$, and
-    show that subsequent definition of phase angle agrees with it
-\end{itemize}
+The geometry of the V2 and PCI interferometers
+has consequences for the toroidal correlation measurement.
+The interferometer channels are
+toroidally spaced by $\Delta \zeta = 45^{\circ}$,
+such that the Nyquist toroidal mode number
+(\ref{eq:ToroidalCorrelation:Nyquist_modenumber}) becomes
+\begin{equation}
+  n_{\text{Ny}}
+  =
+  \begin{cases}
+    4
+    \qquad \text{for \emph{unknown} propagation direction} \\
+    8
+    \qquad \text{for \emph{known} propagation direction}
+  \end{cases}.
+\end{equation}
+\graffito{\textcolor{red}{Annotate and reference fig}}
+Note that the \diiid\space sign convention for toroidal mode numbers
+is that modes rotating \emph{counterclockwise}
+when viewing the torus from above are \emph{positive},
+as this corresponds to the direction of dominant torque injection.
+\graffito{\textcolor{red}{Correct?}}
+Consistency with this sign convention requires that
+$1$: V2 interferometer signal and
+$2$: PCI interferometer signal
+\graffito{\textcolor{red}{Find way to not reference later eqn}}
+when using (\ref{eq:ToroidalCorrelation:toroidal_mode_number_ideal})
+to compute the mode number.
+Finally, the V2 and PCI interferometer beam paths have a slight radial offset
+($\Delta R = \SI{4}{\centi\meter}$ with
+$R_{\text{V2}} = \SI{1.94}{\meter}$ and $R_{\text{PCI}} = \SI{1.98}{\meter}$);
+the consequences of this offset are discussed in
+Section~\ref{sec:ToroidalCorrelation:implementation_details_and_nonideal_effects:radial_offset}.
 
 \begin{figure}
   \centering
@@ -480,6 +505,25 @@ Consequences for toroidal-correlation measurement:
     the PCI beam's major-radial location is $R_2 = \SI{1.98}{\meter}$.}
 \label{fig:ToroidalCorrelation:pci_interf_locs}
 \end{figure}
+
+For completeness, it should also be mentioned that
+a three-chord, radially viewing Faraday-effect polarimeter-interferometer
+was recently installed on \diiid~\cite{chen_rsi16}.
+While the primary impetus for this installation
+is diagnosis of core-localized magnetic fluctuations,
+it is also capable of making interferometric measurements
+of line-integrated electron-density fluctuations.
+The system sits at a toroidal location $285^{\circ}$ and
+the radially viewing chords enter the vessel through the $R0$ port.
+Presumably, these measurements could be correlated
+with the $R0$ CO$_2$ heterodyne interferometer measurements
+made at toroidal location $225^{\circ}$.
+\graffito{\textcolor{red}{But are they really?}}
+However, these two systems do not have phase-locked sampling rates
+(the necessity of which is discussed in
+Section~\ref{sec:ToroidalCorrelation:implementation_details_and_nonideal_effects:phase_locked_sampling}),
+so no attempts to correlate these interferometric measurements
+are made in this work.
 
 
 \subsection{MHD plasma-density perturbations}
@@ -635,8 +679,8 @@ inspiring the definition of the measured toroidal mode number as
 \end{equation}
 
 
-\section{Non-ideal effects}
-\label{sec:ToroidalCorrelation:nonideal_effects}
+\section{Implementation details and non-ideal effects}
+\label{sec:ToroidalCorrelation:implementation_details_and_nonideal_effects}
 Offsets in the time bases and major radial positions
 of the V2 and PCI interferometers can bias
 the measured toroidal mode number
@@ -650,7 +694,103 @@ accounting for the radial offset of the beams requires
 forward modeling and a bit of intuition.
 
 
-\subsection{Time-base offset}
+\subsection{Phase-locked sampling}
+\label{sec:ToroidalCorrelation:implementation_details_and_nonideal_effects:phase_locked_sampling}
+Extracting useful information
+from the correlation of two measurements
+requires that the sampling rates of the two measurements
+are \emph{phase-locked}.
+If the sampling rates are \emph{not} phase-locked,
+slippage between the sampling rates
+will result in artificial evolution of the measured phase.
+
+Digitizing the two signals on a common digitizer
+is the simplest method for ensuring phase-locked sampling.
+Unfortunately, such an approach is not suitable
+for the $V2$ and PCI interferometer signals.
+The $V2$ interferometer's
+$f_{\text{IF}} = \SI{40}{\mega\hertz}$ intermediate-frequency signal
+is demodulated using an all-digital technique
+that mandates a use of a sampling rate
+$f_s = (4 / 3) f_{\text{IF}}$
+\cite{vanzeeland_rsi08}, and
+the baseband $I$ and $Q$ signals never exist in analog form.
+In contrast, as described in
+Chapter~\ref{ch:Implementation} and \cite{davis_rsi16},
+the PCI interferometer's
+$f_{\text{IF}} = \SI{27}{\mega\hertz}$ intermediate-frequency signal
+is demodulated with analog electronics, and
+the analog baseband $I$ and $Q$ signals
+are then digitized on two channels of a D-tAcq ACQ216 CPCI board.
+Because the $V2$ interferometer's baseband $I$ and $Q$ signals
+never exist in analog form,
+it is not possible to digitize the $V2$ $I$ and $Q$ signals
+on the digitizer used by the PCI interferometer.
+Further, because of the intermediate-frequency mismatch
+between the $V2$ and PCI interferometers,
+it is also not possible digitally demodulate and digitize
+the PCI interferometer's $\SI{27}{\mega\hertz}$ intermediate-frequency signal
+using the $V2$ interferometer's
+$\SI{40}{\mega\hertz}$ digital demodulation system.
+An alternative approach is to directly digitize
+both intermediate-frequency signals
+with a high-bandwidth digitizer and
+demodulate both signals in software,
+as has been done elsewhere~\cite{mlynek_fst12}.
+While \diiid's ion cyclotron emission (ICE) digitizer
+has a $200 \, \text{MS/s}$ sample rate,
+channels on the ICE digitizer are not consistently available.
+
+As sharing a common digitizer is not possible,
+phase-locked sampling between the $V2$ and PCI interferometers
+requires that the digitizers of both systems
+derive their clock from a common source.
+The $V2$ interferometer derives its clock
+from a free-running, oven-controlled oscillator
+whose base frequency is $\SI{320}{\mega\hertz}$, and
+the digital demodulation system
+has two spare outputs that can be programmed
+to output LVCMOS-level, phase-locked clock signals
+at $\SI{320}{\mega\hertz} / N$, where
+$N \in \{1, 2, 3, ..., 32\}$.
+Both outputs are currently programmed with a divisor $N = 20$
+such that they each provide a $\SI{16}{\mega\hertz}$ clock signal.
+\graffito{\textcolor{red}{Picture? For posterity}}
+One of these $\SI{16}{\mega\hertz}$ clock signals
+is routed via coaxial cable
+from the $V2$ digital demodulation hardware
+in the first row of the \diiid\space ``annex''
+to the PCI's digitizer
+in the third row of the \diiid\space ``annex''.
+
+The PCI digitizer typically samples at $f_s = 4 \, \text{MS/s}$.
+Thus, division of the $V2$ $\SI{16}{\mega\hertz}$ clock by four
+(in hardware or software) yields a clock appropriate for typical sampling.
+Each board can accept an external clock
+through the front panel's single-pin LEMO CLK input.
+The CLK signal passes through an optocoupler
+with a bandwidth $\sim \SI{10}{\mega\hertz}$
+\cite{milne_optocoupler_pc16}, but
+in-house tests have demonstrated
+that the input clock frequency
+can actually exceed $\SI{16}{\mega\hertz}$.
+As a result, the $\SI{16}{\mega\hertz}$ signal
+is directly connected to the front panel CLK lemo input, and
+the necessary division
+(e.g.\ divide by four to achieve typical $4 \, \text{MS/s}$ sampling rate)
+is performed within the digitizer;
+it is the author's opinion that
+this is cleaner, simpler, and more easily extensible
+(i.e.\ easier to implement other sampling rates)
+than performing the division in hardware.
+Details of the signal routing and the clock division
+are provided in Appendix~\ref{app:ExternalClock}.
+Thus, as of June 2016,
+the $V2$ and PCI interferometer sampling rates
+are phase-locked.
+
+
+\subsection{Eliminating the time-base offset}
 The V2 and PCI interferometer sampling rates are phase-locked,
 as both systems share a common clock.
 However, phase-locked sampling rates do \emph{not} guarantee
@@ -842,7 +982,8 @@ to determine the offset of our digitizer from the DIII-D clock.}
 \end{figure}
 
 
-\subsection{Radial offset}
+\subsection{Effects of radial offset}
+\label{sec:ToroidalCorrelation:implementation_details_and_nonideal_effects:radial_offset}
 The V2 and PCI interferometer beam paths have a slight radial offset
 ($\Delta R = \SI{4}{\centi\meter}$ with
 $R_{\text{V2}} = \SI{1.94}{\meter}$ and $R_{\text{PCI}} = \SI{1.98}{\meter}$).
