@@ -9,7 +9,7 @@ of direct relevance to this work ---
 external reference-beam interferometry and phase contrast imaging (PCI) ---
 are discussed in detail.
 Further, the emphasis will be on the diagnosis of
-the plasma's density fluctuations rather than its equilibrium.
+the plasma's density fluctuations rather than its equilibrium density.
 
 Below, Section~\ref{sec:InterferometricMethods:EM_waves_in_plasma}
 examines the propagation of electromagnetic waves through a ``cold'' plasma
@@ -55,16 +55,37 @@ computes the resulting plasma-induced phase delay.
 
 \subsection{Derivation of the wave equation}
 \label{sec:InterferometricMethods:EM_waves_in_plasma:derivation_of_wave_equation}
-An electromagnetic wave's electric and magnetic fields
-are related via Faraday's law
+The electric field $\vect{E}$ and the magnetic field $\vect{B}$
+of an electromagnetic wave are coupled via Faraday's law
 \begin{equation}
-  \nabla \cross \vect{E} = - \frac{\partial \vect{B}}{\partial t}.
+  \nabla \cross \vect{E}
+  =
+  - \frac{\partial \vect{B}}{\partial t}
   \label{eq:InterferometricMethods:Faradays_law}
 \end{equation}
-Taking the curl of Faraday's law
-(\ref{eq:InterferometricMethods:Faradays_law}) and
-using Ampere's law to eliminate $\vect{B}$ yields
-the electric field's wave equation
+and Ampere's law
+\begin{equation}
+  \nabla \cross \vect{B}
+  =
+  \mu_0 \vect{J}
+  +
+  \mu_0 \epsilon_0 \frac{\partial \vect{E}}{\partial t},
+  \label{eq:InterferometricMethods:Amperes_law}
+\end{equation}
+where $\epsilon_0$ is the permittivity of free space,
+$\mu_0$ is the permeability of free space, and
+$\vect{J}$ is the current density~\cite[Sec.~I.1]{jackson_E&M}.
+Note that (\ref{eq:InterferometricMethods:Faradays_law}) and
+(\ref{eq:InterferometricMethods:Amperes_law}) are the vacuum formulations
+of Faraday's law and Ampere's law;
+however, they can still be used to describe
+an electromagnetic wave's propagation through a medium
+\emph{if} that medium's electromagnetic properties
+are explicitly accounted for in the current density $\vect{J}$
+\cite[Sec.~I.4]{jackson_E&M}\cite[Sec.~4.1]{hutchinson_diagnostics}.
+Now, taking the curl of Faraday's law and
+then using Ampere's law to eliminate $\vect{B}$
+yields the electric field's wave equation
 \begin{equation}
   \nabla^2 \vect{E}
   -
@@ -72,51 +93,79 @@ the electric field's wave equation
   =
   \nabla(\nabla \cdot \vect{E})
   +
-  \mu_0 \frac{\partial \vect{J}}{\partial t},
-\end{equation}
-where $\mu_0$ is the permeability of free space.
-The current density $\vect{J}$ is related to the electric field via
-\begin{equation}
-  \vect{J} = \vect{\sigma} \cdot \vect{E},
-  \label{eq:InterferometricMethods:current_density_sigma_E}
-\end{equation}
-where $\vect{\sigma}$ is the conductivity of the surrounding medium.
-Typically, the electromagnetic wave's oscillations occur on timescales
-that are orders-of-magnitude faster than any changes to the medium, and
-the wave equation becomes
-\begin{equation}
-  \nabla^2 \vect{E}
-  -
-  \frac{1}{c^2} \frac{\partial^2 \vect{E}}{\partial t^2}
-  =
-  \nabla(\nabla \cdot \vect{E})
-  +
-  \mu_0 \vect{\sigma} \cdot \frac{\partial \vect{E}}{\partial t}.
+  \mu_0 \frac{\partial \vect{J}}{\partial t}.
   \label{eq:InterferometricMethods:wave_equation_pde}
 \end{equation}
 
 
 \subsection{Wave equation in a homogeneous medium}
-Assume that the medium is homogeneous in space and time such that
-the field can be Fourier analyzed~\cite[Sec.~3-2]{stix}
-\begin{equation}
+Fourier decomposing the electric field and the current density
+\begin{align}
   \vect{E}(\vect{r}, t)
-  =
+  &=
   \frac{1}{(2 \pi)^4}
   \int
   \vect{E}(\vect{k}', \omega')
   e^{i(\vect{k}' \cdot \vect{r} - \omega' t)}
+  d\vect{k'} \, d\omega',
+  \\
+  \vect{J}(\vect{r}, t)
+  &=
+  \frac{1}{(2 \pi)^4}
+  \int
+  \vect{J}(\vect{k}', \omega')
+  e^{i(\vect{k}' \cdot \vect{r} - \omega' t)}
   d\vect{k'} \, d\omega'.
-\end{equation}
-Then, the electric field's wave equation
-(\ref{eq:InterferometricMethods:wave_equation_pde}) reduces
+\end{align}
+reduces the wave equation (\ref{eq:InterferometricMethods:wave_equation_pde})
 to an algebraic equation for each Fourier component.
-In particular, for Fourier mode
-$\vect{E}_0 e^{i(\vect{k} \cdot \vect{r} - \omega t)}$,
+In particular, for the Fourier mode described by
+$\vect{E}_0 e^{i(\vect{k} \cdot \vect{r} - \omega t)}$ and
+$\vect{J}_0 e^{i(\vect{k} \cdot \vect{r} - \omega t)}$,
 the derivative operators become
 $\nabla \rightarrow i \vect{k}$ and
 $\partial / \partial t \rightarrow -i \omega$, and
-the wave equation reduces to an eigenvalue equation
+the wave equation reduces to
+\begin{equation}
+  \left(%
+    \vect{N}\vect{N}
+    -
+    N^2\vect{I}
+    +
+    \vect{I}
+  \right)
+  \cdot
+  \vect{E}_0
+  =
+  -\frac{i \vect{J_0}}{\varepsilon_0 \omega},
+  \label{eq:InterferometricMethods:wave_equation_algebraic}
+\end{equation}
+where
+\begin{equation}
+  \vect{N} \equiv \frac{c \vect{k}}{\omega}
+  \label{eq:InterferometricMethods:refraction_index}
+\end{equation}
+is the index of refraction seen by the given Fourier mode and
+$\vect{I}$ is the identity matrix.
+Now, assume that the medium is
+homogeneous in space and time~\cite[Sec.~3-2]{stix}
+such that the current density
+is easily related to the electric field via Ohm's law
+\begin{equation}
+  \vect{J}(\vect{k}, \omega)
+  =
+  \vect{\sigma}(\vect{k}, \omega)
+  \cdot
+  \vect{E}(\vect{k}, \omega),
+  \label{eq:InterferometricMethods:Ohms_law}
+\end{equation}
+where $\vect{\sigma}$ is the conductivity of the surrounding medium
+\cite[Sec.~I.4]{jackson_E&M}.
+Substituting the Ohm's law current density
+(\ref{eq:InterferometricMethods:Ohms_law}) into
+the Fourier-decomposed wave equation
+(\ref{eq:InterferometricMethods:wave_equation_algebraic})
+yields the eigenvalue equation
 \begin{equation}
   \left[%
     \vect{N}\vect{N}
@@ -132,19 +181,11 @@ the wave equation reduces to an eigenvalue equation
   \cdot
   \vect{E}_0
   =
-  0,
+  0.
   \label{eq:InterferometricMethods:wave_equation_eigenvalue}
 \end{equation}
-where
-\begin{equation}
-  \vect{N} \equiv \frac{c \vect{k}}{\omega}
-  \label{eq:InterferometricMethods:refraction_index}
-\end{equation}
-is the index of refraction seen by the given Fourier mode,
-$\varepsilon_0$ is the permittivity of free space, and
-$\vect{I}$ is the identity matrix.
 To proceed further, a model is needed
-for the medium's conductivity $\vect{\sigma}$.
+for the medium's conductivity.
 
 
 \subsection{The cold-plasma index of refraction}
@@ -224,7 +265,7 @@ the current density is simply
   \label{eq:InterferometricMethods:current_density_electron_motion}
 \end{equation}
 Equating the current densities from
-(\ref{eq:InterferometricMethods:current_density_sigma_E}) and
+(\ref{eq:InterferometricMethods:Ohms_law}) and
 (\ref{eq:InterferometricMethods:current_density_electron_motion})
 and substituting the solution for $\vect{v}_e$ yields
 the plasma's conductivity~\cite[Sec.~4.1.2]{hutchinson_diagnostics}
@@ -370,7 +411,8 @@ However, if the plasma varies sufficiently slowly,
 the plasma can be treated as \emph{locally} uniform, and
 the wave field can be ``stitched'' together
 as the wave propagates from initial position $\vect{r}^{(i)}$
-to position $\vect{r}$ via the WKB approximation~\cite[Ch.~8]{griffiths_QM}
+to position $\vect{r}$ via the WKB approximation
+\cite[Ch.~13]{stix}\cite[Ch.~8]{griffiths_QM}
 \begin{equation}
   E(\vect{r}, t)
   \approx
@@ -2369,8 +2411,9 @@ are simply an artifact of the system alignment or radiation source.
 \subsection{Heterodyne detection}
 To avoid the above-mentioned challenges of homodyne interferometry,
 the reference phase can be linearly ramped in time
-as $\phi_R = \Delta \omega_0 t$ such that
-the intensity becomes
+as $\phi_R = -\Delta \omega_0 t$ such that the intensity
+(\ref{eq:InterferometricMethods:interferometer_intensity_arbitrary_reference})
+becomes
 \begin{equation}
   \begin{aligned}
     I_{\text{het}}(\vect{r}_{\image}, t)
@@ -2379,11 +2422,11 @@ the intensity becomes
     \bigl[%
       1
       &+
-      \cos(\Delta \omega_0 t - \bar{\phi})
+      \cos(\Delta \omega_0 t + \bar{\phi})
       \\
-      &+
+      &-
       \tilde{\phi}_0
-      \sin(\Delta \omega_0 t - \bar{\phi}) \cos\nu
+      \sin(\Delta \omega_0 t + \bar{\phi}) \cos\nu
     \bigr].
   \end{aligned}
   \label{eq:InterferometricMethods:heterodyne_intensity}
@@ -2398,6 +2441,10 @@ Fig.~\ref{fig:InterferometricMethods:baseband_vs_intermediate_frequency}.
 \graffito{\textcolor{red}{This will be discussed more in Ch.~3}}
 Practically, the $\phi_R$ ramp is accomplished by modestly Doppler shifting
 the reference beam relative to the plasma beam.
+(Note that $\phi_R = -\Delta \omega_0 t$
+corresponds to a Doppler \emph{upshifted} reference beam;
+i.e.\ the reference beam's temporal evolution is given by
+$e^{-i \omega_0 t + i \phi_R} = e^{-i(\omega_0 + \Delta\omega_0) t}$).
 
 \begin{figure}
   \centering
@@ -2441,11 +2488,11 @@ the total power $P_{j, \, \text{het}}$ incident on this element is then
     \biggl[%
       1
       +
-      \cos(\Delta \omega_0 t - \bar{\phi})
+      \cos(\Delta \omega_0 t + \bar{\phi})
       \\
-      &\qquad+
+      &\qquad-
       \tilde{\phi}_0
-      \sin(\Delta \omega_0 t - \bar{\phi}) \cos\nu
+      \sin(\Delta \omega_0 t + \bar{\phi}) \cos\nu
     \biggr] dx
   \end{aligned}
   \notag \\
@@ -2455,11 +2502,11 @@ the total power $P_{j, \, \text{het}}$ incident on this element is then
     \biggl[%
       1
       +
-      \cos(\Delta \omega_0 t - \bar{\phi})
+      \cos(\Delta \omega_0 t + \bar{\phi})
       \\
-      &\qquad+
+      &\qquad-
       \tilde{\phi}_0
-      \sin(\Delta \omega_0 t - \bar{\phi})
+      \sin(\Delta \omega_0 t + \bar{\phi})
       T_{\text{fsv}}(k_{\image})
       \cos\nu_j
     \biggr],
@@ -2474,7 +2521,7 @@ the finite sampling-volume integral in
 has been referenced.
 Note that the dominant Fourier components of $P_{j, \, \text{het}}$
 sit at the intermediate frequency $\pm \Delta \omega_0$ but that
-the phase-fluctuation term $\sin(\Delta \omega_0 t - \bar{\phi}) \cos\nu_j$
+the phase-fluctuation term $\sin(\Delta \omega_0 t + \bar{\phi}) \cos\nu_j$
 produces sidebands at $\pm (\Delta \omega_0 \pm \omega)$.
 
 The heterodyne interference signal must be demodulated
@@ -2487,40 +2534,17 @@ it is sufficient to consider the ``equivalent optical powers''
 corresponding to the demodulated signals.
 The so-called in-phase ($I$) and quadrature ($Q$) signals
 are obtained by mixing $P_{j, \, \text{het}}$ with
-$\cos( \Delta \omega_0 t)$ and $\sin( \Delta \omega_0 t)$, respectively, and
+$\real(e^{-i \Delta\omega_0 t})$ and
+$\imag(e^{-i \Delta\omega_0 t})$, respectively, and
 low-pass filtering the resulting signals;
-here, low-pass filtering is implemented
+here, for simplicity, low-pass filtering is implemented
 by averaging over a cycle of the intermediate frequency.
 Thus, the equivalent $I$ and $Q$ optical powers are defined as
-\begin{align}
-  P_{j, I}(t)
-  &\equiv
-  \langle
-    \cos (\Delta \omega_0 t) \cdot P_{j, \, \text{het}}(t)
-  \rangle_{\Delta \omega_0},
-  \\
-  P_{j, Q}(t)
-  &\equiv
-  \langle
-    \sin (\Delta \omega_0 t) \cdot P_{j, \, \text{het}}(t)
-  \rangle_{\Delta \omega_0},
-\end{align}
-where $\langle q \rangle_{\Delta \omega_0}$ denotes
-the average of quantity $q$ over an intermediate-frequency cycle as
-\begin{equation}
-  \langle q \rangle_{\Delta \omega_0}
-  \equiv
-  \frac{\Delta \omega_0}{2 \pi}
-  \int_{0}^{\Delta \omega_0 / 2 \pi}
-  q(t) dt.
-  \label{eq:InterferometricMethods:intermediate_frequency_cycle_average}
-\end{equation}
-Note that $P_{j,I}$ and $P_{j,Q}$ can be conveniently combined as
 \begin{align}
   P_{j,I} + i \cdot P_{j,Q}
   &=
   \langle
-    e^{i \Delta \omega_0 t} \cdot P_{j, \, \text{het}}(t)
+    e^{-i \Delta \omega_0 t} \cdot P_{j, \, \text{het}}(t)
   \rangle_{\Delta \omega_0}
   \notag \\
   &=
@@ -2532,9 +2556,19 @@ Note that $P_{j,I}$ and $P_{j,Q}$ can be conveniently combined as
     i \tilde{\phi}_0
     T_{\text{fsv}}(k_{\image})
     \cos\nu_j
-  \right].
+  \right],
   \label{eq:InterferometricMethods:heterodyne_interferometer_I_and_Q_power_per_element}
 \end{align}
+where $\langle q \rangle_{\Delta \omega_0}$ denotes
+the average of quantity $q$ over an intermediate-frequency cycle as
+\begin{equation}
+  \langle q \rangle_{\Delta \omega_0}
+  \equiv
+  \frac{\Delta \omega_0}{2 \pi}
+  \int_{0}^{\Delta \omega_0 / 2 \pi}
+  q(t) dt.
+  \label{eq:InterferometricMethods:intermediate_frequency_cycle_average}
+\end{equation}
 
 In contrast to the homodyne interferometer,
 the heterodyne interferometer makes an absolute measurement
@@ -2590,7 +2624,7 @@ can be approximated as
 \begin{align}
   P_{j, \, \text{het}}
   &\approx
-  2 I_G(\vect{r}_{\image,j}) A [1 + \cos(\Delta \omega_0 t - \bar{\phi})]
+  2 I_G(\vect{r}_{\image,j}) A [1 + \cos(\Delta \omega_0 t + \bar{\phi})]
   \notag \\
   &\leq
   4 I_G(0) A,
@@ -3187,6 +3221,7 @@ cannot be described in terms of a transfer function;
 this can e.g.\ prevent PCI from measuring wavenumbers
 of low-$k$ coherent MHD modes, as is discussed in
 Section~\ref{sec:InterferometricMethods:selection:pci_low_k_upshift}.
+\graffito{\textcolor{red}{Is this just when $k_g = 2 / w_0$? Or arbitrary $k_g$?}}
 Fortunately, for $|k| \gtrsim 2 k_g$, spatial variations
 in $\theta_{\text{pp}}$ (and $T_{\text{pp}}$) are negligible, and,
 as a result, PCI's operation is essentially linear and

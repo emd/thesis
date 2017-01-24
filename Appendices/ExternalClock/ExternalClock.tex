@@ -1,0 +1,77 @@
+\chapter{External Clock}
+\label{app:ExternalClock}
+
+\begin{itemize}
+  \item Cite D-tAcq documentation
+\end{itemize}
+
+% The frequency division is performed in `Dt216Init.fun` via the commands
+% 
+%     set.ext_clk DIx falling
+%     setExternalClock DIx [div DOy]
+% 
+% The first command maps the external clock to digital input line
+% `DIx` (x = {0, 1, 2, ..., 5)} and tells the digitizer what clock
+% characteristic to sample on (here, the falling edge (as opposed to
+% the rising edge)). The second command tells the digitizer to actually
+% use the external clocking (as opposed to internal) by accepting a clock
+% on digital input line `DIx` (x = {0, 1, 2, ..., 5}), optionally deriving
+% a "local" clock by dividing by integer factor `div`, and also optionally
+% outputting the derived local clock to digital output line
+% `DOy` (y = {0, 1, 2, ...5}, with the constraint that x != y).
+% 
+% Note that the *minimum* value of `div` is 2. Note further that the commands
+% *MUST* be issued in the above order to get correct clocking between the master
+% and slave boards (described below); this is not well-documented in the
+% user manuals, but it is absolutely essential.
+% 
+% I've hard-coded `div` = 4 to obtain a 4 MS/s sampling rate when using a
+% 16 MHz external clock.
+% 
+% Master and slave board:
+% -----------------------
+% Previously, board 7 generated a local internal clock and distributed this
+% to board 8 via the PXI backplane; for this reason, board 7's clock source
+% (node name: `CLOCK_SRC`) was referred to as "MASTER" in the MDSplus tree.
+% The trigger was accepted on board 8 and similarly distributed to board 7.
+% 
+% Attempting to "streamline" the logic, I've now designated board 8 as "MASTER".
+% This means that board 8 accepts both the external clock and the trigger and
+% distributes both to board 7 (the "slave"). This required making changes to
+% the MDSplus tree.
+% 
+% Signal routing:
+% ---------------
+% Signal routing was altered in `Dt216Init.fun` and the MDSplus tree to realize
+% the external clock and master-and-slave configuration discussed above. There
+% are also some very slight tweaks to how the routing is done in
+% `dt216__init.fun` and `dt216__store.fun` that are well-explained in the
+% commentary surrounding the adjacent changes.
+% 
+% Note that the signal routing and the fact that the minimum value of `div`
+% in the setExternalClock command (above) means that the maximum sample rate
+% we can achieve with a 16 MHz external clock is 8 MS/s. (Sampling at the full
+% 16 MS/s requires non-trivial changes to the routing).
+% 
+% Tests:
+% ------
+% As mentioned above, Mike's clock system has two spare outputs, each
+% programmed to output a 16 MHz clock signal. The first output is used
+% as our external clock input. The second output was connected to our
+% divide-by-4 flip-flop circuit and digitized on ch. 8 and 16. Sampling
+% at 16 MS/s (which required manually re-routing the clock signals etc),
+% we expect a strong peak exactly at 4 MHz (corresponding to the fundamental
+% frequency of the 4 MHz square wave). This is exactly what we see,
+% as shown in the attached figure (`4MHz_signal_at_16MSPS.pdf`).
+% 
+% Also, when sampling at <= 8 MS/s (i.e. the normal signal routing I've
+% implemented above), the phase difference between the signals is constant
+% (i.e. no relative drift between boards, as is desired. Note that sampling
+% at 8 MS/s allows us to just barely resolve the phase of the 4 MHz square wave
+% at the digitizer Nyquist frequency). For some reason, however, when
+% digitizing at 16 MS/s (with the altered routing), the phase of the signals
+% digitized between the two boards is *not* constant, presumably resulting
+% from some subtlety of the digitizer operation that I'm not quite grasping;
+% however, by restricting our sample rates to <= 8 MS/s and using the usual
+% routing, we shouldn't run into any problems :)
+

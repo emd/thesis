@@ -1,4 +1,5 @@
 \chapter{Implementation of a combined PCI-interferometer on \diiid}
+\label{ch:Implementation}
 
 
 \section{Optical-diagnostic access on \diiid}
@@ -34,7 +35,7 @@ R-1 and R-2 are the first and second ports
 \begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
-    Chapters/Implementation/figs/d3d_port_locations.eps}
+    Chapters/Implementation/figs/d3d_port_locations.pdf}
   \caption[\diiid \space port-labeling conventions and location of PCI]{%
     (a) View of \diiid \space from above,
     indicating the toroidal-labeling convention.
@@ -51,48 +52,815 @@ R-1 and R-2 are the first and second ports
 
 \section{\diiid's pre-existing PCI system}
 The \diiid \space PCI system is
-thoroughly described elsewhere~\cite{dorris_rsi09}.
-The system is currently configured in the ``Phase II'' geometry,
+thoroughly described elsewhere~\cite{dorris_rsi09, dorris_phd}, but
+the system components of relevance to this work
+are briefly summarized below for completeness.
+
+
+\subsection{System geometry}
+The system is currently configured
+in the ``Phase II'' geometry~\cite{dorris_rsi09},
 with the probe beam propagating vertically downwards
-from the $285^{\circ}$ R+2 to R-2 ports.
-The 1/e electric field radius of the in-vessel beam is
-$w_0 =$ \SI{3.4}{\centi\meter}, and
-the beam center sits at $R = $ \SI{1.98}{\meter}.
-A pair of fast steering mirrors dynamically centers
-the unscattered beam on the phase plate groove,
-compensating for vibrations.
-The system has $k_{\text{min}}^{\text{PCI}} = \SI{1.5}{\per\centi\meter}$.
+from the $285^{\circ}$ R+2 port to the $285^{\circ}$ R-2 port.
+The beam center sits at $R = $ \SI{1.98}{\meter}.
+Both the toroidal and radial positions
+of the PCI beam are shown in
+Fig.~\ref{fig:Implementation:d3d_port_locations}.
+
+The PCI system's vertical beam path constrains
+which types of fluctuations it can and cannot detect.
+Namely, the PCI-measured power fluctuations
+(\ref{eq:InterferometricMethods:PCI_ratio_fluctuating_to_equilibrium_power})
+correspond to \emph{line-integrated} electron-density fluctuations, which
+are the physical origin of the phase fluctuations $\tilde{\phi}$ in
+(\ref{eq:InterferometricMethods:phase_fluctuation}).
+Because it is a line-integrated measurement,
+only fluctuations propagating perpendicular to the beam path can be detected,
+as fluctuations propagating parallel to the beam path
+are effectively averaged out of the signal
+\graffito{\textcolor{red}{what about $\delta \omega$?}}
+(and, at a more fundamental level, fluctuations propagating
+parallel to the beam path do \emph{not} spatially scatter the probe beam).
+\graffito{\textcolor{red}{citation? Wesson?}}
+Now, electrostatic turbulence (e.g.\ ITG, ETG) tends to be field-aligned
+such that $k_{\perp} \gg k_{||}$, where
+the $\perp$ and $||$ subscripts are used here to indicate
+orientations that are perpendicular to and parallel to
+the local magnetic field, respectively.
+To lowest order, then, electrostatic fluctuations propagate
+perpendicular to a tokamak's toroidal field.
+PCI's vertical beam path and
+the field-aligned constraint of electrostatic turbulence
+imply that PCI is predominantly sensitive to fluctuations
+with finite major-radial wavenumber $k_R$.
+Thus, PCI's 32-element, 1-dimensional detector array
+is oriented in the image plane such that
+each detector element corresponds to a unique major radius in the plasma.
+
+In some situations, spatially filtering ``masks''
+\cite{dorris_rsi09, dorris_phd, lin_rsi06} or
+2-dimensional detector arrays
+\cite{sanin_rsi04, tanaka_rsi16}
+can be used to localize measurements
+by exploiting the spatial variation
+in the magnetic field's orientation along the beam path.
+These localization techniques typically work best
+for high-$k$ measurements.
+Note that $k_R$ is related to the
+often-theoretically-relevant poloidal wavenumber $k_{\theta}$ via
+\begin{equation}
+  k_R = k_{\theta} \csc[\alpha(R, z)],
+  \label{eq:Implementation:kR_to_ktheta}
+\end{equation}
+where $\alpha(R, z)$ is the angle
+between the beam path and the local flux surface,
+as shown schematically in
+Fig.~\ref{fig:Implementation:relating_kR_to_ktheta}.
+Of course, the fluctuation measurements must be localized,
+either via direct measurement
+(with 2-dimensional detector arrays or ``masks'')
+or via inference from other plasma properties,
+before (\ref{eq:Implementation:kR_to_ktheta})
+can be inverted to yield $k_{\theta}$
+from measured values of $k_R$.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = 0.9 \textwidth]{%
+    Chapters/Implementation/figs/kR_to_ktheta.pdf}
+  \caption[Relating $k_R$ to $k_{\theta}$]{%
+    The major-radial wavenumber $k_R = 2 \pi / \lambda_R$ and
+    the poloidal wavenumber $k_{\theta} = 2 \pi / \lambda_{\theta}$
+    are related via $\alpha(R, z)$, which
+    is the angle between PCI's vertical probe beam and
+    the local flux surface.}
+\label{fig:Implementation:relating_kR_to_ktheta}
+\end{figure}
+
+
+\subsection{Spatial bandwidth}
+Several critical wavenumbers were defined in
+Section~\ref{sec:InterferometricMethods:pci} that
+characterize the spatial bandwidth of a PCI system.
+The goal of this section is to evaluate each of these
+wavenumbers with the relevant parameters from
+the \diiid \space PCI system.
+
+PCI's low-$k$ cutoff, $k_g$, is physically constrained by
+the free-space diffraction of the in-vessel probe beam.
+This constraint was derived both
+by examining the far-field overlap of the scattered and unscattered beams as in
+(\ref{eq:InterferometricMethods:kmin_for_far_field_beam_separation}) and
+by matching the spot size of the focused, unscattered beam
+on the phase plate with the width of the phase plate's groove as in
+(\ref{eq:InterferometricMethods:pci_kmin_physics}).
+Both approaches yield the identical constraint that
+$k_g^{\text{min}} = 2 / w_0$, where
+$w_0$ is the 1/e $E$ radius of the in-vessel probe beam.
+Capping aperture diffraction at acceptably small levels, however,
+yields constraint
+(\ref{eq:InterferometricMethods:aperture_radius_for_minimal_diffraction})
+on $w_0$.
+Now, after beam expansion and collimation,
+the smallest aperture prior to beam-plasma interaction
+is the $285^{\circ}$ R+2 port window,
+which has a diameter of $4"$.
+Thus, the beam expansion optics are configured to produce
+to produce the widest possible beam
+\begin{equation}
+  w_0 = 4/3" \approx \SI{3.4}{\centi\meter}
+\end{equation}
+and the smallest physical constraint on the PCI low-$k$ cutoff
+\begin{equation}
+  k_g^{\text{min}} \approx \SI{0.6}{\per\centi\meter}
+  \label{eq:Implementation:kg_min}
+\end{equation}
+while introducing negligible aperture diffraction.
+
+PCI's \emph{realized} low-$k$ cutoff, however,
+is typically $\sim 2-3 \times$ larger than
+the diffraction-limited $k_g^{\text{min}}$.
+This occurs if the width of the phase-plate groove
+is oversized relative to the focused, unscattered beam spot, and
+the realized low-$k$ cutoff is given by
+(\ref{eq:InterferometricMethods:pci_kmin_engineering}).
+Despite sacrificing some of the system's low-$k$ range,
+operating with an oversized phase-groove width can be advantageous
+on large, vibration-prone fusion experiments.
+To see this, recall that the phase groove typically reflects
+only a fraction $\eta < 1$ of the incident unscattered beam power
+(the forward-facing surface of the \diiid \space phase-plate groove
+is uncoated ZnSe, which has $\eta = 0.17$ at $\SI{10.6}{\micro\meter}$);
+if vibration-induced misalignments
+push the unscattered beam out of the phase groove,
+there will be large power modulations on the PCI detector
+that are \emph{not} attributable to plasma fluctuations and
+that push the detector beyond its saturation limits.
+While \diiid's PCI system has an elaborate feedback control system
+that dynamically centers the unscattered beam on the phase-plate groove
+\cite[Sec.~3.5]{coda_phd},
+operating with an oversized phase-groove width
+increases the size of the ``targeted'' operating space,
+effectively giving the feedback system some leeway.
+As such, the groove width of the \diiid \space phase plate is
+\begin{equation}
+  d = \SI{1}{\milli\meter},
+\end{equation}
+and the scattered beams are focused onto the phase plate by
+an off-axis parabolic mirror of focal length
+\begin{equation}
+  f = 80.7"
+\end{equation}
+such that the realized low-$k$ cutoff
+(\ref{eq:InterferometricMethods:pci_kmin_engineering})
+becomes
+\begin{equation}
+  k_g \approx \SI{1.5}{\per\centi\meter},
+\end{equation}
+approximately $2.5 \times$ larger than
+the diffraction-limited minimum in (\ref{eq:Implementation:kg_min}).
+
+PCI's high-$k$ limits are dictated by
+finite-sized collection optics and system magnification.
+The \diiid \space phase plate has a diameter
+\begin{equation}
+  D = 2"
+\end{equation}
+such that the phase plate's high-$k$ cutoff
+(\ref{eq:InterferometricMethods:pci_kmax_engineering})
+is
+\begin{equation}
+  k_D \approx \SI{75}{\per\centi\meter}.
+\end{equation}
+Although the $5"$ diameter $285^{\circ}$ R-2 exit window and
+the subsequent $12"$ diameter steering mirrors
+are large enough to accommodate beams scattered
+from fluctuations with wavenumbers $|k| \sim k_D$,
+apertures in the imaging optics
+only allow beams scattered from fluctuations with
+\begin{equation}
+  |k| \lesssim \SI{20}{\per\centi\meter}
+\end{equation}
+to reach the PCI detector.
+Upon reaching the detector,
+the measured PCI signal is subject to finite sampling-volume effects,
+which result from spatial averaging over the face of a detector element.
+The PCI's 32-element, 1-dimensional detector array have elements
+of height $\SI{1}{\milli\meter}$, width
+\begin{equation}
+  s_x^{\text{pci}} = \SI{0.5}{\milli\meter},
+\end{equation}
+and center-to-center element spacing of $\SI{0.55}{\milli\meter}$.
+Coupled with the system's magnification
+\graffito{\textcolor{red}{Correct? Sign?}}
+\begin{equation}
+  |M^{\text{pci}}| \approx 0.5,
+\end{equation}
+the finite sampling-volume cutoff
+(\ref{eq:InterferometricMethods:finite_sampling_volume_cutoff})
+of the PCI is
+\begin{equation}
+  k_{\text{fsv}}^{\text{pci}} \approx \SI{63}{\per\centi\meter}.
+\end{equation}
+
+
+\subsection{Temporal bandwidth}
+PCI's detector (Infrared Associates MCT-16-32) and
+its associated preamplifiers (also through Infrared Associates)
+are the dominant constraint on the system's temporal bandwidth.
+The HgCdTe detector array
+operates in the photoconductive regime and
+is cooled by liquid nitrogen;
+the liquid-nitrogen cooling reduces noise and boosts the response such that
+the detector-preamplifier combination has
+a specific detectivity
+$D^* \approx \SI{2e10}{\centi\meter \sqrt\hertz \per\watt}$ and
+a $\SI{500}{\volt\per\watt}$ responsivity
+to incident $\SI{10.6}{\micro\meter}$ light
+(note that the detector also has a saturation intensity
+$I_{\text{sat}} \sim \SI{1}{\milli\watt \per\milli\meter\squared}$).
+The benefits of cooling, however, come at the expense of reduced bandwidth:
+the detector-preamplifier combination has
+a high-frequency, 2-pole cutoff
+at $\sim \SI{800}{\kilo\hertz}$~\cite{rost_pci_detector_response}.
+As the DC PCI signal is of little interest,
+the detector-preamplifier combination also has
+a low-frequency, 1-pole cutoff
+at $\sim \SI{2}{\kilo\hertz}$~\cite{rost_pci_detector_response}.
+
+The components downstream of the detector and preamplifiers
+have a small impact on the system bandwidth, but
+they are briefly summarized below for completeness.
+The Variable Gain and Filter (VGAF) circuits~\cite[Sec.~3.3.3]{dorris_phd}
+are located immediately downstream of the preamplifiers and
+have a low-frequency, 1-pole cutoff that can be easily switched between
+$\SI{10}{\kilo\hertz}$ and $\SI{100}{\kilo\hertz}$;
+the VGAFs are typically operated in the $\SI{10}{\kilo\hertz}$ configuration.
+Following the VGAFs,
+fiber optic links (Analog Modules 732 T/R-2.5-33k)
+with an analog bandwidth of DC to $\SI{10}{\mega\hertz}$
+transmit the signal from the \diiid \space pit to the annex.
+Upon reaching the annex,
+the signals are digitized with two of D-tAcq's ACQ216CPCI boards,
+typically at a sampling rate of $f_s = 4 \, \text{MSPS}$.
+
+
+\section{Component replacement}
+Over the course of this work,
+several components crucial to the operation of the PCI
+(and the soon-to-be-described interferometer)
+failed.
+The failures and replacements are briefly described below.
+
+
+\subsection{Quadrature detector for beam-position feedback}
+A quadrature detector measures the position
+of the unscattered beam on the phase plate,
+providing the input to the feedback control system
+that dynamically centers the unscattered beam
+on the phase-plate groove~\cite[Sec.~3.5]{coda_phd}.
+As the quadrature detector
+cannot physically be co-located with the phase plate,
+a beam splitter samples the unscattered beam
+immediately upstream of the phase plate, and
+a single lens \emph{images} onto the quadrature detector
+the point in the sampled beam that corresponds to the phase-plate location.
+Thus, beam movement on the phase plate is mirrored
+by movement of the sampled beam on the quadrature detector.
+System response is maximized
+with imaging magnification $|M| \approx 1$
+(relative to the beam size at the phase plate) and
+incident optical intensities $I_{\text{opt}}$
+well beyond the linear saturation intensity
+(i.e. $I_{\text{sat}} \ll I_{\text{opt}} < I_{\text{dam}}$)
+~\cite{marinoni_FB_detector_report}~\cite[Sec.~3.5(b)]{coda_phd}.
+
+The old quadrature detector consisted of four
+photoconductive, liquid-nitrogen cooled, HgCdTe elements.
+Quadrature detectors for use at $\SI{10.6}{\micro\meter}$
+had only just become commercially available
+when this unit was procured from Belov Technology in the mid-1990s
+~\cite[Sec.~3.5(b)]{coda_phd}.
+Cooling HgCdTe can
+extend the long-wavelength cutoff beyond $\SI{10.6}{\micro\meter}$,
+reduces noise, and
+increases responsivity~\cite{vigo_catalog}.
+In particular, HgCdTe's responsivity increases by $\sim 10^3$
+when cooled to liquid-nitrogen temperatures such that
+that the incident optical signal
+exceeds the $1 / f$ noise
+characteristic of photoconductive detectors~\cite{vigo_catalog}.
+As the bandwidth requirements for the PCI feedback system
+extend from DC to $\lesssim \SI{10}{\kilo\hertz}$,
+$1 / f$ noise cannot be easily combated by
+e.g.\ mechanically chopping the beam.
+After $\sim 20$ years of operation,
+the old quadrature detector failed in December 2014,
+presumably having reached its expected lifetime.
+As Belov Technology no longer exists,
+it was not possible to procure a drop-in replacement.
+Fortunately, in the context of position sensing,
+HgCdTe technology has significantly improved since the mid-1990s.
+
+The new quadrature detector
+(four VIGO PVM-10.6 elements mounted on a VIGO QIP preamplifier)
+is in many ways superior to the old quadrature detector.
+This superiority stems from VIGO's use of
+``multiple heterojunction'' HgCdTe detector elements~\cite{vigo_catalog},
+which endow the detector with several advantageous properties.
+First, the detector is photovoltaic.
+Thus, the detector is \emph{not} plagued by the $1 / f$ noise
+characteristic of photoconductive detectors.
+Second, the detector's long-wavelength cutoff
+sits beyond $\SI{10.6}{\micro\meter}$ at room temperature.
+Taken together, the above two properties imply that
+the new quadrature detector can be operated at room temperature,
+i.e.\ it does \emph{not} need to be cooled by liquid nitrogen.
+Lacking a dewar, the new quadrature detector
+is much smaller than the old quadrature detector;
+the new detector can also be mounted with an arbitrary orientation,
+whereas the dewar of the old detector required an upright orientation.
+This new-found flexibility substantially opened
+the optical design space for the feedback arm and
+the plasma arm of the soon-to-be-described interferometer.
+Additionally, the dewar of the old quadrature detector
+only had a $\sim \SI{6}{\hour}$ hold time,
+which is not sufficient for a full day of \diiid \space operations;
+thus, the use of a room-temperature quadrature detector has
+eliminated the mid-day ``pit runs'' to refill the quadrature detector's dewar,
+allowing easier operation of the system.
+Although room-temperature operation reduces
+the detector's specific detectivity to
+$D^* \sim \SI{e7}{\centi\meter \sqrt\hertz \per\watt}$
+(roughly three orders of magnitude \emph{lower} than
+that of the old quadrature detector),
+the optical signal corresponds to the strong, unscattered probe beam
+(as opposed to e.g.\ weak beams
+scattered from small-amplitude plasma fluctuations), so
+the increase in noise negligibly influences operation of the feedback system.
 
 \begin{itemize}
-  \item Phase II geometry
-  \item $k$-cutoff
-  \item Maintenance
+  \item When was new detector acquired?
+  \item \textcolor{red}{Picture}
+  \item \textcolor{red}{Table of properties (?)}
+\end{itemize}
+
+
+\subsection{CO$_2$ laser}
+The old CO$_2$ laser~\cite[Sec.~3.3]{coda_phd},
+manufactured by MPB Technologies,
+had been in service since
+the inception of the \diiid \space PCI system in the mid-1990s.
+Lasing occurred via high voltage, DC-excitation
+inside of a $\SI{2}{\meter}$-long, sealed-off glass tube
+to produce a TEM$_{00}$ (Gaussian) mode with linear polarization.
+The laser nominally had
+a $\lesssim \SI{300}{\kilo\hertz}$ frequency stability
+over short time windows ($\SI{0.1}{\second}$) and
+a $\lesssim \SI{3}{\mega\hertz}$ frequency stability
+over longer time windows ($\SI{e3}{\second}$).
+The laser's tube was replaced in late 1999
+when a precipitous drop in beam power indicated imminent failure.
+Following the tube's replacement,
+the measured beam power consistently hovered at $\sim\SI{14}{\watt}$
+for many years.
+However, in early 2016, the beam power again precipitously dropped.
+The laser's high voltage power supply,
+which was replaced in 2005 after failing,
+was tested and found to be operating nominally,
+suggesting that the drop in beam power
+was attributable to the laser's aging tube.
+Unfortunately, MPB Technologies has abandoned its efforts in CO$_2$ lasers
+and was unable to replace or repair the tube.
+Third-party tube repair was investigated but
+ultimately deemed unacceptable due to
+the required lead times and the lack of a guaranteed repair.
+Fortunately, the MPB laser continued operating, albeit at reduced power,
+throughout the 2016 campaign, allowing continued diagnostic development
+of the soon-to-be-described interferometer.
+
+After an exhaustive search of the CO$_2$-laser market,
+a water-cooled AL30ST CO$_2$ laser was procured
+from Access Laser Company (Everett, WA) in mid-2016.
+Lasing occurs via RF excitation at $\SI{40.68}{\mega\hertz}$;
+RF excitation requires far-lower voltages than DC excitation,
+eliminating the high-voltage safety risk and allowing more efficient lasing
+\cite{he_jap83}.
+As in the old MPB laser,
+the lasing cavity is supported by carbon fiber rods (rather than Invar)
+to mitigate any effects of the tokamak's large, ambient magnetic fields
+on the laser's performance.
+The laser oscillates on a TEM$_{00}$ (Gaussian) mode (spec'd $M^2 < 1.1$)
+with vertical polarization (spec'd extinction ratio $1 / 897$), and
+its $\SI{37}{\watt}$ power output is stable to within $\pm 1.1\%$
+\cite{marinoni_AL30ST_report}.
+Lasing occurs on the $P(20)$ line
+of the $00^{\circ}1 \rightarrow 10^{\circ}0$ transition
+to produce radiation with a vacuum wavelength of
+$\lambda_0 = \SI{10.591}{\micro\meter}$.
+Measurements with wavelength meter 621B
+from Bristol Instruments, Inc. (Victor, NY)
+indicate that the laser's wavelength stability over several seconds
+is characterized by a Voigt distribution with
+full width at half maximum of $\SI{0.0029}{\nano\meter}$, which
+corresponds to a frequency stability (over \emph{several seconds})
+of $\SI{3.8}{\mega\hertz}$ \cite{marinoni_AL30ST_report}.
+
+In the context of measuring plasma-density fluctuations
+with an external reference-beam interferometer,
+the relevant metric is the laser's frequency stability
+over much shorter time windows
+(i.e.\ the time difference corresponding to
+the difference in optical path length between
+the interferometer's plasma and reference arms).
+This is most easily evaluated empirically
+by deploying the laser in the given interferometric system
+and evaluating the corresponding phase noise.
+Successive test shots,
+the first with the old MPB laser and the second with the AL30ST,
+show comparable phase noise (and hence frequency stability)
+between the two lasers.
+Thus, the AL30ST frequency stability is deemed to be sufficient
+for measurement of plasma-density fluctuations
+with the soon-to-be-described external reference-beam interferometer.
+
+\begin{itemize}
+  \item \textcolor{red}{Picture}
+  \item \textcolor{red}{Fig. of new vs.\ old laser stability}
+\end{itemize}
+
+
+\subsection{In-vessel mirrors}
+Two of the PCI mirrors are located
+\emph{inside} of the \diiid \space vacuum vessel.
+As indicated in Fig.~\ref{fig:Implementation:d3d_port_locations}(b),
+the PCI probe beam enters the machine through the $285^{\circ}$ R+2 port,
+reflects off of the first in-vessel mirror,
+propagates vertically downwards through the machine (and the plasma),
+reflects off the second in-vessel mirror, and
+exits the machine through the $285^{\circ}$ R-2 port.
+The in-vessel mirrors are elongated
+along the axis parallel to the plane of incidence
+in order to increase the mirrors' apparent surface area.
+The mirrors were fabricated by Esco Optics, Inc. (Oak Ridge, NJ).
+The mirrors are made of fused quartz with
+a reflective aluminum surface and a protective SiO coating.
+
+In mid-2015 the beam quality of the CO$_2$ laser and the HeNe alignment laser
+after passing through the \diiid \space vessel was noted to be poor
+(i.e. substantially non-Gaussian).
+Numerous tests suggested that the poor beam quality was attributable
+damaged in-vessel mirrors;
+this hypothesis was confirmed via visual inspection
+during the next manned entry of the machine.
+``Drop-in'' replacements were ordered from Esco Optics
+and were installed in mid-2016.
+The removed, damaged mirrors are shown in
+Fig.~\ref{fig:Implementation:in_vessel_mirrors}.
+It is not known whether the mirrors were damaged
+during e.g. plasma operations or high-temperature bakes of the vessel.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = 0.6 \textwidth]{%
+    Chapters/Implementation/figs/in_vessel_mirrors.jpg}
+  \caption[PCI's damaged in-vessel mirrors]{%
+    PCI's damaged in-vessel mirrors, sitting
+    in the \diiid \space ``Hi-Bay''
+    after removal from the vessel in mid-2016.
+    (Note that the reflectivity of each mirror at $\SI{10.6}{\micro\meter}$
+    cannot be gauged from this photograph in the visible spectrum).
+    ``Drop-in'' replacements were installed
+    before the resumption of plasma operations.}
+\label{fig:Implementation:in_vessel_mirrors}
+\end{figure}
+
+
+\section{Interferometer design study}
+The idea was to as simply as possible implement interferometer detection
+while minimally perturbing the operation of the PCI.
+
+
+\subsection{Geometric effects of umatched beams}
+The derivations in Section~\ref{sec:InterferometricMethods:interferometry}
+assumed that the reference beam was exactly matched
+in both amplitude and spatial structure
+to the unscattered probe beam.
+This is obviously an idealization
+that, at best, can only be approached asymptotically in experiment.
+This section discusses the geometric effects
+of such imperfections in beam matching.
+
+The derivation of the heterodyne intensity
+(\ref{eq:InterferometricMethods:heterodyne_intensity})
+can be easily generalized to account for
+the geometric effects of unmatched reference and probe beams.
+Namely, let the image-plane probe radiation be given by
+\begin{equation}
+  E_P(\vect{r}_{\image}, t)
+  \approx
+  E_{G,P}(\vect{r}_{\image}, t)
+  e^{i \bar{\phi}}
+  \left[%
+    1
+    +
+    i \tilde{\phi}_0 \cos\nu
+  \right],
+\end{equation}
+and let the image-plane reference beam be given by
+\begin{equation}
+  E_R(\vect{r}_{R}, t)
+  =
+  E_{G,R}(\vect{r}_{R}, t) e^{-i \Delta\omega_0 t},
+\end{equation}
+where $\vect{r}_{\image} = (x_{\image}, y_{\image}, z_{\image})$,
+\begin{equation}
+  \vect{r}_{R}
+  =
+  \vect{r}_{\image}
+  +
+  (0, 0, z_{R} - z_{\image}),
+\end{equation}
+and $E_{G,j}$ is a Gaussian beam
+with angular frequency $\omega_0$,
+waist amplitude $E_{0,j}$, and
+waist 1/e $E$ radius $w_{0,j}$.
+If $z_R \neq z_{\image}$,
+the reference beam's waist sits at a different location
+than that of the unscattered probe beam.
+Under these circumstances, the heterodyne intensity becomes
+\begin{equation}
+  \begin{aligned}
+    I_{\text{het}}(\vect{r}_{\image}, z_R, t)
+    =
+    2 I_{G,P}(\vect{r}_{\image})
+    \bigl[%
+      &\alpha_{\text{DC}}
+      +
+      \alpha_{\text{AC}}
+      \cos(\Delta \omega_0 t + \bar{\phi}_{\text{eff}})
+      \\
+      &-
+      \tilde{\phi}_0 \alpha_{\text{AC}}
+      \sin(\Delta \omega_0 t + \bar{\phi}_{\text{eff}}) \cos\nu
+    \bigr],
+  \end{aligned}
+  \label{eq:Implementation:heterodyne_intensity}
+\end{equation}
+where
+\begin{equation}
+  \bar{\phi}_{\text{eff}}
+  =
+  \bar{\phi}
+  +
+  \bigl[ \phi_{G,P}(\vect{r}_{\image}) - \phi_{G,R}(\vect{r}_R) \bigr]
+\end{equation}
+is the effective bulk phase,
+\begin{equation}
+  \phi_{G,j}(\vect{r})
+  =
+  k_0 z + \frac{k_0 \rho^2}{2 R_j(z)} - \psi_j(z)
+\end{equation}
+is the phase of Gaussian beam $j \in \{P, R\}$
+(i.e.\ $E_{G,j}(\vect{r}) = |E_{G,j}(\vect{r})| e^{i \phi_{G,j}(\vect{r})}$),
+\begin{align}
+  \alpha_{\text{DC}}
+  &=
+  \frac{1}{2}\left[%
+    1
+    +
+    \frac{I_{G,R}(\vect{r}_R)}{I_{G,P}(\vect{r}_{\image})}
+  \right],
+  \\
+  \alpha_{\text{AC}}
+  &=
+  \sqrt{\frac{I_{G,R}(\vect{r}_R)}{I_{G,P}(\vect{r}_{\image})}},
+\end{align}
+are geometric factors that describe the amplitudes
+of the DC and AC components of the heterodyne signal, and
+\begin{equation}
+  I_{G,j}(\vect{r})
+  =
+  \frac{c \varepsilon_0 |E_{G,j}(\vect{r})|^2}{2}
+\end{equation}
+is the intensity profile (averaged over an optical cycle)
+of Gaussian beam $j \in \{P, R\}$.
+Note that (\ref{eq:Implementation:heterodyne_intensity}) readily reduces to
+(\ref{eq:InterferometricMethods:heterodyne_intensity})
+if $E_{G,R}(\vect{r}_R) = E_{G,P}(\vect{r}_{\image})$.
+
+It is worth discussing the implications of heterodyne intensity
+(\ref{eq:Implementation:heterodyne_intensity}).
+First, the AC component of the intensity
+carries the desired phase information, and
+maximizing the ratio of the AC signal to the DC signal requires that
+$I_{G,R}(\vect{r}_R) = I_{G,P}(\vect{r}_{\image})$.
+Second, note that the effective bulk phase $\bar{\phi}_{\text{eff}}$
+is dependent on the geometry of the reference beam and
+the unscattered probe beam.
+Specifically, in the context of measuring
+the plasma-induced bulk phase $\bar{\phi}$,
+note that
+\begin{equation}
+  \bar{\phi}_{\text{eff}}(\rho_{\image}=0)
+  =
+  \bar{\phi}
+  +
+  k_0 (z_{\image} - z_R)
+  -
+  \left[ \psi_P(z_{\image}) - \psi_R(z_R) \right].
+\end{equation}
+If $z_{\image}$ and $z_R$ are fixed,
+then the beam-geometry contributions to
+$\bar{\phi}_{\text{eff}}(\rho_{\image} = 0)$
+constitute an unimportant DC offset that can be removed
+via baseline subtraction;
+however, experiments are typically plagued by vibrations, and
+even small changes to $z_{\image}$ and $z_R$
+can make significant time-dependent contributions to
+$\bar{\phi}_{\text{eff}}(\rho_{\image} = 0)$ at CO$_2$ probe wavelengths.
+As such, deconvolving the plasma-induced and vibration-induced contributions
+to $\bar{\phi}_{\text{eff}}(\rho_{\image} = 0)$
+requires interferometric measurements
+at two distinct wavelengths (i.e.\ two-color interferometry)
+\cite{carlstrom_rsi88}.
+However, such vibrations occur on slow time-scales
+(e.g.\ $f_{\text{vib}} \lesssim \SI{5}{\kilo \hertz}$),
+and phase measurements at a \emph{single} wavelength are sufficient
+to quantify plasma-induced phase fluctuations
+at frequencies above $f_{\text{vib}}$
+\cite{vanzeeland_ppcf05}.
+Note that the beam geometry also imparts
+a spatially dependent, curvature-induced phase shift
+\begin{align}
+  \delta\phi_{\kappa}(\rho_{\image})
+  &=
+  \bar{\phi}_{\text{eff}}(\rho_{\image})
+  -
+  \bar{\phi}_{\text{eff}}(\rho_{\image} = 0)
+  \notag \\
+  &=
+  \frac{k_0 \rho_{\image}^2}{2}
+  \left[\frac{1}{R_P(z_{\image})} - \frac{1}{R_R(z_R)} \right],
+\end{align}
+which can result in signal loss and distortion of the measured wavenumber.
+To see this, assume that the radiation is interfered on a detector array,
+as shown in Fig.~\ref{fig:InterferometricMethods:detector_array}.
+As a detector element produces a signal
+proportional to the average intensity across its face,
+there will be substantial signal loss
+if there are large curvature-induced phase shifts
+across the element's face
+(i.e.\ $\delta\phi_{\kappa}(s_x / 2) \gtrsim \pi$ or
+$\delta\phi_{\kappa}(s_y / 2) \gtrsim \pi$).
+Further, if there are large curvature-induced phase shifts
+across the length of the detector array,
+the spatial structure of the intensity
+will \emph{not} correspond to the spatial structure
+of the plasma fluctuation.
+The latter is the more conservative constraint
+on the curvature-induced phase shift.
+Assuming that the detector array shown in
+Fig.~\ref{fig:InterferometricMethods:detector_array}
+consists of $N_{\text{el}}$ detector elements and
+that the inter-element spacing is negligible ($\delta_x \ll s_x$),
+the criterion for negligible curvature-induced phase shifts
+$\delta\phi_{\kappa, \text{max}}
+=
+\delta\phi_{\kappa}(\rho_{\image, \text{max}})
+\ll
+1$
+becomes
+\begin{equation}
+  \frac{k_0}{8}
+  \left[ (N_{\text{el}} s_x)^2 + s_y^2 \right]
+  \left| \frac{1}{R_P(z_{\image})} - \frac{1}{R_R(z_R)}\right|
+  \ll
+  \pi.
+\end{equation}
+
+
+\subsection{Phase effects of umatched beams}
+
+\subsection{LO frequency drift}
+\subsection{Detector amplitude noise}
+
+\begin{itemize}
+  \item Ideal interferometer signals derived in Ch.~2
+  \item If reference beam and plasma beam have different shapes,
+    simply results in a geometric factor (?)
     \begin{itemize}
-      \item Replacement of laser
-      \item Replacement of feedback detector
-      \item Replacement of in-vessel mirrors
+      \item Assume spot size is much larger than detector element;
+        motivate by considering an array (even though we just have
+        ``proof of principle'' with one detector element)
+      \item Quote ``general'' formula (assuming radii of curvature matched)
+      \item Define an effective intensity $I_{\text{eff}}$, and
+        by comparing to Ch.~2 formula, simply extend all results
+        from Ch.~2 by appropriately substituting $I_{\text{eff}}$
+    \end{itemize}
+  \item Effects of noise
+    \begin{itemize}
+      \item Assume detector noise (amplitude noise, more or less?)
+      \item Assume ideal demodulation, audio amps, etc.
+      \item Phase noise from laser (mention also from RF, but assume
+        negligible for the design study)
     \end{itemize}
 \end{itemize}
+\subsection{Signal detection and processing}
+\subsection{Simplifying and constraining the design parameters}
+\subsection{Expected plasma-induced phase shift}
+\subsection{Noise equivalent power}
+\subsection{Expected signal-to-noise ratio}
+\subsection{Power sharing between the interferometer arms and PCI}
+\subsection{Optical table layout}
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/Implementation/figs/table_layout.pdf}
+  \caption[Combined PCI-interferometer optical table]{%
+    Combined PCI-interferometer optical table.
+    Salmon: \emph{shared} probe beam;
+    green: interferometer plasma arm;
+    blue: interferometer reference arm;
+    fuchsia: PCI beam;
+    yellow: feedback beam.
+    AOM: Ge acousto-optic modulator.
+    BC: beam combiner.
+    D1: LN$_{2}$-cooled PCI detector array;
+    D2: room-temperature quadrant detector for beam steering;
+    D3: thermoelectrically-cooled interferometer detector.
+    L1, L2, L3: ZnSe lenses.
+    P1, P2: off-axis parabolic mirrors.
+    PP: phase plate.
+    RM: rotatable mask.
+    S1, S2: ZnSe beam splitters.
+    SM: steering mirrors.
+    $\lambda / 2$: half-wave plate.}
+\label{fig:Implementation:table_layout}
+\end{figure}
 
-\section{Interferometer design}
+
+\section{Interferometer component selection}
+\subsection{Acousto-optic modulator}
+\subsection{Imaging optics}
+\subsection{Detector}
+\subsection{Electronics}
 \begin{itemize}
-  \item Power sharing between the interferometer arms and PCI
-  \item TE-cooled detector
-  \item Imaging and $k$-response
-  \item Demodulation scheme
+  \item Automatic gain-control amplifier
+  \item Analog I/Q demodulator
+  \item Low-frequency ``audio'' amplifiers
+\end{itemize}
+\subsection{Digitizer}
+\begin{itemize}
+  \item Bit noise
 \end{itemize}
 
-\section{Interferometer optimization}
-\begin{itemize}
-  \item LO stability
-  \item External clock
-\end{itemize}
+
+\section{Fighting phase noise}
+\subsection{Local oscillator stability}
+
 
 \section{Sound-wave calibration of combined PCI-interferometer}
+\subsection{Sound-wave characterization}
+\subsection{Measurements}
 \begin{itemize}
-  \item Importance of speaker placement
+  \item Wavenumber range
+  \item Cross calibration
   \item System sensitivity
 \end{itemize}
+
+\begin{table}[ht]
+  \centering
+  \renewcommand{\arraystretch}{1.5}% Spread rows out...
+  \begin{tabular}{%
+    >{\centering}m{3.0cm} >{\centering}m{4.5cm} >{\centering}m{4.5cm}
+  }
+    \toprule%
+    \textbf{Parameter} & \textbf{PCI} & \textbf{Interferometer}
+    \tabularnewline%
+    \midrule
+    \textbf{probe beam} & single CO$_2$ beam & single CO$_2$ beam
+    \tabularnewline%
+    \textbf{frequency bandwidth}
+    & \SI{10}{\kilo\hertz} $ < f < $ \SI{2}{\mega\hertz}
+    & \SI{10}{\kilo\hertz} $ < f < $ \SI{2}{\mega\hertz}
+    \tabularnewline%
+    \textbf{spatial bandwidth}
+    & \SI{1.5}{\centi\meter}\ts{-1} $ < k < $ \SI{20}{\centi\meter}\ts{-1}
+    & \SI{0}{\centi\meter}\ts{-1} $ < k < $ \SI{5}{\centi\meter}\ts{-1}
+    \tabularnewline%
+    \toprule%
+  \end{tabular}
+  \caption{PCI and interferometry have compatible probe beams, comparable
+    frequency bandwidths, and \emph{complementary} spatial bandwidths.
+    All parameters are for DIII-D's currently implemented PCI--interferometer
+    system.
+  }%
+\label{table:Implementation:PCI_interferometer}
+\end{table}
+
+
+\section{Looking towards ITER\ldots}
 
 
 \bibliographystyle{plainurl}
