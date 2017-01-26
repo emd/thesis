@@ -542,7 +542,8 @@ while minimally perturbing the operation of the PCI.
 
 
 \subsection{Geometric effects of umatched beams}
-The derivations in Section~\ref{sec:InterferometricMethods:interferometry}
+The external reference-beam interferometry derivations
+in Section~\ref{sec:InterferometricMethods:interferometry}
 assumed that the reference beam was exactly matched
 in both amplitude and spatial structure
 to the unscattered probe beam.
@@ -567,7 +568,7 @@ Namely, let the image-plane probe radiation be given by
     i \tilde{\phi}_0 \cos\nu
   \right],
 \end{equation}
-and let the image-plane reference beam be given by
+and let the corresponding reference beam be given by
 \begin{equation}
   E_R(\vect{r}_{R}, t)
   =
@@ -740,7 +741,95 @@ becomes
 \end{equation}
 
 
-\subsection{Phase effects of umatched beams}
+\subsection{Phase noise from umatched optical path lengths}
+The external reference-beam interferometry derivations
+in Section~\ref{sec:InterferometricMethods:interferometry}
+assumed that the laser's angular frequency was fixed
+at its nominal value $\omega_0$.
+However, the angular frequency of any \emph{real} laser
+will exhibit short-term jitter and long-term drift,
+much like any other real-world oscillator
+\cite[Sec.~1.7]{siegman_lasers}.
+The electric field of a Gaussian beam
+with short-term frequency jitter
+is well-described by
+\begin{equation}
+  E_G(\vect{r}, t)
+  =
+  E_G(\vect{r})
+  e^{-i [\omega_0 t + \phi_{\omega_0}(t)]}
+\end{equation}
+where $\phi_{\omega_0}(t)$ is a zero-mean, stationary, random process
+whose temporal variation causes
+the oscillator's instantaneous angular frequency
+to wander about its nominal value $\omega_0$.
+
+Now, if the interferometer's probe beam and reference beam
+traverse different optical path lengths,
+the laser's short-term jitter will inject
+phase noise into the measured signal.
+\graffito{\textcolor{red}{Would be great to get down to just one $\tau$}}
+To see this, assume that the total optical path length
+of the probe (reference) beam is $L_P$ ($L_R$)
+such that the probe (reference) beam propagates
+from the source to the detector
+in time $\tau_P = L_P / c$ ($\tau_R = L_R / c$).
+Then, the imaged probe radiation
+impinging on the detector at time $t$ is
+\begin{equation}
+  E_P(\vect{r}_{\image}, t)
+  =
+  E_G(\vect{r}_{\image})
+  e^{-i [\omega_0 (t - \tau_P) + \phi_{\omega_0}(t - \tau_P)]}
+  e^{i \bar{\phi}}
+  \left[%
+    1
+    +
+    i \tilde{\phi}_0 \cos\nu
+  \right],
+\end{equation}
+and the corresponding reference beam is
+\graffito{\textcolor{red}{assuming ref beam generation very near source}}
+\begin{equation}
+  E_R(\vect{r}_{\image}, t)
+  =
+  E_G(\vect{r}_{\image})
+  e^{-i [
+    (\omega_0 + \Delta \omega_0) (t - \tau_R)
+    +
+    \phi_{\omega_0}(t - \tau_R)
+  ]}.
+\end{equation}
+Define the jitter-induced phase difference
+between the reference beam and the probe beam as
+\begin{equation}
+  \delta \phi_{\omega_0}(t - \tau_P, t - \tau_R)
+  =
+  \phi_{\omega_0}(t - \tau_R)
+  -
+  \phi_{\omega_0}(t - \tau_P).
+\end{equation}
+Typically, $\delta \phi_{\omega_0} \ll 1$.
+Then, appropriately generalizing the derivations between
+(\ref{eq:InterferometricMethods:heterodyne_intensity}) and
+(\ref{eq:InterferometricMethods:heterodyne_total_fluctuating_power_per_element}),
+one readily finds that the total fluctuating power
+in the heterodyne interferometer's demodulated signals is
+\begin{equation}
+  \tilde{P}_{j, IQ}(t)
+  =
+  I_G(\vect{r}_{\image,j}) A
+  \left[%
+    T_{\text{fsv}}(k_{\image})
+    \tilde{\phi}_0
+    \cos\nu_j
+    +
+    \delta \phi_{\omega_0}(t - \tau_P, t - \tau_R)
+  \right];
+\end{equation}
+that is, the fluctuating signal is contaminated
+by the laser's jitter.
+
 
 \subsection{LO frequency drift}
 \subsection{Detector amplitude noise}
