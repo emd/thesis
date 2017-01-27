@@ -768,19 +768,25 @@ Now, if the interferometer's probe beam and reference beam
 traverse different optical path lengths,
 the laser's short-term jitter will inject
 phase noise into the measured signal.
-\graffito{\textcolor{red}{Would be great to get down to just one $\tau$}}
-To see this, assume that the total optical path length
-of the probe (reference) beam is $L_P$ ($L_R$)
-such that the probe (reference) beam propagates
-from the source to the detector
-in time $\tau_P = L_P / c$ ($\tau_R = L_R / c$).
-Then, the imaged probe radiation
-impinging on the detector at time $t$ is
+To see this, assume that the optical path length of the probe beam
+exceeds that of the reference arm by $L$.
+Then, if the reference beam impinging on the detector at time $t$ is
+\begin{equation}
+  E_R(\vect{r}_{\image}, t)
+  =
+  E_G(\vect{r}_{\image})
+  e^{-i [
+    (\omega_0 + \Delta \omega_0) t
+    +
+    \phi_{\omega_0}(t)
+  ]},
+\end{equation}
+the corresponding imaged probe radiation is
 \begin{equation}
   E_P(\vect{r}_{\image}, t)
   =
   E_G(\vect{r}_{\image})
-  e^{-i [\omega_0 (t - \tau_P) + \phi_{\omega_0}(t - \tau_P)]}
+  e^{-i [\omega_0 (t - \tau) + \phi_{\omega_0}(t - \tau)]}
   e^{i \bar{\phi}}
   \left[%
     1
@@ -788,28 +794,17 @@ impinging on the detector at time $t$ is
     i \tilde{\phi}_0 \cos\nu
   \right],
 \end{equation}
-and the corresponding reference beam is
-\graffito{\textcolor{red}{assuming ref beam generation very near source}}
-\begin{equation}
-  E_R(\vect{r}_{\image}, t)
-  =
-  E_G(\vect{r}_{\image})
-  e^{-i [
-    (\omega_0 + \Delta \omega_0) (t - \tau_R)
-    +
-    \phi_{\omega_0}(t - \tau_R)
-  ]}.
-\end{equation}
+where $\tau = L / c$ is the time delay
+associated with the optical path-length difference $L$.
 Define the jitter-induced phase difference
-between the reference beam and the probe beam as
 \begin{equation}
-  \delta \phi_{\omega_0}(t - \tau_P, t - \tau_R)
+  \delta \phi_{\omega_0}(t, \tau)
   =
-  \phi_{\omega_0}(t - \tau_R)
+  \phi_{\omega_0}(t + \tau)
   -
-  \phi_{\omega_0}(t - \tau_P).
+  \phi_{\omega_0}(t).
 \end{equation}
-Typically, $\delta \phi_{\omega_0} \ll 1$.
+Typically, $\delta \phi_{\omega_0}(t, \tau) \ll 1$.
 Then, appropriately generalizing the derivations between
 (\ref{eq:InterferometricMethods:heterodyne_intensity}) and
 (\ref{eq:InterferometricMethods:heterodyne_total_fluctuating_power_per_element}),
@@ -824,7 +819,7 @@ in the heterodyne interferometer's demodulated signals is
     \tilde{\phi}_0
     \cos\nu_j
     +
-    \delta \phi_{\omega_0}(t - \tau_P, t - \tau_R)
+    \delta \phi_{\omega_0}(t - \tau, \tau)
   \right];
 \end{equation}
 that is, the fluctuating signal is contaminated
