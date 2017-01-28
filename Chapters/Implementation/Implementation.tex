@@ -536,7 +536,7 @@ during e.g. plasma operations or high-temperature bakes of the vessel.
 \end{figure}
 
 
-\section{Interferometer design study}
+\section{Design considerations for a heterodyne interferometer}
 The idea was to as simply as possible implement interferometer detection
 while minimally perturbing the operation of the PCI.
 
@@ -825,9 +825,27 @@ in the heterodyne interferometer's demodulated signals is
 that is, the fluctuating signal is contaminated
 by the laser's jitter.
 
+\begin{itemize}
+  \item \textcolor{red}{Compute autospectral density and compare to ideal}
+\end{itemize}
 
-\subsection{LO frequency drift}
-\subsection{Detector amplitude noise}
+
+\subsection{Phase noise from finite Doppler-shift coupling time}
+\begin{itemize}
+  \item \textcolor{red}{similar to laser phase-noise discussion}
+  \item \textcolor{red}{Compute autospectral density and compare to ideal}
+\end{itemize}
+
+
+\subsection{Detector noise}
+
+\subsection{Photon noise}
+
+\subsection{Electronics}
+
+\subsection{Digitizer noise}
+
+
 
 \begin{itemize}
   \item Ideal interferometer signals derived in Ch.~2
