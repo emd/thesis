@@ -894,7 +894,8 @@ Thus, (\ref{eq:ToroidalCorrelation:toroidal_mode_number_dt_ramp_rate}) becomes
   \centering
   \includegraphics[width = \textwidth]{%
     Chapters/ToroidalCorrelation/figs/mode_numbers_with_uncompensated_time_delay.eps}
-  \caption{Computed mode numbers from
+  \caption[Effect of uncompensated time delay on computed toroidal mode numbers]{%
+    Computed mode numbers from
     toroidally separated interferometers and magnetics.
     When there is an uncompensated time delay ($\delta t \neq 0$)
     between the two interferometers, as there is here,
@@ -990,7 +991,9 @@ to determine the offset of our digitizer from the DIII-D clock.}
   \centering
   \includegraphics[width = \textwidth]{%
     Chapters/ToroidalCorrelation/figs/magnetics_and_interferometer_mode_numbers_167341.eps}
-  \caption{Computed mode numbers from
+  \caption[Computed toroidal mode numbers \emph{after} removing time delay
+      from Fig.~\ref{fig:ToroidalCorrelation:uncompensated_time_delay}]{%
+    Computed mode numbers from
     toroidally separated interferometers and magnetics.
     Here, the PCI-interferometer signal has been delayed by
     $\SI{32}{\micro\second}$ relative to the V2 signal
@@ -1063,7 +1066,9 @@ via forward modeling.
   \centering
   \includegraphics[width = 0.5 \textwidth]{%
     Chapters/ToroidalCorrelation/figs/phase_flips_167341.eps}
-  \caption{Due to the small radial offset ($\Delta R = \SI{4}{\centi\meter}$)
+  \caption[Mode-number ``flipping'' due to the small radial offset
+      between the $V2$ and PCI interferometers]{%
+    Due to the small radial offset ($\Delta R = \SI{4}{\centi\meter}$)
     between the V2 and PCI interferometers,
     changes in the radial structure of a mode
     can result in ``flipping'' of the interferometer-measured mode number.
@@ -1100,7 +1105,9 @@ via forward modeling.
   \centering
   \includegraphics[width = \textwidth]{%
     Chapters/ToroidalCorrelation/figs/magnetics_and_interferometer_mode_numbers_167340.eps}
-  \caption{Another example of excellent agreement between the
+  \caption[Another example of excellent agreement between the
+      interferometer and magnetics mode number spectra]{%
+    Another example of excellent agreement between the
     interferometer and magnetics mode number spectra. Note that
     the interferometers additionally see modes \emph{invisible} to magnetics.
     Here,the modes were \emph{assumed} to be rotating
@@ -1116,7 +1123,8 @@ via forward modeling.
   \centering
   \includegraphics[width = 0.8 \textwidth]{%
     Chapters/ToroidalCorrelation/figs/core_localized_167342.eps}
-  \caption{Between $1.8 \leq t \, [\text{s}] \leq 2.2$,
+  \caption[Toroidal mode numbers of \emph{core-localized} MHD]{%
+    Between $1.8 \leq t \, [\text{s}] \leq 2.2$,
     the correlated interferometers measure fluctuations
     (Alfv\'{e}n eigenmodes?) that are \emph{invisible} to magnetics.
     This suggests that the modes are \emph{core-localized} and
@@ -1132,7 +1140,8 @@ via forward modeling.
   \centering
   \includegraphics[width = \textwidth]{%
     Chapters/ToroidalCorrelation/figs/AEs_167550.eps}
-  \caption{Alfv\'{e}n eigenmodes visible
+  \caption[Toroidal mode numbers of Alfv\'{e}n eigenmodes]{%
+    Alfv\'{e}n eigenmodes visible
     on the correlated interferometers.
     These modes are not readily visible on magnetics.}
 \label{fig:ToroidalCorrelation:AEs}
@@ -1142,7 +1151,8 @@ via forward modeling.
   \centering
   \includegraphics[width = 0.7 \textwidth]{%
     Chapters/ToroidalCorrelation/figs/interELM_fast_167578.eps}
-  \caption{Inter-ELM fluctuations as measured by
+  \caption[Toroidal mode numbers of inter-ELM fluctuations]{%
+    Inter-ELM fluctuations as measured by
     the correlated interferometers and fast magnetics.
     The mode frequency ramps early in the inter-ELM window before saturating;
     the magnetic component of the fluctuation only appears \emph{after}
@@ -1159,7 +1169,8 @@ via forward modeling.
   \centering
   \includegraphics[width = 0.5 \textwidth]{%
     Chapters/ToroidalCorrelation/figs/EHO_167587.eps}
-  \caption{The magnetics and interferometers both see the
+  \caption[Toroidal mode numbers of the edge harmonic oscillation (EHO)]{%
+    The magnetics and interferometers both see the
     edge harmonic oscillation (EHO), which is responsible for
     flushing impurities from quiescent H-mode (QH-mode) plasmas.
     Below \SI{20}{\kilo\hertz}, the magnetics and interferometers
@@ -1174,19 +1185,18 @@ via forward modeling.
   \centering
   \includegraphics[width = 0.75 \textwidth]{%
     Chapters/ToroidalCorrelation/figs/interferometer_vs_PCI_coherence.eps}
-  \caption[%
-    Inability to correlate V2 and PCI]{%
-      The magnitude-squared coherence $\gamma_{xy}^2$ between
-      the V2 and 285 interferometers (left) and
-      between the V2 interferometer and PCI (right).
-      The high coherence between the V2 and 285 interferometers
-      allows accurate measurement of toroidal mode numbers,
-      as demonstrated by the corresponding mode number spectrum
-      displayed in Fig.~\ref{fig:ToroidalCorrelation:compensated_time_delay},
-      whereas the poor coherence between the V2 and PCI
-      prevents such measurements.
-      (Note that ``285 interferometer'' refers to
-      the newly installed interferometer channel of the PCI).}
+  \caption[Inability to correlate V2 and PCI]{%
+    The magnitude-squared coherence $\gamma_{xy}^2$ between
+    the V2 and 285 interferometers (left) and
+    between the V2 interferometer and PCI (right).
+    The high coherence between the V2 and 285 interferometers
+    allows accurate measurement of toroidal mode numbers,
+    as demonstrated by the corresponding mode number spectrum
+    displayed in Fig.~\ref{fig:ToroidalCorrelation:compensated_time_delay},
+    whereas the poor coherence between the V2 and PCI
+    prevents such measurements.
+    (Note that ``285 interferometer'' refers to
+    the newly installed interferometer channel of the PCI).}
 \label{fig:ToroidalCorrelation:PCI_coherence}
 \end{figure}
 
