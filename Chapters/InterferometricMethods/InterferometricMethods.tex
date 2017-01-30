@@ -2008,7 +2008,8 @@ the imaged field to first order in $\tilde{\phi}_0$
   \end{aligned}
   \label{eq:InterferometricMethods:imaged_total_field_weak_coupling_Fourier_filtered}
 \end{equation}
-When there is no wavenumber-dependent manipulation of the scattered beams
+
+When there is no wavenumber-dependent manipulation of the probe radiation
 (i.e.\ $T(k_x) = 1$), the imaged field
 (\ref{eq:InterferometricMethods:imaged_total_field_weak_coupling_Fourier_filtered})
 readily reduces to
@@ -2022,13 +2023,33 @@ readily reduces to
     +
     i \tilde{\phi}_0 \cos\nu
   \right],
-  \label{eq:InterferometricMethods:imaged_total_field_weak_coupling}
+  \label{eq:InterferometricMethods:imaged_total_field_monochromatic_fluctuation_weak_coupling}
 \end{equation}
 which follows naturally from the image-plane coordinate transformation
 (\ref{eq:InterferometricMethods:coordinate_transformation_imaging_plane})
 and the following approximations:
 $w(z_{m, \image}) \approx w(z_{\image})$ and
 $R(z_{m, \image}) \approx R(z_{\image})$.
+Note that
+(\ref{eq:InterferometricMethods:imaged_total_field_monochromatic_fluctuation_weak_coupling})
+is \emph{linear} in the imaged phase fluctuation $\tilde{\phi}_0 \cos\nu$.
+By the principle of linear superposition, then,
+(\ref{eq:InterferometricMethods:imaged_total_field_monochromatic_fluctuation_weak_coupling})
+can be readily generalized to
+\begin{equation}
+  E(\vect{r}_{\image}, t)
+  \approx
+  E_G(\vect{r}_{\image}, t)
+  e^{i \bar{\phi}}
+  \left[%
+    1
+    +
+    i \tilde{\phi}(x_{\image}, t)
+  \right],
+  \label{eq:InterferometricMethods:imaged_total_field_broadband_fluctuation_weak_coupling}
+\end{equation}
+where $\tilde{\phi}(x, t)$ is a real-valued but
+otherwise arbitrary phase fluctuation.
 
 
 \subsection{The need for a reference beam}
@@ -2036,7 +2057,7 @@ $R(z_{m, \image}) \approx R(z_{\image})$.
 Assume that there is
 no wavenumber-dependent manipulation of the diffracted field
 such that
-(\ref{eq:InterferometricMethods:imaged_total_field_weak_coupling})
+(\ref{eq:InterferometricMethods:imaged_total_field_broadband_fluctuation_weak_coupling})
 yields the imaged field.
 Now, most detectors of interest are square-law detectors
 in that they produce a response proportional to
@@ -2050,7 +2071,11 @@ the local intensity is
   \notag \\
   &=
   I_G(\vect{r}_{\image})
-  [1 + \mathcal{O}(\tilde{\phi}_0)^2],
+  \left[%
+    1
+    +
+    \mathcal{O}\left( \left[\tilde{\phi}(x_{\image}, t)\right]^2 \right)
+  \right],
   \label{eq:InterferometricMethods:imaged_field_intensity}
 \end{align}
 where
@@ -2062,7 +2087,7 @@ where
 \end{equation}
 is the intensity profile (averaged over an optical cycle)
 of the unscattered Gaussian beam.
-Thus, for the typical $\tilde{\phi}_0 \ll 1$ limit,
+Thus, for the typical $|\tilde{\phi}(x_{\image}, t)| \ll 1$ limit,
 the measured response will be very weak
 if the detector is only exposed to the imaged radiation.
 Physically, this is attributable to the $m = \pm 1$ beams
@@ -2081,7 +2106,7 @@ that differentiates a given interferometric method from another.
 In external reference-beam interferometry,
 there is no wavenumber-dependent manipulation of the diffracted field
 such that
-(\ref{eq:InterferometricMethods:imaged_total_field_weak_coupling})
+(\ref{eq:InterferometricMethods:imaged_total_field_broadband_fluctuation_weak_coupling})
 yields the imaged field.
 Thus, the probe radiation in the image plane is given as
 \begin{equation}
@@ -2092,7 +2117,7 @@ Thus, the probe radiation in the image plane is given as
   \left[%
     1
     +
-    i \tilde{\phi}_0 \cos\nu
+    i \tilde{\phi}(x_{\image}, t)
   \right].
 \end{equation}
 Now, assume that the imaged probe radiation
@@ -2106,18 +2131,19 @@ The total field impinging on the detector is then
   E(\vect{r}_{\image}, t)
   =
   E_G(\vect{r}_{\image}, t)
-  \left[%
+  \left\{%
     e^{i \phi_R}
     +
     e^{i \bar{\phi}}
-    \left(%
+    \left[%
       1
       +
-      i \tilde{\phi}_0 \cos\nu
-    \right)
-  \right],
+      i \tilde{\phi}(x_{\image}, t)
+    \right]
+  \right\},
 \end{equation}
-and, to first order in $\tilde{\phi}_0$, the corresponding intensity is
+and, to first order in $\tilde{\phi}(x_{\image}, t)$,
+the corresponding intensity is
 \begin{equation}
   I(\vect{r}_{\image}, t)
   =
@@ -2127,7 +2153,7 @@ and, to first order in $\tilde{\phi}_0$, the corresponding intensity is
     +
     \cos(\phi_R - \bar{\phi})
     +
-    \tilde{\phi}_0 \sin(\phi_R - \bar{\phi}) \cos\nu
+    \tilde{\phi}(x_{\image}, t) \sin(\phi_R - \bar{\phi})
   \right],
   \label{eq:InterferometricMethods:interferometer_intensity_arbitrary_reference}
 \end{equation}
@@ -2154,8 +2180,8 @@ such that the resulting intensity is
       \cos(\phi_R - \bar{\phi})
       \\
       &+
-      \tilde{\phi}_0
-      \sin(\phi_R - \bar{\phi}) \cos\nu
+      \tilde{\phi}(x_{\image}, t)
+      \sin(\phi_R - \bar{\phi})
     \bigr].
   \end{aligned}
   \label{eq:InterferometricMethods:homodyne_intensity}
@@ -2186,9 +2212,9 @@ where
   \cdot
   \sin(\phi_R - \bar{\phi})
   \cdot
-  \tilde{\phi}_0 \cos\nu.
+  \tilde{\phi}(x_{\image}, t).
 \end{align}
-Then, because $\tilde{\phi}_0 \ll 1$
+Then, because $|\tilde{\phi}(x_{\image}, t)| \ll 1$
 \begin{equation}
   I_{\text{hom}}(\vect{r}_{\image}, t)
   \approx
@@ -2216,7 +2242,7 @@ Then
   \cdot
   T_{\text{hom}}
   \cdot
-  \tilde{\phi}_0 \cos\nu_j,
+  \tilde{\phi}(x_{\image}, t),
 \end{equation}
 where
 \begin{equation}
@@ -2246,7 +2272,7 @@ means that the reference beam is
 out-of-phase with the unscattered beam but
 in-phase with the scattered beams.
 Note that interfering the scattered beams with this in-phase reference beam
-produces an intensity linear in $\tilde{\phi}_0$;
+produces an intensity linear in $\tilde{\phi}(x_{\image}, t)$;
 this should be contrasted with the weak, quadratic intensity variation
 of (\ref{eq:InterferometricMethods:imaged_field_intensity})
 that occurs in the absence of a reference beam
@@ -2289,12 +2315,14 @@ For example, vibration-induced misalignment or
 power fluctuations at the beam source
 can alter the intensity $I_G(\vect{r}_{\image})$.
 As a result, there are three potentially dynamic quantities:
-$\{\phi_R - \bar{\phi}, \tilde{\phi}_0, I_G(\vect{r}_{\image})\}$, but
-there are only two measured quantities:
+$\{\phi_R - \bar{\phi}, \,
+\tilde{\phi}(x_{\image}, t), \,
+I_G(\vect{r}_{\image})\}$,
+but there are only two measured quantities:
 the equilibrium and fluctuating homodyne powers.
 Thus, it is generally impossible to distinguish
 whether changes in the amplitude of the fluctuating power
-are attributable to real changes in $\tilde{\phi}_0$ or
+are attributable to real changes in $\tilde{\phi}(x_{\image}, t)$ or
 are simply an artifact of the system alignment or radiation source.
 
 
@@ -2315,8 +2343,8 @@ becomes
       \cos(\Delta \omega_0 t + \bar{\phi})
       \\
       &-
-      \tilde{\phi}_0
-      \sin(\Delta \omega_0 t + \bar{\phi}) \cos\nu
+      \tilde{\phi}(x_{\image}, t)
+      \sin(\Delta \omega_0 t + \bar{\phi})
     \bigr].
   \end{aligned}
   \label{eq:InterferometricMethods:heterodyne_intensity}
@@ -2324,12 +2352,15 @@ becomes
 This approach is known as heterodyne interferometry,
 as the desired baseband phase information is shifted
 to an intermediate frequency $\Delta \omega_0$
-satisfying $\omega \ll \Delta \omega_0 \ll \omega_0$.
+satisfying $\omega_{\text{max}} \ll \Delta \omega_0 \ll \omega_0$,
+where $\omega_{\text{max}}$ is the maximum angular frequency
+in $\tilde{\phi}(x_{\image}, t)$.
 Note that the dominant Fourier components of $I_{\text{het}}$
 sit at the intermediate frequency $\pm \Delta \omega_0$ but that
-the phase-fluctuation term $\sin(\Delta \omega_0 t + \bar{\phi}) \cos\nu$
-produces sidebands at $\pm (\Delta \omega_0 \pm \omega)$,
-as sketched in
+the phase-fluctuation term
+$\tilde{\phi}(x_{\image}, t) \sin(\Delta \omega_0 t + \bar{\phi})$
+produces sidebands about $\pm \Delta \omega_0$;
+sideband production for a sinusoidal phase fluctuation is sketched in
 Fig.~\ref{fig:InterferometricMethods:baseband_vs_intermediate_frequency}.
 \graffito{\textcolor{red}{This will be discussed more in Ch.~3}}
 Practically, the $\phi_R$ ramp is accomplished by modestly Doppler shifting
@@ -2384,7 +2415,7 @@ Thus, the equivalent $I$ and $Q$ optical intensities are defined as
   &=
   I_G(\vect{r}_{\image})
   e^{i \bar{\phi}}
-  \left( 1 + i \tilde{\phi}_0 \cos\nu \right),
+  \left[ 1 + i \tilde{\phi}(x_{\image}, t) \right],
   \label{eq:InterferometricMethods:heterodyne_interferometer_I_and_Q_intensity}
 \end{align}
 where $\langle q \rangle_{\Delta \omega_0}$ denotes
@@ -2420,30 +2451,30 @@ can be separated into equilibrium and fluctuating components as
   -I_G(\vect{r}_{\image})
   \sin\bar{\phi}
   \cdot
-  \tilde{\phi}_0 \cos\nu,
+  \tilde{\phi}(x_{\image}, t),
   \\
   \tilde{I}_{Q}(\vect{r}_{\image}, t)
   &=
   I_G(\vect{r}_{\image})
   \cos\bar{\phi}
   \cdot
-  \tilde{\phi}_0 \cos\nu.
+  \tilde{\phi}(x_{\image}, t).
 \end{align}
 As is the case for the homodyne interferometer,
 there are three potentially dynamic quantities:
-$\{\bar{\phi}, \tilde{\phi}_0, I_G(\vect{r}_{\image})\}$;
+$\{\bar{\phi}, \, \tilde{\phi}(x_{\image}, t), \, I_G(\vect{r}_{\image})\}$;
 however, in contrast to the homodyne interferometer,
 there are now \emph{four} measured quantities:
-$\{\bar{I}_{I}, \bar{I}_{Q}, \tilde{I}_{I}, \tilde{I}_{Q}\}$.
+$\{\bar{I}_{I}, \, \bar{I}_{Q}, \, \tilde{I}_{I}, \, \tilde{I}_{Q}\}$.
 Therefore, the number of measured quantities
 is sufficient to unambiguously determine
-$\{\bar{\phi}, \tilde{\phi}_0, I_G(\vect{r}_{\image})\}$
+$\{\bar{\phi}, \, \tilde{\phi}(x_{\image}, t), \, I_G(\vect{r}_{\image})\}$
 in absolute units.
 
 Finally, it is useful to characterize
 the heterodyne interferometer's performance
 relative to the saturation limits of a given detector.
-Because $\tilde{\phi}_0 \ll 1$, the heterodyne intensity
+Because $|\tilde{\phi}(x_{\image}, t)| \ll 1$, the heterodyne intensity
 (\ref{eq:InterferometricMethods:heterodyne_intensity})
 can be approximated as
 \begin{align}
@@ -2479,7 +2510,7 @@ in the demodulated signals to be
   &=
   I_G(\vect{r}_{\image})
   \cdot
-  \tilde{\phi}_0 \cos\nu
+  \tilde{\phi}(x_{\image}, t)
   \label{eq:InterferometricMethods:heterodyne_total_fluctuating_intensity}
 \end{align}
 such that
@@ -2490,8 +2521,7 @@ such that
   \cdot
   T_{\text{het}}
   \cdot
-  \tilde{\phi}_0
-  \cos\nu,
+  \tilde{\phi}(x_{\image}, t),
 \end{equation}
 where
 \begin{equation}
@@ -2599,7 +2629,7 @@ of the incident unscattered beam power, while
 the phase-plate face reflects all of the scattered beam power.
 Thus, by the action of the phase plate,
 $1 \rightarrow i \sqrt{\eta}$ in the imaged electric field
-(\ref{eq:InterferometricMethods:imaged_total_field_weak_coupling})
+(\ref{eq:InterferometricMethods:imaged_total_field_monochromatic_fluctuation_weak_coupling})
 such that
 \begin{equation}
   E_{\text{PCI}}(\vect{r}_{\image}, t)
