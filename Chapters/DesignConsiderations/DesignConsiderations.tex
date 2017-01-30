@@ -2,7 +2,10 @@
 \label{ch:DesignConsiderations}
 
 
-\section{Geometric effects of unmatched beams}
+\section{Geometric considerations}
+
+
+\subsection{Spatial-structure mismatch between beams}
 The external reference-beam interferometry derivations
 in Section~\ref{sec:InterferometricMethods:interferometry}
 assumed that the reference beam was exactly matched
@@ -202,6 +205,121 @@ becomes
 \end{equation}
 
 
+\subsection{Finite sampling-volume effects}
+\label{sec:DesignConsiderations:geometric:finite_sampling_volume}
+Practically speaking, detection is always effected
+via detector elements of \emph{finite} size.
+Finite sampling-volume effects~\cite{bravenec_rsi95} dictate
+the homodyne interferometer's wavenumber response~\cite{davis_rsi16}.
+Assume that the probe radiation and the reference beam
+are interfered on a detector array,
+as shown in Fig.~\ref{fig:DesignConsiderations:detector_array}.
+Let the $j$\ts{th} detector element $D_j$ be centered on $x_{\image,j}$
+and $y_{\image} = 0$;
+the total power $P_{j, \, \text{hom}}$ incident on this element is then
+\begin{align}
+  P_{j, \, \text{hom}}(t)
+  &=
+  \int_{D_j} I_{\text{hom}}(\vect{r}_{\image}, t) dA
+  \notag \\
+  &\begin{aligned}
+    \approx
+    2 I_G(\vect{r}_{\image,j}) s_y
+    &\int_{x_{\image,j} - s_x / 2}^{x_{\image,j} + s_x / 2}
+    \biggl[%
+      1
+      +
+      \cos(\phi_R - \bar{\phi})
+      \\
+      &\qquad+
+      \tilde{\phi}_0
+      \sin(\phi_R - \bar{\phi}) \cos\nu
+    \biggr] dx_{\image},
+  \end{aligned}
+  %\label{eq:InterferometricMethods:homodyne_interferometer_total_power_per_element_integral}
+\end{align}
+where the weakly varying intensity profile $I_G(\vect{r}_{\image})$
+has been approximated as a constant
+over the face of the detector element.
+As the finite sampling-volume integral
+will also be applied in other sections,
+it is explicitly evaluated here for later reference
+\begin{equation}
+  \int_{x_{\image,j} - s_x / 2}^{x_{\image,j} + s_x / 2}
+  \cos(\nu + \theta) dx_{\image}
+  =
+  s_x
+  \cdot
+  T_{\text{fsv}}(k_{\image})
+  \cdot
+  \cos(\nu_j + \theta),
+  %\label{eq:InterferometricMethods:finite_sampling_volume_integral}
+\end{equation}
+where
+\begin{equation}
+  T_{\text{fsv}}(k_{\image})
+  \equiv
+  \sinc\left( \frac{k_{\image}}{k_{\text{fsv},\image}} \right)
+  %\label{eq:InterferometricMethods:finite_sampling_volume_transfer_function}
+\end{equation}
+is the finite sampling-volume transfer function,
+\begin{equation}
+  \sinc(x) = \frac{\sin(\pi x)}{\pi x}
+  %\label{eq:InterferometricMethods:normalized_sinc}
+\end{equation}
+is the normalized sinc function,
+\begin{equation}
+  k_{\text{fsv},\image} = \frac{2 \pi}{s_x}
+  %\label{eq:InterferometricMethods:finite_sampling_volume_cutoff}
+\end{equation}
+is the first zero of $T_{\text{fsv}}(k_{\image})$,
+\begin{equation}
+  \nu_j = k_{\image} x_{\image,j} - \omega t,
+  %\label{eq:InterferometricMethods:nu_j}
+\end{equation}
+and $\theta$ is a \emph{constant} with respect to $x_{\image}$.
+Thus, the homodyne optical power becomes
+\begin{align}
+  \begin{aligned}
+    P_{j, \, \text{hom}}(t)
+    =
+    2 I_G(\vect{r}_{\image,j}) A
+    &\bigl[%
+      1
+      +
+      \cos(\phi_R - \bar{\phi})
+      \\
+      &+
+      \tilde{\phi}_0
+      \sin(\phi_R - \bar{\phi})
+      T_{\text{fsv}}(k_{\image})
+      \cos\nu_j
+    \bigr],
+  \end{aligned}
+  %\label{eq:InterferometricMethods:homodyne_interferometer_total_power_per_element}
+\end{align}
+where $A = s_x s_y$ is the area of the detector element.
+
+
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/DesignConsiderations/figs/detector_array.pdf}
+  \caption[Finite sampling-volume effects in a detector array]{%
+    The probe radiation and the reference beam
+    are interfered on a detector array.
+    The array consists of numerous detector elements,
+    each of size $s_x \times s_y$ and with interelement spacing $\delta_x$.
+    The unscattered beam is centered on $x_0 = 0$ and $y = 0$, and
+    its intensity profile varies only weakly over any given element.
+    The finite size of each detector element tends to attenuate
+    short wavelength components of the incident optical signal.
+  }
+\label{fig:DesignConsiderations:detector_array}
+\end{figure}
+
+
 \section{Phase noise: sources and effects}
 
 
@@ -294,7 +412,7 @@ by the laser's jitter.
 \end{itemize}
 
 
-\subsection{Finite modulator coupling time}
+\subsection{Modulator's finite coupling time}
 \begin{itemize}
   \item \textcolor{red}{similar to laser phase-noise discussion}
   \item \textcolor{red}{Compute autospectral density and compare to ideal}
