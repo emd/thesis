@@ -426,21 +426,59 @@ Then, appropriately generalizing the derivations between
 one readily finds that the total fluctuating power
 in the heterodyne interferometer's demodulated signals is
 \begin{equation}
-  \tilde{I}_{j, IQ}(t)
+  \tilde{I}_{IQ}(\vect{r}_{\image}, t)
   =
-  I_G(\vect{r}_{\image,j})
+  I_G(\vect{r}_{\image})
   \left[%
     \tilde{\phi}(x_{\image}, t)
     +
     \delta \phi_{\omega_0}(t - \tau, \tau)
-  \right];
+  \right],
+\end{equation}
+and the measured phase fluctuation
+$\tilde{\phi}_{\text{meas}}(x_{\image}, t)
+=
+\tilde{I}_{IQ}(\vect{r}_{\image}, t) / I_G(\vect{r_{\image}})$ is
+\begin{equation}
+  \tilde{\phi}_{\text{meas}}(x_{\image}, t)
+  =
+  \tilde{\phi}(x_{\image}, t)
+  +
+  \delta \phi_{\omega_0}(t - \tau, \tau);
+  \label{eq:DesignConsiderations:measured_phase_with_laser_jitter}
 \end{equation}
 that is, the fluctuating signal is contaminated
 by the laser's jitter.
 
-\begin{itemize}
-  \item \textcolor{red}{Compute autospectral density and compare to ideal}
-\end{itemize}
+\graffito{\textcolor{red}{Consistent notation and units with Appendix??}}
+The phase noise of an oscillator is discussed in
+Appendix~\ref{app:OscillatorPhaseNoise}.
+Whereas the phase noise $\delta \phi_{\omega_0}(t - \tau, \tau)$
+is a complicated function of the externally imposed time delay $\tau$,
+the phase noise's autospectral density $S_{\delta \phi_{\omega_0}}(f)$
+can be explicitly related to the autospectral density of
+the laser's underlying frequency deviation $S_{\delta \nu_0}(f)$ via
+(\ref{eq:OscillatorPhaseNoise:phase_noise_autospectral_density}),
+which is repeated here for completeness:
+\begin{equation}
+  S_{\delta \phi_{\omega_0}}(f)
+  =
+  [2 \pi \tau \sinc(f \tau)]^2 S_{\delta \nu_0}(f).
+\end{equation}
+Thus, the autospectral density of the measured phase fluctuation from
+(\ref{eq:DesignConsiderations:measured_phase_with_laser_jitter})
+becomes
+\begin{equation}
+  S_{\tilde{\phi}_{\text{meas}}}(f)
+  =
+  S_{\tilde{\phi}}(f)
+  +
+  [2 \pi \tau \sinc(f \tau)]^2 S_{\delta \nu_0}(f)
+\end{equation}
+Thus, the error in the autospectral density of the measured phase
+is linearly related to the autospectral density
+of the laser's underlying frequency deviation and
+quadratically related to the time delay $\tau$.
 
 
 \subsection{Modulator's finite coupling time}
