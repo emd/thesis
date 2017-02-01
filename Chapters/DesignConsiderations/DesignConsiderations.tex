@@ -46,6 +46,7 @@ Fourier decomposing $\tilde{\phi}(x_{\image}, t)$ and
 exchanging the order of integration,
 (\ref{eq:DesignConsiderations:fluctuating_baseband_equivalent_optical_power_per_element_v1})
 becomes
+\graffito{\textcolor{red}{DTFT???}}
 \begin{align}
   \tilde{P}_{IQ,j}(t)
   &=
@@ -468,6 +469,7 @@ which is repeated here for completeness:
 Thus, the autospectral density of the measured phase fluctuation from
 (\ref{eq:DesignConsiderations:measured_phase_with_laser_jitter})
 becomes
+\graffito{\textcolor{red}{Note about cancellation of uncorrelated cross terms}}
 \begin{equation}
   S_{\tilde{\phi}_{\text{meas}}}(f)
   =
@@ -564,18 +566,25 @@ the AOM's finite coupling time far exceeds
 the few tens of nanoseconds required for the beam
 to propagate through an interferometer
 of optical path length $\sim \SI{10}{\meter}$.
-Thus, in the context of of the AOM's finite coupling time and
-the local oscillator's jitter, the heterodyne intensity
-(\ref{eq:InterferometricMethods:heterodyne_intensity})
-generalizes to
-\begin{equation}
+Thus, to account for the AOM's finite coupling time and
+the local oscillator's jitter, take
+$\Delta \omega_0 t
+\rightarrow
+[\Delta \omega_0 (t - \tau) + \phi_{\Delta \omega_0}(t - \tau)]$
+in the heterodyne intensity
+(\ref{eq:InterferometricMethods:heterodyne_intensity}).
+Then, assuming negligible finite sampling-volume effects,
+the heterodyne output voltage
+from a detector element at position $\vect{r}_{\image}$
+is simply proportional to the local intensity intensity, i.e.\
+\begin{align}
   \begin{aligned}
-    I_{\text{het}}(\vect{r}_{\image}, t)
-    =
-    2 I_G(\vect{r}_{\image})
+    V_{\text{het}}(\vect{r}_{\image}, t)
+    &=
+    2 V_0
     \bigl\{%
       1
-      &+
+      +
       \cos\left[%
         \Delta \omega_0 t
         +
@@ -584,7 +593,7 @@ generalizes to
         \phi_{\Delta \omega_0}(t - \tau)
       \right]
       \\
-      &-
+      &\quad-
       \tilde{\phi}(x_{\image}, t)
       \sin\left[%
         \Delta \omega_0 t
@@ -595,12 +604,65 @@ generalizes to
       \right]
     \bigr\},
   \end{aligned}
-  \label{eq:DesignConsiderations:heterodyne_intensity_finite_AOM_coupling_time}
-\end{equation}
+\end{align}
 where $\bar{\phi}_{\text{eff}} = \bar{\phi} - \Delta \omega_0 \tau$.
+Then, following the same demodulation ``program'' used between
+(\ref{eq:InterferometricMethods:heterodyne_interferometer_I_and_Q_intensity})
+and
+(\ref{eq:InterferometricMethods:heterodyne_total_fluctuating_intensity}),
+the demodulated in-phase ($V_I$) and quadrature ($V_Q$) signals are defined as
+\graffito{\textcolor{red}{Sign \& arg.\ of $\delta \phi_{\Delta \omega_0}$??}}
+\begin{align}
+  V_{I}(t)
+  +
+  i \cdot V_{Q}(t)
+  &=
+  \frac{1}{V_0}
+  \langle
+    V_{\text{LO}}(t)
+    \cdot
+    V_{\text{het}}(t)
+  \rangle_{\Delta \omega_0}
+  \notag \\
+  &=
+  V_0
+  e^{i \bar{\phi}_{\text{eff}}}
+  \left[
+    \tilde{\phi}(x_{\image}, t)
+    +
+    \delta \phi_{\Delta \omega_0}(t - \tau, \tau)
+  \right],
+\end{align}
+and the total fluctuating voltage in the demodulated signals is
+\begin{equation}
+  \tilde{V}_{IQ}(t)
+  =
+  V_0
+  \left[
+    \tilde{\phi}(x_{\image}, t)
+    +
+    \delta \phi_{\Delta \omega_0}(t - \tau, \tau)
+  \right].
+\end{equation}
+Thus, the measured phase fluctuation
+$\tilde{\phi}_{\text{meas}}(x_{\image}, t)
+=
+\tilde{V}_{IQ}(t) / V_0$
+becomes
+\graffito{\textcolor{red}{Sign \& arg.\ of $\delta \phi_{\Delta \omega_0}$??}}
+\begin{equation}
+  \tilde{\phi}_{\text{meas}}(x_{\image}, t)
+  =
+  \tilde{\phi}(x_{\image}, t)
+  +
+  \delta \phi_{\Delta \omega_0}(t - \tau, \tau);
+\end{equation}
+that is, the fluctuating signal is contaminated
+by the local oscillator's jitter.
 
-
-
+\begin{itemize}
+  \item \textcolor{red}{modify corresponding path-length matching as needed}
+\end{itemize}
 
 
 \section{Amplitude noise: sources and effects}
