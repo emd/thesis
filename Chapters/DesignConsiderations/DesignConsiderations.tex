@@ -372,7 +372,7 @@ is well-described by
   E_G(\vect{r}, t)
   =
   E_G(\vect{r})
-  e^{-i [\omega_0 t + \phi_{\omega_0}(t)]}
+  e^{-i [\omega_0 t + \phi_{\omega_0}(t)]},
 \end{equation}
 where $\phi_{\omega_0}(t)$ is a zero-mean, stationary, random process
 whose temporal variation causes
@@ -482,10 +482,125 @@ quadratically related to the time delay $\tau$.
 
 
 \subsection{Modulator's finite coupling time}
-\begin{itemize}
-  \item \textcolor{red}{similar to laser phase-noise discussion}
-  \item \textcolor{red}{Compute autospectral density and compare to ideal}
-\end{itemize}
+Heterodyne detection is effected by
+modestly Doppler shifting the reference beam
+relative to the plasma beam.
+It is easy to Doppler shift $\SI{10.6}{\micro\meter}$ radiation
+by tens of $MHz$ with a Germanium acousto-optic modulator (AOM).
+The operation of a typical AOM is sketched in
+Fig.~\ref{fig:DesignConsiderations:aom_scattering_diagram}.
+A piezo-actuator drives sound waves
+of angular frequency $\Delta \omega_0$
+through the Germanium crystal, and
+the sound waves act as a diffraction grating
+that propagates at the crystal's sound speed $c_s$.
+When a beam of vacuum wavelength $\lambda_0$
+impinges upon the crystal at the Bragg angle
+\graffito{\textcolor{red}{comment about Bragg regime criterion from Ch.~2?}}
+\begin{equation}
+  \theta_B = \frac{\lambda_0 \cdot \Delta \omega_0}{4 \pi c_s},
+  \label{eq:DesignConsiderations:Bragg_angle}
+\end{equation}
+a portion of the beam is deflected and
+Doppler shifted by angular frequency $\Delta \omega_0$
+\cite[Sec.~20.1]{saleh_and_teich}.
+The power in the deflected beam
+is controlled by the intensity of the sound waves.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/DesignConsiderations/figs/aom_scattering_diagram.pdf}
+  \caption[Illustration of AOM operation in a heterodyne interferometer]{%
+    An illustration of AOM operation in a heterodyne interferometer.
+    A piezo-actuator drives sound waves of angular frequency $\Delta \omega_0$
+    through a crystal (usually Germanium for $\SI{10.6}{\micro\meter}$ light),
+    and these sound waves deflect and Doppler shift light
+    that is incident upon the crystal at the Bragg angle $\theta_B$.
+    The sound waves propagate from the piezo-actuator
+    to the AOM's optically active region
+    over finite time $\tau = d / c_s$.
+    The RF waveform that drives the piezo-actuator
+    is sampled and used to demodulate the heterodyne interference signal.}
+\label{fig:DesignConsiderations:aom_scattering_diagram}
+\end{figure}
+
+The coupling of the AOM's drive signal to the deflected beam
+occurs on the crystal's sound-wave timescale.
+If the sound waves must propagate a distance $d$
+from the piezo-actuator to the AOM's optically active region,
+the drive signal is coupled to the deflected beam
+only after time delay $\tau = d / c_s$.
+\graffito{\textcolor{red}{reference?}}
+The sound speed in Germanium is $c_s = \SI{5400}{\meter\per\second}$
+such that a distance $d = \SI{1}{\centi\meter}$
+is accompanied by a time delay $\tau = \SI{1.85}{\micro\second}$.
+Note that this is large compared to many other timescales
+typically considered in interferometry;
+for example, light propagates
+through $\SI{1}{\meter}$ of air
+in only $\SI{3.33}{\nano\second}$,
+and an RF signal propagates
+through $\SI{1}{\meter}$ of RG-58 coaxial cable
+(for which the index of refraction is $\sim 3 / 2$)
+in only $\SI{5}{\nano\second}$.
+
+In the presence of local-oscillator jitter,
+an AOM's finite coupling time
+can degrade the performance of a heterodyne interferometer.
+A local oscillator with short-term jitter is well-described by
+\begin{equation}
+  V_{\text{LO}}(t)
+  =
+  V_{0}
+  e^{-i [\Delta \omega_0 t + \phi_{\Delta \omega_0}(t)]},
+\end{equation}
+where $\phi_{\Delta \omega_0}(t)$ is a zero-mean, stationary, random process
+whose temporal variation causes
+the local oscillator's instantaneous angular frequency
+to wander about its nominal value $\Delta \omega_0$.
+As discussed in the previous paragraph,
+the AOM's finite coupling time far exceeds
+the few tens of nanoseconds required for the beam
+to propagate through an interferometer
+of optical path length $\sim \SI{10}{\meter}$.
+Thus, in the context of of the AOM's finite coupling time and
+the local oscillator's jitter, the heterodyne intensity
+(\ref{eq:InterferometricMethods:heterodyne_intensity})
+generalizes to
+\begin{equation}
+  \begin{aligned}
+    I_{\text{het}}(\vect{r}_{\image}, t)
+    =
+    2 I_G(\vect{r}_{\image})
+    \bigl\{%
+      1
+      &+
+      \cos\left[%
+        \Delta \omega_0 t
+        +
+        \bar{\phi}_{\text{eff}}
+        +
+        \phi_{\Delta \omega_0}(t - \tau)
+      \right]
+      \\
+      &-
+      \tilde{\phi}(x_{\image}, t)
+      \sin\left[%
+        \Delta \omega_0 t
+        +
+        \bar{\phi}_{\text{eff}}
+        +
+        \phi_{\Delta \omega_0}(t - \tau)
+      \right]
+    \bigr\},
+  \end{aligned}
+  \label{eq:DesignConsiderations:heterodyne_intensity_finite_AOM_coupling_time}
+\end{equation}
+where $\bar{\phi}_{\text{eff}} = \bar{\phi} - \Delta \omega_0 \tau$.
+
+
+
 
 
 \section{Amplitude noise: sources and effects}
