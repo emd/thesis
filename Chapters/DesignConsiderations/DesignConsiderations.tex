@@ -678,8 +678,30 @@ in a heterodyne interferometer has been throughly described elsewhere
 \end{itemize}
 
 \subsection{Detector noise}
+Real-world detector operation is associated with intrinsic noise.
+This noise results from, among other things,
+Johnson thermal noise in the detector and its associated electronics
+and shot noise in the background radiation flux
+\cite{hamamatsu_ir_detectors}.
+A detector's noise is often characterized by
+its noise-equivalent power ($NEP$):
+when the power of the incident optical signal is equal to the $NEP$,
+the signal-to-noise ratio is unity.
+For a measurement with temporal bandwidth $\Delta f$,
+a detector element with effective area $A$
+will have an $NEP$
+\begin{equation}
+  NEP = \frac{\sqrt{A \cdot \Delta f}}{D^{*}},
+\end{equation}
+where $D^{*}$ is the detector's specific detectivity
+\cite{jones_josa60}.
+\textcolor{red}{%
+The larger a detector's $D^{*}$,
+the higher the achievable signal-to-noise ratio with that detector.}
+
 
 \subsection{Shot noise}
+
 
 \subsection{Amplifier noise}
 The noise factor $F$ of an amplifier is defined as the ratio of
