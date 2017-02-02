@@ -523,7 +523,9 @@ is controlled by the intensity of the sound waves.
     to the AOM's optically active region
     over finite time $\tau = d / c_s$.
     The RF waveform that drives the piezo-actuator
-    is sampled and used to demodulate the heterodyne interference signal.}
+    is sampled and used to demodulate the heterodyne interference signal.
+    Note that for simplicity the refraction of the beam
+    as it enters and exits the crystal is \emph{not} depicted.}
 \label{fig:DesignConsiderations:aom_scattering_diagram}
 \end{figure}
 
@@ -666,6 +668,9 @@ by the local oscillator's jitter.
 
 
 \section{Amplitude noise: sources and effects}
+The demodulation of intensity and shot noise
+in a heterodyne interferometer has been throughly described elsewhere
+\cite{rakhmanov_ao01}.
 \begin{itemize}
   \item Electronics following demodulation equally affect signal and noise, so
     emphasis here is on noise immediately following demodulation
@@ -676,11 +681,24 @@ by the local oscillator's jitter.
 
 \subsection{Shot noise}
 
-
-\section{Demodulator imperfections}
-
+\subsection{Amplifier noise}
+The noise factor $F$ of an amplifier is defined as the ratio of
+the signal-to-noise ratio at the device's input ($SNR_{\text{in}}$) to
+the signal-to-noise ratio at the device's output ($SNR_{\text{out}}$)
+\begin{equation}
+  F = \frac{SNR_{\text{in}}}{SNR_{\text{out}}};
+\end{equation}
+often, the noise factor $F$ is given
+in terms of the noise figure $NF$
+\cite{minicircuits_amplifier_terms_defined}
+\begin{equation}
+  NF = 10 \log_{10} F.
+\end{equation}
 
 \section{Bit noise}
+
+
+\section{Demodulator imperfections}
 
 
 \bibliographystyle{plainurl}
