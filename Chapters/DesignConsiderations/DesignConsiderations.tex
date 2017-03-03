@@ -452,35 +452,37 @@ that is, the fluctuating signal is contaminated
 by the laser's jitter.
 
 \graffito{\textcolor{red}{Consistent notation and units with Appendix??}}
-The phase noise of an oscillator is discussed in
-Appendix~\ref{app:OscillatorPhaseNoise}.
-Whereas the phase noise $\delta \phi_{\omega_0}(t - \tau, \tau)$
-is a complicated function of the externally imposed time delay $\tau$,
-the phase noise's autospectral density $S_{\delta \phi_{\omega_0}}(f)$
-can be explicitly related to the autospectral density of
-the laser's underlying frequency deviation $S_{\delta \nu_0}(f)$ via
-(\ref{eq:OscillatorPhaseNoise:phase_noise_autospectral_density}),
-which is repeated here for completeness:
-\begin{equation}
-  S_{\delta \phi_{\omega_0}}(f)
-  =
-  [2 \pi \tau \sinc(f \tau)]^2 S_{\delta \nu_0}(f).
-\end{equation}
-Thus, the autospectral density of the measured phase fluctuation from
-(\ref{eq:DesignConsiderations:measured_phase_with_laser_jitter})
-becomes
-\graffito{\textcolor{red}{Note about cancellation of uncorrelated cross terms}}
-\begin{equation}
-  S_{\tilde{\phi}_{\text{meas}}}(f)
-  =
-  S_{\tilde{\phi}}(f)
-  +
-  [2 \pi \tau \sinc(f \tau)]^2 S_{\delta \nu_0}(f)
-\end{equation}
-Thus, the error in the autospectral density of the measured phase
-is linearly related to the autospectral density
-of the laser's underlying frequency deviation and
-quadratically related to the time delay $\tau$.
+\textcolor{red}{%
+  The phase noise of an oscillator is discussed in
+  Appendix~\ref{app:OscillatorPhaseNoise}.
+  Whereas the phase noise $\delta \phi_{\omega_0}(t - \tau, \tau)$
+  is a complicated function of the externally imposed time delay $\tau$,
+  the phase noise's autospectral density $S_{\delta \phi_{\omega_0}}(f)$
+  can be explicitly related to the autospectral density of
+  the laser's underlying frequency deviation $S_{\delta \nu_0}(f)$ via
+  % (\ref{eq:OscillatorPhaseNoise:phase_noise_autospectral_density}),
+  which is repeated here for completeness:
+  \begin{equation}
+    S_{\delta \phi_{\omega_0}}(f)
+    =
+    [2 \pi \tau \sinc(f \tau)]^2 S_{\delta \nu_0}(f).
+  \end{equation}
+  Thus, the autospectral density of the measured phase fluctuation from
+  (\ref{eq:DesignConsiderations:measured_phase_with_laser_jitter})
+  becomes
+  \graffito{\textcolor{red}{Note about cancellation of uncorrelated cross terms}}
+  \begin{equation}
+    S_{\tilde{\phi}_{\text{meas}}}(f)
+    =
+    S_{\tilde{\phi}}(f)
+    +
+    [2 \pi \tau \sinc(f \tau)]^2 S_{\delta \nu_0}(f)
+  \end{equation}
+  Thus, the error in the autospectral density of the measured phase
+  is linearly related to the autospectral density
+  of the laser's underlying frequency deviation and
+  quadratically related to the time delay $\tau$.
+}
 
 
 \subsection{Modulator's finite coupling time}
