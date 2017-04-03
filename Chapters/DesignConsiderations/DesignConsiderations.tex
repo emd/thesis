@@ -680,6 +680,7 @@ in a heterodyne interferometer has been throughly described elsewhere
 \end{itemize}
 
 \subsection{Detector noise}
+\graffito{\textcolor{red}{check signs and write more clearly}}
 Real-world detector operation is associated with intrinsic noise.
 This noise results from, among other things,
 Johnson thermal noise in the detector and its associated electronics
@@ -795,6 +796,15 @@ is thus twice as large as Rakhmanov's expression).
 
 
 \subsection{Shot noise}
+The discrete nature of the arriving photons results in shot noise.
+Modeled as a Poisson process,
+the shot noise increases as $N_{\gamma}^{1/2}$, where
+$N_{\gamma}$ is the number of incident photons.
+Because the incident optical power (and hence the number of incident photons)
+in the optical heterodyne signal varies as a function of time,
+the corresponding shot noise is inherently \emph{nonstationary}.
+Surprisingly, however, the demodulated shot noise \emph{is} stationary
+\cite{rakhmanov_ao01}.
 
 
 \subsection{Amplifier noise}
