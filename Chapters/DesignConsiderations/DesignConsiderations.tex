@@ -775,6 +775,7 @@ of the demodulated detector noise is then
   S_{\delta P, \delta P}(\Delta \omega_0),
   \label{eq:DesignConsiderations:detector_noise_demodulated}
 \end{align}
+\graffito{\textcolor{red}{$\sim \SI{e-18}{\watt\squared\per\hertz}$}}
 where $S_{\delta P, \delta P}$ is
 the autospectral density of the detector noise, and
 the approximation follows from
@@ -787,7 +788,7 @@ is pushed into the baseband signal via the demodulation process.
 Note that the autospectral density of the demodulated detector noise
 (\ref{eq:DesignConsiderations:detector_noise_demodulated})
 is in agreement with the literature
-(e.g.\ see Rakhmanov's Eq. (47) in~\cite{rakhmanov_ao01}
+(e.g.\ see Rakhmanov's Eq.~(47) in~\cite{rakhmanov_ao01}
 with $d_1 = 1 / 2$ for demodulation against a perfect sinusoid;
 whereas Rakhmanov considers only \emph{one} of the demodulated channels,
 (\ref{eq:DesignConsiderations:detector_noise_demodulated})
@@ -797,29 +798,60 @@ is thus twice as large as Rakhmanov's expression).
 
 \subsection{Shot noise}
 The discrete nature of the arriving photons results in shot noise.
-Modeled as a Poisson process,
+Well-modeled as a Poisson process,
 the shot noise increases as $N_{\gamma}^{1/2}$, where
 $N_{\gamma}$ is the number of incident photons.
 Because the incident optical power (and hence the number of incident photons)
-in the optical heterodyne signal varies as a function of time,
+in the heterodyne optical signal is modulated as a function of time,
 the corresponding shot noise is inherently \emph{nonstationary}.
 Surprisingly, however, the demodulated shot noise \emph{is} stationary
-\cite{rakhmanov_ao01}.
+(e.g.\ see Rakhmanov's Eq.~(59) in~\cite{rakhmanov_ao01}).
+Note that Rakhmanov only considers \emph{one} of the demodulated signals, and
+maximizing the signal-to-noise ratio in the demodulated signal
+requires careful selection of the local oscillator's phase
+relative to that of the heterodyne signal
+(he terms this the ``demodulation phase'' and
+represents it via $\gamma$).
+However, by employing quadrature heterodyne detection~\cite{carlstrom_rsi88},
+in which $\gamma_Q = \gamma_I + \pi / 2$,
+the dependence on the demodulation phase vanishes; that is
+\graffito{\textcolor{red}{$\sim \SI{e-21}{\watt\squared\per\hertz}$}}
+\begin{align}
+  S_{\delta P_{IQ}, \delta P_{IQ}}(\omega)
+  &=
+  S_{\delta P_{I}, \delta P_{I}}(\omega; \gamma_I)
+  +
+  S_{\delta P_{Q}, \delta P_{Q}}(\omega; \gamma_Q)
+  \notag \\
+  &=
+  \hbar \omega_0 P_0,
+\end{align}
+where $\hbar$ is the Planck constant divided by $2 \pi$,
+$\omega_0$ is the angular frequency of the incident photons, and
+$P_0$ is the DC optical power impinging upon the detector.
 
 
 \subsection{Amplifier noise}
-The noise factor $F$ of an amplifier is defined as the ratio of
+The noise \emph{factor} $F$ of an RF amplifier is defined as the ratio of
 the signal-to-noise ratio at the device's input ($SNR_{\text{in}}$) to
 the signal-to-noise ratio at the device's output ($SNR_{\text{out}}$)
 \begin{equation}
   F = \frac{SNR_{\text{in}}}{SNR_{\text{out}}};
 \end{equation}
 often, the noise factor $F$ is given
-in terms of the noise figure $NF$
+in terms of the noise \emph{figure} $NF$
 \cite{minicircuits_amplifier_terms_defined}
 \begin{equation}
   NF = 10 \log_{10} F.
 \end{equation}
+If several amplifiers are cascaded,
+the total noise factor of the amplifier chain
+can be computed using the well-known Friis noise-factor formula.
+Note that the noise factor is only defined
+in the context of a signal-to-noise ratio, so
+it is not possible to write down the corresponding
+autospectral density of the amplifier noise in absolute units.
+
 
 \section{Bit noise}
 \begin{itemize}
