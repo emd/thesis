@@ -855,10 +855,15 @@ it is not possible to write down the corresponding
 autospectral density of the amplifier noise in absolute units.
 
 
-\section{Bit noise}
-\begin{itemize}
-  \item discussion here: \texttt{\path{/Users/emd/Google Drive/meeting_notes/1160523_porkolab/presentation}}
-\end{itemize}
+\section{Quantization noise}
+For sufficiently fine quantization $q$,
+the quantization noise is \emph{white} with
+variance $\sigma_x^2 = q^2 / 12$
+\cite[Th.~1]{bennett_bstj48}
+\cite[Ch.~20]{widrow_and_kollar}.
+In practice, aperture error, jitter, and nonlinearities
+may reduce the effective bit depth by one or two bits
+\cite[Sec.~10.2.4]{bendat_and_piersol}.
 
 
 \section{Demodulator imperfections}
