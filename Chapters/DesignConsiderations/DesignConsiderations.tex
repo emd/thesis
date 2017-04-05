@@ -856,14 +856,83 @@ autospectral density of the amplifier noise in absolute units.
 
 
 \section{Quantization noise}
-For sufficiently fine quantization $q$,
-the quantization noise is \emph{white} with
-variance $\sigma_x^2 = q^2 / 12$
-\cite[Th.~1]{bennett_bstj48}
-\cite[Ch.~20]{widrow_and_kollar}.
-In practice, aperture error, jitter, and nonlinearities
-may reduce the effective bit depth by one or two bits
+Efficient conversion of an analog signal to a digital record requires
+quantization of the signal magnitude and
+temporal sampling of these quantized magnitudes~\cite{bennett_bstj48}.
+This analog-to-digital conversion
+is performed by an instrument known as a digitizer.
+If a digitizer has bit depth $N_b$ and
+an input-voltage dynamic range $V_{\text{dyn}}$,
+then its quantum of voltage $\Delta V$ is
+\begin{equation}
+  \Delta V
+  =
+  \frac{V_{\text{dyn}}}{2^{N_b} - 1}
+  \approx
+  \frac{V_{\text{dyn}}}{2^{N_b}},
+  \label{eq:DesignConsiderations:digitizer_voltage_quantum}
+\end{equation}
+where the approximation is well-satisfied
+for typical digitizer bit depths.
+At each sampling time,
+the analog signal's magnitude is approximated
+by the closest quantized value, whose
+separation from the true, analog value
+will be less than or equal to $\Delta V / 2$.
+
+In general, then, the quantized signal
+will differ from the analog signal.
+This error $\epsilon$ is known as quantization noise.
+The mean square error (i.e.\ variance) is simply
+\begin{equation}
+  \overline{\epsilon^2} = \frac{(\Delta V)^2}{12},
+  \label{eq:DesignConsiderations:quantization_noise_variance}
+\end{equation}
+where $\Delta V$ is the digitizer's quantum of voltage,
+as given by (\ref{eq:DesignConsiderations:digitizer_voltage_quantum})
+\cite{bennett_bstj48}
 \cite[Sec.~10.2.4]{bendat_and_piersol}.
+For a uniformly sampled record with sampling rate $f_s$,
+sufficiently fine quantization $\Delta V$
+ensures that the quantization noise is \emph{white}
+\cite[Th.~1]{bennett_bstj48}
+\cite[Ch.~20]{widrow_and_kollar};
+that is, the autospectral density of the quantization noise is
+\begin{align}
+  S_{\epsilon,\epsilon}(f)
+  =
+  \frac{\overline{\epsilon^2}}{f_s}
+  =
+  \frac{(\Delta V)^2}{12 f_s},
+  \qquad
+  -f_s < f \leq f_s.
+  \label{eq:DesignConsiderations:quantization_noise_autospectral_density}
+\end{align}
+In practice, however, aperture error, jitter, and nonlinearities
+may reduce the effective bit depth by one or two bits
+\cite[Sec.~10.2.4]{bendat_and_piersol},
+increasing the realized quantization noise
+relative to that expected from
+(\ref{eq:DesignConsiderations:quantization_noise_variance}) and
+(\ref{eq:DesignConsiderations:quantization_noise_autospectral_density}).
+
+Quantization noise can be significant
+when attempting to measure absolute phase fluctuations
+with a heterodyne interferometer.
+Recall from the discussion of heterodyne interferometric detection in
+Section~\ref{sec:InterferometricMethods:interferometry:heterodyne}
+that measurement of the \emph{absolute} phase
+requires capturing the full dynamics
+of the large, slowly varying equilibrium phase $\bar{\phi}$
+in addition to measurement of the fluctuating phase $\tilde{\phi}$.
+Because $\tilde{\phi} \ll \bar{\phi}$ in typical situations,
+the fluctuations only occupy a small portion
+of the digitizer's dynamic range; that is,
+fluctuations effectively see a bit depth that
+is substantially smaller than the digitizer's nominal bit depth.
+Thus, to minimize the effect of quantization noise,
+it is absolutely imperative
+to utilize the full dynamic range of the digitizer.
 
 
 \section{Demodulator imperfections}
