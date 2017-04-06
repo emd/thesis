@@ -935,11 +935,37 @@ it is absolutely imperative
 to utilize the full dynamic range of the digitizer.
 
 
-\section{Demodulator imperfections}
+\section{Nonideal demodulation}
+\graffito{\textcolor{red}{reference earlier use of inverse tangent}}
+Quadrature heterodyne detection yields
+the in-phase ($I$) and quadrature ($Q$) signals.
+Ideally, $I = I_0 \cos\phi$ and $Q = Q_0 \sin\phi$ with $I_0 = Q_0$
+such that the absolute phase can be extracted as $\phi = \atan(Q / I)$.
+However,
 \begin{itemize}
   \item discussion here: \texttt{\path{/Users/emd/Google Drive/meeting_notes/1160523_porkolab/presentation}}
   \item Implications for phase computation
 \end{itemize}
+
+\subsection{Demodulator imperfections}
+\begin{itemize}
+  \item The popular form of an I/Q modulator/demodulator consists of
+    a 90-deg splitter,
+    two double-balanced mixers, and
+    a 0-deg splitter/combiner
+    (https://www.minicircuits.com/app/MOD11-2.pdf)
+  \item No, it is not necessary to furnish only sine waves
+    to a double-balanced mixer.
+    A double-balanced mixer operates as a switching device;
+    pulses are fine, and may even reduce distortion
+    (https://www.minicircuits.com/app/AN00-011.pdf)
+  \item Multipliers vs. modulators -- modulators as switching devices
+    (http://www.analog.com/media/en/analog-dialogue/volume-47/number-2/articles/multipliers-vs-modulators.pdf)
+  \item There MIQC-60WD+ has a ``symmetry'' wrt LO and RF --
+    so if only the sign matters, how do nonlinearities enter?
+\end{itemize}
+
+\subsection{Higher-order harmonics}
 
 
 \section{Intensity considerations}
