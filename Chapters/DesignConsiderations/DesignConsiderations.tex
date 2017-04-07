@@ -883,7 +883,7 @@ will be less than or equal to $\Delta V / 2$.
 In general, then, the quantized signal
 will differ from the analog signal.
 This error $\epsilon$ is known as quantization noise.
-The mean square error (i.e.\ variance) is simply
+The mean square error (i.e.\ variance) attributable to quantization is simply
 \begin{equation}
   \overline{\epsilon^2} = \frac{(\Delta V)^2}{12},
   \label{eq:DesignConsiderations:quantization_noise_variance}
@@ -935,19 +935,127 @@ it is absolutely imperative
 to utilize the full dynamic range of the digitizer.
 
 
-\section{Nonideal demodulation}
-\graffito{\textcolor{red}{reference earlier use of inverse tangent}}
-Quadrature heterodyne detection yields
-the in-phase ($I$) and quadrature ($Q$) signals.
-Ideally, $I = I_0 \cos\phi$ and $Q = Q_0 \sin\phi$ with $I_0 = Q_0$
-such that the absolute phase can be extracted as $\phi = \atan(Q / I)$.
-However,
+\section{Demodulation}
 \begin{itemize}
-  \item discussion here: \texttt{\path{/Users/emd/Google Drive/meeting_notes/1160523_porkolab/presentation}}
-  \item Implications for phase computation
+  \item Focus below is on analog, rather than digital, demodulation
 \end{itemize}
 
-\subsection{Demodulator imperfections}
+
+\subsection{Ideal demodulation}
+A typical analog $I\&Q$ demodulator consists of
+a $90^{\circ}$ splitter,
+two double-balanced mixers, and
+a $0^{\circ}$ splitter~\cite{minicircuits_modulators}, as shown in
+Fig.~\ref{fig:DesignConsiderations:analog_IQ_demodulator}(a).
+The $90^{\circ}$ splitter divides the incident local oscillator (LO) signal
+\begin{equation}
+  \text{LO}(t) = \cos(\Delta\omega_0 t)
+\end{equation}
+into an ``in-phase'' copy of the LO
+\begin{equation}
+  \text{LO}_0(t)
+  =
+  \frac{1}{\sqrt{2}} \cos(\Delta\omega_0 t)
+\end{equation}
+and a $\pi / 2$-phase-advanced copy of the LO
+\begin{equation}
+  \text{LO}_{\pi / 2}(t)
+  =
+  \frac{1}{\sqrt{2}} \cos\left( \Delta\omega_0 t + \frac{\pi}{2} \right)
+  =
+  - \frac{1}{\sqrt{2}} \sin(\Delta\omega_0).
+\end{equation}
+Note that the power in the incident LO signal
+is split evenly between $\text{LO}_0(t)$ and $\text{LO}_{\pi / 2}(t)$.
+The $0^{\circ}$ splitter divides the intermediate frequency (IF) signal
+\begin{equation}
+  \text{IF}(t) = A_{\text{IF}} \cos(\Delta\omega_0 t + \phi)
+\end{equation}
+into two nominally identical copies of the IF
+\begin{equation}
+  \text{IF}_0(t)
+  =
+  \frac{A_{\text{IF}}}{\sqrt{2}} \cos(\Delta\omega_0 t + \phi).
+\end{equation}
+Like the LO signal, the power in the incident IF signal
+is split evenly between the two copies.
+The signal at the demodulator's in-phase ($I$) port
+then corresponds to the product of
+$\text{IF}_0(t)$ with the in-phase LO signal $\text{LO}_0(t)$:
+\begin{equation}
+  \text{LO}_0(t) \cdot \text{IF}_0(t)
+  =
+  \frac{A_{\text{IF}}}{\sqrt{2}}
+  \left[
+    \cos(\phi) + \cos(2 \Delta\omega_0 t + \phi)
+  \right].
+\end{equation}
+Such signal multiplication is often referred to as ``mixing''.
+Low-pass filtering the signal exiting the demodulator's $I$ port
+yields the baseband in-phase signal
+\begin{equation}
+  I = \frac{A_{\text{IF}}}{\sqrt{2}} \cos\phi.
+\end{equation}
+Similar reasoning regarding the product
+$\text{LO}_{\pi / 2}(t) \cdot \text{IF}_0(t)$
+at the demodulator's quadrature ($Q$) port
+yields the baseband quadrature signal
+\begin{equation}
+  Q = \frac{A_{\text{IF}}}{\sqrt{2}} \sin\phi.
+\end{equation}
+Note that the total power in the $I\&Q$ signals
+is $\SI{3}{\decibel}$ lower
+than the power in the incident IF signal.
+This is known as the \emph{conversion loss} of the demodulator, and
+it results from low-pass filtering the $I\&Q$ signals;
+real-world demodulators will have larger conversion losses
+due to the additional effects of dissipation and other nonideal effects.
+An \emph{absolute} phase measurement $\phi_m$ is then obtained via
+\begin{equation}
+  \phi_m = \atan\left( \frac{Q}{I} \right),
+  \label{eq:DesignConsiderations:phase_from_arctangent}
+\end{equation}
+independent of the power in the incident IF signal.
+Note that in this ideal case the measured phase is
+equal to the true phase $\phi_m = \phi$.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/DesignConsiderations/figs/analog_IQ_demodulator.pdf}
+  \caption[A typical analog $I\&Q$ demodulator]{%
+    (a) A typical analog $I\&Q$ demodulator and
+    (b) a typical diode-ring double-balanced mixer.}
+  \label{fig:DesignConsiderations:analog_IQ_demodulator}
+\end{figure}
+
+
+
+\subsection{Analog demodulation}
+However, in practice, mixing is more complicated
+than multiplication of one signal by another.
+For example, the operation of a typical diode-based double-balanced mixer
+is shown in Fig.~\ref{fig:DesignConsiderations:analog_IQ_demodulator}(b).
+
+\begin{itemize}
+  \item Double-balanced mixer operation
+    \begin{itemize}
+      \item Harmonics
+      \item DC offset
+    \end{itemize}
+  \item Separate paths for I \& Q lead to:
+    \begin{itemize}
+      \item Amplitude imbalance
+      \item Phase imbalance
+      \item DC offset imbalance
+    \end{itemize}
+  \item General expression for I \& Q signals
+    \begin{itemize}
+      \item Generalizes Van Zeeland and Kasten
+    \end{itemize}
+\end{itemize}
+
+
 \begin{itemize}
   \item The popular form of an I/Q modulator/demodulator consists of
     a 90-deg splitter,
@@ -963,9 +1071,17 @@ However,
     (http://www.analog.com/media/en/analog-dialogue/volume-47/number-2/articles/multipliers-vs-modulators.pdf)
   \item There MIQC-60WD+ has a ``symmetry'' wrt LO and RF --
     so if only the sign matters, how do nonlinearities enter?
+  \item Want the RF-to-IF path to be as \emph{linear} as possible
+    and to minimize the LO switching time
+  \item When RF-to-IF path is not perfectly linear,
+    get intermodulation distortion, typically most significant
+    at the third and fifth harmonics
+  \item At large RF signal powers, the RF voltage modulates
+    the diode conduction, resulting in lots of distortion
 \end{itemize}
 
-\subsection{Higher-order harmonics}
+
+\section{Implications for phase measurements}
 
 
 \section{Intensity considerations}
