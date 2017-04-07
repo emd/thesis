@@ -942,6 +942,7 @@ to utilize the full dynamic range of the digitizer.
 
 
 \subsection{Ideal demodulation}
+\label{sec:DesignConsiderations:demodulation:ideal}
 A typical analog $I\&Q$ demodulator consists of
 a $90^{\circ}$ splitter,
 two double-balanced mixers, and
@@ -1016,26 +1017,84 @@ An \emph{absolute} phase measurement $\phi_m$ is then obtained via
   \label{eq:DesignConsiderations:phase_from_arctangent}
 \end{equation}
 independent of the power in the incident IF signal.
-Note that in this ideal case the measured phase is
-equal to the true phase $\phi_m = \phi$.
+Note that in the ideal case the measured phase is
+equal to the true phase, i.e.\ $\phi_m = \phi$.
 
 \begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
     Chapters/DesignConsiderations/figs/analog_IQ_demodulator.pdf}
-  \caption[A typical analog $I\&Q$ demodulator]{%
+  \caption[Components of a typical analog $I\&Q$ demodulator]{%
     (a) A typical analog $I\&Q$ demodulator and
-    (b) a typical diode-ring double-balanced mixer.}
+    (b) a typical diode-ring double-balanced mixer.
+    \textcolor{red}{Baseband??? More thorough descriptions}}
   \label{fig:DesignConsiderations:analog_IQ_demodulator}
 \end{figure}
 
 
+\subsection{Nonideal demodulation}
+In Section~\ref{sec:DesignConsiderations:demodulation:ideal},
+mixing was idealized as the multiplication of the IF signal by the LO signal.
+However, in practice, more complex process are used
+to maximize the mixer's linear dynamic range and minimize its noise figure
+\cite{analog_devices_mix_and_mod,bryant_mult_vs_mod}.
 
-\subsection{Analog demodulation}
-However, in practice, mixing is more complicated
-than multiplication of one signal by another.
-For example, the operation of a typical diode-based double-balanced mixer
+For example, a typical ring-diode double-balanced mixer
 is shown in Fig.~\ref{fig:DesignConsiderations:analog_IQ_demodulator}(b).
+Typically, the LO power is $\sim \SI{20}{\deci\bel}$ larger than the IF power.
+As a result, the LO alone is responsible
+for biasing the mixer's diodes into conduction.
+Note that the diodes are not all simultaneously biased into conduction.
+Instead, when $V_a > V_c$ (neglecting the diode drops),
+diodes $D_1$ and $D_2$ are forced into conduction such that
+$V_b$ acts as a virtual ground for the IF signal
+coupled through transformer $T_2$.
+Then, when the LO changes sign such that $V_a < V_c$,
+diodes $D_1$ and $D_2$ stop conducting, and
+diodes $D_3$ and $D_4$ begin to conduct,
+forcing the virtual ground to jump from $V_b$ to $V_d$.
+Thus, the ring diode acts as a switch
+for the polarization of the coupled IF signal,
+with the switching governed by the sign and frequency of the LO.
+Low-pass filtering the polarization-modulated IF, of course,
+yields the desired baseband signals.
+
+This polarization modulation can alter the baseband spectrum.
+To see this, note that the sign of the LO signal
+is simply a zero-mean square wave
+\graffito{\textcolor{red}{ref??}}
+\begin{equation}
+  \text{sgn}\left( \text{LO}(t) \right)
+  =
+  \frac{4}{\pi}
+  \sum_{n = 0}^{\infty}
+  \frac{1}{2n + 1} \sin[(2n + 1) \Delta\omega_0 t].
+\end{equation}
+\begin{itemize}
+  \item IF is a perfect sinusoid
+  \item IF is \emph{not} a perfect sinusoid\ldots
+  \item Normalization of $\text{sgn}(\text{LO}(t))$?
+\end{itemize}
+
+
+\begin{itemize}
+  \item When RF-to-IF path is not perfectly linear,
+    get intermodulation distortion, typically most significant
+    at the third and fifth harmonics
+  \item At large RF signal powers, the RF voltage modulates
+    the diode conduction, resulting in lots of distortion
+  \item Want minimize the LO switching time
+  \item No, it is not necessary to furnish only sine waves
+    to a double-balanced mixer.
+    A double-balanced mixer operates as a switching device;
+    pulses are fine, and may even reduce distortion
+    (https://www.minicircuits.com/app/AN00-011.pdf)
+  \item Multipliers vs. modulators -- modulators as switching devices
+    (http://www.analog.com/media/en/analog-dialogue/volume-47/number-2/articles/multipliers-vs-modulators.pdf)
+\end{itemize}
+
+
+
 
 \begin{itemize}
   \item Double-balanced mixer operation
@@ -1056,32 +1115,7 @@ is shown in Fig.~\ref{fig:DesignConsiderations:analog_IQ_demodulator}(b).
 \end{itemize}
 
 
-\begin{itemize}
-  \item The popular form of an I/Q modulator/demodulator consists of
-    a 90-deg splitter,
-    two double-balanced mixers, and
-    a 0-deg splitter/combiner
-    (https://www.minicircuits.com/app/MOD11-2.pdf)
-  \item No, it is not necessary to furnish only sine waves
-    to a double-balanced mixer.
-    A double-balanced mixer operates as a switching device;
-    pulses are fine, and may even reduce distortion
-    (https://www.minicircuits.com/app/AN00-011.pdf)
-  \item Multipliers vs. modulators -- modulators as switching devices
-    (http://www.analog.com/media/en/analog-dialogue/volume-47/number-2/articles/multipliers-vs-modulators.pdf)
-  \item There MIQC-60WD+ has a ``symmetry'' wrt LO and RF --
-    so if only the sign matters, how do nonlinearities enter?
-  \item Want the RF-to-IF path to be as \emph{linear} as possible
-    and to minimize the LO switching time
-  \item When RF-to-IF path is not perfectly linear,
-    get intermodulation distortion, typically most significant
-    at the third and fifth harmonics
-  \item At large RF signal powers, the RF voltage modulates
-    the diode conduction, resulting in lots of distortion
-\end{itemize}
-
-
-\section{Implications for phase measurements}
+\subsection{Implications of nonideal demodulation for phase measurements}
 
 
 \section{Intensity considerations}
