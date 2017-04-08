@@ -1035,6 +1035,7 @@ equal to the true phase, i.e.\ $\phi_m = \phi$.
 
 
 \subsection{Nonideal mixing}
+\label{sec:DesignConsiderations:demodulation:nonideal_mixing}
 In Section~\ref{sec:DesignConsiderations:demodulation:ideal},
 mixing was idealized as the multiplication of the IF signal by the LO signal.
 However, in practice, more complex process are used
@@ -1043,6 +1044,8 @@ to maximize the mixer's linear dynamic range and minimize its noise figure
 
 For example, a typical ring-diode double-balanced mixer
 is shown in Fig.~\ref{fig:DesignConsiderations:analog_IQ_demodulator}(b).
+The balun transformers $T_1$ and $T_2$
+isolate the baseband port from the LO and IF ports.
 Typically, the LO power is $\sim \SI{20}{\deci\bel}$ larger than the IF power.
 As a result, the LO alone is responsible
 for biasing the mixer's diodes into conduction.
@@ -1060,6 +1063,11 @@ for the polarization of the coupled IF signal,
 with the switching governed by the sign and frequency of the LO.
 Low-pass filtering the polarization-modulated IF, of course,
 yields the desired baseband signal.
+Note that the diode switching time should be minimized
+for optimal modulation,
+explaining why some manufacturers
+advocate the use of a square, rather than a sinusoidal, LO
+\cite{minicircuits_mixer_faqs}.
 
 This polarization modulation can alter the baseband spectrum.
 To see this, note that the sign of the in-phase LO signal
@@ -1118,9 +1126,11 @@ only the odd harmonics of the fundamental will contribute, e.g.
   \sum_{n = 1}^{\infty}
   A_{2n - 1} \cos\left[ (2n - 1) (\Delta\omega_0 t + \phi) \right],
 \end{equation}
-where $A_{2n - 1}$ is
-the Fourier coefficient of the $(2n - 1)\ts{th}$ harmonic.
-Typically, $A_{2n - 1}$ decreases as $n$ increases.
+where $A_n$ is
+the Fourier coefficient of the $n\ts{th}$ harmonic.
+Typically, $A_n$ decreases as $n$ increases, but
+raising the IF amplitude drives more nonlinear interactions and
+increases the power in the higher order harmonics relative to the fundamental.
 Then,
 following Section~\ref{sec:DesignConsiderations:demodulation:ideal}'s program
 of mixing the LO with the IF and low-pass filtering yields
@@ -1148,14 +1158,14 @@ That is, the higher order harmonics of the IF signal
 \emph{beat} with the corresponding higher order harmonics
 of the LO switching function
 to produce harmonics in the baseband signal.
-The coefficient $A_n / A_1$ is referred to as
+The coefficient $A_n / (n \cdot A_1)$ gives
 the \emph{suppression} of the $n\ts{th}$ harmonic, and
 it is typically expressed in decibels
 referenced to the power of the carrier, or dBc, as
 \begin{equation}
   \text{suppression of $n\ts{th}$ harmonic [dBc]}
   =
-  20 \log_{10} \left( \frac{A_n}{A_1} \right).
+  20 \log_{10} \left( \frac{A_n}{n \cdot A_1} \right).
 \end{equation}
 Noting that $\text{sgn}(\text{LO}_{\pi / 2}(t))$
 is an inverted, zero-mean square wave
@@ -1182,33 +1192,84 @@ shows that the quadrature baseband signal is
     \cdots
   \right].
 \end{align}
+Additional distortion of the baseband signal results
+if the IF power becomes comparable the LO power,
+say within $\SI{10}{\deci\bel}$,
+as the IF signal begins to contribute
+to the modulation of the diode conduction.
 
-\begin{itemize}
-  \item At large RF signal powers, the RF voltage modulates
-    the diode conduction, resulting in lots of distortion
-  \item Want minimize the LO switching time
-  \item No, it is not necessary to furnish only sine waves
-    to a double-balanced mixer.
-    A double-balanced mixer operates as a switching device;
-    pulses are fine, and may even reduce distortion
-    (https://www.minicircuits.com/app/AN00-011.pdf)
-\end{itemize}
-
-\begin{itemize}
-  \item Normalization of $\text{sgn}(\text{LO}(t))$?
-  \item DC offset in baseband can result if diodes are not carefully matched,
-    as the alternating virtual grounds are not equivalent
-\end{itemize}
+Finally, the diodes of the mixers should be matched as closely as possible.
+If, for example, diodes $D_1$ and $D_2$
+have slightly different voltage drops than diodes $D_3$ and $D_4$,
+the virtual grounds at $V_b$ and $V_d$ are not equivalent
+when referenced to ground, and
+a resulting baseband signal will have a DC offset.
+With precision fabrication, however,
+it is not uncommon for the DC offset to be $-60 \, \text{dBc}$
+relative to the baseband fundamental harmonic.
 
 
 \subsection{Demodulator imbalances}
-\begin{itemize}
-  \item Separate paths for I \& Q lead to:
-    \begin{itemize}
-      \item Amplitude imbalance
-      \item Phase imbalance
-    \end{itemize}
-\end{itemize}
+In addition to two double-balanced mixers,
+an analog $I\&Q$ demodulator also relies on
+a $90^{\circ}$ splitter and a $0^{\circ}$ splitter.
+Imbalances between any of these components
+can result in imbalances in the baseband $I\&Q$ signals.
+For example, unequal power division in the splitters
+produces amplitude imbalances in the baseband $I\&Q$ signals, while
+deviations from the nominal splitter phasings
+produces phase imbalances in the baseband $I\&Q$ signals.
+As discussed in
+Section~\ref{sec:DesignConsiderations:demodulation:nonideal_mixing},
+each double-balanced mixer can produce
+spectral distortion and DC offsets in the baseband signal;
+in addition, differences between the two mixers
+can exacerbate amplitude and phase imbalances
+in the baseband $I\&Q$ signals.
+Taken all together, then,
+the most general form for the baseband $I\&Q$ signals is
+\begin{align}
+  I
+  &=
+  I_1 \left\{%
+    \cos\phi
+    -
+    \frac{I_3}{3 I_1}
+    \cos \left( 3 \phi \right)
+    +
+    \cdots
+  \right\}
+  +
+  \delta I,
+  \label{eq:DesignConsiderations:I_general}
+  \\
+  Q
+  &=
+  Q_1 \left\{%
+    \sin \left( \phi + \delta \right)
+    +
+    \frac{Q_3}{3 Q_1}
+    \sin \left[ 3 \left( \phi + \delta \right) \right]
+    +
+    \cdots
+  \right\}
+  +
+  \delta Q,
+  \label{eq:DesignConsiderations:Q_general}
+\end{align}
+where
+$I_1$ is the amplitude of the in-phase signal's fundamental harmonic,
+$I_3$ is the amplitude of the in-phase signal's third harmonic, and
+$\delta I$ is the in-phase signal's DC offset.
+Similar nomenclature applies to the quadrature signal.
+The phase imbalance of the demodulator is $\delta$.
+Amplitude imbalances occur when $I_1 \neq Q_1$.
+The harmonic suppressions are typically comparable,
+e.g.\ $|I_3 / I_1| \approx |Q_3 / Q_1|$.
+Note that (\ref{eq:DesignConsiderations:I_general}) and
+(\ref{eq:DesignConsiderations:Q_general})
+generalize previous forms for the $I\&Q$ signals
+\cite{vanzeeland_rsi04}.
 
 
 \subsection{Implications of nonideal demodulation for phase measurements}
