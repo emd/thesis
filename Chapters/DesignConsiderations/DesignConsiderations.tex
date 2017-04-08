@@ -971,6 +971,7 @@ is split evenly between $\text{LO}_0(t)$ and $\text{LO}_{\pi / 2}(t)$.
 The $0^{\circ}$ splitter divides the intermediate frequency (IF) signal
 \begin{equation}
   \text{IF}(t) = A_{\text{IF}} \cos(\Delta\omega_0 t + \phi)
+  \label{eq:DesignConsiderations:IF_perfect_sinusoid}
 \end{equation}
 into two nominally identical copies of the IF
 \begin{equation}
@@ -983,6 +984,7 @@ is split evenly between the two copies.
 The signal at the demodulator's in-phase ($I$) port
 then corresponds to the product of
 $\text{IF}_0(t)$ with the in-phase LO signal $\text{LO}_0(t)$:
+\graffito{\textcolor{red}{incorrect amplitude}}
 \begin{equation}
   \text{LO}_0(t) \cdot \text{IF}_0(t)
   =
@@ -1032,7 +1034,7 @@ equal to the true phase, i.e.\ $\phi_m = \phi$.
 \end{figure}
 
 
-\subsection{Nonideal demodulation}
+\subsection{Nonideal mixing}
 In Section~\ref{sec:DesignConsiderations:demodulation:ideal},
 mixing was idealized as the multiplication of the IF signal by the LO signal.
 However, in practice, more complex process are used
@@ -1057,30 +1059,131 @@ Thus, the ring diode acts as a switch
 for the polarization of the coupled IF signal,
 with the switching governed by the sign and frequency of the LO.
 Low-pass filtering the polarization-modulated IF, of course,
-yields the desired baseband signals.
+yields the desired baseband signal.
 
 This polarization modulation can alter the baseband spectrum.
-To see this, note that the sign of the LO signal
-is simply a zero-mean square wave
-\graffito{\textcolor{red}{ref??}}
-\begin{equation}
-  \text{sgn}\left( \text{LO}(t) \right)
-  =
+To see this, note that the sign of the in-phase LO signal
+is simply a zero-mean square wave with even symmetry about the origin,
+as shown in \textcolor{red}{Fig.~blah blah blah}.
+The Fourier series of such a square wave
+consists of a sum over all of the LO's \emph{odd} harmonics:
+\begin{align}
+  \text{sgn}\left( \text{LO}_0(t) \right)
+  &=
   \frac{4}{\pi}
-  \sum_{n = 0}^{\infty}
-  \frac{1}{2n + 1} \sin[(2n + 1) \Delta\omega_0 t].
+  \sum_{n = 1}^{\infty}
+  \frac{(-1)^{n - 1}}{2n - 1} \cos[(2n - 1) \Delta\omega_0 t]
+  \\
+  &\begin{aligned}
+    =
+    \frac{4}{\pi}
+    \biggl[%
+      \cos(\Delta\omega_0 t)
+      &-
+      \frac{1}{3} \cos(3 \Delta\omega_0 t)
+      +
+      \cdots
+    \biggr].
+  \end{aligned}
+  \notag
+\end{align}
+Now, if the IF signal is a perfect sinusoid
+as in (\ref{eq:DesignConsiderations:IF_perfect_sinusoid}),
+following Section~\ref{sec:DesignConsiderations:demodulation:ideal}'s program
+of mixing the LO with the IF and low-pass filtering yields
+the desired in-phase baseband signal, e.g.\
+\begin{align}
+  I
+  &=
+  \bigl[%
+    \text{sgn}\left( \text{LO}_0(t) \right)
+    \cdot
+    \text{IF}_0(t)
+  \bigr]
+  \biggr|_{\omega \ll \Delta\omega_0}
+  \notag \\
+  &=
+  \frac{\sqrt{2} A_{\text{IF}}}{\pi} \cos\phi
+\end{align}
+However, if the path from the mixer's IF port to its baseband port
+is not wholly linear
+(and every real-world device exhibits \emph{some} degree of nonlinearity),
+the IF signal contain contributions from its higher-order harmonics.
+If this nonlinearity depends only on the magnitude of the IF
+(for example, double-sided saturation or clipping of the signal),
+only the odd harmonics of the fundamental will contribute, e.g.
+\begin{equation}
+  \text{IF}_0(t)
+  =
+  \sum_{n = 1}^{\infty}
+  A_{2n - 1} \cos\left[ (2n - 1) (\Delta\omega_0 t + \phi) \right],
 \end{equation}
-\begin{itemize}
-  \item IF is a perfect sinusoid
-  \item IF is \emph{not} a perfect sinusoid\ldots
-  \item Normalization of $\text{sgn}(\text{LO}(t))$?
-\end{itemize}
+where $A_{2n - 1}$ is
+the Fourier coefficient of the $(2n - 1)\ts{th}$ harmonic.
+Typically, $A_{2n - 1}$ decreases as $n$ increases.
+Then,
+following Section~\ref{sec:DesignConsiderations:demodulation:ideal}'s program
+of mixing the LO with the IF and low-pass filtering yields
+\begin{align}
+  I
+  &=
+  \bigl[%
+    \text{sgn}\left( \text{LO}_0(t) \right)
+    \cdot
+    \text{IF}_0(t)
+  \bigr]
+  \biggr|_{\omega \ll \Delta\omega_0}
+  \notag \\
+  &=
+  \frac{2 A_1}{\pi}
+  \left[%
+    \cos\phi
+    -
+    \frac{1}{3}\left( \frac{A_3}{A_1} \right) \cos 3 \phi
+    +
+    \cdots
+  \right].
+\end{align}
+That is, the higher order harmonics of the IF signal
+\emph{beat} with the corresponding higher order harmonics
+of the LO switching function
+to produce harmonics in the baseband signal.
+The coefficient $A_n / A_1$ is referred to as
+the \emph{suppression} of the $n\ts{th}$ harmonic, and
+it is typically expressed in decibels
+referenced to the power of the carrier, or dBc, as
+\begin{equation}
+  \text{suppression of $n\ts{th}$ harmonic [dBc]}
+  =
+  20 \log_{10} \left( \frac{A_n}{A_1} \right).
+\end{equation}
+Noting that $\text{sgn}(\text{LO}_{\pi / 2}(t))$
+is an inverted, zero-mean square wave
+with \emph{odd} symmetry about the origin,
+a similar path of reasoning to that used above
+shows that the quadrature baseband signal is
+\begin{align}
+  Q
+  &=
+  \bigl[%
+    \text{sgn}\left( \text{LO}_{\pi / 2}(t) \right)
+    \cdot
+    \text{IF}_0(t)
+  \bigr]
+  \biggr|_{\omega \ll \Delta\omega_0}
+  \notag \\
+  &=
+  \frac{2 A_1}{\pi}
+  \left[%
+    \sin\phi
+    +
+    \frac{1}{3}\left( \frac{A_3}{A_1} \right) \sin 3 \phi
+    +
+    \cdots
+  \right].
+\end{align}
 
-
 \begin{itemize}
-  \item When RF-to-IF path is not perfectly linear,
-    get intermodulation distortion, typically most significant
-    at the third and fifth harmonics
   \item At large RF signal powers, the RF voltage modulates
     the diode conduction, resulting in lots of distortion
   \item Want minimize the LO switching time
@@ -1089,33 +1192,32 @@ is simply a zero-mean square wave
     A double-balanced mixer operates as a switching device;
     pulses are fine, and may even reduce distortion
     (https://www.minicircuits.com/app/AN00-011.pdf)
-  \item Multipliers vs. modulators -- modulators as switching devices
-    (http://www.analog.com/media/en/analog-dialogue/volume-47/number-2/articles/multipliers-vs-modulators.pdf)
+\end{itemize}
+
+\begin{itemize}
+  \item Normalization of $\text{sgn}(\text{LO}(t))$?
+  \item DC offset in baseband can result if diodes are not carefully matched,
+    as the alternating virtual grounds are not equivalent
 \end{itemize}
 
 
-
-
+\subsection{Demodulator imbalances}
 \begin{itemize}
-  \item Double-balanced mixer operation
-    \begin{itemize}
-      \item Harmonics
-      \item DC offset
-    \end{itemize}
   \item Separate paths for I \& Q lead to:
     \begin{itemize}
       \item Amplitude imbalance
       \item Phase imbalance
-      \item DC offset imbalance
-    \end{itemize}
-  \item General expression for I \& Q signals
-    \begin{itemize}
-      \item Generalizes Van Zeeland and Kasten
     \end{itemize}
 \end{itemize}
 
 
 \subsection{Implications of nonideal demodulation for phase measurements}
+\begin{itemize}
+\item General expression for I \& Q signals
+  \begin{itemize}
+    \item Generalizes Van Zeeland and Kasten
+  \end{itemize}
+\end{itemize}
 
 
 \section{Intensity considerations}
