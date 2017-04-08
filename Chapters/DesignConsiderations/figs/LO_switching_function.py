@@ -60,8 +60,10 @@ if __name__ == '__main__':
     axes[1].axhline(y=0, c='k', linestyle=':', linewidth=linewidth)
     axes[1].set_ylim([-2, 2])
     axes[1].set_xlabel('$t \, [2 \pi / \Delta \omega_0]$', fontsize=fontsize)
+    # axes[1].set_ylabel(
+    #     '$\mathrm{sign} \, [\mathrm{unitless}]$', fontsize=fontsize)
     axes[1].set_ylabel(
-        '$\mathrm{sign} \, [\mathrm{unitless}]$', fontsize=fontsize)
+        r'$\mathrm{switching} \;\; \mathrm{function}$', fontsize=fontsize)
 
     # Manage tick marks
     xticks = np.arange(np.int(LO_I.tlim[0]), np.int(LO_I.tlim[1]) + 1, 1)

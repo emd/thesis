@@ -1069,10 +1069,25 @@ explaining why some manufacturers
 advocate the use of a square, rather than a sinusoidal, LO
 \cite{minicircuits_mixer_faqs}.
 
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/DesignConsiderations/figs/LO_switching_function.pdf}
+  \caption[LO switching functions]{%
+    The LO switching functions.
+    The top panel displays the incident sinusoidal LO signal, while
+    the bottom panel shows the \emph{sign} of
+    the in-phase ($\text{LO}_0$) and
+    the $\pi / 2$ phase-advanced ($\text{LO}_{\pi / 2}$)
+    copies of the LO signals.}
+  \label{fig:DesignConsiderations:LO_switching_function}
+\end{figure}
+
 This polarization modulation can alter the baseband spectrum.
 To see this, note that the sign of the in-phase LO signal
 is simply a zero-mean square wave with even symmetry about the origin,
-as shown in \textcolor{red}{Fig.~blah blah blah}.
+as shown in the lower pane of
+Fig.~\ref{fig:DesignConsiderations:LO_switching_function}.
 The Fourier series of such a square wave
 consists of a sum over all of the LO's \emph{odd} harmonics:
 \begin{align}
@@ -1170,6 +1185,8 @@ referenced to the power of the carrier, or dBc, as
 Noting that $\text{sgn}(\text{LO}_{\pi / 2}(t))$
 is an inverted, zero-mean square wave
 with \emph{odd} symmetry about the origin,
+as shown in the lower pane of
+Fig.~\ref{fig:DesignConsiderations:LO_switching_function},
 a similar path of reasoning to that used above
 shows that the quadrature baseband signal is
 \begin{align}
