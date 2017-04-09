@@ -1290,6 +1290,20 @@ generalize previous forms for the $I\&Q$ signals
 
 
 \subsection{Implications of nonideal demodulation for phase measurements}
+Demodulator imbalances produce errors
+in the measured phase~\cite{vanzeeland_rsi04,kasten_masters}.
+Specifically, if the $I\&Q$ signals suffer from imbalances and nonlinearities,
+as shown in (\ref{eq:DesignConsiderations:I_general}) and
+(\ref{eq:DesignConsiderations:Q_general}),
+then the measured phase $\phi_m$ computed via the inverse tangent formula
+(\ref{eq:DesignConsiderations:phase_from_arctangent})
+will \emph{not} correspond to the true phase $\phi$, e.g.\
+\begin{equation}
+  \phi_m = \phi + \delta \phi,
+\end{equation}
+where $\delta\phi$ is the error in the measured phase.
+
+
 \begin{itemize}
 \item General expression for I \& Q signals
   \begin{itemize}
