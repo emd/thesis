@@ -240,7 +240,7 @@ if __name__ == '__main__':
     axes[3, 0].set_xticks(IQ_xticks)
     axes[3, 0].set_yticks(IQ_yticks)
 
-    axes[3, 1].set_xlabel(r'$\phi \; [\mathrm{rad}]$', fontsize=fontsize)
+    axes[3, 1].set_xlabel(r'$\bar{\phi} \; [\mathrm{rad}]$', fontsize=fontsize)
     axes[3, 1].set_ylabel(
         r'$\delta\tilde{\phi} / \tilde{\phi}$', fontsize=fontsize)
     axes[3, 1].set_title('Effect of 3rd harmonic')

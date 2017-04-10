@@ -1289,7 +1289,7 @@ generalize previous forms for the $I\&Q$ signals
 \cite{vanzeeland_rsi04}.
 
 
-\subsection{Implications of demodulator imperfections}
+\subsection{Effects of demodulator imperfections}
 Demodulator imperfections produce errors
 in the measured phase~\cite{vanzeeland_rsi04,kasten_masters}.
 Specifically, if the $I\&Q$ signals suffer from imbalances and nonlinearities,
@@ -1326,6 +1326,32 @@ Thus, the \emph{relative} error in the measured fluctuating phase is
   \left. \frac{d(\delta\phi)}{d\phi} \right|_{\bar{\phi}}
   \label{eq:DesignConsiderations:relative_fluctuation_error}
 \end{equation}
+The $I\&Q$ Lissajous curves and
+the relative errors in the measured fluctuating phase
+that result from various demodulator imperfections
+are displayed in
+Fig.~\ref{fig:DesignConsiderations:effects_of_demodulator_imperfections}.
+Obviously, each demodulator imperfection should be minimized
+in order to minimize the relative error
+in the measured fluctuating phase.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/DesignConsiderations/figs/demodulator_imperfections.pdf}
+  \caption[Effects of demodulator imperfections]{%
+    Demodulator imperfections produce errors in the measured phase.
+    The left column displays the Lissajous curves
+    that result from plotting
+    the quadrature $Q$ vs.\ in-phase $I$ signals, while
+    the right column plots the relative error
+    $\delta\tilde{\phi} / \tilde{\phi}$
+    in the measured fluctuating phase
+    as a function of the equilibrium phase $\bar{\phi}$.
+    Each row examines a different demodulator imperfection.
+  }
+  \label{fig:DesignConsiderations:effects_of_demodulator_imperfections}
+\end{figure}
 
 
 \section{Intensity considerations}
