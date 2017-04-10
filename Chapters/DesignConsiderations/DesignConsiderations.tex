@@ -1289,8 +1289,8 @@ generalize previous forms for the $I\&Q$ signals
 \cite{vanzeeland_rsi04}.
 
 
-\subsection{Implications of nonideal demodulation for phase measurements}
-Demodulator imbalances produce errors
+\subsection{Implications of demodulator imperfections}
+Demodulator imperfections produce errors
 in the measured phase~\cite{vanzeeland_rsi04,kasten_masters}.
 Specifically, if the $I\&Q$ signals suffer from imbalances and nonlinearities,
 as shown in (\ref{eq:DesignConsiderations:I_general}) and
@@ -1302,14 +1302,30 @@ will \emph{not} correspond to the true phase $\phi$, e.g.\
   \phi_m = \phi + \delta \phi,
 \end{equation}
 where $\delta\phi$ is the error in the measured phase.
-
-
-\begin{itemize}
-\item General expression for I \& Q signals
-  \begin{itemize}
-    \item Generalizes Van Zeeland and Kasten
-  \end{itemize}
-\end{itemize}
+The phase error is a complicated, periodic function of the true phase,
+i.e.\ $\delta\phi = \delta\phi(\phi)$~\cite{vanzeeland_rsi04}.
+For small phase fluctuations $|\tilde{\phi}| \ll 1$
+about an equilibrium phase $\bar{\phi}$,
+the error $\delta\tilde{\phi}$ in the measured fluctuating phase
+is simply the \emph{change} in the total phase error
+between $\bar{\phi}$ and $\bar{\phi} + \tilde{\phi}$
+\cite{kasten_masters}:
+\begin{equation}
+  \delta\tilde{\phi}
+  =
+  \delta\phi(\bar{\phi} + \tilde{\phi}) - \delta\phi(\bar{\phi})
+  \approx
+  \left[%
+    \left. \frac{d(\delta\phi)}{d\phi} \right|_{\bar{\phi}}
+  \right] \tilde{\phi}.
+\end{equation}
+Thus, the \emph{relative} error in the measured fluctuating phase is
+\begin{equation}
+  \frac{\delta\tilde{\phi}}{\tilde{\phi}}
+  =
+  \left. \frac{d(\delta\phi)}{d\phi} \right|_{\bar{\phi}}
+  \label{eq:DesignConsiderations:relative_fluctuation_error}
+\end{equation}
 
 
 \section{Intensity considerations}
