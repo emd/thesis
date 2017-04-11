@@ -38,14 +38,14 @@ class Detector(object):
             [Isat] = AU
 
         '''
-        self.Isat = Isat
+        self.Isat = np.float(Isat)
 
     def getLinearResponse(self, I):
         'Get perfectly linear response w/ no saturation.'
         if not np.alltrue(I >= 0):
             raise ValueError('Intensity `I` must be >= 0.')
 
-        return I / self.Isat
+        return I.copy()
 
     def getHardResponse(self, I):
         'Get response with hard saturation for I > Isat.'
@@ -75,7 +75,7 @@ class Detector(object):
         # to occur when I = Isat
         c = curve_fit(linearity_deviation, 1, 10 ** (-1. / 20), p0=1)[0][0]
 
-        return np.arctan(c * (I / self.Isat)) / c
+        return self.Isat * np.arctan(c * (I / self.Isat)) / c
 
     def plotArctangentLinearityDeviation(self, resolution=0.01):
         x = np.arange(resolution, 10 * self.Isat + resolution, resolution)
@@ -94,7 +94,8 @@ class Detector(object):
 
 
 class HeterodyneSignals(object):
-    def __init__(self, fhet=30e6, T=1e-2):
+    def __init__(self, fhet=30e6, T=1e-2,
+                 Imax=1, saturation='hard'):
         '''Create an instance of `HeterodyneSignals` class.
 
         Input parameters:
@@ -107,17 +108,33 @@ class HeterodyneSignals(object):
             Signal length.
             [T] = 1 / [fhet]
 
+        Imax - float
+            The maximum intensity of the incident optical signal.
+            [Imax] = [D.Isat], where D is an instance of
+                      :py:class:`Detector <detector_linearity.Detector>`
+
+        saturation - None or string
+            Specify detector saturation method. Valid options are
+            {None, 'hard', 'atan'}, which are discussed in
+            :py:class:`Detector <detector_linearity.Detector>`
+
         '''
-        self.Fs = 10 * fhet
+        self.fhet = fhet
+        self.Fs = 10 * self.fhet
         self.T = T
         self.t0 = 0
+        self.Imax = Imax
 
         # Set phase modulation
         self.ph = self.setPhaseModulation(ph0=1e-3, f0=200e3)
 
+        # Create detector instance
+        self.detector = Detector()
+        self.saturation = saturation
+
         # Generate heterodyne signals
         self.LO = np.cos(2 * np.pi * fhet * self.t())
-        self.IF = np.cos((2 * np.pi * fhet * self.t()) + self.ph)
+        self.IF = self.getIF()
 
         # Demodulate heterodyne signals to get measured phase
         self.ph_m = self.getDemodulatedPhase()
@@ -128,9 +145,27 @@ class HeterodyneSignals(object):
     def setPhaseModulation(self, ph0=1e-3, f0=200e3):
         return ph0 * np.cos(2 * np.pi * f0 * self.t())
 
+    def getIF(self):
+        # Build up intensity piece by piece
+        I = np.cos((2 * np.pi * self.fhet * self.t()) + self.ph)
+        I += 1
+        I *= (0.5 * self.Imax)
+
+        if self.saturation is None:
+            return self.detector.getLinearResponse(I)
+        elif str.lower(self.saturation) == 'hard':
+            return self.detector.getHardResponse(I)
+        elif str.lower(self.saturation) == 'atan':
+            return self.detector.getArctangentResponse(I)
+        else:
+            raise ValueError("`saturation` must be in {None, 'hard', 'atan'}")
+
     def getDemodulatedPhase(self):
+        # Subtract mean from IF signal such that it is AC coupled
+        IF = self.IF - np.mean(self.IF)
+
         # Compute analytic representation of signals and extract phase
-        ph_IF = np.unwrap(np.angle(hilbert(self.IF)))
+        ph_IF = np.unwrap(np.angle(hilbert(IF)))
         ph_LO = np.unwrap(np.angle(hilbert(self.LO)))
 
         return ph_IF - ph_LO
@@ -148,11 +183,15 @@ def plot_arctangent_deviation_from_linearity():
     return
 
 
-def plot_detector_response_models():
+def plot_detector_response_models(Isat=1):
     cols = get_distinct(3)
 
-    det = Detector(Isat=1)
-    I = np.logspace(-1, 1, num=101)
+    det = Detector(Isat=Isat)
+
+    I = np.logspace(
+        np.log10(Isat) - 1,
+        np.log10(Isat) + 1,
+        num=101)
 
     plt.figure()
 
@@ -165,7 +204,6 @@ def plot_detector_response_models():
 
     plt.xlabel(r'$I \; [I_{\mathrm{sat}}]$', fontsize=fontsize)
     plt.ylabel(r'$\mathrm{response} \, [\mathrm{AU}]$', fontsize=fontsize)
-
     plt.ylim([I[0], I[-1]])
 
     labels = [
@@ -215,12 +253,37 @@ def plot_effective_waveforms():
     return
 
 
+def plot_effective_waveforms_2():
+    fhet = 30e6
+    T = 3. / fhet
+
+    Imax_array = np.array([1, 10])
+    saturation_types = [None, 'hard', 'atan']
+
+    for Imax in Imax_array:
+        for saturation in saturation_types:
+            sigs = HeterodyneSignals(
+                fhet=fhet, T=T,
+                Imax=Imax, saturation=saturation)
+
+            plt.figure()
+            plt.plot(sigs.t(), sigs.IF)
+            plt.title('Imax / Isat: %0.1f, saturation: %s' %
+                      (Imax, saturation))
+            plt.show()
+
+    return
+
+
 if __name__ == '__main__':
     # plot_arctangent_deviation_from_linearity()
-    # plot_detector_response_models()
+    # plot_detector_response_models(Isat=100.)
     # plot_effective_waveforms()
+    # plot_effective_waveforms_2()
 
-    sigs = HeterodyneSignals()
+    Imax = 10
+    saturation = 'atan'
+    sigs = HeterodyneSignals(Imax=Imax, saturation=saturation)
 
     # Spectral estimation parameters
     Tens = 5e-3
@@ -237,4 +300,5 @@ if __name__ == '__main__':
     plt.figure()
     plt.loglog(asd.f, np.mean(asd.Gxx, axis=-1))
     plt.loglog(asd_m.f, np.mean(asd_m.Gxx, axis=-1))
+    plt.title('Imax: %.1f, saturation: %s' % (Imax, saturation))
     plt.show()
