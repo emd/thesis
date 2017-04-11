@@ -39,7 +39,35 @@ class Detector(object):
         '''
         self.Isat = Isat
 
+        # This multiplicative factor forces the 1 dB saturation point
+        # in the output signal's electrical power for the arctangent response
+        # to occur when I = Isat
+        self._c = curve_fit(
+            self._getArctangentLinearityDeviation,
+            1, 10 ** (-1. / 20), p0=1)[0][0]
+
+    def _getArctangentLinearityDeviation(self, x, c):
+        '''Get deviation of arctangent from linear, expressed as
+        a ratio of arctangent to linear.
+
+        '''
+        return np.arctan(c * x) / (c * x)
+
+    def getLinearResponse(self, I):
+        '''Get perfectly linear response w/ no saturation, but
+        include appropriate scaling for comparison to arctangent model.
+
+        '''
+        if not np.alltrue(I >= 0):
+            raise ValueError('Intensity `I` must be >= 0.')
+
+        return self._c * (I / self.Isat)
+
     def getHardResponse(self, I):
+        '''Get response with hard saturation for I > Isat, and
+        include appropriate scaling for comparison to arctangent model.
+
+        '''
         if not np.alltrue(I >= 0):
             raise ValueError('Intensity `I` must be >= 0.')
 
@@ -48,14 +76,9 @@ class Detector(object):
         response = I.copy()
         response[sat_ind] = self.Isat
 
+        response *= self._c
+
         return response
-
-    def _getArctangentLinearityDeviation(self, x, c):
-        '''Get deviation of arctangent from linear, expressed as
-        a ratio of arctangent to linear.
-
-        '''
-        return np.arctan(c * x) / (c * x)
 
     def getArctangentResponse(self, I):
         '''Get detector signal in response to incident optical intensity `I`,
@@ -65,22 +88,15 @@ class Detector(object):
         if not np.alltrue(I >= 0):
             raise ValueError('Intensity `I` must be >= 0.')
 
-        # This multiplicative factor forces the 1 dB saturation point
-        # in the output signal's electrical power to occur when I = Isat
-        c = curve_fit(
-            self._getArctangentLinearityDeviation,
-            1, 10 ** (-1. / 20), p0=1)[0]
-
-        self._c = c
-
         return np.arctan(self._c * (I / self.Isat))
 
     def plotArctangentLinearityDeviation(self, resolution=0.01):
         x = np.arange(resolution, 10 * self.Isat + resolution, resolution)
 
+        deviation = self.getArctangentResponse(x) / self.getLinearResponse(x)
+
         plt.figure()
-        plt.plot(
-            x, self.getArctangentResponse(x) / (self._c * (x / self.Isat)))
+        plt.plot(x, deviation)
         plt.axhline(10 ** (-1. / 20), c='k', linestyle='--')
         plt.axvline(self.Isat, c='k', linestyle='--')
         plt.xlabel('intensity')
@@ -100,5 +116,30 @@ class Demodulated(object):
         pass
 
 
+def plot_detector_response_models():
+    det = Detector(Isat=1)
+    I = np.logspace(-1, 1, num=101)
+
+    plt.figure()
+
+    plt.loglog(I, det.getLinearResponse(I),
+               c=cols[0], linestyle='-.', linewidth=linewidth)
+    plt.loglog(I, det.getArctangentResponse(I),
+               c=cols[1], linestyle='--', linewidth=linewidth)
+    plt.loglog(I, det.getHardResponse(I),
+               c=cols[2], linestyle='-', linewidth=linewidth)
+
+    plt.xlabel(r'$I \; [I_{\mathrm{sat}}]$', fontsize=fontsize)
+    plt.ylabel(r'$\mathrm{response} \, [\mathrm{AU}]$', fontsize=fontsize)
+
+    labels = [
+        'no saturation, linear',
+        'arctangent saturation',
+        'hard saturation'
+    ]
+    plt.legend(labels, loc='lower right')
+
+    plt.show()
+
 if __name__ == '__main__':
-    pass
+    plot_detector_response_models()
