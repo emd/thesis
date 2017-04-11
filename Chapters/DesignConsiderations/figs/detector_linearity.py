@@ -1,8 +1,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mpl
+from scipy.interpolate import interp1d
 from scipy.optimize import curve_fit
+from scipy.signal import hilbert
 from distinct_colours import get_distinct
+
+import random_data as rd
 
 
 # Plotting parameters
@@ -89,45 +93,47 @@ class Detector(object):
         return
 
 
-class Phase(object):
-    def __init__(self, Fs=4e6, T=0.1, t0=0):
-        '''Create an instance of the `Phase` class.
+class HeterodyneSignals(object):
+    def __init__(self, fhet=30e6, T=1e-2):
+        '''Create an instance of `HeterodyneSignals` class.
 
         Input parameters:
         -----------------
-        Fs - float
-            Sampling rate.
-            [Fs] = AU
+        fhet - float
+            Heterodyne frequency.
+            [fhet] = arbitrary units
 
         T - float
-            Record length.
-            [T] = 1 / [Fs]
-
-        t0 - float
-            Initial time.
-            [t0] = 1 / [Fs]
+            Signal length.
+            [T] = 1 / [fhet]
 
         '''
-        self.Fs = Fs
+        self.Fs = 10 * fhet
         self.T = T
-        self.t0 = t0
+        self.t0 = 0
 
-        ph0 = 1e-3  # [ph0] = rad
-        f0 = 200e3  # [f0] = [Fs]
-        self.x = ph0 * np.cos(2 * np.pi * f0 * self.t())
+        # Set phase modulation
+        self.ph = self.setPhaseModulation(ph0=1e-3, f0=200e3)
+
+        # Generate heterodyne signals
+        self.LO = np.cos(2 * np.pi * fhet * self.t())
+        self.IF = np.cos((2 * np.pi * fhet * self.t()) + self.ph)
+
+        # Demodulate heterodyne signals to get measured phase
+        self.ph_m = self.getDemodulatedPhase()
 
     def t(self):
         return np.arange(self.t0, self.T, 1. / self.Fs)
 
+    def setPhaseModulation(self, ph0=1e-3, f0=200e3):
+        return ph0 * np.cos(2 * np.pi * f0 * self.t())
 
-class HeterodyneSignal(object):
-    def __init__(self, fhet=30e6):
-        pass
+    def getDemodulatedPhase(self):
+        # Compute analytic representation of signals and extract phase
+        ph_IF = np.unwrap(np.angle(hilbert(self.IF)))
+        ph_LO = np.unwrap(np.angle(hilbert(self.LO)))
 
-
-class Demodulated(object):
-    def __init__(self):
-        pass
+        return ph_IF - ph_LO
 
 
 def plot_arctangent_deviation_from_linearity():
@@ -211,5 +217,24 @@ def plot_effective_waveforms():
 
 if __name__ == '__main__':
     # plot_arctangent_deviation_from_linearity()
-    plot_detector_response_models()
-    plot_effective_waveforms()
+    # plot_detector_response_models()
+    # plot_effective_waveforms()
+
+    sigs = HeterodyneSignals()
+
+    # Spectral estimation parameters
+    Tens = 5e-3
+    Nreal_per_ens = 10
+
+    asd = rd.spectra.AutoSpectralDensity(
+        sigs.ph, Fs=sigs.Fs, t0=sigs.t0,
+        Tens=Tens, Nreal_per_ens=Nreal_per_ens)
+
+    asd_m = rd.spectra.AutoSpectralDensity(
+        sigs.ph_m, Fs=sigs.Fs, t0=sigs.t0,
+        Tens=Tens, Nreal_per_ens=Nreal_per_ens)
+
+    plt.figure()
+    plt.loglog(asd.f, np.mean(asd.Gxx, axis=-1))
+    plt.loglog(asd_m.f, np.mean(asd_m.Gxx, axis=-1))
+    plt.show()
