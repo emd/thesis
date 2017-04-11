@@ -89,6 +89,37 @@ class Detector(object):
         return
 
 
+class Phase(object):
+    def __init__(self, Fs=4e6, T=0.1, t0=0):
+        '''Create an instance of the `Phase` class.
+
+        Input parameters:
+        -----------------
+        Fs - float
+            Sampling rate.
+            [Fs] = AU
+
+        T - float
+            Record length.
+            [T] = 1 / [Fs]
+
+        t0 - float
+            Initial time.
+            [t0] = 1 / [Fs]
+
+        '''
+        self.Fs = Fs
+        self.T = T
+        self.t0 = t0
+
+        ph0 = 1e-3  # [ph0] = rad
+        f0 = 200e3  # [f0] = [Fs]
+        self.x = ph0 * np.cos(2 * np.pi * f0 * self.t())
+
+    def t(self):
+        return np.arange(self.t0, self.T, 1. / self.Fs)
+
+
 class HeterodyneSignal(object):
     def __init__(self, fhet=30e6):
         pass
