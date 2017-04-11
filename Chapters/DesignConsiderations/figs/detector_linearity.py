@@ -99,6 +99,18 @@ class Demodulated(object):
         pass
 
 
+def plot_arctangent_deviation_from_linearity():
+    det1 = Detector(Isat=1)
+    det10 = Detector(Isat=10)
+    det01 = Detector(Isat=0.1)
+
+    det1.plotArctangentLinearityDeviation()
+    det10.plotArctangentLinearityDeviation()
+    det01.plotArctangentLinearityDeviation()
+
+    return
+
+
 def plot_detector_response_models():
     cols = get_distinct(3)
 
@@ -116,6 +128,8 @@ def plot_detector_response_models():
 
     plt.xlabel(r'$I \; [I_{\mathrm{sat}}]$', fontsize=fontsize)
     plt.ylabel(r'$\mathrm{response} \, [\mathrm{AU}]$', fontsize=fontsize)
+
+    plt.ylim([I[0], I[-1]])
 
     labels = [
         'no saturation, linear',
@@ -165,5 +179,6 @@ def plot_effective_waveforms():
 
 
 if __name__ == '__main__':
+    # plot_arctangent_deviation_from_linearity()
     plot_detector_response_models()
     plot_effective_waveforms()
