@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mpl
-from scipy.interpolate import interp1d
 from scipy.optimize import curve_fit
 from scipy.signal import hilbert
 from distinct_colours import get_distinct
@@ -94,7 +93,9 @@ class Detector(object):
 
 
 class HeterodyneSignals(object):
-    def __init__(self, fhet=30e6, T=1e-2,
+    def __init__(self, fhet=30e6, Fs=10., T=1e-2,
+                 broadband={'power': 3e-8, 'fc': 100e3, 'pole': 1},
+                 coherent={'ph0': 1e-3, 'f0': 200e3},
                  Imax=1, saturation='hard'):
         '''Create an instance of `HeterodyneSignals` class.
 
@@ -104,12 +105,41 @@ class HeterodyneSignals(object):
             Heterodyne frequency.
             [fhet] = arbitrary units
 
+        Fs - float
+            Sampling rate in units of heterodyne frequency
+            [Fs] = fhet
+
         T - float
             Signal length.
             [T] = 1 / [fhet]
 
+        broadband - dict, with keys:
+
+            power - float
+                Total power in broadband signal.
+                [power] = rad^2
+
+            fc - float
+                Cutoff frequency of broadband signal.
+                [fc] = [fhet]
+
+            pole - int
+                Number of poles in broadband cutoff.
+                [pole] = unitless
+
+        coherent - dict, with keys:
+
+            ph0 - float
+                Amplitude of coherent signal.
+                [ph0] = rad
+
+            f0 - float
+                Frequency of coherent signal.
+                [f0] = [fhet]
+
         Imax - float
-            The maximum intensity of the incident optical signal.
+            The maximum intensity of the incident optical signal, where
+            Imax = 1 corresponds to the detector's saturation intensity.
             [Imax] = [D.Isat], where D is an instance of
                       :py:class:`Detector <detector_linearity.Detector>`
 
@@ -120,13 +150,13 @@ class HeterodyneSignals(object):
 
         '''
         self.fhet = fhet
-        self.Fs = 10 * self.fhet
-        self.T = T
+        self.Fs = Fs * self.fhet
         self.t0 = 0
         self.Imax = Imax
 
         # Set phase modulation
-        self.ph = self.setPhaseModulation(ph0=1e-3, f0=200e3)
+        self.ph, self.T = self.setPhaseModulation(
+            T, broadband=broadband, coherent=coherent)
 
         # Create detector instance
         self.detector = Detector()
@@ -139,11 +169,22 @@ class HeterodyneSignals(object):
         # Demodulate heterodyne signals to get measured phase
         self.ph_m = self.getDemodulatedPhase()
 
+    def setPhaseModulation(
+            self, T,
+            broadband={'power': 1e-7, 'fc': 100e3, 'pole': 1},
+            coherent={'ph0': 1e-3, 'f0': 200e3}):
+        # Generate broadband signal w/ appropriate total power
+        ph = rd.signals.RandomSignal(
+            self.Fs, T, fc=broadband['fc'], pole=broadband['pole'])
+        ph.x *= (broadband['power'] / ((np.std(ph.x)) ** 2))
+
+        # Generate coherent signal and add to broadband
+        ph.x += coherent['ph0'] * np.cos(2 * np.pi * coherent['f0'] * ph.t)
+
+        return ph.x, (ph.t[-1] - ph.t[0])
+
     def t(self):
         return np.arange(self.t0, self.T, 1. / self.Fs)
-
-    def setPhaseModulation(self, ph0=1e-3, f0=200e3):
-        return ph0 * np.cos(2 * np.pi * f0 * self.t())
 
     def getIF(self):
         # Build up intensity piece by piece
@@ -276,29 +317,93 @@ def plot_effective_waveforms_2():
 
 
 if __name__ == '__main__':
+    # Ancillary routines:
+    # -------------------
     # plot_arctangent_deviation_from_linearity()
-    # plot_detector_response_models(Isat=100.)
+    plot_detector_response_models(Isat=1.)
     # plot_effective_waveforms()
     # plot_effective_waveforms_2()
 
-    Imax = 10
-    saturation = 'atan'
-    sigs = HeterodyneSignals(Imax=Imax, saturation=saturation)
+    # Main:
+    # -----
+    fig, axes = plt.subplots(2, 2, figsize=(8, 8))
+    cols = get_distinct(3)
 
-    # Spectral estimation parameters
-    Tens = 5e-3
-    Nreal_per_ens = 10
+    fhet = 30e6
+    broadband = {'power': 3e-8, 'fc': 100e3, 'pole': 1}
+    coherent = {'ph0': 0, 'f0': 200e3}
 
-    asd = rd.spectra.AutoSpectralDensity(
-        sigs.ph, Fs=sigs.Fs, t0=sigs.t0,
-        Tens=Tens, Nreal_per_ens=Nreal_per_ens)
+    Imax_array = np.array([1., 10.])
+    saturation_type = [None, 'atan', 'hard']
+    saturation_labels = [
+        'no saturation, linear',
+        'arctangent saturation',
+        'hard saturation'
+    ]
 
-    asd_m = rd.spectra.AutoSpectralDensity(
-        sigs.ph_m, Fs=sigs.Fs, t0=sigs.t0,
-        Tens=Tens, Nreal_per_ens=Nreal_per_ens)
+    for Iind, Imax in enumerate(Imax_array):
+        for sind, saturation in enumerate(saturation_type):
+            # Plot example high-resolution waveforms:
+            # ---------------------------------------
+            sigs = HeterodyneSignals(
+                fhet=fhet, Fs=100., T=(4. / fhet),
+                broadband=broadband, coherent=coherent,
+                Imax=Imax, saturation=saturation)
 
-    plt.figure()
-    plt.loglog(asd.f, np.mean(asd.Gxx, axis=-1))
-    plt.loglog(asd_m.f, np.mean(asd_m.Gxx, axis=-1))
-    plt.title('Imax: %.1f, saturation: %s' % (Imax, saturation))
+            axes[0, Iind].plot(
+                sigs.t() * 1e9, sigs.IF,
+                c=cols[sind], linewidth=linewidth)
+
+            # Plot measured baseband spectra:
+            # -------------------------------
+            sigs = HeterodyneSignals(
+                fhet=fhet, Fs=10., T=1e-1,
+                broadband=broadband, coherent=coherent,
+                Imax=Imax, saturation=saturation)
+
+            # Spectral estimation parameters
+            Tens = sigs.T
+            Nreal_per_ens = 250
+
+            asd = rd.spectra.AutoSpectralDensity(
+                sigs.ph_m, Fs=sigs.Fs, t0=sigs.t0,
+                Tens=Tens, Nreal_per_ens=Nreal_per_ens)
+
+            # Plotting parameters
+            find = np.where(np.logical_and(
+                asd.f >= 10e3,
+                asd.f <= 1e6))[0]
+
+            axes[1, Iind].loglog(
+                asd.f[find], np.mean(asd.Gxx[find, :], axis=-1),
+                c=cols[sind], linewidth=linewidth)
+
+        axes[0, Iind].set_ylim([0, 10])
+        axes[0, Iind].set_xlim([0, 100])
+        axes[0, Iind].set_xlabel('$t \; [\mathrm{ns}]$', fontsize=fontsize)
+        axes[0, Iind].axhline(1, c='k', linestyle='--')
+
+        axes[1, Iind].set_ylim([1e-12, 1e-8])
+        axes[1, Iind].set_yticks([1e-12, 1e-10, 1e-8])
+        axes[1, Iind].set_xlabel('$f \; [\mathrm{Hz}]$', fontsize=fontsize)
+
+    axes[0, 0].legend(saturation_labels, loc='upper right')
+
+    axes[0, 0].set_ylabel(
+        r'$I_{\mathrm{eff}} \; [I_{\mathrm{sat}}]$',
+        fontsize=fontsize)
+    axes[0, 0].set_title(
+        r'$I_{\mathrm{max}} = I_{\mathrm{sat}}$',
+        fontsize=fontsize)
+    axes[1, 0].set_ylabel(
+        r'$G_{\phi\phi}(f) \; [\mathrm{rad}^2 / \mathrm{Hz}]$',
+        fontsize=fontsize)
+    axes[0, 1].set_title(
+        r'$I_{\mathrm{max}} = 10 \; I_{\mathrm{sat}}$',
+        fontsize=fontsize)
+
+    axes[0, 1].set_yticklabels([])
+    axes[1, 1].set_yticklabels([])
+
+    plt.tight_layout()
     plt.show()
