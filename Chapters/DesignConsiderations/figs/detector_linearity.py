@@ -326,7 +326,7 @@ if __name__ == '__main__':
 
     # Main:
     # -----
-    fig, axes = plt.subplots(2, 2, figsize=(8, 8))
+    fig, axes = plt.subplots(2, 2, figsize=(9, 9))
     cols = get_distinct(3)
 
     fhet = 30e6
