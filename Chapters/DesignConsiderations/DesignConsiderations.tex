@@ -1,8 +1,50 @@
 \chapter{Design considerations for a heterodyne interferometer}
 \label{ch:DesignConsiderations}
+While Chapter~\ref{ch:InterferometricMethods} discusses the
+\emph{optical} foundations for various interferometric methods,
+most real-world optical diagnostics are complex, integrated systems
+requiring precise interplay between various components, such as
+lasers, optics, detectors, and electronics.
+Optimizing the performance of a given diagnostic
+requires careful consideration
+of each component and its role in the measurement.
+Some of these considerations are generic, and
+some of them are diagnostic specific.
+
+This chapter examines numerous design considerations
+that are relevant to heterodyne interferometry.
+The sections are arranged in roughly sequential order,
+beginning with the interference signal at the detector and
+proceeding through successive downstream components
+until reaching the system's digitizer.
+In particular, Section~\ref{sec:DesignConsiderations:geometric}
+discusses the geometric effects that
+set the interferometer's wavenumber response and
+the magnitude of the interferometer's heterodyne signal.
+Section~\ref{sec:DesignConsiderations:intensity}
+explores heterodyne measurements made
+beyond the saturation-intensity limit of a given detector.
+Sections~\ref{sec:DesignConsiderations:phase_noise} and
+\ref{sec:DesignConsiderations:amplitude_noise}
+reveal how phase noise and amplitude noise, respectively,
+can creep into the interferometer's measurements.
+Section~\ref{sec:DesignConsiderations:demodulation}
+describes demodulation of the heterodyne interference signal and
+the distortion of the baseband phase signal
+that results from demodulator imperfections.
+Finally, Section~\ref{sec:DesignConsiderations:quantization}
+discusses the signal quantization
+that necessarily results
+from generating a digital record.
+The below design considerations will be referenced extensively in
+Chapter~\ref{ch:Implementation}, which
+describes the addition of a heterodyne interferometer
+to the pre-existing phase contrast imaging (PCI) diagnostic
+on the \diiid\space tokamak.
 
 
 \section{Geometric considerations}
+\label{sec:DesignConsiderations:geometric}
 
 
 \subsection{Finite sampling-volume effects}
@@ -355,6 +397,7 @@ becomes
 
 
 \section{Intensity considerations}
+\label{sec:DesignConsiderations:intensity}
 Ideally, a photovoltaic detector produces an output voltage
 \begin{equation}
   V(t) = \mathcal{R}_0 \cdot I(t),
@@ -455,6 +498,7 @@ is equal to the saturation intensity $I_{\text{sat}}$.
 
 
 \section{Phase noise: sources and effects}
+\label{sec:DesignConsiderations:phase_noise}
 
 
 \subsection{Umatched optical path lengths}
@@ -770,6 +814,7 @@ by the local oscillator's jitter.
 
 
 \section{Amplitude noise: sources and effects}
+\label{sec:DesignConsiderations:amplitude_noise}
 Detector noise and shot noise are typically
 the largest contributors to amplitude noise
 in the heterodyne interference signal, while
@@ -956,6 +1001,7 @@ autospectral density of the amplifier noise in absolute units.
 
 
 \section{Demodulation}
+\label{sec:DesignConsiderations:demodulation}
 \begin{itemize}
   \item Focus below is on analog, rather than digital, demodulation
 \end{itemize}
@@ -1377,6 +1423,7 @@ in the measured fluctuating phase.
 
 
 \section{Quantization noise}
+\label{sec:DesignConsiderations:quantization}
 Efficient conversion of an analog signal to a digital record requires
 quantization of the signal magnitude and
 temporal sampling of these quantized magnitudes~\cite{bennett_bstj48}.
