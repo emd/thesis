@@ -1357,8 +1357,64 @@ in the measured fluctuating phase.
 
 
 \section{Intensity considerations}
+Ideally, a photovoltaic detector produces an output voltage
+\begin{equation}
+  V(t) = \mathcal{R}_0 \cdot I(t),
+\end{equation}
+where $\mathcal{R}_0$ is the detector responsivity and
+$I(t)$ is the incident optical intensity.
+However, every real-world detector has a saturation intensity $I_{\text{sat}}$
+beyond which the output voltage ceases to be a linear function
+of the incident optical intensity; that is,
+the detector responsivity has an intensity dependence $\mathcal{R}(I)$, and
+the detector voltage can be more generally written as
+\begin{equation}
+  V(t) = \mathcal{R}\left( I(t) \right) \cdot I(t).
+\end{equation}
+Here, $\mathcal{R}(I)$ is an arbitrary monotonically increasing function
+of the incident optical intensity $I$.
+Despite the potentially nonlinear response,
+the detector voltage remains periodic in $2 \pi / \Delta \omega_0$ and
+can be expanded in a Fourier series as
+\begin{equation}
+  V(t)
+  =
+  V_0
+  +
+  \sum_{n = 1}^{\infty}
+  V_n \cos\left( n \Delta \omega_0 t + \theta_n \right),
+\end{equation}
+where $V_n$ and $\theta_n$ are the amplitude and phase, respectively,
+of the $n\ts{th}$ harmonic.
+Thus, a nonlinear detector response produces
+higher-order harmonics in the signal.
+In general, $V_n$ and $\theta_n$ can vary in time,
+producing sidebands about each harmonic.
+Provided the bandwidth of these fluctuations is sufficiently low,
+there will be no spectral overlap
+between the sidebands of adjacent harmonics, and
+bandpass filtering the detector signal about $\Delta \omega_0$ yields
+\begin{equation}
+  V(t) \approx V_1 \cos[\Delta \omega_0 t + \theta_1(t)]
+\end{equation}
+with $\theta_1(t) = \phi(t)$, where
+$\phi(t)$ is the optical phase shift
+between the plasma and reference arms of the interferometer.
+However, for fluctuations with sufficiently high bandwidth
+(e.g.\ $\omega \sim \Delta\omega_0 / 2$),
+the sidebands of adjacent harmonics begin to overlap,
+potentially corrupting the phase measurement.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/DesignConsiderations/figs/nonlinear_heterodyne_detection.pdf}
+  \caption[Heterodyne detection beyond saturation intensity]{%
+    Heterodyne detection beyond the saturation intensity.}
+\label{fig:DesignConsiderations:nonlinear_heterodyne_detection}
+\end{figure}
+
 \begin{itemize}
-  \item Nonlinear vs.\ linear detector operation
   \item Transfer function in context of Ch.~2 when in saturation?
 \end{itemize}
 
