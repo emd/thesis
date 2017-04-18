@@ -1403,7 +1403,17 @@ between the plasma and reference arms of the interferometer.
 However, for fluctuations with sufficiently high bandwidth
 (e.g.\ $\omega \sim \Delta\omega_0 / 2$),
 the sidebands of adjacent harmonics begin to overlap,
-potentially corrupting the phase measurement.
+potentially corrupting the phase measurement,
+as demonstrated by the example in
+Fig.~\ref{fig:DesignConsiderations:nonlinear_heterodyne_detection}.
+When operating in the saturated regime,
+the heterodyne interferometer transfer function
+(\ref{eq:InterferometricMethods:heterodyne_interferometer_wavenumber_transfer_function})
+should be multiplied by the prefactor $(V_1 / V_{\text{sat}})$, where
+$V_1$ is the amplitude of the heterodyne frequency's fundamental harmonic and
+$V_{\text{sat}}$ is the output voltage of the detector
+when the incident optical intensity
+is equal to the saturation intensity $I_{\text{sat}}$.
 
 \begin{figure}
   \centering
@@ -1444,10 +1454,6 @@ potentially corrupting the phase measurement.
   }
 \label{fig:DesignConsiderations:nonlinear_heterodyne_detection}
 \end{figure}
-
-\begin{itemize}
-  \item Transfer function in context of Ch.~2 when in saturation?
-\end{itemize}
 
 
 \bibliographystyle{plainurl}
