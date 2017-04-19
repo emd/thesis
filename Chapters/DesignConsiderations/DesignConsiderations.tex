@@ -1013,9 +1013,22 @@ autospectral density of the amplifier noise in absolute units.
 
 \section{Demodulation}
 \label{sec:DesignConsiderations:demodulation}
-\begin{itemize}
-  \item Focus below is on analog, rather than digital, demodulation
-\end{itemize}
+The interferometer's IF signal must be demodulated
+in order to recover the baseband phase information.
+Demodulation is typically described as an analog process
+in which the IF signal is \emph{mixed} with a local oscillator (LO), but
+demodulation can also be performed digitally
+\cite{vanzeeland_rsi08, mlynek_fst12} or
+with non-mixer-based analog electronics~\cite{mlynek_rsi17}.
+The focus here, however, is on the analog-mixer-based approach.
+Section~\ref{sec:DesignConsiderations:demodulation:ideal}
+describes ideal analog demodulation.
+Sections~\ref{sec:DesignConsiderations:demodulation:nonideal_mixing} and
+\ref{sec:DesignConsiderations:demodulation:demodulator_imbalances}
+discuss nonideal aspects of analog mixers and demodulators, and
+Section~\ref{sec:DesignConsiderations:demodulation:imperfection_implications}
+analyzes the implications of these imperfections
+in the context of fluctuation measurements.
 
 
 \subsection{Ideal demodulation}
@@ -1306,6 +1319,7 @@ relative to the baseband fundamental harmonic.
 
 
 \subsection{Demodulator imbalances}
+\label{sec:DesignConsiderations:demodulation:demodulator_imbalances}
 In addition to two double-balanced mixers,
 an analog $I\&Q$ demodulator also relies on
 a $90^{\circ}$ splitter and a $0^{\circ}$ splitter.
@@ -1369,6 +1383,7 @@ generalize previous forms for the $I\&Q$ signals
 
 
 \subsection{Effects of demodulator imperfections}
+\label{sec:DesignConsiderations:demodulation:imperfection_implications}
 Demodulator imperfections produce errors
 in the measured phase~\cite{vanzeeland_rsi04,kasten_masters}.
 Specifically, if the $I\&Q$ signals suffer from imbalances and nonlinearities,
