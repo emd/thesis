@@ -510,6 +510,11 @@ is equal to the saturation intensity $I_{\text{sat}}$.
 
 \section{Phase noise: sources and effects}
 \label{sec:DesignConsiderations:phase_noise}
+All real-world oscillators exhibit phase noise.
+The spectral properties of oscillator phase noise and
+the implications for instruments that rely on oscillators
+are discussed in
+Appendix~\ref{app:OscillatorPhaseNoise}.
 
 
 \subsection{Umatched optical path lengths}
@@ -518,11 +523,10 @@ in Section~\ref{sec:InterferometricMethods:interferometry}
 assumed that the laser's angular frequency was fixed
 at its nominal value $\omega_0$.
 However, the angular frequency of any \emph{real} laser
-will exhibit short-term jitter and long-term drift,
+will exhibit small fluctuations in time,
 much like any other real-world oscillator
 \cite[Sec.~1.7]{siegman_lasers}.
-The electric field of a Gaussian beam
-with short-term frequency jitter
+The electric field of such a Gaussian beam
 is well-described by
 \begin{equation}
   E_G(\vect{r}, t)
@@ -531,13 +535,14 @@ is well-described by
   e^{-i [\omega_0 t + \phi_{\omega_0}(t)]},
 \end{equation}
 where $\phi_{\omega_0}(t)$ is a zero-mean, stationary, random process
+known as the laser's \emph{phase deviation}
 whose temporal variation causes
 the oscillator's instantaneous angular frequency
 to wander about its nominal value $\omega_0$.
 
 Now, if the interferometer's probe beam and reference beam
 traverse different optical path lengths,
-the laser's short-term jitter will inject
+the laser's phase deviation will inject
 phase noise into the measured signal.
 To see this, assume that the optical path length of the probe beam
 exceeds that of the reference arm by $L$.
@@ -567,7 +572,7 @@ the corresponding imaged probe radiation is
 \end{equation}
 where $\tau = L / c$ is the time delay
 associated with the optical path-length difference $L$.
-Define the jitter-induced phase difference
+Define the corresponding instrumental phase noise as
 \begin{equation}
   \delta \phi_{\omega_0}(t, \tau)
   =
@@ -604,40 +609,21 @@ $\tilde{\phi}_{\text{meas}}(x_{\image}, t)
   \label{eq:DesignConsiderations:measured_phase_with_laser_jitter}
 \end{equation}
 that is, the fluctuating signal is contaminated
-by the laser's jitter.
-
-\graffito{\textcolor{red}{Consistent notation and units with Appendix??}}
-\textcolor{red}{%
-  The phase noise of an oscillator is discussed in
-  Appendix~\ref{app:OscillatorPhaseNoise}.
-  Whereas the phase noise $\delta \phi_{\omega_0}(t - \tau, \tau)$
-  is a complicated function of the externally imposed time delay $\tau$,
-  the phase noise's autospectral density $S_{\delta \phi_{\omega_0}}(f)$
-  can be explicitly related to the autospectral density of
-  the laser's underlying frequency deviation $S_{\delta \nu_0}(f)$ via
-  % (\ref{eq:OscillatorPhaseNoise:phase_noise_autospectral_density}),
-  which is repeated here for completeness:
-  \begin{equation}
-    S_{\delta \phi_{\omega_0}}(f)
-    =
-    [2 \pi \tau \sinc(f \tau)]^2 S_{\delta \nu_0}(f).
-  \end{equation}
-  Thus, the autospectral density of the measured phase fluctuation from
-  (\ref{eq:DesignConsiderations:measured_phase_with_laser_jitter})
-  becomes
-  \graffito{\textcolor{red}{Note about cancellation of uncorrelated cross terms}}
-  \begin{equation}
+by the laser's phase noise.
+The spectral properties of $\delta \phi_{\omega_0}(t, \tau)$
+are thoroughly discussed in Appendix~\ref{app:OscillatorPhaseNoise}.
+As $\delta \phi_{\omega_0}(t, \tau)$ and
+$\tilde{\phi}(x_{\image}, t)$ are uncorrelated,
+the autospectral density of the measured phase fluctuations is
+\begin{equation}
     S_{\tilde{\phi}_{\text{meas}}}(f)
     =
     S_{\tilde{\phi}}(f)
     +
-    [2 \pi \tau \sinc(f \tau)]^2 S_{\delta \nu_0}(f)
-  \end{equation}
-  Thus, the error in the autospectral density of the measured phase
-  is linearly related to the autospectral density
-  of the laser's underlying frequency deviation and
-  quadratically related to the time delay $\tau$.
-}
+    8 \sin^2(\pi f \tau) \mathcal{L}_{\omega_0}(f),
+\end{equation}
+where $\mathcal{L}_{\omega_0}(f)$ is the phase noise of the laser,
+as defined in Appendix~\ref{app:OscillatorPhaseNoise}.
 
 
 \subsection{Modulator's finite coupling time}
@@ -706,10 +692,10 @@ through $\SI{1}{\meter}$ of RG-58 coaxial cable
 (for which the index of refraction is $\sim 3 / 2$)
 in only $\SI{5}{\nano\second}$.
 
-In the presence of local-oscillator jitter,
+In the presence of local-oscillator (LO) phase noise,
 an AOM's finite coupling time
 can degrade the performance of a heterodyne interferometer.
-A local oscillator with short-term jitter is well-described by
+A local oscillator with phase noise is well-described by
 \begin{equation}
   V_{\text{LO}}(t)
   =
@@ -717,8 +703,9 @@ A local oscillator with short-term jitter is well-described by
   e^{-i [\Delta \omega_0 t + \phi_{\Delta \omega_0}(t)]},
 \end{equation}
 where $\phi_{\Delta \omega_0}(t)$ is a zero-mean, stationary, random process
+known as the LO's \emph{phase deviation}
 whose temporal variation causes
-the local oscillator's instantaneous angular frequency
+the LO's instantaneous angular frequency
 to wander about its nominal value $\Delta \omega_0$.
 As discussed in the previous paragraph,
 the AOM's finite coupling time far exceeds
@@ -735,7 +722,7 @@ in the heterodyne intensity
 Then, assuming negligible finite sampling-volume effects,
 the heterodyne output voltage
 from a detector element at position $\vect{r}_{\image}$
-is simply proportional to the local intensity intensity, i.e.\
+is simply proportional to the local intensity, i.e.\
 \begin{align}
   \begin{aligned}
     V_{\text{het}}(\vect{r}_{\image}, t)
@@ -817,11 +804,21 @@ becomes
   \delta \phi_{\Delta \omega_0}(t - \tau, \tau);
 \end{equation}
 that is, the fluctuating signal is contaminated
-by the local oscillator's jitter.
-
-\begin{itemize}
-  \item \textcolor{red}{modify corresponding path-length matching as needed}
-\end{itemize}
+by the local oscillator's phase noise.
+The spectral properties of $\delta \phi_{\Delta\omega_0}(t, \tau)$
+are thoroughly discussed in Appendix~\ref{app:OscillatorPhaseNoise}.
+As $\delta \phi_{\omega_0}(t, \tau)$ and
+$\tilde{\phi}(x_{\image}, t)$ are uncorrelated,
+the autospectral density of the measured phase fluctuations is
+\begin{equation}
+    S_{\tilde{\phi}_{\text{meas}}}(f)
+    =
+    S_{\tilde{\phi}}(f)
+    +
+    8 \sin^2(\pi f \tau) \mathcal{L}_{\Delta\omega_0}(f),
+\end{equation}
+where $\mathcal{L}_{\Delta\omega_0}(f)$ is the phase noise of the LO,
+as defined in Appendix~\ref{app:OscillatorPhaseNoise}.
 
 
 \section{Amplitude noise: sources and effects}
