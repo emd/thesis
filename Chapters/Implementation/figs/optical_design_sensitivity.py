@@ -2,6 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
+in2m = 0.0254  # i.e. z[m] = z[in] * in2m
+
 # "Independent" design parameters
 dz = 1.00                                     # [dz] = inches
 z_P2L1_choices = np.arange(90, 120 + dz, dz)  # [z_P2L1_choices] = inches
@@ -62,6 +64,14 @@ def test():
 if __name__ == '__main__':
     test()
 
+    # Convert from inches to m
+    z_midP2 *= in2m
+    z_P2L1_choices *= in2m
+    z_L1L2_choices *= in2m
+    f_P2 *= in2m
+    f_L1 *= in2m
+    f_L2 *= in2m
+
     # Initialize design arrays
     shape = (len(z_P2L1_choices), len(z_L1L2_choices))
     z_L2det = np.zeros(shape)
@@ -91,10 +101,6 @@ if __name__ == '__main__':
             M[i, j] = ABCD[0, 0]
             C[i, j] = ABCD[1, 0]
 
-    # Convert C from in^{-1} to m^{-1}
-    in2m = 0.0254  # i.e. z[m] = z[in] * in2m
-    C /= in2m
-
     fig, axes = plt.subplots(2, 2, sharex=True, sharey=True)
 
     # 2nd imaging lens to detector
@@ -102,7 +108,7 @@ if __name__ == '__main__':
     # levels00 = np.arange(5, 20 + level_spacing00, level_spacing00)
     levels00 = np.arange(10, 20 + level_spacing00, level_spacing00)
     C00 = axes[0, 0].contourf(
-        z_P2L1_choices, z_L1L2_choices, z_L2det.T,
+        z_P2L1_choices / in2m, z_L1L2_choices / in2m, z_L2det.T / in2m,
         levels00, cmap=cmap)
     cb00 = plt.colorbar(C00, ax=axes[0, 0], orientation=cbar_orientation)
     cb00.set_ticks(levels00[::2])
@@ -117,7 +123,7 @@ if __name__ == '__main__':
     level_spacing01 = 0.01
     levels01 = np.arange(0.06, 0.139 + level_spacing01, level_spacing01)
     C01 = axes[0, 1].contourf(
-        z_P2L1_choices, z_L1L2_choices, M.T,
+        z_P2L1_choices / in2m, z_L1L2_choices / in2m, M.T,
         levels01, cmap=cmap)
     cb01 = plt.colorbar(C01, ax=axes[0, 1], orientation=cbar_orientation)
     cb01.set_ticks(levels01[::2])
@@ -129,7 +135,7 @@ if __name__ == '__main__':
     level_spacing10 = 0.25
     levels10 = np.arange(-1.5, 0.5 + level_spacing10, level_spacing10)
     C10 = axes[1, 0].contourf(
-        z_P2L1_choices, z_L1L2_choices, C.T,
+        z_P2L1_choices / in2m, z_L1L2_choices / in2m, C.T,
         levels10, cmap=cmap)
     cb10 = plt.colorbar(C10, ax=axes[1, 0], orientation=cbar_orientation)
     cb10.set_ticks(levels10[::2])
