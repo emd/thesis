@@ -5,22 +5,95 @@ import matplotlib.pyplot as plt
 in2m = 0.0254  # i.e. z[m] = z[in] * in2m
 
 # "Independent" design parameters
-dz = 1.00                                     # [dz] = inches
-z_P2L1_choices = np.arange(90, 120 + dz, dz)  # [z_P2L1_choices] = inches
-z_L1L2_choices = np.arange(14, 26 + dz, dz)   # [z_L1L2_choices] = inches
+dz = 0.25 * in2m                        # [dz] = m
+z_P2L1_choices = np.arange(             # [z_P2L1_choices] = m
+    90 * in2m, (120 * in2m) + dz, dz)
+z_L1L2_choices = np.arange(             # [z_L1L2_choices] = m
+    15 * in2m, (30 * in2m) + dz, dz)
+
+# Selected design parameters
+z_P2L1_selected = 94.6 * in2m       # [z_P2L1_selected] = m
+z_L1L2_selected = 23.875 * in2m     # [z_L1L2_selected] = m
 
 # Plot parameters
 cmap = 'viridis'
 cbar_orientation = 'vertical'
-fontsize = 16
+fontsize = 12
 
 # Focal lengths of focusing optics
-f_P2 = 80.7  # [f_P2 = inches
-f_L1 = 7.5   # [f_L1] = inches
-f_L2 = 7.5   # [f_L2] = inches
+f_exp = 10. * in2m  # [f_exp] = m
+f_P1 = 80.7 * in2m  # [f_P1] = m
+f_P2 = f_P1         # [f_P2] = m
+f_L1 = 7.5 * in2m   # [f_L1] = m
+f_L2 = 7.5 * in2m   # [f_L2] = m
 
 # Fixed distances
-z_midP2 = 263.8  # midplane to 2nd parabolic mirror, [z_midP2] = inches
+z_P1mid = 353.6 * in2m  # 1st parabolic mirror to midplane, [z_P1mid] = m
+z_midP2 = 263.8 * in2m  # midplane to 2nd parabolic mirror, [z_midP2] = m
+z_ref = 59.375 * in2m   # total reference-arm distance, [z_ref] = m
+
+# Additional parameters
+w0 = 1.25e-3  # 1/e E radius at laser source, [w0] = m
+s = 1e-3      # detector side length, [s] = m
+
+
+class GaussianBeam(object):
+    def __init__(self, q, w=None, R=None, wavelength=10.6e-6):
+        '''Create an instance of `GaussianBeam` class.
+
+        Input parameters:
+        -----------------
+        q - complex, or None
+            Complex beam parameter. If `None`, use `w` and `R` to
+            determine the corresponding value of `q`.
+            [q] = m
+
+        w - float
+            1/e E radius of Gaussian beam. Only used if `q` is `None`.
+            [w] = m
+
+        R - float
+            Radius of curvature of Gaussian beam. Only used if `q` is `None`.
+            Note that a value of infinity corresponds to a beam waist.
+            [R] = m
+
+        wavelength - float
+            Wavelength of Gaussian beam.
+            Default of 10.6 microns corresponds to a CO2 laser.
+            [wavelength] = m
+
+        '''
+        self.wavelength = wavelength
+
+        if q is None:
+            qinv = (1. / R) - (1j * wavelength / (np.pi * (w ** 2)))
+            self.q = 1. / qinv
+        else:
+            self.q = q
+
+    def applyABCD(self, ABCD):
+        'Apply `ABCD` ray-matrix transformation to Gaussian beam.'
+        A = ABCD[0, 0]
+        B = ABCD[0, 1]
+        C = ABCD[1, 0]
+        D = ABCD[1, 1]
+
+        num = (A * self.q) + B
+        den = (C * self.q) + D
+
+        q = num / den
+
+        return GaussianBeam(q, wavelength=self.wavelength)
+
+    @property
+    def R(self):
+        'Get radius of curvature.'
+        Rinv = np.real(1. / self.q)
+
+        if Rinv == 0:
+            return np.inf
+        else:
+            return 1. / Rinv
 
 
 def lens(f):
@@ -44,6 +117,29 @@ def image_distance(ABCD):
     return -B / D
 
 
+def source_to_midplane_ABCD():
+    'Get ABCD ray matrix from laser source to tokamak midplane.'
+    # source to expansion lens
+    ABCD = prop(68.4 * in2m)
+    ABCD = lens(f_exp) * ABCD
+
+    # Used in previous design work and should be "as built"...
+    # beam approximately has waist after propagating this distance
+    # and striking P1. Ideally, we'd want the waist to occur
+    # at the tokamak midplane, but the Rayleigh length is so large
+    # (~340 m) relative to the path length (~10 m) that it hardly
+    # matters for our purposes *exactly* where the waist occurs.
+    ABCD = prop(2.34333) * ABCD
+
+    # Collimate
+    ABCD = lens(f_P1) * ABCD
+
+    # Propagate to midplane
+    ABCD = prop(z_P1mid) * ABCD
+
+    return ABCD
+
+
 def test():
     # Focal length and object distances
     f = 1
@@ -64,20 +160,19 @@ def test():
 if __name__ == '__main__':
     test()
 
-    # Convert from inches to m
-    z_midP2 *= in2m
-    z_P2L1_choices *= in2m
-    z_L1L2_choices *= in2m
-    f_P2 *= in2m
-    f_L1 *= in2m
-    f_L2 *= in2m
+    # Gaussian beam at source
+    gsource = GaussianBeam(None, w=w0, R=np.inf)
+    k0 = 2 * np.pi / gsource.wavelength  # wavenumber, [k0] = m^{-1}
+
+    # Reference arm radius of curvature @ detector
+    Rr = (gsource.applyABCD(prop(z_ref))).R
 
     # Initialize design arrays
     shape = (len(z_P2L1_choices), len(z_L1L2_choices))
     z_L2det = np.zeros(shape)
     M = np.zeros(shape)
     C = np.zeros(shape)
-    dkappa = np.zeros(shape)
+    dphi_kappa = np.zeros(shape)
 
     for i, z_P2L1 in enumerate(z_P2L1_choices):
         for j, z_L1L2 in enumerate(z_L1L2_choices):
@@ -100,6 +195,12 @@ if __name__ == '__main__':
             # Extract magnification M and ray-matrix element C
             M[i, j] = ABCD[0, 0]
             C[i, j] = ABCD[1, 0]
+
+            # Determine plasma-arm radius of curvature at image plane
+            Rp = (gsource.applyABCD(ABCD * source_to_midplane_ABCD())).R
+
+            delta = np.abs((1. / Rp) - (1. / Rr))
+            dphi_kappa[i, j] = 0.25 * k0 * (s ** 2) * delta
 
     fig, axes = plt.subplots(2, 2, sharex=True, sharey=True)
 
@@ -149,7 +250,30 @@ if __name__ == '__main__':
         r'$C \; [\mathrm{m}^{-1}]$',
         fontsize=fontsize)
 
-    # dkappa
-    # levels11 = 
+    # dphi_kappa
+    level_spacing11 = 0.1
+    levels11 = np.arange(0, 0.99 + level_spacing11, level_spacing11)
+    C11 = axes[1, 1].contourf(
+        z_P2L1_choices / in2m, z_L1L2_choices / in2m, dphi_kappa.T,
+        levels11,
+        cmap=cmap)
+    cb11 = plt.colorbar(C11, ax=axes[1, 1], orientation=cbar_orientation)
+    cb10.set_ticks(levels10[::2])
+    axes[1, 1].set_xlabel(
+        r'$z_{\mathrm{P2, L1}} \, [\mathrm{in}]$',
+        fontsize=fontsize)
+    axes[1, 1].set_title(
+        r'$\mathrm{max}(\delta \phi_{\kappa}) \; [\mathrm{rad}]$',
+        fontsize=fontsize)
+
+    # Add selected design point to each contour plot
+    for i in np.arange(axes.shape[0]):
+        for j in np.arange(axes.shape[1]):
+            axes[i, j].plot(
+                z_P2L1_selected / in2m,
+                z_L1L2_selected / in2m,
+                'D', c='darkred')
+
+    plt.tight_layout()
 
     plt.show()
