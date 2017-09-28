@@ -21,7 +21,8 @@ for a source of safe, clean, virtually inexhaustible source of energy.
 The remainder of this thesis is organized as follows:
 
 \begin{itemize}
-  \item Chapter 2 discusses the theory of optical interferometric methods
+  \item Chapter~\ref{ch:InterferometricMethods} discusses
+    the theory of optical interferometric methods
     in the context of measuring tokamak-plasma-density fluctuations.
     The laser-plasma interaction is quantified via
     Fraunhofer scalar-diffraction theory, and
@@ -40,7 +41,7 @@ The remainder of this thesis is organized as follows:
     PCI suffers from a low-$k$ cutoff;
     an external-reference-beam interferometer
     does \emph{not} suffer from such a low-$k$ cutoff.
-  \item Chapter 3 considers the design of an
+  \item Chapter~\ref{ch:DesignConsiderations} considers the design of an
     external-reference-beam, heterodyne interferometer
     (hereafter referred to as a heterodyne interferometer).
     A criterion for satisfactory wavefront matching
@@ -53,7 +54,38 @@ The remainder of this thesis is organized as follows:
     the systematic errors resulting from
     imperfect demodulation of the heterodyne interference signal
     are quantified.
-  \item Chapter 4
+  \item Chapter~\ref{ch:Implementation} details
+    the addition of a heterodyne interferometer
+    to the pre-existing PCI system on the \diiid\space tokamak;
+    both systems operate simultaneously,
+    sharing a single $\SI{10.6}{\micro\meter}$ probe beam through the plasma.
+    Optical-diagnostic access on \diiid\space and the capabilities
+    of the pre-existing PCI system are briefly reviewed.
+    Referencing the design considerations
+    in Chapter~\ref{ch:DesignConsiderations} and
+    adopting the philosophy
+    that the pre-existing PCI system should be minimally perturbed,
+    the optical layout for the heterodyne interferometer is developed;
+    the magnification of the interferometer's imaging system
+    is selected such that the spatial bandwidths
+    of the PCI and interferometer have a mid-$k$ overlap.
+    The design, procurement, and installation
+    of the new optical and electrical components
+    required to make a heterodyne interferometric measurement
+    are summarized.
+    Of note is the interferometer's radio-frequency local oscillator:
+    the phase noise of a crystal oscillator (XO)
+    was empirically found to be \emph{too large}
+    to make meaningful fluctuation measurements in most tokamak plasmas, but
+    the substantially lower phase noise of an
+    oven-controlled crystal oscillator (OCXO)
+    allows measurements of a whole zoo
+    of coherent and broadband fluctuations.
+    The multiscale capabilities of the combined PCI-interferometer
+    are empirically verified via sound-wave calibrations.
+    Finally, some remarks are made regarding
+    the use of such a combined PCI-interferometer
+    on next-step devices, such as ITER.
   \item Chapter 5
   \item Chapter 6
   \item Chapter 7
