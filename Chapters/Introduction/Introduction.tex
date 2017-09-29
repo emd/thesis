@@ -6,27 +6,85 @@
 Fusion is the energy of the Sun and stars, and,
 for the better part of the last century,
 thousands of scientists and engineers have striven
-to replicate this process controllably in the laboratory
+to replicate this process in a controlled manner here on Earth
 for a source of safe, clean, and virtually inexhaustible energy.
 The core principle is simple:
-combine (i.e. ``fuse'') the nuclei of multiple light elements
+combine (i.e. ``fuse'') the nuclei of two light elements
 to make the nucleus of a heavier element,
 with the total mass of the resulting products
 being slightly less than that of the reactants;
 this mass difference $m$
 is converted into an enormous amount of energy $E$
 via Einstein's famed $E = m c^2$, where
-$c$ is the speed of light in vacuum.
+$c$ is the speed of light in vacuum~\cite[Ch.~14]{krane}.
 
 Practically speaking, however, fusion is extremely difficult.
+Even for the most reactive of nuclei,
+the probability of two positively charged nuclei repelling each other
+(quantified by the Coulomb cross section) is
+\textcolor{red}{orders-of-magnitude} larger
+than the probability of the nuclei fusing
+(quantified by the reaction cross section).
+This relatively small fusion cross section explains why
+beam-target or beam-beam fusion are incapable of producing net energy.
+Instead of using a highly directed beam far from thermal equilibrium,
+an alternative approach is to employ the thermal energy
+of a material at or near thermal equilibrium
+to overcome the Coulomb barrier ---
+because of its reliance on the thermal energy,
+such an approach is referred to as thermonuclear fusion~\cite[Ch.~14]{krane}.
 
-\begin{itemize}
-  \item Cross section
-  \item Ignition criterion
-  \item Plasma requires novel confinement and means of diagnosing
-\end{itemize}
+The temperatures required to initiate thermonuclear fusion
+dictate that the fuel exists as a hot, ionized gas
+referred to as plasma.
+Initially, the plasma must be externally heated
+to reach fusion-relevant conditions, but
+it is envisioned that at some threshold, much like the Sun,
+the fusion reactions will become self-sustaining;
+this threshold is referred to as \emph{ignition}.
+Now, in addition to the thermal energy
+required to overcome the Coulomb barrier
+the plasma must also be sufficiently dense and
+sufficiently well-confined
+to reach ignition.
+This threshold for ignition is often quantified
+by the \textcolor{red}{fusion triple product}
+\begin{equation}
+  n_{i} T_{i} \tau_E
+  \geq
+  5 \times 10^{21} \text{m}^{-3} \cdot \text{keV} \cdot \text{s},
+  \label{eq:Introduction:fusion_triple_product}
+\end{equation}
+where
+$n_{i}$ is the peak ion density,
+$T_{i}$ is the peak ion temperature, and
+$\tau_E$ is the energy confinement time~\cite[Sec.~1.1]{wesson}.
+This condition could be reached, for example, at
+$n_i = \SI{1e20}{\per\meter\cubed}$,
+$T_i = \SI{10}{\kilo\eV}$, and
+$\tau_E = \SI{3}{\second}$~\cite[Sec.~1.3]{wesson}.
+
+It should be emphasized that $T_i = \SI{10}{\kilo\eV}$
+corresponds to approximately $\SI{e6}{\kelvin}$.
+No conventional container can confine such a plasma.
+While numerous confinement schemes exist,
+the only strategy considered in this thesis
+is that of tokamak magnetic confinement,
+briefly summarized in
+Section~\ref{sec:Introduction:FusionEnergy:tokamaks}
+While the tokamak's magnetic field's
+prevent the hot, core plasma from contacting any material walls,
+the plasma temperature and density
+must drop to levels that are tolerable to the reactor walls,
+located only a finite distance away from the plasma core;
+the resulting gradients in density and temperature
+provide free energy for numerous coherent and broadband instabilities,
+some of which are measured and characterized in this thesis.
+
 
 \subsection{The tokamak approach to fusion}
+\label{sec:Introduction:FusionEnergy:tokamaks}
+
 \begin{itemize}
   \item Doughnut shaped device characterized by a strong toroidal field
     and a large toroidal plasma current
