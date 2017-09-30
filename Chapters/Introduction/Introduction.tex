@@ -261,6 +261,34 @@ are briefly discussed.
 
 
 \subsection{Heterodyne interferometry}
+Heterodyne interferometry~\cite{hutchinson_diagnostics}
+uses an external reference beam
+whose angular frequency has been shifted by $\Delta \omega_0$
+(i.e.\ the reference field is $E_R e^{-i \Delta \omega_0 t}$)
+to produce measurable intensity variations
+\begin{equation}
+  I_{\text{het}}
+  \propto
+  E_R^2 + E_0^2 + 2 E_R E_0 \cos \left(\Delta \omega_0 t + \phi \right).
+  \label{eq:OpticalInterferometry:Heterodyne:intensity}
+\end{equation}
+Note that the desired baseband phase information $\phi$ is shifted
+to an intermediate frequency $\Delta \omega_0$;
+quadrature heterodyne detection can then be used
+to extract an absolute measurement of~$\phi$~\cite{carlstrom_rsi88}.
+The technical complications of converting to and from
+the intermediate frequency
+are often justified by the resulting ability
+to overcome the shortcomings of homodyne interferometry
+\cite{hutchinson_diagnostics, nazikian_rsi87}.
+Heterodyne interferometry is an established technique
+for measuring both the bulk and the fluctuating components of plasma density
+in contemporary tokamaks
+\cite{carlstrom_rsi88, vanzeeland_ppcf05, mlynek_fst12, kasten_rsi12}
+and is expected to provide similar capabilities
+in ITER~\cite{vanzeeland_TIP_rsi13} and other next-generation devices.
+
+
 \subsection{Phase contrast imaging (PCI)}
 
 
