@@ -236,10 +236,15 @@ such naive detection of the phase-shifted radiation
 provides no information about the phase $\phi$
 or the underlying optical path.
 However, by interfering the phase-shifted field with
-a reference field $E_R e^{i \phi_R}$ of known phase $\phi_R$,
+a reference field $E_R = E_0 e^{i \phi_R}$ of
+known amplitude $E_0$ and known phase $\phi_R$,
 the total field becomes
 \begin{equation}
-  E_{\text{tot}} = E_R e^{i \phi_R} + E_0 e^{i \phi},
+  E_{\text{tot}}
+  =
+  E_R + E_0 e^{i \phi}
+  =
+  E_0 \left( e^{i \phi_R} + e^{i \phi} \right),
   \label{eq:Introduction:OpticalInterferometry:generic_interferometer_electric_field}
 \end{equation}
 with corresponding intensity
@@ -248,12 +253,14 @@ with corresponding intensity
   \propto
   |E_{\text{tot}}|^2
   =
-  E_R^2 + E_0^2 + 2 E_R E_0 \cos(\phi - \phi_R).
+  2 E_0^2 \left[
+    1 + \cos\left( \phi - \phi_R \right)
+  \right].
   \label{eq:Introduction:OpticalInterferometry:generic_interferometer_intensity}
 \end{equation}
 Now, the measurable intensity $I$
 is a function of the phase $\phi$.
-The specification of the reference field $E_R e^{i \phi_R}$
+The specification of the reference field $E_R$
 determines the interferometric method.
 Below, two interferometric methods ---
 heterodyne interferometry and phase contrast imaging (PCI) ---
@@ -264,12 +271,14 @@ are briefly discussed.
 Heterodyne interferometry~\cite{hutchinson_diagnostics}
 uses an external reference beam
 whose angular frequency has been shifted by $\Delta \omega_0$
-(i.e.\ the reference field is $E_R e^{-i \Delta \omega_0 t}$)
+(i.e.\ the reference field is $E_R = E_0 e^{-i \Delta \omega_0 t}$)
 to produce measurable intensity variations
 \begin{equation}
   I_{\text{het}}
   \propto
-  E_R^2 + E_0^2 + 2 E_R E_0 \cos \left(\Delta \omega_0 t + \phi \right).
+  2E_0^2 \left[
+    1 + \cos \left(\Delta \omega_0 t + \phi \right)
+  \right].
   \label{eq:Introduction:OpticalInterferometry:Heterodyne:intensity}
 \end{equation}
 Note that the desired baseband phase information $\phi$ is shifted
@@ -290,6 +299,7 @@ in ITER~\cite{vanzeeland_TIP_rsi13} and other next-generation devices.
 
 
 \subsection{Phase contrast imaging (PCI)}
+\label{sec:Introduction:OpticalInterferometry:pci}
 To motivate the development of phase contrast imaging (PCI),
 consider a phase $\phi$ that consists of a
 uniform, bulk contribution $\bar{\phi}$ and
@@ -302,13 +312,15 @@ becomes
 \begin{equation}
   I_{\text{het}}
   \propto
-  E_R^2 + E_0^2
-  +
-  2 E_R E_0 \left[
-    \cos \left(\Delta \omega_0 t + \bar{\phi} \right)
-    -
-    \tilde{\phi} \sin \left( \Delta \omega_0 t + \bar{\phi} \right)
-  \right].
+  2 E_0^2 \left\{
+    1
+    +
+    \left[
+      \cos \left(\Delta \omega_0 t + \bar{\phi} \right)
+      -
+      \tilde{\phi} \sin \left( \Delta \omega_0 t + \bar{\phi} \right)
+    \right]
+  \right\}.
 \end{equation}
 As $\tilde{\phi} \ll 1$,
 the component of the intensity
@@ -316,11 +328,11 @@ corresponding to the fluctuation $\tilde{\phi}$
 is only a \emph{small fraction} of the total intensity.
 Because every physical detector
 has a maximum tolerable intensity $I_{\text{max}}$,
-this implies that the fluctuating signal
+this implies that the fluctuation-induced component of the signal
 will only occupy a small fraction
 of the detector's dynamic range,
 establishing a fundamental limit
-on the fluctuation sensitivity of such a system.
+on the fluctuation sensitivity of a heterodyne interferometer.
 
 If measurement of the fluctuation $\tilde{\phi}$ is of primary importance,
 the interference scheme can be reconfigured
@@ -341,12 +353,12 @@ Now, imagine prescribing a reference field
 \begin{equation}
   E_R = -E_0 e^{i \bar{\phi}} (1 - i \eta)
 \end{equation}
-for real $\eta$ such that the total field becomes
+for $0 < \eta \leq 1$ such that the total field becomes
 \begin{equation}
   E_{\text{tot}}
   =
   E_R + E_0 e^{i \phi}
-  =
+  \approx
   i E_0 e^{i \bar{\phi}} \left( \eta + \tilde{\phi} \right),
 \end{equation}
 with corresponding intensity
@@ -354,21 +366,84 @@ with corresponding intensity
   I_{\text{PCI}}
   \propto
   |E_{\text{tot}}|^2
-  =
-  E_0^2 \left( \eta + 2 \sqrt{\eta} \tilde{\phi} \right).
+  \approx
+  E_0^2 \left( \eta + 2 \sqrt{\eta} \tilde{\phi} \right),
   \label{eq:Introduction:OpticalInterferometry:PCI:intensity}
 \end{equation}
+where only the lowest order terms in $\tilde{\phi}$
+have been retained in the expressions
+for both $E_{\text{tot}}$ and $I_{\text{PCI}}$.
 For a given fluctuation $\tilde{\phi}$ and a given detector,
 such an interference scheme has an amplitude sensitivity to fluctuations
 that is $8 / \sqrt{\eta}$ \emph{better}
-than a heterodyne interferometer ($0 < \eta \leq 1$).
+than that of a heterodyne interferometer.
 Note, however, that information about the bulk phase $\bar{\phi}$ is lost.
-While prescription of such a reference field may seem rather academic,
+
+While prescription of the above reference field may seem rather academic,
 this is precisely the means by which PCI operates,
 as may be guessed from the suggestive notation $I_{\text{PCI}}$.
+PCI ``prescribes'' such a reference field
+by spatially filtering the radiation pattern $E_0 e^{i \phi}$
+in the focal plane of a focusing optic.
+Typically, the spatial filtering is performed with a ``phase plate'',
+an optical element that selectively applies
+(due to its geometry and its location at the focal plane)
+an appropriate phase delay and attenuation
+to the component of the field corresponding to the bulk phase $\bar{\phi}$.
+Thus, in contrast to the heterodyne interferometer,
+the PCI uses an \emph{internal} reference beam.
+Because diffraction limits the focal-plane spot size,
+this spatial filtering necessarily involves a low-$k$ cutoff,
+which in the ideal, diffraction-limited case corresponds to
+$k_{\text{min}}^{\text{PCI}} = 2 / w$,
+where $w$ is the 1/e electric field radius of the probe beam
+\cite{dorris_rsi09}.
+The principles of PCI will be discussed in more detail in
+Section~\ref{sec:InterferometricMethods:pci}.
 
 
-\subsection{Similarities and differences\ldots}
+PCI is an established technique for measuring plasma density fluctuations
+in contemporary tokamaks.
+\begin{itemize}
+  \item references to PCI systems (Dorris \diiid, C-Mod, TCV)
+  \item List important contributions
+    (Rost/Marinoni/Ennever: turbulence, Naoto: ICRF, Edlund: AEs)
+  \item Comment about spatial localization via additional spatial filtering
+    (Dorris RSI, Lin RSI (?)), but not pursued further in this thesis
+\end{itemize}
+
+
+\subsection{Heterodyne interferometry vs.\ PCI}
+Colloquially, heterodyne interferometry
+is considered a ``low-$k$'' technique, and
+PCI is considered a ``high-$k$'' technique.
+It is worth pausing here to note that,
+for the same probe beam and the same fluctuation $\tilde{\phi}$,
+the laser-plasma interaction is \emph{identical} for both techniques.
+Further, the high-$k$ optical capabilities of both systems
+are governed by the size of the collection optics
+and finite sampling-volume effects~\cite{bravenec_rsi95}, as discussed in
+Section~\ref{sec:DesignConsiderations:geometric:finite_sampling_volume}.
+Thus, there is nothing that intrinsically limits
+heterodyne interferometry to low-$k$ measurements ---
+a heterodyne interferometer's high-$k$ limit
+can be just as high, if not higher,
+than that of a given PCI system.
+However, as outlined in
+Section~\ref{sec:Introduction:OpticalInterferometry:pci},
+PCI is \emph{more sensitive} to fluctuations
+than a comparable heterodyne interferometer, and,
+assuming a Kolmogorov-like fluctuation spectrum
+$S(k) \propto k^{-p}$ for some positive $p$,
+PCI's superior sensitivity may allow it
+to detect high-$k$ fluctuations
+that are too weak to be seen by a heterodyne interferometer.
+At the low-$k$ side of the spectrum,
+PCI is diffraction-limited to $k \geq 2 / w$,
+where $w$ is the 1/e electric field radius of the probe beam
+\cite{dorris_rsi09},
+whereas the heterodyne interferometer's external reference beam
+allows detection even at $k = 0$.
 
 
 \section{Motivation for a combined PCI-interferometer}
