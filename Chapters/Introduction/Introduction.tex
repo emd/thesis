@@ -216,6 +216,49 @@ to equip the reader with a foundation
 for the more detailed discussion in
 Chapter~\ref{ch:InterferometricMethods}.
 
+Interferometry exploits the interference of light
+to measure optical path length, defined as the product of
+the geometric path length $l$ and
+the index of refraction $N$ of the intervening medium.
+The phase $\delta \phi$ acquired by light propagating through
+optical path length $\delta(Nl)$ is
+$\delta\phi = k \delta(NL)$, where
+$k$ is the in-medium wavenumber of the light;
+integrating over the geometric path
+yields the total acquired phase, $\phi$.
+Thus, an incident electric field $E_0$
+will be phase shifted as $E_0 e^{i \phi}$
+after transiting the above optical path.
+Note that this phase shift does \emph{not} alter
+the field intensity $I \propto |E_0 e^{i \phi}|^2 = |E_0|^2$;
+as most detectors are square-law, intensity detectors,
+such naive detection of the phase-shifted radiation
+provides no information about the phase $\phi$
+or the underlying optical path.
+However, by interfering the phase-shifted field with
+a reference field $E_R e^{i \phi_R}$ of known phase $\phi_R$,
+the total field becomes
+\begin{equation}
+  E_{\text{tot}} = E_R e^{i \phi_R} + E_0 e^{i \phi},
+  \label{eq:Introduction:OpticalInterferometry:generic_interferometer_electric_field}
+\end{equation}
+with corresponding intensity
+\begin{equation}
+  I
+  \propto
+  |E_{\text{tot}}|^2
+  =
+  E_R^2 + E_0^2 + 2 E_R E_0 \cos(\phi - \phi_R).
+  \label{eq:Introduction:OpticalInterferometry:generic_interferometer_intensity}
+\end{equation}
+Now, the measurable intensity $I$
+is a function of the phase $\phi$.
+The specification of the reference field $E_R e^{i \phi_R}$
+determines the interferometric method.
+Below, two interferometric methods ---
+heterodyne interferometry and phase contrast imaging (PCI) ---
+are briefly discussed.
+
 
 \subsection{Heterodyne interferometry}
 \subsection{Phase contrast imaging (PCI)}
