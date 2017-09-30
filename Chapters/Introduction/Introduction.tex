@@ -130,13 +130,42 @@ with an extensive suite of equilibrium and fluctuation diagnostics.
 
 
 \subsection{Fluctuation-induced transport in tokamak plasmas}
+The transport of particles, heat, and momentum in a tokamak plasma is
+often larger than that predicted by collisional (i.e.\ neoclassical) theory.
+There is strong evidence that this ``anomalous'' transport
+results from electrostatic drift-wave turbulence
+driven by the free energy in the plasma gradients~\cite{horton_drift_waves}.
+Due to their large eddy size,
+ion-scale ($k_{\theta} \rho_i \lesssim 1$) turbulence is often considered
+to be the most detrimental to confinement~\cite{horton_drift_waves}, but
+electron-scale ($k_{\theta} \rho_e \lesssim 1$) turbulence
+may be capable of forming radially elongated ``streamers''
+\cite{dorland_prl00}
+capable of driving experimentally relevant electron heat transport
+\cite{jenko_prl02}.
+Here, $k_{\theta}$ is a typical poloidal wavenumber of the turbulent mode,
+$\rho_j = v_{tj} / \Omega_j$ is the gyroradius of species $j$,
+$v_{tj} = \sqrt{2 T_j / m_j}$ is the thermal speed of species $j$, and
+$\Omega_j = e B / m_j$ is the angular cyclotron frequency of species $j$.
+For the reactor-relevant scenario $T_e \sim T_i$,
+the characteristic length scale of ion-scale turbulence is a factor
+$\sqrt{m_D / m_e} \approx 60$ larger than
+the characteristic length scale of electron-scale turbulence,
+where the $m_D$ is the deuteron mass.
+Until the very recent work of Howard \emph{et al.}
+\cite{howard_pp14,howard_nf16},
+self-consistently and simultaneously simulating
+both ion- and electron-scale turbulence with realistic mass ratios
+was computationally intractable.
+In a computational \emph{tour de force},
+Howard \emph{et al.}'s multiscale simulations indicate
+that cross-scale coupling can drive
+experimentally relevant levels of electron heat flux~\cite{howard_pp14} and
+that this cross-scale coupling becomes stronger
+with marginally (rather than strongly) unstable ion-scale turbulence
+\cite{howard_nf16}.
+
 \begin{itemize}
-  \item Brief discussion of broadband turbulence and dominant instabilities
-    \begin{itemize}
-      \item Discussion of N. Howard's multiscale work
-        \cite{howard_pp14,howard_nf16}
-        and the need to validate against experiment
-    \end{itemize}
   \item Very brief discussion of fast-ion transport due to
     Alfv\'{e}n eigenmodes
 \end{itemize}
@@ -148,6 +177,20 @@ Chapter~\ref{ch:InterferometricMethods}.
 
 \subsection{Heterodyne interferometry}
 \subsection{Phase contrast imaging (PCI)}
+
+
+\section{Motivation}
+Development of a combined PCI-interferometer for
+\begin{itemize}
+  \item measurement of multiscale turbulence,
+    \begin{itemize}
+      \item ITG experiment: Tynan; ETG experiment: ???
+      \item Multiscale predictions need validation
+    \end{itemize}
+  \item measurement of core-localized MHD, and
+  \item diagnostic development for next-generation devices
+    with limited port space
+\end{itemize}
 
 
 \section{Thesis outline}
