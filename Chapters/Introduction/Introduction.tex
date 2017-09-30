@@ -270,7 +270,7 @@ to produce measurable intensity variations
   I_{\text{het}}
   \propto
   E_R^2 + E_0^2 + 2 E_R E_0 \cos \left(\Delta \omega_0 t + \phi \right).
-  \label{eq:OpticalInterferometry:Heterodyne:intensity}
+  \label{eq:Introduction:OpticalInterferometry:Heterodyne:intensity}
 \end{equation}
 Note that the desired baseband phase information $\phi$ is shifted
 to an intermediate frequency $\Delta \omega_0$;
@@ -290,6 +290,85 @@ in ITER~\cite{vanzeeland_TIP_rsi13} and other next-generation devices.
 
 
 \subsection{Phase contrast imaging (PCI)}
+To motivate the development of phase contrast imaging (PCI),
+consider a phase $\phi$ that consists of a
+uniform, bulk contribution $\bar{\phi}$ and
+a small, spatially fluctuating contribution $\tilde{\phi} \ll 1$ such that
+$\phi = \bar{\phi} + \tilde{\phi}$.
+To lowest order in $\tilde{\phi}$,
+the heterodyne intensity
+(\ref{eq:Introduction:OpticalInterferometry:Heterodyne:intensity})
+becomes
+\begin{equation}
+  I_{\text{het}}
+  \propto
+  E_R^2 + E_0^2
+  +
+  2 E_R E_0 \left[
+    \cos \left(\Delta \omega_0 t + \bar{\phi} \right)
+    -
+    \tilde{\phi} \sin \left( \Delta \omega_0 t + \bar{\phi} \right)
+  \right].
+\end{equation}
+As $\tilde{\phi} \ll 1$,
+the component of the intensity
+corresponding to the fluctuation $\tilde{\phi}$
+is only a \emph{small fraction} of the total intensity.
+Because every physical detector
+has a maximum tolerable intensity $I_{\text{max}}$,
+this implies that the fluctuating signal
+will only occupy a small fraction
+of the detector's dynamic range,
+establishing a fundamental limit
+on the fluctuation sensitivity of such a system.
+
+If measurement of the fluctuation $\tilde{\phi}$ is of primary importance,
+the interference scheme can be reconfigured
+to provide better sensitivity to fluctuations.
+Examine the phase-shifted field
+\begin{equation}
+  E_0 e^{i \phi}
+  =
+  E_0 e^{i \left( \bar{\phi} + \tilde{\phi} \right)}
+  \approx
+  E_0 e^{i \bar{\phi}} \left( 1 + i \tilde{\phi} \right),
+\end{equation}
+where only the lowest-order term in $\tilde{\phi}$ has been retained.
+In the rightmost expression,
+the unity term corresponds to the bulk-phase contribution, while
+the $i \tilde{\phi}$ term corresponds to the fluctuating-phase contribution.
+Now, imagine prescribing a reference field
+\begin{equation}
+  E_R = -E_0 e^{i \bar{\phi}} (1 - i \eta)
+\end{equation}
+for real $\eta$ such that the total field becomes
+\begin{equation}
+  E_{\text{tot}}
+  =
+  E_R + E_0 e^{i \phi}
+  =
+  i E_0 e^{i \bar{\phi}} \left( \eta + \tilde{\phi} \right),
+\end{equation}
+with corresponding intensity
+\begin{equation}
+  I_{\text{PCI}}
+  \propto
+  |E_{\text{tot}}|^2
+  =
+  E_0^2 \left( \eta + 2 \sqrt{\eta} \tilde{\phi} \right).
+  \label{eq:Introduction:OpticalInterferometry:PCI:intensity}
+\end{equation}
+For a given fluctuation $\tilde{\phi}$ and a given detector,
+such an interference scheme has an amplitude sensitivity to fluctuations
+that is $8 / \sqrt{\eta}$ \emph{better}
+than a heterodyne interferometer ($0 < \eta \leq 1$).
+Note, however, that information about the bulk phase $\bar{\phi}$ is lost.
+While prescription of such a reference field may seem rather academic,
+this is precisely the means by which PCI operates,
+as may be guessed from the suggestive notation $I_{\text{PCI}}$.
+
+
+\subsection{Similarities and differences\ldots}
 
 
 \section{Motivation for a combined PCI-interferometer}
