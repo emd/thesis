@@ -295,7 +295,7 @@ for measuring both the bulk and the fluctuating components of plasma density
 in contemporary tokamaks
 \cite{carlstrom_rsi88, vanzeeland_ppcf05, mlynek_fst12, kasten_rsi12}
 and is expected to provide similar capabilities
-in ITER~\cite{vanzeeland_TIP_rsi13} and other next-generation devices.
+in ITER~\cite{vanzeeland_TIP_rsi13} and other next-step devices.
 
 
 \subsection{Phase contrast imaging (PCI)}
@@ -446,17 +446,53 @@ whereas the heterodyne interferometer's external reference beam
 allows detection even at $k = 0$.
 
 
-\section{Motivation for a combined PCI-interferometer}
-Development of a combined PCI-interferometer for
+\section{Motivation for a combined PCI--interferometer}
+This thesis details the design, construction, and operation
+of a combined PCI--interferometer on the \diiid\space tokamak.
+This first-of-a-kind system uses
+a single \SI{10.6}{\micro \meter} probe beam,
+two interference schemes, and
+two detectors
+to measure electron density fluctuations
+at large spatiotemporal bandwidth~\cite{davis_rsi16}.
+The motivations for this work are threefold:
+
 \begin{itemize}
-  \item measurement of multiscale turbulence,
-    \begin{itemize}
-      \item ITG experiment: Tynan; ETG experiment: ???
-      \item Multiscale predictions need validation
-    \end{itemize}
-  \item measurement of core-localized MHD, and
-  \item diagnostic development for next-generation devices
-    with limited port space
+  \item \diiid's pre-existing PCI system has a low-$k$ cutoff
+    $k_{\text{min}}^{\text{PCI}} = \SI{1.5}{\per\centi\meter}$.
+    For a $\SI{1}{\kilo\eV}$ temperature typical of \diiid's pedestal,
+    this corresponds to $k_{\theta} \rho_i \gtrsim 0.25$,
+    with larger values in the higher-temperature core.
+    The addition of a heterodyne interferometer
+    extends the minimum detectable wavenumber to $k = 0$, allowing
+    simultaneous measurement of ion- and electron-scale instabilities.
+    Such a capability could provide direct experimental validation
+    of the significant cross-scale coupling
+    predicted by Howard \emph{et al.}~\cite{howard_pp14,howard_nf16}.
+  \item Correlating measurements from the interferometer channel
+    with those from \diiid's pre-existing, toroidally separated
+    ($\Delta\zeta = 45^{\circ}$) interferometer
+    provides a direct toroidal-mode-number ($n$) measurement
+    of low-$n$ magnetohydrodynamic (MHD) modes.
+    This technique is capable of measuring
+    mode numbers of \emph{core-localized} MHD
+    that is invisible to the external magnetic probes.
+  \item ITER and other next-step devices are expected to have
+    harsh neutron environments and limited port space.
+    While such devices will almost certainly
+    rely on heterodyne interferometry
+    for density control and measurement of Alfv\'{e}n instabilities
+    \cite{vanzeeland_TIP_rsi13},
+    the allocation of port space for a PCI system is less clear.
+    It is expected that these next-step devices
+    will operate in strongly $\alpha$-heated regimes
+    (i.e.\ at or near ignition),
+    which may be subject to novel turbulent regimes.
+    This first-of-a-kind combined PCI--interferometer
+    demonstrates that simultaneous interferometric and PCI measurements
+    can be made with a single probe beam and set of ports,
+    potentially paving the way for sensitive PCI measurements
+    with similar combined systems on ITER and other next-step devices.
 \end{itemize}
 
 
