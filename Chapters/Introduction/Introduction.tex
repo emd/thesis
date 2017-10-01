@@ -1,15 +1,627 @@
 \chapter{Introduction}
+\label{ch:Introduction}
 
-Fusion is\ldots
 
-\section{World energy consumption}
+\section{Fusion energy}
+Fusion is the energy of the Sun and stars, and,
+for the better part of the last century,
+thousands of scientists and engineers have striven
+to replicate this process in a controlled manner here on Earth
+for a source of safe, clean, and virtually inexhaustible energy.
+The core principle is simple:
+combine (i.e. ``fuse'') the nuclei of two light elements
+to make the nucleus of a heavier element,
+with the total mass of the resulting products
+being slightly less than that of the reactants;
+this mass difference $m$
+is converted into an enormous amount of energy $E$
+via Einstein's famed $E = m c^2$, where
+$c$ is the speed of light in vacuum~\cite[Ch.~14]{krane}.
 
-\section{Fusion reactions of interest}
-\subsection{Stellar}
-\subsection{Terrestrial}
+Practically speaking, however, fusion is extremely difficult.
+Even for deuterium (D) and tritium (T), the most reactive of nuclei,
+the probability of fusing
+(quantified by the reaction cross section)
+is orders-of-magnitude smaller than
+the probability of the positively charged nuclei
+repelling and scattering off of each other
+(quantified by the Coulomb cross section)
+\cite[Sec.~9.3.4]{freidberg_fusion_energy}.
+This relatively small fusion cross section explains why
+beam-target or beam-beam fusion are incapable of producing net energy.
+Instead of using a highly directed beam that is far from thermal equilibrium,
+an alternative approach is to employ the thermal energy
+of a material at or near thermal equilibrium
+to overcome the Coulomb barrier ---
+because of its reliance on the thermal energy,
+such an approach is referred to as thermonuclear fusion~\cite[Ch.~14]{krane}.
 
-\section{What's a tokamak?}
+The temperatures required to initiate thermonuclear fusion
+dictate that the fuel exists as a hot, ionized gas
+referred to as plasma.
+Initially, the plasma must be externally heated
+to reach fusion-relevant conditions, but
+it is envisioned that at some threshold, much like the Sun,
+the fusion reactions will become self-sustaining;
+this threshold is referred to as \emph{ignition}.
+Now, in addition to the thermal energy
+required to overcome the Coulomb barrier,
+the plasma must also be sufficiently dense and
+sufficiently well-confined
+to reach ignition.
+The threshold for ignition in a D-T plasma is often quantified
+by the fusion triple product
+\begin{equation}
+  n_{i} T_{i} \tau_E
+  \geq
+  5 \times 10^{21} \, \text{m}^{-3} \cdot \text{keV} \cdot \text{s}
+  =
+  8 \, \text{atm} \cdot \text{s},
+  \label{eq:Introduction:fusion_triple_product}
+\end{equation}
+where
+$n_{i}$ is the peak ion density,
+$T_{i}$ is the peak ion temperature, and
+$\tau_E$ is the energy confinement time~\cite[Sec.~1.1]{wesson}.
+This condition could be reached, for example, at
+$n_i = \SI{e20}{\per\meter\cubed}$,
+$T_i = \SI{10}{\kilo\eV}$, and
+$\tau_E = \SI{3}{\second}$~\cite[Sec.~1.3]{wesson}.
 
-\section{Turbulence and transport}
+It should be emphasized that $T_i = \SI{10}{\kilo\eV}$
+corresponds to approximately $\SI{e6}{\kelvin}$.
+No conventional container can confine such a plasma.
+While numerous confinement schemes exist,
+the only strategy considered in this thesis
+is that of tokamak magnetic confinement,
+briefly summarized in
+Section~\ref{sec:Introduction:FusionEnergy:tokamaks}
+While the tokamak's magnetic fields
+prevent the hot, core plasma from contacting any material walls,
+the outermost portions of the plasma (i.e. ``the edge'')
+do contact the reactor walls.
+To prevent damage to the reactor walls,
+the plasma temperature and density
+must decrease to tolerable levels at the edge;
+the resulting gradients in density and temperature
+provide free energy for numerous coherent and broadband instabilities,
+some of which are measured and characterized in this thesis.
 
-\section{Fast ion confinement (?)}
+
+\subsection{The tokamak approach to fusion}
+\label{sec:Introduction:FusionEnergy:tokamaks}
+The tokamak~\cite{wesson} is currently
+the leading configuration for a magnetic-confinement fusion reactor.
+The tokamak is an axisymmetric toroidal device
+characterized by a strong toroidal magnetic field $B_{\zeta}$ and
+a toroidal plasma current $I_{\zeta}$.
+The toroidal plasma current
+produces a poloidal magnetic field $B_{\theta}$,
+resulting in a total magnetic field
+$\vect{B} = B_{\zeta} \hat{\vect{\zeta}} + B_{\theta} \hat{\vect{\theta}}$
+that wraps helically around the torus
+in a barber pole-like fashion.
+The magnetic force of this helical field balances the plasma pressure,
+allowing the establishment of an equilibrium;
+the large toroidal field $B_{\zeta}$ provides stability.
+Wesson provides a concise historical overview of tokamak research
+\cite[Sec.~1.10]{wesson}.
+Since the initial success of the USSR's T-3 tokamak in the 1960s,
+hundreds of tokamaks of numerous shapes, sizes, and field strengths
+have been built all over the world
+\cite[Ch.~11,12]{wesson}~\cite{tokamaks_of_the_world}.
+
+The work reported in this thesis was conducted
+at the \diiid\space tokamak in San Diego, CA~\cite[Sec.~12.5]{wesson}.
+\diiid\space is a mid-size
+($R = \SI{1.67}{\meter}$, $a = \SI{0.67}{\meter}$)
+diverted tokamak with
+maximum toroidal field $B_{\zeta} \leq \SI{2.2}{\tesla}$ and
+a maximum achieved plasma current of $I_{\zeta} \leq \SI{3}{\mega\amp}$.
+Up to $\SI{20}{\mega\watt}$ of deuterium neutral beam injection (NBI) and
+$\SI{6}{\mega\watt}$ of electron cyclotron resonance heating (ECRH)
+are available for auxiliary plasma heating.
+The ECRH deposition location can be dynamically changed within a single shot,
+and the NBI system can be operated in $\beta$ feedback
+in an attempt to maintain constant plasma $\beta$
+as other plasma parameters change.
+\diiid\space is perhaps the best-diagnosed tokamak in the world,
+with an extensive suite of equilibrium and fluctuation diagnostics.
+
+
+\subsection{Fluctuation-induced transport in tokamak plasmas}
+As hinted at above, the gradients in a fusion plasma can drive instability.
+These instabilities may be broadband or coherent in nature, and
+they may be beneficial, benign, or detrimental to confinement.
+The brief discussion below is \emph{not}
+a thorough or exhaustive survey of these instabilities but
+is instead intended to provide a fusion-energy context
+to the diagnostic development pursued in this thesis.
+
+The radial transport of particles, heat, and momentum in a tokamak plasma is
+often larger than that predicted by collisional (i.e.\ neoclassical) theory.
+There is strong evidence that this ``anomalous'' transport
+results from electrostatic drift-wave turbulence
+driven by the free energy in the plasma gradients
+\cite{horton_drift_waves,tynan_ppcf09}.
+Due to the relatively large size of its eddies,
+ion-scale ($k_{\theta} \rho_i \lesssim 1$) turbulence is often considered
+to be the most detrimental to confinement, but
+electron-scale ($k_{\theta} \rho_e \lesssim 1$) turbulence
+may be capable of forming radially elongated ``streamers''
+\cite{dorland_prl00}
+capable of driving experimentally relevant electron heat transport
+\cite{jenko_prl02}.
+Here, $k_{\theta}$ is a typical poloidal wavenumber of the turbulent mode,
+$\rho_j = v_{tj} / \Omega_j$ is the gyroradius of species $j$,
+$v_{tj} = \sqrt{2 T_j / m_j}$ is the thermal speed of species $j$, and
+$\Omega_j = e B / m_j$ is the angular cyclotron frequency of species $j$.
+For the reactor-relevant scenario $T_e \sim T_i$,
+the characteristic length scale of ion-scale turbulence is a factor
+$\sqrt{m_D / m_e} \approx 60$ larger than
+the characteristic length scale of electron-scale turbulence,
+where the $m_D$ is the deuteron mass.
+Until the very recent work of Howard \emph{et al.}
+\cite{howard_pp14,howard_nf16},
+self-consistently and simultaneously simulating
+both ion- and electron-scale turbulence with realistic mass ratios
+was computationally intractable.
+In a computational \emph{tour de force},
+Howard \emph{et al.}'s multiscale simulations indicate
+that cross-scale coupling can drive
+experimentally relevant levels of electron heat flux~\cite{howard_pp14} and
+that this cross-scale coupling becomes stronger
+when the ion-scale turbulence is marginally (rather than strongly) unstable
+\cite{howard_nf16}.
+
+In addition to broadband turbulence,
+coherent fluctuations can also drive transport in a tokamak plasma.
+Of note are Alfv\'{e}n waves that are driven unstable
+by resonant interactions with superthermal energetic particles
+\cite{wesson,heidbrink_pp08}.
+Such energetic particles sit in the tail
+of the plasma's distribution function, and
+they are generated, for example, from
+the ionization of injected neutral-beam particles,
+the acceleration of ions by intense radio-frequency fields, or
+the fusion of two fuel ions.
+Nonlinearly, the Alfv\'{e}n instability
+results in the loss of energetic particles from the plasma,
+decreasing the fusion rate;
+further, these lost particles may damage components inside the reactor.
+(As an interesting aside, Alfv\'{e}n spectroscopy is an effective diagnostic
+for measuring the minimum value of the plasma's safety factor,
+$q_{\text{min}}$~\cite{wesson,edlund_prl09,breizman_pp05}).
+Of much practical interest to stable tokamak operation
+is the neoclassical tearing mode~\cite[Sec.~7.3]{wesson},
+which can ``lock'' to the vessel wall~\cite[Sec.~7.10]{wesson}
+and result in ``disruption'',
+an abrupt, violent termination of the plasma discharge
+\cite[Sec.~7.7-7.9]{wesson}.
+
+
+\section{Optical interferometry}
+Following its invention by Michelson in the 1880s~\cite{nobel_prize_michelson},
+optical interferometry has had a long and illustrious history
+in fundamental and applied sciences, ranging from
+the famed Michelson-Morley experiment
+disproving the existence of a luminiferous ether~\cite{michelson_ajs1887},
+to Zernike's phase-contrast method for imaging phase objects
+of wide importance in biology~\cite{nobel_prize_zernike},
+to the recent observation of gravitational waves
+by the LIGO collaboration~\cite{ligo_prl16}.
+The brief discussion of interferometry below is intended
+to provide an instrumentation context
+to the diagnostic development pursued in this thesis and
+to equip the reader with a foundation
+for the more detailed discussion in
+Chapter~\ref{ch:InterferometricMethods}.
+
+Interferometry exploits the interference of light
+to measure optical path length, defined as the product of
+the geometric path length $l$ and
+the index of refraction $N$ of the intervening medium.
+The phase $\delta \phi$ acquired by light propagating through
+optical path length $\delta(Nl)$ is
+$\delta\phi = k \delta(NL)$, where
+$k$ is the in-medium wavenumber of the light;
+integrating over the geometric path
+yields the total acquired phase, $\phi$.
+Thus, an incident electric field $E_0$
+will be phase shifted as $E_0 e^{i \phi}$
+after transiting such an optical path.
+Note that this phase shift does \emph{not} alter
+the field intensity $I \propto |E_0 e^{i \phi}|^2 = |E_0|^2$;
+as most detectors are square-law, intensity detectors,
+such naive detection of the phase-shifted radiation
+provides no information about the phase $\phi$
+or the underlying optical path.
+However, by interfering the phase-shifted field with
+a reference field $E_R = E_0 e^{i \phi_R}$ of
+known amplitude $E_0$ and known phase $\phi_R$,
+the total field becomes
+\begin{equation}
+  E_{\text{tot}}
+  =
+  E_R + E_0 e^{i \phi}
+  =
+  E_0 \left( e^{i \phi_R} + e^{i \phi} \right),
+  \label{eq:Introduction:OpticalInterferometry:generic_interferometer_electric_field}
+\end{equation}
+with corresponding intensity
+\begin{equation}
+  I
+  \propto
+  |E_{\text{tot}}|^2
+  =
+  2 E_0^2 \left[
+    1 + \cos\left( \phi - \phi_R \right)
+  \right].
+  \label{eq:Introduction:OpticalInterferometry:generic_interferometer_intensity}
+\end{equation}
+Now, the measurable intensity $I$
+is a function of the phase $\phi$.
+The specification of the reference field $E_R$
+determines the interferometric method.
+Below, two interferometric methods ---
+heterodyne interferometry and phase contrast imaging (PCI) ---
+are briefly discussed.
+
+
+\subsection{Heterodyne interferometry}
+Heterodyne interferometry~\cite{hutchinson_diagnostics}
+uses an external reference beam
+whose angular frequency has been shifted by $\Delta \omega_0$
+(i.e.\ the reference field is $E_R = E_0 e^{-i \Delta \omega_0 t}$)
+to produce measurable intensity variations
+\begin{equation}
+  I_{\text{het}}
+  \propto
+  2E_0^2 \left[
+    1 + \cos \left(\Delta \omega_0 t + \phi \right)
+  \right].
+  \label{eq:Introduction:OpticalInterferometry:Heterodyne:intensity}
+\end{equation}
+Note that the desired baseband phase information $\phi$ is shifted
+to an intermediate frequency $\Delta \omega_0$;
+quadrature heterodyne detection can then be used
+to extract an absolute measurement of~$\phi$~\cite{carlstrom_rsi88}.
+The technical complications of converting to and from
+the intermediate frequency
+are often justified by the resulting ability
+to overcome the shortcomings of homodyne interferometry
+\cite{hutchinson_diagnostics, nazikian_rsi87}.
+Heterodyne interferometry is an established technique
+for measuring both the bulk and the fluctuating components of plasma density
+in contemporary tokamaks
+\cite{carlstrom_rsi88, vanzeeland_ppcf05, mlynek_fst12, kasten_rsi12}
+and is expected to provide similar capabilities
+in ITER~\cite{vanzeeland_TIP_rsi13} and other next-step devices.
+
+
+\subsection{Phase contrast imaging (PCI)}
+\label{sec:Introduction:OpticalInterferometry:pci}
+To motivate the development of phase contrast imaging (PCI),
+consider a phase $\phi$ that consists of a
+uniform, bulk contribution $\bar{\phi}$ and
+a small, spatially fluctuating contribution $\tilde{\phi} \ll 1$ such that
+$\phi = \bar{\phi} + \tilde{\phi}$.
+To lowest order in $\tilde{\phi}$,
+the heterodyne intensity
+(\ref{eq:Introduction:OpticalInterferometry:Heterodyne:intensity})
+becomes
+\begin{equation}
+  I_{\text{het}}
+  \propto
+  2 E_0^2 \left\{
+    1
+    +
+    \left[
+      \cos \left(\Delta \omega_0 t + \bar{\phi} \right)
+      -
+      \tilde{\phi} \sin \left( \Delta \omega_0 t + \bar{\phi} \right)
+    \right]
+  \right\}.
+\end{equation}
+As $\tilde{\phi} \ll 1$,
+the component of the intensity
+corresponding to the fluctuation $\tilde{\phi}$
+is only a \emph{small fraction} of the total intensity.
+Because every physical detector
+has a maximum tolerable intensity $I_{\text{max}}$,
+this implies that the fluctuation-induced component of the signal
+will only occupy a small fraction
+of the detector's dynamic range,
+establishing a fundamental limit
+on the fluctuation sensitivity of a heterodyne interferometer.
+
+If measurement of the fluctuation $\tilde{\phi}$ is of primary importance,
+the interference scheme can be reconfigured
+to provide better sensitivity to fluctuations.
+Examine the phase-shifted field
+\begin{equation}
+  E_0 e^{i \phi}
+  =
+  E_0 e^{i \left( \bar{\phi} + \tilde{\phi} \right)}
+  \approx
+  E_0 e^{i \bar{\phi}} \left( 1 + i \tilde{\phi} \right),
+\end{equation}
+where only the lowest-order term in $\tilde{\phi}$ has been retained.
+In the rightmost expression,
+the unity term corresponds to the bulk-phase contribution, while
+the $i \tilde{\phi}$ term corresponds to the fluctuating-phase contribution.
+Now, imagine prescribing a reference field
+\begin{equation}
+  E_R = -E_0 e^{i \bar{\phi}} (1 - i \eta)
+\end{equation}
+for $0 < \eta \leq 1$ such that the total field becomes
+\begin{equation}
+  E_{\text{tot}}
+  =
+  E_R + E_0 e^{i \phi}
+  \approx
+  i E_0 e^{i \bar{\phi}} \left( \eta + \tilde{\phi} \right),
+\end{equation}
+with corresponding intensity
+\begin{equation}
+  I_{\text{PCI}}
+  \propto
+  |E_{\text{tot}}|^2
+  \approx
+  E_0^2 \left( \eta + 2 \sqrt{\eta} \tilde{\phi} \right),
+  \label{eq:Introduction:OpticalInterferometry:PCI:intensity}
+\end{equation}
+where only the lowest-order terms in $\tilde{\phi}$
+have been retained in the expressions
+for both $E_{\text{tot}}$ and $I_{\text{PCI}}$.
+For a given fluctuation $\tilde{\phi}$ and a given detector,
+such an interference scheme has an amplitude sensitivity to fluctuations
+that is $8 / \sqrt{\eta}$ \emph{better}
+than that of a comparable heterodyne interferometer
+(here, the $50\%$ power loss in the heterodyne-interferometer signal
+that necessarily results from the intermediate frequency-to-baseband conversion
+has been accounted for).
+Note, however, that information about the bulk phase $\bar{\phi}$ is lost.
+
+While prescription of the above reference field may seem rather academic,
+this is precisely the means by which PCI operates,
+as may be guessed from the suggestive notation $I_{\text{PCI}}$.
+PCI ``prescribes'' such a reference field
+by spatially filtering the radiation pattern $E_0 e^{i \phi}$
+in the focal plane of a focusing optic.
+Typically, the spatial filtering is performed with a ``phase plate'',
+an optical element that selectively applies
+(due to its geometry and its location at the focal plane)
+an appropriate phase delay and attenuation
+to the component of the field corresponding to the bulk phase $\bar{\phi}$.
+Thus, in contrast to the heterodyne interferometry,
+PCI uses an \emph{internal} reference beam.
+Because diffraction limits the focal-plane spot size,
+this spatial filtering necessarily involves a low-$k$ cutoff,
+which in the ideal, diffraction-limited case corresponds to
+$k_{\text{min}}^{\text{PCI}} = 2 / w$,
+where $w$ is the 1/e electric-field radius of the probe beam
+\cite{dorris_rsi09}.
+The principles of PCI will be discussed in more detail in
+Section~\ref{sec:InterferometricMethods:pci}.
+
+PCI is an established technique for measuring plasma density fluctuations
+in contemporary tokamaks
+\cite{coda_phd, mazurenko_phd, marinoni_phd}.
+PCI measurements have
+characterized fluctuations in numerous high-performance regimes
+\cite{coda_LH_transition,coda_ELMs,rost_pp14,marinoni_nf15,mazurenko_prl02},
+constrained the $q$-profile evolution between sawteeth~\cite{edlund_prl09}, and
+provided validation of gyrokinetic~\cite{lin_pp09,rost_pp10,ennever_pp15}
+and RF simulations~\cite{tsujii_pp15}.
+While not pursued in this thesis,
+additional spatial filtering can provide
+some degree of spatial localization
+to the line-integrated PCI measurement
+\cite{dorris_rsi09, lin_rsi06}.
+
+
+\subsection{Heterodyne interferometry vs.\ PCI}
+Colloquially, heterodyne interferometry
+is considered a ``low-$k$'' technique, and
+PCI is considered a ``high-$k$'' technique.
+It is worth pausing here to note that,
+for the same probe beam and the same fluctuation $\tilde{\phi}$,
+the laser-plasma interaction is \emph{identical} for both techniques.
+Further, the high-$k$ optical capabilities of both systems
+are governed by the size of the collection optics
+and finite sampling-volume effects~\cite{bravenec_rsi95}, as discussed in
+Section~\ref{sec:DesignConsiderations:geometric:finite_sampling_volume}.
+Thus, there is nothing that intrinsically limits
+heterodyne interferometry to low-$k$ measurements ---
+a heterodyne interferometer's high-$k$ limit
+can be just as high, if not higher,
+than that of a given PCI system.
+However, as outlined in
+Section~\ref{sec:Introduction:OpticalInterferometry:pci},
+PCI is \emph{more sensitive} to fluctuations
+than a comparable heterodyne interferometer, and,
+assuming a Kolmogorov-like fluctuation spectrum
+$S(k) \propto k^{-p}$ for some positive $p$,
+PCI's superior sensitivity may allow it
+to detect high-$k$ fluctuations
+that are too weak to be seen by a heterodyne interferometer.
+At the low-$k$ side of the spectrum,
+PCI is diffraction-limited to $k \geq 2 / w$,
+where $w$ is the 1/e electric-field radius of the probe beam
+\cite{dorris_rsi09},
+whereas the heterodyne interferometer's external reference beam
+allows detection even at $k = 0$.
+
+
+\section{Motivation for a combined PCI--interferometer}
+This thesis details the design, construction, and operation
+of a combined PCI--interferometer on the \diiid\space tokamak.
+This first-of-a-kind system uses
+a single \SI{10.6}{\micro \meter} probe beam,
+two interference schemes, and
+two detectors
+to measure electron density fluctuations
+at large spatiotemporal bandwidth~\cite{davis_rsi16}.
+The motivations for this work are threefold:
+
+\begin{itemize}
+  \item \diiid's pre-existing PCI system has a low-$k$ cutoff
+    $k_{\text{min}}^{\text{PCI}} = \SI{1.5}{\per\centi\meter}$.
+    For a $\SI{1}{\kilo\eV}$ temperature typical of \diiid's pedestal,
+    this corresponds to $k_{\theta} \rho_i \gtrsim 0.25$,
+    with larger values in the higher-temperature core.
+    The addition of a heterodyne interferometer
+    extends the minimum detectable wavenumber to $k = 0$, allowing
+    simultaneous measurement of ion- and electron-scale instabilities.
+    Such a capability could provide direct experimental validation
+    of the significant cross-scale coupling
+    predicted by Howard \emph{et al.}~\cite{howard_pp14,howard_nf16}.
+  \item Correlating measurements from the interferometer channel
+    with those from \diiid's pre-existing, toroidally separated
+    ($\Delta\zeta = 45^{\circ}$) interferometer
+    provides a direct toroidal-mode-number ($n$) measurement
+    of low-$n$ magnetohydrodynamic (MHD) modes.
+    This technique is capable of measuring
+    mode numbers of \emph{core-localized} MHD
+    that is invisible to the external magnetic probes.
+  \item ITER and other next-step devices are expected to have
+    harsh neutron environments and limited port space.
+    While such devices will almost certainly
+    rely on heterodyne interferometry
+    for density control and measurement of Alfv\'{e}n instabilities
+    \cite{vanzeeland_TIP_rsi13},
+    the allocation of port space for a PCI system is less clear.
+    It is expected that these next-step devices
+    will operate in strongly $\alpha$-heated regimes
+    (i.e.\ at or near ignition),
+    which may be subject to novel turbulent regimes.
+    This first-of-a-kind combined PCI--interferometer
+    demonstrates that simultaneous interferometric and PCI measurements
+    can be made with a single probe beam and a set of ports,
+    potentially paving the way for sensitive PCI measurements
+    with similar combined systems on ITER and other next-step devices.
+\end{itemize}
+
+
+\section{Thesis outline}
+The remainder of this thesis is organized as follows:
+
+\begin{itemize}
+  \item Chapter~\ref{ch:InterferometricMethods} discusses
+    the theory of optical interferometric methods
+    in the context of measuring tokamak plasma-density fluctuations.
+    The laser-plasma interaction is quantified via
+    Fraunhofer scalar-diffraction theory, and
+    the resulting diffracted field is imaged on a square-law detector.
+    Interfering the imaged field with a known reference field
+    produces measurable intensity fluctuations;
+    the specification of this reference field
+    defines the interferometric method.
+    Details of two particular interferometric methods ---
+    external-reference-beam interferometry and
+    phase contrast imaging (PCI) ---
+    are discussed, with an emphasis on
+    their sensitivity to fluctuations and their spatiotemporal bandwidths.
+    Significantly, while PCI can measure fluctuations more sensitively
+    than an external-reference-beam interferometer,
+    PCI suffers from a low-$k$ cutoff;
+    an external-reference-beam interferometer
+    does \emph{not} suffer from such a low-$k$ cutoff.
+  \item Chapter~\ref{ch:DesignConsiderations} considers the design of an
+    external-reference-beam, heterodyne interferometer
+    (hereafter referred to as a heterodyne interferometer).
+    A criterion for satisfactory wavefront matching
+    between the probe beam and the reference beam is developed, and
+    finite-sampling-volume effects are shown
+    to constrain the heterodyne interferometer's spatial bandwidth.
+    The effects of phase noise, amplitude noise, and digitizer bit noise
+    are each discussed in the context of
+    the heterodyne interferometer's signal-to-noise ratio, and
+    the systematic errors resulting from
+    imperfect demodulation of the heterodyne interference signal
+    are quantified.
+  \item Chapter~\ref{ch:Implementation} details
+    the addition of a heterodyne interferometer
+    to the pre-existing PCI system on the \diiid\space tokamak;
+    both systems operate simultaneously,
+    sharing a single $\SI{10.6}{\micro\meter}$ probe beam through the plasma.
+    Optical-diagnostic access on \diiid\space and the capabilities
+    of the pre-existing PCI system are briefly reviewed.
+    Referencing the design considerations
+    in Chapter~\ref{ch:DesignConsiderations} and
+    adopting the philosophy
+    that the pre-existing PCI system should be minimally perturbed,
+    the optical layout for the heterodyne interferometer is developed;
+    the magnification of the interferometer's imaging system
+    is selected such that the spatial bandwidths
+    of the PCI and interferometer have a mid-$k$ overlap.
+    The design, procurement, and installation
+    of the new optical and electrical components
+    required to make the heterodyne interferometric measurement
+    are summarized.
+    Of note is the interferometer's radio-frequency local oscillator:
+    the phase noise of a crystal oscillator (XO)
+    was empirically found to be \emph{too large}
+    to make meaningful fluctuation measurements in most tokamak plasmas, but
+    the substantially lower phase noise of an
+    oven-controlled crystal oscillator (OCXO)
+    allows measurements of a whole zoo
+    of coherent and broadband fluctuations.
+    The multiscale capabilities of the combined PCI-interferometer
+    are empirically verified via sound-wave calibrations.
+    Finally, some remarks are made regarding
+    the use of such a combined PCI-interferometer
+    on next-step devices, such as ITER.
+  \item Chapter~\ref{ch:ToroidalCorrelation} discusses the correlation
+    of the newly installed interferometer with
+    \diiid's toroidally separated, pre-existing V2 interferometer.
+    Capable of probing the core plasma,
+    the interferometers are shown to be sensitive
+    to core-localized fluctuations
+    that are \emph{invisible} to external magnetic probes.
+    The chapter begins with a brief review
+    of the two-point correlation technique and
+    shows how toroidal mode numbers can be extracted
+    from a pair of toroidally separated measurements.
+    Meaningful correlation requires that
+    the two measurements share the same timebase.
+    The digitizers of both interferometers were modified
+    to phase lock their clocks, and
+    a residual ``trigger offset'' was measured
+    and is compensated in software.
+    Where comparisons can be made with magnetic probes,
+    the interferometer-measured toroidal mode numbers
+    are in good agreement.
+    Implications of the \SI{4}{\centi\meter} radial offset
+    between the beam centers of each interferometer are discussed.
+  \item Chapter~\ref{ch:TurbulenceMeasurements} demonstrates
+    the ability of the combined PCI-interferometer
+    to measure multiscale, broadband fluctuations.
+    During a recent \diiid\space experiment,
+    the location of electron cyclotron resonance heating (ECRH)
+    was moved from $\rho = 0.5 \rightarrow 0.8$,
+    altering $T_e / T_i$
+    in an attempt to change the coupling between
+    the electron-scale and ion-scale turbulence.
+    At low frequencies ($f < \SI{200}{\kilo\hertz}$),
+    the low-$k$ and high-$k$ responses to the change in ECRH location
+    are similar;
+    however, at higher frequencies, they are \emph{distinct}.
+    Measurements are compared to linear predictions
+    from the gyro-Landau-fluid code TGLF.
+  \item Chapter~\ref{ch:Conclusions} concludes the thesis
+    with a summary and discussion of the primary results
+    and suggests avenues of future work.
+\end{itemize}
+
+
+\section{Units}
+Unless explicitly stated, all formulas in this thesis are written in SI units.
+The one notable exception, of course,
+is the suppression of the Boltzmann constant
+in favor of expressing temperatures in units of energy.
+
+
+\bibliographystyle{plainurl}
+\bibliography{references}

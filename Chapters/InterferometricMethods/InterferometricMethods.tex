@@ -1,4 +1,5 @@
 \chapter{Interferometric methods for tokamak-plasma fluctuations}
+\label{ch:InterferometricMethods}
 Interferometric methods exploit the interaction of
 electromagnetic waves with a plasma
 to ascertain properties of the plasma's density.
@@ -2008,7 +2009,8 @@ the imaged field to first order in $\tilde{\phi}_0$
   \end{aligned}
   \label{eq:InterferometricMethods:imaged_total_field_weak_coupling_Fourier_filtered}
 \end{equation}
-When there is no wavenumber-dependent manipulation of the scattered beams
+
+When there is no wavenumber-dependent manipulation of the probe radiation
 (i.e.\ $T(k_x) = 1$), the imaged field
 (\ref{eq:InterferometricMethods:imaged_total_field_weak_coupling_Fourier_filtered})
 readily reduces to
@@ -2022,13 +2024,33 @@ readily reduces to
     +
     i \tilde{\phi}_0 \cos\nu
   \right],
-  \label{eq:InterferometricMethods:imaged_total_field_weak_coupling}
+  \label{eq:InterferometricMethods:imaged_total_field_monochromatic_fluctuation_weak_coupling}
 \end{equation}
 which follows naturally from the image-plane coordinate transformation
 (\ref{eq:InterferometricMethods:coordinate_transformation_imaging_plane})
 and the following approximations:
 $w(z_{m, \image}) \approx w(z_{\image})$ and
 $R(z_{m, \image}) \approx R(z_{\image})$.
+Note that
+(\ref{eq:InterferometricMethods:imaged_total_field_monochromatic_fluctuation_weak_coupling})
+is \emph{linear} in the imaged phase fluctuation $\tilde{\phi}_0 \cos\nu$.
+By the principle of linear superposition, then,
+(\ref{eq:InterferometricMethods:imaged_total_field_monochromatic_fluctuation_weak_coupling})
+can be readily generalized to
+\begin{equation}
+  E(\vect{r}_{\image}, t)
+  \approx
+  E_G(\vect{r}_{\image}, t)
+  e^{i \bar{\phi}}
+  \left[%
+    1
+    +
+    i \tilde{\phi}(x_{\image}, t)
+  \right],
+  \label{eq:InterferometricMethods:imaged_total_field_broadband_fluctuation_weak_coupling}
+\end{equation}
+where $\tilde{\phi}(x, t)$ is a real-valued but
+otherwise arbitrary phase fluctuation.
 
 
 \subsection{The need for a reference beam}
@@ -2036,7 +2058,7 @@ $R(z_{m, \image}) \approx R(z_{\image})$.
 Assume that there is
 no wavenumber-dependent manipulation of the diffracted field
 such that
-(\ref{eq:InterferometricMethods:imaged_total_field_weak_coupling})
+(\ref{eq:InterferometricMethods:imaged_total_field_broadband_fluctuation_weak_coupling})
 yields the imaged field.
 Now, most detectors of interest are square-law detectors
 in that they produce a response proportional to
@@ -2050,7 +2072,11 @@ the local intensity is
   \notag \\
   &=
   I_G(\vect{r}_{\image})
-  [1 + \mathcal{O}(\tilde{\phi}_0)^2],
+  \left[%
+    1
+    +
+    \mathcal{O}\left( \left[\tilde{\phi}(x_{\image}, t)\right]^2 \right)
+  \right],
   \label{eq:InterferometricMethods:imaged_field_intensity}
 \end{align}
 where
@@ -2062,7 +2088,7 @@ where
 \end{equation}
 is the intensity profile (averaged over an optical cycle)
 of the unscattered Gaussian beam.
-Thus, for the typical $\tilde{\phi}_0 \ll 1$ limit,
+Thus, for the typical $|\tilde{\phi}(x_{\image}, t)| \ll 1$ limit,
 the measured response will be very weak
 if the detector is only exposed to the imaged radiation.
 Physically, this is attributable to the $m = \pm 1$ beams
@@ -2081,7 +2107,7 @@ that differentiates a given interferometric method from another.
 In external reference-beam interferometry,
 there is no wavenumber-dependent manipulation of the diffracted field
 such that
-(\ref{eq:InterferometricMethods:imaged_total_field_weak_coupling})
+(\ref{eq:InterferometricMethods:imaged_total_field_broadband_fluctuation_weak_coupling})
 yields the imaged field.
 Thus, the probe radiation in the image plane is given as
 \begin{equation}
@@ -2092,7 +2118,7 @@ Thus, the probe radiation in the image plane is given as
   \left[%
     1
     +
-    i \tilde{\phi}_0 \cos\nu
+    i \tilde{\phi}(x_{\image}, t)
   \right].
 \end{equation}
 Now, assume that the imaged probe radiation
@@ -2106,18 +2132,19 @@ The total field impinging on the detector is then
   E(\vect{r}_{\image}, t)
   =
   E_G(\vect{r}_{\image}, t)
-  \left[%
+  \left\{%
     e^{i \phi_R}
     +
     e^{i \bar{\phi}}
-    \left(%
+    \left[%
       1
       +
-      i \tilde{\phi}_0 \cos\nu
-    \right)
-  \right],
+      i \tilde{\phi}(x_{\image}, t)
+    \right]
+  \right\},
 \end{equation}
-and, to first order in $\tilde{\phi}_0$, the corresponding intensity is
+and, to first order in $\tilde{\phi}(x_{\image}, t)$,
+the corresponding intensity is
 \begin{equation}
   I(\vect{r}_{\image}, t)
   =
@@ -2127,7 +2154,7 @@ and, to first order in $\tilde{\phi}_0$, the corresponding intensity is
     +
     \cos(\phi_R - \bar{\phi})
     +
-    \tilde{\phi}_0 \sin(\phi_R - \bar{\phi}) \cos\nu
+    \tilde{\phi}(x_{\image}, t) \sin(\phi_R - \bar{\phi})
   \right],
   \label{eq:InterferometricMethods:interferometer_intensity_arbitrary_reference}
 \end{equation}
@@ -2140,23 +2167,6 @@ consequently dictates the method of interferometric detection.
 
 \subsection{Homodyne detection}
 \label{sec:InterferometricMethods:interferometry:homodyne}
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/InterferometricMethods/figs/detector_array.eps}
-  \caption[Finite sampling-volume effects in a detector array]{%
-    The probe radiation and the reference beam
-    are interfered on a detector array.
-    The array consists of numerous detector elements,
-    each of size $s_x \times s_y$ and with interelement spacing $\delta_x$.
-    The unscattered beam is centered on $x_0 = 0$ and $y = 0$, and
-    its intensity profile varies only weakly over any given element.
-    The finite size of each detector element tends to attenuate
-    short wavelength components of the incident optical signal.
-  }
-  \label{fig:InterferometricMethods:detector_array}
-\end{figure}
-
 Homodyne detection results from using
 a reference phase that is constant (or nearly constant) in time
 such that the resulting intensity is
@@ -2171,183 +2181,90 @@ such that the resulting intensity is
       \cos(\phi_R - \bar{\phi})
       \\
       &+
-      \tilde{\phi}_0
-      \sin(\phi_R - \bar{\phi}) \cos\nu
+      \tilde{\phi}(x_{\image}, t)
+      \sin(\phi_R - \bar{\phi})
     \bigr].
   \end{aligned}
   \label{eq:InterferometricMethods:homodyne_intensity}
 \end{equation}
-Finite sampling-volume effects~\cite{bravenec_rsi95} dictate
-the homodyne interferometer's wavenumber response~\cite{davis_rsi16}.
-Assume that the probe radiation and the reference beam
-are interfered on a detector array,
-as shown in Fig.~\ref{fig:InterferometricMethods:detector_array}.
-Let the $j$\ts{th} detector element $D_j$ be centered on $x_{\image,j}$
-and $y_{\image} = 0$;
-the total power $P_{j, \, \text{hom}}$ incident on this element is then
-\begin{align}
-  P_{j, \, \text{hom}}(t)
-  &=
-  \int_{D_j} I_{\text{hom}}(\vect{r}_{\image}, t) dA
-  \notag \\
-  &\begin{aligned}
-    \approx
-    2 I_G(\vect{r}_{\image,j}) s_y
-    &\int_{x_{\image,j} - s_x / 2}^{x_{\image,j} + s_x / 2}
-    \biggl[%
-      1
-      +
-      \cos(\phi_R - \bar{\phi})
-      \\
-      &\qquad+
-      \tilde{\phi}_0
-      \sin(\phi_R - \bar{\phi}) \cos\nu
-    \biggr] dx_{\image},
-  \end{aligned}
-  \label{eq:InterferometricMethods:homodyne_interferometer_total_power_per_element_integral}
-\end{align}
-where the weakly varying intensity profile $I_G(\vect{r}_{\image})$
-has been approximated as a constant
-over the face of the detector element.
-As the finite sampling-volume integral
-will also be applied in other sections,
-it is explicitly evaluated here for later reference
-\begin{equation}
-  \int_{x_{\image,j} - s_x / 2}^{x_{\image,j} + s_x / 2}
-  \cos(\nu + \theta) dx_{\image}
-  =
-  s_x
-  \cdot
-  T_{\text{fsv}}(k_{\image})
-  \cdot
-  \cos(\nu_j + \theta),
-  \label{eq:InterferometricMethods:finite_sampling_volume_integral}
-\end{equation}
-where
-\begin{equation}
-  T_{\text{fsv}}(k_{\image})
-  \equiv
-  \sinc\left( \frac{k_{\image}}{k_{\text{fsv},\image}} \right)
-  \label{eq:InterferometricMethods:finite_sampling_volume_transfer_function}
-\end{equation}
-is the finite sampling-volume transfer function,
-\begin{equation}
-  \sinc(x) = \frac{\sin(\pi x)}{\pi x}
-  \label{eq:InterferometricMethods:normalized_sinc}
-\end{equation}
-is the normalized sinc function,
-\begin{equation}
-  k_{\text{fsv},\image} = \frac{2 \pi}{s_x}
-  \label{eq:InterferometricMethods:finite_sampling_volume_cutoff}
-\end{equation}
-is the first zero of $T_{\text{fsv}}(k_{\image})$,
-\begin{equation}
-  \nu_j = k_{\image} x_{\image,j} - \omega t,
-  \label{eq:InterferometricMethods:nu_j}
-\end{equation}
-and $\theta$ is a \emph{constant} with respect to $x_{\image}$.
-Thus, the homodyne optical power becomes
-\begin{align}
-  \begin{aligned}
-    P_{j, \, \text{hom}}(t)
-    =
-    2 I_G(\vect{r}_{\image,j}) A
-    &\bigl[%
-      1
-      +
-      \cos(\phi_R - \bar{\phi})
-      \\
-      &+
-      \tilde{\phi}_0
-      \sin(\phi_R - \bar{\phi})
-      T_{\text{fsv}}(k_{\image})
-      \cos\nu_j
-    \bigr],
-  \end{aligned}
-  \label{eq:InterferometricMethods:homodyne_interferometer_total_power_per_element}
-\end{align}
-where $A = s_x s_y$ is the area of the detector element.
 
 The typical engineering constraint of such a system
 is the saturation intensity of the detector elements.
 Beyond the linear saturation intensity $I_{\text{sat}}$,
 the detector's response ceases to be a linear function
 of the incident optical power.
-For approximately uniform illumination,
-the saturation threshold can be equivalently characterized
-by a saturation power $P_{\text{sat}} \equiv I_{\text{sat}} A$.
 To make an ``apples-to-apples'' comparison of different interference schemes,
-it is useful to examine the ratio of the fluctuating power to $P_{\text{sat}}$.
-To proceed, note that the homodyne optical power in
-(\ref{eq:InterferometricMethods:homodyne_interferometer_total_power_per_element})
+it is useful to examine
+the ratio of the fluctuating intensity to $I_{\text{sat}}$.
+To proceed, note that the homodyne optical intensity in
+(\ref{eq:InterferometricMethods:homodyne_intensity})
 can be separated into equilibrium and fluctuating components as
-$P_{j, \, \text{hom}}(t)
-=
-\bar{P}_{j, \, \text{hom}}
-+
-\tilde{P}_{j, \, \text{hom}}(t)$, where
+$I_{\text{hom}} = \bar{I}_{\text{hom}} + \tilde{I}_{\text{hom}}$,
+where
 \begin{align}
-  \bar{P}_{j, \, \text{hom}}(t)
+  \bar{I}_{\text{hom}}(\vect{r}_{\image}, t)
   &=
-  2 I_G(\vect{r}_{\image,j}) A
-  [1 + \cos(\phi_R - \bar{\phi})],
+  2 I_G(\vect{r}_{\image})
+  \left[ 1 + \cos(\phi_R - \bar{\phi})] \right],
   \\
-  \tilde{P}_{j, \, \text{hom}}(t)
+  \tilde{I}_{\text{hom}}(\vect{r}_{\image}, t)
   &=
-  2 I_G(\vect{r}_{\image,j}) A
-  \tilde{\phi}_0
+  2 I_G(\vect{r}_{\image})
+  \cdot
   \sin(\phi_R - \bar{\phi})
-  T_{\text{fsv}}(k_{\image})
-  \cos\nu_j.
+  \cdot
+  \tilde{\phi}(x_{\image}, t).
 \end{align}
-Then, because $\tilde{\phi}_0 \ll 1$
+Then, because $|\tilde{\phi}(x_{\image}, t)| \ll 1$
 \begin{equation}
-  P_{j, \, \text{hom}}
+  I_{\text{hom}}(\vect{r}_{\image}, t)
   \approx
-  \bar{P}_{j, \, \text{hom}}
+  \bar{I}_{\text{hom}}(\vect{r}_{\image}, t)
   \leq
-  2 I_G(0) A [1 + \cos(\phi_R - \bar{\phi})],
+  2 I_G(0) [1 + \cos(\phi_R - \bar{\phi})],
   \notag
 \end{equation}
-where $I_G(0)$ is the peak intensity of the unscattered Gaussian probe beam.
-To obtain optimal performance, select $I_G(0)$ such that
+where $I_G(0) = I_G(\rho_{\image} = 0, z_{\image})$ is convenient shorthand
+for the peak intensity of the unscattered Gaussian probe beam at the detector.
+To obtain optimal performance,
+select $I_G(0)$ such that
 \begin{equation}
-  P_{\text{sat}}
+  I_{\text{sat}}
   =
-  2 I_G(0) A [1 + \cos(\phi_R - \bar{\phi})].
+  2 I_G(0)
+  [1 + \cos(\phi_R - \bar{\phi})].
   \notag
 \end{equation}
 Then
 \begin{equation}
-  \frac{\tilde{P}_{j, \, \text{hom}}(t)}{P_{\text{sat}}}
+  \frac{\tilde{I}_{\text{hom}}(\vect{r}_{\image}, t)}{I_{\text{sat}}}
   =
-  \frac{I_G(\vect{r}_{\image,j})}{I_G(0)}
+  \frac{I_G(\vect{r}_{\image})}{I_G(0)}
   \cdot
-  T_{\text{hom}}(k_{\image})
+  T_{\text{hom}}
   \cdot
-  \tilde{\phi}_0 \cos\nu_j,
+  \tilde{\phi}(x_{\image}, t),
 \end{equation}
 where
 \begin{equation}
-  T_{\text{hom}}(k_{\image})
+  T_{\text{hom}}
   \equiv
   \frac{\sin(\phi_R - \bar{\phi})}{1 + \cos(\phi_R - \bar{\phi})}
-  \cdot
-  T_{\text{fsv}}(k_{\image})
   \label{eq:InterferometricMethods:homodyne_interferometer_wavenumber_transfer_function}
 \end{equation}
-is the homodyne interferometer's wavenumber transfer function.
-That is, the homodyne interferometer
-weights the phase-fluctuation images $\tilde{\phi}_0 \cos\nu_j$
-by its transfer function $T_{\text{hom}}(k_{\image})$.
-The prefactor $I_G(\vect{r}_{\image,j}) / I_G(0)$
-can (and should) be accounted for
-if the beam profile is known.
+is the homodyne interferometer's transfer function.
+As presented here,
+$T_{\text{hom}}$ is independent of the fluctuation wavenumber;
+however, the finite sampling-volume effects
+that accompany any real-world measurement
+introduce a wavenumber dependence,
+as discussed in
+Section~\ref{sec:DesignConsiderations:geometric:finite_sampling_volume}.
 
-Note that $T_{\text{hom}}(k_{\image})$ is a function
+Note that $T_{\text{hom}}$ is a function
 of the phase difference $\phi_R - \bar{\phi}$.
 The homodyne interferometer operates at its peak sensitivity
-when $|T_{\text{hom}}(k_{\image})|$ is maximal,
+when $|T_{\text{hom}}|$ is maximal,
 which occurs when $\phi_R - \bar{\phi} = \pi / 2 + m \pi$ for integer $m$.
 For concreteness in the following discussion,
 take $\phi_R - \bar{\phi} = \pi / 2$.
@@ -2356,7 +2273,7 @@ means that the reference beam is
 out-of-phase with the unscattered beam but
 in-phase with the scattered beams.
 Note that interfering the scattered beams with this in-phase reference beam
-produces an intensity linear in $\tilde{\phi}_0$;
+produces an intensity linear in $\tilde{\phi}(x_{\image}, t)$;
 this should be contrasted with the weak, quadratic intensity variation
 of (\ref{eq:InterferometricMethods:imaged_field_intensity})
 that occurs in the absence of a reference beam
@@ -2397,18 +2314,21 @@ of the phase fluctuation amplitude $\tilde{\phi}_0$
 \cite[Sec.~4.2.2]{hutchinson_diagnostics}.
 For example, vibration-induced misalignment or
 power fluctuations at the beam source
-can alter the intensity $I_G(\vect{r}_{\image,j})$.
+can alter the intensity $I_G(\vect{r}_{\image})$.
 As a result, there are three potentially dynamic quantities:
-$\{\phi_R - \bar{\phi}, \tilde{\phi}_0, I_G(\vect{r}_{\image,j})\}$, but
-there are only two measured quantities:
+$\{\phi_R - \bar{\phi}, \,
+\tilde{\phi}(x_{\image}, t), \,
+I_G(\vect{r}_{\image})\}$,
+but there are only two measured quantities:
 the equilibrium and fluctuating homodyne powers.
 Thus, it is generally impossible to distinguish
 whether changes in the amplitude of the fluctuating power
-are attributable to real changes in $\tilde{\phi}_0$ or
+are attributable to real changes in $\tilde{\phi}(x_{\image}, t)$ or
 are simply an artifact of the system alignment or radiation source.
 
 
 \subsection{Heterodyne detection}
+\label{sec:InterferometricMethods:interferometry:heterodyne}
 To avoid the above-mentioned challenges of homodyne interferometry,
 the reference phase can be linearly ramped in time
 as $\phi_R = -\Delta \omega_0 t$ such that the intensity
@@ -2425,8 +2345,8 @@ becomes
       \cos(\Delta \omega_0 t + \bar{\phi})
       \\
       &-
-      \tilde{\phi}_0
-      \sin(\Delta \omega_0 t + \bar{\phi}) \cos\nu
+      \tilde{\phi}(x_{\image}, t)
+      \sin(\Delta \omega_0 t + \bar{\phi})
     \bigr].
   \end{aligned}
   \label{eq:InterferometricMethods:heterodyne_intensity}
@@ -2434,9 +2354,15 @@ becomes
 This approach is known as heterodyne interferometry,
 as the desired baseband phase information is shifted
 to an intermediate frequency $\Delta \omega_0$
-satisfying $\omega \ll \Delta \omega_0 \ll \omega_0$.
-The effect on the frequency-space representation
-of the interference signal is sketched in
+satisfying $\omega_{\text{max}} \ll \Delta \omega_0 \ll \omega_0$,
+where $\omega_{\text{max}}$ is the maximum angular frequency
+in $\tilde{\phi}(x_{\image}, t)$.
+Note that the dominant Fourier components of $I_{\text{het}}$
+sit at the intermediate frequency $\pm \Delta \omega_0$ but that
+the phase-fluctuation term
+$\tilde{\phi}(x_{\image}, t) \sin(\Delta \omega_0 t + \bar{\phi})$
+produces sidebands about $\pm \Delta \omega_0$;
+sideband production for a sinusoidal phase fluctuation is sketched in
 Fig.~\ref{fig:InterferometricMethods:baseband_vs_intermediate_frequency}.
 \graffito{\textcolor{red}{This will be discussed more in Ch.~3}}
 Practically, the $\phi_R$ ramp is accomplished by modestly Doppler shifting
@@ -2463,101 +2389,36 @@ $e^{-i \omega_0 t + i \phi_R} = e^{-i(\omega_0 + \Delta\omega_0) t}$).
   \label{fig:InterferometricMethods:baseband_vs_intermediate_frequency}
 \end{figure}
 
-As is the case for homodyne detection,
-finite sampling-volume effects~\cite{bravenec_rsi95} dictate
-the heterodyne interferometer's wavenumber response~\cite{davis_rsi16}.
-The following discussion closely parallels that
-of the homodyne interferometer in
-Section~\ref{sec:InterferometricMethods:interferometry:homodyne}, and
-readers are encouraged to review that section if needed and
-to compare and contrast homodyne and heterodyne detection.
-Assume that the probe radiation and the reference beam
-are interfered on a detector array,
-as shown in Fig.~\ref{fig:InterferometricMethods:detector_array}.
-Let the $j$\ts{th} detector element $D_j$ be centered on $x_j$ and $y = 0$;
-the total power $P_{j, \, \text{het}}$ incident on this element is then
-\begin{align}
-  P_{j, \, \text{het}}(t)
-  &=
-  \int_{D_j} I_{\text{het}}(\vect{r}_{\image}, t) dA
-  \notag \\
-  &\begin{aligned}
-    \approx
-    2 I_G(\vect{r}_{\image,j}) s_y
-    &\int_{x_{\image,j} - s_x / 2}^{x_{\image,j} + s_x / 2}
-    \biggl[%
-      1
-      +
-      \cos(\Delta \omega_0 t + \bar{\phi})
-      \\
-      &\qquad-
-      \tilde{\phi}_0
-      \sin(\Delta \omega_0 t + \bar{\phi}) \cos\nu
-    \biggr] dx
-  \end{aligned}
-  \notag \\
-  &\begin{aligned}
-    &=
-    2 I_G(\vect{r}_{\image,j}) A
-    \biggl[%
-      1
-      +
-      \cos(\Delta \omega_0 t + \bar{\phi})
-      \\
-      &\qquad-
-      \tilde{\phi}_0
-      \sin(\Delta \omega_0 t + \bar{\phi})
-      T_{\text{fsv}}(k_{\image})
-      \cos\nu_j
-    \biggr],
-  \end{aligned}
-  \label{eq:InterferometricMethods:heterodyne_interferometer_total_power_per_element}
-\end{align}
-where the weakly varying intensity profile $I_G(\vect{r}_{\image})$
-has been approximated as a constant
-over the face of the detector element, and
-the finite sampling-volume integral in
-(\ref{eq:InterferometricMethods:finite_sampling_volume_integral})
-has been referenced.
-Note that the dominant Fourier components of $P_{j, \, \text{het}}$
-sit at the intermediate frequency $\pm \Delta \omega_0$ but that
-the phase-fluctuation term $\sin(\Delta \omega_0 t + \bar{\phi}) \cos\nu_j$
-produces sidebands at $\pm (\Delta \omega_0 \pm \omega)$.
-
 The heterodyne interference signal must be demodulated
 in order to retrieve the baseband phase-fluctuation information.
 \graffito{\textcolor{red}{More on demodulation hardware in Ch.~3}}
 Practically speaking, dedicated analog or digital electronics
 are used to demodulate the heterodyne signal;
 however, for the pedagogical purposes of this section,
-it is sufficient to consider the ``equivalent optical powers''
+it is sufficient to consider the ``equivalent optical intensities''
 corresponding to the demodulated signals.
 The so-called in-phase ($I$) and quadrature ($Q$) signals
-are obtained by mixing $P_{j, \, \text{het}}$ with
+are obtained by mixing $I_{\text{het}}$ with
 $\real(e^{-i \Delta\omega_0 t})$ and
 $\imag(e^{-i \Delta\omega_0 t})$, respectively, and
 low-pass filtering the resulting signals;
 here, for simplicity, low-pass filtering is implemented
 by averaging over a cycle of the intermediate frequency.
-Thus, the equivalent $I$ and $Q$ optical powers are defined as
+Thus, the equivalent $I$ and $Q$ optical intensities are defined as
 \begin{align}
-  P_{j,I} + i \cdot P_{j,Q}
+  I_{I}(\vect{r}_{\image}, t)
+  +
+  i \cdot I_{Q}(\vect{r}_{\image}, t)
   &=
   \langle
-    e^{-i \Delta \omega_0 t} \cdot P_{j, \, \text{het}}(t)
+  e^{-i \Delta \omega_0 t} \cdot I_{\text{het}}(\vect{r}_{\image}, t)
   \rangle_{\Delta \omega_0}
   \notag \\
   &=
-  I_G(\vect{r}_{\image,j}) A
+  I_G(\vect{r}_{\image})
   e^{i \bar{\phi}}
-  \left[%
-    1
-    +
-    i \tilde{\phi}_0
-    T_{\text{fsv}}(k_{\image})
-    \cos\nu_j
-  \right],
-  \label{eq:InterferometricMethods:heterodyne_interferometer_I_and_Q_power_per_element}
+  \left[ 1 + i \tilde{\phi}(x_{\image}, t) \right],
+  \label{eq:InterferometricMethods:heterodyne_interferometer_I_and_Q_intensity}
 \end{align}
 where $\langle q \rangle_{\Delta \omega_0}$ denotes
 the average of quantity $q$ over an intermediate-frequency cycle as
@@ -2573,113 +2434,112 @@ the average of quantity $q$ over an intermediate-frequency cycle as
 In contrast to the homodyne interferometer,
 the heterodyne interferometer makes an absolute measurement
 of the phase-fluctuation amplitude $\tilde{\phi}_0$.
-To see this, note that $P_{j,I}$ and $P_{j,Q}$
+To see this, note that $I_{I}$ and $I_{Q}$
 (the real and imaginary components of
-(\ref{eq:InterferometricMethods:heterodyne_interferometer_I_and_Q_power_per_element}),
+(\ref{eq:InterferometricMethods:heterodyne_interferometer_I_and_Q_intensity}),
 respectively)
 can be separated into equilibrium and fluctuating components as
 \begin{align}
-  \bar{P}_{j,I}(t)
+  \bar{I}_{I}(\vect{r}_{\image}, t)
   &=
-  I_G(\vect{r}_{\image,j}) A \cos\bar{\phi},
+  I_G(\vect{r}_{\image}) \cos\bar{\phi},
   \\
-  \bar{P}_{j,Q}(t)
+  \bar{I}_{Q}(\vect{r}_{\image}, t)
   &=
-  I_G(\vect{r}_{\image,j}) A \sin\bar{\phi},
+  I_G(\vect{r}_{\image}) \sin\bar{\phi},
   \\
-  \tilde{P}_{j,I}(t)
+  \tilde{I}_{I}(\vect{r}_{\image}, t)
   &=
-  -I_G(\vect{r}_{\image,j}) A
-  \tilde{\phi}_0
-  \sin\bar{\phi} \,
-  T_{\text{fsv}}(k_{\image})
-  \cos\nu_j,
+  -I_G(\vect{r}_{\image})
+  \sin\bar{\phi}
+  \cdot
+  \tilde{\phi}(x_{\image}, t),
   \\
-  \tilde{P}_{j,Q}(t)
+  \tilde{I}_{Q}(\vect{r}_{\image}, t)
   &=
-  I_G(\vect{r}_{\image,j}) A
-  \tilde{\phi}_0
-  \cos\bar{\phi} \,
-  T_{\text{fsv}}(k_{\image})
-  \cos\nu_j.
+  I_G(\vect{r}_{\image})
+  \cos\bar{\phi}
+  \cdot
+  \tilde{\phi}(x_{\image}, t).
 \end{align}
 As is the case for the homodyne interferometer,
 there are three potentially dynamic quantities:
-$\{\bar{\phi}, \tilde{\phi}_0, I_G(\vect{r}_{\image,j})\}$;
+$\{\bar{\phi}, \, \tilde{\phi}(x_{\image}, t), \, I_G(\vect{r}_{\image})\}$;
 however, in contrast to the homodyne interferometer,
 there are now \emph{four} measured quantities:
-$\{\bar{P}_{j,I}, \bar{P}_{j,Q}, \tilde{P}_{j,I}, \tilde{P}_{j,Q}\}$.
+$\{\bar{I}_{I}, \, \bar{I}_{Q}, \, \tilde{I}_{I}, \, \tilde{I}_{Q}\}$.
 Therefore, the number of measured quantities
 is sufficient to unambiguously determine
-$\{\bar{\phi}, \tilde{\phi}_0, I_G(\vect{r}_{\image,j})\}$
+$\{\bar{\phi}, \, \tilde{\phi}(x_{\image}, t), \, I_G(\vect{r}_{\image})\}$
 in absolute units.
 
 Finally, it is useful to characterize
 the heterodyne interferometer's performance
 relative to the saturation limits of a given detector.
-Because $\tilde{\phi}_0 \ll 1$,
-the heterodyne power incident on the $j$\ts{th} detector element
-(\ref{eq:InterferometricMethods:heterodyne_interferometer_total_power_per_element})
+Because $|\tilde{\phi}(x_{\image}, t)| \ll 1$, the heterodyne intensity
+(\ref{eq:InterferometricMethods:heterodyne_intensity})
 can be approximated as
 \begin{align}
-  P_{j, \, \text{het}}
+  I_{\text{het}}(\vect{r}_{\image}, t)
   &\approx
-  2 I_G(\vect{r}_{\image,j}) A [1 + \cos(\Delta \omega_0 t + \bar{\phi})]
+  2 I_G(\vect{r}_{\image}) [1 + \cos(\Delta \omega_0 t + \bar{\phi})]
   \notag \\
   &\leq
-  4 I_G(0) A,
+  4 I_G(0),
   \notag
 \end{align}
-where $I_G(0)$ is the peak intensity of the unscattered Gaussian probe beam.
+where $I_G(0) = I_G(\rho_{\image} = 0, z_{\image})$ is convenient shorthand
+for the peak intensity of the unscattered Gaussian probe beam at the detector.
 To obtain optimal performance, select $I_G(0)$ such that
 \begin{equation}
-  P_{\text{sat}}
+  I_{\text{sat}}
   =
-  4 I_G(0) A.
+  4 I_G(0).
   \notag
 \end{equation}
-Further, define the total fluctuating power
+Further, define the total fluctuating intensity
 in the demodulated signals to be
 \begin{align}
-  \tilde{P}_{j, IQ}(t)
+  \tilde{I}_{IQ}(\vect{r}_{\image}, t)
   &\equiv
   \left\{%
-    [\tilde{P}_{j,I}(t)]^2
+    [\tilde{I}_{I}(\vect{r}_{\image}, t)]^2
     +
-    [\tilde{P}_{j,Q}(t)]^2
+    [\tilde{I}_{Q}(\vect{r}_{\image}, t)]^2
   \right\}^{1/2}
   \notag \\
   &=
-  I_G(\vect{r}_{\image,j}) A
-  \tilde{\phi}_0
-  T_{\text{fsv}}(k_{\image})
-  \cos\nu_j
+  I_G(\vect{r}_{\image})
+  \cdot
+  \tilde{\phi}(x_{\image}, t)
+  \label{eq:InterferometricMethods:heterodyne_total_fluctuating_intensity}
 \end{align}
+\graffito{\textcolor{red}{How do we know sign?}}
 such that
 \begin{equation}
-  \frac{\tilde{P}_{j, IQ}(t)}{P_{\text{sat}}}
+  \frac{\tilde{I}_{IQ}(\vect{r}_{\image}, t)}{I_{\text{sat}}}
   =
-  \frac{I_G(\vect{r}_{\image,j})}{I_G(0)}
+  \frac{I_G(\vect{r}_{\image})}{I_G(0)}
   \cdot
-  T_{\text{het}}(k_{\image})
+  T_{\text{het}}
   \cdot
-  \tilde{\phi}_0
-  \cos\nu_j,
+  \tilde{\phi}(x_{\image}, t),
 \end{equation}
 where
 \begin{equation}
-  T_{\text{het}}(k_{\image})
+  T_{\text{het}}
   \equiv
-  \frac{T_{\text{fsv}}(k_{\image})}{4}
+  \frac{1}{4}
   \label{eq:InterferometricMethods:heterodyne_interferometer_wavenumber_transfer_function}
 \end{equation}
-is the heterodyne interferometer's wavenumber transfer function.
-That is, the heterodyne interferometer
-weights the phase-fluctuation images $\tilde{\phi}_0 \cos\nu_j$
-by its transfer function $T_{\text{het}}(k_{\image})$.
-The prefactor $I_G(\vect{r}_{\image,j}) / I_G(0)$
-can (and should) be accounted for
-if the beam profile is known.
+is the heterodyne interferometer's transfer function.
+As presented here,
+$T_{\text{het}}$ is independent of the fluctuation wavenumber;
+however, the finite sampling-volume effects
+that accompany any real-world measurement
+introduce a wavenumber dependence,
+as discussed in
+Section~\ref{sec:DesignConsiderations:geometric:finite_sampling_volume}.
 
 In contrast to the homodyne interferometer,
 the heterodyne interferometer's wavenumber transfer function
@@ -2689,7 +2549,7 @@ regardless of the bulk plasma phase or path-length vibrations.
 Robust sensitivity comes at a cost, however.
 Note that
 \begin{equation}
-  \frac{T_{\text{het}}(k_{\image})}{T_{\text{hom}}(k_{\image})}
+  \frac{T_{\text{het}}}{T_{\text{hom}}}
   =
   \frac{1}{4}
   \quad
@@ -2771,7 +2631,7 @@ of the incident unscattered beam power, while
 the phase-plate face reflects all of the scattered beam power.
 Thus, by the action of the phase plate,
 $1 \rightarrow i \sqrt{\eta}$ in the imaged electric field
-(\ref{eq:InterferometricMethods:imaged_total_field_weak_coupling})
+(\ref{eq:InterferometricMethods:imaged_total_field_monochromatic_fluctuation_weak_coupling})
 such that
 \begin{equation}
   E_{\text{PCI}}(\vect{r}_{\image}, t)
@@ -3137,36 +2997,56 @@ $C_I$ is the amplitude of the ``in-phase'' ($I$) component
 cosine phase fluctuation $\tilde{\phi}(x, t)$ from
 (\ref{eq:InterferometricMethods:cosine_phase_fluctuation})), and
 $C_Q$ is the amplitude of the corresponding ``quadrature'' ($Q$) component.
-Taking inspiration from
+
+As was the case for external reference-beam interferometry,
+it is useful to characterize PCI's performance
+relative to the saturation limits of a given detector.
+Because $\tilde{\phi}_0 \ll 1$,
+the PCI optical intensity
+(\ref{eq:InterferometricMethods:PCI_image_plane_intensity_linear_combination_of_sine_and_cosine})
+satisfies
+\begin{align}
+  I_{\text{pci}}(\vect{r}_{\image}, t)
+  &\lesssim
+  I_G(0)
+  \left( |F_0|^2 + |G_0|^2 \right),
+  \notag
+\end{align}
+where $I_G(0) = I_G(\rho_{\image} = 0, z_{\image})$ is convenient shorthand
+for the peak intensity of the unscattered Gaussian probe beam at the detector
+in the \emph{absence} of the phase plate.
+To obtain optimal performance, select $I_G(0)$ such that
+\begin{equation}
+  I_{\text{sat}}
+  =
+  I_G(0)
+  \left( |F_0|^2 + |G_0|^2 \right),
+  \notag
+\end{equation}
+where $I_{\text{sat}}$ is the detector's linear saturation intensity.
+Then, taking inspiration from
 (\ref{eq:InterferometricMethods:linear_combination_of_sine_and_cosine}),
-the image-plane PCI intensity from
+the image-plane PCI intensity fluctuations from
 (\ref{eq:InterferometricMethods:PCI_image_plane_intensity_linear_combination_of_sine_and_cosine})
 can be rewritten as
 \begin{equation}
-  \begin{aligned}
-    I_{\text{pci}}(\vect{r}_{\image}, t)
-    &\approx
-    I_G(\vect{r}_{\image})
-    \left( |F_0|^2 + |G_0|^2 \right)
-    \\
-    &\quad\times
-    \left\{%
-      1
-      +
-      T_{\text{pp}}(k_{\image}, x_{\image})
-      \cdot
-      \tilde{\phi}_0
-      \cos\left[ \nu + \theta_{\text{pp}}(k_{\image}, x_{\image}) \right]
-    \right\},
-  \end{aligned}
+  \frac{\tilde{I}_{\text{pci}}(\vect{r}_{\image}, t)}{I_{\text{sat}}}
+  =
+  \frac{I_G(\vect{r}_{\image})}{I_G(0)}
+  \cdot
+  T_{\text{pci}}(k_{\image}, x_{\image})
+  \cdot
+  \tilde{\phi}_0
+  \cos\left[ \nu + \theta_{\text{pci}}(k_{\image}, x_{\image}) \right],
 \end{equation}
 where
 \begin{align}
-  T_{\text{pp}}(k_{\image}, x_{\image})
+  T_{\text{pci}}(k_{\image}, x_{\image})
   &\equiv
   \frac{2 C(k_{\image}, x_{\image})}{|F_0|^2 + |G_0|^2},
+  \label{eq:InterferometricMethods:PCI_wavenumber_transfer_function}),
   \\
-  \theta_{\text{pp}}(k_{\image}, x_{\image})
+  \theta_{\text{pci}}(k_{\image}, x_{\image})
   &\equiv
   \atantwo(C_Q, C_I),
 \end{align}
@@ -3188,11 +3068,11 @@ and
 \end{align}
 
 Thus, the action of the phase plate results in both
-an amplitude response $T_{\text{pp}}(k_{\image}, x_{\image})$ and
-a phase response $\theta_{\text{pp}}(k_{\image}, x_{\image})$
+an amplitude response $T_{\text{pci}}(k_{\image}, x_{\image})$ and
+a phase response $\theta_{\text{pci}}(k_{\image}, x_{\image})$
 in PCI's image-plane intensity.
-The on-axis responses $T_{\text{pp}}(k_{\image}, x_{\image} = 0)$ and
-$\theta_{\text{pp}}(k_{\image}, x_{\image} = 0) = 0$
+The on-axis responses $T_{\text{pci}}(k_{\image}, x_{\image} = 0)$ and
+$\theta_{\text{pci}}(k_{\image}, x_{\image} = 0) = 0$
 are consistent with previous derivations at $x_{\image} = 0$,
 such as \cite[Eq.~2.141]{coda_phd} and \cite[Eq.~20]{rost_low_k_pci}.
 The present work, however, explicitly accounts for
@@ -3201,7 +3081,7 @@ across the face of the detector.
 Note that $I_{\text{pci}}$ will be a nonlinear function
 of the scattering phase fluctuation $\tilde{\phi}(x, t)$
 if there are substantial spatial variations in either
-$T_{\text{pp}}$ or $\theta_{\text{pp}}$.
+$T_{\text{pci}}$ or $\theta_{\text{pci}}$.
 The amplitude and phase responses
 can be easily evaluated numerically, and
 the results for typical system parameters are shown in
@@ -3210,9 +3090,9 @@ As is colloquially understood, the amplitude response
 drops precipitously across the full beam profile for $k \lesssim k_g$.
 (Additionally, the spatial variation in the amplitude response is minimal;
 that is,
-$T_{\text{pp}}(k_{\image}, x_{\image})
+$T_{\text{pci}}(k_{\image}, x_{\image})
 \approx
-T_{\text{pp}}(k_{\image}, x_{\image} = 0)$,
+T_{\text{pci}}(k_{\image}, x_{\image} = 0)$,
 particularly for $|k| \gtrsim 2 k_g$).
 However, perhaps less well known, is the fact that
 the phase response varies substantially in space for $|k| \lesssim k_g$.
@@ -3223,7 +3103,7 @@ of low-$k$ coherent MHD modes, as is discussed in
 Section~\ref{sec:InterferometricMethods:selection:pci_low_k_upshift}.
 \graffito{\textcolor{red}{Is this just when $k_g = 2 / w_0$? Or arbitrary $k_g$?}}
 Fortunately, for $|k| \gtrsim 2 k_g$, spatial variations
-in $\theta_{\text{pp}}$ (and $T_{\text{pp}}$) are negligible, and,
+in $\theta_{\text{pci}}$ (and $T_{\text{pci}}$) are negligible, and,
 as a result, PCI's operation is essentially linear and
 can be described in terms of a transfer function.
 
@@ -3234,8 +3114,9 @@ can be described in terms of a transfer function.
     \caption[Amplitude and phase responses of PCI image-plane intensity
       across detector face
     ]{%
-    Amplitude response $T_{\text{pp}}(k, x_{\image})$ and
-    phase response $\theta_{\text{pp}}(k, x_{\image})$
+    \textcolor{red}{Update discussion here; no finite-sampling volume effects}
+    Amplitude response $T_{\text{pci}}(k, x_{\image})$ and
+    phase response $\theta_{\text{pci}}(k, x_{\image})$
     of PCI image-plane intensity across detector face
     for a single sinusoidal mode of wavenumber $k$.
     Spatial coordinates are normalized
@@ -3259,160 +3140,19 @@ can be described in terms of a transfer function.
 \label{fig:InterferometricMethods:phase_plate_amplitude_and_phase_response}
 \end{figure}
 
-
-\subsection{The PCI ``transfer function''}
-As was the case for external reference-beam interferometry,
-it is useful to characterize PCI's performance
-relative to the saturation limits of a given detector.
-Assume that PCI's imaged field impinges on a detector array,
-as shown in Fig.~\ref{fig:InterferometricMethods:detector_array}.
-Let the $j$\ts{th} detector element $D_j$ be centered on $x_{\image,j}$
-and $y_{\image} = 0$;
-the total power $P_{j, \, \text{pci}}$ incident on this element is then
-\begin{align}
-  P_{j, \, \text{pci}}(t)
-  &=
-  \int_{D_j} I_{\text{pci}}(\vect{r}_{\image}, t) dA
-  \notag
-  \\
-  &\begin{aligned}
-    &\approx
-    I_G(\vect{r}_{\image,j})
-    \left( |F_0|^2 + |G_0|^2 \right)
-    s_y
-    \\
-    &\quad\times
-    \int_{x_{\image,j} - s_x / 2}^{x_{\image,j} + s_x / 2}
-    \left\{
-      1
-      +
-      T_{\text{pp}}
-      \cdot
-      \tilde{\phi}_0
-      \cos\left[ \nu + \theta_{\text{pp}} \right]
-    \right\} dx_{\image}
-  \end{aligned}
-  \notag
-  \\
-  &\begin{aligned}
-    &\approx
-    I_G(\vect{r}_{\image,j})
-    \left( |F_0|^2 + |G_0|^2 \right)
-    A
-    \\
-    &\quad\times
-    \left\{
-      1
-      +
-      T_{\text{fsv}}
-      T_{\text{pp},j}
-      \cdot
-      \tilde{\phi}_0
-      \cos\left[ \nu_j + \theta_{\text{pp},j} \right]
-    \right\},
-  \end{aligned}
-  \label{eq:InterferometricMethods:PCI_total_power_per_element}
-\end{align}
-where the weakly varying intensity profile $I_G(\vect{r}_{\image})$
-has been approximated as a constant
-over the face of the detector element,
-the finite sampling-volume integral in
-(\ref{eq:InterferometricMethods:finite_sampling_volume_integral})
-has been referenced, and
-the following abbreviations have been used:
-$T_{\text{pp}} = T_{\text{pp}}(k_{\image}, x_{\image})$,
-$\theta_{\text{pp}} = \theta_{\text{pp}}(k_{\image}, x_{\image})$,
-$T_{\text{fsv}} = T_{\text{fsv}}(k_{\image})$,
-$T_{\text{pp},j} = T_{\text{pp}}(k_{\image}, x_{\image,j})$, and
-$\theta_{\text{pp},j} = \theta_{\text{pp}}(k_{\image}, x_{\image,j})$.
-Because $\tilde{\phi}_0 \ll 1$,
-the optical power incident on the $j$\ts{th} detector element
-(\ref{eq:InterferometricMethods:PCI_total_power_per_element})
-satisfies
-\begin{align}
-  P_{j, \, \text{pci}}(t)
-  &\lesssim
-  I_G(0)
-  \left( |F_0|^2 + |G_0|^2 \right)
-  A,
-  \notag
-\end{align}
-where $I_G(0)$ is the peak intensity
-of the unscattered Gaussian probe beam
-in the \emph{absence} of the phase plate.
-To obtain optimal performance, select $I_G(0)$ such that
-\begin{equation}
-  P_{\text{sat}}
-  =
-  I_G(0)
-  \left( |F_0|^2 + |G_0|^2 \right)
-  A,
-  \notag
-\end{equation}
-where $P_{\text{sat}}$ is the saturation power of a single detector element.
-Further, define the fluctuating power in the PCI signal to be
-\begin{equation}
-  \begin{aligned}
-    \tilde{P}_{j, \, \text{pci}}(t)
-    &\equiv
-    I_G(\vect{r}_{\image,j})
-    \left( |F_0|^2 + |G_0|^2 \right)
-    A
-    \\
-    &\quad\times
-    \left\{
-      T_{\text{fsv}}
-      T_{\text{pp},j}
-      \cdot
-      \tilde{\phi}_0
-      \cos\left[ \nu_j + \theta_{\text{pp},j} \right]
-    \right\}
-  \end{aligned}
-  \label{eq:InterferometricMethods:PCI_fluctuating_power_per_element}
-\end{equation}
-such that
-\begin{equation}
-  \frac{\tilde{P}_{j, \, \text{pci}}(t)}{P_{\text{sat}}}
-  =
-  \frac{I_G(\vect{r}_{\image,j})}{I_G(0)}
-  \cdot
-  T_{\text{pci}}(k_{\image}, x_{\image, j})
-  \cdot
-  \tilde{\phi}_0
-  \cos\left[ \nu_j + \theta_{\text{pp}}(k_{\image}, x_{\image,j}) \right],
-  \label{eq:InterferometricMethods:PCI_ratio_fluctuating_to_equilibrium_power}
-\end{equation}
-where
-\begin{align}
-  T_{\text{pci}}(k_{\image}, x_{\image})
-  =
-  T_{\text{fsv}}(k_{\image})
-  \cdot
-  T_{\text{pp}}(k_{\image}, x_{\image})
-  \label{eq:InterferometricMethods:PCI_wavenumber_transfer_function}
-\end{align}
-is the PCI's wavenumber ``transfer function''.
-Of course, as is discussed in
-Section~\ref{sec:InterferometricMethods:pci:imaged_field_and_intensity},
-$T_{\text{pci}}$ is only a true transfer function when $|k| \gtrsim 2 k_g$,
-for which spatial variations in
-$T_{\text{pp}}$ and $\theta_{\text{pp}}$ are negligible and
-PCI operates linearly.
-
 As is the case with the homodyne interferometer,
 the PCI technique does \emph{not} make an absolute measurement
 of the phase-fluctuation amplitude $\tilde{\phi}_0$.
-To see this, note that the phase-plate transfer function
-$T_{\text{pp}}(k_{\image}, x_{\image})$
+To see this, note that the PCI amplitude response $T_{\text{pci}}$
 depends very sensitively on the system alignment,
 with slight excursions of the unscattered beam
 from the partially reflective phase-plate groove
 onto the fully reflective phase-plate face
 resulting in macroscopic changes to the power reaching the detector.
 Further, power fluctuations at the beam source
-can alter $I_G(\vect{r}_{\image, j})$.
+can alter $I_G(\vect{r}_{\image})$.
 Thus, there are three potentially dynamic quantities:
-$\{\tilde{\phi}_0, I_G(\vect{r}_{\image, j}), T_{\text{pp}}\}$,
+$\{\tilde{\phi}_0, I_G(\vect{r}_{\image}), T_{\text{pci}}\}$,
 but there are only two potentially measurable quantities:
 the equilibrium and fluctuating powers.
 PCI systems on large, vibration-prone fusion devices
@@ -3422,12 +3162,14 @@ in order to dynamically maintain
 the unscattered beam's alignment
 on the phase-plate groove,
 minimizing vibrational contamination of the PCI signal.
+\graffito{\textcolor{red}{Reference where such estimate is made?}}
 It is then possible, after measuring a calibration constant,
 to \emph{estimate} the phase-fluctuation amplitude $\tilde{\phi}_0$ with PCI.
 
 
 \section{Selecting an interferometric technique}
 \label{sec:InterferometricMethods:selection}
+\graffito{\textcolor{red}{Update section: no finite sampling-volume effects}}
 Sections~\ref{sec:InterferometricMethods:interferometry}
 and~\ref{sec:InterferometricMethods:pci}
 detail external reference-beam interferometry and
