@@ -589,7 +589,8 @@ with spatial dependence~\cite[Ch.~17]{siegman_lasers}
   \label{eq:InterferometricMethods:Gaussian_beam}
 \end{equation}
 Here,
-$\rho = (x^2 + y^2)^{1/2}$ is the transverse distance from the optical axis,
+$\rho = (x^2 + y^2)^{1/2}$ is the transverse distance
+from the $z$-axis (i.e.\ the beam's ``symmetry axis''),
 $w_0$ is the radius of the beam's waist, and
 $k_0 = \omega_0 / c = 2 \pi / \lambda_0$
 is the beam's vacuum wavenumber.
@@ -619,6 +620,18 @@ where the Rayleigh range
 is the nominal division between the beam's
 near-field ($|z| \ll z_R$) and far-field ($|z| \gg z_R$) behaviors.
 Note that the beam's waist sits at $z = 0$.
+
+From a Fourier perspective,
+a Gaussian beam can be decomposed into a set of infinite plane waves
+traveling in slightly different directions \cite[Ch.~16.7]{siegman_lasers}.
+The plane waves with the beam's nominal wavevector
+$\vect{k}_0 = k_0 \hat{\vect{z}}$
+propagate along the beam's symmetry axis, while
+the plane waves with non-zero transverse wavevectors
+produce beam divergence (i.e.\ free-space diffraction of the beam).
+This behavior can be understood as an uncertainty principle, with
+the beam's finite transverse dimensions
+necessarily requiring a finite spread in transverse wavevectors.
 
 
 \subsection{Diffraction of a Gaussian beam from plasma-density fluctuations}
@@ -749,218 +762,31 @@ has been demonstrated empirically
 \cite[Sec.~2.1]{dorris_phd}.
 
 
-\subsection{Wavenumber-dependent manipulation of the diffracted field}
-% Examine again the diffracted field
-% (\ref{eq:InterferometricMethods:phase_modulated_Gaussian_beam_diffraction}).
-% The spatial dependence of each term in the summation
-% is wholly governed by the factor $E_G(\vect{r}_m)$,
-% which corresponds to a Gaussian beam
-% that emanates from the beam waist
-% at an angle $\theta_m$ relative to the lab-frame $z$-axis.
-% The coordinate system $\vect{r}_m$ is defined such that
-% the $m$\ts{th} Gaussian beam propagates along the $z_m$-axis, and
-% it is related to the lab-frame coordinate system $\vect{r}$ via
-% (\ref{eq:InterferometricMethods:object_plane_coordinate_transformation_compact}).
-% The wavenumber basis $\vect{k}_m$ that is dual to $\vect{r}_m$
-% is similarly related to the lab-frame wavenumber basis $\vect{k}$ via
-% \begin{equation}
-%   \vect{k}_m
-%   =
-%   [ \vect{R}(\theta_m) ] \vect{k},
-%   \label{eq:InterferometricMethods:object_plane_coordinate_transformation_wavenumber_dual}
-% \end{equation}
-% which naturally results from the geometric constraint that
-% $\vect{k} \cdot \vect{r} = \vect{k}_m \cdot \vect{r}_m$.
-% 
-% Imagine now that each of the above Gaussian beams
-% is somehow manipulated based upon its Fourier wavenumber content.
-% Assume this manipulation can be described
-% in terms of a transfer function $T(\vect{k})$,
-% where $\vect{k}$ is the lab-frame wavenumber basis.
-% A transfer functions of this form is appropriate for investigating e.g.\
-% diffraction from an aperture or the action of a phase plate.
-% Using the wavenumber basis transformation
-% (\ref{eq:InterferometricMethods:object_plane_coordinate_transformation_wavenumber_dual}),
-% this transfer function can be written
-% in terms of the $\vect{k}_m$ wavenumber basis as
-% \begin{equation}
-%   T(\vect{k}) = T(\vect{R}_{-m} \vect{k}_m),
-% \end{equation}
-% where the abbreviation $\vect{R}_m = \vect{R}(\theta_m)$ has been adopted.
-% The transformed field $E_T$ then has the Fourier representation
-% in the $\vect{k}_m$ wavenumber basis
-% \begin{equation}
-%   E_T(\vect{k}_m) = T(\vect{R}_{-m} \vect{k}_m) \cdot E_G(\vect{k}_m).
-% \end{equation}
-% Inverse Fourier transforming $E_T(\vect{k}_m)$ yields
-% \begin{equation}
-%   E_T(\vect{r}_m)
-%   =
-%   \frac{1}{(2 \pi)^3}
-%   \int d\vect{k}_m \,
-%   \left[%
-%     T(\vect{R}_{-m} \vect{k}_m)
-%     e^{i \vect{k}_m \cdot \vect{r}_m}
-%   \right]
-%   E_G(\vect{k}_m).
-% \end{equation}
-% Note that each spectral component $E_G(\vect{k}_m)$
-% individually satisfies the wave equation.
-% Thus, the above construction of the transformed field $E_T(\vect{r}_m)$,
-% which consists of a linear combination of the spectral components
-% with arbitrary amplitudes and phases,
-% \emph{also} satisfies the wave equation.
-% Now, explicitly writing $E_G(\vect{k}_m)$ as the Fourier transform
-% of $E_G$ over a dummy spatial coordinate $\vect{r}'$, and
-% exchanging the order of integration yields
-% \begin{equation}
-%   E_T(\vect{r}_m)
-%   =
-%   \frac{1}{(2 \pi)^3}
-%   \int d\vect{r}' \,
-%   E_G(\vect{r}')
-%   \int d\vect{k}_m \,
-%   T(\vect{R}_{-m} \vect{k}_m)
-%   e^{i \vect{k}_m \cdot (\vect{r}_m - \vect{r}')}.
-% \end{equation}
-% Further, for the applications considered here,
-% it is advantageous to change the variables of integration
-% from the $\vect{k}_m$ wavenumber basis
-% to the lab-frame wavenumber basis $\vect{k}$.
-% Note that
-% \begin{equation}
-%   d\vect{k}_m
-%   =
-%   \left| \frac{\partial \vect{k}_m}{\partial \vect{k}} \right|
-%   d\vect{k}
-%   =
-%   |\vect{R}_m|
-%   d\vect{k}
-%   =
-%   d\vect{k}
-% \end{equation}
-% and that
-% \begin{align}
-%   \vect{k}_m \cdot (\vect{r}_m - \vect{r}')
-%   &=
-%   (\vect{R}_m \vect{k}) \cdot (\vect{r}_m - \vect{r}')
-%   \notag \\
-%   &=
-%   (\vect{R}_m \vect{k})^T (\vect{r}_m - \vect{r}')
-%   \notag \\
-%   &=
-%   \vect{k}^T \vect{R}_m^T (\vect{r}_m - \vect{r}')
-%   \notag \\
-%   &=
-%   \vect{k} \cdot [\vect{R}_{-m} (\vect{r}_m - \vect{r}')]
-% \end{align}
-% such that the transformed field $E_T(\vect{r}_m)$ becomes
-% \begin{equation}
-%   E_T(\vect{r}_m)
-%   =
-%   \frac{1}{(2 \pi)^3}
-%   \int d\vect{r}' \,
-%   E_G(\vect{r}')
-%   \int d\vect{k} \,
-%   T(\vect{k})
-%   e^{i \vect{k} \cdot \left[ \vect{R}_{-m} (\vect{r}_m - \vect{r}') \right]},
-%   \label{eq:InterferometricMethods:mth_diffracted_beam_Fourier_filtered}
-% \end{equation}
-% where, again, the abbreviation $\vect{R}_{-m} = \vect{R}(-\theta_m)$
-% has been adopted and $\vect{R}(\theta)$ is the rotation matrix given by
-% (\ref{eq:InterferometricMethods:rotation_matrix}).
-% 
-% To make further progress,
-% a particular form of $T(\vect{k})$ is needed.
-% Assume that wavenumbers are filtered
-% only in the direction of beam scattering
-% i.e.\ $T(\vect{k}) = T(k_x)$.
-% (For example, the groove of a phase plate would be aligned
-% with the lab-frame $y$-axis to effect such filtering).
-% Then
-% \begin{equation}
-%   \vect{R}_{-m} (\vect{r}_m - \vect{r}')
-%   =
-%   \begin{pmatrix}
-%     (x_m - x') \cos\theta_m + (z_m - z') \sin\theta_m
-%     \\
-%     y_m - y'
-%     \\
-%     (z_m - z') \cos\theta_m - (x_m - x') \sin\theta_m
-%   \end{pmatrix}
-% \end{equation}
-% such that
-% (\ref{eq:InterferometricMethods:mth_diffracted_beam_Fourier_filtered})
-% becomes
-% \begin{align}
-%   E_T(\vect{r}_m)
-%   &=
-%   \frac{1}{(2 \pi)^3}
-%   \int d\vect{r}' \,
-%   E_G(\vect{r}')
-%   \int dk_y \,
-%   e^{i k_y (y_m - y')}
-%   \notag \\
-%   &\qquad\quad \times
-%   \int dk_z \,
-%   e^{i k_z [(z_m - z') \cos\theta_m - (x_m - x') \sin\theta_m]}
-%   \notag \\
-%   &\qquad\quad \times
-%   \int dk_x \,
-%   T(k_x)
-%   e^{i k_x \left[ (x_m - x') \cos\theta_m + (z_m - z') \sin\theta_m \right]}
-%   \notag \\
-%   &=
-%   \frac{1}{2 \pi}
-%   \int d\vect{r}' \,
-%   E_G(\vect{r}')
-%   \delta(y_m - y')
-%   \notag \\
-%   &\qquad\quad \times
-%   \delta\bigl( (z_m - z') \cos\theta_m - (x_m - x') \sin\theta_m \bigr)
-%   \notag \\
-%   &\qquad\quad \times
-%   \int dk_x \,
-%   T(k_x)
-%   e^{i k_x \left[ (x_m - x') \cos\theta_m + (z_m - z') \sin\theta_m \right]}
-%   \notag \\
-%   &\begin{aligned}
-%     &=
-%     \frac{1}{2 \pi}
-%     \int dx' \,
-%     E_G\bigl( x',\, y_m,\, z_m - (x_m - x')\tan \theta_m \bigr)
-%     \\
-%     &\qquad\quad \times
-%     \int dk_x \,
-%     T(k_x)
-%     e^{i k_x (x_m - x') \sec\theta_m}
-%   \end{aligned}
-%   \label{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_v1}
-% \end{align}
-% Contributions to the integral from regions outside of $|x'| \lesssim w(z_m)$
-% are suppressed by the Gaussian envelope such that
-% \begin{align}
-%   w\bigl( z_m - (x_m - x')\tan \theta_m \bigr)
-%   &\approx
-%   w(z_m),
-%   \notag \\
-%   R\bigl( z_m - (x_m - x')\tan \theta_m \bigr)
-%   &\approx
-%   R(z_m),
-%   \notag \\
-%   \psi\bigl( z_m - (x_m - x')\tan \theta_m \bigr)
-%   &\approx
-%   \psi(z_m)
-%   \notag
-% \end{align}
-% are very good approximations.
-% Note that the phase of the Gaussian beam
-% \emph{cannot} be approximated in such a manner;
-% instead, terms up to first order in $\theta_m$
-% must be retained in the phase.
-After making these approximations,
-% (\ref{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_v1})
-reduces to
+\subsection{Wavenumber filtering of the diffracted field}
+Some interferometric techniques, such as phase contrast imaging
+(PCI; discussed in Section~\ref{sec:InterferometricMethods:pci}),
+filter the Fourier wavenumber content
+of the diffracted electric field
+(\ref{eq:InterferometricMethods:phase_modulated_Gaussian_beam_diffraction}).
+The mathematical formalism for such filtering is detailed in
+Appendix~\ref{app:GaussianBeamDiffraction}, but
+the relevant results are briefly summarized here.
+Assume that the filtering can be described by a transfer function $T(k_x)$,
+where $k_x$ is the wavevector component in the lab-frame $x$-direction.
+Then, the filtered electric field can be written
+(see (\ref{eq:GaussianBeamDiffraction:phase_modulated_Gaussian_beam_diffraction_Fourier_filtered}))
+as
+\begin{equation}
+  E(\vect{r}, t)
+  \approx
+  e^{i \bar{\phi}}
+  \sum_{m = -1}^{1}
+  i^m \left[ J_m(\tilde{\phi}_0) \right]
+  E_T(\vect{r}_m)
+  e^{-i (\omega_0 + m \omega) t},
+  \label{eq:InterferometricMethods:phase_modulated_Gaussian_beam_diffraction_Fourier_filtered}
+\end{equation}
+where
 \begin{equation}
   E_T(\vect{r}_m)
   \approx
@@ -969,7 +795,8 @@ reduces to
   \mathcal{E}(\vect{r}_m, k),
   \label{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_compact}
 \end{equation}
-where
+is the $m$\ts{th} scattered beam
+following the wavenumber-filtering transformation, and
 \begin{equation}
   \begin{aligned}
     \mathcal{E}(\vect{r}_m, k)
@@ -996,30 +823,15 @@ where
 \end{equation}
 is a complex-valued function
 that describes the amplitude and phase transformations
-that result from filtering the scattered radiation by $T(k_x)$.
-(Note that
+that result from filtering the $m$\ts{th} scattered beam by $T(k_x)$.
+When there is no wavenumber filtering (i.e. $T(k_x) = 1$),
+the $m$\ts{th} transformed beam
 (\ref{eq:InterferometricMethods:mth_diffracted_beam_kx_filtered_compact})
-readily reduces to $E_T(\vect{r}_m) = E_G(\vect{r}_m)$ when $T(k_x) = 1$,
-in agreement with expectations).
-Generalizing
-(\ref{eq:InterferometricMethods:phase_modulated_Gaussian_beam_diffraction})
-to allow for such wavenumber-dependent manipulation
-yields a total diffracted electric field
-\begin{equation}
-  E(\vect{r}, t)
-  \approx
-  e^{i \bar{\phi}}
-  \sum_{m = -1}^{1}
-  i^m \left[ J_m(\tilde{\phi}_0) \right]
-  E_T(\vect{r}_m)
-  e^{-i (\omega_0 + m \omega) t}.
-  \label{eq:InterferometricMethods:phase_modulated_Gaussian_beam_diffraction_Fourier_filtered}
-\end{equation}
-Manipulating the total diffracted electric field in such a manner
-forms the foundation of phase contrast imaging (PCI),
-as will be demonstrated in Section~\ref{sec:InterferometricMethods:pci}.
- 
- 
+readily reduces to the $m$\ts{th} scattered Gaussian beam
+(i.e.\ $E_T(\vect{r}_m) = E_G(\vect{r}_m)$),
+in agreement with expectations.
+
+
 \section{Imaging of the diffracted field}
 \label{sec:InterferometricMethods:imaging}
 It is often desirable to \emph{image} the above diffracted field
