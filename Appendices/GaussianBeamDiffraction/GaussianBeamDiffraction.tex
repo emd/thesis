@@ -2,68 +2,6 @@
 \label{app:GaussianBeamDiffraction}
 
 
-\section{Definition of a Gaussian beam}
-A Gaussian beam of angular frequency $\omega_0$
-propagating along the $z$-axis
-in a medium with index of refraction $N$
-has an electric field
-\begin{equation}
-  E_G(\vect{r}, t)
-  =
-  E_G(\vect{r}) e^{-i \omega_0 t}
-\end{equation}
-with spatial dependence~\cite[Ch.~17]{siegman_lasers}
-\begin{equation}
-  \begin{aligned}
-    E_G(\vect{r})
-    &=
-    E_0
-    \frac{w_0}{w(z)}
-    \exp\left[ \frac{-\rho^2}{w(z)^2} \right]
-    \\
-    &\quad\times
-    \exp\left\{ i \left[
-      N k_0 z
-      +
-      \frac{N k_0 \rho^2}{2 R(z)}
-      -
-      \psi(z) \right] \right\}.
-  \end{aligned}
-  \label{eq:GaussianBeamDiffraction:Gaussian_beam}
-\end{equation}
-Here,
-$\rho = (x^2 + y^2)^{1/2}$ is the transverse distance from the optical axis,
-$w_0$ is the radius of the beam's waist, and
-$k_0 = \omega_0 / c = 2 \pi / \lambda_0$
-is the beam's vacuum wavenumber.
-The beam's width $w(z)$, radius of curvature $R(z)$, and
-Gouy phase $\psi(z)$ are defined as
-\begin{align}
-  w(z)
-  &=
-  w_0 \left[ 1 + \left( \frac{z}{z_R} \right)^2 \right]^{1/2},
-  \label{eq:GaussianBeamDiffraction:Gaussian_beam_width}
-  \\
-  R(z)
-  &=
-  z \left[ 1 + \left( \frac{z_R}{z} \right)^2 \right],
-  \label{eq:GaussianBeamDiffraction:Gaussian_beam_radius_of_curvature}
-  \\
-  \psi(z)
-  &=
-  \atan\left( \frac{z}{z_R} \right),
-  \label{eq:GaussianBeamDiffraction:Gouy_phase}
-\end{align}
-where the Rayleigh range
-\begin{equation}
-  z_R \equiv \left( \frac{\pi w_0^2}{\lambda_0} \right) N
-  \label{eq:GaussianBeamDiffraction:Rayleigh_range}
-\end{equation}
-is the nominal division between the beam's
-near-field ($|z| \ll z_R$) and far-field ($|z| \gg z_R$) behaviors.
-Note that the beam's waist sits at $z = 0$.
-
-
 \section{Kirchhoff scalar-diffraction theory}
 As discussed in the text surrounding
 (\ref{eq:InterferometricMethods:electric_field_eigenvector}),
@@ -73,6 +11,7 @@ as a transverse electromagnetic wave with near-constant polarization
 of little practical interest to the present work).
 Thus, it is suitable to pursue a \emph{scalar} theory
 of the beam's interaction with the plasma.
+Below, Kirchoff's scalar-diffraction theory is summarized.
 
 A monochromatic scalar wave $U(\vect{r}) e^{-i \omega t}$ in vacuum
 satisfies the Helmholtz equation
@@ -106,7 +45,7 @@ in Fig.~\ref{fig:GaussianBeamDiffraction:Kirchhoff_geometry}(a).
   \includegraphics[width = \textwidth]{%
     Appendices/GaussianBeamDiffraction/figs/kirchhoff_geometry.eps}
   \caption[Geometries for Kirchhoff diffraction calculations]{%
-    Geometries for Kirchhoff diffraction calculations.
+    Geometries for Kirchhoff scalar-diffraction calculations.
     When $S_1$ is imaged by an optical system,
     $S_1$ is referred to as the \emph{object plane}.}
 \label{fig:GaussianBeamDiffraction:Kirchhoff_geometry}
@@ -164,11 +103,14 @@ it should be noted that they are not physical
 for points that are very close to the boundaries of the opaque obstacles.
 
 
-\section{Free-space diffraction}
+\section{Free-space diffraction of a Gaussian beam}
 This section demonstrates that the Fraunhofer diffraction formalism
 gives the correct form for a free-space Gaussian beam in the far-field limit,
 and it also lays the groundwork for examining
 the diffraction of a Gaussian beam from plasma-density fluctuations.
+Note that the Gaussian-beam definition provided in
+Section~\ref{sec:InterferometricMethods:Gaussian_beam_diffraction:Gaussian_beam_definition}
+is used throughout the remainder of this appendix.
 
 Assume that the incident Gaussian beam has a waist at $S_1$, and
 take the radius of $S_1$ to be much larger than the beam waist $w_0$
@@ -176,7 +118,9 @@ such that the domain of integration effectively extends
 over the whole $(x, y)$-plane.
 For free-space propagation,
 $S_1$ does not perturb the Gaussian beam; thus,
-$E(\vect{r}, t) = E^{(i)}(\vect{r}, t) = E_G(\vect{r}) e^{-i \omega_0 t}$.
+$E(\vect{r}, t) = E^{(i)}(\vect{r}, t) = E_G(\vect{r}) e^{-i \omega_0 t}$,
+where $E_G(\vect{r})$ is the Gaussian beam's spatial dependence,
+as defined by (\ref{eq:InterferometricMethods:Gaussian_beam}).
 Now, in the far-field ($k_0 s \gg 1$) and
 paraxial ($\vect{s} \approx -z \hat{\vect{z}}$) approximations
 \begin{align}
@@ -343,7 +287,7 @@ such that the diffracted field in the Fraunhofer limit
 (\ref{eq:GaussianBeamDiffraction:Fraunhofer_Gaussian_beam_diffraction})
 can be cast in the form of a typical Gaussian beam
 as expressed in
-(\ref{eq:GaussianBeamDiffraction:Gaussian_beam}),
+(\ref{eq:InterferometricMethods:Gaussian_beam}),
 i.e.\ $E(\vect{r}) = E_G(\vect{r})$ for $z \gg z_R$.
 Of course, when considering free-space propagation,
 $E(\vect{r}) \equiv E_G(\vect{r})$ for $0 \leq z < \infty$, but
@@ -393,7 +337,7 @@ knowledge of the near-field diffraction pattern).
 
 The response functions of the diagnostics investigated in
 Sections~\ref{sec:InterferometricMethods:interferometry} and
-\ref{sec:InterferometricMethods:pci} will be shown
+\ref{sec:InterferometricMethods:pci} are shown
 to be linear in their regimes of relevance, so
 it is sufficient to examine phase fluctuations $\tilde{\phi}$
 consisting of a single Fourier mode
@@ -705,7 +649,7 @@ only one such scattering process (either up or down) occurs.
 \section{Validity of the Raman-Nath formalism}
 The Raman-Nath formalism employed in
 Section~\ref{sec:GaussianBeamDiffraction:from_plasma_density_fluctuations}
-is valid as long as the fluctuation wavenumber $k$ is not too large.
+is valid as long as the fluctuation wavenumber $k$ is not ``too large''.
 This constraint has been rigorously quantified by Bhatia and Noble
 \cite{bhatia_53_general_theory,bhatia_53_approximate_expressions_for_intensities} and
 is also discussed by Born and Wolf
@@ -774,7 +718,7 @@ is somehow manipulated based upon its Fourier wavenumber content.
 Assume this manipulation can be described
 in terms of a transfer function $T(\vect{k})$,
 where $\vect{k}$ is the lab-frame wavenumber basis.
-A transfer functions of this form is appropriate for investigating e.g.\
+A transfer function of this form is appropriate for investigating e.g.\
 diffraction from an aperture or the action of a phase plate.
 Using the wavenumber basis transformation
 (\ref{eq:GaussianBeamDiffraction:object_plane_coordinate_transformation_wavenumber_dual}),
@@ -1014,7 +958,7 @@ yields a total diffracted electric field
 \end{equation}
 Manipulating the total diffracted electric field in such a manner
 forms the foundation of phase contrast imaging (PCI),
-as will be demonstrated in Section~\ref{sec:InterferometricMethods:pci}.
+as is discussed in Section~\ref{sec:InterferometricMethods:pci}.
 
 
 \bibliographystyle{plainurl}
