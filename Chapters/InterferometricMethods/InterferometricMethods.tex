@@ -1052,7 +1052,7 @@ the imaged field to first order in $\tilde{\phi}_0$
   \label{eq:InterferometricMethods:imaged_total_field_weak_coupling_Fourier_filtered}
 \end{equation}
 
-When there is no wavenumber-dependent manipulation of the probe radiation
+When there is no wavenumber filtering of the diffracted field
 (i.e.\ $T(k_x) = 1$), the imaged field
 (\ref{eq:InterferometricMethods:imaged_total_field_weak_coupling_Fourier_filtered})
 readily reduces to
@@ -1098,7 +1098,7 @@ otherwise arbitrary phase fluctuation.
 \subsection{The need for a reference beam}
 \label{sec:InterferometricMethods:imaging:need_for_reference_beam}
 Assume that there is
-no wavenumber-dependent manipulation of the diffracted field
+no wavenumber filtering of the diffracted field
 such that
 (\ref{eq:InterferometricMethods:imaged_total_field_broadband_fluctuation_weak_coupling})
 yields the imaged field.
@@ -1147,7 +1147,7 @@ that differentiates one interferometric method from another.
 \section{External reference-beam interferometry}
 \label{sec:InterferometricMethods:interferometry}
 In external reference-beam interferometry,
-there is no wavenumber-dependent manipulation of the diffracted field
+there is no wavenumber filtering of the diffracted field
 such that
 (\ref{eq:InterferometricMethods:imaged_total_field_broadband_fluctuation_weak_coupling})
 yields the imaged field.
@@ -1258,14 +1258,18 @@ where
   \tilde{\phi}(x_{\image}, t).
 \end{align}
 Then, because $|\tilde{\phi}(x_{\image}, t)| \ll 1$
-\begin{equation}
+\begin{align}
   I_{\text{hom}}(\vect{r}_{\image}, t)
-  \approx
+  &\approx
   \bar{I}_{\text{hom}}(\vect{r}_{\image}, t)
-  \leq
-  2 I_G(0) [1 + \cos(\phi_R - \bar{\phi})],
+  \notag \\
+  &\leq
+  2 I_G(0) [1 + \cos(\phi_R - \bar{\phi})]
+  \notag \\
+  &\leq
+  4 I_G(0),
   \notag
-\end{equation}
+\end{align}
 where $I_G(0) = I_G(\rho_{\image} = 0, z_{\image})$ is convenient shorthand
 for the peak intensity of the unscattered Gaussian probe beam at the detector.
 To obtain optimal performance,
@@ -1273,11 +1277,11 @@ select $I_G(0)$ such that
 \begin{equation}
   I_{\text{sat}}
   =
-  2 I_G(0)
-  [1 + \cos(\phi_R - \bar{\phi})].
+  4 I_G(0)
   \notag
 \end{equation}
-Then
+Then, the fraction of the detector's dynamic range
+occupied by the fluctuating signal is
 \begin{equation}
   \frac{\tilde{I}_{\text{hom}}(\vect{r}_{\image}, t)}{I_{\text{sat}}}
   =
@@ -1291,7 +1295,7 @@ where
 \begin{equation}
   T_{\text{hom}}
   \equiv
-  \frac{\sin(\phi_R - \bar{\phi})}{1 + \cos(\phi_R - \bar{\phi})}
+  \frac{1}{2} \sin(\phi_R - \bar{\phi})
   \label{eq:InterferometricMethods:homodyne_interferometer_wavenumber_transfer_function}
 \end{equation}
 is the homodyne interferometer's transfer function.
@@ -1404,7 +1408,9 @@ sit at the intermediate frequency $\pm \Delta \omega_0$ but that
 the phase-fluctuation term
 $\tilde{\phi}(x_{\image}, t) \sin(\Delta \omega_0 t + \bar{\phi})$
 produces sidebands about $\pm \Delta \omega_0$;
-sideband production for a sinusoidal phase fluctuation is sketched in
+sideband production for
+a sinusoidal phase fluctuation of angular frequency $\omega$
+is sketched in
 Fig.~\ref{fig:InterferometricMethods:baseband_vs_intermediate_frequency}.
 \graffito{\textcolor{red}{This will be discussed more in Ch.~3}}
 Practically, the $\phi_R$ ramp is accomplished by modestly Doppler shifting
@@ -1542,7 +1548,7 @@ To obtain optimal performance, select $I_G(0)$ such that
 Further, define the total fluctuating intensity
 in the demodulated signals to be
 \begin{align}
-  \tilde{I}_{IQ}(\vect{r}_{\image}, t)
+  \left| \tilde{I}_{IQ}(\vect{r}_{\image}, t) \right|
   &\equiv
   \left\{%
     [\tilde{I}_{I}(\vect{r}_{\image}, t)]^2
@@ -1553,19 +1559,19 @@ in the demodulated signals to be
   &=
   I_G(\vect{r}_{\image})
   \cdot
-  \tilde{\phi}(x_{\image}, t)
+  \left| \tilde{\phi}(x_{\image}, t) \right|
   \label{eq:InterferometricMethods:heterodyne_total_fluctuating_intensity}
 \end{align}
-\graffito{\textcolor{red}{How do we know sign?}}
-such that
+such that the fraction of the detector's dynamic range
+occupied by the fluctuating component in the demodulated signal is
 \begin{equation}
-  \frac{\tilde{I}_{IQ}(\vect{r}_{\image}, t)}{I_{\text{sat}}}
+  \frac{\left| \tilde{I}_{IQ}(\vect{r}_{\image}, t) \right|}{I_{\text{sat}}}
   =
   \frac{I_G(\vect{r}_{\image})}{I_G(0)}
   \cdot
   T_{\text{het}}
   \cdot
-  \tilde{\phi}(x_{\image}, t),
+  \left| \tilde{\phi}(x_{\image}, t) \right|,
 \end{equation}
 where
 \begin{equation}
@@ -1593,28 +1599,22 @@ Note that
 \begin{equation}
   \frac{T_{\text{het}}}{T_{\text{hom}}}
   =
-  \frac{1}{4}
+  \frac{1}{2}
   \quad
   \text{for homodyne operation at $\phi_R - \bar{\phi} = \pi / 2$.}
   \notag
 \end{equation}
 Thus, for a given detector,
-a heterodyne interferometer will be four times \emph{less} sensitive
+a heterodyne interferometer will be two times \emph{less} sensitive
 than a homodyne interferometer operated in its optimal configuration
 ($\phi_R - \bar{\phi} = \pi / 2$).
-This factor of four has two physical origins.
-First, the detector of a homodyne interferometer
-with a fixed $\phi_R - \bar{\phi} = \pi / 2$
-only sees small fluctuations about a DC offset, while
-the detector of a heterodyne interferometer
-sees the full sinusoidal waveform of the intermediate frequency;
-to ensure the detector is always within its saturation limits,
-the heterodyne interferometer must necessarily be operated with
-a mean intensity at the detector
-that is a factor of two lower than that for the homodyne interferometer.
-Second, the mixing process
-that is used to demodulate the heterodyne interference signal
-results in a loss of half of the signal power.
+The physical origin of the heterodyne interferometer's sensitivity deficit
+is the mixing process used to demodulate
+the intermediate-frequency interference signal,
+which reduces the signal power by a factor of two
+(the rest of the signal power is mixed up
+to twice the intermediate frequency and
+is removed via low-pass filtering).
 
 
 \section{Phase contrast imaging (PCI)}
