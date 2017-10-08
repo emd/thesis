@@ -1819,8 +1819,7 @@ for $|k| \geq k_g$, where
 \end{equation}
 Here, the subscript $g$ is in reference
 to the \emph{groove} of the phase plate.
-Further, the scattering process is usually very weak.
-To provide the strongest phase contrast,
+Further, to provide the strongest phase contrast,
 the unscattered beam should fall wholly within the phase groove
 (i.e.\ $2 w_0' \leq d$);
 substituting (\ref{eq:InterferometricMethods:focal_plane_waist_rayleigh})
@@ -2019,26 +2018,26 @@ the image-plane intensity further reduces to
 \end{equation}
 
 Note that the linear combination
-$C_I \cos \nu - C_Q \sin \nu$ for real $C_I$, $C_Q$, and $\nu$
+$A_I \cos \nu - A_Q \sin \nu$ for real $A_I$, $A_Q$, and $\nu$
 can be rewritten as
 \begin{align}
-  C_I \cos \nu - C_Q \sin \nu
+  A_I \cos \nu - A_Q \sin \nu
   &=
-  C \cos(\nu + \theta),
+  A \cos(\nu + \theta),
   \label{eq:InterferometricMethods:linear_combination_of_sine_and_cosine}
 \end{align}
 where
-$C = (C_I^2 + C_Q^2)^{1/2}$,
-$\theta = \atantwo(C_Q, C_I)$,
-and $\atantwo(C_Q, C_I)$ is the arctangent function of two arguments, which
-uses the signs of $C_Q$ and $C_I$ to correctly determine the quadrant
-corresponding to a tangent of $C_Q / C_I$.
+$A = (A_I^2 + A_Q^2)^{1/2}$,
+$\theta = \atantwo(A_Q, A_I)$,
+and $\atantwo(A_Q, A_I)$ is the arctangent function of two arguments, which
+uses the signs of $A_Q$ and $A_I$ to correctly determine the quadrant
+corresponding to a tangent of $A_Q / A_I$.
 Note that the notation is mnemonic:
-$C_I$ is the amplitude of the ``in-phase'' ($I$) component
+$A_I$ is the amplitude of the ``in-phase'' ($I$) component
 (i.e.\ proportional to the image of the assumed
 cosine phase fluctuation $\tilde{\phi}(x, t)$ from
 (\ref{eq:InterferometricMethods:cosine_phase_fluctuation})), and
-$C_Q$ is the amplitude of the corresponding ``quadrature'' ($Q$) component.
+$A_Q$ is the amplitude of the corresponding ``quadrature'' ($Q$) component.
 
 As was the case for external reference-beam interferometry,
 it is useful to characterize PCI's performance
@@ -2076,44 +2075,44 @@ can be rewritten as
   =
   \frac{I_G(\vect{r}_{\image})}{I_G(0)}
   \cdot
-  T_{\text{pci}}(k_{\image}, x_{\image})
+  A_{\text{pci}}(k_{\image}, x_{\image})
   \cdot
   \tilde{\phi}_0
   \cos\left[ \nu + \theta_{\text{pci}}(k_{\image}, x_{\image}) \right],
 \end{equation}
 where
 \begin{align}
-  T_{\text{pci}}(k_{\image}, x_{\image})
+  A_{\text{pci}}(k_{\image}, x_{\image})
   &\equiv
-  \frac{2 C(k_{\image}, x_{\image})}{|F_0|^2 + |G_0|^2},
-  \label{eq:InterferometricMethods:PCI_wavenumber_transfer_function}),
+  \frac{2 A(k_{\image}, x_{\image})}{|F_0|^2 + |G_0|^2},
+  \label{eq:InterferometricMethods:PCI_wavenumber_transfer_function}
   \\
   \theta_{\text{pci}}(k_{\image}, x_{\image})
   &\equiv
-  \atantwo(C_Q, C_I),
+  \atantwo(A_Q, A_I),
 \end{align}
 and
 \begin{align}
-  C(k_{\image}, x_{\image})
+  A(k_{\image}, x_{\image})
   &\equiv
-  (C_I^2 + C_Q^2)^{1/2},
+  (A_I^2 + A_Q^2)^{1/2},
   \\
-  C_I(k_{\image}, x_{\image})
+  A_I(k_{\image}, x_{\image})
   &\equiv
   \imag(G_0)\real(F_1) - \real(F_0)\imag(G_1),
-  \label{eq:InterferometricMethods:PCI_response_CI}
+  \label{eq:InterferometricMethods:PCI_response_AI}
   \\
-  C_Q(k_{\image}, x_{\image})
+  A_Q(k_{\image}, x_{\image})
   &\equiv
   \imag(G_0)\imag(F_1) + \real(F_0)\real(G_1).
-  \label{eq:InterferometricMethods:PCI_response_CQ}
+  \label{eq:InterferometricMethods:PCI_response_AQ}
 \end{align}
 
 Thus, the action of the phase plate results in both
-an amplitude response $T_{\text{pci}}(k_{\image}, x_{\image})$ and
+an amplitude response $A_{\text{pci}}(k_{\image}, x_{\image})$ and
 a phase response $\theta_{\text{pci}}(k_{\image}, x_{\image})$
 in PCI's image-plane intensity.
-The on-axis responses $T_{\text{pci}}(k_{\image}, x_{\image} = 0)$ and
+The on-axis responses $A_{\text{pci}}(k_{\image}, x_{\image} = 0)$ and
 $\theta_{\text{pci}}(k_{\image}, x_{\image} = 0) = 0$
 are consistent with previous derivations at $x_{\image} = 0$,
 such as \cite[Eq.~2.141]{coda_phd} and \cite[Eq.~20]{rost_low_k_pci}.
@@ -2123,7 +2122,7 @@ across the face of the detector.
 Note that $I_{\text{pci}}$ will be a nonlinear function
 of the scattering phase fluctuation $\tilde{\phi}(x, t)$
 if there are substantial spatial variations in either
-$T_{\text{pci}}$ or $\theta_{\text{pci}}$.
+$A_{\text{pci}}$ or $\theta_{\text{pci}}$.
 The amplitude and phase responses
 can be easily evaluated numerically, and
 the results for typical system parameters are shown in
@@ -2132,9 +2131,9 @@ As is colloquially understood, the amplitude response
 drops precipitously across the full beam profile for $k \lesssim k_g$.
 (Additionally, the spatial variation in the amplitude response is minimal;
 that is,
-$T_{\text{pci}}(k_{\image}, x_{\image})
+$A_{\text{pci}}(k_{\image}, x_{\image})
 \approx
-T_{\text{pci}}(k_{\image}, x_{\image} = 0)$,
+A_{\text{pci}}(k_{\image}, x_{\image} = 0)$,
 particularly for $|k| \gtrsim 2 k_g$).
 However, perhaps less well known, is the fact that
 the phase response varies substantially in space for $|k| \lesssim k_g$.
@@ -2145,7 +2144,7 @@ of low-$k$ coherent MHD modes, as is discussed in
 Section~\ref{sec:InterferometricMethods:selection:pci_low_k_upshift}.
 \graffito{\textcolor{red}{Is this just when $k_g = 2 / w_0$? Or arbitrary $k_g$?}}
 Fortunately, for $|k| \gtrsim 2 k_g$, spatial variations
-in $\theta_{\text{pci}}$ (and $T_{\text{pci}}$) are negligible, and,
+in $\theta_{\text{pci}}$ (and $A_{\text{pci}}$) are negligible, and,
 as a result, PCI's operation is essentially linear and
 can be described in terms of a transfer function.
 
@@ -2185,7 +2184,7 @@ can be described in terms of a transfer function.
 As is the case with the homodyne interferometer,
 the PCI technique does \emph{not} make an absolute measurement
 of the phase-fluctuation amplitude $\tilde{\phi}_0$.
-To see this, note that the PCI amplitude response $T_{\text{pci}}$
+To see this, note that the PCI amplitude response $A_{\text{pci}}$
 depends very sensitively on the system alignment,
 with slight excursions of the unscattered beam
 from the partially reflective phase-plate groove
@@ -2194,7 +2193,7 @@ resulting in macroscopic changes to the power reaching the detector.
 Further, power fluctuations at the beam source
 can alter $I_G(\vect{r}_{\image})$.
 Thus, there are three potentially dynamic quantities:
-$\{\tilde{\phi}_0, I_G(\vect{r}_{\image}), T_{\text{pci}}\}$,
+$\{\tilde{\phi}_0, I_G(\vect{r}_{\image}), A_{\text{pci}}\}$,
 but there are only two potentially measurable quantities:
 the equilibrium and fluctuating powers.
 PCI systems on large, vibration-prone fusion devices
@@ -2204,7 +2203,6 @@ in order to dynamically maintain
 the unscattered beam's alignment
 on the phase-plate groove,
 minimizing vibrational contamination of the PCI signal.
-\graffito{\textcolor{red}{Reference where such estimate is made?}}
 It is then possible, after measuring a calibration constant,
 to \emph{estimate} the phase-fluctuation amplitude $\tilde{\phi}_0$ with PCI.
 
