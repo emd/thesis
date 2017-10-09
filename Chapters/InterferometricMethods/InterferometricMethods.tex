@@ -2128,13 +2128,8 @@ can be easily evaluated numerically, and
 the results for typical system parameters are shown in
 Fig.~\ref{fig:InterferometricMethods:phase_plate_amplitude_and_phase_response}.
 As is colloquially understood, the amplitude response
-drops precipitously across the full beam profile for $k \lesssim k_g$.
-(Additionally, the spatial variation in the amplitude response is minimal;
-that is,
-$A_{\text{pci}}(k_{\image}, x_{\image})
-\approx
-A_{\text{pci}}(k_{\image}, x_{\image} = 0)$,
-particularly for $|k| \gtrsim 2 k_g$).
+drops precipitously across the full beam profile for $|k| \lesssim k_g$.
+(Additionally, the spatial variation in the amplitude response is minimal).
 However, perhaps less well known, is the fact that
 the phase response varies substantially in space for $|k| \lesssim k_g$.
 Thus, PCI's operation for $|k| \lesssim k_g$ is \emph{nonlinear} and
@@ -2142,9 +2137,8 @@ cannot be described in terms of a transfer function;
 this can e.g.\ prevent PCI from measuring wavenumbers
 of low-$k$ coherent MHD modes, as is discussed in
 Section~\ref{sec:InterferometricMethods:selection:pci_low_k_upshift}.
-\graffito{\textcolor{red}{Is this just when $k_g = 2 / w_0$? Or arbitrary $k_g$?}}
-Fortunately, for $|k| \gtrsim 2 k_g$, spatial variations
-in $\theta_{\text{pci}}$ (and $A_{\text{pci}}$) are negligible, and,
+Fortunately, for $|k| \gtrsim k_g$, spatial variations
+in $\theta_{\text{pci}}$ are negligible, and,
 as a result, PCI's operation is essentially linear and
 can be described in terms of a transfer function.
 
@@ -2152,30 +2146,27 @@ can be described in terms of a transfer function.
   \centering
   \includegraphics[width = \textwidth]{%
     Chapters/InterferometricMethods/figs/phase_plate_amplitude_and_phase_response.pdf}
-    \caption[Amplitude and phase responses of PCI image-plane intensity
-      across detector face
+    \caption[PCI amplitude and phase responses in object-plane coordinates
     ]{%
-    \textcolor{red}{Update discussion here; no finite-sampling volume effects}
-    Amplitude response $T_{\text{pci}}(k, x_{\image})$ and
-    phase response $\theta_{\text{pci}}(k, x_{\image})$
-    of PCI image-plane intensity across detector face
-    for a single sinusoidal mode of wavenumber $k$.
-    Spatial coordinates are normalized
-    to the image-plane 1/e $E$ radius $M w_0$ with $M = 0.5$, while
-    object-plane wavenumbers $k$ are normalized
+    PCI amplitude response $A_{\text{pci}}(k, x)$ and
+    phase response $\theta_{\text{pci}}(k, x)$
+    in object-plane coordinates.
+    Spatial coordinates $x$ and wavenumbers $k$ are normalized
     to the 1/e $E$ radius of the in-vessel probe beam, $w_0$.
-    The horizontal, dashed lines indicate
+    The system magnification is $M = 0.5$, a fairly typical value.
+    The dashed horizontal lines indicate
     the low-$k$ cutoff of the PCI phase-plate groove, $k_g$;
     here, $k_g = 2 / w_0$,
     which is the minimum value allowed by diffraction,
     as discussed in
     (\ref{eq:InterferometricMethods:pci_kmin_physics}).
     The phase-plate high-$k$ cutoff, $k_D$,
-    is taken to be much larger than $10 / w_0$.
-    The reflectivity of the PCI phase groove is $\eta = 0.17$,
+    is taken to be infinite.
+    The reflectivity of the phase groove is $\eta = 0.17$,
     which is characteristic of the ZnSe typically
     employed in $\SI{10.6}{\micro\meter}$ optics.
-    Note that the low-$k$ phase response exhibits dramatic spatial variation,
+    Note that the low-$k$ phase response $\theta_{\text{pci}}$
+    exhibits dramatic spatial variation,
     which results in nonlinear PCI operation for $|k| \lesssim k_g$.
   }
 \label{fig:InterferometricMethods:phase_plate_amplitude_and_phase_response}
