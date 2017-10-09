@@ -10,9 +10,7 @@ kg = 2.  # kg = 2 / w0 is the diffraction limit
 M = 0.5  # typical...
 
 # Detector size
-kfsv_desired = 30.                # [kfsv_desired] = 1 / [w0]
-s = 2 * np.pi * M / kfsv_desired  # gives s ~ 0.1 * (M * w0), which is typical
-print 'detector element size in image plane, s = %f w0\n' % s
+s = 0  # Don't include finite sampling-volume effects here
 
 # Computational grid
 kmax = 5 * kg
@@ -20,7 +18,7 @@ dk = 0.01
 x_I_max = 1.
 dx_I = 0.1
 
-fontsize = 16
+fontsize = 12
 linewidth = 2
 
 
@@ -33,9 +31,9 @@ if __name__ == '__main__':
     # int_hom_quart_opt = HomodyneInterferometer(M=M, s=s, dphi=(np.pi / 8))
 
     # Compute wavenumber response of each interferometric method
-    pci.applyTo(kmax=pci.kfsv, dk=dk, x_I_max=x_I_max, dx_I=dx_I)
-    int_het.applyTo(kmax=int_het.kfsv, dk=dk)
-    int_hom_opt.applyTo(kmax=int_hom_opt.kfsv, dk=dk)
+    pci.applyTo(kmax=kmax, dk=dk, x_I_max=x_I_max, dx_I=dx_I)
+    int_het.applyTo(kmax=kmax, dk=dk)
+    int_hom_opt.applyTo(kmax=kmax, dk=dk)
     # int_hom_half_opt.applyTo(kmax=int_hom_half_opt.kfsv, dk=dk)
     # int_hom_quart_opt.applyTo(kmax=int_hom_quart_opt.kfsv, dk=dk)
 
@@ -49,7 +47,7 @@ if __name__ == '__main__':
 
     fig = plt.figure()
 
-    plt.semilogy(pci.k, np.abs(pci.Tpci[:, beam_center]),
+    plt.semilogy(pci.k, np.abs(pci.A_pci[:, beam_center]),
                  c=pci_col, linewidth=linewidth)
     plt.semilogy(int_het.k, int_het.Thet,
                  c=het_col, linewidth=linewidth)
@@ -63,11 +61,12 @@ if __name__ == '__main__':
     plt.axvline(x=pci.kg, c='k', linewidth=linewidth, linestyle='--')
     plt.axvline(x=-pci.kg, c='k', linewidth=linewidth,  linestyle='--')
 
+    plt.xlim([-kmax, kmax])
     plt.ylim([1e-2, 3e1])
 
-    plt.xlabel('$k \, [1 / w_0]$', fontsize=fontsize)
+    plt.xlabel('$k \; [1 /\, w_0]$', fontsize=fontsize)
     plt.ylabel('$T(k)$', fontsize=fontsize)
-    plt.title('interferometric method transfer functions')
+    # plt.title('interferometric method transfer functions')
 
     plt.legend([
         'PCI (x = 0)',

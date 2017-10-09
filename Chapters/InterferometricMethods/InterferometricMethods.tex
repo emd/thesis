@@ -2211,98 +2211,81 @@ of these interferometric techniques
 so that a suitable method can be selected for a given application.
 
 
-\subsection{A note on notation}
-The transfer functions derived in the preceding sections
-are all written in terms of image-plane wavenumbers $k_{\image}$ and
-image-plane coordinates $x_{\image}$.
-However, one is often interested in the object-plane wavenumbers $k$,
-as they are directly tied to the underlying physics.
-In contrast, image-plane coordinates $x_{\image}$
-emphasize the importance of the detector dimensions
-on the measured interference signal.
-For these reasons, the below discussions
-use transfer functions with the ``hybrid'' parametrization of
-object-plane wavenumbers $k$ and image-plane coordinates $x_{\image}$.
-If the reader favors a different parametrization, however,
-the transformations between the image-plane and object-plane quantities
-are very simple:
-\begin{align}
-  k_{\image} &= \frac{k}{M},
-  \\
-  x_{\image} &= M x_{\object},
-\end{align}
-where $M$ is the imaging system's magnification.
+% \subsection{A note on notation}
+% The transfer functions derived in the preceding sections
+% are all written in terms of image-plane wavenumbers $k_{\image}$ and
+% image-plane coordinates $x_{\image}$.
+% However, one is often interested in the object-plane wavenumbers $k$,
+% as they are directly tied to the underlying physics.
+% In contrast, image-plane coordinates $x_{\image}$
+% emphasize the importance of the detector dimensions
+% on the measured interference signal.
+% For these reasons, the below discussions
+% use transfer functions with the ``hybrid'' parametrization of
+% object-plane wavenumbers $k$ and image-plane coordinates $x_{\image}$.
+% If the reader favors a different parametrization, however,
+% the transformations between the image-plane and object-plane quantities
+% are very simple:
+% \begin{align}
+%   k_{\image} &= \frac{k}{M},
+%   \\
+%   x_{\image} &= M x_{\object},
+% \end{align}
+% where $M$ is the imaging system's magnification.
 
 
-\subsection{Amplitude of fluctuating signal}
+\subsection{Sensitivity}
 The amplitude of the fluctuating signal at the detector
 is one of the two aspects
 that determines an interferometric system's
 signal-to-noise ratio ($\snr$;
 the other aspect is the detector noise).
-The interferometric-method transfer functions
+Transfer functions for each interferometric method
 were defined in the previous sections
-by normalizing the power in the fluctuating signal
-to the saturation power of a given detector.
-Thus, assuming each interferometric method
-is implemented with detectors constrained by the same saturation power,
+by normalizing the intensity of the fluctuating signal
+to the saturation intensity $I_{\text{sat}}$ of a given detector.
+Assuming the detectors for each interferometric method
+have the same $I_{\text{sat}}$,
 a true ``apples-to-apples'' comparison
 of signal amplitudes can be made
 by examining the amplitudes of the corresponding transfer functions.
 Just such a comparison is shown in
 Fig.~\ref{fig:InterferometricMethods:interferometric_method_transfer_functions}.
 To facilitate the comparison,
-the magnification $|M|$ and detector-element size $s_x$
-are taken to be the same for each system.
+the magnification $|M|$ is taken to be the same for each system.
 
 \begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
     Chapters/InterferometricMethods/figs/interferometric_method_comparison.pdf}
   \caption[Comparison of interferometric method transfer functions]{%
-    A comparison of the transfer-function amplitudes for
-    PCI (\ref{eq:InterferometricMethods:PCI_wavenumber_transfer_function}),
-    heterodyne interferometry
+    A comparison of the PCI amplitude response
+    (\ref{eq:InterferometricMethods:PCI_wavenumber_transfer_function})
+    to the transfer functions for heterodyne interferometry
     (\ref{eq:InterferometricMethods:heterodyne_interferometer_wavenumber_transfer_function}),
     and homodyne interferometry
     (\ref{eq:InterferometricMethods:homodyne_interferometer_wavenumber_transfer_function},
     in the optimal configuration with $\phi_R - \bar{\phi} = \pi / 2$).
     Object-plane wavenumbers $k$ are normalized
     to the 1/e $E$ radius of the in-vessel probe beam, $w_0$.
-    Further, to facilitate the comparison,
-    the magnification $|M|$ and detector-element size $s_x$
-    are taken to be the same for each system
-    (specifically, $|M| = 0.5$ and $s_x \approx 0.105 w_0$,
-    which are representative ``typical'' values;
-    note that these values of $|M|$ and $s_x$
-    yield a finite sampling-volume cutoff $k_{\text{fsv}} = 30 / w_0$).
+    The magnification of each system is taken to be $|M| = 0.5$,
+    which is a representative ``typical'' value.
     The vertical, dashed lines indicate
     the low-$k$ cutoff of the PCI phase-plate groove, $k_g$;
     here, $k_g = 2 / w_0$,
     which is the minimum value allowed by diffraction,
     as discussed in
     (\ref{eq:InterferometricMethods:pci_kmin_physics}).
-    The phase-plate's high-$k$ cutoff, $k_D$, was assumed to satisfy
-    $k_D \gg k_{\text{fsv}}$ such that
-    $k_D$ minimally affects the PCI transfer function.
+    The phase-plate high-$k$ cutoff, $k_D$,
+    is taken to be infinite.
     The reflectivity of the PCI phase groove is $\eta = 0.17$,
     which is characteristic of the ZnSe typically
     employed in $\SI{10.6}{\micro\meter}$ optics.
-    As discussed in
-    Section~\ref{sec:InterferometricMethods:pci:imaged_field_and_intensity},
-    $T_{\text{pci}}$ is only a true transfer function
-    for $|k| \gtrsim 2 k_g$;
-    for smaller wavenumbers, the PCI phase response
-    varies significantly across the beam profile,
-    resulting in nonlinear operation.
-    Regardless, the PCI ``transfer function'' is plotted
-    across the full $k$-range here and
-    corresponds to the beam center ($x = 0$).
   }
 \label{fig:InterferometricMethods:interferometric_method_transfer_functions}
 \end{figure}
 
-Clearly, for a given fluctuation and detector,
+Clearly, for a given fluctuation ($|k| \gtrsim k_g$) and detector,
 PCI produces a fluctuating signal with the largest amplitude.
 Relative to the optimally operating homodyne interferometer
 ($\phi_R - \bar{\phi} = \pi / 2$),
