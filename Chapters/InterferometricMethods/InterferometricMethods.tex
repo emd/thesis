@@ -2119,33 +2119,43 @@ such as \cite[Eq.~2.141]{coda_phd} and \cite[Eq.~20]{rost_low_k_pci}.
 The present work, however, explicitly accounts for
 the spatial variation in the amplitude and phase responses
 across the face of the detector.
-Note that $I_{\text{pci}}$ will be a nonlinear function
-of the scattering phase fluctuation $\tilde{\phi}(x, t)$
+Note that PCI operates as a nonlinear system
 if there are substantial spatial variations in either
 $A_{\text{pci}}$ or $\theta_{\text{pci}}$.
 The amplitude and phase responses
 can be easily evaluated numerically, and
 the results for typical system parameters are shown in
 Fig.~\ref{fig:InterferometricMethods:phase_plate_amplitude_and_phase_response}.
-As is colloquially understood, the amplitude response
-drops precipitously across the full beam profile for $|k| \lesssim k_g$.
+As is colloquially understood, the amplitude response $A_{\text{pci}}$
+drops precipitously for $|k| \lesssim k_g$.
 (Additionally, the spatial variation in the amplitude response is minimal).
 However, perhaps less well known, is the fact that
-the phase response varies substantially in space for $|k| \lesssim k_g$.
-Thus, PCI's operation for $|k| \lesssim k_g$ is \emph{nonlinear} and
-cannot be described in terms of a transfer function;
-this can e.g.\ prevent PCI from measuring wavenumbers
-of low-$k$ coherent MHD modes, as is discussed in
-Section~\ref{sec:InterferometricMethods:selection:pci_low_k_upshift}.
-Fortunately, for $|k| \gtrsim k_g$, spatial variations
-in $\theta_{\text{pci}}$ are negligible, and,
-as a result, PCI's operation is essentially linear and
-can be described in terms of a transfer function.
+the phase response $\theta_{\text{pci}}$ exhibits
+dramatic spatial variation for $|k| \lesssim k_g$.
+This spatial variation biases the PCI-measured wavenumber $k_{\text{meas}}$
+away from the true wavenumber $k$,
+as shown in Fig.~\ref{fig:InterferometricMethods:pci_wavenumber_upshift}.
+The physical explanation for this effect is relatively simple:
+a Gaussian beam can be decomposed into a set of infinite plane waves
+with a finite spread in transverse wavevectors
+(see Section~\ref{sec:InterferometricMethods:Gaussian_beam_diffraction:Gaussian_beam_definition}),
+and only the components of the scattered beam
+with transverse lab-frame wavenumbers $|k| \geq k_g$
+are reflected from the phase-plate face and
+produce measurable interference on the PCI detector.
+Thus, for $|k| \lesssim k_g$, PCI operates as a nonlinear system
+that cannot be described via a transfer function.
+Practically speaking, PCI's nonlinear low-$k$ operation
+prevents it from measuring the wavenumbers of low-$k$ fluctuations,
+such as MHD and some ion-scale instabilities.
+(Of course, because the PCI amplitude response $A_{\text{pci}}$
+drops precipitously for $|k| \lesssim k_g$,
+such low-$k$ fluctuations may be altogether invisible to PCI anyways).
 
 \begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
-    Chapters/InterferometricMethods/figs/phase_plate_amplitude_and_phase_response.pdf}
+    Chapters/InterferometricMethods/figs/pci_amplitude_and_phase_response.pdf}
     \caption[PCI amplitude and phase responses in object-plane coordinates
     ]{%
     PCI amplitude response $A_{\text{pci}}(k, x)$ and
@@ -2170,6 +2180,32 @@ can be described in terms of a transfer function.
     which results in nonlinear PCI operation for $|k| \lesssim k_g$.
   }
 \label{fig:InterferometricMethods:phase_plate_amplitude_and_phase_response}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/InterferometricMethods/figs/pci_wavenumber_upshift.pdf}
+    \caption[Nonlinear upshift in low-$k$, PCI-measured wavenumber]{%
+    PCI-measured wavenumber $k_{\text{meas}}$ vs.\ true wavenumber $k$.
+    Wavenumbers are normalized
+    to the 1/e $E$ radius of the in-vessel probe beam, $w_0$.
+    The system magnification is $M = 0.5$, a fairly typical value.
+    The dashed vertical lines indicate
+    the low-$k$ cutoff of the PCI phase-plate groove, $k_g$;
+    here, $k_g = 2 / w_0$,
+    which is the minimum value allowed by diffraction,
+    as discussed in
+    (\ref{eq:InterferometricMethods:pci_kmin_physics}).
+    For $|k| \gtrsim k_g$,
+    $k_{\text{meas}}$ has a $1:1$ linear relationship with $k$;
+    however, for $|k| \lesssim k_g$,
+    $k_{\text{meas}}$ is \emph{not} linearly related to $k$.
+    Thus, a transfer-function description of the PCI operation
+    is only appropriate for wavenumbers above the low-$k$ cutoff
+    ($|k| \gtrsim k_g$).
+  }
+\label{fig:InterferometricMethods:pci_wavenumber_upshift}
 \end{figure}
 
 As is the case with the homodyne interferometer,
@@ -2441,93 +2477,6 @@ Aperture diffraction minimally affects Gaussian beam propagation if
 where $a_{\text{eff}}$ is the effective aperture radius and
 $w(z)$ is the beam's 1/e $E$ radius at the location of the aperture
 \cite{campbell_josa69, rost_diffraction_pc14}.
-
-
-\subsection{Nonlinear upshift in low-$k$, PCI-measured wavenumber}
-\label{sec:InterferometricMethods:selection:pci_low_k_upshift}
-This section discusses a little-known diagnostic artifact of the PCI
-that becomes relevant when the fluctuation wavenumber
-is smaller than the PCI's low-$k$ cutoff (i.e.\ $|k| \lesssim k_g$).
-This effect can be important when trying to measure the wavenumber of
-e.g.\ low-$k$ coherent MHD modes, and
-it results from PCI's nonlinear operation for $|k| \lesssim k_g$,
-which is thoroughly discussed in
-Section~\ref{sec:InterferometricMethods:pci:imaged_field_and_intensity}.
-
-It is easiest to see the effects of PCI's nonlinear low-$k$ operation
-by defining the normalized fluctuating power
-$\tilde{p}_j(t)$
-\begin{align}
-  \tilde{p}_j(t)
-  &=
-  \frac{I_G(0)}{I_G(\vect{r}_{\image,j})}
-  \cdot
-  \frac{1}{\tilde{\phi}_0 |T_{\text{pci}}(k_{\image}, x_{\image, j})|}
-  \left[ \frac{\tilde{P}_{j, \, \text{pci}}(t)}{P_{\text{sat}}} \right]
-  \notag \\
-  &=
-  \cos\left[ \nu_j + \theta(k_{\image}, x_{\image, j}) \right].
-\end{align}
-(This choice of normalization becomes readily apparent after referencing
-(\ref{eq:InterferometricMethods:PCI_ratio_fluctuating_to_equilibrium_power})).
-The set of measurements $\{\tilde{p}_j(t)\}$
-can be e.g.\ Fourier analyzed in the spatial dimension
-to provide an estimate of the corresponding
-wavenumber autospectral density
-$G_{\tilde{p}\tilde{p}}(k_{\text{meas}}, t)$.
-\graffito{\textcolor{red}{more details on $G_{xx}(k)$ in Ch.~4}}
-When PCI operates linearly,
-the measured wavenumber spectrum
-has a peak at $k_{\text{meas}} = k$,
-with $k$ corresponding to the true, physical wavenumber.
-As shown in Fig.~\ref{fig:InterferometricMethods:pci_wavenumber_upshift},
-PCI operates linearly for $k \gtrsim k_g$,
-as the measured wavenumber spectrum peaks at $k_{\text{meas}} = k$;
-however, for $k \lesssim k_g$,
-the measured wavenumber spectrum peaks at $k_{\text{meas}} = k_g$,
-regardless of the actual fluctuation wavenumber.
-The explanation for this effect is relatively simple:
-a Gaussian beam can be decomposed into a set of infinite plane waves
-traveling in slightly different directions \cite[Ch.~16.7]{siegman_lasers},
-and only the components of the scattered beam
-with transverse lab-frame wavenumbers $k \geq k_g$
-are reflected from the phase-plate face and
-produce measurable interference on the PCI detector.
-Thus, when $|k| \lesssim k_g$,
-not only does the PCI signal's amplitude drop precipitously, but
-its spatial content also becomes a nonlinear function
-of the corresponding fluctuation wavenumber,
-destroying any hopes of wavenumber measurement.
-
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/InterferometricMethods/figs/pci_wavenumber_upshift.pdf}
-    \caption[Nonlinear upshift in low-$k$, PCI-measured wavenumber]{%
-    Estimate of wavenumber autospectral density $G_{\tilde{p}\tilde{p}}(k)$
-    that results from Fourier analyzing
-    the normalized PCI signal $\tilde{p}$ in space.
-    The $y$-axis displays the fluctuation's actual wavenumber $k$, while
-    the $x$-axis displays the corresponding ``measured'' wavenumber
-    $k_{\text{meas}}$ that results from the Fourier analysis.
-    Wavenumbers are all normalized
-    to the 1/e $E$ radius of the in-vessel probe beam, $w_0$.
-    The horizontal, dashed line indicates
-    the low-$k$ cutoff of the PCI phase-plate groove, $k_g$;
-    here, $k_g = 2 / w_0$,
-    which is the minimum value allowed by diffraction,
-    as discussed in
-    (\ref{eq:InterferometricMethods:pci_kmin_physics}).
-    The system magnification has
-    a representative ``typical'' value $|M| = 0.5$.
-    Note that PCI operates linearly for $k \gtrsim k_g$,
-    as the measured wavenumber spectrum peaks at $k_{\text{meas}} = k$;
-    however, for $k \lesssim k_g$,
-    the measured wavenumber spectrum peaks at $k_{\text{meas}} = k_g$,
-    regardless of the actual fluctuation wavenumber.
-  }
-\label{fig:InterferometricMethods:pci_wavenumber_upshift}
-\end{figure}
 
 
 \subsection{Temporal bandwidth}
