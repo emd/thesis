@@ -2308,6 +2308,23 @@ can be made by examining the amplitudes
 of the corresponding transfer functions.
 Just such a comparison is shown in
 Fig.~\ref{fig:InterferometricMethods:interferometric_method_transfer_functions}.
+Clearly, for a given fluctuation ($|k| \gtrsim k_g$) and a given detector,
+PCI has the best sensitivity.
+Specifically, PCI is
+$T_{\text{pci}} / T_{\text{hom}} = 4 / \sqrt{\eta}$
+more sensitive than a homodyne interferometer
+($\phi_R - \bar{\phi} = \pi / 2$) and
+$T_{\text{pci}} / T_{\text{het}} = 8 / \sqrt{\eta}$
+more sensitive than a heterodyne interferometer.
+Relative to homodyne interferometry,
+PCI's enhanced sensitivity is wholly attributable
+to the partial reflectivity ($\eta < 1$) of the phase-plate groove:
+the decreased power in the unscattered beam
+increases the fraction of the detector's dynamic range
+occupied by the fluctuating signal.
+Heterodyne interferometry has an additional factor-of-2 sensitivity deficit
+relative to homodyne interferometry because of the mixing process
+used to demodulate the heterodyne interference signal.
 
 \begin{figure}
   \centering
@@ -2346,15 +2363,32 @@ Fig.~\ref{fig:InterferometricMethods:interferometric_method_transfer_functions}.
 \label{fig:InterferometricMethods:interferometric_method_transfer_functions}
 \end{figure}
 
-Clearly, for a given fluctuation ($|k| \gtrsim k_g$) and detector,
-PCI produces a fluctuating signal with the largest amplitude.
-Relative to the optimally operating homodyne interferometer
-($\phi_R - \bar{\phi} = \pi / 2$),
-the PCI's larger amplitude is wholly attributable
-to the partial reflectivity ($\eta < 1$) of the phase-plate groove:
-the decreased power in the unscattered beam
-increases the ratio of fluctuating power to equilibrium power
-at the PCI detector.
+Costs of sensitivity:
+\begin{itemize}
+  \item Inability to measure equilibrium
+    \begin{itemize}
+      \item Physical description of why for PCI
+      \item Also in optimal homodyne configuration
+    \end{itemize}
+  \item Sensitivity to alignment
+    \begin{itemize}
+      \item PCI phase-plate groove
+      \item Homodyne interferometer $\phi_R - \bar{\phi} = \pi / 2$
+      \item Such feedback stabilization is expected to become
+        more commonplace in the future\ldots
+    \end{itemize}
+  \item Inability to measure absolute fluctuation scale
+\end{itemize}
+
+% Clearly, for a given fluctuation ($|k| \gtrsim k_g$) and detector,
+% PCI produces a fluctuating signal with the largest amplitude.
+% Relative to the optimally operating homodyne interferometer
+% ($\phi_R - \bar{\phi} = \pi / 2$),
+% the PCI's larger amplitude is wholly attributable
+% to the partial reflectivity ($\eta < 1$) of the phase-plate groove:
+% the decreased power in the unscattered beam
+% increases the ratio of fluctuating power to equilibrium power
+% at the PCI detector.
 PCI's sensitivity comes with several costs, however.
 First, PCI can only measure phase fluctuations,
 whereas external reference-beam interferometers
