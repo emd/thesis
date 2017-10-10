@@ -13,7 +13,7 @@ M = 0.5  # typical...
 s = 0  # Don't include finite sampling-volume effects here
 
 # Computational grid
-kmax = 5 * kg
+kmax = 4 * kg
 dk = 0.01
 x_I_max = 1.
 dx_I = 0.1

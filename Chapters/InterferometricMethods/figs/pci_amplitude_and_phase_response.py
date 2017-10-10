@@ -8,7 +8,7 @@ kg = 2.  # [kg] = 1 / w0;  kg = 2 is the diffraction limit
 M = 0.5  # [M] = unitless; typical value...
 
 # Computational grid
-kmax = 5 * kg       # [kmax] = [kg]
+kmax = 4 * kg       # [kmax] = [kg]
 dk = 0.01           # [dk] = [kg]
 
 xmax = 1.5          # [xmax] = w0
