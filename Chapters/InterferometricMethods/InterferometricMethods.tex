@@ -2297,33 +2297,27 @@ so that a suitable method can be selected for a given application.
 
 
 \subsection{Sensitivity}
-The amplitude of the fluctuating signal at the detector
-is one of the two aspects
-that determines an interferometric system's
-signal-to-noise ratio ($\snr$;
-the other aspect is the detector noise).
-Transfer functions for each interferometric method
-were defined in the previous sections
-by normalizing the intensity of the fluctuating signal
-to the saturation intensity $I_{\text{sat}}$ of a given detector.
-Assuming the detectors for each interferometric method
-have the same $I_{\text{sat}}$,
-a true ``apples-to-apples'' comparison
-of signal amplitudes can be made
-by examining the amplitudes of the corresponding transfer functions.
+The transfer functions in
+Sections~\ref{sec:InterferometricMethods:interferometry}
+and~\ref{sec:InterferometricMethods:pci}
+specify the fraction of a given detector's dynamic range
+that is occupied by the fluctuating signal.
+If identical detectors are used for each interferometric method,
+then an ``apples-to-apples'' comparison of fluctuation sensitivities
+can be made by examining the amplitudes
+of the corresponding transfer functions.
 Just such a comparison is shown in
 Fig.~\ref{fig:InterferometricMethods:interferometric_method_transfer_functions}.
-To facilitate the comparison,
-the magnification $|M|$ is taken to be the same for each system.
 
 \begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
     Chapters/InterferometricMethods/figs/interferometric_method_comparison.pdf}
-  \caption[Comparison of interferometric method transfer functions]{%
-    A comparison of the PCI amplitude response
-    (\ref{eq:InterferometricMethods:PCI_amplitude_response})
-    to the transfer functions for heterodyne interferometry
+  \caption[Comparison of interferometric-method transfer functions]{%
+    A comparison of the transfer functions for
+    PCI
+    (\ref{eq:InterferometricMethods:PCI_wavenumber_transfer_function}),
+    heterodyne interferometry
     (\ref{eq:InterferometricMethods:heterodyne_interferometer_wavenumber_transfer_function}),
     and homodyne interferometry
     (\ref{eq:InterferometricMethods:homodyne_interferometer_wavenumber_transfer_function},
@@ -2344,6 +2338,10 @@ the magnification $|M|$ is taken to be the same for each system.
     The reflectivity of the PCI phase groove is $\eta = 0.17$,
     which is characteristic of the ZnSe typically
     employed in $\SI{10.6}{\micro\meter}$ optics.
+    Because the PCI transfer function is not defined for $|k| \lesssim k_g$,
+    the low-$k$ PCI amplitude response
+    (\ref{eq:InterferometricMethods:PCI_amplitude_response})
+    is indicated by the dash-dot curves instead.
   }
 \label{fig:InterferometricMethods:interferometric_method_transfer_functions}
 \end{figure}
