@@ -2085,7 +2085,7 @@ where
   A_{\text{pci}}(k_{\image}, x_{\image})
   &\equiv
   \frac{2 A(k_{\image}, x_{\image})}{|F_0|^2 + |G_0|^2},
-  \label{eq:InterferometricMethods:PCI_wavenumber_transfer_function}
+  \label{eq:InterferometricMethods:PCI_amplitude_response}
   \\
   \theta_{\text{pci}}(k_{\image}, x_{\image})
   &\equiv
@@ -2143,14 +2143,6 @@ and only the components of the scattered beam
 with transverse lab-frame wavenumbers $|k| \geq k_g$
 are reflected from the phase-plate face and
 produce measurable interference on the PCI detector.
-Thus, for $|k| \lesssim k_g$, PCI operates as a nonlinear system
-that cannot be described via a transfer function.
-Practically speaking, PCI's nonlinear low-$k$ operation
-prevents it from measuring the wavenumbers of low-$k$ fluctuations,
-such as MHD and some ion-scale instabilities.
-(Of course, because the PCI amplitude response $A_{\text{pci}}$
-drops precipitously for $|k| \lesssim k_g$,
-such low-$k$ fluctuations may be altogether invisible to PCI anyways).
 
 \begin{figure}
   \centering
@@ -2207,6 +2199,40 @@ such low-$k$ fluctuations may be altogether invisible to PCI anyways).
   }
 \label{fig:InterferometricMethods:pci_wavenumber_upshift}
 \end{figure}
+
+Thus, for $|k| \lesssim k_g$, PCI operates as a nonlinear system
+that cannot be described via a transfer function.
+Practically speaking, PCI's nonlinear low-$k$ operation
+prevents it from measuring the wavenumbers of low-$k$ fluctuations,
+such as MHD and some ion-scale instabilities.
+(Of course, because the PCI amplitude response $A_{\text{pci}}$
+drops precipitously for $|k| \lesssim k_g$,
+such low-$k$ fluctuations may be altogether invisible to PCI anyways).
+For $|k| \gtrsim k_g$, however, a transfer function can be defined.
+Specifically, for $|k| \gtrsim k_g$,
+the phase-plate face reflects the scattered beam
+($F_1 \rightarrow 1$), while
+the phase-plate groove minimally affects the scattered beam
+($G_1 \rightarrow 0$).
+Further, assuming the majority of the unscattered beam
+falls within the phase groove
+(i.e.\ constraint (\ref{eq:InterferometricMethods:phase_groove_constraint})),
+the phase-plate groove attenuates and phase shifts the unscattered beam
+($G_0 \rightarrow i \sqrt{\eta}$), while
+the phase-plate face minimally affects the unscattered beam
+($F_0 \rightarrow 0$).
+Thus, $\theta_{\text{pci}} \rightarrow 0$ and
+$A_{\text{pci}} \rightarrow 2 / \sqrt{\eta}$ such that
+the PCI transfer function can be defined as
+\begin{equation}
+  T_{\text{pci}}(k)
+  =
+  \begin{cases}
+    \dfrac{2}{\sqrt{\eta}}, & |k| \gtrsim k_g \\
+    \text{undefined},      & \text{otherwise}
+  \end{cases}.
+  \label{eq:InterferometricMethods:PCI_wavenumber_transfer_function}
+\end{equation}
 
 As is the case with the homodyne interferometer,
 the PCI technique does \emph{not} make an absolute measurement
@@ -2296,12 +2322,13 @@ the magnification $|M|$ is taken to be the same for each system.
     Chapters/InterferometricMethods/figs/interferometric_method_comparison.pdf}
   \caption[Comparison of interferometric method transfer functions]{%
     A comparison of the PCI amplitude response
-    (\ref{eq:InterferometricMethods:PCI_wavenumber_transfer_function})
+    (\ref{eq:InterferometricMethods:PCI_amplitude_response})
     to the transfer functions for heterodyne interferometry
     (\ref{eq:InterferometricMethods:heterodyne_interferometer_wavenumber_transfer_function}),
     and homodyne interferometry
     (\ref{eq:InterferometricMethods:homodyne_interferometer_wavenumber_transfer_function},
-    in the optimal configuration with $\phi_R - \bar{\phi} = \pi / 2$).
+    in the optimal fluctuation configuration
+    with $\phi_R - \bar{\phi} = \pi / 2$).
     Object-plane wavenumbers $k$ are normalized
     to the 1/e $E$ radius of the in-vessel probe beam, $w_0$.
     The magnification of each system is taken to be $|M| = 0.5$,
