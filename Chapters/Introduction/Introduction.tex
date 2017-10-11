@@ -307,9 +307,9 @@ in ITER~\cite{vanzeeland_TIP_rsi13} and other next-step devices.
 \label{sec:Introduction:OpticalInterferometry:pci}
 To motivate the development of phase contrast imaging (PCI),
 consider a phase $\phi$ that consists of a
-uniform, bulk contribution $\phi_0$ and
+uniform, bulk contribution $\bar{\phi}$ and
 a small, spatially fluctuating contribution $\tilde{\phi} \ll 1$ such that
-$\phi = \phi_0 + \tilde{\phi}$.
+$\phi = \bar{\phi} + \tilde{\phi}$.
 To lowest order in $\tilde{\phi}$,
 the heterodyne intensity
 (\ref{eq:Introduction:OpticalInterferometry:Heterodyne:intensity})
@@ -321,9 +321,9 @@ becomes
     1
     +
     \left[
-      \cos \left(\Delta \omega_0 t + \phi_0 \right)
+      \cos \left(\Delta \omega_0 t + \bar{\phi} \right)
       -
-      \tilde{\phi} \sin \left( \Delta \omega_0 t + \phi_0 \right)
+      \tilde{\phi} \sin \left( \Delta \omega_0 t + \bar{\phi} \right)
     \right]
   \right\}.
 \end{equation}
@@ -346,9 +346,9 @@ Examine the phase-shifted field
 \begin{equation}
   E_0 e^{i \phi}
   =
-  E_0 e^{i \left( \phi_0 + \tilde{\phi} \right)}
+  E_0 e^{i \left( \bar{\phi} + \tilde{\phi} \right)}
   \approx
-  E_0 e^{i \phi_0} \left( 1 + i \tilde{\phi} \right),
+  E_0 e^{i \bar{\phi}} \left( 1 + i \tilde{\phi} \right),
 \end{equation}
 where only the lowest-order term in $\tilde{\phi}$ has been retained.
 In the rightmost expression,
@@ -356,7 +356,7 @@ the unity term corresponds to the bulk-phase contribution, while
 the $i \tilde{\phi}$ term corresponds to the fluctuating-phase contribution.
 Now, imagine prescribing a reference field
 \begin{equation}
-  E_R = -E_0 e^{i \phi_0} \left( 1 - i \sqrt{\eta} \right)
+  E_R = -E_0 e^{i \bar{\phi}} \left( 1 - i \sqrt{\eta} \right)
 \end{equation}
 for $0 < \eta \leq 1$ such that the total field becomes
 \begin{equation}
@@ -364,7 +364,7 @@ for $0 < \eta \leq 1$ such that the total field becomes
   =
   E_R + E_0 e^{i \phi}
   \approx
-  i E_0 e^{i \phi_0} \left( \sqrt{\eta} + \tilde{\phi} \right),
+  i E_0 e^{i \bar{\phi}} \left( \sqrt{\eta} + \tilde{\phi} \right),
 \end{equation}
 with corresponding intensity (averaged over an optical cycle)
 \begin{equation}
@@ -385,7 +385,7 @@ than that of a comparable heterodyne interferometer
 (here, the $50\%$ power loss in the heterodyne-interferometer signal
 that necessarily results from the intermediate frequency-to-baseband conversion
 has been accounted for).
-Note, however, that information about the bulk phase $\phi_0$ is lost.
+Note, however, that information about the bulk phase $\bar{\phi}$ is lost.
 
 While prescription of the above reference field may seem rather academic,
 this is precisely the means by which PCI operates,
@@ -397,7 +397,7 @@ Typically, the spatial filtering is performed with a ``phase plate'',
 an optical element that selectively applies
 (due to its geometry and its location at the focal plane)
 an appropriate phase delay and attenuation
-to the component of the field corresponding to the bulk phase $\phi_0$.
+to the component of the field corresponding to the bulk phase $\bar{\phi}$.
 Thus, in contrast to the heterodyne interferometry,
 PCI uses an \emph{internal} reference beam.
 Because diffraction limits the focal-plane spot size,
