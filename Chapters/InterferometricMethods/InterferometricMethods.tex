@@ -2273,30 +2273,8 @@ of these interferometric techniques
 so that a suitable method can be selected for a given application.
 
 
-% \subsection{A note on notation}
-% The transfer functions derived in the preceding sections
-% are all written in terms of image-plane wavenumbers $k_{\image}$ and
-% image-plane coordinates $x_{\image}$.
-% However, one is often interested in the object-plane wavenumbers $k$,
-% as they are directly tied to the underlying physics.
-% In contrast, image-plane coordinates $x_{\image}$
-% emphasize the importance of the detector dimensions
-% on the measured interference signal.
-% For these reasons, the below discussions
-% use transfer functions with the ``hybrid'' parametrization of
-% object-plane wavenumbers $k$ and image-plane coordinates $x_{\image}$.
-% If the reader favors a different parametrization, however,
-% the transformations between the image-plane and object-plane quantities
-% are very simple:
-% \begin{align}
-%   k_{\image} &= \frac{k}{M},
-%   \\
-%   x_{\image} &= M x_{\object},
-% \end{align}
-% where $M$ is the imaging system's magnification.
-
-
 \subsection{Sensitivity}
+\label{sec:InterferometricMethods:selection:sensitivity}
 The transfer functions in
 Sections~\ref{sec:InterferometricMethods:interferometry}
 and~\ref{sec:InterferometricMethods:pci}
@@ -2306,6 +2284,8 @@ If identical detectors are used for each interferometric method,
 then an ``apples-to-apples'' comparison of fluctuation sensitivities
 can be made by examining the amplitudes
 of the corresponding transfer functions.
+(See Section~\ref{sec:InterferometricMethods:selection:temporal_bandwidth}
+for practical considerations regarding detector selection).
 Just such a comparison is shown in
 Fig.~\ref{fig:InterferometricMethods:interferometric_method_transfer_functions}.
 Clearly, for a given fluctuation ($|k| \gtrsim k_g$) and a given detector,
@@ -2401,132 +2381,96 @@ the fluctuating phase $\tilde{\phi}$.
 
 
 \subsection{Spatial bandwidth}
-The spatial bandwidth of both homodyne and heterodyne interferometry
-is dictated by the system magnification $M$ and
-the detector element's length $s_x$;
-these parameters give the finite sampling-volume cutoff,
-$k_{\text{fsv}} = 2 \pi M / s_x$.
-Finite sampling-volume effects also influence PCI's spatial bandwidth.
-While $k_{\text{fsv}}$ was specified to be the same
-for all of the interferometric systems displayed in
-Fig.~\ref{fig:InterferometricMethods:interferometric_method_transfer_functions},
-one could easily imagine altering
-a given system's magnification $M$ or detector-element size $s_x$
-in order to expand or contract the system's spatial bandwidth.
+PCI's sensitivity comes at the additional expense of spatial bandwidth.
+Specifically, the creation of an ``internal'' reference beam
+via spatial filtering
+produces a low-$k$ cutoff in the PCI response, as shown in
+Fig.~\ref{fig:InterferometricMethods:interferometric_method_transfer_functions}.
+The minimum size of this cutoff is
+set by diffraction of the in-vessel probe beam
+(\ref{eq:InterferometricMethods:pci_kmin_physics}), but
+it is not uncommon for the realized cutoff
+(\ref{eq:InterferometricMethods:pci_kmin_engineering})
+to be $\sim 2-3\times$ larger than the diffraction limit.
+As shown in Figs.~\ref{fig:InterferometricMethods:phase_plate_amplitude_and_phase_response}
+and \ref{fig:InterferometricMethods:pci_wavenumber_upshift},
+PCI operates as a nonlinear system below its low-$k$ cutoff,
+preventing a transfer-function description of its low-$k$ behavior.
+In contrast, by using an external reference beam,
+homodyne and heterodyne interferometers
+operate as linear systems over the entire wavenumber spectrum and
+are even capable of making measurements at $k = 0$.
 
-In addition to finite sampling-volume effects,
-PCI's spatial bandwidth is also influenced by
-the phase plate's low-$k$ and high-$k$ cutoffs,
-$k_g$ and $k_D$, respectively.
-The effects of $k_g$, $k_D$, and $k_{\text{fsv}}$
-are characterized in
-Fig.~\ref{fig:InterferometricMethods:pci_cutoffs}.
-The most significant effect of the phase plate
-on the spatial bandwidth of the PCI
-is to introduce a ``hole'' in the low-$k$ response of the system;
-external reference-beam interferometers, in contrast,
-do not suffer from such a low-$k$ cutoff.
-As discussed in
-Sec.~\ref{sec:InterferometricMethods:pci:imaged_field_and_intensity},
-the PCI also operates nonlinearly in this low-$k$ ``hole'';
-one consequence of this nonlinear operation is discussed in
-Sec.~\ref{sec:InterferometricMethods:selection:pci_low_k_upshift}.
-
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/InterferometricMethods/figs/pci_cutoffs.pdf}
-  \caption[Effects of phase-plate and finite sampling-volume cutoffs
-      on the PCI transfer function]{%
-    Effects of the low-$k$ ($k_g$) and high-$k$ ($k_D$) phase-plate cutoffs
-    on the phase-plate transfer function, $T_{\text{pp}}(k)$;
-    inclusion of finite sampling-volume effects
-    then yields the full PCI transfer function, $T_{\text{pci}}(k)$.
-    Object-plane wavenumbers $k$ are normalized
-    to the 1/e $E$ radius of the in-vessel probe beam, $w_0$.
-    The vertical, dashed lines indicate
-    the low-$k$ cutoff of the PCI phase-plate groove, $k_g$;
-    here, $k_g = 2 / w_0$,
-    which is the minimum value allowed by diffraction,
-    as discussed in
-    (\ref{eq:InterferometricMethods:pci_kmin_physics}).
-    The vertical, dashed-dotted lines indicate
-    the phase-plate's high-$k$ cutoff,
-    chosen here to be $k_D = 20 / w_0$.
-    The finite sampling-volume cutoff $k_{\text{fsv}} = 30 / w_0$
-    results from representative ``typical'' values of
-    system magnification $|M| = 0.5$ and
-    detector-element size $s_x \approx 0.105 w_0$.
-    Note that here $k_D < k_{\text{fsv}}$, in contrast to
-    Fig.~\ref{fig:InterferometricMethods:interferometric_method_transfer_functions}.
-    The reflectivity of the PCI phase groove is $\eta = 0.17$,
-    which is characteristic of the ZnSe typically
-    employed in $\SI{10.6}{\micro\meter}$ optics.
-    As discussed in
-    Section~\ref{sec:InterferometricMethods:pci:imaged_field_and_intensity},
-    $T_{\text{pp}}$ and $T_{\text{pci}}$ are only true transfer functions
-    for $|k| \gtrsim 2 k_g$;
-    for smaller wavenumbers, the PCI phase response
-    varies significantly across the beam profile,
-    resulting in nonlinear operation.
-    Regardless, the corresponding ``transfer functions'' are plotted
-    across the full $k$-range here and
-    correspond to the beam center ($x = 0$).
-  }
-\label{fig:InterferometricMethods:pci_cutoffs}
-\end{figure}
-
-Finally, it should be noted that the above transfer functions
-have all been computed assuming that the beams are \emph{not} clipped
-by apertures in their corresponding optical trains.
-Aperture diffraction minimally affects Gaussian beam propagation if
-\begin{equation}
-  a_{\text{eff}} \geq \frac{3}{2} w(z),
-  \label{eq:InterferometricMethods:aperture_radius_for_minimal_diffraction}
-\end{equation}
-where $a_{\text{eff}}$ is the effective aperture radius and
-$w(z)$ is the beam's 1/e $E$ radius at the location of the aperture
-\cite{campbell_josa69, rost_diffraction_pc14}.
+Now, colloquially, interferometry is considered a ``low-$k$'' technique, and
+PCI is considered a ``high-$k$'' technique.
+However, as detailed in
+Section~\ref{sec:InterferometricMethods:Gaussian_beam_diffraction:from_plasma_density_fluctuations},
+for a given probe beam and a given fluctuation $\tilde{\phi}$,
+the laser-plasma interaction is \emph{identical}
+for both interferometry and PCI.
+Further, the high-$k$ optical capabilities of interferometry and PCI
+are governed by the size of the collection optics
+and finite sampling-volume effects~\cite{bravenec_rsi95}.
+Thus, there is nothing that intrinsically limits
+interferometry to low-$k$ measurements ---
+an interferometer's high-$k$ limit
+can be just as high, if not higher,
+than that of a given PCI system.
+However, as discussed in
+Section~\ref{sec:InterferometricMethods:selection:sensitivity},
+PCI is \emph{more sensitive} to fluctuations
+than a comparable interferometer, and,
+assuming a Kolmogorov-like fluctuation spectrum
+$S(k) \propto k^{-p}$ for some positive $p$,
+PCI's superior sensitivity may allow it
+to detect high-$k$ fluctuations
+that are too weak to be seen by an interferometer.
 
 
 \subsection{Temporal bandwidth}
-Finally, the required temporal bandwidth should also be considered.
-For heterodyne interferometry,
-proper reconstruction of the fluctuating baseband signal
-at angular frequency $\omega$
-from the heterodyne signal
-at angular intermediate frequency $\Delta \omega_0$ requires that
-$\omega < \Delta \omega_0$.
-Further, the detector's angular cutoff frequency $\omega_{\text{det}}$
-should be sufficiently large to capture the relevant dynamics such that
-\begin{equation}
-  \omega_{\text{det}} > \Delta \omega_0 + \omega,
-  \qquad
-  \text{heterodyne interferometry.}
-\end{equation}
-In contrast, homodyne interferometry and PCI only require that
+\label{sec:InterferometricMethods:selection:temporal_bandwidth}
+Detector bandwidth is often the dominant constraint
+of an interferometric system's temporal bandwidth.
+Homodyne interferometry and PCI require
 \begin{equation}
   \omega_{\text{det}} > \omega,
   \qquad \qquad \quad% \qquad
-  \text{homodyne interferometry, PCI.}
+  \text{homodyne interferometry, PCI,}
 \end{equation}
-Thus, heterodyne interferometry requires a faster detector
+where
+$\omega_{\text{det}}$ is the angular cutoff frequency of the detector and
+$\omega$ is the angular frequency of the fluctuation.
+Heterodyne interferometry, however, requires
+\begin{equation}
+  \omega_{\text{det}} > \Delta \omega_0 + \omega,
+  \qquad
+  \text{heterodyne interferometry,}
+\end{equation}
+where $\Delta \omega_0$ is the (angular) intermediate frequency.
+Further, proper reconstruction of the baseband signal
+from the heterodyne interference signal requires $\omega < \Delta \omega_0$.
+
+Thus, for a given fluctuation $\omega \ll \Delta \omega_0$,
+heterodyne interferometry requires a much faster detector
 than homodyne interferometry or PCI\@.
 For the HgCdTe detectors typically used at $\SI{10.6}{\micro\meter}$,
 cooling the active element of the detector
 reduces detector noise and increases the detector response
-but also reduces $\omega_{\text{det}}$.
-Thus, for low-temporal-bandwidth applications,
-homodyne interferometry and PCI can use
-slower, cooled detectors that will improve
-system signal-to-noise ratio ($\snr$)
-relative to the faster, warmer detectors
+at the expense of reduced $\omega_{\text{det}}$.
+Thus, for low--bandwidth applications ($\omega \ll \Delta \omega_0$),
+homodyne interferometry and PCI may be able to use
+slower, cooled detectors that are less noisy than
+the comparable faster, warmer detectors
 required for heterodyne interferometry.
-Deployment of homodyne interferometry or PCI
-in high-temporal-bandwidth applications, however,
-requires the use of higher bandwidth detectors and/or
-more exotic detection techniques, such as
-optical heterodyning~\cite[Sec.~3.3.1]{tsujii_phd}.
+The use of less noisy detectors
+may produce sensitivity gains for PCI and homodyne interferometry
+relative to heterodyne interferometry.
+Although use of a ``slow'' detector prevents measurements
+of broadband fluctuations beyond the detector cutoff,
+it \emph{is} possible to measure coherent, high-frequency fluctuations
+well beyond the detector cutoff ($\omega \gg \omega_{\text{det}}$)
+by rapidly modulating the intensity of the probe beam
+\cite[Sec.~3.3.1]{tsujii_phd}.
 
 
 \bibliographystyle{plainurl}
