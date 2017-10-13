@@ -71,6 +71,8 @@
 \newcommand{\object}{\mathcal{O}}
 \newcommand{\image}{\mathcal{I}}
 \newcommand{\snr}{\text{SNR}}
+\renewcommand{\tilde}{\widetilde}
+\renewcommand{\bar}{\overline}
 
 
 % **************
@@ -87,10 +89,12 @@
 
 
 % \includeonly{FrontBackmatter/Contents}
-\includeonly{Chapters/Introduction/Introduction}
+% \includeonly{Chapters/Introduction/Introduction}
 % \includeonly{Chapters/InterferometricMethods/InterferometricMethods}
-% \includeonly{Chapters/DesignConsiderations/DesignConsiderations}
+\includeonly{Chapters/DesignConsiderations/DesignConsiderations}
 % \includeonly{Chapters/ToroidalCorrelation/ToroidalCorrelation}
+% \includeonly{Appendices/GaussianBeamDiffraction/GaussianBeamDiffraction}
+% \includeonly{Appendices/ImagingSystems/ImagingSystems}
 % \includeonly{Appendices/PCIResponseIdentities/PCIResponseIdentities}
 % \includeonly{Appendices/OscillatorPhaseNoise/OscillatorPhaseNoise}
 
@@ -134,6 +138,8 @@
 % **********
 \appendix
 \cleardoublepage
+\include{Appendices/GaussianBeamDiffraction/GaussianBeamDiffraction}
+\include{Appendices/ImagingSystems/ImagingSystems}
 \include{Appendices/PCIResponseIdentities/PCIResponseIdentities}
 \include{Appendices/OscillatorPhaseNoise/OscillatorPhaseNoise}
 \include{Appendices/ExternalClock/ExternalClock}
