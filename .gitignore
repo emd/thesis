@@ -10,5 +10,5 @@
 *.bbl
 *.blg
 *.DS_Store
-Chapters/InterferometricMethods/rost_comments.txt
+*rost_comments.txt
 *.pyc

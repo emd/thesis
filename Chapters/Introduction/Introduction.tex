@@ -18,7 +18,7 @@ is converted into an enormous amount of energy $E$
 via Einstein's famed $E = m c^2$, where
 $c$ is the speed of light in vacuum~\cite[Ch.~14]{krane}.
 
-Practically speaking, however, fusion is extremely difficult.
+Practically speaking, however, fusion in the laboratory is extremely difficult.
 Even for deuterium (D) and tritium (T), the most reactive of nuclei,
 the probability of fusing
 (quantified by the reaction cross section)
@@ -65,11 +65,13 @@ $T_{i}$ is the peak ion temperature, and
 $\tau_E$ is the energy confinement time~\cite[Sec.~1.1]{wesson}.
 This condition could be reached, for example, at
 $n_i = \SI{e20}{\per\meter\cubed}$,
-$T_i = \SI{10}{\kilo\eV}$, and
-$\tau_E = \SI{3}{\second}$~\cite[Sec.~1.3]{wesson}.
+$T_i = \SI{20}{\kilo\eV}$, and
+$\tau_E = \SI{2.5}{\second}$.
 
-It should be emphasized that $T_i = \SI{10}{\kilo\eV}$
-corresponds to approximately $\SI{e6}{\kelvin}$.
+It should be emphasized that $T_i = \SI{20}{\kilo\eV}$
+corresponds to approximately $200$ \emph{million} degrees Celsius,
+approximately ten times hotter than the core of the Sun
+\cite[Sec.~4.3]{choudhuri_astrophysics}.
 No conventional container can confine such a plasma.
 While numerous confinement schemes exist,
 the only strategy considered in this thesis
@@ -153,9 +155,9 @@ may be capable of forming radially elongated ``streamers''
 capable of driving experimentally relevant electron heat transport
 \cite{jenko_prl02}.
 Here, $k_{\theta}$ is a typical poloidal wavenumber of the turbulent mode,
-$\rho_j = v_{tj} / \Omega_j$ is the gyroradius of species $j$,
+$\rho_j = v_{tj} / |\Omega_j|$ is the gyroradius of species $j$,
 $v_{tj} = \sqrt{2 T_j / m_j}$ is the thermal speed of species $j$, and
-$\Omega_j = e B / m_j$ is the angular cyclotron frequency of species $j$.
+$\Omega_j = q_j B / m_j$ is the angular cyclotron frequency of species $j$.
 For the reactor-relevant scenario $T_e \sim T_i$,
 the characteristic length scale of ion-scale turbulence is a factor
 $\sqrt{m_D / m_e} \approx 60$ larger than
@@ -166,7 +168,7 @@ Until the very recent work of Howard \emph{et al.}
 self-consistently and simultaneously simulating
 both ion- and electron-scale turbulence with realistic mass ratios
 was computationally intractable.
-In a computational \emph{tour de force},
+By exploiting the latest advances in high-performance computing,
 Howard \emph{et al.}'s multiscale simulations indicate
 that cross-scale coupling can drive
 experimentally relevant levels of electron heat flux~\cite{howard_pp14} and
@@ -201,6 +203,7 @@ an abrupt, violent termination of the plasma discharge
 
 
 \section{Optical interferometry}
+\label{sec:Introduction:OpticalInterferometry}
 Following its invention by Michelson in the 1880s~\cite{nobel_prize_michelson},
 optical interferometry has had a long and illustrious history
 in fundamental and applied sciences, ranging from
@@ -209,7 +212,7 @@ disproving the existence of a luminiferous ether~\cite{michelson_ajs1887},
 to Zernike's phase-contrast method for imaging phase objects
 of wide importance in biology~\cite{nobel_prize_zernike},
 to the recent observation of gravitational waves
-by the LIGO collaboration~\cite{ligo_prl16}.
+by the LIGO collaboration~\cite{ligo_prl16,nobel_prize_ligo}.
 The brief discussion of interferometry below is intended
 to provide an instrumentation context
 to the diagnostic development pursued in this thesis and
@@ -218,7 +221,8 @@ for the more detailed discussion in
 Chapter~\ref{ch:InterferometricMethods}.
 
 Interferometry exploits the interference of light
-to measure optical path length, defined as the product of
+to measure variations in optical path length, where
+optical path length is defined as the product of
 the geometric path length $l$ and
 the index of refraction $N$ of the intervening medium.
 The phase $\delta \phi$ acquired by light propagating through
@@ -248,7 +252,7 @@ the total field becomes
   E_0 \left( e^{i \phi_R} + e^{i \phi} \right),
   \label{eq:Introduction:OpticalInterferometry:generic_interferometer_electric_field}
 \end{equation}
-with corresponding intensity
+with corresponding intensity (averaged over an optical cycle)
 \begin{equation}
   I
   \propto
@@ -273,7 +277,7 @@ Heterodyne interferometry~\cite{hutchinson_diagnostics}
 uses an external reference beam
 whose angular frequency has been shifted by $\Delta \omega_0$
 (i.e.\ the reference field is $E_R = E_0 e^{-i \Delta \omega_0 t}$)
-to produce measurable intensity variations
+to produce measurable intensity variations (averaged over an optical cycle)
 \begin{equation}
   I_{\text{het}}
   \propto
@@ -352,7 +356,7 @@ the unity term corresponds to the bulk-phase contribution, while
 the $i \tilde{\phi}$ term corresponds to the fluctuating-phase contribution.
 Now, imagine prescribing a reference field
 \begin{equation}
-  E_R = -E_0 e^{i \bar{\phi}} (1 - i \eta)
+  E_R = -E_0 e^{i \bar{\phi}} \left( 1 - i \sqrt{\eta} \right)
 \end{equation}
 for $0 < \eta \leq 1$ such that the total field becomes
 \begin{equation}
@@ -360,9 +364,9 @@ for $0 < \eta \leq 1$ such that the total field becomes
   =
   E_R + E_0 e^{i \phi}
   \approx
-  i E_0 e^{i \bar{\phi}} \left( \eta + \tilde{\phi} \right),
+  i E_0 e^{i \bar{\phi}} \left( \sqrt{\eta} + \tilde{\phi} \right),
 \end{equation}
-with corresponding intensity
+with corresponding intensity (averaged over an optical cycle)
 \begin{equation}
   I_{\text{PCI}}
   \propto
@@ -430,8 +434,7 @@ for the same probe beam and the same fluctuation $\tilde{\phi}$,
 the laser-plasma interaction is \emph{identical} for both techniques.
 Further, the high-$k$ optical capabilities of both systems
 are governed by the size of the collection optics
-and finite sampling-volume effects~\cite{bravenec_rsi95}, as discussed in
-Section~\ref{sec:DesignConsiderations:geometric:finite_sampling_volume}.
+and finite sampling-volume effects~\cite{bravenec_rsi95}.
 Thus, there is nothing that intrinsically limits
 heterodyne interferometry to low-$k$ measurements ---
 a heterodyne interferometer's high-$k$ limit
@@ -446,6 +449,10 @@ $S(k) \propto k^{-p}$ for some positive $p$,
 PCI's superior sensitivity may allow it
 to detect high-$k$ fluctuations
 that are too weak to be seen by a heterodyne interferometer.
+In practice, measurement of the high-frequency heterodyne signal
+often requires the use of faster, noisier detectors
+than are required for measurement of the PCI signal,
+further increasing PCI's sensitivity relative to heterodyne interferometry.
 At the low-$k$ side of the spectrum,
 PCI is diffraction-limited to $k \geq 2 / w$,
 where $w$ is the 1/e electric-field radius of the probe beam
