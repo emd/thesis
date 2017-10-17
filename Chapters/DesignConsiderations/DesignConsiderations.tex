@@ -604,16 +604,29 @@ is equal to the saturation intensity $I_{\text{sat}}$.
 \end{figure}
 
 
-\section{Phase noise: sources and effects}
+\section{Phase noise: sources \& effects}
 \label{sec:DesignConsiderations:phase_noise}
-All real-world oscillators exhibit phase noise.
-The spectral properties of oscillator phase noise and
-the implications for instruments that rely on oscillators
-are discussed in
-Appendix~\ref{app:OscillatorPhaseNoise}.
+Heterodyne interferometry at $\SI{10.6}{\micro\meter}$ relies on both
+an optical oscillator (the laser) and
+a radio-frequency oscillator
+(usually referred to as the local oscillator (LO)).
+These oscillators, like all real-world oscillators, exhibit phase noise.
+The spectral properties and implications of oscillator phase noise
+are reviewed in Appendix~\ref{app:OscillatorPhaseNoise}.
+Below, Section~\ref{sec:DesignConsiderations:phase_noise:laser}
+shows that a mismatch between the optical path lengths
+of the probe beam and the reference beam
+injects the laser's phase noise
+into the heterodyne interferometer's measurements, while
+Section~\ref{sec:DesignConsiderations:phase_noise:LO}
+shows that finite coupling time
+in the Doppler-shifting modulator
+injects the LO's phase noise
+into the heterodyne interferometer's measurements.
 
 
-\subsection{Umatched optical path lengths}
+\subsection{Unmatched optical path lengths \& laser phase noise}
+\label{sec:DesignConsiderations:phase_noise:laser}
 The external reference-beam interferometry derivations
 in Section~\ref{sec:InterferometricMethods:interferometry}
 assumed that the laser's angular frequency was fixed
@@ -633,7 +646,7 @@ is well-described by
 where $\phi_{\omega_0}(t)$ is a zero-mean, stationary, random process
 known as the laser's \emph{phase deviation}
 whose temporal variation causes
-the oscillator's instantaneous angular frequency
+the laser's instantaneous angular frequency
 to wander about its nominal value $\omega_0$.
 
 Now, if the interferometer's probe beam and reference beam
@@ -693,11 +706,11 @@ in the heterodyne interferometer's demodulated signals is
   \right],
 \end{equation}
 and the measured phase fluctuation
-$\tilde{\phi}_{\text{meas}}(x_{\image}, t)
+$\tilde{\phi}_m(x_{\image}, t)
 =
-\tilde{I}_{IQ}(\vect{r}_{\image}, t) / I_G(\vect{r_{\image}})$ is
+\tilde{I}_{IQ}(\vect{r}_{\image}, t) / I_G(\vect{r}_{\image})$ is
 \begin{equation}
-  \tilde{\phi}_{\text{meas}}(x_{\image}, t)
+  \tilde{\phi}_m(x_{\image}, t)
   =
   \tilde{\phi}(x_{\image}, t)
   +
@@ -710,19 +723,23 @@ The spectral properties of $\delta \phi_{\omega_0}(t, \tau)$
 are thoroughly discussed in Appendix~\ref{app:OscillatorPhaseNoise}.
 As $\delta \phi_{\omega_0}(t, \tau)$ and
 $\tilde{\phi}(x_{\image}, t)$ are uncorrelated,
-the autospectral density of the measured phase fluctuations is
+the one-sided autospectral density of the measured phase fluctuations is
 \begin{equation}
-    S_{\tilde{\phi}_{\text{meas}}}(f)
+    G_{\tilde{\phi}_m,\tilde{\phi}_m}(f)
     =
-    S_{\tilde{\phi}}(f)
+    G_{\tilde{\phi},\tilde{\phi}}(f)
     +
     8 \sin^2(\pi f \tau) \mathcal{L}_{\omega_0}(f),
 \end{equation}
-where $\mathcal{L}_{\omega_0}(f)$ is the phase noise of the laser,
+where
+$G_{\tilde{\phi},\tilde{\phi}}(f)$ is the \emph{true}
+one-sided autospectral density of the phase fluctuation $\tilde{\phi}$ and
+$\mathcal{L}_{\omega_0}(f)$ is the phase noise of the laser,
 as defined in Appendix~\ref{app:OscillatorPhaseNoise}.
 
 
-\subsection{Modulator's finite coupling time}
+\subsection{Modulator's finite coupling time \& LO phase noise}
+\label{sec:DesignConsiderations:phase_noise:LO}
 Heterodyne detection is effected by
 modestly Doppler shifting the reference beam
 relative to the plasma beam.
