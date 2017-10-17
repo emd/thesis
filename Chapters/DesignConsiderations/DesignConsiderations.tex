@@ -47,17 +47,23 @@ on the \diiid\space tokamak.
 \label{sec:DesignConsiderations:geometric}
 Several geometric effects substantially influence
 the performance of a heterodyne interferometer.
+Section~\ref{sec:DesignConsiderations:geometric:aperture_diffraction}
+provides a minimum threshold on the radii of components in the optical train,
+while Section~\ref{sec:DesignConsiderations:geometric:beam_coalignment}
+derives the required degree of coalignment between
+the probe beam and the reference beam.
+Section~\ref{sec:DesignConsiderations:geometric:beam_mismatch}
+discusses the implications of mismatches between
+the spatial structures of the probe beam and the reference beam and
+develops a criterion for the required level of matching.
 Section~\ref{sec:DesignConsiderations:geometric:finite_sampling_volume}
 reveals how the imaging system's magnification $M$ and
 the detector's size and shape
-determine the interferometer's wavenumber response.
-Section~\ref{sec:DesignConsiderations:geometric:beam_mismatch}
-discusses the implications of mismatches between
-the plasma beam's and the reference beam's spatial structures and
-develops a criterion for the required level of matching.
+influence the interferometer's wavenumber response.
 
 
 \subsection{Aperture diffraction}
+\label{sec:DesignConsiderations:geometric:aperture_diffraction}
 Diffraction from finite-aperture optics was neglected in
 Chapter~\ref{ch:InterferometricMethods}'s
 transfer-function derivations.
@@ -83,6 +89,7 @@ the effective aperture radius is $a_{\text{eff}} = a - \rho(z)$.
 
 
 \subsection{Beam coalignment}
+\label{sec:DesignConsiderations:geometric:beam_coalignment}
 For the moment, assume a plane-wave representation
 for both the reference beam and the unscattered probe beam.
 Specifically, let the spatial dependence
@@ -489,7 +496,8 @@ into the transfer functions of the homodyne interferometer and PCI.
     Chapters/DesignConsiderations/figs/fsv_effects.pdf}
   \caption[Transfer function of heterodyne interferometer with finite sampling-volume effects]{%
     The wavenumber transfer function for a heterodyne interferometer
-    with finite sampling-volume (FSV) effects and without FSV effects.
+    with finite sampling-volume effects and
+    without finite sampling-volume effects.
   }
 \label{fig:DesignConsiderations:fsv_effects}
 \end{figure}
