@@ -676,7 +676,7 @@ the corresponding imaged probe radiation is
   \left[%
     1
     +
-    i \tilde{\phi}_0 \cos\nu
+    i \tilde{\phi}(x_{\image}, t)
   \right],
 \end{equation}
 where $\tau = L / c$ is the time delay
@@ -705,7 +705,7 @@ in the heterodyne interferometer's demodulated signals is
     \delta \phi_{\omega_0}(t - \tau, \tau)
   \right],
 \end{equation}
-and the measured phase fluctuation
+and the \emph{measured} phase fluctuation
 $\tilde{\phi}_m(x_{\image}, t)
 =
 \tilde{I}_{IQ}(\vect{r}_{\image}, t) / I_G(\vect{r}_{\image})$ is
@@ -754,7 +754,6 @@ the sound waves act as a diffraction grating
 that propagates at the crystal's sound speed $c_s$.
 When a beam of vacuum wavelength $\lambda_0$
 impinges upon the crystal at the Bragg angle
-\graffito{\textcolor{red}{comment about Bragg regime criterion from Ch.~2?}}
 \begin{equation}
   \theta_B = \frac{\lambda_0 \cdot \Delta \omega_0}{4 \pi c_s},
   \label{eq:DesignConsiderations:Bragg_angle}
@@ -791,7 +790,6 @@ If the sound waves must propagate a distance $d$
 from the piezo-actuator to the AOM's optically active region,
 the drive signal is coupled to the deflected beam
 only after time delay $\tau = d / c_s$.
-\graffito{\textcolor{red}{reference?}}
 The sound speed in Germanium is $c_s = \SI{5400}{\meter\per\second}$
 such that a distance $d = \SI{1}{\centi\meter}$
 is accompanied by a time delay $\tau = \SI{1.85}{\micro\second}$.
@@ -805,7 +803,7 @@ through $\SI{1}{\meter}$ of RG-58 coaxial cable
 (for which the index of refraction is $\sim 3 / 2$)
 in only $\SI{5}{\nano\second}$.
 
-In the presence of local-oscillator (LO) phase noise,
+In the presence of LO phase noise,
 an AOM's finite coupling time
 can degrade the performance of a heterodyne interferometer.
 A local oscillator with phase noise is well-described by
@@ -820,25 +818,19 @@ known as the LO's \emph{phase deviation}
 whose temporal variation causes
 the LO's instantaneous angular frequency
 to wander about its nominal value $\Delta \omega_0$.
-As discussed in the previous paragraph,
-the AOM's finite coupling time far exceeds
-the few tens of nanoseconds required for the beam
-to propagate through an interferometer
-of optical path length $\sim \SI{10}{\meter}$.
-Thus, to account for the AOM's finite coupling time and
-the local oscillator's jitter, take
+Then, to account for the AOM's finite coupling time and
+the LO phase noise, take
 $\Delta \omega_0 t
 \rightarrow
 [\Delta \omega_0 (t - \tau) + \phi_{\Delta \omega_0}(t - \tau)]$
 in the heterodyne intensity
 (\ref{eq:InterferometricMethods:heterodyne_intensity}).
-Then, assuming negligible finite sampling-volume effects,
-the heterodyne output voltage
-from a detector element at position $\vect{r}_{\image}$
+Neglecting finite sampling-volume effects,
+the heterodyne output voltage from a given detector element
 is simply proportional to the local intensity, i.e.\
 \begin{align}
   \begin{aligned}
-    V_{\text{het}}(\vect{r}_{\image}, t)
+    V_{\text{het}}(t)
     &=
     2 V_0
     \bigl\{%
@@ -865,12 +857,9 @@ is simply proportional to the local intensity, i.e.\
   \end{aligned}
 \end{align}
 where $\bar{\phi}_{\text{eff}} = \bar{\phi} - \Delta \omega_0 \tau$.
-Then, following the same demodulation ``program'' used between
-(\ref{eq:InterferometricMethods:heterodyne_interferometer_I_and_Q_intensity})
-and
-(\ref{eq:InterferometricMethods:heterodyne_total_fluctuating_intensity}),
-the demodulated in-phase ($V_I$) and quadrature ($V_Q$) signals are defined as
-\graffito{\textcolor{red}{Sign \& arg.\ of $\delta \phi_{\Delta \omega_0}$??}}
+Then, taking inspiration from the demodulated optical intensities
+(\ref{eq:InterferometricMethods:heterodyne_interferometer_I_and_Q_intensity}),
+the demodulated in-phase ($V_I$) and quadrature ($V_Q$) voltages are defined as
 \begin{align}
   V_{I}(t)
   +
@@ -887,50 +876,53 @@ the demodulated in-phase ($V_I$) and quadrature ($V_Q$) signals are defined as
   V_0
   e^{i \bar{\phi}_{\text{eff}}}
   \left[
+    1
+    +
     \tilde{\phi}(x_{\image}, t)
     +
-    \delta \phi_{\Delta \omega_0}(t - \tau, \tau)
+    \delta \phi_{\Delta \omega_0}(t, -\tau)
   \right],
+  \label{eq:DesignConsiderations:heterodyne_interferometer_I_and_Q_voltage}
 \end{align}
-and the total fluctuating voltage in the demodulated signals is
+where
 \begin{equation}
-  \tilde{V}_{IQ}(t)
+  \delta \phi_{\Delta \omega_0}(t, \tau)
   =
-  V_0
-  \left[
-    \tilde{\phi}(x_{\image}, t)
-    +
-    \delta \phi_{\Delta \omega_0}(t - \tau, \tau)
-  \right].
+  \phi_{\Delta \omega_0}(t + \tau)
+  -
+  \phi_{\Delta \omega_0}(t)
 \end{equation}
-Thus, the measured phase fluctuation
-$\tilde{\phi}_{\text{meas}}(x_{\image}, t)
-=
-\tilde{V}_{IQ}(t) / V_0$
-becomes
-\graffito{\textcolor{red}{Sign \& arg.\ of $\delta \phi_{\Delta \omega_0}$??}}
+is the instrumental phase noise.
+Comparing the demodulated voltages
+(\ref{eq:DesignConsiderations:heterodyne_interferometer_I_and_Q_voltage}) to
+the demodulated intensities
+(\ref{eq:InterferometricMethods:heterodyne_interferometer_I_and_Q_intensity})
+indicates that the \emph{measured} phase fluctuation becomes
 \begin{equation}
-  \tilde{\phi}_{\text{meas}}(x_{\image}, t)
+  \tilde{\phi}_m(x_{\image}, t)
   =
   \tilde{\phi}(x_{\image}, t)
   +
-  \delta \phi_{\Delta \omega_0}(t - \tau, \tau);
+  \delta \phi_{\Delta \omega_0}(t, -\tau);
 \end{equation}
 that is, the fluctuating signal is contaminated
-by the local oscillator's phase noise.
+by the LO phase noise.
 The spectral properties of $\delta \phi_{\Delta\omega_0}(t, \tau)$
 are thoroughly discussed in Appendix~\ref{app:OscillatorPhaseNoise}.
 As $\delta \phi_{\omega_0}(t, \tau)$ and
 $\tilde{\phi}(x_{\image}, t)$ are uncorrelated,
-the autospectral density of the measured phase fluctuations is
+the one-sided autospectral density of the measured phase fluctuations is
 \begin{equation}
-    S_{\tilde{\phi}_{\text{meas}}}(f)
+    G_{\tilde{\phi}_m,\tilde{\phi}_m}(f)
     =
-    S_{\tilde{\phi}}(f)
+    S_{\tilde{\phi},\tilde{\phi}}(f)
     +
     8 \sin^2(\pi f \tau) \mathcal{L}_{\Delta\omega_0}(f),
 \end{equation}
-where $\mathcal{L}_{\Delta\omega_0}(f)$ is the phase noise of the LO,
+where
+$G_{\tilde{\phi},\tilde{\phi}}(f)$ is the \emph{true}
+one-sided autospectral density of the phase fluctuation $\tilde{\phi}$ and
+$\mathcal{L}_{\Delta\omega_0}(f)$ is the phase noise of the LO,
 as defined in Appendix~\ref{app:OscillatorPhaseNoise}.
 
 
