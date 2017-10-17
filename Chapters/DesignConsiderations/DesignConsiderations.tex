@@ -150,7 +150,7 @@ whose operation may contort the machine and produce vibrations,
 potentially destroying the beam coalignment.
 
 
-\subsection{Spatial-structure mismatch between beams}
+\subsection{Mismatch between beam spatial structures}
 \label{sec:DesignConsiderations:geometric:beam_mismatch}
 The external reference-beam interferometry derivations
 in Section~\ref{sec:InterferometricMethods:interferometry}
@@ -158,7 +158,7 @@ assumed that the reference beam was exactly matched
 in both amplitude and spatial structure
 to the unscattered probe beam.
 This is obviously an idealization
-that, at best, can only be approached asymptotically in experiment.
+that, at best, can only be approximately met in experiment.
 This section discusses the geometric effects
 of such imperfections in beam matching.
 
@@ -340,7 +340,7 @@ $\delta\phi_{\kappa, \text{max}}
 =
 \delta\phi_{\kappa}(\rho_{\image, \text{max}})
 \ll
-1$
+\pi$
 becomes
 \begin{equation}
   \frac{k_0}{8}
@@ -354,12 +354,12 @@ becomes
   \centering
   \includegraphics[width = \textwidth]{%
     Chapters/DesignConsiderations/figs/detector_array.pdf}
-  \caption[Finite sampling-volume effects in a detector array]{%
+  \caption[Finite sampling volumes in a detector array]{%
     The probe radiation and the reference beam
     are interfered on a detector array.
     The array consists of numerous detector elements,
     each of size $s_x \times s_y$ and with interelement spacing $\delta_x$.
-    The unscattered beam is centered on $x_0 = 0$ and $y = 0$, and
+    The unscattered beam is centered on $x = x_0$ and $y = 0$, and
     its intensity profile varies only weakly over any given element.
     The finite size of each detector element tends to attenuate
     short wavelength components of the incident optical signal.
@@ -376,7 +376,7 @@ with the output of each detector element
 corresponding to the incident intensity
 \emph{averaged} over the element's active area.
 This averaging acts as a low-pass filter in the spatial domain and
-is referred to as the finite sampling volume effect~\cite{bravenec_rsi95}.
+is referred to as the finite sampling-volume effect~\cite{bravenec_rsi95}.
 
 Finite sampling-volume effects dictate
 a heterodyne interferometer's wavenumber response~\cite{davis_rsi16}.
@@ -384,9 +384,12 @@ To see this, assume that measurements
 are made with the detector array shown in
 Fig.~\ref{fig:DesignConsiderations:detector_array}.
 Let the $j$\ts{th} detector element $D_j$ be centered on $x_{\image,j}$
-and $y_{\image} = 0$;
-the fluctuating baseband-equivalent optical power
-incident on this element is then
+and $y_{\image} = 0$.
+Integrating the optical intensity $\tilde{I}_{IQ}(\vect{r}_{\image}, t)$
+corresponding to fluctuations in the baseband signal from
+(\ref{eq:InterferometricMethods:heterodyne_total_fluctuating_intensity})
+over the face of detector element $D_j$ yields
+the corresponding optical power
 \begin{align}
   \tilde{P}_{IQ,j}(t)
   &=
@@ -396,56 +399,33 @@ incident on this element is then
   I_G(\vect{r}_{\image,j}) s_y
   \int_{x_{\image,j} - s_x / 2}^{x_{\image,j} + s_x / 2}
   \tilde{\phi}(x_{\image}, t)
-  dx_{\image},
+  dx_{\image};
   \label{eq:DesignConsiderations:fluctuating_baseband_equivalent_optical_power_per_element_v1}
 \end{align}
-where $\tilde{I}_{IQ}(\vect{r}_{\image}, t)$
-is the fluctuating baseband-equivalent optical intensity from
-(\ref{eq:InterferometricMethods:heterodyne_total_fluctuating_intensity}) and
-the weakly varying intensity profile $I_G(\vect{r}_{\image})$
-has been approximated as a constant
+here, the intensity profile $I_G(\vect{r}_{\image})$
+has been assumed to be approximately constant
 over the face of the detector element.
-Fourier decomposing $\tilde{\phi}(x_{\image}, t)$ and
-exchanging the order of integration,
-(\ref{eq:DesignConsiderations:fluctuating_baseband_equivalent_optical_power_per_element_v1})
-becomes
-\graffito{\textcolor{red}{DTFT???}}
-\begin{align}
+Because (\ref{eq:DesignConsiderations:fluctuating_baseband_equivalent_optical_power_per_element_v1})
+is linear in $\tilde{\phi}$,
+it is suitable to consider a single Fourier mode
+\begin{equation}
+  \tilde{\phi}(x_{\image}, t)
+  =
+  \tilde{\phi}_0 \cos(k_{\image} x_{\image} - \omega t)
+\end{equation}
+for which (\ref{eq:DesignConsiderations:fluctuating_baseband_equivalent_optical_power_per_element_v1})
+reduces to
+\begin{equation}
   \tilde{P}_{IQ,j}(t)
-  &=
-  I_G(\vect{r}_{\image,j}) s_y
-  \cdot
-  \frac{1}{2 \pi}
-  \int_{-\infty}^{\infty} dk_{\image} \,
-  \tilde{\phi}(k_{\image}, t)
-  \int_{x_{\image,j} - s_x / 2}^{x_{\image,j} + s_x / 2} dx_{\image} \,
-  e^{i k_{\image} x_{\image}}
-  \notag \\
-  &=
+  =
   I_G(\vect{r}_{\image,j}) A
   \cdot
-  \frac{1}{2 \pi}
-  \int_{-\infty}^{\infty} dk_{\image} \,
-  \left[%
-    T_{\text{fsv}}(k_{\image})
-    \cdot
-    \tilde{\phi}(k_{\image}, t)
-  \right]
-  e^{i k_{\image} x_{\image,j}}
-  \notag \\
-  &=
-  I_G(\vect{r}_{\image,j}) A
+  T_{\text{fsv}}(k_{\image})
   \cdot
-  \mathcal{F}^{-1}
-  \left[%
-    T_{\text{fsv}}(k_{\image})
-    \cdot
-    \tilde{\phi}(k_{\image}, t)
-  \right](x_{\image,j}, t),
+  \tilde{\phi}_0 \cos(k_{\image} x_{\image} - \omega t),
   \label{eq:DesignConsiderations:fluctuating_baseband_equivalent_optical_power_per_element_v2}
-\end{align}
-where
-\graffito{\textcolor{red}{Graph to compare to w/o FSV effects}}
+\end{equation}
+where $A = s_x s_y$ is the area of the detector element,
 \begin{equation}
   T_{\text{fsv}}(k_{\image})
   \equiv
@@ -457,47 +437,62 @@ is the finite sampling-volume transfer function,
   \sinc(x) = \frac{\sin(\pi x)}{\pi x}
   \label{eq:DesignConsiderations:normalized_sinc}
 \end{equation}
-is the normalized sinc function,
-\graffito{\textcolor{red}{Connect to object plane}}
+is the normalized sinc function, and
 \begin{equation}
   k_{\text{fsv},\image} = \frac{2 \pi}{s_x}
+  \label{eq:DesignConsiderations:finite_sampling_volume_cutoff_image_plane}
+\end{equation}
+is the first zero of $T_{\text{fsv}}(k_{\image})$.
+Recalling that an object-plane wavenumber $k$
+is imaged as $k_{\image} = k / M$
+in a magnification-$M$ imaging system,
+the corresponding object-plane finite sampling-volume wavenumber cutoff is
+\begin{equation}
+  k_{\text{fsv}} = \frac{2 \pi M}{s_x}.
   \label{eq:DesignConsiderations:finite_sampling_volume_cutoff}
 \end{equation}
-is the first zero of $T_{\text{fsv}}(k_{\image})$, and
-$A = s_x s_y$ is the area of the detector element.
-As discussed in
-Section~\ref{sec:InterferometricMethods:interferometry:heterodyne},
-the system will perform optimally if
-the central intensity of the unscattered beam at the detector is
+Now, as in Section~\ref{sec:InterferometricMethods:interferometry:heterodyne},
+select the central intensity of the unscattered beam at the detector to be
 $I_G(0) = I_{\text{sat}} / 4$, where
-$I_{\text{sat}}$ is the detector's linear saturation intensity.
-Thus,
+$I_{\text{sat}}$ is the detector's linear saturation intensity,
+such that
 \begin{equation}
   \frac{\tilde{P}_{IQ,j}(t)}{I_{\text{sat}} A}
   =
   \frac{I_G(\vect{r}_{\image,j})}{I_G(0)}
   \cdot
-  \mathcal{F}^{-1}
-  \left[%
-    T_{\text{het}}(k_{\image})
-    \cdot
-    \tilde{\phi}(k_{\image}, t)
-  \right](x_{\image,j}, t),
+  T_{\text{het}}(k_{\image})
+  \cdot
+  \tilde{\phi}_0 \cos(k_{\image} x_{\image} - \omega t),
 \end{equation}
 where
-\graffito{\textcolor{red}{factor of 4 comes from perfectly matched beams, no?}}
 \begin{equation}
   T_{\text{het}}(k_{\image})
   =
-  \frac{T_{\text{fsv}}(k_{\image})}{4}
+  \frac{1}{4} \cdot T_{\text{fsv}}(k_{\image})
   \label{eq:DesignConsiderations:heterodyne_interferometer_wavenumber_transfer_function}
 \end{equation}
 is the heterodyne interferometer's wavenumber transfer function.
-Thus, the inclusion of finite sampling-volume effects
-introduces a wavenumber dependence into $T_{\text{het}}$.
-Similar wavenumber dependencies enter the transfer functions
-of the homodyne interferometer and PCI
-with the inclusion of finite sampling volume effects.
+In the limit $s_x \rightarrow 0$, $T_\text{fsv} \rightarrow 1$ and
+the heterodyne interferometer's wavenumber transfer function reduces to
+(\ref{eq:InterferometricMethods:heterodyne_interferometer_wavenumber_transfer_function}).
+Thus, finite sampling-volume effects
+introduce a wavenumber dependence into $T_{\text{het}}$,
+as shown in Fig.~\ref{fig:DesignConsiderations:fsv_effects}.
+Note that finite sampling-volume effects
+introduce similar wavenumber dependencies
+into the transfer functions of the homodyne interferometer and PCI.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/DesignConsiderations/figs/fsv_effects.pdf}
+  \caption[Transfer function of heterodyne interferometer with finite sampling-volume effects]{%
+    The wavenumber transfer function for a heterodyne interferometer
+    with finite sampling-volume (FSV) effects and without FSV effects.
+  }
+\label{fig:DesignConsiderations:fsv_effects}
+\end{figure}
 
 
 \section{Intensity considerations}
