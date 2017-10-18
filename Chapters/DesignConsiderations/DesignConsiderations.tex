@@ -926,7 +926,7 @@ $\mathcal{L}_{\Delta\omega_0}(f)$ is the phase noise of the LO,
 as defined in Appendix~\ref{app:OscillatorPhaseNoise}.
 
 
-\section{Amplitude noise: sources and effects}
+\section{Amplitude noise: sources \& effects}
 \label{sec:DesignConsiderations:amplitude_noise}
 Detector noise and shot noise are typically
 the largest contributors to amplitude noise
@@ -940,84 +940,72 @@ as is done below.
 
 
 \subsection{Detector noise}
-\graffito{\textcolor{red}{check signs and write more clearly}}
 Real-world detector operation is associated with intrinsic noise.
 This noise results from, among other things,
-Johnson thermal noise in the detector and its associated electronics
-and shot noise in the background radiation flux
+Johnson thermal noise in the detector and
+shot noise in the background radiation flux
 \cite{hamamatsu_ir_detectors}.
 A detector's noise is often characterized by
 its noise-equivalent power ($NEP$):
 when the power of the incident optical signal is equal to the $NEP$,
 the signal-to-noise ratio is unity.
-For a measurement with temporal bandwidth $\Delta f$,
-a detector element with effective area $A$
-will have an $NEP$
+Consider optical power $\delta P(t)$ that, when incident upon a detector,
+produces a signal that
+emulates the statistical properties of the detector noise
+(e.g.\ $\delta P(t)$ is a real-valued, zero-mean, stationary, random process).
+Then, the $NEP$ corresponds to the root mean square (RMS) of $\delta P(t)$,
+and
+\begin{equation}
+  (NEP)^2
+  =
+  \int_{\Delta f}
+  G_{\delta P, \delta P}(f) df,
+\end{equation}
+where $G_{\delta P, \delta P}(f)$ is
+the one-sided autospectral density of $\delta P(t)$ and
+the integral is performed over the temporal bandwidth $\Delta f$
+of the desired measurement.
+Note that $G_{\delta P, \delta P}(f)$ depends on both
+extensive (e.g.\ element area) and intensive (e.g.\ element material)
+properties of the detector.
+To more easily compare detectors of different sizes and materials,
+the $NEP$ of a given detector is often parameterized as
 \begin{equation}
   NEP = \frac{\sqrt{A \cdot \Delta f}}{D^{*}},
 \end{equation}
-where $D^{*}$ is the detector's specific detectivity
-\cite{jones_josa60}.
+where $A$ is the effective area of the detector element,
+$\Delta f$ is the temporal bandwidth of the desired measurement, and
+$D^{*}$ is the detector's specific detectivity~\cite{jones_josa60}.
 Note that larger $D^{*}$ corresponds to increased detector sensitivity.
 
-Signal demodulation pushes detector noise
+It is now shown shown that
+signal demodulation pushes detector noise
 near the heterodyne frequency $\Delta \omega_0$
-into the baseband signal, as is now demonstrated.
-Note that
-\begin{equation}
-  NEP = \left\{ E\left[ \left| \delta P(t) \right|^2 \right] \right\}^{1/2},
-\end{equation}
-where $\delta P(t)$ is a real-valued, zero-mean, stationary, random process
-that gives rise to the $NEP$ and
-$E$ is the expectation-value operator.
-Following a formalism similar to that from
-Section~\ref{sec:InterferometricMethods:interferometry:heterodyne},
-the detector noise in the in-phase ($I$) channel will be
-\begin{equation}
-  \delta P_I(t)
-  =
-  \left.
-    \left[
-      \cos(\Delta \omega_0 t) \cdot \delta P(t)
-    \right]
-  \right|_{|\omega| \ll \Delta \omega_0},
-\end{equation}
-and the detector noise in the quadrature ($Q$) channel will be
-\begin{equation}
-  \delta P_Q(t)
-  =
-  \left.
-    \left[
-      \sin(\Delta \omega_0 t) \cdot \delta P(t)
-    \right]
-  \right|_{|\omega| \ll \Delta \omega_0}.
-\end{equation}
-These two powers can be conveniently combined as
+into the baseband signal.
+Taking inspiration from the demodulated optical intensities
+(\ref{eq:InterferometricMethods:heterodyne_interferometer_I_and_Q_intensity}),
+define the total detector noise in both
+the in-phase ($I$) and quadrature ($Q$) signals to be
 \begin{align}
+  % \delta P_I(t) + i \cdot \delta P_Q(t)
   \delta P_{IQ}(t)
-  &=
-  \delta P_{I}(t) - i \cdot \delta P_{Q}(t)
-  \notag \\
-  &=
-  \left.
-    \left[
-      e^{- i \Delta \omega_0 t} \cdot \delta P(t)
-    \right]
-  \right|_{|\omega| \ll \Delta \omega_0}.
+  =
+  e^{- i \Delta \omega_0 t} \cdot \delta P(t).
 \end{align}
-Then, the autocorrelation function of corresponding baseband noise is
+Here, the demodulated noise has not yet been low-pass filtered.
+The autocorrelation function of the demodulated noise is
 \begin{align}
   R_{\delta P_{IQ},\delta P_{IQ}}(\tau)
   &=
-  E\left[\delta P_{IQ}(t) \cdot \delta P_{IQ}(t + \tau) \right]
+  E\left[\delta P_{IQ}(t) \cdot \delta P_{IQ}^*(t + \tau) \right]
   \notag \\
   &=
   e^{i \Delta \omega_0 \tau} \cdot R_{\delta P, \delta P}(\tau),
 \end{align}
-where $R_{\delta P, \delta P}(\tau)$ is the
+where $z^*$ indicates the complex conjugate of $z$ and
+$R_{\delta P, \delta P}(\tau)$ is the
 autocorrelation function of the detector noise.
-The corresponding autospectral density
-of the demodulated detector noise is then
+The autospectral density of the demodulated noise is then
 \begin{align}
   S_{\delta P_{IQ},\delta P_{IQ}}(\omega)
   &=
@@ -1029,21 +1017,25 @@ of the demodulated detector noise is then
   \right](\omega)
   \notag \\
   &=
-  S_{\delta P, \delta P}(\omega - \Delta \omega_0)
-  \notag \\
-  &\approx
-  S_{\delta P, \delta P}(\Delta \omega_0),
-  \label{eq:DesignConsiderations:detector_noise_demodulated}
+  S_{\delta P, \delta P}(\omega - \Delta \omega_0),
 \end{align}
 \graffito{\textcolor{red}{$\sim \SI{e-18}{\watt\squared\per\hertz}$}}
 where $S_{\delta P, \delta P}$ is
-the autospectral density of the detector noise, and
-the approximation follows from
-the low-pass filtering
-(i.e.\ $|\omega| \ll \Delta \omega_0$) and
-the realness of $\delta P$
+the autospectral density of the detector noise.
+The demodulated signals are typically low-pass filtered
+such that only the desired information at $|\omega| \ll \Delta \omega_0$
+survives
+\begin{equation}
+  \left.
+    S_{\delta P_{IQ},\delta P_{IQ}}(\omega)
+  \right|_{|\omega| \ll \Delta \omega_0}
+  \approx
+  S_{\delta P, \delta P}(\Delta \omega_0),
+  \label{eq:DesignConsiderations:detector_noise_demodulated}
+\end{equation}
+which follows from the realness of $\delta P$
 (i.e.\ $S_{\delta P, \delta P}(-\omega) = S_{\delta P, \delta P}(\omega)$).
-That is, the detector noise at the heterodyne frequency $\Delta \omega_0$
+Thus, the detector noise at the heterodyne frequency $\Delta \omega_0$
 is pushed into the baseband signal via the demodulation process.
 Note that the autospectral density of the demodulated detector noise
 (\ref{eq:DesignConsiderations:detector_noise_demodulated})
@@ -1054,6 +1046,16 @@ whereas Rakhmanov considers only \emph{one} of the demodulated channels,
 (\ref{eq:DesignConsiderations:detector_noise_demodulated})
 considers both the in-phase and quadrature channels and
 is thus twice as large as Rakhmanov's expression).
+The corresponding one-sided autospectral density
+of the demodulated detector noise is
+\begin{equation}
+  \left.
+    G_{\delta P_{IQ},\delta P_{IQ}}(\omega)
+  \right|_{|\omega| \ll \Delta \omega_0}
+  \approx
+  \cdots
+\end{equation}
+\graffito{\textcolor{red}{relate autospectral density to NEP}}
 
 
 \subsection{Shot noise}
@@ -1086,6 +1088,7 @@ the dependence on the demodulation phase vanishes; that is
   &=
   \hbar \omega_0 P_0,
 \end{align}
+\graffito{\textcolor{red}{correct? Also, what is $P_0$?}}
 where $\hbar$ is the Planck constant divided by $2 \pi$,
 $\omega_0$ is the angular frequency of the incident photons, and
 $P_0$ is the DC optical power impinging upon the detector.
