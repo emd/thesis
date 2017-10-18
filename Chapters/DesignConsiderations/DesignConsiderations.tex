@@ -1004,6 +1004,7 @@ the in-phase ($I$) and quadrature ($Q$) signals to be
   \delta P_{IQ}(t)
   =
   e^{- i \Delta \omega_0 t} \cdot \delta P(t).
+  \label{eq:DesignConsiderations:demodulated_NEP_complex}
 \end{align}
 Here, the demodulated noise has \emph{not} yet been low-pass filtered.
 The autocorrelation function of the demodulated noise is
@@ -1071,7 +1072,10 @@ of the demodulated detector noise is
   \label{eq:DesignConsiderations:demodulated_NEP_spectral_density}
 \end{align}
 where the last line follows from
-(\ref{eq:DesignConsiderations:NEP_spectral_density}).
+(\ref{eq:DesignConsiderations:NEP_spectral_density}) and
+the assumption that $D^{*}$ is the specific detectivity
+for frequencies $f$ in the neighborhood
+of the heterodyne frequency $\Delta f_0$.
 
 
 \subsection{Shot noise}
@@ -1081,7 +1085,7 @@ the shot noise increases as $N_{\gamma}^{1/2}$, where
 $N_{\gamma}$ is the number of incident photons.
 Because the incident optical power (and hence the number of incident photons)
 in the heterodyne optical signal is modulated as a function of time,
-the corresponding shot noise is inherently \emph{nonstationary}.
+the corresponding shot noise is inherently nonstationary.
 Surprisingly, however, the demodulated shot noise \emph{is} stationary
 (e.g.\ see Rakhmanov's Eq.~(59) in~\cite{rakhmanov_ao01}).
 Note that Rakhmanov only considers \emph{one} of the demodulated signals, and
@@ -1092,22 +1096,40 @@ relative to that of the heterodyne signal
 represents it via $\gamma$).
 However, by employing quadrature heterodyne detection~\cite{carlstrom_rsi88},
 in which $\gamma_Q = \gamma_I + \pi / 2$,
-the dependence on the demodulation phase vanishes; that is
-\graffito{\textcolor{red}{$\sim \SI{e-21}{\watt\squared\per\hertz}$}}
+the dependence on the demodulation phase vanishes, i.e.\
 \begin{align}
-  S_{\delta P_{IQ}, \delta P_{IQ}}(\omega)
+  \left.
+    S_{\delta P_{IQ}, \delta P_{IQ}}(f)
+  \right|_{|f| \ll \Delta f_0}
   &=
-  S_{\delta P_{I}, \delta P_{I}}(\omega; \gamma_I)
-  +
-  S_{\delta P_{Q}, \delta P_{Q}}(\omega; \gamma_Q)
+  \sum_{j \in \{I, Q\}}
+  \left. \left[
+    S_{\delta P_j, \delta P_j}(f; \gamma_j)
+  \right] \right|_{|f| \ll \Delta f_0}
   \notag \\
   &=
-  \hbar \omega_0 P_0,
+  h f_0 P_0,
 \end{align}
-\graffito{\textcolor{red}{correct? Also, what is $P_0$?}}
-where $\hbar$ is the Planck constant divided by $2 \pi$,
-$\omega_0$ is the angular frequency of the incident photons, and
+where
+$\delta P_{IQ}(t)$ is as defined in
+(\ref{eq:DesignConsiderations:demodulated_NEP_complex}),
+$\delta P_I(t) = \real[\delta P_{IQ}(t)]$,
+$\delta P_Q(t) = \imag[\delta P_{IQ}(t)]$,
+$h$ is the Planck constant,
+$f_0$ is the frequency of the incident photons, and
 $P_0$ is the DC optical power impinging upon the detector.
+The corresponding one-sided autospectral density is
+\begin{align}
+  \left.
+    G_{\delta P_{IQ}, \delta P_{IQ}}(f)
+  \right|_{|f| \ll \Delta f_0}
+  =
+  2 h f_0 P_0.
+  \label{eq:DesignConsiderations:demodulated_shot_noise_spectral_density}
+\end{align}
+Rakhmanov notes that
+(\ref{eq:DesignConsiderations:demodulated_shot_noise_spectral_density})
+corresponds to the well-known Schottky formula.
 
 
 \subsection{Amplifier noise}
