@@ -19,8 +19,8 @@ proceeding through successive downstream components
 until reaching the system's digitizer.
 In particular, Section~\ref{sec:DesignConsiderations:geometric}
 discusses the geometric effects that
-set the interferometer's wavenumber response and
-the magnitude of the interferometer's heterodyne signal.
+affect the magnitude of the heterodyne signal and
+set the wavenumber response of the interferometer.
 Section~\ref{sec:DesignConsiderations:intensity}
 explores heterodyne measurements made
 beyond the saturation-intensity limit of a given detector.
@@ -34,8 +34,8 @@ the distortion of the baseband phase signal
 that results from demodulator imperfections.
 Finally, Section~\ref{sec:DesignConsiderations:quantization}
 discusses the signal quantization
-that necessarily results
-from generating a digital record.
+that necessarily occurs
+when generating a digital record.
 The below design considerations will be referenced extensively in
 Chapter~\ref{ch:Implementation}, which
 describes the addition of a heterodyne interferometer
@@ -85,33 +85,32 @@ Sec.~\ref{sec:InterferometricMethods:Gaussian_beam_diffraction:from_plasma_densi
 however, for a beam located $\rho(z)$ away from the optical axis
 (e.g.\ the upscattered or downscattered beam from
 Sec.~\ref{sec:InterferometricMethods:Gaussian_beam_diffraction:from_plasma_density_fluctuations}),
-the effective aperture radius is $a_{\text{eff}} = a - \rho(z)$.
+the effective aperture radius is $a_{\text{eff}} = a - |\rho(z)|$.
 
 
 \subsection{Beam coalignment}
 \label{sec:DesignConsiderations:geometric:beam_coalignment}
 For the moment, assume a plane-wave representation
 for both the reference beam and the unscattered probe beam.
-Specifically, let the spatial dependence
-of the reference beam be given by
+Specifically, let the reference beam be given by
 \begin{equation}
   \vect{E}_R(\vect{r})
   =
   E_0 \hat{\vect{x}}
   \cdot
-  e^{i k_0 z},
+  e^{i [k_0 z - (\omega_0 + \Delta \omega_0)t]},
 \end{equation}
 and let the unscattered probe beam
 be misaligned with the reference beam
 by angle $\theta \ll 1$ such that,
 to lowest order in $\theta$,
-the spatial dependence of the unscattered probe beam is
+the unscattered probe beam is
 \begin{equation}
   \vect{E}_P(\vect{r})
   \approx
   E_0 \hat{\vect{x}}
   \cdot
-  e^{i k_0 (z + \theta x)}.
+  e^{i [k_0 (z + \theta x) - \omega_0 t]}.
 \end{equation}
 The total intensity (averaged over an optical cycle) is then
 \begin{align}
@@ -122,11 +121,11 @@ The total intensity (averaged over an optical cycle) is then
     \vect{E}_R + \vect{E}_P
   \right|^2
   \approx
-  2 I_0 \left[ 1 + \cos(k_0 \theta x) \right],
+  2 I_0 \left[ 1 + \cos(\Delta \omega_0 t + k_0 \theta x) \right],
 \end{align}
 where $I_0 = c \varepsilon_0 E_0^2 / 2$
 is the corresponding intensity of a single beam.
-Here, the $\cos(k_0 \theta x)$ term
+Here, the cosine term
 corresponds to the interference between the two beams, and
 the unity term corresponds to the intensity of each individual beam.
 Optimizing the interference signal requires
@@ -151,7 +150,7 @@ $s_x = \SI{1}{\milli\meter}$
 have been used for the evaluation.
 Coalignment constraint (\ref{eq:DesignConsiderations:coalignment_constraint})
 has design implications for CO$_2$ interferometers
-operated at magnetic fusion experiments, which
+that are built for magnetic fusion experiments, which
 are often characterized by large, pulsed electromagnets
 whose operation may contort the machine and produce vibrations,
 potentially destroying the beam coalignment.
@@ -1150,7 +1149,7 @@ the total noise factor of the amplifier chain
 can be computed using the well-known Friis noise-factor formula.
 Note that the noise factor is only defined
 in the context of a signal-to-noise ratio, so
-it is not possible to write down the corresponding
+it is not conventional to write down the corresponding
 autospectral density of the amplifier noise in absolute units.
 
 
@@ -1214,6 +1213,7 @@ into two identical copies of the IF
   \text{IF}_0(t)
   =
   \frac{A_{\text{IF}}}{\sqrt{2}} \cos(\Delta\omega_0 t + \phi).
+  \label{eq:DesignConsiderations:split_IF}
 \end{equation}
 Like the LO signal, the power in the incident IF signal
 is split evenly between the two copies.
@@ -1250,12 +1250,16 @@ real-world demodulators will have larger conversion losses
 due to the additional effects of dissipation and other nonideal effects.
 An \emph{absolute} phase measurement $\phi_m$ is then obtained via
 \begin{equation}
-  \phi_m = \atan\left( \frac{Q}{I} \right),
+  \phi_m = \atantwo\left(Q, I\right),
   \label{eq:DesignConsiderations:phase_from_arctangent}
 \end{equation}
-independent of the power in the incident IF signal.
+where $\atantwo\left(Q, I\right)$
+is the arctangent function of two arguments, which
+uses the signs of $Q$ and $I$ to correctly determine
+the quadrant corresponding to the tangent of $Q / I$.
 Note that in the ideal case the measured phase is
-equal to the true phase, i.e.\ $\phi_m = \phi$.
+equal to the true phase, i.e.\ $\phi_m = \phi$, and
+that $\phi_m$ is independent of the power in the incident IF signal.
 
 \begin{figure}
   \centering
@@ -1358,10 +1362,13 @@ only the odd harmonics of the fundamental will contribute, i.e.\
 \begin{equation}
   \text{IF}_0(t)
   =
+  \frac{1}{\sqrt{2}}
   \sum_{n = 1}^{\infty}
   A_{2n - 1} \cos\left[ (2n - 1) (\Delta\omega_0 t + \phi) \right],
 \end{equation}
-where $A_n$ is the Fourier coefficient of the $n\ts{th}$ harmonic.
+where $A_n / \sqrt{2}$ is the Fourier coefficient of the $n\ts{th}$ harmonic
+(this ``odd'' normalization facilitates comparison with
+the ideal definition of $IF_0(t)$ (\ref{eq:DesignConsiderations:split_IF})).
 Typically, $A_n$ decreases as $n$ increases, but
 raising the IF amplitude drives more nonlinear interactions and
 increases the power in the higher order harmonics relative to the fundamental.
@@ -1379,7 +1386,7 @@ of mixing the LO with the IF and low-pass filtering yields
   \biggr|_{|\omega| \ll \Delta\omega_0}
   \notag \\
   &=
-  \frac{2 A_1}{\pi}
+  \frac{\sqrt{2} A_1}{\pi}
   \left[%
     \cos\phi
     -
@@ -1419,7 +1426,7 @@ shows that the quadrature baseband signal is
   \biggr|_{\omega \ll \Delta\omega_0}
   \notag \\
   &=
-  \frac{2 A_1}{\pi}
+  \frac{\sqrt{2} A_1}{\pi}
   \left[%
     \sin\phi
     +
