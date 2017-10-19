@@ -1156,14 +1156,14 @@ autospectral density of the amplifier noise in absolute units.
 
 \section{Demodulation}
 \label{sec:DesignConsiderations:demodulation}
-The interferometer's IF signal must be demodulated
+The heterodyne interferometer's IF signal must be demodulated
 in order to recover the baseband phase information.
 Demodulation is typically described as an analog process
 in which the IF signal is \emph{mixed} with a local oscillator (LO), but
 demodulation can also be performed digitally
 \cite{vanzeeland_rsi08, mlynek_fst12} or
 with non-mixer-based analog electronics~\cite{mlynek_rsi17}.
-The focus here, however, is on the analog-mixer-based approach.
+The focus here, however, is on the analog, mixer-based approach.
 Section~\ref{sec:DesignConsiderations:demodulation:ideal}
 describes ideal analog demodulation.
 Sections~\ref{sec:DesignConsiderations:demodulation:nonideal_mixing} and
@@ -1183,30 +1183,33 @@ a $0^{\circ}$ splitter~\cite{minicircuits_modulators}, as shown in
 Fig.~\ref{fig:DesignConsiderations:analog_IQ_demodulator}(a).
 The $90^{\circ}$ splitter divides the incident local oscillator (LO) signal
 \begin{equation}
-  \text{LO}(t) = \cos(\Delta\omega_0 t)
+  \text{LO}(t) = 2 \cos(\Delta\omega_0 t)
 \end{equation}
 into an ``in-phase'' copy of the LO
 \begin{equation}
   \text{LO}_0(t)
   =
-  \frac{1}{\sqrt{2}} \cos(\Delta\omega_0 t)
+  \sqrt{2} \cos(\Delta\omega_0 t)
 \end{equation}
-and a $\pi / 2$-phase-advanced copy of the LO
+and a $\pi / 2$ phase-advanced copy of the LO
 \begin{equation}
   \text{LO}_{\pi / 2}(t)
   =
-  \frac{1}{\sqrt{2}} \cos\left( \Delta\omega_0 t + \frac{\pi}{2} \right)
+  \sqrt{2} \cos\left( \Delta\omega_0 t + \frac{\pi}{2} \right)
   =
-  - \frac{1}{\sqrt{2}} \sin(\Delta\omega_0).
+  -\sqrt{2} \sin(\Delta\omega_0 t).
 \end{equation}
-Note that the power in the incident LO signal
+Note that the power (i.e.\ the mean-square value) in the incident LO signal
 is split evenly between $\text{LO}_0(t)$ and $\text{LO}_{\pi / 2}(t)$.
+Further, the normalization of $\text{LO}(t)$ has been specified such that
+the power in both $\text{LO}_0(t)$ and $\text{LO}_{\pi / 2}(t)$ is unity,
+which simplifies the below discussion of power flow through the demodulator.
 The $0^{\circ}$ splitter divides the intermediate frequency (IF) signal
 \begin{equation}
   \text{IF}(t) = A_{\text{IF}} \cos(\Delta\omega_0 t + \phi)
   \label{eq:DesignConsiderations:IF_perfect_sinusoid}
 \end{equation}
-into two nominally identical copies of the IF
+into two identical copies of the IF
 \begin{equation}
   \text{IF}_0(t)
   =
@@ -1217,11 +1220,10 @@ is split evenly between the two copies.
 The signal at the demodulator's in-phase ($I$) port
 then corresponds to the product of
 $\text{IF}_0(t)$ with the in-phase LO signal $\text{LO}_0(t)$:
-\graffito{\textcolor{red}{incorrect amplitude}}
 \begin{equation}
   \text{LO}_0(t) \cdot \text{IF}_0(t)
   =
-  \frac{A_{\text{IF}}}{\sqrt{2}}
+  \frac{A_{\text{IF}}}{2}
   \left[
     \cos(\phi) + \cos(2 \Delta\omega_0 t + \phi)
   \right].
@@ -1230,16 +1232,16 @@ Such signal multiplication is often referred to as ``mixing''.
 Low-pass filtering the signal exiting the demodulator's $I$ port
 yields the baseband in-phase signal
 \begin{equation}
-  I = \frac{A_{\text{IF}}}{\sqrt{2}} \cos\phi.
+  I = \frac{A_{\text{IF}}}{2} \cos\phi.
 \end{equation}
 Similar reasoning regarding the product
 $\text{LO}_{\pi / 2}(t) \cdot \text{IF}_0(t)$
 at the demodulator's quadrature ($Q$) port
 yields the baseband quadrature signal
 \begin{equation}
-  Q = \frac{A_{\text{IF}}}{\sqrt{2}} \sin\phi.
+  Q = \frac{A_{\text{IF}}}{2} \sin\phi.
 \end{equation}
-Note that the total power in the $I\&Q$ signals
+Note that the total power $I^2 + Q^2$ in the $I\&Q$ signals
 is $\SI{3}{\decibel}$ lower
 than the power in the incident IF signal.
 This is known as the \emph{conversion loss} of the demodulator, and
@@ -1261,8 +1263,7 @@ equal to the true phase, i.e.\ $\phi_m = \phi$.
     Chapters/DesignConsiderations/figs/analog_IQ_demodulator.pdf}
   \caption[Components of a typical analog $I\&Q$ demodulator]{%
     (a) A typical analog $I\&Q$ demodulator and
-    (b) a typical diode-ring double-balanced mixer.
-    \textcolor{red}{Baseband??? More thorough descriptions}}
+    (b) a typical diode-ring double-balanced mixer.}
   \label{fig:DesignConsiderations:analog_IQ_demodulator}
 \end{figure}
 
@@ -1301,20 +1302,6 @@ for optimal modulation,
 explaining why some manufacturers
 advocate the use of a square, rather than a sinusoidal, LO
 \cite{minicircuits_mixer_faqs}.
-
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/DesignConsiderations/figs/LO_switching_function.pdf}
-  \caption[LO switching functions]{%
-    The LO switching functions.
-    The top panel displays the incident sinusoidal LO signal, while
-    the bottom panel shows the \emph{sign} of
-    the in-phase ($\text{LO}_0$) and
-    the $\pi / 2$ phase-advanced ($\text{LO}_{\pi / 2}$)
-    copies of the LO signals.}
-  \label{fig:DesignConsiderations:LO_switching_function}
-\end{figure}
 
 This polarization modulation can alter the baseband spectrum.
 To see this, note that the sign of the in-phase LO signal
@@ -1356,7 +1343,7 @@ the desired in-phase baseband signal, e.g.\
     \cdot
     \text{IF}_0(t)
   \bigr]
-  \biggr|_{\omega \ll \Delta\omega_0}
+  \biggr|_{|\omega| \ll \Delta\omega_0}
   \notag \\
   &=
   \frac{\sqrt{2} A_{\text{IF}}}{\pi} \cos\phi
@@ -1367,16 +1354,14 @@ is not wholly linear
 the IF signal contain contributions from its higher-order harmonics.
 If this nonlinearity depends only on the magnitude of the IF
 (for example, double-sided saturation or clipping of the signal),
-only the odd harmonics of the fundamental will contribute, e.g.
-\graffito{\textcolor{red}{Fourier phase too; comment about selecting phasing for simple expressions}}
+only the odd harmonics of the fundamental will contribute, i.e.\
 \begin{equation}
   \text{IF}_0(t)
   =
   \sum_{n = 1}^{\infty}
   A_{2n - 1} \cos\left[ (2n - 1) (\Delta\omega_0 t + \phi) \right],
 \end{equation}
-where $A_n$ is
-the Fourier coefficient of the $n\ts{th}$ harmonic.
+where $A_n$ is the Fourier coefficient of the $n\ts{th}$ harmonic.
 Typically, $A_n$ decreases as $n$ increases, but
 raising the IF amplitude drives more nonlinear interactions and
 increases the power in the higher order harmonics relative to the fundamental.
@@ -1391,7 +1376,7 @@ of mixing the LO with the IF and low-pass filtering yields
     \cdot
     \text{IF}_0(t)
   \bigr]
-  \biggr|_{\omega \ll \Delta\omega_0}
+  \biggr|_{|\omega| \ll \Delta\omega_0}
   \notag \\
   &=
   \frac{2 A_1}{\pi}
@@ -1449,16 +1434,29 @@ say within $\SI{10}{\deci\bel}$,
 as the IF signal begins to contribute
 to the modulation of the diode conduction.
 
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/DesignConsiderations/figs/LO_switching_function.pdf}
+  \caption[LO switching functions]{%
+    The LO switching functions.
+    The top panel displays the incident sinusoidal LO signal, while
+    the bottom panel shows the \emph{sign} of
+    the in-phase ($\text{LO}_0$) and
+    the $\pi / 2$ phase-advanced ($\text{LO}_{\pi / 2}$)
+    copies of the LO signals.}
+  \label{fig:DesignConsiderations:LO_switching_function}
+\end{figure}
+
 Finally, the diodes of the mixers should be matched as closely as possible.
 If, for example, diodes $D_1$ and $D_2$
 have slightly different voltage drops than diodes $D_3$ and $D_4$,
 the virtual grounds at $V_b$ and $V_d$ are not equivalent
 when referenced to ground, and
 a resulting baseband signal will have a DC offset.
-\graffito{\textcolor{red}{Use percentage rather than dBc}}
 With precision fabrication, however,
-it is not uncommon for the DC offset to be $-60 \, \text{dBc}$
-relative to the baseband fundamental harmonic.
+it is not uncommon for the DC offset to be smaller than $1\%$
+of the amplitude of the baseband fundamental harmonic.
 
 
 \subsection{Demodulator imbalances}
