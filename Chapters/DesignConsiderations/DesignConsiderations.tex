@@ -1632,15 +1632,15 @@ sufficiently fine quantization $\Delta V$
 ensures that the quantization noise is \emph{white}
 \cite[Th.~1]{bennett_bstj48}
 \cite[Ch.~20]{widrow_and_kollar};
-that is, the autospectral density of the quantization noise is
+that is, the one-sided autospectral density of the quantization noise is
 \begin{align}
-  S_{\epsilon,\epsilon}(f)
+  G_{\epsilon,\epsilon}(f)
   =
-  \frac{\overline{\epsilon^2}}{f_s}
+  \frac{\overline{\epsilon^2}}{f_s / 2}
   =
-  \frac{(\Delta V)^2}{12 f_s},
+  \frac{(\Delta V)^2}{6 f_s},
   \qquad
-  -f_s < f \leq f_s.
+  0 \leq f \leq \frac{f_s}{2}.
   \label{eq:DesignConsiderations:quantization_noise_autospectral_density}
 \end{align}
 In practice, however, aperture error, jitter, and nonlinearities
@@ -1659,7 +1659,7 @@ Section~\ref{sec:InterferometricMethods:interferometry:heterodyne}
 that measurement of the \emph{absolute} phase
 requires capturing the full dynamics
 of the large, slowly varying equilibrium phase $\bar{\phi}$
-in addition to measurement of the fluctuating phase $\tilde{\phi}$.
+in addition to measuring the fluctuating phase $\tilde{\phi}$.
 Because $\tilde{\phi} \ll \bar{\phi}$ in typical situations,
 the fluctuations only occupy a small portion
 of the digitizer's dynamic range; that is,
