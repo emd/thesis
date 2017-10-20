@@ -1213,7 +1213,7 @@ consequently dictates the method of interferometric detection.
 \subsection{Homodyne detection}
 \label{sec:InterferometricMethods:interferometry:homodyne}
 Homodyne detection results from using
-a reference phase that is constant (or nearly constant) in time
+a reference phase $\phi_R$ that is constant (or nearly constant) in time
 such that the resulting intensity is
 \begin{equation}
   \begin{aligned}
@@ -1232,18 +1232,8 @@ such that the resulting intensity is
   \end{aligned}
   \label{eq:InterferometricMethods:homodyne_intensity}
 \end{equation}
-
-The typical engineering constraint of such a system
-is the saturation intensity of the detector elements.
-Beyond the linear saturation intensity $I_{\text{sat}}$,
-the detector's response ceases to be a linear function
-of the incident optical power.
-To make an ``apples-to-apples'' comparison of different interference schemes,
-it is useful to examine
-the ratio of the fluctuating intensity to $I_{\text{sat}}$.
-To proceed, note that the homodyne optical intensity in
-(\ref{eq:InterferometricMethods:homodyne_intensity})
-can be separated into equilibrium and fluctuating components as
+The homodyne optical intensity can be explicitly separated
+into equilibrium and fluctuating components as
 $I_{\text{hom}} = \bar{I}_{\text{hom}} + \tilde{I}_{\text{hom}}$,
 where
 \begin{align}
@@ -1260,17 +1250,41 @@ where
   \cdot
   \tilde{\phi}(x_{\image}, t).
 \end{align}
-Then, because $|\tilde{\phi}(x_{\image}, t)| \ll 1$
+Note that both $\bar{I}_{\text{hom}}$ and $\tilde{I}_{\text{hom}}$
+are functions of the phase difference $\phi_R - \bar{\phi}$.
+If measurement of the fluctuation $\tilde{\phi}$ is of primary importance,
+$|\tilde{I}_{\text{hom}}|$ should be maximized,
+which occurs when $\phi_R - \bar{\phi} = \pi / 2 + m \pi$ for integer $m$.
+For concreteness in the following discussion,
+take $\phi_R - \bar{\phi} = \pi / 2$.
+Physically, $\phi_R - \bar{\phi} = \pi / 2$
+means that the reference beam is
+out-of-phase with the unscattered beam but
+in-phase with the scattered beams.
+Note that interfering the scattered beams with this in-phase reference beam
+produces an intensity linear in $\tilde{\phi}(x_{\image}, t)$;
+this should be contrasted with the weak, quadratic intensity variation
+of (\ref{eq:InterferometricMethods:imaged_field_intensity})
+that occurs in the absence of a reference beam.
+
+Now, a typical engineering constraint of such an interferometer
+is the saturation intensity of the detector elements.
+Beyond the linear saturation intensity $I_{\text{sat}}$,
+the detector's response ceases to be a linear function
+of the incident optical power.
+To make an ``apples-to-apples'' comparison of different interference schemes,
+it is useful to examine the ratio
+of the fluctuating intensity $\tilde{I}_{\text{hom}}$
+to the saturation intensity $I_{\text{sat}}$.
+Because $|\tilde{\phi}(x_{\image}, t)| \ll 1$
 \begin{align}
   I_{\text{hom}}(\vect{r}_{\image}, t)
   &\approx
   \bar{I}_{\text{hom}}(\vect{r}_{\image}, t)
-  \notag \\
-  &\leq
-  2 I_G(0) [1 + \cos(\phi_R - \bar{\phi})]
-  \notag \\
-  &\leq
-  4 I_G(0),
+  \leq
+  2 I_G(0)
+  \quad \text{when} \quad
+  \phi_R - \bar{\phi} = \frac{\pi}{2},
   \notag
 \end{align}
 where $I_G(0) = I_G(\rho_{\image} = 0, z_{\image})$ is convenient shorthand
@@ -1280,7 +1294,7 @@ select $I_G(0)$ such that
 \begin{equation}
   I_{\text{sat}}
   =
-  4 I_G(0)
+  2 I_G(0).
   \notag
 \end{equation}
 Then, the fraction of the detector's dynamic range
@@ -1298,7 +1312,9 @@ where
 \begin{equation}
   T_{\text{hom}}
   \equiv
-  \frac{1}{2} \sin(\phi_R - \bar{\phi})
+  1
+  \quad \text{when} \quad
+  \phi_R - \bar{\phi} = \frac{\pi}{2}
   \label{eq:InterferometricMethods:homodyne_interferometer_wavenumber_transfer_function}
 \end{equation}
 is the homodyne interferometer's transfer function.
@@ -1310,31 +1326,16 @@ introduce a wavenumber dependence,
 as discussed in
 Section~\ref{sec:DesignConsiderations:geometric:finite_sampling_volume}.
 
-Note that $T_{\text{hom}}$ is a function
-of the phase difference $\phi_R - \bar{\phi}$.
-The homodyne interferometer operates at its peak sensitivity
-when $|T_{\text{hom}}|$ is maximal,
-which occurs when $\phi_R - \bar{\phi} = \pi / 2 + m \pi$ for integer $m$.
-For concreteness in the following discussion,
-take $\phi_R - \bar{\phi} = \pi / 2$.
-Physically, $\phi_R - \bar{\phi} = \pi / 2$
-means that the reference beam is
-out-of-phase with the unscattered beam but
-in-phase with the scattered beams.
-Note that interfering the scattered beams with this in-phase reference beam
-produces an intensity linear in $\tilde{\phi}(x_{\image}, t)$;
-this should be contrasted with the weak, quadratic intensity variation
-of (\ref{eq:InterferometricMethods:imaged_field_intensity})
-that occurs in the absence of a reference beam
-
+The above derivation of the homodyne interferometer's transfer function
+requires $\phi_R - \bar{\phi} = \pi / 2$.
 Practically speaking, however,
-it is very difficult to keep $\phi_R - \bar{\phi}$ fixed at $\pi / 2$.
+it can be difficult to keep $\phi_R - \bar{\phi}$ fixed at $\pi / 2$.
 First, a CO$_2$ beam passing through $\sim \SI{1}{\meter}$
 of plasma with a density $n_e \sim \SI{e20}{\per\meter\cubed}$
 will experience a bulk phase delay $\bar{\phi} \sim \pi$;
 thus, for constant $\phi_R$, it will be impossible
-to operate the interferometer at its peak sensitivity
-($\phi_R - \bar{\phi} \approx \pi / 2$)
+to operate the interferometer at
+$\phi_R - \bar{\phi} = \pi / 2$
 as the density evolves across the discharge.
 Second, fusion experiments are often characterized
 by large, pulsed electromagnets
@@ -1346,7 +1347,7 @@ For a $\SI{10.6}{\micro\meter}$ CO$_2$ probe beam,
 a path-length variation $\sim \SI{2.5}{\micro\meter}$
 is sufficient to produce $\delta(\phi_R - \bar{\phi}) \sim \pi / 2$,
 pushing the homodyne interferometer from
-its configuration of peak sensitivity into one of its nulls.
+its configuration of peak fluctuation sensitivity into one of its nulls.
 Even vacuum-pump vibrations can provide such a push!
 On small fusion devices,
 actively controlled mirrors have been used in an attempt
