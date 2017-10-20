@@ -1182,27 +1182,28 @@ a $0^{\circ}$ splitter~\cite{minicircuits_modulators}, as shown in
 Fig.~\ref{fig:DesignConsiderations:analog_IQ_demodulator}(a).
 The $90^{\circ}$ splitter divides the incident local oscillator (LO) signal
 \begin{equation}
-  \text{LO}(t) = 2 \cos(\Delta\omega_0 t)
+  \text{LO}(t) = \frac{4 \sqrt{2}}{\pi} \cos(\Delta\omega_0 t)
 \end{equation}
 into an ``in-phase'' copy of the LO
 \begin{equation}
   \text{LO}_0(t)
   =
-  \sqrt{2} \cos(\Delta\omega_0 t)
+  \frac{4}{\pi} \cos(\Delta\omega_0 t)
 \end{equation}
 and a $\pi / 2$ phase-advanced copy of the LO
 \begin{equation}
   \text{LO}_{\pi / 2}(t)
   =
-  \sqrt{2} \cos\left( \Delta\omega_0 t + \frac{\pi}{2} \right)
+  \frac{4}{\pi} \cos\left( \Delta\omega_0 t + \frac{\pi}{2} \right)
   =
-  -\sqrt{2} \sin(\Delta\omega_0 t).
+  -\frac{4}{\pi} \sin(\Delta\omega_0 t).
 \end{equation}
 Note that the power (i.e.\ the mean-square value) in the incident LO signal
 is split evenly between $\text{LO}_0(t)$ and $\text{LO}_{\pi / 2}(t)$.
-Further, the normalization of $\text{LO}(t)$ has been specified such that
-the power in both $\text{LO}_0(t)$ and $\text{LO}_{\pi / 2}(t)$ is unity,
-which simplifies the below discussion of power flow through the demodulator.
+Further, the normalization of $\text{LO}_0(t)$ and $\text{LO}_{\pi / 2}(t)$
+is motivated by and is consistent with the physical processes
+that occur in a typical ring-diode double-balanced mixer, as discussed in
+Section~\ref{sec:DesignConsiderations:demodulation:nonideal_mixing}.
 The $0^{\circ}$ splitter divides the intermediate frequency (IF) signal
 \begin{equation}
   \text{IF}(t) = A_{\text{IF}} \cos(\Delta\omega_0 t + \phi)
@@ -1223,7 +1224,7 @@ $\text{IF}_0(t)$ with the in-phase LO signal $\text{LO}_0(t)$:
 \begin{equation}
   \text{LO}_0(t) \cdot \text{IF}_0(t)
   =
-  \frac{A_{\text{IF}}}{2}
+  \frac{\sqrt{2} A_{\text{IF}}}{\pi}
   \left[
     \cos(\phi) + \cos(2 \Delta\omega_0 t + \phi)
   \right].
@@ -1232,22 +1233,21 @@ Such signal multiplication is often referred to as ``mixing''.
 Low-pass filtering the signal exiting the demodulator's $I$ port
 yields the baseband in-phase signal
 \begin{equation}
-  I = \frac{A_{\text{IF}}}{2} \cos\phi.
+  I = \frac{\sqrt{2} A_{\text{IF}}}{\pi} \cos\phi.
 \end{equation}
 Similar reasoning regarding the product
 $\text{LO}_{\pi / 2}(t) \cdot \text{IF}_0(t)$
 at the demodulator's quadrature ($Q$) port
 yields the baseband quadrature signal
 \begin{equation}
-  Q = \frac{A_{\text{IF}}}{2} \sin\phi.
+  Q = \frac{\sqrt{2} A_{\text{IF}}}{\pi} \sin\phi.
 \end{equation}
 Note that the total power $I^2 + Q^2$ in the $I\&Q$ signals
-is $\SI{3}{\decibel}$ lower
+is $\SI{4}{\decibel}$ lower
 than the power in the incident IF signal.
-This is known as the \emph{conversion loss} of the demodulator, and
-it results from low-pass filtering the $I\&Q$ signals;
+This is known as the \emph{conversion loss} of the demodulator;
 real-world demodulators will have larger conversion losses
-due to the additional effects of dissipation and other nonideal effects.
+due to dissipation and other nonideal effects.
 An \emph{absolute} phase measurement $\phi_m$ is then obtained via
 \begin{equation}
   \phi_m = \atantwo\left(Q, I\right),
@@ -1275,12 +1275,14 @@ that $\phi_m$ is independent of the power in the incident IF signal.
 \subsection{Nonideal mixing}
 \label{sec:DesignConsiderations:demodulation:nonideal_mixing}
 In Section~\ref{sec:DesignConsiderations:demodulation:ideal},
-mixing was idealized as the multiplication of the IF signal by the LO signal.
-However, in practice, more complex process are used
+mixing was idealized as the multiplication of the IF signal
+by a sinusoidal LO signal.
+However, in practice, more complex processes are used
 to maximize the mixer's linear dynamic range and minimize its noise figure
 \cite{analog_devices_mix_and_mod,bryant_mult_vs_mod}.
 
 For example, a typical ring-diode double-balanced mixer
+\cite{analog_devices_mix_and_mod}
 is shown in Fig.~\ref{fig:DesignConsiderations:analog_IQ_demodulator}(b).
 The balun transformers $T_1$ and $T_2$
 isolate the baseband port from the LO and IF ports.
@@ -1355,9 +1357,9 @@ the desired in-phase baseband signal, e.g.\
 However, if the path from the mixer's IF port to its baseband port
 is not wholly linear
 (and every real-world device exhibits \emph{some} degree of nonlinearity),
-the IF signal contain contributions from its higher-order harmonics.
+the IF signal will contain contributions from its higher-order harmonics.
 If this nonlinearity depends only on the magnitude of the IF
-(for example, double-sided saturation or clipping of the signal),
+(e.g.\, double-sided saturation/clipping of the signal),
 only the odd harmonics of the fundamental will contribute, i.e.\
 \begin{equation}
   \text{IF}_0(t)
@@ -1367,8 +1369,9 @@ only the odd harmonics of the fundamental will contribute, i.e.\
   A_{2n - 1} \cos\left[ (2n - 1) (\Delta\omega_0 t + \phi) \right],
 \end{equation}
 where $A_n / \sqrt{2}$ is the Fourier coefficient of the $n\ts{th}$ harmonic
-(this ``odd'' normalization facilitates comparison with
-the ideal definition of $IF_0(t)$ (\ref{eq:DesignConsiderations:split_IF})).
+(note that this unconventional normalization facilitates comparison with
+the previous, ideal definition of $IF_0(t)$
+(\ref{eq:DesignConsiderations:split_IF})).
 Typically, $A_n$ decreases as $n$ increases, but
 raising the IF amplitude drives more nonlinear interactions and
 increases the power in the higher order harmonics relative to the fundamental.
@@ -1396,7 +1399,7 @@ of mixing the LO with the IF and low-pass filtering yields
   \right].
 \end{align}
 That is, the higher order harmonics of the IF signal
-\emph{beat} with the corresponding higher order harmonics
+interact with the corresponding higher order harmonics
 of the LO switching function
 to produce harmonics in the baseband signal.
 The coefficient $A_n / (n \cdot A_1)$ gives
@@ -1460,7 +1463,7 @@ If, for example, diodes $D_1$ and $D_2$
 have slightly different voltage drops than diodes $D_3$ and $D_4$,
 the virtual grounds at $V_b$ and $V_d$ are not equivalent
 when referenced to ground, and
-a resulting baseband signal will have a DC offset.
+the resulting baseband signal will have a DC offset.
 With precision fabrication, however,
 it is not uncommon for the DC offset to be smaller than $1\%$
 of the amplitude of the baseband fundamental harmonic.
@@ -1539,7 +1542,7 @@ as shown in (\ref{eq:DesignConsiderations:I_general}) and
 (\ref{eq:DesignConsiderations:Q_general}),
 then the measured phase $\phi_m$ computed via the inverse tangent formula
 (\ref{eq:DesignConsiderations:phase_from_arctangent})
-will \emph{not} correspond to the true phase $\phi$, e.g.\
+will \emph{not} correspond to the true phase $\phi$, i.e.\
 \begin{equation}
   \phi_m = \phi + \delta \phi,
 \end{equation}
@@ -1565,7 +1568,7 @@ Thus, the \emph{relative} error in the measured fluctuating phase is
 \begin{equation}
   \frac{\delta\tilde{\phi}}{\tilde{\phi}}
   =
-  \left. \frac{d(\delta\phi)}{d\phi} \right|_{\bar{\phi}}
+  \left. \frac{d(\delta\phi)}{d\phi} \right|_{\bar{\phi}}.
   \label{eq:DesignConsiderations:relative_fluctuation_error}
 \end{equation}
 The $I\&Q$ Lissajous curves and
