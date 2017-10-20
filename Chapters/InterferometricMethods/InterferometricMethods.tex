@@ -2315,10 +2315,10 @@ Fig.~\ref{fig:InterferometricMethods:interferometric_method_transfer_functions}.
 Clearly, for a given fluctuation ($|k| \gtrsim k_g$) and a given detector,
 PCI has the best sensitivity.
 Specifically, PCI is
-$T_{\text{pci}} / T_{\text{hom}} = 4 / \sqrt{\eta}$
+$T_{\text{pci}} / T_{\text{hom}} = 2 / \sqrt{\eta}$
 more sensitive than a comparable homodyne interferometer
 ($\phi_R - \bar{\phi} = \pi / 2$) and
-$T_{\text{pci}} / T_{\text{het}} = 8 / \sqrt{\eta}$
+$T_{\text{pci}} / T_{\text{het}} = 2 \pi \sqrt{2 / \eta}$
 more sensitive than a comparable heterodyne interferometer.
 Relative to homodyne interferometry,
 PCI's enhanced sensitivity is wholly attributable
@@ -2326,9 +2326,18 @@ to the partial reflectivity ($\eta < 1$) of the phase-plate groove:
 the decreased power in the unscattered beam
 increases the fraction of the detector's dynamic range
 occupied by the fluctuating signal.
-Heterodyne interferometry has an additional factor-of-2 sensitivity deficit
-relative to homodyne interferometry because of the mixing process
-used to demodulate the heterodyne interference signal.
+The sensitivity deficit of heterodyne interferometry
+relative to homodyne interferometry
+has two physical origins:
+first, the heterodyne interferometer
+must capture the full sinusoidal waveform
+of the heterodyne interference signal,
+which mandates reduction of the mean optical intensity
+(and, correspondingly, the fluctuating optical intensity)
+at the detector by a factor of two
+relative to that of the homodyne interferometer;
+second, demodulation of the heterodyne interference signal
+additionally attenuates the fluctuating signal.
 
 \begin{figure}
   \centering
