@@ -14,21 +14,22 @@ if __name__ == '__main__':
 
     plt.figure()
 
-    plt.plot(k, 0.25 * np.sinc(k),
+    Thet = 1. / (np.sqrt(2) * np.pi)  # No FSV effects
+
+    plt.plot(k, Thet * np.sinc(k),
              # label='FSV included',
              label='finite sampling volume',
              c='C0', linestyle='-', linewidth=linewidth)
-    plt.plot(k, 0.25 * np.ones(len(k)),
+    plt.plot(k, Thet * np.ones(len(k)),
              # label='no FSV',
              label='no finite sampling volume',
              c='C0', linestyle='--', linewidth=linewidth)
     plt.axhline(0, c='k')
 
     plt.xlim([-kmax, kmax])
-    plt.ylim([-0.1, 0.35])
+    plt.ylim([-0.1, 0.3])
     plt.xlabel('$k \; [k_{\mathrm{fsv}}]$', fontsize=fontsize)
     plt.ylabel('$T_{\mathrm{het}}(k)$ [unitless]', fontsize=fontsize)
-    # plt.legend(loc='best')
     plt.legend(loc='upper right')
 
     plt.show()
