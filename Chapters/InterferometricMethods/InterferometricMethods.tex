@@ -1449,10 +1449,14 @@ it is sufficient to consider the ``equivalent optical intensities''
 corresponding to the demodulated signals.
 The so-called in-phase ($I$) and quadrature ($Q$) signals
 are obtained by mixing $I_{\text{het}}$ with
-$\real(e^{-i \Delta\omega_0 t})$ and
-$\imag(e^{-i \Delta\omega_0 t})$, respectively, and
+$(2 \sqrt{2} / \pi) \cdot \real(e^{-i \Delta\omega_0 t})$ and
+$(2 \sqrt{2} / \pi) \cdot \imag(e^{-i \Delta\omega_0 t})$, respectively, and
 low-pass filtering the resulting signals;
-here, for simplicity, low-pass filtering is implemented
+here, the normalization of the complex exponential
+is motivated by and is consistent with the physical processes
+that occur in a typical ring-diode double-balanced mixer, as discussed in
+Section~\ref{sec:DesignConsiderations:demodulation:nonideal_mixing}, and,
+for simplicity, low-pass filtering is implemented
 by averaging over a cycle of the intermediate frequency.
 Thus, the equivalent $I$ and $Q$ optical intensities are defined as
 \begin{align}
@@ -1460,11 +1464,13 @@ Thus, the equivalent $I$ and $Q$ optical intensities are defined as
   +
   i \cdot I_{Q}(\vect{r}_{\image}, t)
   &=
+  \frac{2 \sqrt{2}}{\pi}
   \langle
   e^{-i \Delta \omega_0 t} \cdot I_{\text{het}}(\vect{r}_{\image}, t)
   \rangle_{\Delta \omega_0}
   \notag \\
   &=
+  \frac{2 \sqrt{2}}{\pi}
   I_G(\vect{r}_{\image})
   e^{i \bar{\phi}}
   \left[ 1 + i \tilde{\phi}(x_{\image}, t) \right],
@@ -1492,21 +1498,25 @@ can be separated into equilibrium and fluctuating components as
 \begin{align}
   \bar{I}_{I}(\vect{r}_{\image}, t)
   &=
+  \frac{2 \sqrt{2}}{\pi}
   I_G(\vect{r}_{\image}) \cos\bar{\phi},
   \\
   \bar{I}_{Q}(\vect{r}_{\image}, t)
   &=
+  \frac{2 \sqrt{2}}{\pi}
   I_G(\vect{r}_{\image}) \sin\bar{\phi},
   \\
   \tilde{I}_{I}(\vect{r}_{\image}, t)
   &=
-  -I_G(\vect{r}_{\image})
+  -\frac{2 \sqrt{2}}{\pi}
+  I_G(\vect{r}_{\image})
   \sin\bar{\phi}
   \cdot
   \tilde{\phi}(x_{\image}, t),
   \\
   \tilde{I}_{Q}(\vect{r}_{\image}, t)
   &=
+  \frac{2 \sqrt{2}}{\pi}
   I_G(\vect{r}_{\image})
   \cos\bar{\phi}
   \cdot
@@ -1559,6 +1569,7 @@ in the demodulated signals to be
   \right\}^{1/2}
   \notag \\
   &=
+  \frac{2 \sqrt{2}}{\pi}
   I_G(\vect{r}_{\image})
   \cdot
   \tilde{\phi}(x_{\image}, t)
@@ -1579,7 +1590,7 @@ where
 \begin{equation}
   T_{\text{het}}
   \equiv
-  \frac{1}{4}
+  \frac{1}{\sqrt{2} \cdot \pi}
   \label{eq:InterferometricMethods:heterodyne_interferometer_wavenumber_transfer_function}
 \end{equation}
 is the heterodyne interferometer's transfer function.
@@ -1601,22 +1612,30 @@ Note that
 \begin{equation}
   \frac{T_{\text{het}}}{T_{\text{hom}}}
   =
-  \frac{1}{2}
+  \frac{1}{\sqrt{2} \cdot \pi}
   \quad
   \text{for homodyne operation at $\phi_R - \bar{\phi} = \pi / 2$.}
   \notag
 \end{equation}
 Thus, for a given detector,
-a heterodyne interferometer will be two times \emph{less} sensitive
+a heterodyne interferometer will be
+$(\sqrt{2} \cdot \pi)$ times \emph{less} sensitive
 than a homodyne interferometer operated in its optimal configuration
 ($\phi_R - \bar{\phi} = \pi / 2$).
-The physical origin of the heterodyne interferometer's sensitivity deficit
-is the mixing process used to demodulate
-the intermediate-frequency interference signal,
-which reduces the signal power by a factor of two
-(the rest of the signal power is mixed up
-to twice the intermediate frequency and
-is removed via low-pass filtering).
+There are two physical origins
+of the heterodyne interferometer's sensitivity deficit.
+First, the detector of a homodyne interferometer
+with $\phi_R - \bar{\phi} = \pi / 2$
+only sees small fluctuations about a DC offset, while
+the detector of a heterodyne interferometer sees
+the full sinusoidal waveform of the intermediate frequency;
+to ensure the detector is always within its saturation limits,
+the heterodyne interferometer must necessarily be operated
+with a mean intensity at the detector
+that is a factor of two lower than that for the homodyne interferometer.
+Second, a fraction of the power in
+the heterodyne interferometer's fluctuating signal
+(and its equilibrium signal) is lost during demodulation.
 
 
 \section{Phase contrast imaging (PCI)}
