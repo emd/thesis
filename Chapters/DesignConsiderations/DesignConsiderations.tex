@@ -667,7 +667,9 @@ Then, if the reference beam impinging on the detector at time $t$ is
     \phi_{\omega_0}(t)
   ]},
 \end{equation}
-the corresponding imaged probe radiation is
+the corresponding imaged probe radiation from
+(\ref{eq:InterferometricMethods:imaged_total_field_interferometer})
+becomes
 \begin{equation}
   E_P(\vect{r}_{\image}, t)
   =
@@ -682,48 +684,58 @@ the corresponding imaged probe radiation is
 \end{equation}
 where $\tau = L / c$ is the time delay
 associated with the optical path-length difference $L$.
-Define the corresponding instrumental phase noise as
+The resulting intensity (averaged over an optical cycle)
+of the interfering radiation is
 \begin{equation}
+  \begin{aligned}
+    I_{\text{het}}(\vect{r}_{\image}, t)
+    \approx
+    2 I_G(\vect{r}_{\image})
+    \bigl[%
+      1
+      &+
+      \cos(\Delta \omega_0 t + \bar{\phi}_{\text{eff}})
+      \\
+      &-
+      \tilde{\phi}_m(x_{\image}, t)
+      \sin(\Delta \omega_0 t + \bar{\phi}_{\text{eff}})
+    \bigr],
+  \end{aligned}
+  \label{eq:DesignConsiderations:heterodyne_intensity_with_laser_phase_noise}
+\end{equation}
+where
+\begin{align}
+  \bar{\phi}_{\text{eff}}
+  &=
+  \bar{\phi} + \omega_0 \tau,
+  \\
+  \tilde{\phi}_m(x_{\image}, t)
+  &=
+  \tilde{\phi}(x_{\image}, t) + \delta \phi_{\omega_0}(t - \tau, \tau),
+  \label{eq:DesignConsiderations:measured_phase_with_laser_phase_noise}
+  \\
   \delta \phi_{\omega_0}(t, \tau)
-  =
+  &=
   \phi_{\omega_0}(t + \tau)
   -
   \phi_{\omega_0}(t).
-\end{equation}
-Typically, $\delta \phi_{\omega_0}(t, \tau) \ll 1$.
-Then, appropriately generalizing the derivations between
-(\ref{eq:InterferometricMethods:heterodyne_intensity}) and
-(\ref{eq:InterferometricMethods:heterodyne_total_fluctuating_intensity}),
-one readily finds that the total fluctuating power
-in the heterodyne interferometer's demodulated signals is
-\begin{equation}
-  \tilde{I}_{IQ}(\vect{r}_{\image}, t)
-  =
-  \frac{2 \sqrt{2}}{\pi}
-  I_G(\vect{r}_{\image})
-  \left[%
-    \tilde{\phi}(x_{\image}, t)
-    +
-    \delta \phi_{\omega_0}(t - \tau, \tau)
-  \right].
-  \label{eq:DesignConsiderations:heterodyne_total_fluctuating_intensity_with_laser_phase_noise}
-\end{equation}
+\end{align}
+The quantity $\delta \phi_{\omega_0}(t, \tau)$
+is referred to as the ``instrumental phase noise'', and
+it is produced by the optical path-length difference $L$ and
+the laser's phase deviation $\phi_{\omega_0}(t)$.
+Typically, $|\delta \phi_{\omega_0}(t, \tau)| \ll 1$, and
+only terms to first order in $\delta \phi_{\omega_0}$ and $\tilde{\phi}$
+were retained in the heterodyne intensity
+(\ref{eq:DesignConsiderations:heterodyne_intensity_with_laser_phase_noise}).
 Comparing
-(\ref{eq:DesignConsiderations:heterodyne_total_fluctuating_intensity_with_laser_phase_noise})
-with
-(\ref{eq:InterferometricMethods:heterodyne_total_fluctuating_intensity}),
+(\ref{eq:DesignConsiderations:heterodyne_intensity_with_laser_phase_noise})
+with (\ref{eq:InterferometricMethods:heterodyne_intensity}),
 one readily sees that
-the \emph{measured} phase fluctuation $\tilde{\phi}_m$ becomes
-\begin{equation}
-  \tilde{\phi}_m(x_{\image}, t)
-  =
-  \tilde{\phi}(x_{\image}, t)
-  +
-  \delta \phi_{\omega_0}(t - \tau, \tau);
-  \label{eq:DesignConsiderations:measured_phase_with_laser_jitter}
-\end{equation}
+the \emph{measured} phase fluctuation is $\tilde{\phi}_m$ from
+(\ref{eq:DesignConsiderations:measured_phase_with_laser_phase_noise});
 that is, the fluctuating signal is contaminated
-by the laser's phase noise.
+by the instrumental phase noise.
 The spectral properties of $\delta \phi_{\omega_0}(t, \tau)$
 are thoroughly discussed in Appendix~\ref{app:OscillatorPhaseNoise}.
 As $\delta \phi_{\omega_0}(t, \tau)$ and
