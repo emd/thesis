@@ -895,35 +895,42 @@ the demodulated in-phase ($V_I$) and quadrature ($V_Q$) voltages are defined as
   \left[
     1
     +
-    \tilde{\phi}(x_{\image}, t)
-    +
-    \delta \phi_{\Delta \omega_0}(t, -\tau)
+    i \tilde{\phi}_m(x_{\image}, t)
   \right],
   \label{eq:DesignConsiderations:heterodyne_interferometer_I_and_Q_voltage}
 \end{align}
 where
-\begin{equation}
-  \delta \phi_{\Delta \omega_0}(t, \tau)
-  =
-  \phi_{\Delta \omega_0}(t + \tau)
-  -
-  \phi_{\Delta \omega_0}(t)
-\end{equation}
-is the instrumental phase noise.
-Comparing the demodulated voltages
-(\ref{eq:DesignConsiderations:heterodyne_interferometer_I_and_Q_voltage}) to
-the demodulated intensities
-(\ref{eq:InterferometricMethods:heterodyne_interferometer_I_and_Q_intensity})
-indicates that the \emph{measured} phase fluctuation $\tilde{\phi}_m$ becomes
-\begin{equation}
+\begin{align}
   \tilde{\phi}_m(x_{\image}, t)
-  =
+  &=
   \tilde{\phi}(x_{\image}, t)
   +
-  \delta \phi_{\Delta \omega_0}(t, -\tau);
-\end{equation}
+  \delta \phi_{\Delta \omega_0}(t, -\tau),
+  \label{eq:DesignConsiderations:measured_phase_with_LO_phase_noise}
+  \\
+  \delta \phi_{\Delta \omega_0}(t, \tau)
+  &=
+  \phi_{\Delta \omega_0}(t + \tau)
+  -
+  \phi_{\Delta \omega_0}(t).
+\end{align}
+The quantity $\delta \phi_{\Delta \omega_0}(t, \tau)$
+is referred to as the ``instrumental phase noise'', and
+it is produced by the modulator's finite coupling time $\tau$ and
+the LO's phase deviation $\phi_{\Delta \omega_0}(t)$.
+Typically, $|\delta \phi_{\Delta \omega_0}(t, \tau)| \ll 1$, and
+only terms to first order in $\delta \phi_{\omega_0}$ and $\tilde{\phi}$
+were retained in the demodulated voltages
+(\ref{eq:DesignConsiderations:heterodyne_interferometer_I_and_Q_voltage}).
+Comparing
+(\ref{eq:DesignConsiderations:heterodyne_interferometer_I_and_Q_voltage})
+with the demodulated intensities
+(\ref{eq:InterferometricMethods:heterodyne_interferometer_I_and_Q_intensity}),
+one readily sees that
+the \emph{measured} phase fluctuation is $\tilde{\phi}_m$ from
+(\ref{eq:DesignConsiderations:measured_phase_with_LO_phase_noise});
 that is, the fluctuating signal is contaminated
-by the LO phase noise.
+by the instrumental phase noise.
 The spectral properties of $\delta \phi_{\Delta\omega_0}(t, \tau)$
 are thoroughly discussed in Appendix~\ref{app:OscillatorPhaseNoise}.
 As $\delta \phi_{\omega_0}(t, \tau)$ and
