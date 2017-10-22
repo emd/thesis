@@ -1821,7 +1821,31 @@ has been consulted.
 \subsection{Noise spectral densities}
 
 \begin{itemize}
-  \item Quantization noise is produced by the creation of a digital record.
+  \item \emph{Laser phase noise}
+    $\mathcal{L}_{\omega_0}(f)$
+    injects noise into a heterodyne interferometer's measurements.
+    The one-sided autospectral density of this noise is
+    \begin{equation}
+      G(f)
+      =
+      8 \sin^2(\pi f \tau) \mathcal{L}_{\omega_0}(f),
+    \end{equation}
+    where $\tau = L / c$ is the time delay
+    associated with the optical path-length difference $L$
+    between the interferometer's probe arm and reference arm.
+  \item \emph{Local oscillator (LO) phase noise}
+    $\mathcal{L}_{\Delta \omega_0}(f)$
+    injects noise into a heterodyne interferometer's measurements.
+    The one-sided autospectral density of this noise is
+    \begin{equation}
+      G(f)
+      =
+      8 \sin^2(\pi f \tau) \mathcal{L}_{\Delta \omega_0}(f),
+    \end{equation}
+    where $\tau$ is the time required to couple the LO signal
+    to the interferometer's Doppler-shifted beam.
+  \item \emph{Quantization noise} is produced
+    by the creation of a digital record.
     Assuming that the $I$ and $Q$ signals of a heterodyne interferometer
     are individually digitized with bit depth $N_b$ and
     sample rate $f_s$ (in \SI{}{\hertz}),
