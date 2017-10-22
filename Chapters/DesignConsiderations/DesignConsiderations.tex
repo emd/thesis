@@ -1138,6 +1138,33 @@ the assumption that $D^{*}$ is the specific detectivity
 for frequencies $f$ in the neighborhood
 of the heterodyne frequency $\Delta f_0$.
 
+Note that comparing the spectral density
+of the demodulated detector noise
+to the spectral density of the measured phase
+(with the phase having units of radians)
+requires converting
+(\ref{eq:DesignConsiderations:demodulated_NEP_spectral_density})
+from units of $\SI{}{\watt\squared\per\Hz}$
+to the corresponding angular equivalent.
+This unit conversion is accomplished by dividing
+(\ref{eq:DesignConsiderations:demodulated_NEP_spectral_density})
+by the \emph{square} of the total demodulated power in the $I$ and $Q$ signals.
+Assuming that the probe beam and the reference beam
+vary weakly over the face of the detector element,
+this squared power is
+$P_{IQ}^2 \approx (8 / \pi^2) P_P P_R$, where
+$P_P$ is the optical power of the probe beam impinging on the detector, and
+$P_R$ is the optical power of the reference beam impinging on the detector.
+Thus, the one-sided autospectral density of the demodulated detector noise
+(in angular units of $\SI{}{\radian\squared\per\Hz}$) is
+\begin{equation}
+  \left.
+    G_{\delta P_{IQ},\delta P_{IQ}}(f)
+  \right|_{|f| \ll \Delta f_0}
+  =
+  \frac{A}{P_P P_R (D^*)^2}.
+\end{equation}
+
 
 \subsection{Shot noise}
 The discrete nature of the arriving photons results in shot noise.
@@ -1190,6 +1217,35 @@ The corresponding one-sided autospectral density is
 Rakhmanov notes that
 (\ref{eq:DesignConsiderations:demodulated_shot_noise_spectral_density})
 corresponds to the well-known Schottky formula.
+
+Note that comparing the spectral density
+of the demodulated shot noise
+to the spectral density of the measured phase
+(with the phase having units of radians)
+requires converting
+(\ref{eq:DesignConsiderations:demodulated_shot_noise_spectral_density})
+from units of $\SI{}{\watt\squared\per\Hz}$
+to the corresponding angular equivalent.
+This unit conversion is accomplished by dividing
+(\ref{eq:DesignConsiderations:demodulated_NEP_spectral_density})
+by the \emph{square} of the total demodulated power in the $I$ and $Q$ signals.
+Assuming that the probe beam and the reference beam
+vary weakly over the face of the detector element,
+this squared power is
+$P_{IQ}^2 \approx (8 / \pi^2) P_P P_R$, where
+$P_P$ is the optical power of the probe beam impinging on the detector, and
+$P_R$ is the optical power of the reference beam impinging on the detector.
+Additionally, the DC optical power impinging upon the detector is
+$P_0 = P_P + P_R$.
+Thus, the one-sided autospectral density of the demodulated shot noise
+(in angular units of $\SI{}{\radian\squared\per\Hz}$) is
+\begin{equation}
+  \left.
+    G_{\delta P_{IQ}, \delta P_{IQ}}(f)
+  \right|_{|f| \ll \Delta f_0}
+  =
+  2 h f_0 \left( \frac{P_P + P_R}{P_P P_R} \right).
+\end{equation}
 
 
 \subsection{Amplifier noise}
