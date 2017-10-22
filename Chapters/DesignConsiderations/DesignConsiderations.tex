@@ -554,6 +554,7 @@ between the sidebands of adjacent harmonics, and
 bandpass filtering the detector signal about $\Delta \omega_0$ yields
 \begin{equation}
   V(t) \approx V_1 \cos[\Delta \omega_0 t + \theta_1(t)]
+  \label{eq:DesignConsiderations:bandpass_filtered_voltage}
 \end{equation}
 with $\theta_1(t) = \phi(t)$, where
 $\phi(t)$ is the optical phase shift
@@ -564,14 +565,26 @@ the sidebands of adjacent harmonics begin to overlap,
 potentially corrupting the phase measurement,
 as demonstrated by the example in
 Fig.~\ref{fig:DesignConsiderations:nonlinear_heterodyne_detection}.
-When operating in the saturated regime,
+By processing the bandpass-filtered voltage
+(\ref{eq:DesignConsiderations:bandpass_filtered_voltage})
+via a procedure similar to that outlined between
+(\ref{eq:InterferometricMethods:heterodyne_interferometer_I_and_Q_intensity})
+and
+(\ref{eq:InterferometricMethods:heterodyne_interferometer_wavenumber_transfer_function}),
+one readily finds that
 the heterodyne interferometer's wavenumber transfer function
-(\ref{eq:DesignConsiderations:heterodyne_interferometer_wavenumber_transfer_function})
-should be multiplied by the prefactor $(V_1 / V_{\text{sat}})$, where
-$V_1$ is the amplitude of the heterodyne frequency's fundamental harmonic and
-$V_{\text{sat}}$ is the output voltage of the detector
-when the incident optical intensity
-is equal to the saturation intensity $I_{\text{sat}}$.
+(\ref{eq:InterferometricMethods:heterodyne_interferometer_wavenumber_transfer_function})
+should be multiplied by the factor
+$[V_1 / V_1(I_{\text{max}} = I_{\text{sat}})]$, where
+$V_1$ is the amplitude of the bandpass-filtered voltage
+(\ref{eq:DesignConsiderations:bandpass_filtered_voltage}), and
+$V_1(I_{\text{max}} = I_{\text{sat}})$
+is the amplitude of the corresponding bandpass-filtered voltage
+when the system's maximum intensity is scaled to the saturation intensity
+(the AC and DC fractions of the incident intensity
+are \emph{not} altered during this scaling;
+to account for changing the AC and DC fractions, see the discussion in
+Section~\ref{sec:DesignConsiderations:geometric:beam_mismatch}).
 
 \begin{figure}
   \centering
