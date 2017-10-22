@@ -173,6 +173,7 @@ The derivation of the heterodyne intensity
 can be easily generalized to account for
 the geometric effects of unmatched reference and probe beams.
 Namely, let the image-plane probe radiation be given by
+(\ref{eq:InterferometricMethods:imaged_total_field_interferometer}) as
 \begin{equation}
   E_P(\vect{r}_{\image}, t)
   \approx
@@ -181,7 +182,7 @@ Namely, let the image-plane probe radiation be given by
   \left[%
     1
     +
-    i \tilde{\phi}_0 \cos\nu
+    i \tilde{\phi}(x_{\image}, t)
   \right],
 \end{equation}
 and let the corresponding reference beam be given by
@@ -218,8 +219,9 @@ Under these circumstances, the heterodyne intensity becomes
       \cos(\Delta \omega_0 t + \bar{\phi}_{\text{eff}})
       \\
       &-
-      \tilde{\phi}_0 \alpha_{\text{AC}}
-      \sin(\Delta \omega_0 t + \bar{\phi}_{\text{eff}}) \cos\nu
+      \alpha_{\text{AC}}
+      \tilde{\phi}(x_{\image}, t)
+      \sin(\Delta \omega_0 t + \bar{\phi}_{\text{eff}})
     \bigr],
   \end{aligned}
   \label{eq:DesignConsiderations:heterodyne_intensity}
@@ -243,11 +245,7 @@ is the phase of Gaussian beam $j \in \{P, R\}$
 \begin{align}
   \alpha_{\text{DC}}
   &=
-  \frac{1}{2}\left[%
-    1
-    +
-    \frac{I_{G,R}(\vect{r}_R)}{I_{G,P}(\vect{r}_{\image})}
-  \right],
+  \frac{1 + \alpha_{\text{AC}}^2}{2},
   \\
   \alpha_{\text{AC}}
   &=
@@ -268,10 +266,21 @@ if $E_{G,R}(\vect{r}_R) = E_{G,P}(\vect{r}_{\image})$.
 
 It is worth discussing the implications of heterodyne intensity
 (\ref{eq:DesignConsiderations:heterodyne_intensity}).
-First, the AC component of the intensity
-carries the desired phase information, and
-maximizing the ratio of the AC signal to the DC signal requires that
-$I_{G,R}(\vect{r}_R) = I_{G,P}(\vect{r}_{\image})$.
+First, repeating the derivation between
+(\ref{eq:InterferometricMethods:heterodyne_interferometer_I_and_Q_intensity})
+and
+(\ref{eq:InterferometricMethods:heterodyne_interferometer_wavenumber_transfer_function})
+with this modified heterodyne intensity,
+one readily finds that
+the heterodyne interferometer's wavenumber transfer function
+(\ref{eq:InterferometricMethods:heterodyne_interferometer_wavenumber_transfer_function})
+should be multiplied by the factor
+$2 \alpha_{\text{AC}} / (\alpha_{\text{DC}} + \alpha_{\text{AC}})$.
+It is then easy to show that
+the transfer function is \emph{maximized} when
+$\alpha_{\text{DC}} = \alpha_{\text{AC}} = 1$,
+i.e.\ when the probe beam and reference beam
+have identical spatial structures and powers.
 Second, note that the effective bulk phase $\bar{\phi}_{\text{eff}}$
 is dependent on the geometry of the reference beam and
 the unscattered probe beam.
@@ -307,7 +316,7 @@ and phase measurements at a \emph{single} wavelength are sufficient
 to quantify plasma-induced phase fluctuations
 at frequencies above $f_{\text{vib}}$
 \cite{vanzeeland_ppcf05}.
-Note that the beam geometry also imparts
+Finally, note that the beam geometry also imparts
 a spatially dependent, curvature-induced phase shift
 \begin{align}
   \delta\phi_{\kappa}(\rho_{\image})
