@@ -1740,6 +1740,66 @@ Thus, to minimize the effect of quantization noise,
 it is absolutely imperative
 to utilize the full dynamic range of the digitizer.
 
+The measured phase $\phi_m$ is computed from
+the in-phase ($I$) and quadrature ($Q$) signals via
+(\ref{eq:DesignConsiderations:phase_from_arctangent}).
+If needed for feedback control,
+the phase can be calculated in real time
+with analog or digital electronics.
+If the real-time phase is not needed,
+it is sufficient to digitize the $I$ and $Q$ signals individually;
+later, offline, the phase can be computed in software.
+In the offline approach,
+software may additionally compensate demodulator imperfections
+(discussed in Section~\ref{sec:DesignConsiderations:demodulation})
+prior to computing the phase.
+Of course, the offline approach
+subjects both the $I$ and the $Q$ signal to quantization noise.
+The quantization error $\varepsilon_I$ of $I$ and
+the quantization error $\varepsilon_Q$ of $Q$
+are uncorrelated, so
+the total one-sided autospectral density of the quantization noise is simply
+the sum of the individual one-sided autospectral densities, i.e.\
+\begin{equation}
+  G_{\epsilon_I,\epsilon_I}(f)
+  +
+  G_{\epsilon_Q,\epsilon_Q}(f)
+  =
+  \frac{(\Delta V)^2}{3 f_s},
+  \qquad
+  0 \leq f \leq \frac{f_s}{2}.
+  \label{eq:DesignConsiderations:total_quantization_noise_autospectral_density}
+\end{equation}
+Note that comparing the spectral density of the quantization noise
+to the spectral density of the measured phase
+(with the phase having units of radians)
+requires converting
+(\ref{eq:DesignConsiderations:total_quantization_noise_autospectral_density})
+from units of $\SI{}{\volt\squared\per\Hz}$
+to the corresponding angular equivalent.
+This unit conversion is accomplished by dividing
+(\ref{eq:DesignConsiderations:total_quantization_noise_autospectral_density})
+by the \emph{squared} radius of the $I\&Q$ Lissajous curve.
+Assuming that the $I$ and $Q$ signals occupy
+the digitizer's full dynamic range $V_{\text{dyn}}$,
+the squared radius of the Lissajous curve is
+$I^2 + Q^2 = (V_{\text{dyn}} / 2)^2$, and
+the total quantization noise
+(in angular units of $\SI{}{\radian\squared\per\Hz}$) is
+\begin{equation}
+  G_{\epsilon_I,\epsilon_I}(f)
+  +
+  G_{\epsilon_Q,\epsilon_Q}(f)
+  \approx
+  \frac{1}{3 (2^{N_b - 1}) f_s},
+  \qquad
+  0 \leq f \leq \frac{f_s}{2},
+  \label{eq:DesignConsiderations:total_quantization_noise_autospectral_density_angular_units}
+\end{equation}
+where the definition of the voltage quantum
+(\ref{eq:DesignConsiderations:digitizer_voltage_quantum})
+has been consulted.
+
 
 \section{Summary of important formulas}
 
@@ -1756,6 +1816,27 @@ to utilize the full dynamic range of the digitizer.
   \cdot
   T_{\text{fsv}}(k)
 \end{equation}
+
+
+\subsection{Noise spectral densities}
+
+\begin{itemize}
+  \item Quantization noise is produced by the creation of a digital record.
+    Assuming that the $I$ and $Q$ signals of a heterodyne interferometer
+    are individually digitized with bit depth $N_b$ and
+    sample rate $f_s$ (in \SI{}{\hertz}),
+    the one-sided autospectral density of the total quantization noise
+    (in \SI{}{\radian\squared\per\hertz}) is
+    \begin{equation}
+      G(f)
+      \approx
+      \frac{1}{3 (2^{N_b - 1}) f_s},
+      \qquad
+      0 \leq f \leq \frac{f_s}{2}.
+    \end{equation}
+    Here, it is assumed that the $I$ and $Q$ signals each fully occupy
+    the digitizer's dynamic range $V_{\text{dyn}}$.
+\end{itemize}
 
 
 \bibliographystyle{plainurl}
