@@ -1860,7 +1860,8 @@ where the definition of the voltage quantum
 has been consulted.
 
 
-\section{Summary of important formulas}
+\section{Summary}
+\label{sec:DesignConsiderations:summary}
 
 
 \subsection{Wavenumber transfer function}
@@ -1875,6 +1876,38 @@ has been consulted.
   \cdot
   T_{\text{fsv}}(k)
 \end{equation}
+
+
+\subsection{The measured phase}
+An absolute phase measurement $\phi_m$ is
+computed from the demodulated in-phase ($I$) and quadrature ($Q$) signals via
+\begin{equation}
+  \phi_m = \atantwo\left(Q, I\right),
+\end{equation}
+where $\atantwo\left(Q, I\right)$
+is the arctangent function of two arguments, which
+uses the signs of $Q$ and $I$ to correctly determine
+the quadrant corresponding to the tangent of $Q / I$.
+Demodulator imperfections
+produce a systematic error $\delta \phi$ in the measured phase, i.e.\
+\begin{equation}
+  \phi_m = \phi + \delta \phi,
+\end{equation}
+where $\phi$ is the true phase.
+This systematic error is a complicated,
+periodic function of the true phase, i.e.\
+$\delta \phi = \delta \phi(\phi)$.
+For small phase fluctuations $|\tilde{\phi}| \ll 1$
+about an equilibrium phase $\bar{\phi}$,
+the \emph{relative} error in the measured fluctuating phase is
+\begin{equation}
+  \frac{\delta\tilde{\phi}}{\tilde{\phi}}
+  =
+  \left. \frac{d(\delta\phi)}{d\phi} \right|_{\bar{\phi}}.
+  \label{eq:DesignConsiderations:relative_fluctuation_error}
+\end{equation}
+See Section~\ref{sec:DesignConsiderations:demodulation}
+for more details.
 
 
 \subsection{Noise sources \& their spectral densities}
