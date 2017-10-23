@@ -1864,7 +1864,86 @@ has been consulted.
 \label{sec:DesignConsiderations:summary}
 
 
+\subsection{Geometric considerations}
+The measurements of a heterodyne interferometer
+are influenced by several geometric effects,
+which are summarized below:
+\begin{itemize}
+  \item \emph{Aperture diffraction} can alter the propagation
+    of the unscattered and scattered Gaussian beams
+    that formed the basis of the analysis in
+    Chapter~\ref{ch:InterferometricMethods}.
+    Aperture diffraction of a Gaussian beam is minimal if
+    \begin{equation}
+      a_{\text{eff}} \geq \frac{3}{2} w(z),
+      \label{eq:DesignConsiderations:aperture_radius_for_minimal_diffraction}
+    \end{equation}
+    for each aperture, where
+    $a_{\text{eff}}$ is the effective aperture radius and
+    $w(z)$ is the beam's 1/e $E$ radius at the aperture location.
+    For a beam located transverse distance
+    $\rho(z)$ away from the optical axis,
+    a circular aperture of radius $a$ has
+    an effective aperture radius $a_{\text{eff}} = a - |\rho(z)|$.
+    See Section~\ref{sec:DesignConsiderations:geometric:aperture_diffraction}
+    for more details.
+  \item \emph{Beam coalignment} affects
+    the size of the interference signal.
+    If the reference beam and the unscattered probe beam
+    are misaligned by angle $\theta$,
+    then obtaining a finite interference signal
+    from a detector element of length $s_x$
+    requires that
+    \begin{equation}
+      |\theta|
+      \ll
+      \frac{\lambda_0}{s_x}
+      \approx
+      0.6^{\circ},
+    \end{equation}
+    where $\lambda_0 = 2 \pi / k_0$ is the beam wavelength,
+    and the typical values
+    $\lambda_0 = \SI{10.6}{\micro\meter}$ and
+    $s_x = \SI{1}{\milli\meter}$
+    have been used for the evaluation.
+    See Section~\ref{sec:DesignConsiderations:geometric:beam_coalignment}
+    for more details.
+  \item \emph{Differences in the radii of curvature}
+    between the reference beam and the probe beam
+    can alter the interference pattern at the detector,
+    potentially decreasing the size of the interference signal and
+    distorting the imaged wavenumbers.
+    These detrimental curvature effects will be negligible if
+    \begin{equation}
+      \frac{k_0}{8}
+      \left[ (N_{\text{el}} s_x)^2 + s_y^2 \right]
+      \left| \frac{1}{R_P(z_{\image})} - \frac{1}{R_R(z_R)}\right|
+      \ll
+      \pi.
+    \end{equation}
+    where
+    $R_P(z_{\image})$ is the radius of curvature
+    of the probe beam at the detector location,
+    $R_R(z_R)$ is the radius of curvature
+    of the reference beam at the detector location,
+    $k_0$ is the wavenumber of the probe radiation,
+    $s_x$ and $s_y$ are the linear dimensions
+    of a single detector element in the $x$- and $y$-dimensions, respectively,
+    and $N_{\text{el}}$ is the number of such detector elements
+    (arranged in the $x$-direction with negligible inter-element spacing).
+    See Section~\ref{sec:DesignConsiderations:geometric:beam_mismatch}
+    for more details.
+  \item \emph{Finite sampling-volume effects}
+    dictate the wavenumber response of a heterodyne interferometer.
+    See Section~\ref{sec:DesignConsiderations:summary:wavenumber_transfer_function}
+    for a summary of these effects;
+    see Section~\ref{sec:DesignConsiderations:geometric:finite_sampling_volume}
+    for more details.
+\end{itemize}
+
+
 \subsection{Wavenumber transfer function}
+\label{sec:DesignConsiderations:summary:wavenumber_transfer_function}
 \begin{equation}
   T_{\text{het}}(k)
   =
