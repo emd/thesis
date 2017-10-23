@@ -1857,7 +1857,7 @@ the total quantization noise
 \end{equation}
 where the definition of the voltage quantum
 (\ref{eq:DesignConsiderations:digitizer_voltage_quantum})
-has been consulted.
+has been utilized.
 
 
 \section{Summary}
@@ -1913,7 +1913,7 @@ which are summarized below:
     can alter the interference pattern at the detector,
     potentially decreasing the size of the interference signal and
     distorting the imaged wavenumbers.
-    These detrimental curvature effects will be negligible if
+    These detrimental curvature effects are negligible if
     \begin{equation}
       \frac{k_0}{8}
       \left[ (N_{\text{el}} s_x)^2 + s_y^2 \right]
@@ -1933,10 +1933,11 @@ which are summarized below:
     (arranged in the $x$-direction with negligible inter-element spacing).
     See Section~\ref{sec:DesignConsiderations:geometric:beam_mismatch}
     for more details.
-  \item \emph{Finite sampling-volume effects}
-    dictate the wavenumber response of a heterodyne interferometer.
+  \item The \emph{finite sampling-volume effect} introduces
+    a wavenumber dependence into the transfer function
+    of a heterodyne interferometer.
     See Section~\ref{sec:DesignConsiderations:summary:wavenumber_transfer_function}
-    for a summary of these effects;
+    for a summary of this effect;
     see Section~\ref{sec:DesignConsiderations:geometric:finite_sampling_volume}
     for more details.
 \end{itemize}
