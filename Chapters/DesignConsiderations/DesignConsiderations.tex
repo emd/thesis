@@ -986,6 +986,7 @@ as is done below.
 
 
 \subsection{Detector noise}
+\label{sec:DesignConsiderations:amplitude_noise:detector}
 Real-world detector operation is associated with intrinsic noise.
 This noise results from, among other things,
 Johnson thermal noise in the detector and
@@ -1167,6 +1168,7 @@ Thus, the one-sided autospectral density of the demodulated detector noise
 
 
 \subsection{Shot noise}
+\label{sec:DesignConsiderations:amplitude_noise:shot}
 The discrete nature of the arriving photons results in shot noise.
 Well-modeled as a Poisson process,
 the shot noise increases as $N_{\gamma}^{1/2}$, where
@@ -1249,6 +1251,7 @@ Thus, the one-sided autospectral density of the demodulated shot noise
 
 
 \subsection{Amplifier noise}
+\label{sec:DesignConsiderations:amplitude_noise:amplifier}
 The noise \emph{factor} $F$ of an RF amplifier is defined as the ratio of
 the signal-to-noise ratio at the device's input ($SNR_{\text{in}}$) to
 the signal-to-noise ratio at the device's output ($SNR_{\text{out}}$)
@@ -1895,6 +1898,8 @@ are summarized below:
     where $\tau = L / c$ is the time delay
     associated with the optical path-length difference $L$
     between the interferometer's probe arm and reference arm.
+    See Section~\ref{sec:DesignConsiderations:phase_noise:laser}
+    for more details.
   \item \emph{Local oscillator (LO) phase noise}
     $\mathcal{L}_{\Delta \omega_0}(f)$
     injects noise into a heterodyne interferometer's measurements.
@@ -1908,6 +1913,8 @@ are summarized below:
     \end{equation}
     where $\tau$ is the time required to couple the LO signal
     to the interferometer's Doppler-shifted beam.
+    See Section~\ref{sec:DesignConsiderations:phase_noise:LO}
+    for more details.
   \item \emph{Detector noise} near the intermediate frequency $\Delta f_0$
     is demodulated and contaminates a heterodyne interferometer's measurements.
     The one-sided autospectral density of the demodulated detector noise
@@ -1927,6 +1934,8 @@ are summarized below:
     and $D^*$ is the specific detectivity of the detector near $\Delta f_0$.
     Here, it is assumed that the probe beam and the reference beam
     vary weakly over the face of the detector element.
+    See Section~\ref{sec:DesignConsiderations:amplitude_noise:detector}
+    for more details.
   \item \emph{Shot noise} is demodulated and
     contaminates a heterodyne interferometer's measurements.
     The one-sided autospectral density of the demodulated shot noise
@@ -1947,9 +1956,13 @@ are summarized below:
     $\Delta f_0$ is the intermediate frequency of the heterodyne signal.
     Here, it is assumed that the probe beam and the reference beam
     vary weakly over the face of the detector element.
+    See Section~\ref{sec:DesignConsiderations:amplitude_noise:shot}
+    for more details.
   \item \emph{Amplifier noise} is characterized via a noise figure ($NF$),
     which quantifies the degradation in signal-to-noise ratio ($SNR$)
     after passing through the amplifier.
+    See Section~\ref{sec:DesignConsiderations:amplitude_noise:amplifier}
+    for more details.
   \item \emph{Quantization noise} is produced
     by the creation of a digital record.
     Assuming that the $I$ and $Q$ signals of a heterodyne interferometer
@@ -1966,6 +1979,8 @@ are summarized below:
     \end{equation}
     Here, it is assumed that the $I$ and $Q$ signals each fully occupy
     the digitizer's dynamic range $V_{\text{dyn}}$.
+    See Section~\ref{sec:DesignConsiderations:quantization}
+    for more details.
 \end{itemize}
 
 
