@@ -1885,6 +1885,8 @@ has been consulted.
       G(f)
       =
       8 \sin^2(\pi f \tau) \mathcal{L}_{\omega_0}(f),
+      \qquad
+      f \geq 0,
     \end{equation}
     where $\tau = L / c$ is the time delay
     associated with the optical path-length difference $L$
@@ -1897,16 +1899,60 @@ has been consulted.
       G(f)
       =
       8 \sin^2(\pi f \tau) \mathcal{L}_{\Delta \omega_0}(f),
+      \qquad
+      f \geq 0,
     \end{equation}
     where $\tau$ is the time required to couple the LO signal
     to the interferometer's Doppler-shifted beam.
+  \item \emph{Detector noise} near the intermediate frequency $\Delta f_0$
+    is demodulated and contaminates a heterodyne interferometer's measurements.
+    The one-sided autospectral density of the demodulated detector noise
+    (in angular units of $\SI{}{\radian\squared\per\Hz}$) is
+    \begin{equation}
+      G(f)
+      =
+      \frac{A}{P_P P_R (D^*)^2},
+      \qquad
+      0 \leq f \ll \Delta f_0,
+    \end{equation}
+    where $A$ is the area of the detector element,
+    $P_P$ is the optical power of the probe beam
+    impinging on the detector element,
+    $P_R$ is the optical power of the reference beam
+    impinging on the detector element,
+    and $D^*$ is the specific detectivity of the detector near $\Delta f_0$.
+    Here, it is assumed that the probe beam and the reference beam
+    vary weakly over the face of the detector element.
+  \item \emph{Shot noise} is demodulated and
+    contaminates a heterodyne interferometer's measurements.
+    The one-sided autospectral density of the demodulated shot noise
+    (in angular units of $\SI{}{\radian\squared\per\Hz}$) is
+    \begin{equation}
+      G(f)
+      =
+      2 h f_0 \left( \frac{P_P + P_R}{P_P P_R} \right),
+      \qquad
+      0 \leq f \ll \Delta f_0,
+    \end{equation}
+    where $h$ is the Planck constant,
+    $f_0$ is the frequency of the incident photons,
+    $P_P$ is the optical power of the probe beam
+    impinging on the detector element,
+    $P_R$ is the optical power of the reference beam
+    impinging on the detector element, and
+    $\Delta f_0$ is the intermediate frequency of the heterodyne signal.
+    Here, it is assumed that the probe beam and the reference beam
+    vary weakly over the face of the detector element.
+  \item \emph{Amplifier noise} is characterized via a noise figure ($NF$),
+    which quantifies the degradation in signal-to-noise ratio ($SNR$)
+    after passing through the amplifier.
   \item \emph{Quantization noise} is produced
     by the creation of a digital record.
     Assuming that the $I$ and $Q$ signals of a heterodyne interferometer
     are individually digitized with bit depth $N_b$ and
     sample rate $f_s$ (in \SI{}{\hertz}),
     the one-sided autospectral density of the total quantization noise
-    (in \SI{}{\radian\squared\per\hertz}) is
+    (in angular units of \SI{}{\radian\squared\per\hertz}) is
     \begin{equation}
       G(f)
       \approx
