@@ -23,7 +23,7 @@ affect the magnitude of the heterodyne signal and
 set the wavenumber response of the interferometer.
 Section~\ref{sec:DesignConsiderations:intensity}
 explores heterodyne measurements made
-beyond the saturation-intensity limit of a given detector.
+beyond the saturation intensity of a given detector.
 Sections~\ref{sec:DesignConsiderations:phase_noise} and
 \ref{sec:DesignConsiderations:amplitude_noise}
 reveal how phase noise and amplitude noise, respectively,
@@ -32,11 +32,14 @@ Section~\ref{sec:DesignConsiderations:demodulation}
 describes demodulation of the heterodyne interference signal and
 the distortion of the baseband phase signal
 that results from demodulator imperfections.
-Finally, Section~\ref{sec:DesignConsiderations:quantization}
+Section~\ref{sec:DesignConsiderations:quantization}
 discusses the signal quantization
 that necessarily occurs
 when generating a digital record.
-The below design considerations will be referenced extensively in
+Finally, for ease of reference,
+Section~\ref{sec:DesignConsiderations:summary}
+provides a concise summary of the discussed design considerations.
+These design considerations will be referenced extensively in
 Chapter~\ref{ch:Implementation}, which
 describes the addition of a heterodyne interferometer
 to the pre-existing phase contrast imaging (PCI) diagnostic
@@ -464,7 +467,7 @@ is imaged as $k_{\image} = k / M$
 in a magnification-$M$ imaging system,
 the corresponding object-plane finite sampling-volume wavenumber cutoff is
 \begin{equation}
-  k_{\text{fsv}} = \frac{2 \pi M}{s_x}.
+  k_{\text{fsv}} = \frac{2 \pi |M|}{s_x}.
   \label{eq:DesignConsiderations:finite_sampling_volume_cutoff}
 \end{equation}
 Now, as in Section~\ref{sec:InterferometricMethods:interferometry:heterodyne},
@@ -1274,8 +1277,8 @@ autospectral density of the amplifier noise in absolute units.
 
 \section{Demodulation}
 \label{sec:DesignConsiderations:demodulation}
-The heterodyne interferometer's IF signal must be demodulated
-in order to recover the baseband phase information.
+The heterodyne interferometer's intermediate frequency (IF) signal
+must be demodulated in order to recover the baseband phase information.
 Demodulation is typically described as an analog process
 in which the IF signal is \emph{mixed} with a local oscillator (LO), but
 demodulation can also be performed digitally
@@ -2027,18 +2030,18 @@ where
     \end{equation}
     is the normalized sinc function, and
     \begin{equation}
-      k_{\text{fsv}} = \frac{2 \pi M}{s_x}
+      k_{\text{fsv}} = \frac{2 \pi |M|}{s_x}
     \end{equation}
     is the first zero of $T_{\text{fsv}}(k)$.
-    Wavenumbers $k < k_{\text{fsv}}$ are measurable, while
-    wavenumbers $k \gtrsim k_{\text{fsv}}$ are not measurable.
+    Wavenumbers $|k| \lesssim k_{\text{fsv}}$ are measurable, while
+    wavenumbers $|k| \gtrsim k_{\text{fsv}}$ are not measurable.
     See Section~\ref{sec:DesignConsiderations:geometric:finite_sampling_volume}
     for more details.
     The finite sampling-volume effect is exploited
     in Chapter~\ref{ch:Implementation}
     to provide an overlap in the wavenumber sensitivities
-    of the pre-existing phase contrast imaging (PCI) system and
-    the newly installed heterodyne interferometer.
+    of \diiid's pre-existing phase contrast imaging (PCI) system and
+    its newly installed heterodyne interferometer.
 \end{itemize}
 
 
