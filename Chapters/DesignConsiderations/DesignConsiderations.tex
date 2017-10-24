@@ -206,27 +206,42 @@ waist 1/e $E$ radius $w_{0,j}$.
 If $z_R \neq z_{\image}$,
 the reference beam's waist sits at a different location
 than that of the unscattered probe beam.
-Under these circumstances, the heterodyne intensity becomes
+Under these circumstances and to first order in $\tilde{\phi}$,
+the heterodyne intensity (averaged over an optical cycle) becomes
 \begin{equation}
   \begin{aligned}
     I_{\text{het}}(\vect{r}_{\image}, z_R, t)
-    =
-    2 I_{G,P}(\vect{r}_{\image})
-    \bigl[%
-      &\alpha_{\text{DC}}
-      +
-      \alpha_{\text{AC}}
-      \cos(\Delta \omega_0 t + \bar{\phi}_{\text{eff}})
-      \\
-      &-
-      \alpha_{\text{AC}}
-      \tilde{\phi}(x_{\image}, t)
-      \sin(\Delta \omega_0 t + \bar{\phi}_{\text{eff}})
-    \bigr],
+    &=
+    I_{\text{DC}}
+    +
+    I_{\text{AC}}
+    \cos(\Delta \omega_0 t + \bar{\phi}_{\text{eff}})
+    \\
+    &\quad-
+    I_{\text{AC}}
+    \tilde{\phi}(x_{\image}, t)
+    \sin(\Delta \omega_0 t + \bar{\phi}_{\text{eff}}),
   \end{aligned}
   \label{eq:DesignConsiderations:heterodyne_intensity}
 \end{equation}
 where
+\begin{align}
+  I_{\text{DC}}
+  &=
+  I_{G,P}(\vect{r}_{\image}) + I_{G,R}(\vect{r}_R),
+  \\
+  I_{\text{AC}}
+  &=
+  2 \sqrt{I_{G,P}(\vect{r}_{\image}) \cdot I_{G,R}(\vect{r}_R)}
+\end{align}
+are the DC and AC components of the heterodyne intensity, respectively,
+\begin{equation}
+  I_{G,j}(\vect{r})
+  =
+  \frac{c \varepsilon_0 |E_{G,j}(\vect{r})|^2}{2}
+\end{equation}
+is the intensity profile (averaged over an optical cycle)
+of Gaussian beam $j \in \{P, R\}$,
 \begin{equation}
   \bar{\phi}_{\text{eff}}
   =
@@ -234,32 +249,14 @@ where
   +
   \bigl[ \phi_{G,P}(\vect{r}_{\image}) - \phi_{G,R}(\vect{r}_R) \bigr]
 \end{equation}
-is the effective bulk phase,
+is the effective bulk phase, and
 \begin{equation}
   \phi_{G,j}(\vect{r})
   =
   k_0 z + \frac{k_0 \rho^2}{2 R_j(z)} - \psi_j(z)
 \end{equation}
 is the phase of Gaussian beam $j \in \{P, R\}$
-(i.e.\ $E_{G,j}(\vect{r}) = |E_{G,j}(\vect{r})| e^{i \phi_{G,j}(\vect{r})}$),
-\begin{align}
-  \alpha_{\text{DC}}
-  &=
-  \frac{1 + \alpha_{\text{AC}}^2}{2},
-  \\
-  \alpha_{\text{AC}}
-  &=
-  \sqrt{\frac{I_{G,R}(\vect{r}_R)}{I_{G,P}(\vect{r}_{\image})}},
-\end{align}
-are geometric factors that describe the amplitudes
-of the DC and AC components of the heterodyne signal, and
-\begin{equation}
-  I_{G,j}(\vect{r})
-  =
-  \frac{c \varepsilon_0 |E_{G,j}(\vect{r})|^2}{2}
-\end{equation}
-is the intensity profile (averaged over an optical cycle)
-of Gaussian beam $j \in \{P, R\}$.
+(i.e.\ $E_{G,j}(\vect{r}) = |E_{G,j}(\vect{r})| e^{i \phi_{G,j}(\vect{r})}$).
 Note that (\ref{eq:DesignConsiderations:heterodyne_intensity})
 readily reduces to (\ref{eq:InterferometricMethods:heterodyne_intensity})
 if $E_{G,R}(\vect{r}_R) = E_{G,P}(\vect{r}_{\image})$.
@@ -275,10 +272,10 @@ one readily finds that
 the heterodyne interferometer's wavenumber transfer function
 (\ref{eq:InterferometricMethods:heterodyne_interferometer_wavenumber_transfer_function})
 should be multiplied by the factor
-$2 \alpha_{\text{AC}} / (\alpha_{\text{DC}} + \alpha_{\text{AC}})$.
+$2 I_{\text{AC}} / (I_{\text{DC}} + I_{\text{AC}})$.
 It is then easy to show that
 the transfer function is \emph{maximized} when
-$\alpha_{\text{DC}} = \alpha_{\text{AC}} = 1$,
+$I_{\text{DC}} = I_{\text{AC}}$,
 i.e.\ when the probe beam and reference beam
 have identical spatial structures and powers.
 Second, note that the effective bulk phase $\bar{\phi}_{\text{eff}}$
@@ -1950,7 +1947,7 @@ which are summarized below:
   =
   \frac{1}{\sqrt{2} \pi}
   \cdot
-  \frac{2 \alpha_{\text{AC}}}{\alpha_{\text{DC}} + \alpha_{\text{AC}}}
+  \frac{2 I_{\text{AC}}}{I_{\text{DC}} + I_{\text{AC}}}
   \cdot
   \frac{V_1}{V_1(I_{\text{max}} = I_{\text{sat}})}
   \cdot
