@@ -5,9 +5,10 @@ from distinct_colours import get_distinct
 
 
 # Plotting parameters
-fontsize = 16
-mpl.rcParams['xtick.labelsize'] = fontsize - 2
-mpl.rcParams['ytick.labelsize'] = fontsize - 2
+figsize = (8, 9.5)
+fontsize = 12
+# mpl.rcParams['xtick.labelsize'] = fontsize - 2
+# mpl.rcParams['ytick.labelsize'] = fontsize - 2
 linewidth = 2
 cols = get_distinct(3)
 # linestyles = ['-.', '--', '-']
@@ -92,7 +93,7 @@ class Demodulated(object):
 
 
 if __name__ == '__main__':
-    fig, axes = plt.subplots(4, 2, figsize=(10, 12))
+    fig, axes = plt.subplots(4, 2, figsize=figsize)
 
     IQ_lim = [-1.25, 1.25]
     IQ_xticks = np.array([-1, 0, 1])
@@ -240,7 +241,7 @@ if __name__ == '__main__':
     axes[3, 0].set_xticks(IQ_xticks)
     axes[3, 0].set_yticks(IQ_yticks)
 
-    axes[3, 1].set_xlabel(r'$\bar{\phi} \; [\mathrm{rad}]$', fontsize=fontsize)
+    axes[3, 1].set_xlabel('$\overline{\phi}$ [rad]', fontsize=fontsize)
     axes[3, 1].set_ylabel(
         r'$\delta\tilde{\phi} / \tilde{\phi}$', fontsize=fontsize)
     axes[3, 1].set_title('Effect of 3rd harmonic')

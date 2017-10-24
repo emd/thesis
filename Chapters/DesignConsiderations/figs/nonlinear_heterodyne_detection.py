@@ -9,10 +9,35 @@ from filter import fir
 import random_data as rd
 
 
+# Macroscopic properties of heterodyne signal
+fhet = 30e6  # [fhet] = Hz
+Imax = 10    # [Imax] = Isat
+
+# Sampling parameters
+Fs = 100 * fhet  # [Fs] = Hz
+T = 1e-3         # [T] = 1 / [Fs]
+
+# Properties of phase fluctuations
+broadband = {'Gxx1': 1e-10, 'fc': 250e3, 'pole': 1}
+coherent = {'ph0': 1e-2, 'f0': 16e6}
+
+# Spectral-estimation parameters
+Nreal_per_ens = 100
+
+# Saturation information
+saturation_type = [None, 'atan', 'hard']
+saturation_labels = [
+    'no saturation, linear',
+    'arctangent saturation',
+    'hard saturation'
+]
+
 # Plotting parameters
-fontsize = 16
-mpl.rcParams['xtick.labelsize'] = fontsize - 2
-mpl.rcParams['ytick.labelsize'] = fontsize - 2
+cols = get_distinct(len(saturation_type))
+figsize = (8, 9.5)
+fontsize = 12
+mpl.rcParams['xtick.labelsize'] = fontsize - 1
+mpl.rcParams['ytick.labelsize'] = fontsize - 1
 linewidth = 2
 
 
@@ -98,11 +123,12 @@ class Phase(object):
                  broadband={'Gxx1': 1e-10, 'fc': 100e3, 'pole': 1},
                  coherent={'ph0': 1e-3, 'f0': 200e3}):
         # Generate broadband signal
+        t0 = 0
         ph = rd.signals.RandomSignal(
-            Fs, T, fc=broadband['fc'], pole=broadband['pole'])
+            Fs, t0, T, fc=broadband['fc'], pole=broadband['pole'])
 
         self.Fs = Fs
-        self.T = ph.t[-1] - ph.t[0]
+        self.T = ph.t()[-1] - ph.t0
 
         # Normalize broadband to appropriate average spectral density
         asd = rd.spectra.AutoSpectralDensity(
@@ -112,7 +138,7 @@ class Phase(object):
         ph.x *= np.sqrt(broadband['Gxx1'] / asd.Gxx[1])
 
         # Generate coherent signal and add to broadband
-        ph.x += coherent['ph0'] * np.cos(2 * np.pi * coherent['f0'] * ph.t)
+        ph.x += coherent['ph0'] * np.cos(2 * np.pi * coherent['f0'] * ph.t())
 
         self.ph = ph.x
 
@@ -162,7 +188,8 @@ class HeterodyneSignals(object):
         self.ph_m = self.getDemodulatedPhase()
 
     def t(self):
-        return np.arange(self.t0, self.T, 1. / self.Fs)
+        dt = 1. / self.Fs
+        return np.arange(self.t0, self.T + dt, dt)
 
     def getIF(self):
         # Build up intensity piece by piece
@@ -240,10 +267,11 @@ def plot_detector_response_models(
 
     ax.set_xlabel(r'$I \; [I_{\mathrm{sat}}]$', fontsize=fontsize)
     ax.set_ylabel(r'$V(I) \, [V_{\mathrm{sat}}]$', fontsize=fontsize)
+    ax.set_xlim([I[0], I[-1]])
     ax.set_ylim([I[0], I[-1]])
     ax.set_title('detector saturation model')
 
-    ax.legend(labels, loc='upper left')
+    ax.legend(labels, loc='upper left', fontsize=fontsize)
 
     plt.show()
 
@@ -311,7 +339,7 @@ def plot_IF_spectra(sigs, Tens, Nreal_per_ens,
 
 
 def plot_baseband_spectra(sigs, Tens, Nreal_per_ens,
-                          flim=[10e6, 20e6], ax=None, col=get_distinct(1)):
+                          flim=[12e6, 18e6], ax=None, col=get_distinct(1)):
     flim = np.asarray(flim)
 
     asd = rd.spectra.AutoSpectralDensity(
@@ -347,29 +375,10 @@ def plot_baseband_spectra(sigs, Tens, Nreal_per_ens,
 
 
 if __name__ == '__main__':
-    fig, axes = plt.subplots(4, 1, figsize=(9, 12))
-    cols = get_distinct(3)
-
-    # Macroscopic properties of heterodyne signal
-    fhet = 30e6
-    Imax = 1
-
-    # Properties of phase fluctuations and spectral estimation parameters
-    Fs = 100 * fhet
-    T = 1e-3
-    Nreal_per_ens = 100
-    broadband = {'Gxx1': 1e-10, 'fc': 250e3, 'pole': 1}
-    coherent = {'ph0': 1e-2, 'f0': 16e6}
     ph = Phase(Fs, T, Nreal_per_ens, broadband=broadband, coherent=coherent)
     Tens = ph.T
 
-    # Saturation information
-    saturation_type = [None, 'atan', 'hard']
-    saturation_labels = [
-        'no saturation, linear',
-        'arctangent saturation',
-        'hard saturation'
-    ]
+    fig, axes = plt.subplots(4, 1, figsize=figsize)
 
     plot_detector_response_models(
         Isat=1., saturations=saturation_type, labels=saturation_labels,
@@ -391,7 +400,7 @@ if __name__ == '__main__':
 
         # Plot baseband spectra
         plot_baseband_spectra(sigs, Tens, Nreal_per_ens,
-                              flim=[10e6, 20e6], ax=axes[3], col=col)
+                              flim=[12e6, 18e6], ax=axes[3], col=col)
 
     plt.tight_layout()
 

@@ -26,7 +26,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
-     inkscape:cx="855.77598"
+     inkscape:cx="501.62479"
      inkscape:cy="258.1323"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -48,7 +48,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -1047,15 +1047,16 @@
          sodipodi:linespacing="125%"
          id="text5495"
          y="-0.62570715"
-         x="-281.39294"
+         x="-293.39294"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;line-height:125%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          xml:space="preserve"><tspan
            y="-0.62570715"
-           x="-281.39294"
+           x="-293.39294"
            id="tspan5497"
-           sodipodi:role="line"><tspan
+           sodipodi:role="line"
+           dx="0 0 0 0 0 0 1.5"><tspan
    id="tspan5541"
-   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:25px;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans Bold'">LO: </tspan>cos(Δω<tspan
+   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:25px;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans Bold'">LO:</tspan> ∝ cos(Δω<tspan
    id="tspan5838"
    style="font-size:64.99999762%;baseline-shift:sub">0</tspan>t)</tspan></text>
       <text

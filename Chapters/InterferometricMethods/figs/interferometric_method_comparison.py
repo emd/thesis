@@ -94,7 +94,7 @@ if __name__ == '__main__':
     plt.ylim([1e-2, 3e1])
 
     plt.xlabel('$k \; [1 /\, w_0]$', fontsize=fontsize)
-    plt.ylabel('$T(k)$', fontsize=fontsize)
+    plt.ylabel('$T(k)$ [unitless]', fontsize=fontsize)
     # plt.title('interferometric method transfer functions')
 
     plt.legend(loc='upper right')
