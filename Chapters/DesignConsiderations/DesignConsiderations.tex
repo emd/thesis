@@ -229,10 +229,12 @@ where
   I_{\text{DC}}
   &=
   I_{G,P}(\vect{r}_{\image}) + I_{G,R}(\vect{r}_R),
+  \label{eq:DesignConsiderations:I_DC}
   \\
   I_{\text{AC}}
   &=
   2 \sqrt{I_{G,P}(\vect{r}_{\image}) \cdot I_{G,R}(\vect{r}_R)}
+  \label{eq:DesignConsiderations:I_AC}
 \end{align}
 are the DC and AC components of the heterodyne intensity, respectively,
 \begin{equation}
@@ -1859,6 +1861,10 @@ has been utilized.
 
 \section{Summary}
 \label{sec:DesignConsiderations:summary}
+For ease of reference, this section provides a concise summary
+of the design considerations discussed in this chapter.
+If more details are desired regarding any given design consideration,
+the summary also points to the appropriate section in the text.
 
 
 \subsection{Geometric considerations}
@@ -1936,12 +1942,15 @@ which are summarized below:
     See Section~\ref{sec:DesignConsiderations:summary:wavenumber_transfer_function}
     for a summary of this effect;
     see Section~\ref{sec:DesignConsiderations:geometric:finite_sampling_volume}
-    for more details.
+    for additional details.
 \end{itemize}
 
 
 \subsection{Wavenumber transfer function}
 \label{sec:DesignConsiderations:summary:wavenumber_transfer_function}
+The heterodyne interferometer's basic wavenumber transfer function
+(derived in Chapter~\ref{ch:InterferometricMethods})
+is modified by several design decisions, becoming
 \begin{equation}
   T_{\text{het}}(k)
   =
@@ -1951,13 +1960,92 @@ which are summarized below:
   \cdot
   \frac{V_1}{V_1(I_{\text{max}} = I_{\text{sat}})}
   \cdot
-  T_{\text{fsv}}(k)
+  T_{\text{fsv}}(k),
 \end{equation}
+where
+\begin{itemize}
+  \item The first term $1 / (\sqrt{2} \cdot \pi)$
+    corresponds to the heterodyne interferometer's
+    basic wavenumber transfer function
+    (\ref{eq:InterferometricMethods:heterodyne_interferometer_wavenumber_transfer_function}).
+    See Section~\ref{sec:InterferometricMethods:interferometry:heterodyne}
+    for more details.
+  \item The second term $2 I_{\text{AC}} / (I_{\text{DC}} + I_{\text{AC}})$
+    specifies the ratio of peak-to-peak AC intensity to the maximum intensity
+    in the heterodyne interference signal, where
+    the DC intensity $I_{\text{DC}}$ is defined by
+    (\ref{eq:DesignConsiderations:I_DC}) and
+    the AC intensity $I_{\text{AC}}$ is defined by
+    (\ref{eq:DesignConsiderations:I_AC}).
+    This modification to the transfer function
+    is maximized when $I_{\text{DC}} = I_{\text{AC}}$, i.e.\
+    when there is full-depth modulation of the heterodyne intensity, which
+    occurs when the probe beam and reference beam
+    have identical spatial structures and powers.
+    See Section~\ref{sec:DesignConsiderations:geometric:beam_mismatch}
+    for more details.
+  \item The third term $V_1 / V_1(I_{\text{max}} = I_{\text{sat}})$
+    specifies the ratio of the realized amplitude (in volts) $V_1$
+    of the IF signal's fundamental harmonic
+    relative to the corresponding amplitude
+    $V_1(I_{\text{max}} = I_{\text{sat}})$
+    when the maximum incident intensity $I_{\text{max}}$
+    is scaled to the detector's saturation intensity $I_{\text{sat}}$
+    (the AC and DC fractions of the incident intensity
+    are \emph{not} altered during this scaling;
+    to account for changing the AC and DC fractions,
+    see the transfer function's second term,
+    $2 I_{\text{AC}} / (I_{\text{DC}} + I_{\text{AC}})$).
+    Thus, operation above the saturation intensity \emph{may} increase
+    the heterodyne interferometer's wavenumber transfer function
+    (i.e.\ if $V_1 > V_1(I_{\text{max}} = I_{\text{sat}})$, where
+    $V_1$ depends sensitively on the detector's saturation physics).
+    Similarly, operating below the saturation intensity will decrease
+    the heterodyne interferometer's wavenumber transfer function.
+    (i.e.\ $V_1 < V_1(I_{\text{max}} = I_{\text{sat}})$).
+    See Section~\ref{sec:DesignConsiderations:intensity}
+    for more details.
+  \item The fourth and final term $T_{\text{fsv}}(k)$
+    quantifies the effect of sampling the interfering radiation field
+    with detector elements of \emph{finite} size.
+    The output of each detector element
+    corresponds to the incident intensity
+    \emph{averaged} over the element's active area, and
+    this averaging acts as a low-pass filter in the spatial domain.
+    This is referred to as the \emph{finite sampling-volume effect}, and
+    a square detector of linear dimension $s_x$
+    placed in the image plane of a magnification $M$ imaging system
+    has the corresponding transfer function
+    \begin{equation}
+      T_{\text{fsv}}(k)
+      =
+      \sinc\left( \frac{k}{k_{\text{fsv}}} \right),
+    \end{equation}
+    where
+    \begin{equation}
+      \sinc(x) = \frac{\sin(\pi x)}{\pi x}
+    \end{equation}
+    is the normalized sinc function, and
+    \begin{equation}
+      k_{\text{fsv}} = \frac{2 \pi M}{s_x}
+    \end{equation}
+    is the first zero of $T_{\text{fsv}}(k)$.
+    Wavenumbers $k < k_{\text{fsv}}$ are measurable, while
+    wavenumbers $k \gtrsim k_{\text{fsv}}$ are not measurable.
+    See Section~\ref{sec:DesignConsiderations:geometric:finite_sampling_volume}
+    for more details.
+    The finite sampling-volume effect is exploited
+    in Chapter~\ref{ch:Implementation}
+    to provide an overlap in the wavenumber sensitivities
+    of the pre-existing phase contrast imaging (PCI) system and
+    the newly installed heterodyne interferometer.
+\end{itemize}
 
 
 \subsection{The measured phase}
 An absolute phase measurement $\phi_m$ is
-computed from the demodulated in-phase ($I$) and quadrature ($Q$) signals via
+computed from a heterodyne interferometer's
+demodulated in-phase ($I$) and quadrature ($Q$) signals via
 \begin{equation}
   \phi_m = \atantwo\left(Q, I\right),
 \end{equation}
