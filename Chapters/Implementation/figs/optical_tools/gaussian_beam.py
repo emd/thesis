@@ -78,3 +78,55 @@ class GaussianBeam(object):
     def zR(self):
         'Get Rayleigh range.'
         return np.imag(self.q)
+
+
+def w(z, w0, zR):
+    '''Gaussian beam 1/e E radius.
+
+    Parameters:
+    -----------
+    z - array_like, (`N`,)
+        The axial distance from the beam waist.
+        [z] = arbitrary units
+
+    w0 - float
+        1/e E radius of beam waist.
+        [w0] = [z]
+
+    zR - float
+        Rayleigh range of beam.
+        [zR] = [z]
+
+    Returns:
+    --------
+    w - array_like, (`N`,)
+        The beam 1/e E radius as a function of the axial distance `z`
+        from the beam waist.
+        [w] = [z]
+
+    '''
+    return w0 * np.sqrt(1 + ((z / zR) ** 2))
+
+
+def R(z, zR):
+    '''Gaussian beam radius of curvature.
+
+    Parameters:
+    -----------
+    z - array_like, (`N`,)
+        The axial distance from the beam waist.
+        [z] = arbitrary units
+
+    zR - float
+        Rayleigh range of beam.
+        [zR] = [z]
+
+    Returns:
+    --------
+    R - array_like, (`N`,)
+        The beam radius of curvature as a function of the axial distance `z`
+        from the beam waist.
+        [R] = [z]
+
+    '''
+    return z * (1 + ((zR / z) ** 2))
