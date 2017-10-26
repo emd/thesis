@@ -287,6 +287,98 @@ the signals are digitized with two of D-tAcq's ACQ216CPCI boards,
 typically at a sampling rate of $f_s = 4 \, \text{MSPS}$.
 
 
+\section{Optical layout}
+\subsection{Desired wavenumber response}
+\subsection{Robust operation in presence of vibrations $(C)$}
+\subsection{Sensitivity study}
+\begin{itemize}
+  \item ``Build-ability'',
+  \item $M$, magnification for wavenumber response,
+  \item $C$, for stability to FB, and
+  \item $\delta \phi_{\kappa}$
+\end{itemize}
+
+\section{Interferometer design study}
+
+
+\subsection{Expected noise}
+
+\begin{itemize}
+  \item Demodulated NEP from
+    (\ref{eq:DesignConsiderations:demodulated_NEP_spectral_density}) gives
+    $\sim \SI{e-18}{\watt\squared\per\hertz}$
+  \item Demodulated shot noise from
+    (\ref{eq:DesignConsiderations:demodulated_shot_noise_spectral_density})
+    gives $\sim \SI{e-21}{\watt\squared\per\hertz}$
+\end{itemize}
+
+
+\section{Interferometer component selection}
+\subsection{Acousto-optic modulator}
+\subsection{Imaging optics}
+\subsection{Detector}
+\subsection{Electronics}
+\begin{itemize}
+  \item Automatic gain-control amplifier
+  \item Analog I/Q demodulator
+  \item Low-frequency ``audio'' amplifiers
+\end{itemize}
+\subsection{Digitizer}
+\begin{itemize}
+  \item Bit noise
+\end{itemize}
+
+
+
+
+\section{Fighting phase noise}
+\subsection{Local oscillator stability}
+
+
+\section{Sound-wave calibration of combined PCI-interferometer}
+\subsection{Sound-wave characterization}
+\subsection{Measurements}
+\begin{itemize}
+  \item Wavenumber range
+  \item Cross calibration
+  \item System sensitivity
+\end{itemize}
+
+\begin{table}[ht]
+  \centering
+  \renewcommand{\arraystretch}{1.5}% Spread rows out...
+  \begin{tabular}{%
+    >{\centering}m{3.0cm} >{\centering}m{4.5cm} >{\centering}m{4.5cm}
+  }
+    \toprule%
+    \textbf{Parameter} & \textbf{PCI} & \textbf{Interferometer}
+    \tabularnewline%
+    \midrule
+    \textbf{probe beam} & single CO$_2$ beam & single CO$_2$ beam
+    \tabularnewline%
+    \textbf{frequency bandwidth}
+    & \SI{10}{\kilo\hertz} $ < f < $ \SI{2}{\mega\hertz}
+    & \SI{10}{\kilo\hertz} $ < f < $ \SI{2}{\mega\hertz}
+    \tabularnewline%
+    \textbf{spatial bandwidth}
+    & \SI{1.5}{\centi\meter}\ts{-1} $ < k < $ \SI{20}{\centi\meter}\ts{-1}
+    & \SI{0}{\centi\meter}\ts{-1} $ < k < $ \SI{5}{\centi\meter}\ts{-1}
+    \tabularnewline%
+    \toprule%
+  \end{tabular}
+  \caption[Parameters of \diiid's combined PCI-interferometer]{%
+    PCI and interferometry have compatible probe beams, comparable
+    frequency bandwidths, and \emph{complementary} spatial bandwidths.
+    All parameters are for DIII-D's currently implemented PCI--interferometer
+    system.
+  }%
+\label{table:Implementation:PCI_interferometer}
+\end{table}
+
+
+\section{Looking towards ITER\ldots}
+
+
 \section{Component replacement}
 Over the course of this work,
 several components crucial to the operation of the PCI
@@ -516,94 +608,6 @@ during e.g. plasma operations or high-temperature bakes of the vessel.
     before the resumption of plasma operations.}
 \label{fig:Implementation:in_vessel_mirrors}
 \end{figure}
-
-
-\section{Interferometer design study}
-
-
-\subsection{Expected noise}
-
-\begin{itemize}
-  \item Demodulated NEP from
-    (\ref{eq:DesignConsiderations:demodulated_NEP_spectral_density}) gives
-    $\sim \SI{e-18}{\watt\squared\per\hertz}$
-  \item Demodulated shot noise from
-    (\ref{eq:DesignConsiderations:demodulated_shot_noise_spectral_density})
-    gives $\sim \SI{e-21}{\watt\squared\per\hertz}$
-\end{itemize}
-
-
-\section{Interferometer component selection}
-\subsection{Acousto-optic modulator}
-\subsection{Imaging optics}
-\subsection{Detector}
-\subsection{Electronics}
-\begin{itemize}
-  \item Automatic gain-control amplifier
-  \item Analog I/Q demodulator
-  \item Low-frequency ``audio'' amplifiers
-\end{itemize}
-\subsection{Digitizer}
-\begin{itemize}
-  \item Bit noise
-\end{itemize}
-
-
-\section{Optical layout}
-\begin{itemize}
-  \item ``Build-ability'',
-  \item $M$, magnification for wavenumber response,
-  \item $C$, for stability to FB, and
-  \item $\delta \phi_{\kappa}$
-\end{itemize}
-
-
-\section{Fighting phase noise}
-\subsection{Local oscillator stability}
-
-
-\section{Sound-wave calibration of combined PCI-interferometer}
-\subsection{Sound-wave characterization}
-\subsection{Measurements}
-\begin{itemize}
-  \item Wavenumber range
-  \item Cross calibration
-  \item System sensitivity
-\end{itemize}
-
-\begin{table}[ht]
-  \centering
-  \renewcommand{\arraystretch}{1.5}% Spread rows out...
-  \begin{tabular}{%
-    >{\centering}m{3.0cm} >{\centering}m{4.5cm} >{\centering}m{4.5cm}
-  }
-    \toprule%
-    \textbf{Parameter} & \textbf{PCI} & \textbf{Interferometer}
-    \tabularnewline%
-    \midrule
-    \textbf{probe beam} & single CO$_2$ beam & single CO$_2$ beam
-    \tabularnewline%
-    \textbf{frequency bandwidth}
-    & \SI{10}{\kilo\hertz} $ < f < $ \SI{2}{\mega\hertz}
-    & \SI{10}{\kilo\hertz} $ < f < $ \SI{2}{\mega\hertz}
-    \tabularnewline%
-    \textbf{spatial bandwidth}
-    & \SI{1.5}{\centi\meter}\ts{-1} $ < k < $ \SI{20}{\centi\meter}\ts{-1}
-    & \SI{0}{\centi\meter}\ts{-1} $ < k < $ \SI{5}{\centi\meter}\ts{-1}
-    \tabularnewline%
-    \toprule%
-  \end{tabular}
-  \caption[Parameters of \diiid's combined PCI-interferometer]{%
-    PCI and interferometry have compatible probe beams, comparable
-    frequency bandwidths, and \emph{complementary} spatial bandwidths.
-    All parameters are for DIII-D's currently implemented PCI--interferometer
-    system.
-  }%
-\label{table:Implementation:PCI_interferometer}
-\end{table}
-
-
-\section{Looking towards ITER\ldots}
 
 
 \bibliographystyle{plainurl}
