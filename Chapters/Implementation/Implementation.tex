@@ -68,14 +68,14 @@ of the PCI beam are shown in
 Fig.~\ref{fig:Implementation:d3d_port_locations}.
 
 The PCI system's vertical beam path constrains
-which types of fluctuations it can and cannot detect.
-Namely, the PCI-measured power fluctuations
-(\ref{eq:InterferometricMethods:PCI_ratio_fluctuating_to_equilibrium_power})
+the types of fluctuations it can and cannot detect.
+Namely, the PCI-measured intensity fluctuations
+(\ref{eq:InterferometricMethods:pci_intensity})
 correspond to \emph{line-integrated} electron-density fluctuations, which
 are the physical origin of the phase fluctuations $\tilde{\phi}$ in
 (\ref{eq:InterferometricMethods:phase_fluctuation}).
 Because it is a line-integrated measurement,
-only fluctuations propagating perpendicular to the beam path can be detected,
+only fluctuations propagating perpendicular to the beam path are detected,
 as fluctuations propagating parallel to the beam path
 are effectively averaged out of the signal
 \graffito{\textcolor{red}{what about $\delta \omega$?}}
@@ -107,7 +107,7 @@ in the magnetic field's orientation along the beam path.
 These localization techniques typically work best
 for high-$k$ measurements.
 Note that $k_R$ is related to the
-often-theoretically-relevant poloidal wavenumber $k_{\theta}$ via
+theoretically relevant poloidal wavenumber $k_{\theta}$ via
 \begin{equation}
   k_R = k_{\theta} \csc[\alpha(R, z)],
   \label{eq:Implementation:kR_to_ktheta}
@@ -151,45 +151,42 @@ the free-space diffraction of the in-vessel probe beam.
 This constraint was derived both
 by examining the far-field overlap of the scattered and unscattered beams as in
 (\ref{eq:InterferometricMethods:kmin_for_far_field_beam_separation}) and
-by matching the spot size of the focused, unscattered beam
-on the phase plate with the width of the phase plate's groove as in
+by matching the focal-plane spot size of the unscattered beam
+with the width of the phase-plate groove as in
 (\ref{eq:InterferometricMethods:pci_kmin_physics}).
 Both approaches yield the identical constraint that
 $k_g^{\text{min}} = 2 / w_0$, where
 $w_0$ is the 1/e $E$ radius of the in-vessel probe beam.
-Capping aperture diffraction at acceptably small levels, however,
-yields constraint
-(\ref{eq:InterferometricMethods:aperture_radius_for_minimal_diffraction})
-on $w_0$.
-Now, after beam expansion and collimation,
-the smallest aperture prior to beam-plasma interaction
-is the $285^{\circ}$ R+2 port window,
-which has a diameter of $4"$.
-Thus, the beam expansion optics are configured to produce
-to produce the widest possible beam
+The maximum value of $w_0$ is set by the aperture diffraction criterion
+(\ref{eq:DesignConsiderations:summary:aperture_radius_for_minimal_diffraction}).
+After beam expansion and collimation,
+the $4"$-diameter $285^{\circ}$ R+2 port window
+is the smallest aperture seen by the beam
+prior to its interaction with the plasma.
+To satisfy the aperture diffraction criterion
+(\ref{eq:DesignConsiderations:summary:aperture_radius_for_minimal_diffraction})
+with this $4"$-diameter window,
+the expansion optics are configured to produce a collimated beam with
+$w_0 = 4/3" \approx \SI{3.4}{\centi\meter}$,
+corresponding to
 \begin{equation}
-  w_0 = 4/3" \approx \SI{3.4}{\centi\meter}
-\end{equation}
-and the smallest physical constraint on the PCI low-$k$ cutoff
-\begin{equation}
-  k_g^{\text{min}} \approx \SI{0.6}{\per\centi\meter}
+  k_g^{\text{min}} \approx \SI{0.6}{\per\centi\meter}.
   \label{eq:Implementation:kg_min}
 \end{equation}
-while introducing negligible aperture diffraction.
 
 PCI's \emph{realized} low-$k$ cutoff, however,
 is typically $\sim 2-3 \times$ larger than
 the diffraction-limited $k_g^{\text{min}}$.
-This occurs if the width of the phase-plate groove
-is oversized relative to the focused, unscattered beam spot, and
-the realized low-$k$ cutoff is given by
+This occurs if the width of the phase-plate groove is oversized
+relative to the unscattered beam's focal-plane spot size.
+In such situations the realized low-$k$ cutoff is given by
 (\ref{eq:InterferometricMethods:pci_kmin_engineering}).
 Despite sacrificing some of the system's low-$k$ range,
 operating with an oversized phase-groove width can be advantageous
 on large, vibration-prone fusion experiments.
 To see this, recall that the phase groove typically reflects
 only a fraction $\eta < 1$ of the incident unscattered beam power
-(the forward-facing surface of the \diiid \space phase-plate groove
+(the forward-facing surface of the \diiid\space phase-plate groove
 is uncoated ZnSe, which has $\eta = 0.17$ at $\SI{10.6}{\micro\meter}$);
 if vibration-induced misalignments
 push the unscattered beam out of the phase groove,
@@ -200,20 +197,14 @@ While \diiid's PCI system has an elaborate feedback control system
 that dynamically centers the unscattered beam on the phase-plate groove
 \cite[Sec.~3.5]{coda_phd},
 operating with an oversized phase-groove width
-increases the size of the ``targeted'' operating space,
-effectively giving the feedback system some leeway.
-As such, the groove width of the \diiid \space phase plate is
-\begin{equation}
-  d = \SI{1}{\milli\meter},
-\end{equation}
-and the scattered beams are focused onto the phase plate by
+gives the feedback system some leeway.
+As such, the groove width of the \diiid\space phase plate is
+$d = \SI{1}{\milli\meter}$, and
+the scattered beams are focused onto the phase plate by
 an off-axis parabolic mirror of focal length
-\begin{equation}
-  f = 80.7"
-\end{equation}
-such that the realized low-$k$ cutoff
+$f = 80.7"$ such that the realized low-$k$ cutoff
 (\ref{eq:InterferometricMethods:pci_kmin_engineering})
-becomes
+is
 \begin{equation}
   k_g \approx \SI{1.5}{\per\centi\meter},
 \end{equation}
@@ -221,14 +212,10 @@ approximately $2.5 \times$ larger than
 the diffraction-limited minimum in (\ref{eq:Implementation:kg_min}).
 
 PCI's high-$k$ limits are dictated by
-finite-sized collection optics and system magnification.
-The \diiid \space phase plate has a diameter
-\begin{equation}
-  D = 2"
-\end{equation}
+finite collection-optic size and system magnification.
+The \diiid\space phase plate has a diameter $D = 2"$
 such that the phase plate's high-$k$ cutoff
-(\ref{eq:InterferometricMethods:pci_kmax_engineering})
-is
+(\ref{eq:InterferometricMethods:pci_kmax_engineering}) is
 \begin{equation}
   k_D \approx \SI{75}{\per\centi\meter}.
 \end{equation}
@@ -245,19 +232,14 @@ to reach the PCI detector.
 Upon reaching the detector,
 the measured PCI signal is subject to finite sampling-volume effects,
 which result from spatial averaging over the face of a detector element.
-The PCI's 32-element, 1-dimensional detector array have elements
-of height $\SI{1}{\milli\meter}$, width
-\begin{equation}
-  s_x^{\text{pci}} = \SI{0.5}{\milli\meter},
-\end{equation}
-and center-to-center element spacing of $\SI{0.55}{\milli\meter}$.
-Coupled with the system's magnification
+The PCI's 32-element, 1-dimensional detector array has elements
+of height $\SI{1}{\milli\meter}$,
+width $s_x^{\text{pci}} = \SI{0.5}{\milli\meter}$, and
+center-to-center element spacing of $\SI{0.55}{\milli\meter}$.
 \graffito{\textcolor{red}{Correct? Sign?}}
-\begin{equation}
-  |M^{\text{pci}}| \approx 0.5,
-\end{equation}
+Coupled with the system's magnification $|M^{\text{pci}}| \approx 0.5$,
 the finite sampling-volume cutoff
-(\ref{eq:InterferometricMethods:finite_sampling_volume_cutoff})
+(\ref{eq:DesignConsiderations:finite_sampling_volume_cutoff})
 of the PCI is
 \begin{equation}
   k_{\text{fsv}}^{\text{pci}} \approx \SI{63}{\per\centi\meter}.
