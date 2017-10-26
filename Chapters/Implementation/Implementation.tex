@@ -232,6 +232,7 @@ such that the phase plate's high-$k$ cutoff
 (\ref{eq:InterferometricMethods:pci_kmax_engineering}) is
 \begin{equation}
   k_D \approx \SI{75}{\per\centi\meter}.
+  \label{eq:Implementation:kD}
 \end{equation}
 Although the $5"$ diameter $285^{\circ}$ R-2 exit window and
 the subsequent $12"$ diameter steering mirrors
@@ -257,6 +258,7 @@ the finite sampling-volume cutoff
 of the PCI is
 \begin{equation}
   k_{\text{fsv}}^{\text{pci}} \approx \SI{63}{\per\centi\meter}.
+  \label{eq:Implementation:kfsv_pci}
 \end{equation}
 
 
@@ -301,8 +303,75 @@ the signals are digitized with two of D-tAcq's ACQ216CPCI boards,
 typically at a sampling rate of $f_s = 4 \, \text{MSPS}$.
 
 
-\section{Heterodyne interferometer optical layout}
-\subsection{Desired wavenumber response}
+\section{Optical layout of heterodyne interferometer}
+
+
+\subsection{Desired spatial bandwidth}
+Because of its external reference beam, a heterodyne interferometer
+has a minimum detectable wavenumber of $k = 0$.
+This ability to detect fluctuations
+below the PCI low-$k$ cutoff (\ref{eq:Implementation:kg_realized})
+was one of the primary motivations
+for the addition of a heterodyne interferometer
+to \diiid's pre-existing PCI system.
+Assuming negligible aperture diffraction
+(criterion (\ref{eq:DesignConsiderations:summary:aperture_radius_for_minimal_diffraction})),
+finite sampling-volume effects govern the wavenumber dependence
+of a heterodyne interferometer's transfer function
+(\ref{eq:DesignConsiderations:summary:heterodyne_interferometer_wavenumber_transfer_function}),
+producing the finite sampling-volume, high-$k$ cutoff
+(\ref{eq:DesignConsiderations:summary:finite_sampling_volume_cutoff}).
+Through careful selection of
+the linear size $s_x$ of the detector element
+and the magnification $M$ of the imaging system,
+this high-$k$ cutoff can be engineered
+to provide any desired degree of overlap
+with the PCI wavenumber domain.
+Producing a reasonable degree of overlap with the PCI and
+ensuring that the finite sampling-volume effect
+(rather than aperture diffraction)
+governs the high-$k$ response
+leads naturally to the design point for
+the heterodyne interferometer's finite sampling-volume cutoff
+\begin{equation}
+  k_{\text{fsv}}^{\text{het}} = \SI{5}{\per\centi\meter}.
+  \label{eq:Implementation:kfsv_interferometer_design}
+\end{equation}
+The heterodyne interferometer's desired transfer function
+relative to the pre-existing PCI's transfer function is shown in
+Fig.~\ref{fig:Implementation:transfer_function_comparison}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/Implementation/figs/transfer_function_comparison.pdf}
+  \caption[Design-point wavenumber transfer functions of combined PCI-interferometer]{%
+    The design-point wavenumber transfer function
+    of the heterodyne interferometer relative to
+    that of the pre-existing PCI system.
+    The heterodyne interferometer can detect fluctuations from
+    $k = 0$ up to its finite sampling-volume cutoff
+    (\ref{eq:Implementation:kfsv_interferometer_design}).
+    The vertical, dashed lines indicate
+    the low-$k$ cutoff of the PCI phase-plate groove,
+    $k_g$ from (\ref{eq:Implementation:kg_realized});
+    the phase-plate high-$k$ cutoff (\ref{eq:Implementation:kD}) and
+    the PCI finite sampling-volume cutoff (\ref{eq:Implementation:kfsv_pci})
+    are sufficiently large to negligibly affect the PCI transfer function
+    over the depicted wavenumber domain.
+    The reflectivity of the PCI phase groove is $\eta = 0.17$.
+    Because the PCI transfer function is not defined for $|k| \lesssim k_g$,
+    the low-$k$ PCI amplitude response
+    (\ref{eq:InterferometricMethods:PCI_amplitude_response})
+    is indicated by the dash-dot curves instead.
+    The depicted transfer functions should be compared
+    to those without finite sampling-volume effects in
+    Fig.~\ref{fig:InterferometricMethods:interferometric_method_transfer_functions}.
+  }
+\label{fig:Implementation:transfer_function_comparison}
+\end{figure}
+
+
 \subsection{Detector size}
 \begin{itemize}
   \item $k_{\text{fsv}}$ increases as $s_x$ decreases
@@ -312,7 +381,11 @@ typically at a sampling rate of $f_s = 4 \, \text{MSPS}$.
   \item Given probe arm intensity easier to achieve with given $M$
     for a smaller $s_x$
 \end{itemize}
+
+
 \subsection{Robust operation in presence of vibrations $(C)$}
+
+
 \subsection{Sensitivity study}
 \begin{itemize}
   \item ``Build-ability'',
@@ -320,6 +393,7 @@ typically at a sampling rate of $f_s = 4 \, \text{MSPS}$.
   \item $C$, for stability to FB, and
   \item $\delta \phi_{\kappa}$
 \end{itemize}
+
 
 \section{Interferometer design study}
 
