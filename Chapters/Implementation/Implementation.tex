@@ -207,9 +207,23 @@ $f = 80.7"$ such that the realized low-$k$ cutoff
 is
 \begin{equation}
   k_g \approx \SI{1.5}{\per\centi\meter},
+  \label{eq:Implementation:kg_realized}
 \end{equation}
 approximately $2.5 \times$ larger than
 the diffraction-limited minimum in (\ref{eq:Implementation:kg_min}).
+Now, for a $\SI{2}{\tesla}$ magnetic field and
+a $\SI{1}{\kilo\eV}$ temperature typical of \diiid's pedestal,
+a deuteron has a gyroradius $\rho_i \approx \SI{0.3}{\centi\meter}$;
+assuming that the PCI beam and the local flux surface
+intersect at an angle $\alpha \sim 45^{\circ}$,
+(\ref{eq:Implementation:kg_realized})
+corresponds to detection of fluctuations from the pedestal with
+$k_{\theta} \rho \gtrsim 0.25$.
+The higher-temperature core has larger $\rho_i$ but
+also typically has smaller $\alpha$, so
+the corresponding $k_{\theta} \rho_i$ cutoff in the core
+depends on the details
+of the temperature profile and the magnetic equilibrium.
 
 PCI's high-$k$ limits are dictated by
 finite collection-optic size and system magnification.
@@ -287,8 +301,17 @@ the signals are digitized with two of D-tAcq's ACQ216CPCI boards,
 typically at a sampling rate of $f_s = 4 \, \text{MSPS}$.
 
 
-\section{Optical layout}
+\section{Heterodyne interferometer optical layout}
 \subsection{Desired wavenumber response}
+\subsection{Detector size}
+\begin{itemize}
+  \item $k_{\text{fsv}}$ increases as $s_x$ decreases
+  \item Curvature criterion easier to satisfy with smaller $s_x$
+  \item Coalignment criterion easier to satisfy with smaller $s_x$
+  \item Beam varies weakly over detector easier to satisfy with smaller $s_x$
+  \item Given probe arm intensity easier to achieve with given $M$
+    for a smaller $s_x$
+\end{itemize}
 \subsection{Robust operation in presence of vibrations $(C)$}
 \subsection{Sensitivity study}
 \begin{itemize}
