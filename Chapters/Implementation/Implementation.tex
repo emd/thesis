@@ -441,14 +441,78 @@ that dynamically centers the unscattered beam on the phase-plate groove
 \cite[Sec.~3.5]{coda_phd}.
 Coda has extensively characterized the effect of this feedback system
 on the lateral position of the PCI image~\cite[Sec.~3.5(f)]{coda_phd}.
-The section builds on Coda's discussion to examine
+The section builds on Coda's analysis by discussing
 the effect of the feedback system on the misalignment angle $\theta$
-between the unscattered probe beam and the nominal optical axis
-at the image plane.
-It is then shown that, for certain imaging systems,
-the pre-existing PCI feedback system can also be used
-to satisfy the heterodyne interferometer's coalignment constraint
-(\ref{eq:DesignConsiderations:summary:coalignment_constraint}).
+between the unscattered probe beam and the image-plane optical axis.
+It readily follows from this discussion that,
+for certain imaging systems,
+the pre-existing PCI feedback system can also maintain
+the heterodyne interferometer's coalignment constraint
+(\ref{eq:DesignConsiderations:summary:coalignment_constraint})
+in the presence of machine vibrations.
+
+\begin{itemize}
+  \item Rays in an imaging system
+  \item Geometric optics limit
+  \item No feedback
+  \item Feedback
+\end{itemize}
+
+First, consider the situation without feedback.
+Let the probe beam propagate a distance $s$
+from the plasma midplane to a focusing element with focal length $f$, and
+let the focused beam come to a waist a distance $s'$ from the focusing element.
+\graffito{\textcolor{red}{Change notation away from $s$?}}
+Now, if a single mirror, located a distance $d$ upstream
+from the focusing element,
+is titled away from its nominal position (e.g.\ from machine vibrations)
+such that the beam is deflected by angle $\varphi_1$
+away from the nominal optical axis,
+\graffito{\textcolor{red}{Change notation away from $\varphi_1$?}}
+the realized beam path will be as indicated by the solid line in
+Fig.~\ref{fig:Implementation:feedback_effects}(a).
+The beam's focal-plane position and orientation
+would correspond to the ``effective'' beam path
+\emph{if} the mirror was \emph{not} tilted;
+it is this effective beam path that is imaged
+by the imaging optics.
+Clearly, without feedback, a tilted mirror
+leads to errors in both the imaged beam's position and orientation.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/Implementation/figs/feedback_effects.pdf}
+  \caption[Effective probe-beam paths with and without focal-plane feedback]{%
+    Effect of tilted mirror (a) without feedback and (b) with feedback
+    on the actual and effective paths of a Gaussian beam's center.
+  }
+\label{fig:Implementation:feedback_effects}
+\end{figure}
+
+Now, add a steering mirror a distance $d'$ downstream of the focusing element.
+This steering mirror is tasked with compensating for the titled mirror
+by returning the beam's focal-plane position to the nominal optical axis,
+as shown in Fig.~\ref{fig:Implementation:feedback_effects}(b).
+The beam's focal-plane position and orientation
+would then correspond to the ``effective'' beam path
+\emph{if} the tilted mirror and steering mirror
+were returned to their nominal positions;
+it is this effective beam path that is imaged
+by the imaging optics.
+In the geometric-optics limit of a collimated beam
+($s \rightarrow \infty$, $(z_R / f) \rightarrow 0$),
+the waist of the focused beam occurs
+exactly at the lens's focal plane (i.e.\ $s' = f$).
+The effective beam path, then,
+is a straight line from the focusing element to the focal plane;
+thus, upstream of the focusing element,
+the effective beam path is displaced from but \emph{parallel}
+to the nominal optical axis.
+If $(z_R / f) \neq 0$, higher-order effects
+will introduce an angular deviation between
+the effective beam path and the nominal optical axis
+upstream of the focusing element.
 
 
 \subsection{Sensitivity study}
