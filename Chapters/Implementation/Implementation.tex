@@ -319,12 +319,12 @@ Assuming negligible aperture diffraction
 finite sampling-volume effects govern the wavenumber dependence
 of a heterodyne interferometer's transfer function
 (\ref{eq:DesignConsiderations:summary:heterodyne_interferometer_wavenumber_transfer_function}),
-producing the finite sampling-volume, high-$k$ cutoff
+producing the finite sampling-volume cutoff
 (\ref{eq:DesignConsiderations:summary:finite_sampling_volume_cutoff}).
-Through careful selection of
+Through careful selection of both
 the linear size $s_x$ of the detector element
 and the magnification $M$ of the imaging system,
-this high-$k$ cutoff can be engineered
+the finite sampling-volume cutoff can be engineered
 to provide any desired degree of overlap
 with the PCI wavenumber domain.
 Producing a reasonable degree of overlap with the PCI and
@@ -338,7 +338,7 @@ the heterodyne interferometer's finite sampling-volume cutoff
   \label{eq:Implementation:kfsv_interferometer_design}
 \end{equation}
 The heterodyne interferometer's desired transfer function
-relative to the pre-existing PCI's transfer function is shown in
+is shown relative to the pre-existing PCI's transfer function in
 Fig.~\ref{fig:Implementation:transfer_function_comparison}.
 
 \begin{figure}
@@ -386,8 +386,8 @@ the beam-coalignment constraint
 (\ref{eq:DesignConsiderations:summary:coalignment_constraint}) and
 the curvature-matching constraint
 (\ref{eq:DesignConsiderations:summary:radii_of_curvature_matching}).
-It is also interesting to examine how detector noise and shot noise
-vary with $s_x$ but fixed $M / s_x$.
+The variation of detector noise and shot noise
+with $s_x$ (but fixed $M / s_x$) can also be examined.
 \graffito{\textcolor{red}{Why make this assumption?}}
 To proceed, assume that the interferometer image plane
 sits in the corresponding Rayleigh range
@@ -412,20 +412,43 @@ The one-sided autospectral density
 of the demodulated shot noise
 (\ref{eq:DesignConsiderations:summary:shot_noise_autospectral_density})
 is, in general, a function of the element size;
-in the extreme $P_R \gg P_P$
-the spectral density is \emph{independent} of the element size, while
+in the extreme $P_R \gg P_P$,
+the spectral density is \emph{independent} of the element size;
 in the opposite extreme $P_R \ll P_P$,
 the spectral density varies inversely with element area $A$.
+In light of the above considerations,
+a square detector element of intermediate linear size
+\begin{equation}
+  s_x = \SI{1}{\milli\meter}
+  \label{eq:Implementation:detector_size}
+\end{equation}
+was chosen.
+Referencing the definition of the finite sampling-volume cutoff
+(\ref{eq:DesignConsiderations:summary:finite_sampling_volume_cutoff}) and
+the interferometer's corresponding design point
+(\ref{eq:Implementation:kfsv_interferometer_design}),
+it naturally follows that the interferometer imaging system
+must have magnification
+\begin{equation}
+  |M| = 0.08.
+  \label{eq:Implementation:magnification_interferometer_design}
+\end{equation}
 
 
-
-\begin{itemize}
-  \item What size element is chosen? And what magnification is required?
-  \item Reword above arguments to be clearer
-\end{itemize}
-
-
-\subsection{Robust operation in presence of vibrations $(C)$}
+\subsection{Beam coalignment in presence of machine vibrations}
+\diiid's PCI system has an elaborate feedback control system
+that dynamically centers the unscattered beam on the phase-plate groove
+\cite[Sec.~3.5]{coda_phd}.
+Coda has extensively characterized the effect of this feedback system
+on the lateral position of the PCI image~\cite[Sec.~3.5(f)]{coda_phd}.
+The section builds on Coda's discussion to examine
+the effect of the feedback system on the misalignment angle $\theta$
+between the unscattered probe beam and the nominal optical axis
+at the image plane.
+It is then shown that, for certain imaging systems,
+the pre-existing PCI feedback system can also be used
+to satisfy the heterodyne interferometer's coalignment constraint
+(\ref{eq:DesignConsiderations:summary:coalignment_constraint}).
 
 
 \subsection{Sensitivity study}
