@@ -372,14 +372,56 @@ Fig.~\ref{fig:Implementation:transfer_function_comparison}.
 \end{figure}
 
 
-\subsection{Detector size}
+\subsection{Detector-element size}
+The heterodyne interferometer's design-point finite sampling-volume cutoff
+(\ref{eq:Implementation:kfsv_interferometer_design})
+fixes the ratio
+of the imaging system's (absolute) magnification $|M|$
+to the detector element's linear size $s_x$.
+Commercially available detector elements for use at $\SI{10.6}{\micro\meter}$
+range in linear size from fractions of a millimeter
+to several millimeters~\cite{vigo_catalog}.
+Smaller linear element size $s_x$ eases both
+the beam-coalignment constraint
+(\ref{eq:DesignConsiderations:summary:coalignment_constraint}) and
+the curvature-matching constraint
+(\ref{eq:DesignConsiderations:summary:radii_of_curvature_matching}).
+It is also interesting to examine how detector noise and shot noise
+vary with $s_x$ but fixed $M / s_x$.
+\graffito{\textcolor{red}{Why make this assumption?}}
+To proceed, assume that the interferometer image plane
+sits in the corresponding Rayleigh range
+(i.e.\ $|z_{\image}| \ll z_R$) such that
+$w(z_{\image}) \approx |M| w_{\object}$, where
+$w(z_{\image})$ is the 1/e $E$ radius of the probe beam at the image plane, and
+$w_{\object}$ is the 1/e $E$ radius of the probe beam at the object plane.
+The optical power of the probe beam impinging on the detector element is
+a function of $s_x / w(z_{\image})$, i.e.\
+$P_P = P_P(s_x / w(z_{\image})) \approx P_P(s_x / (|M| w_{\object}))$;
+because $M / s_x$ is fixed by the design-point finite sampling-volume cutoff
+(\ref{eq:Implementation:kfsv_interferometer_design}),
+$P_P$ is also approximately fixed.
+The optical power in the reference beam impinging on the detector element,
+however, is independent of the magnification and
+proportional to the element area $A$, i.e.\ $P_R \propto A$.
+Thus, the one-sided autospectral density
+of the demodulated detector noise
+(\ref{eq:DesignConsiderations:summary:detector_noise_autospectral_density})
+is \emph{independent} of the element size.
+The one-sided autospectral density
+of the demodulated shot noise
+(\ref{eq:DesignConsiderations:summary:shot_noise_autospectral_density})
+is, in general, a function of the element size;
+in the extreme $P_R \gg P_P$
+the spectral density is \emph{independent} of the element size, while
+in the opposite extreme $P_R \ll P_P$,
+the spectral density varies inversely with element area $A$.
+
+
+
 \begin{itemize}
-  \item $k_{\text{fsv}}$ increases as $s_x$ decreases
-  \item Curvature criterion easier to satisfy with smaller $s_x$
-  \item Coalignment criterion easier to satisfy with smaller $s_x$
-  \item Beam varies weakly over detector easier to satisfy with smaller $s_x$
-  \item Given probe arm intensity easier to achieve with given $M$
-    for a smaller $s_x$
+  \item What size element is chosen? And what magnification is required?
+  \item Reword above arguments to be clearer
 \end{itemize}
 
 
