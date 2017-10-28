@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.colors import Normalize
 
 from ABCD_matrices import prop, lens
 from geometric_optics import image_distance
@@ -20,13 +21,31 @@ z_L1L2_choices = np.arange(             # [z_L1L2_choices] = m
     15 * in2m, (30 * in2m) + dz, dz)
 
 # Plot parameters
-cmap = 'viridis'
+cmap_sequential = 'viridis'
+cmap_diverging = 'RdBu'
 cbar_orientation = 'vertical'
 fontsize = 12
 
 # Additional parameters
 w0 = 1.25e-3  # 1/e E radius at laser source, [w0] = m
 s = 1e-3      # detector side length, [s] = m
+
+
+# Helper class for creating a diverging colormap with asymmetric limits;
+# taken from Joe Kington at:
+#
+#   https://stackoverflow.com/a/20146989/5469497
+#
+class MidpointNormalize(Normalize):
+    def __init__(self, vmin=None, vmax=None, midpoint=None, clip=False):
+        self.midpoint = midpoint
+        Normalize.__init__(self, vmin, vmax, clip)
+
+    def __call__(self, value, clip=None):
+        # I'm ignoring masked values and all kinds of edge cases to make a
+        # simple example...
+        x, y = [self.vmin, self.midpoint, self.vmax], [0, 0.5, 1]
+        return np.ma.masked_array(np.interp(value, x, y))
 
 
 if __name__ == '__main__':
@@ -79,14 +98,14 @@ if __name__ == '__main__':
     levels00 = np.arange(10, 20 + level_spacing00, level_spacing00)
     C00 = axes[0, 0].contourf(
         z_P2L1_choices / in2m, z_L1L2_choices / in2m, z_L2det.T / in2m,
-        levels00, cmap=cmap)
+        levels00, cmap=cmap_sequential)
     cb00 = plt.colorbar(C00, ax=axes[0, 0], orientation=cbar_orientation)
     cb00.set_ticks(levels00[::2])
     axes[0, 0].set_ylabel(
-        r'$z_{\mathrm{L1, L2}} \, [\mathrm{in}]$',
+        r'$d_{\mathrm{L1, L2}} \, [\mathrm{in}]$',
         fontsize=fontsize)
     axes[0, 0].set_title(
-        r'$z_{L2,\mathrm{det}} \, [\mathrm{in}]$',
+        r'$d_{L2,\mathrm{det}} \, [\mathrm{in}]$',
         fontsize=fontsize)
 
     # Magnification
@@ -94,7 +113,7 @@ if __name__ == '__main__':
     levels01 = np.arange(0.06, 0.139 + level_spacing01, level_spacing01)
     C01 = axes[0, 1].contourf(
         z_P2L1_choices / in2m, z_L1L2_choices / in2m, M.T,
-        levels01, cmap=cmap)
+        levels01, cmap=cmap_sequential)
     cb01 = plt.colorbar(C01, ax=axes[0, 1], orientation=cbar_orientation)
     cb01.set_ticks(levels01[::2])
     axes[0, 1].set_title(
@@ -104,16 +123,17 @@ if __name__ == '__main__':
     # C of ABCD ray matrix
     level_spacing10 = 0.25
     levels10 = np.arange(-1.5, 0.5 + level_spacing10, level_spacing10)
+    norm = MidpointNormalize(midpoint=0)
     C10 = axes[1, 0].contourf(
         z_P2L1_choices / in2m, z_L1L2_choices / in2m, C.T,
-        levels10, cmap=cmap)
+        levels10, cmap=cmap_diverging, norm=norm)
     cb10 = plt.colorbar(C10, ax=axes[1, 0], orientation=cbar_orientation)
     cb10.set_ticks(levels10[::2])
     axes[1, 0].set_xlabel(
-        r'$z_{\mathrm{P2, L1}} \, [\mathrm{in}]$',
+        r'$d_{\mathrm{P2, L1}} \, [\mathrm{in}]$',
         fontsize=fontsize)
     axes[1, 0].set_ylabel(
-        r'$z_{\mathrm{L1, L2}} \, [\mathrm{in}]$',
+        r'$d_{\mathrm{L1, L2}} \, [\mathrm{in}]$',
         fontsize=fontsize)
     axes[1, 0].set_title(
         r'$C \; [\mathrm{m}^{-1}]$',
@@ -125,11 +145,11 @@ if __name__ == '__main__':
     C11 = axes[1, 1].contourf(
         z_P2L1_choices / in2m, z_L1L2_choices / in2m, dphi_kappa.T,
         levels11,
-        cmap=cmap)
+        cmap=cmap_sequential)
     cb11 = plt.colorbar(C11, ax=axes[1, 1], orientation=cbar_orientation)
     cb10.set_ticks(levels10[::2])
     axes[1, 1].set_xlabel(
-        r'$z_{\mathrm{P2, L1}} \, [\mathrm{in}]$',
+        r'$d_{\mathrm{P2, L1}} \, [\mathrm{in}]$',
         fontsize=fontsize)
     axes[1, 1].set_title(
         r'$\mathrm{max}(\delta \phi_{\kappa}) \; [\mathrm{rad}]$',
