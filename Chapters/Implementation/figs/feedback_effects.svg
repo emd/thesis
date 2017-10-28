@@ -302,7 +302,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.59393228"
-     inkscape:cx="364.11079"
+     inkscape:cx="263.08917"
      inkscape:cy="364.46578"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -324,7 +324,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -402,15 +402,15 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:125%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="271.65988"
-       y="418.84125"
+       x="275.65988"
+       y="419.15756"
        id="text9447"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan9449"
-         x="271.65988"
-         y="418.84125"
-         style="font-style:oblique;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans Oblique'">φ<tspan
+         x="275.65988"
+         y="419.15756"
+         style="font-style:oblique;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans Oblique'">β<tspan
    style="font-style:oblique;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:64.99999762%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans Oblique';baseline-shift:sub"
    id="tspan9451">1</tspan></tspan></text>
     <g
@@ -488,15 +488,15 @@
       <text
          xml:space="preserve"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:125%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         x="271.65988"
-         y="618.84125"
+         x="275.65988"
+         y="619.15753"
          id="text9453"
          sodipodi:linespacing="125%"><tspan
            sodipodi:role="line"
            id="tspan9455"
-           x="271.65988"
-           y="618.84125"
-           style="font-style:oblique;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans Oblique'">φ<tspan
+           x="275.65988"
+           y="619.15753"
+           style="font-style:oblique;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans Oblique'">β<tspan
    style="font-style:oblique;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:64.99999762%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans Oblique';baseline-shift:sub"
    id="tspan9457">1</tspan></tspan></text>
       <path
@@ -522,7 +522,7 @@
            y="558.84125"
            x="595.65991"
            id="tspan9463"
-           sodipodi:role="line">φ<tspan
+           sodipodi:role="line">β<tspan
    id="tspan9465"
    style="font-style:oblique;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:64.99999762%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans Oblique';baseline-shift:sub">2</tspan></tspan></text>
       <path
@@ -715,7 +715,7 @@
            y="866.73853"
            x="201.30449"
            id="tspan13763"
-           sodipodi:role="line">s</tspan></text>
+           sodipodi:role="line">l</tspan></text>
       <text
          sodipodi:linespacing="125%"
          id="text13765"
@@ -727,7 +727,19 @@
            y="866.73853"
            x="485.60657"
            id="tspan13767"
-           sodipodi:role="line">s'</tspan></text>
+           sodipodi:role="line">l'</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:125%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="-152.48013"
+         y="931.01697"
+         id="text4442"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan4444"
+           x="-152.48013"
+           y="931.01697"
+           style="font-style:oblique;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans Oblique'" /></text>
     </g>
     <text
        xml:space="preserve"
@@ -759,9 +771,9 @@
          y="936.95599"
          x="22.040062"
          height="163.20891"
-         width="573.7926"
+         width="636.93115"
          id="rect10523"
-         style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:3.00000024;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
       <g
          transform="translate(-4.2578131e-7,0.75786525)"
          id="g16883">
@@ -823,13 +835,11 @@
                y="863.89508"
                x="148.75029"
                sodipodi:role="line"
-               id="tspan13941">effective beam path (propagating backwards</tspan><tspan
+               id="tspan13941">effective beam path (propagating beam backwards</tspan><tspan
                y="888.89508"
                x="148.75029"
                sodipodi:role="line"
-               id="tspan13943">from focal plane but with <tspan
-   style="font-style:oblique;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans Oblique'"
-   id="tspan13945">no</tspan> mirror tilts)</tspan></text>
+               id="tspan13943">from focal plane through perfectly aligned system)</tspan></text>
         </g>
         <g
            transform="translate(-28.041218,216.42508)"
