@@ -435,6 +435,85 @@ must have magnification
 \end{equation}
 
 
+\subsection{Reference-beam generation}
+A heterodyne interferometer interferes the imaged probe radiation
+with a frequency-shifted reference beam
+to make an absolute phase measurement, as discussed in
+Section~\ref{sec:InterferometricMethods:interferometry:heterodyne}.
+It is easy to Doppler shift $\SI{10.6}{\micro\meter}$ radiation
+by tens of $\SI{}{\mega\hertz}$ with an acousto-optic modulator (AOM).
+The operation of a typical AOM is described in
+in Section~\ref{sec:DesignConsiderations:phase_noise:LO}.
+
+The heterodyne interferometer's reference beam is generated
+with a Gooch \& Housego (Ilminster, UK) 37027-5 Germanium AOM,
+pictured in Fig.~\ref{fig:Implementation:aom}.
+The resonant frequency of the AOM's piezo-actuator
+is $\SI{27.12}{\mega\hertz}$, but
+the AOM's deflection efficiency varies negligibly
+between $\SI{25}{\mega\hertz}$ and $\SI{30}{\mega\hertz}$.
+\graffito{\textcolor{red}{As will be discussed\ldots operate at $\SI{30}{\mega\hertz}$}}
+For operation at $\Delta f_0 = \SI{30}{\mega\hertz}$,
+the deflected beam is separated from the undeflected beam by
+$2 \theta_B = \SI{59}{\milli\radian}$, where
+$\theta_B$ is the Bragg angle from
+(\ref{eq:DesignConsiderations:Bragg_angle}).
+Deflection efficiency scales roughly linearly with RF power, and
+deflection efficiencies in excess of $75\%$
+can be obtained at the maximum-rated RF power of $\SI{30}{\watt}$.
+The RF power is CW such that
+the AOM simply deflects and Doppler shifts
+a fraction of the incident optical beam.
+(In contrast, rapidly varying the RF power modulates
+the optical powers in the deflected and undeflected beams, but
+such modulation is \emph{not} desirable in a heterodyne interferometer).
+The AOM's static optical insertion loss is $\leq 15\%$, and
+the incident optical intensity should be limited to
+$\leq \SI{5}{\watt\per\milli\meter\squared}$
+to avoid thermal lensing of the beam.
+The diameter of the piezo-driven acoustic beam is $\sim\SI{5}{\milli\meter}$.
+Satisfying both the AOM's peak-intensity constraint and
+the aperture-diffraction constraint
+(\ref{eq:DesignConsiderations:summary:aperture_radius_for_minimal_diffraction},
+with the acoustic beam providing an ``effective aperture'')
+requires placement of the AOM $\sim15"$ downstream
+of the laser's beam waist.
+\graffito{\textcolor{red}{Need a section on source parameters}}
+
+\begin{itemize}
+  \item Half-waveplate for polarization rotation
+  \item No lenses -- corresponding curvature criterion
+  \item Beam combiner with polarization-independent splitter
+\end{itemize}
+
+\begin{figure}
+  \centering
+  \includegraphics[width = 0.6 \textwidth]{%
+    Chapters/Implementation/figs/aom.jpg}
+  \caption[Acousto-optic modulator (AOM)]{%
+    The heterodyne interferometer's Germanium acousto-optic modulator (AOM).
+    The AOM deflects and Doppler shifts ($\Delta f_0 = \SI{30}{\mega\hertz}$)
+    a fraction of the incident CO$_2$ beam ($f_0 = \SI{28.3}{\tera\hertz}$)
+    to produce a reference beam.
+    The $\SI{30}{\mega\hertz}$ RF signal is coupled to the AOM
+    through the upper-left BNC jack, and
+    the resulting sound waves propagate through the Germanium crystal
+    from left to right.
+    The CO$_2$ beam enters through the aperture on the AOM's face and
+    exits through a similar aperture on the AOM's rear.
+    The twin Swagelock fittings on the AOM's right
+    provide an inlet and outlet for water cooling, while
+    the lower-left SMC jack connects to
+    a normally closed, creep-action PEPI N thermostat
+    that provides a thermal interlock to the AOM's RF driver.
+    The AOM is mounted on a ``Bragg mount'', which
+    allows easy optimization of the beam's angle of incidence
+    (via the mount's adjustment screw, seen in black at the middle-right).
+  }
+\label{fig:Implementation:aom}
+\end{figure}
+
+
 \subsection{Beam coalignment in presence of machine vibrations}
 \label{sec:Implementation:OpticalLayout:coalignment_with_feedback}
 \diiid's PCI system has an elaborate feedback control system
@@ -570,7 +649,20 @@ Of course, the lateral shifts in image location
 documented by Coda~\cite[Sec.~3.5(f)]{coda_phd}.
 
 
-\subsection{Sensitivity study}
+\subsection{Sensitivity to component placement}
+\begin{itemize}
+  \item Need to split beam before phase plate
+  \item Two imaging lenses, focal lengths, diameters
+    \begin{itemize}
+      \item $z$ vs.\ $z_R$
+      \item 1/e $E$ radius
+    \end{itemize}
+  \item List/table of interferometer and reference-arm layout
+    \begin{itemize}
+      \item Difference in optical path length
+    \end{itemize}
+\end{itemize}
+
 \begin{itemize}
   \item ``Build-ability'',
   \item $M$, magnification for wavenumber response,
