@@ -480,12 +480,6 @@ requires placement of the AOM $\sim15"$ downstream
 of the laser's beam waist.
 \graffito{\textcolor{red}{Need a section on source parameters}}
 
-\begin{itemize}
-  \item Half-waveplate for polarization rotation
-  \item No lenses -- corresponding curvature criterion
-  \item Beam combiner with polarization-independent splitter
-\end{itemize}
-
 \begin{figure}
   \centering
   \includegraphics[width = 0.6 \textwidth]{%
@@ -512,6 +506,38 @@ of the laser's beam waist.
   }
 \label{fig:Implementation:aom}
 \end{figure}
+
+Due to space constraints, the reference-beam path length
+is \emph{not} matched to the probe-beam path length.
+This path-length discrepancy \textcolor{red}{$L \approx \SI{10}{\meter}$}
+injects the laser's phase noise
+into the heterodyne interferometer's measurements, as quantified by
+(\ref{eq:DesignConsiderations:summary:laser_phase_noise_autospectral_density}).
+However, as shown in \textcolor{red}{Section~???},
+the laser's phase noise negligibly contributes
+to the heterodyne interferometer's noise floor.
+
+Allowing such a ``modest'' path-length discrepancy
+substantially simplifies the optical design of the reference arm.
+Following its generation at the AOM,
+the reference beam is directed to the interferometer detector
+with four broadband metallic mirrors
+(ER.2 protected-silver coated from
+Newport Corporation, Irvine, CA USA) and
+is combined with the probe beam
+via a 50\% reflective, polarization-independent ZnSe beam splitter
+(II-VI Infrared, Saxonburg, PA USA).
+No lenses are used to condition the reference beam.
+However, a multiple-order $\SI{10.6}{\micro\meter}$ half waveplate
+(II-VI Infrared, Saxonburg, PA USA)
+sits between the AOM and the polarization-independent beam combiner.
+As the probe beam is \emph{not} confined to a single plane,
+out-of-plane mirror reflections can rotate the probe-beam polarization;
+the half waveplate allows one to easily align the polarization
+of the reference beam with that of the probe beam,
+thereby maximizing the interference signal.
+From source to detector, the reference beam
+propagates a total distance $59\text{-}3/8"$.
 
 
 \subsection{Beam coalignment in presence of machine vibrations}
