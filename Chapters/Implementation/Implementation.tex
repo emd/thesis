@@ -700,25 +700,27 @@ diverts a fraction of the probe radiation
 to dedicated heterodyne-interferometer optics.
 \graffito{\textcolor{red}{What fraction??}}
 (This beam splitter also diverts a portion of the unscattered probe beam
-to the feedback system's quadrant detector).
-
-\begin{itemize}
-  \item Imaging from plasma midplane
-    \begin{itemize}
-      \item Formula for image plane distance?
-      \item Depth-of-field considerations?
-    \end{itemize}
-  \item Two imaging lenses, focal lengths, diameters
-    \begin{itemize}
-      \item $z$ vs.\ $z_R$
-      \item 1/e $E$ radius
-    \end{itemize}
-  \item List/table of interferometer and reference-arm layout (?)
-    \begin{itemize}
-      \item Difference in optical path length
-      \item Plots of probe beam and scattering??
-    \end{itemize}
-\end{itemize}
+to the feedback system's quadrant detector;
+the heterodyne interferometer's probe beam and
+the feedback beam are separated with
+an additional $2"$ diameter $S$-polarization ZnSe splitter).
+Four broadband metallic mirrors
+(ER.2 protected-silver coated from
+Newport Corporation, Irvine, CA USA)
+direct the probe radiation through the remainder
+of the heterodyne interferometer's imaging optics, which
+consist of two plano-convex ZnSe lenses
+(II-VI Infrared, Saxonburg, PA USA).
+The first lens $L1$ has a $7.5"$ focal length and a $2"$ diameter, and
+the second lens $L2$ has a $7.5"$ focal length and a $1.5"$ diameter.
+Then, under the constraint of imaging the plasma midplane,
+the remaining design parameters are
+the distance $d_{P2,L1}$ between
+the focusing off-axis parabolic mirror and $L1$ and
+the distance $d_{L1,L2}$ between $L1$ and $L2$.
+The sensitivity of the heterodyne-interferometer optical layout
+to $d_{P2,L1}$ and $d_{L1,L2}$ is shown in
+Fig.~\ref{fig:Implementation:optical_design_sensitivity}.
 
 \begin{figure}
   \centering
@@ -750,6 +752,21 @@ to the feedback system's quadrant detector).
   }
 \label{fig:Implementation:optical_design_sensitivity}
 \end{figure}
+
+\begin{itemize}
+  \item Contours of $z$ and $z / z_R$,
+    from which $w$ and $R$ can be determined
+  \item Depth-of-field considerations?
+    \begin{itemize}
+      \item Plot of $-\delta z / R(z)$ and $k_{\image}^2 \delta z / (2 k_0)$
+    \end{itemize}
+  \item 1/e $E$ radius
+  \item List/table of interferometer and reference-arm layout (?)
+    \begin{itemize}
+      \item Difference in optical path length
+      \item Plots of probe beam and scattering??
+    \end{itemize}
+\end{itemize}
 
 
 \section{Interferometer design study}
