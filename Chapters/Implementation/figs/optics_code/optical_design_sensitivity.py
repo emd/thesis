@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.colors import Normalize
+from matplotlib.colors import Normalize, LogNorm, SymLogNorm
 
 from ABCD_matrices import prop, lens
 from geometric_optics import image_distance
@@ -21,6 +21,7 @@ z_L1L2_choices = np.arange(             # [z_L1L2_choices] = m
     15 * in2m, (30 * in2m) + dz, dz)
 
 # Plot parameters
+figsize = (7, 8)
 cmap_sequential = 'viridis'
 cmap_diverging = 'RdBu'
 cbar_orientation = 'vertical'
@@ -62,6 +63,8 @@ if __name__ == '__main__':
     M = np.zeros(shape)
     C = np.zeros(shape)
     dphi_kappa = np.zeros(shape)
+    z = np.zeros(shape)
+    zR = np.zeros(shape)
 
     for i, z_P2L1 in enumerate(z_P2L1_choices):
         for j, z_L1L2 in enumerate(z_L1L2_choices):
@@ -85,13 +88,20 @@ if __name__ == '__main__':
             M[i, j] = ABCD[0, 0]
             C[i, j] = ABCD[1, 0]
 
-            # Determine plasma-arm radius of curvature at image plane
-            Rp = (gsource.applyABCD(ABCD * source_to_midplane_ABCD())).R
+            # Propagate beam from source to detector
+            gdet = gsource.applyABCD(ABCD * source_to_midplane_ABCD())
 
+            # Determine plasma-arm radius of curvature at image plane and
+            # corresponding maximum curvature-induced phase shift
+            Rp = gdet.R
             delta = np.abs((1. / Rp) - (1. / Rr))
             dphi_kappa[i, j] = 0.25 * k0 * (s ** 2) * delta
 
-    fig, axes = plt.subplots(2, 2, sharex=True, sharey=True)
+            # Get axial distance to waist and Rayleigh range
+            z[i, j] = gdet.z
+            zR[i, j] = gdet.zR
+
+    fig, axes = plt.subplots(3, 2, figsize=figsize, sharex=True, sharey=True)
 
     # 2nd imaging lens to detector
     level_spacing00 = 1.
@@ -129,9 +139,6 @@ if __name__ == '__main__':
         levels10, cmap=cmap_diverging, norm=norm)
     cb10 = plt.colorbar(C10, ax=axes[1, 0], orientation=cbar_orientation)
     cb10.set_ticks(levels10[::2])
-    axes[1, 0].set_xlabel(
-        r'$d_{\mathrm{P2, L1}} \, [\mathrm{in}]$',
-        fontsize=fontsize)
     axes[1, 0].set_ylabel(
         r'$d_{\mathrm{L1, L2}} \, [\mathrm{in}]$',
         fontsize=fontsize)
@@ -147,12 +154,46 @@ if __name__ == '__main__':
         levels11,
         cmap=cmap_sequential)
     cb11 = plt.colorbar(C11, ax=axes[1, 1], orientation=cbar_orientation)
-    cb10.set_ticks(levels10[::2])
-    axes[1, 1].set_xlabel(
-        r'$d_{\mathrm{P2, L1}} \, [\mathrm{in}]$',
-        fontsize=fontsize)
+    cb11.set_ticks(levels11[::2])
     axes[1, 1].set_title(
         r'$\mathrm{max}(\delta \phi_{\kappa}) \; [\mathrm{rad}]$',
+        fontsize=fontsize)
+
+    # Axial distance to beam waist, z
+    levels20 = np.array([-10., -3., -1., -0.3, -0.1, 0.1, 0.3, 1., 3., 10.])
+    linthresh = 0.01
+    C20 = axes[2, 0].contourf(
+        z_P2L1_choices / in2m, z_L1L2_choices / in2m, z.T,
+        levels20,
+        norm=SymLogNorm(linthresh, linscale=linthresh),
+        cmap=cmap_diverging)
+    cb20 = plt.colorbar(C20, ax=axes[2, 0], orientation=cbar_orientation)
+    axes[2, 0].set_xlabel(
+        r'$d_{\mathrm{P2, L1}} \, [\mathrm{in}]$',
+        fontsize=fontsize)
+    axes[2, 0].set_ylabel(
+        r'$d_{\mathrm{L1, L2}} \, [\mathrm{in}]$',
+        fontsize=fontsize)
+    axes[2, 0].set_title(
+        r'$z \; [\mathrm{m}]$',
+        fontsize=fontsize)
+
+    # Rayleigh range, zR
+    level_spacing21 = 0.1
+    levels21 = np.arange(level_spacing21, 0.99 + level_spacing21, level_spacing21)
+    levels21 = np.array([0.03, 0.1, 0.3, 1., 3., 10., 30.])
+    C21 = axes[2, 1].contourf(
+        z_P2L1_choices / in2m, z_L1L2_choices / in2m, zR.T,
+        levels21,
+        norm=LogNorm(),
+        cmap=cmap_sequential)
+    cb21 = plt.colorbar(C21, ax=axes[2, 1], orientation=cbar_orientation)
+    cb21.set_ticks(levels21[1::2])
+    axes[2, 1].set_xlabel(
+        r'$d_{\mathrm{P2, L1}} \, [\mathrm{in}]$',
+        fontsize=fontsize)
+    axes[2, 1].set_title(
+        r'$z_R \; [\mathrm{m}]$',
         fontsize=fontsize)
 
     # Add selected design point to each contour plot

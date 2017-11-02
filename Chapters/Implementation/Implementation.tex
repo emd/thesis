@@ -722,7 +722,7 @@ The sensitivity of the heterodyne-interferometer optical layout
 to $d_{P2,L1}$ and $d_{L1,L2}$ is shown in
 Fig.~\ref{fig:Implementation:optical_design_sensitivity}.
 
-\begin{figure}
+\begin{figure}[h!]
   \centering
   \includegraphics[width = \textwidth]{%
     Chapters/Implementation/figs/optical_design_sensitivity.pdf}
@@ -737,30 +737,35 @@ Fig.~\ref{fig:Implementation:optical_design_sensitivity}.
     is denoted by $d_{L1,L2}$ (along the $y$-axis).
     The design point is marked with a burgundy diamond.
     (Top left): Distance of image plane from $L2$
-    (the detector is placed at the image plane,
+    (the detector is nominally placed at the image plane,
     inspiring the notation $d_{L2,\text{det}}$).
     (Top right): Imaging system's magnification $M$,
     with the design point in accordance with
     (\ref{eq:Implementation:magnification_interferometer_design}).
-    (Bottom left): Imaging system's $ABCD$ ray-matrix parameter $C$.
+    (Middle left): Imaging system's $ABCD$ ray-matrix parameter $C$.
     As discussed in Section~\ref{sec:Implementation:OpticalLayout:coalignment_with_feedback},
     the PCI feedback system will dynamically maintain
     the coalignment of the heterodyne interferometer's beams if $C = 0$.
-    (Bottom right): The maximum curvature-induced phase shift
+    (Middle right): The maximum curvature-induced phase shift
     (\ref{eq:DesignConsiderations:summary:radii_of_curvature_matching})
     for a single, $\SI{1}{\milli\meter\squared}$ square detector.
+    (Bottom left): The axial distance $z$ from the image plane
+    to the waist of the probe beam.
+    (Bottom right): The Rayleigh range $z_R$ of the image-plane probe beam.
+    A Gaussian beam has minimum radius of curvature
+    $\text{min}(R(z)) = 2 z_R$; according to
+    (\ref{eq:DesignConsiderations:summary:depth_of_focus_wavenumber_distortion}),
+    then, there will be minimal wavenumber distortion
+    if the detector is $|\delta z_{\image}| \ll 2 z_R$
+    within the image plane.
   }
 \label{fig:Implementation:optical_design_sensitivity}
 \end{figure}
 
 \begin{itemize}
-  \item Contours of $z$ and $z / z_R$,
-    from which $w$ and $R$ can be determined
-  \item Depth-of-field considerations?
-    \begin{itemize}
-      \item Plot of $-\delta z / R(z)$ and $k_{\image}^2 \delta z / (2 k_0)$
-    \end{itemize}
-  \item 1/e $E$ radius
+  \item Describe resulting parameters (?)
+  \item Talbot effect plot?
+  \item Plot of unscattered \& scattered beam through imaging system
   \item List/table of interferometer and reference-arm layout (?)
     \begin{itemize}
       \item Difference in optical path length
