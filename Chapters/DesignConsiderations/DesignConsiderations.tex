@@ -63,6 +63,9 @@ Section~\ref{sec:DesignConsiderations:geometric:finite_sampling_volume}
 reveals how the imaging system's magnification $M$ and
 the detector's size and shape
 influence the interferometer's wavenumber response.
+Finally, Section~\ref{sec:DesignConsiderations:geometric:depth_of_focus}
+examines the depth-of-focus effects that become manifest
+when the detector is displaced from the actual image plane.
 
 
 \subsection{Aperture diffraction}
@@ -515,6 +518,171 @@ into the transfer functions of the homodyne interferometer and PCI.
   }
 \label{fig:DesignConsiderations:fsv_effects}
 \end{figure}
+
+
+\subsection{Depth of focus}
+\label{sec:DesignConsiderations:geometric:depth_of_focus}
+The derivations in
+Sections~\ref{sec:InterferometricMethods:imaging} through
+\ref{sec:InterferometricMethods:pci}
+assumed that the detector sits exactly at the image plane.
+Empirically, however, uncertainties in distances and focal lengths
+produce a corresponding uncertainty in the image-plane location.
+The axial distance by which the detector location may deviate
+from the image plane is referred to as the \emph{depth of focus}.
+Even if all components are perfectly positioned and
+all focal lengths are equal to their nominal values,
+the image plane still only maps to the tokamak midplane, and
+images from points above and below the tokamak midplane
+will be ``out of focus'';
+such depth-of-field considerations are closely related
+an imaging system's depth of focus.
+
+In order to investigate a heterodyne interferometer's depth of focus,
+it is necessary to generalize the derivation
+of the imaged electric field from
+Section~\ref{sec:InterferometricMethods:imaging}.
+In particular, let the detector be located
+an axial distance $\delta z_{\image}$ downstream of the image plane
+(i.e.\ $z_{\text{det}} = z_{\image} + \delta z_{\image}$ such that
+positive $\delta z_{\image}$ implies that
+the detector is downstream of the image plane, and
+negative $\delta z_{\image}$ implies that
+the detector is upstream of the image plane).
+Referencing the detector-plane coordinate transformation
+(\ref{eq:ImagingSystems:coordinate_transformation_detector_plane}),
+the imaged field at the detector
+(\ref{eq:InterferometricMethods:imaged_total_field_monochromatic_fluctuation_weak_coupling})
+readily generalizes to
+\begin{equation}
+  E(\vect{r}_{\text{det}}, t)
+  \approx
+  E_G(\vect{r}_{\text{det}}, t)
+  e^{i \bar{\phi}}
+  \left[%
+    1
+    +
+    i e^{-i \mu} (\tilde{\phi}_0 \cos\nu')
+  \right],
+  \label{eq:DesignConsiderations:imaged_total_field_at_detector_plane}
+\end{equation}
+where
+\begin{align}
+  \mu
+  &=
+  \left( \frac{k_{\image}^2}{2 k_0} \right) \delta z_{\image},
+  \\
+  \nu'
+  &=
+  \left\{
+    \left[ 1 - \frac{\delta z_{\image}}{R(z_{\text{det}})} \right]
+    k_{\image}
+  \right\}
+  x_{\text{det}}
+  -
+  \omega t,
+\end{align}
+$k_{\image} = k / M$ is the image of wavenumber $k$
+in a magnification-$M$ imaging system, and
+$x_{\text{det}}$ and $\delta z_{\image}$ are assumed to be small
+relative to the radius of curvature $R(z_{\text{det}})$
+of the probe beam at the detector.
+Relative to the image-plane field
+(\ref{eq:InterferometricMethods:imaged_total_field_monochromatic_fluctuation_weak_coupling}),
+the detector-plane field
+(\ref{eq:DesignConsiderations:imaged_total_field_at_detector_plane})
+has a wavenumber distortion
+$\{1 - [\delta z_{\image} / R(z_{\text{det}})]\}$.
+Additionally, the detector-plane field
+has a wavenumber-dependent phase shift $\mu$, which
+results from the ``out-of-focus'' interference of
+the upscattered beam with the downscattered beam;
+it has been empirically demonstrated that
+blocking one of these scattered beams
+eliminates this wavenumber-dependent phase shift
+\cite[Sec.~2.1]{dorris_phd}, albeit at the expense
+of reducing the amplitude of the fluctuating signal by a factor of two.
+
+Heterodyne detection is implemented by interfering the detector-plane field
+(\ref{eq:DesignConsiderations:imaged_total_field_at_detector_plane})
+with a frequency-shifted reference beam.
+In particular, assume a reference beam of the form
+$E_G(\vect{r}_{\text{det}}, t) e^{-i \Delta \omega_0 t}$ such that
+intensity (averaged over an optical cycle) becomes
+\begin{equation}
+  \begin{aligned}
+    I_{\text{het}}(\vect{r}_{\text{det}}, t)
+    =
+    2 I_G(\vect{r}_{\text{det}})
+    \bigl[%
+      1
+      &+
+      \cos(\Delta \omega_0 t + \bar{\phi})
+      \\
+      &-
+      \tilde{\phi}_0 \cos\nu'
+      \sin(\Delta \omega_0 t + \bar{\phi} - \mu)
+    \bigr].
+  \end{aligned}
+\end{equation}
+Demodulating this heterodyne intensity via the program in
+Section~\ref{sec:InterferometricMethods:interferometry},
+one obtains the equilibrium and fluctuating components
+of the in-phase and quadrature intensities
+\begin{align}
+  \bar{I}_{I}(\vect{r}_{\text{det}}, t)
+  &=
+  \frac{2 \sqrt{2}}{\pi}
+  I_G(\vect{r}_{\text{det}}) \cos\bar{\phi},
+  \\
+  \bar{I}_{Q}(\vect{r}_{\text{det}}, t)
+  &=
+  \frac{2 \sqrt{2}}{\pi}
+  I_G(\vect{r}_{\text{det}}) \sin\bar{\phi},
+  \\
+  \tilde{I}_{I}(\vect{r}_{\text{det}}, t)
+  &=
+  -\frac{2 \sqrt{2}}{\pi}
+  I_G(\vect{r}_{\text{det}})
+  \sin\left(\bar{\phi} - \mu\right)
+  \cdot
+  \tilde{\phi}_0 \cos\nu',
+  \\
+  \tilde{I}_{Q}(\vect{r}_{\text{det}}, t)
+  &=
+  \frac{2 \sqrt{2}}{\pi}
+  I_G(\vect{r}_{\text{det}})
+  \cos\left(\bar{\phi} - \mu\right)
+  \cdot
+  \tilde{\phi}_0 \cos\nu'.
+\end{align}
+It is possible to compute the autospectral density of the phase fluctuations
+by summing the autospectral densities of $\tilde{I}_I$ and $\tilde{I}_Q$ and
+then normalizing by $(\bar{I}_I^2 + \bar{I}_Q^2)$,
+which fortuitously \emph{eliminates} the $\mu$-dependence.
+However, it is \emph{not} readily apparent
+how to extend this method to the computation of e.g.\
+cross-spectral densities~\cite[Sec.~5.2]{bendat_and_piersol} and
+bispectral densities~\cite{young_and_powers_ieee79},
+for which the actual phase signal $\tilde{\phi}(x, t)$ is needed.
+For this reason, the phase is often computed
+via the inverse-tangent method discussed in
+Section~\ref{sec:DesignConsiderations:demodulation:ideal}.
+Unfortunately, this inverse-tangent method
+has reduced response when $\mu \neq 0$.
+To see this, first consider the case when $\mu = 0$:
+$\bar{I}_I$ and $\bar{I}_Q$ map out a circle, and
+the fluctuation $\tilde{\phi}_0 \cos\nu'$
+produces perturbations $\tilde{I}_I$ and $\tilde{I}_Q$
+that are always \emph{tangent} to this circle,
+producing angular deviations in the $(I, Q)$-plane
+that can be quantified by the inverse-tangent calculation.
+Now, if $\mu \neq 0$, the perturbations $\tilde{I}_I$ and $\tilde{I}_Q$
+are no longer tangent to the circle mapped out by $\bar{I}_I$ and $\bar{I}_Q$;
+in the extreme that $\mu = (2m + 1) \pi / 2$ for integer $m$,
+the fluctuations become purely \emph{radial} in the $(I, Q)$-plane, and
+the inverse-tangent calculation, sensitive only to angular displacements,
+fails to detect the fluctuations.
 
 
 \section{Intensity considerations}
@@ -1952,6 +2120,47 @@ which are summarized below:
     for a summary of this effect;
     see Section~\ref{sec:DesignConsiderations:geometric:finite_sampling_volume}
     for additional details.
+  \item The \emph{depth of focus} is the axial distance by which
+    the detector location may deviate from the image plane.
+    If $\delta z_{\image}$ is the axial displacement
+    of the detector from the image plane
+    (i.e. $z_{\text{det}} = z_{\image} + \delta z_{\image}$),
+    a heterodyne interferometer will measure wavenumbers $k_{\text{meas}}$
+    that are biased away from their true values $k$ by
+    \begin{equation}
+      k_{\text{meas}}
+      =
+      \left[
+        1
+        -
+        \frac{\delta z_{\image}}{R(z_{\text{det}})}
+      \right]
+      k,
+      \label{eq:DesignConsiderations:summary:depth_of_focus_wavenumber_distortion}
+    \end{equation}
+    where $R(z_{\text{det}})$ is the radius of curvature of the probe beam
+    at the detector.
+    Additionally, the ``out-of-focus'' interference
+    of the upscattered and downscattered beams
+    produces a wavenumber-dependent phase shift
+    \begin{equation}
+      \mu
+      =
+      \left( \frac{k^2}{2 M^2 k_0} \right) \delta z_{\image},
+      \label{eq:DesignConsiderations:summary:depth_of_focus_wavenumber_dependent_phase_shift}
+    \end{equation}
+    where $M$ is the magnification of the imaging system and
+    $k_0$ is the wavenumber of the probe radiation.
+    Autospectral densities of the phase fluctuations
+    can be computed independent of $\mu$, but
+    it is less clear how to compute e.g.\
+    cross-spectral densities or bispectral densities
+    in a $\mu$-independent manner.
+    An imaging system should be designed
+    such that reasonable uncertainties in $\delta z_{\image}$
+    produce negligible wavenumber distortion
+    (i.e.\ $|\delta z_{\image} / R(z_{\text{det}})| \ll 1$) and
+    negligible wavenumber-dependent phase shifts (i.e. $|\mu| \ll 1$).
 \end{itemize}
 
 

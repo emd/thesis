@@ -313,6 +313,87 @@ Explicitly, the image-plane coordinate transformation
 \end{equation}
 where the approximation is valid to first order in $\theta_m / M$.
 
+Imagine now that the detector is located an axial distance $\delta z_{\image}$
+downstream of the image plane
+(i.e.\ $z_{\text{det}} = z_{\image} + \delta z_{\image}$ such that
+positive $\delta z_{\image}$ implies that
+the detector is downstream of the image plane, and
+negative $\delta z_{\image}$ implies that
+the detector is upstream of the image plane).
+Coordinate transformation
+(\ref{eq:ImagingSystems:coordinate_transformation_imaging_plane_compact})
+then readily generalizes to
+\begin{equation}
+  \vect{r}_{m, \text{det}}
+  =
+  \left[ \vect{R}(\theta_m / M) \right]
+  \left[ \vect{r}_{\text{det}} - z_{\image} \hat{\vect{z}} \right]
+  +
+  z_{\image} \hat{\vect{z}},
+  \label{eq:ImagingSystems:coordinate_transformation_detector_plane_compact}
+\end{equation}
+where
+$\vect{r}_{\text{det}}
+=
+\vect{r}_{\image} + (\delta z_{\image}) \hat{\vect{z}}$
+specifies the detector-plane coordinates of the unscattered beam and
+$\vect{r}_{m, \text{det}}$ specifies the detector-plane coordinates
+of the $m\ts{th}$ scattered beam.
+Explicitly, the detector-plane coordinate transformation
+(\ref{eq:ImagingSystems:coordinate_transformation_detector_plane_compact}) is
+\begin{align}
+  \begin{pmatrix}
+    x_{m, \text{det}}
+    \\
+    y_{m, \text{det}}
+    \\
+    z_{m, \text{det}}
+  \end{pmatrix}
+  &=
+  \begin{pmatrix}
+    x_{\text{det}} \cos\left( \frac{\theta_m}{M} \right)
+    -
+    \delta z_{\image} \sin\left( \frac{\theta_m}{M} \right)
+    \\
+    y_{\text{det}}
+    \\
+    z_{\image}
+    +
+    \delta z_{\image} \cos\left( \frac{\theta_m}{M} \right)
+    +
+    x_{\image} \sin\left( \frac{\theta_m}{M} \right)
+  \end{pmatrix}
+  \notag \\
+  &\approx
+  \vect{r}_{\text{det}}
+  +
+  \frac{\theta_m}{M}
+  \begin{pmatrix}
+    -\delta z_{\image}
+    \\
+    0
+    \\
+    x_{\text{det}}
+  \end{pmatrix}
+  -
+  \frac{1}{2}
+  {\left( \frac{\theta_m}{M} \right)}^2
+  \begin{pmatrix}
+    x_{\text{det}}
+    \\
+    0
+    \\
+    \delta z_{\image}
+  \end{pmatrix},
+  \label{eq:ImagingSystems:coordinate_transformation_detector_plane}
+\end{align}
+where the approximation is valid to second order in $\theta_m / M$.
+As discussed in
+Section~\ref{sec:DesignConsiderations:geometric:depth_of_focus},
+second-order effects can become significant
+when the detector is displaced from the image plane
+(i.e.\ when $\delta z_{\image} \neq 0$).
+
 
 \bibliographystyle{plainurl}
 \bibliography{references}
