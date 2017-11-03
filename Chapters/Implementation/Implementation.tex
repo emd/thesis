@@ -821,12 +821,45 @@ $|\delta z_{\image}| \ll 2 z_R$.
 Within the neighborhood of the design point,
 $z_R \geq \SI{10}{\centi\meter}$ such that
 wavenumber distortion is minimal as long as
-the detector is well within $\SI{20}{\centi\meter}$ of the image plane,
+the detector is well within $\pm\SI{20}{\centi\meter} \approx \pm8"$
+of the image plane,
 which is relatively easy to satisfy experimentally.
 
+The imaging system's depth of focus is additionally constrained by
+the ``out-of-focus'' interference of the upscattered and downscattered beams,
+which produces the wavenumber-dependent phase shift $\mu$ from
+(\ref{eq:DesignConsiderations:summary:depth_of_focus_wavenumber_dependent_phase_shift}).
+Because a heterodyne interferometer exhibits nulls in its response
+when $\mu = (2 m + 1) \pi / 2$ for integer $m$,
+it is desirable to have $|\mu| \ll 1$
+over the system's full wavenumber range.
+Fig.~\ref{fig:Implementation:wavenumber_dependent_phase_shift}
+displays $|\mu|$ for $\SI{10.6}{\micro\meter}$ probe radiation and
+the design-point magnification $M = 0.08$ from
+(\ref{eq:Implementation:magnification_interferometer_design}).
+Clearly, the power loss from this ``out-of-focus'' interference effect
+will be small for $|k| \lesssim \SI{5}{\per\centi\meter}$
+if the detector is within $\pm 0.5"$ of the image plane.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = 0.75 \textwidth]{%
+    Chapters/Implementation/figs/wavenumber_dependent_phase_shift.pdf}
+  \caption[Wavenumber-dependent phase shift from ``out-of-focus'' scattered beams]{%
+    The wavenumber-dependent phase shift $\mu$ that occurs when
+    the upscattered and downscattered $\SI{10.6}{\micro\meter}$ beams
+    interfere a distance $\delta z_{\image}$ away from the image plane
+    of an $M = 0.08$ imaging system; $|\mu| \ll 1$ is desirable.
+  }
+\label{fig:Implementation:wavenumber_dependent_phase_shift}
+\end{figure}
+
 \begin{itemize}
-  \item Talbot effect plot?
   \item Plot of unscattered \& scattered beam through imaging system
+    \begin{itemize}
+      \item Care to avoid optics at virtual images/object planes (?);
+        why do these points matter more than elsewhere???
+    \end{itemize}
   \item List/table of interferometer and reference-arm layout (?)
     \begin{itemize}
       \item Difference in optical path length

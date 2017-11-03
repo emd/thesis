@@ -21,6 +21,7 @@ ddz = 0.01    # [ddz] = in
 dz_max = 1.   # [dz_max] = in
 
 fontsize = 12
+figsize = (5, 4)
 
 
 if __name__ == '__main__':
@@ -34,7 +35,7 @@ if __name__ == '__main__':
     # Wavenumber-dependent phase shift
     mu = ((kk ** 2) / (2 * (M ** 2) * k0)) * dzdz
 
-    plt.figure()
+    plt.figure(figsize=figsize)
     levels = np.logspace(-5, 0, 11)
     C = plt.contourf(
         dzdz / in2m, kk * 1e-2, mu,
@@ -48,4 +49,5 @@ if __name__ == '__main__':
         r'$|k| \; [\mathrm{cm}^{-1}]$',
         fontsize=fontsize)
     plt.title(r'$|\mu| \; [\mathrm{rad}]$')
+    plt.tight_layout()
     plt.show()
