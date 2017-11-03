@@ -16,12 +16,12 @@ from imaging_optics_interferometer import z_L1L2 as z_L1L2_selected
 # Design parameters to be scanned
 dz = 0.25 * in2m                        # [dz] = m
 z_P2L1_choices = np.arange(             # [z_P2L1_choices] = m
-    90 * in2m, (120 * in2m) + dz, dz)
+    90 * in2m, (110 * in2m) + dz, dz)
 z_L1L2_choices = np.arange(             # [z_L1L2_choices] = m
-    15 * in2m, (30 * in2m) + dz, dz)
+    15 * in2m, (35 * in2m) + dz, dz)
 
 # Plot parameters
-figsize = (7, 8)
+figsize = (6, 7)
 cmap_sequential = 'viridis'
 cmap_diverging = 'RdBu'
 cbar_orientation = 'vertical'
@@ -101,7 +101,9 @@ if __name__ == '__main__':
             z[i, j] = gdet.z
             zR[i, j] = gdet.zR
 
-    fig, axes = plt.subplots(3, 2, figsize=figsize, sharex=True, sharey=True)
+    fig, axes = plt.subplots(
+        3, 2, figsize=figsize, sharex=True, sharey=True,
+        subplot_kw={'aspect': 1, 'adjustable': 'box-forced'})
 
     # 2nd imaging lens to detector
     level_spacing00 = 1.
@@ -115,7 +117,7 @@ if __name__ == '__main__':
         r'$d_{\mathrm{L1, L2}} \, [\mathrm{in}]$',
         fontsize=fontsize)
     axes[0, 0].set_title(
-        r'$d_{L2,\mathrm{det}} \, [\mathrm{in}]$',
+        r'$d_{L2,\mathcal{I}} \, [\mathrm{in}]$',
         fontsize=fontsize)
 
     # Magnification
