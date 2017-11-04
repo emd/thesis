@@ -79,6 +79,11 @@ class GaussianBeam(object):
         'Get Rayleigh range.'
         return np.imag(self.q)
 
+    @property
+    def w0(self):
+        'Get 1/e E radius at beam waist.'
+        return np.sqrt(self.wavelength * self.zR / np.pi)
+
 
 def w(z, w0, zR):
     '''Gaussian beam 1/e E radius.

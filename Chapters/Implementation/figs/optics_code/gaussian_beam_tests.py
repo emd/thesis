@@ -18,6 +18,7 @@ def test_GaussianBeam__init__():
     tools.assert_almost_equal(g.w, w)
     tools.assert_almost_equal(g.z, 0)
     tools.assert_almost_equal(g.zR, 1)
+    tools.assert_almost_equal(g.w0, w)
 
     # 1/e E waist of 2; with wavelength of `pi`, this should
     # result in a Rayleigh range of 4
@@ -31,6 +32,7 @@ def test_GaussianBeam__init__():
     tools.assert_almost_equal(g.w, w)
     tools.assert_almost_equal(g.z, 0)
     tools.assert_almost_equal(g.zR, 4)
+    tools.assert_almost_equal(g.w0, w)
 
     # 1/e E waist of unity; with wavelength of `2 * pi`, this should
     # result in a Rayleigh range of 0.5
@@ -44,6 +46,7 @@ def test_GaussianBeam__init__():
     tools.assert_almost_equal(g.w, w)
     tools.assert_almost_equal(g.z, 0)
     tools.assert_almost_equal(g.zR, 0.5)
+    tools.assert_almost_equal(g.w0, w)
 
     return
 
