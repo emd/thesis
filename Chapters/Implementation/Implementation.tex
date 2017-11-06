@@ -894,16 +894,43 @@ approximately $395"$ downstream of the tokamak midplane.
 \label{fig:Implementation:axial_beam_profiles}
 \end{figure}
 
-\begin{itemize}
-  \item List/table of interferometer and reference-arm layout (?)
-    \begin{itemize}
-      \item Difference in optical path length
-      \item Plots of probe beam and scattering??
-    \end{itemize}
-\end{itemize}
+
+\section{Distribution of optical power}
 
 
-\section{Interferometer design study}
+\subsection{Gaussian-beam power \& peak intensity}
+The Gaussian-beam electric field
+(\ref{eq:InterferometricMethods:Gaussian_beam})
+produces the optical intensity (averaged over an optical cycle)
+\begin{equation}
+  I(\rho, z)
+  =
+  \frac{c \varepsilon_0}{2} |E_G(\vect{r})|^2
+  =
+  I(0, z) \exp\left[ \frac{-2 \rho^2}{w(z)^2} \right],
+\end{equation}
+where $I(0, z) = (c \varepsilon_0 / 2) [E_0 w_0 / w(z)]^2$
+is the peak, on-axis intensity of the Gaussian beam
+at axial distance $z$ from the beam waist.
+Note that $I(0, z) = [w_0 / w(z)]^2 \cdot I(0, 0)$.
+The total optical power $\mathcal{P}$ in the beam is
+\begin{equation}
+  \mathcal{P}
+  =
+  \int_{\mathbb{R}^2} I(\rho, z) dA
+  =
+  \frac{\pi w_0^2}{2} \cdot I(0, 0).
+\end{equation}
+Thus, at any axial distance $z$ from the beam waist,
+the peak, on-axis intensity of the Gaussian beam becomes
+\begin{equation}
+  I(0, z) = \frac{2 \mathcal{P}}{\pi [w(z)]^2}.
+\end{equation}
+
+
+\subsection{PCI beam}
+\subsection{Interferometer reference beam}
+\subsection{Interferometer probe beam}
 
 
 \subsection{Expected noise}
@@ -919,8 +946,6 @@ approximately $395"$ downstream of the tokamak midplane.
 
 
 \section{Interferometer component selection}
-\subsection{Acousto-optic modulator}
-\subsection{Imaging optics}
 \subsection{Detector}
 \subsection{Electronics}
 \begin{itemize}
