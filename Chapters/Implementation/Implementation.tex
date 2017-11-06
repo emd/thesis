@@ -854,12 +854,47 @@ if the detector is within $\pm 0.5"$ of the image plane.
 \label{fig:Implementation:wavenumber_dependent_phase_shift}
 \end{figure}
 
+Axial profiles of the unscattered beam and a scattered beam
+in the design-point imaging system are shown in
+Fig.~\ref{fig:Implementation:axial_beam_profiles}.
+Because scattering from density fluctuations with larger wavenumbers
+produces larger transverse deviations from the optical axis,
+the scattered beam plotted in
+Fig.~\ref{fig:Implementation:axial_beam_profiles}
+corresponds to a $k = \SI{5}{\per\centi\meter}$ fluctuation, which
+is the maximum measurable wavenumber
+(\ref{eq:Implementation:kfsv_interferometer_design})
+of the interferometer.
+Note that the diameter of each focusing optic is accurately depicted
+(if an optic touches the horizontal axes,
+the optical diameter exceeds the plotted dimensions) and
+that the aperture diffraction criterion
+(\ref{eq:DesignConsiderations:summary:aperture_radius_for_minimal_diffraction})
+is met for both the scattered and unscattered beams at each focusing optic.
+For simplicity, planar mirrors are not depicted, but
+they similarly satisfy the aperture diffraction criterion.
+The probe radiation is combined with the reference beam and
+interfered on a detector located at the second image plane,
+approximately $395"$ downstream of the tokamak midplane.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/Implementation/figs/axial_beam_profiles.pdf}
+  \caption[Axial beam profiles in interferometer probe arm]{%
+    Axial beam profiles in interferometer probe arm
+    as a function of distance $d_{\object}$ from
+    the tokamak midplane (i.e.\ the object plane).
+    For a given beam, the central ray corresponds to
+    the symmetry axis of the beam, while
+    the other two rays correspond to the 1/e $E$ radius of the beam.
+    The interferometer detector sits at the second image plane,
+    approximately $395"$ downstream of the tokamak midplane.
+  }
+\label{fig:Implementation:axial_beam_profiles}
+\end{figure}
+
 \begin{itemize}
-  \item Plot of unscattered \& scattered beam through imaging system
-    \begin{itemize}
-      \item Care to avoid optics at virtual images/object planes (?);
-        why do these points matter more than elsewhere???
-    \end{itemize}
   \item List/table of interferometer and reference-arm layout (?)
     \begin{itemize}
       \item Difference in optical path length
