@@ -1035,45 +1035,123 @@ at the heterodyne-interferometer detector is
 
 
 \subsection{Constraining the distribution of optical power}
-Physical limits:
-\begin{itemize}
-  \item $I_{\text{sat}} = \SI{100}{\milli\watt\per\square\milli\meter}$
-  \item $I_{\text{dam}} = \SI{1000}{\milli\watt\per\square\milli\meter}$
-  \item $Q_{\text{DC}} = \SI{50}{\milli\watt}$ with $100\%$ modulation depth
-    at $\SI{10}{\kilo\hertz}$, but we measured
-    $Q_{\text{DC}} \lesssim \SI{75}{\milli\watt}$ at $\SI{30}{\mega\hertz}$
-\end{itemize}
-Story:
-\begin{itemize}
-  \item Obtain reasonable balance between AC \& DC components, but
-    relatively low absolute level ($\ll I_{\text{dam}}$, but
-    $\sim I_{\text{sat}}$)
-  \item Can't push higher due to imposed floor on $\mathcal{P}_{\text{pci}}$
-  \item Can get around this by cooling detector to increase sensitivity
-  \item However, TE cooling imposes cooling limit
-    $Q_{\text{heat}} \lesssim \SI{75}{\milli\watt}$, which
-    is what constrains interferometer performance
-    \emph{at the detector} in practice
-    \begin{itemize}
-      \item \ldots but how important is this in the full-system performance?
-    \end{itemize}
-  \item Methodology in practice: $\eta_P$ fixed by selection of splitter, and
-    $\eta_R$ is increased slowly until interferometer thermal lock is
-    barely held
-\end{itemize}
+Suitably distributing the optical power in the combined PCI-interferometer
+is an exercise in constrained optimization.
+The objective function is the optical power
+in the heterodyne-interference signal, while the constraints are
+the operational limits of the interferometer detector and
+the minimum required power in the PCI beam
+($\mathcal{P}_{\text{pci}} / \mathcal{P}_{\text{pci},0} \gtrsim 2 / 3$).
+Because the PCI constraint is somewhat ``soft'',
+a graphical exploration of the design space is appropriate;
+such a graphical exploration is shown in
+Fig.~\ref{fig:Implementation:power_distribution}.
+The \emph{top-left} panel of
+Fig.~\ref{fig:Implementation:power_distribution}
+displays the AC-to-DC multiplicative factor
+$2 I_{\text{AC}} / (I_{\text{DC}} + I_{\text{AC}})$
+from the heterodyne-interferometer transfer function
+(\ref{eq:DesignConsiderations:summary:heterodyne_interferometer_wavenumber_transfer_function}).
+The AC-to-DC multiplicative factor attains a maximum value of unity when
+the AC and DC intensities of the heterodyne interference signal are equal
+(i.e.\ when $I_{\text{AC}} = I_{\text{DC}}$).
+Clearly, the AC-to-DC multiplicative factor
+is a strong function of $\eta_R$, and
+the design point achieves a reasonable balance
+between the AC and DC components of the heterodyne signal.
+A large value of $2 I_{\text{AC}} / (I_{\text{DC}} + I_{\text{AC}})$ alone
+does \emph{not} guarantee optimal performance;
+the normalizing peak intensity $I_{\text{DC}} + I_{\text{AC}}$
+should also be maximized.
+The \emph{top-right} panel of
+Fig.~\ref{fig:Implementation:power_distribution}
+displays this peak intensity.
+The photovoltaic HgCdTe detectors that are often employed
+for $\SI{10.6}{\micro\meter}$ heterodyne interferometry typically have
+a saturation intensity
+$I_{\text{sat}} = \SI{100}{\milli\watt\per\square\milli\meter}$
+and a damage intensity
+$I_{\text{dam}} = \SI{1000}{\milli\watt\per\square\milli\meter}$.
+Note that $I_{\text{DC}} + I_{\text{AC}}$
+is a strong function of $\eta_R$
+and that $I_{\text{DC}} + I_{\text{AC}} \sim I_{\text{sat}}$
+at the design point.
+Depending on the saturation physics of the detector,
+operating above $I_{\text{sat}}$ (but below $I_{\text{dam}}$)
+may improve the system performance, as quantified by the
+$V_1 / V_1(I_{\text{max}} = I_{\text{sat}})$ multiplicative factor
+in the heterodyne-interferometer transfer function
+(\ref{eq:DesignConsiderations:summary:heterodyne_interferometer_wavenumber_transfer_function}).
+However, as the \emph{bottom-left} panel of
+Fig.~\ref{fig:Implementation:power_distribution} shows,
+the constraint
+$\mathcal{P}_{\text{pci}}
+\gtrsim
+(2 / 3) \mathcal{P}_{\text{pci},0}
+\sim \SI{200}{\milli\watt}$
+prevents operating the heterodyne interferometer
+with intensities above $I_{\text{sat}}$.
+This inability to operate above $I_{\text{sat}}$ can be compensated
+by actively cooling the detector to improve its sensitivity.
+\graffito{\textcolor{red}{Describe elsewhere?}}
+The interferometer described in this thesis
+uses two-stage thermoelectric cooling
+to cool the detector to $T \sim \SI{230}{\kelvin}$,
+boosting the specific detectivity $D^*$ by an order of magnitude;
+the cooling capacity is limited to
+$Q_{\text{heat}} \lesssim \SI{75}{\milli\watt}$.
+Because the total power in the probe beam and the reference beam
+greatly exceeds this cooling capacity,
+a circular aperture of radius $a = \SI{0.75}{\milli\meter}$
+is positioned immediately upstream of the detector;
+the power of a Gaussian beam passing through such an aperture is given by
+(\ref{eq:Implementation:Gaussian_beam_power_circular_aperture})
+such that the heat that must be dissipated reduces to
+\begin{equation}
+  Q_{\text{heat}}
+  =
+  \mathcal{P}_P
+  \left[ 1 - \exp\left( \frac{-2 a^2}{w_P^2} \right) \right]
+  +
+  \mathcal{P}_R
+  \left[ 1 - \exp\left( \frac{-2 a^2}{w_R^2} \right) \right].
+\end{equation}
+The \emph{bottom-right} panel of
+Fig.~\ref{fig:Implementation:power_distribution}
+displays $Q_{\text{heat}}$.
+Now, in practice, $\eta_P$ is fixed by the reflectivity
+of the ZnSe splitter located upstream of the phase plate
+(with $25\%$ reflectivity being a common, off-the-shelf value);
+then, during an alignment, $\eta_R$ is increased slowly
+until the cooling capacity of the detector is reached.
 
 \begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
     Chapters/Implementation/figs/power_distribution.pdf}
   \caption[Constraints on the distribution of optical power]{%
-    Constraints on the distribution of optical power.
+    Constraints on the distribution of optical power
+    in the combined PCI-interferometer.
+    The AOM deflection efficiency,
+    which governs the fraction $\eta_R$
+    of beam power diverted to the interferometer reference arm,
+    is displayed along the $x$-axis.
+    The fraction $\eta_P$ of probe-beam power
+    (immediately upstream of the phase plate)
+    diverted to the interferometer probe arm
+    is displayed along the $y$-axis.
+    All intensities correspond to peak, on-axis values.
+    The design point is marked with a burgundy diamond;
+    note that $\eta_P = 0.25$ is fixed for the installed splitter, but
+    varying the AOM RF power readily changes $\eta_R$,
+    allowing easy movement along the horizontal dashed line.
+    See text for discussion.
   }
 \label{fig:Implementation:power_distribution}
 \end{figure}
 
 
-\subsection{Expected noise}
+\section{Expected noise}
 
 \begin{itemize}
   \item Demodulated NEP from
@@ -1087,6 +1165,12 @@ Story:
 
 \section{Interferometer component selection}
 \subsection{Detector}
+\begin{itemize}
+  \item $Q_{\text{DC}} = \SI{50}{\milli\watt}$ with $100\%$ modulation depth
+    at $\SI{10}{\kilo\hertz}$, but we measured
+    $Q_{\text{DC}} \lesssim \SI{75}{\milli\watt}$ at $\SI{30}{\mega\hertz}$
+\end{itemize}
+
 \subsection{Electronics}
 \begin{itemize}
   \item Automatic gain-control amplifier
