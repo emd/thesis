@@ -899,7 +899,7 @@ approximately $395"$ downstream of the tokamak midplane.
 \section{Distribution of optical power}
 
 
-\subsection{Gaussian-beam intensity profile \& power}
+\subsection{Gaussian-beam intensity \& power}
 The Gaussian-beam electric field
 (\ref{eq:InterferometricMethods:Gaussian_beam})
 produces the optical intensity (averaged over an optical cycle)
@@ -1005,6 +1005,7 @@ the 1/e $E$ radius of the probe beam
 at the heterodyne-interferometer detector is
 \begin{equation}
   w_P = \SI{2.7}{\milli\meter}.
+  \label{eq:Implementation:probe_beam_radius_at_detector}
 \end{equation}
 
 
@@ -1029,7 +1030,47 @@ the 1/e $E$ radius of the probe beam
 at the heterodyne-interferometer detector is
 \begin{equation}
   w_R = \SI{4.3}{\milli\meter}.
+  \label{eq:Implementation:reference_beam_radius_at_detector}
 \end{equation}
+
+
+\subsection{Constraining the distribution of optical power}
+Physical limits:
+\begin{itemize}
+  \item $I_{\text{sat}} = \SI{100}{\milli\watt\per\square\milli\meter}$
+  \item $I_{\text{dam}} = \SI{1000}{\milli\watt\per\square\milli\meter}$
+  \item $Q_{\text{DC}} = \SI{50}{\milli\watt}$ with $100\%$ modulation depth
+    at $\SI{10}{\kilo\hertz}$, but we measured
+    $Q_{\text{DC}} \lesssim \SI{75}{\milli\watt}$ at $\SI{30}{\mega\hertz}$
+\end{itemize}
+Story:
+\begin{itemize}
+  \item Obtain reasonable balance between AC \& DC components, but
+    relatively low absolute level ($\ll I_{\text{dam}}$, but
+    $\sim I_{\text{sat}}$)
+  \item Can't push higher due to imposed floor on $\mathcal{P}_{\text{pci}}$
+  \item Can get around this by cooling detector to increase sensitivity
+  \item However, TE cooling imposes cooling limit
+    $Q_{\text{heat}} \lesssim \SI{75}{\milli\watt}$, which
+    is what constrains interferometer performance
+    \emph{at the detector} in practice
+    \begin{itemize}
+      \item \ldots but how important is this in the full-system performance?
+    \end{itemize}
+  \item Methodology in practice: $\eta_P$ fixed by selection of splitter, and
+    $\eta_R$ is increased slowly until interferometer thermal lock is
+    barely held
+\end{itemize}
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/Implementation/figs/power_distribution.pdf}
+  \caption[Constraints on the distribution of optical power]{%
+    Constraints on the distribution of optical power.
+  }
+\label{fig:Implementation:power_distribution}
+\end{figure}
 
 
 \subsection{Expected noise}
