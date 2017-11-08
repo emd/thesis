@@ -51,6 +51,7 @@ R-1 and R-2 are the first and second ports
 
 
 \section{\diiid's pre-existing PCI system}
+\label{sec:Implementation:PCI}
 The \diiid \space PCI system is
 thoroughly described elsewhere~\cite{dorris_rsi09, dorris_phd}, but
 the system components of relevance to this work
@@ -58,6 +59,7 @@ are briefly summarized below for completeness.
 
 
 \subsection{System geometry}
+\label{sec:Implementation:PCI:geometry}
 The system is currently configured
 in the ``Phase II'' geometry~\cite{dorris_rsi09},
 with the probe beam propagating vertically downwards
@@ -139,6 +141,7 @@ from measured values of $k_R$.
 
 
 \subsection{Spatial bandwidth}
+\label{sec:Implementation:PCI:spatial_bandwidth}
 Several critical wavenumbers were defined in
 Section~\ref{sec:InterferometricMethods:pci} that
 characterize the spatial bandwidth of a PCI system.
@@ -263,6 +266,7 @@ of the PCI is
 
 
 \subsection{Temporal bandwidth}
+\label{sec:Implementation:PCI:temporal_bandwidth}
 PCI's detector (Infrared Associates MCT-16-32) and
 its associated preamplifiers (also through Infrared Associates)
 are the dominant constraint on the system's temporal bandwidth.
@@ -304,9 +308,39 @@ typically at a sampling rate of $f_s = 4 \, \text{MSPS}$.
 
 
 \section{Optical layout of heterodyne interferometer}
+\label{sec:Implementation:OpticalLayout}
+The optical layout of a heterodyne interferometer
+sets the interferometer's wavenumber response,
+governs the injection of laser phase noise
+into the interferometer's measurements, and
+influences the interferometer's sensitivity
+to vibration-induced misalignment and
+small uncertainties in component placement.
+Having reviewed the spatial bandwidth
+of the pre-existing PCI system in
+Section~\ref{sec:Implementation:PCI:spatial_bandwidth},
+a complementary spatial bandwidth is selected
+for the heterodyne interferometer in
+Section~\ref{sec:Implementation:OpticalLayout:spatial_bandwidth}, and
+the resulting imaging-system requirements are discussed
+in \ref{sec:Implementation:OpticalLayout:element_size}.
+Section~\ref{sec:Implementation:OpticalLayout:coalignment_with_feedback}
+demonstrates that a carefully designed imaging system and
+the PCI focal-plane feedback system can synergistically act
+to dynamically maintain the coalignment of the interferometer beams
+in the presence of machine vibrations.
+Finally,
+Sections~\ref{sec:Implementation:OpticalLayout:reference_beam_generation}
+and \ref{sec:Implementation:OpticalLayout:probe_beam}
+discuss the generation
+of the interferometer's reference beam and probe beam and
+examine the sensitivity
+of the resulting interference signal to small uncertainties
+in the placement of the imaging optics.
 
 
 \subsection{Desired spatial bandwidth}
+\label{sec:Implementation:OpticalLayout:spatial_bandwidth}
 Because of its external reference beam, a heterodyne interferometer
 has a minimum detectable wavenumber of $k = 0$.
 This ability to detect fluctuations
