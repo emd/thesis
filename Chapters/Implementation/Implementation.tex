@@ -931,9 +931,27 @@ approximately $395"$ downstream of the tokamak midplane.
 
 
 \section{Distribution of optical power}
+\label{sec:Implementation:PowerDistribution}
+Having identified a suitable heterodyne-interferometer optical layout in
+Section~\ref{sec:Implementation:OpticalLayout},
+the finite power of the $\SI{10.6}{\micro\meter}$ laser
+must be distributed between the PCI and interferometer systems.
+Section~\ref{sec:Implementation:PowerDistribution:gaussian_beam_intensity_and_power}
+reviews the experimentally relevant relations between a Gaussian beam's
+global properties (e.g.\ total beam power) and
+local properties (e.g.\ peak, on-axis intensity).
+Sections~\ref{sec:Implementation:PowerDistribution:pci_beam} through
+\ref{sec:Implementation:PowerDistribution:interferometer_reference_beam}
+develop approximate expressions for the total power
+in the beam(s) at each detector location;
+significantly, two design parameters, $\eta_R$ and $\eta_P$,
+control the power distribution in the combined PCI-interferometer.
+Finally, Section~\ref{sec:Implementation:PowerDistribution:constraints}
+identifies a suitable operational point in $(\eta_R, \eta_P)$-space.
 
 
 \subsection{Gaussian-beam intensity \& power}
+\label{sec:Implementation:PowerDistribution:gaussian_beam_intensity_and_power}
 The Gaussian-beam electric field
 (\ref{eq:InterferometricMethods:Gaussian_beam})
 produces the optical intensity (averaged over an optical cycle)
@@ -988,6 +1006,7 @@ is the error function.
 
 
 \subsection{PCI beam}
+\label{sec:Implementation:PowerDistribution:pci_beam}
 Prior to the heterodyne-interferometer upgrade,
 the total beam power at the PCI detector was
 $\mathcal{P}_{\text{pci},0} \sim \SI{300}{\milli\watt}$.
@@ -1013,6 +1032,7 @@ is enforced.
 
 
 \subsection{Interferometer probe beam}
+\label{sec:Implementation:PowerDistribution:interferometer_probe_beam}
 Upstream of the phase plate,
 a fraction $\eta_P$ of the beam power is diverted
 to the probe arm of the interferometer.
@@ -1044,6 +1064,7 @@ at the heterodyne-interferometer detector is
 
 
 \subsection{Interferometer reference beam}
+\label{sec:Implementation:PowerDistribution:interferometer_reference_beam}
 The AOM produces a static $\sim 10\%$ optical insertion loss and
 deflects a fraction $\eta_R$ of the remaining beam power
 to the reference arm of the interferometer.
@@ -1069,6 +1090,7 @@ at the heterodyne-interferometer detector is
 
 
 \subsection{Constraining the distribution of optical power}
+\label{sec:Implementation:PowerDistribution:constraints}
 Suitably distributing the optical power in the combined PCI-interferometer
 is an exercise in constrained optimization.
 The objective function is the optical power
