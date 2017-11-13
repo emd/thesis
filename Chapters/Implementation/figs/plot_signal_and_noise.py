@@ -17,11 +17,11 @@ from expected_noise import (
 
 
 # Plotting parameters
-figsize = (11, 7)
+figsize = (8, 7)
 linewidth = 2
 measured_linestyle = '-'
-predicted_linestyle = '-'
-cols = get_distinct(8)[::-1]
+predicted_linestyle = '--'
+cols = get_distinct(5)[::-1]
 fontsize = 14
 flim = [10, 1000]   # [flim] = kHz
 
@@ -95,42 +95,46 @@ if __name__ == '__main__':
         f >= (flim[0] - df),
         f <= (flim[-1] + df)))[0]
 
-    # Optical shot noise:
-    # -------------------
-    cind = 0
-
+    # Predictions:
+    # ------------
+    ax.text(50., 6e-15, 'optical shot noise (P)', fontsize=fontsize)
     ax.loglog(
         f,
         Gxx_shot_noise,
-        label='optical shot noise (P)',
         linewidth=linewidth,
         linestyle=predicted_linestyle,
-        c=cols[cind])
+        c='k')
 
-    # LO:
-    # ---
-    cind += 1
-
+    ax.text(25., 1.75e-13,
+        'LO w/ $\mathregular{\\tau = 2.5 \, \mu s}$ (P)',
+        fontsize=fontsize,
+        rotation=22.5)
     ax.loglog(
         f[find],
         Gxx_LO[find],
-        label='LO w/ $\mathregular{\\tau = 2.5 \, \mu s}$ (P)',
         linewidth=linewidth,
         linestyle=predicted_linestyle,
-        c=cols[cind])
+        c='k')
 
-    # Bit noise:
-    # ----------
-    cind += 1
-
+    ax.text(11., 1.5e-12, 'bit noise (P)', fontsize=fontsize)
     ax.loglog(
         f[find],
         Gxx_quant_expected[find],
-        label='bit noise (P)',
         linewidth=linewidth,
         linestyle=predicted_linestyle,
-        c=cols[cind])
+        c='k')
 
+    ax.text(11., 7e-12, 'detector noise (P)', fontsize=fontsize)
+    ax.loglog(
+        f,
+        Gxx_detector,
+        linewidth=linewidth,
+        linestyle=predicted_linestyle,
+        c='k')
+
+    # Measured:
+    # ---------
+    cind = 0
     ax.loglog(
         f[find],
         Gxx_quant[find],
@@ -139,10 +143,7 @@ if __name__ == '__main__':
         linestyle=measured_linestyle,
         c=cols[cind])
 
-    # Electronics:
-    # ------------
     cind += 1
-
     ax.loglog(
         f[find],
         Gxx_electronics[find],
@@ -151,22 +152,7 @@ if __name__ == '__main__':
         linestyle=measured_linestyle,
         c=cols[cind])
 
-    # Detector:
-    # ---------
     cind += 1
-
-    ax.loglog(
-        f,
-        Gxx_detector,
-        label='detector (P)',
-        linewidth=linewidth,
-        linestyle=predicted_linestyle,
-        c=cols[cind])
-
-    # Full system:
-    # ------------
-    cind += 1
-
     ax.loglog(
         f[find],
         Gxx_full_system[find],
@@ -175,10 +161,7 @@ if __name__ == '__main__':
         linestyle=measured_linestyle,
         c=cols[cind])
 
-    # L-mode:
-    # -------
     cind += 1
-
     ax.loglog(
         f[find],
         Gxx_Lmode[find],
@@ -187,10 +170,7 @@ if __name__ == '__main__':
         linestyle=measured_linestyle,
         c=cols[cind])
 
-    # H-mode:
-    # -------
     cind += 1
-
     ax.loglog(
         f[find],
         Gxx_ELM_free_Hmode[find],
@@ -199,23 +179,18 @@ if __name__ == '__main__':
         linestyle=measured_linestyle,
         c=cols[cind])
 
-    # Labeling:
-    # ---------
+    # Labeling & fine-tuning:
+    # -----------------------
     plt.xlabel(
         '$\mathregular{f \; [kHz]}$',
-        fontsize=fontsize)
+        fontsize=(fontsize + 2))
     plt.ylabel(
         '$\mathregular{G_{\phi,\phi}(f) \; [rad^2 / kHz]}$',
-        fontsize=fontsize)
-
-    # Shrink current axis by 20%
-    box = ax.get_position()
-    ax.set_position([box.x0, box.y0, box.width * 0.75, box.height])
-
-    # Put a legend to the right of the current axis
-    ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+        fontsize=(fontsize + 2))
 
     plt.xlim(flim)
-    plt.ylim([1e-15, 1e-7])
+    plt.ylim([1e-15, 1e-6])
+    ax.tick_params(axis='both', labelsize=fontsize)
+    plt.legend(ncol=2, loc='best')
 
     plt.show()
