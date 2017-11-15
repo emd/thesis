@@ -1229,6 +1229,23 @@ of the heterodyne interferometer's dedicated hardware.
 
 
 \subsection{Oven-controlled crystal oscillator (OCXO)}
+OCXO
+\begin{itemize}
+  \item Wenzel Associates, Inc. (Austin, TX USA)
+  \item Sprinter packaging
+  \item $f_0 = \SI{30}{\mega\hertz}$
+  \item 13 dBm output into $\SI{50}{\ohm}$
+  \item Phase noise $\mathcal{L}(f) = -165 \; \text{dBc}$
+    for $f \geq \SI{10}{\kilo\hertz}$
+\end{itemize}
+
+Rack-mounted module
+\begin{itemize}
+  \item Look in 1170405\_OCXO meeting notes
+  \item Picture?
+\end{itemize}
+
+
 \subsection{High-power RF amplifier}
 \subsection{Detector}
 \begin{itemize}
@@ -1279,6 +1296,16 @@ of the heterodyne interferometer's dedicated hardware.
 
 
 \subsection{Initial problems with LO phase noise}
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/Implementation/figs/LO_self_demodulation_schematic.pdf}
+  \caption[Methodology for investigating LO phase noise]{%
+    Methodology for investigating LO phase noise.
+  }
+  \label{fig:Implementation:LO_self_demodulation_schematic}
+\end{figure}
+
 \begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
