@@ -1207,37 +1207,54 @@ until the cooling capacity of the detector is reached.
 \end{figure}
 
 
-\section{Expected noise}
+\section{Dedicated heterodyne-interferometer hardware}
+\graffito{\textcolor{red}{laser parameters?}}
+Utilizing a shared in-vessel probe beam implies that
+the PCI and the heterodyne interferometer share several components,
+including the CO$_2$ laser,
+the beam expansion optics, and
+the beam-delivery and beam-collection optics.
+\graffito{\textcolor{red}{digitizer parameters?}}
+The two systems also share a digitizer.
+Numerous other components, however,
+are exclusively dedicated to the operation
+of the heterodyne interferometer.
+Some of these components have been discussed in previous sections
+(i.e.\ the reference-beam optics
+in Section~\ref{sec:Implementation:OpticalLayout:reference_beam_generation}
+and the probe-beam imaging optics
+in Section~\ref{sec:Implementation:OpticalLayout:probe_beam}).
+This section details the remainder
+of the heterodyne interferometer's dedicated hardware.
 
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/Implementation/figs/GnH_self_demodulation_varied_delay_lines.pdf}
-  \caption[Coupling of XO phase noise into interferometer measurements]{%
-    Coupling of XO phase noise into interferometer measurements.
-  }
-  \label{fig:Implementation:GnH_self_demodulation}
-\end{figure}
 
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/Implementation/figs/electrical_pickup.pdf}
-  \caption[Delay-line electrical pickup during \diiid\space operations]{%
-    Delay-line electrical pickup during \diiid\space operations.
-  }
-  \label{fig:Implementation:electrical_pickup}
-\end{figure}
-
+\subsection{Oven-controlled crystal oscillator (OCXO)}
+\subsection{High-power RF amplifier}
+\subsection{Detector}
 \begin{itemize}
-  \item Demodulated NEP from
-    (\ref{eq:DesignConsiderations:demodulated_NEP_spectral_density}) gives
-    $\sim \SI{e-18}{\watt\squared\per\hertz}$
-  \item Demodulated shot noise from
-    (\ref{eq:DesignConsiderations:demodulated_shot_noise_spectral_density})
-    gives $\sim \SI{e-21}{\watt\squared\per\hertz}$
+  \item $Q_{\text{DC}} = \SI{50}{\milli\watt}$ with $100\%$ modulation depth
+    at $\SI{10}{\kilo\hertz}$, but we measured
+    $Q_{\text{DC}} \lesssim \SI{75}{\milli\watt}$ at $\SI{30}{\mega\hertz}$
 \end{itemize}
+\subsection{Coaxial cables to \diiid\space annex}
+\subsection{Signal-conditioning RF amplifiers}
+\begin{itemize}
+  \item AGC
+  \item Additional RF amplifiers
+\end{itemize}
+\subsection{Demodulation electronics}
+\begin{itemize}
+  \item Bandpass filters
+  \item Demodulator
+  \item Low-pass filters
+\end{itemize}
+\subsection{Audio amplifiers}
 
+
+\section{Noise}
+
+
+\subsection{Realized system}
 \begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
@@ -1261,30 +1278,26 @@ until the cooling capacity of the detector is reached.
 \end{figure}
 
 
-\section{Interferometer component selection}
-\subsection{Detector}
-\begin{itemize}
-  \item $Q_{\text{DC}} = \SI{50}{\milli\watt}$ with $100\%$ modulation depth
-    at $\SI{10}{\kilo\hertz}$, but we measured
-    $Q_{\text{DC}} \lesssim \SI{75}{\milli\watt}$ at $\SI{30}{\mega\hertz}$
-\end{itemize}
+\subsection{Initial problems with LO phase noise}
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/Implementation/figs/GnH_self_demodulation_varied_delay_lines.pdf}
+  \caption[Coupling of XO phase noise into interferometer measurements]{%
+    Coupling of XO phase noise into interferometer measurements.
+  }
+  \label{fig:Implementation:GnH_self_demodulation}
+\end{figure}
 
-\subsection{Electronics}
-\begin{itemize}
-  \item Automatic gain-control amplifier
-  \item Analog I/Q demodulator
-  \item Low-frequency ``audio'' amplifiers
-\end{itemize}
-\subsection{Digitizer}
-\begin{itemize}
-  \item Bit noise
-\end{itemize}
-
-
-
-
-\section{Fighting phase noise}
-\subsection{Local oscillator stability}
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/Implementation/figs/electrical_pickup.pdf}
+  \caption[Delay-line electrical pickup during \diiid\space operations]{%
+    Delay-line electrical pickup during \diiid\space operations.
+  }
+  \label{fig:Implementation:electrical_pickup}
+\end{figure}
 
 
 \section{Sound-wave calibration of combined PCI-interferometer}
