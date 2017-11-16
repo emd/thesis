@@ -1454,6 +1454,39 @@ Fig.~\ref{fig:Implementation:detector}.
 
 \subsection{Coaxial cables to \diiid\space annex}
 \label{sec:Implementation:Hardware:coax}
+RG-$58$ coaxial cables transmit signals
+between the interferometer components
+located in the \diiid\space annex and the \diiid\space pit.
+Initially installed for PCI signal transmission but
+abandoned following an upgrade to fiber-optic links
+\cite[Sec.~3.3.3]{dorris_phd},
+these cables were reclaimed for the interferometer.
+The $16$ cables sit bundled beneath the PCI optical table and
+connect to channels $C27$ through $C42$
+of panel $5B$ in the \diiid\space annex.
+The single-transit propagation time of each cable
+was measured to be $\SI{315}{\nano\second}$
+by launching a square wave of modest frequency
+(tens of $\SI{}{\kilo\hertz}$)
+down the \emph{unterminated} cable and
+halving the observed time delay between the forward and reflected waves.
+As RG-$58$ has an index of refraction $\sim 3 / 2$,
+this corresponds to a cable length of $\SI{63}{\meter}$.
+DC signals are negligibly attenuated along this cable length, but
+AC signals are subject to the skin effect
+\cite[Sec.~H.1.4]{horowitz_and_hill};
+the measured attenuation at $\SI{30}{\mega\hertz}$ is $\SI{-5.9}{\decibel}$.
+The DC signal between the AOM thermostat and
+the thermal interlock of the OCXO module
+travels along one of these coaxial cables.
+A second coaxial cable transmits
+one of the $\SI{30}{\mega\hertz}$ LO signals
+from the OCXO module
+to the AOM RF driver, and
+a third coaxial cable transmits
+the $\SI{30}{\mega\hertz}$ heterodyne-interference signal
+from the interferometer detector
+to the signal-conditioning RF amplifiers.
 
 
 \subsection{Signal-conditioning RF amplifiers}
