@@ -1229,24 +1229,106 @@ of the heterodyne interferometer's dedicated hardware.
 
 
 \subsection{Oven-controlled crystal oscillator (OCXO)}
-OCXO
-\begin{itemize}
-  \item Wenzel Associates, Inc. (Austin, TX USA)
-  \item Sprinter packaging
-  \item $f_0 = \SI{30}{\mega\hertz}$
-  \item 13 dBm output into $\SI{50}{\ohm}$
-  \item Phase noise $\mathcal{L}(f) = -165 \; \text{dBc}$
-    for $f \geq \SI{10}{\kilo\hertz}$
-\end{itemize}
+\label{sec:Implementation:Hardware:OCXO}
+\graffito{\textcolor{red}{cite AoE?}}
+Placing a crystal oscillator (XO) in a constant-temperature thermal bath
+substantially improves the XO stability,
+dramatically reducing the XO phase noise.
+For technical reasons,
+ovens operated tens of degrees above the ambient temperature
+provide the most robust constant-temperature thermal baths.
+Such an oven-controlled crystal oscillator (OCXO)
+can achieve stabilities that are \textcolor{red}{orders-of-magnitude larger}
+than a comparable XO.
 
-Rack-mounted module
-\begin{itemize}
-  \item Look in 1170405\_OCXO meeting notes
-  \item Picture?
-\end{itemize}
+The local oscillator (LO) of the heterodyne interferometer
+is derived from an OCXO.
+The OCXO was procured from Wenzel Associates, Inc. (Austin, TX USA)
+and is enclosed in their Sprinter packaging.
+The OCXO has a $5$-minute warm-up time,
+during which it draws a maximum power of $\SI{5}{\watt}$;
+after warming up, it draws $\SI{2.2}{\watt}$.
+The OCXO output is a $13 \; \text{dBm}$ sinusoidal signal
+at a frequency of $\SI{30}{\mega\hertz}$
+(i.e.\ in the notation of
+Chapters~\ref{ch:InterferometricMethods} and \ref{ch:DesignConsiderations},
+$\Delta \omega_0 = 2 \pi \cdot \SI{30}{\mega\hertz}$).
+The OCXO phase noise is
+\begin{equation}
+    \mathcal{L}_{\Delta \omega_0}(f)
+    =
+    -165 \; \text{dBc},
+    \qquad
+    f \geq \SI{10}{\kilo\hertz}.
+  \label{eq:Implementation:OCXO_phase_noise}
+\end{equation}
+The conversion between $\text{dBc}$ and
+$\SI{}{\radian\squared\per\hertz}$ is discussed
+in Appendix~\ref{app:OscillatorPhaseNoise}.
+
+A custom, rack-mounted module was built to house the OCXO.
+The module housing protects the OCXO from rough handling and
+encloses additional electronics that facilitate
+the OCXO integration into the rest of the heterodyne-interferometer system.
+The OCXO module is installed in the PCI rack
+located in the \diiid\space annex.
+A schematic of this module is shown in
+Fig.~\ref{fig:Implementation:OCXO_module}.
+A $\SI{15}{\volt}$ linear-regulated power supply
+($15EB40$, Acopian Technical Co.; Easton, PA USA)
+powers the OCXO, while
+a $\SI{5}{\volt}$ linear-regulated power supply ($5EB50$, Acopian)
+powers the thermal-regulation and RF-modulation electronics.
+Linear-regulated power supplies are less noisy than
+either switching-mode or unregulated power supplies, so
+it was deemed essential to power the OCXO
+with a linear-regulated power supply.
+To prevent overheating the AOM
+(e.g.\ due to a water-cooling failure),
+a normally closed, creep-action thermostat
+(Pepi Model N, Portage Electric Products, Inc; North Canton, OH USA)
+monitors the AOM temperature;
+if the AOM temperature exceeds $\SI{30}{\celsius}$,
+the thermostat opens.
+Now, assuming the AOM temperature is less than $\SI{30}{\celsius}$,
+connecting the thermostat of the AOM
+to the thermal interlock of the OCXO module
+produces a current that closes the normally open, non-latching relay
+that sits between the $\SI{15}{\volt}$ linear-regulated power supply
+and the OCXO, powering on the OCXO.
+The OCXO signal is evenly split via
+a Mini-Circuits (Brooklyn, NY USA) {ZFSC-$2$-$6$B} RF splitter
+to produce two LO signals;
+one of the LO signals is routed to the AOM RF driver
+(described in Section~\ref{sec:Implementation:Hardware:RF_driver})
+located in the \diiid\space pit, and
+the other LO signal is routed to the interferometer demodulation electronics
+(described in
+Section~\ref{sec:Implementation:Hardware:demodulation_electronics})
+located in the PCI rack of the \diiid\space annex.
+A Mini-Circuits {FTB-$1$-$1$} ``balun'' transformer
+breaks the ground loop between the OCXO module and the AOM RF driver.
+A Mini-Circuits {ZSDR-$230$+} RF switch also enables amplitude modulation
+of the LO signal that is routed to the AOM RF driver;
+this capability is only used during system alignment, as described in
+Section~\ref{sec:Implementation:Alignment}.
+Finally, a switch at the rear of the module
+allows one to easily toggle the module grounding between
+the electrical mains (i.e.\ for bench testing) and
+the PCI rack (i.e.\ for operations).
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/Implementation/figs/OCXO_module.pdf}
+  \caption[Schematic for OCXO rack-mounted module]{%
+    Schematic for OCXO rack-mounted module. See text for details.}
+  \label{fig:Implementation:OCXO_module}
+\end{figure}
 
 
 \subsection{High-power RF amplifier}
+\label{sec:Implementation:Hardware:RF_driver}
 \subsection{Detector}
 \begin{itemize}
   \item $Q_{\text{DC}} = \SI{50}{\milli\watt}$ with $100\%$ modulation depth
@@ -1260,6 +1342,7 @@ Rack-mounted module
   \item Additional RF amplifiers
 \end{itemize}
 \subsection{Demodulation electronics}
+\label{sec:Implementation:Hardware:demodulation_electronics}
 \begin{itemize}
   \item Bandpass filters
   \item Demodulator
@@ -1327,6 +1410,8 @@ Rack-mounted module
 \end{figure}
 
 
+\section{Alignment}
+\label{sec:Implementation:Alignment}
 \section{Sound-wave calibration of combined PCI-interferometer}
 \subsection{Sound-wave characterization}
 \subsection{Measurements}
