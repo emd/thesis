@@ -601,8 +601,8 @@ an obvious application is satisfying
 the heterodyne interferometer's coalignment constraint
 (\ref{eq:DesignConsiderations:summary:coalignment_constraint})
 in the presence of machine vibrations.
-Of course, the lateral shifts in image location
-documented by Coda~\cite[Sec.~3.5(f)]{coda_phd}.
+Of course, the lateral image location shifts
+in accordance with the discussion by Coda~\cite[Sec.~3.5(f)]{coda_phd}.
 
 
 \subsection{Reference-beam generation}
@@ -1491,10 +1491,57 @@ to the signal-conditioning RF amplifiers.
 
 \subsection{Signal-conditioning RF amplifiers}
 \label{sec:Implementation:Hardware:RF_amps}
-\begin{itemize}
-  \item AGC
-  \item Additional RF amplifiers
-\end{itemize}
+Despite feedback stabilization of the beam coalignment
+(discussed in
+Sections~\ref{sec:Implementation:OpticalLayout:coalignment_with_feedback})
+and \ref{sec:Implementation:OpticalLayout:probe_beam}),
+vibration-induced misalignment can still substantially reduce
+the amplitude of the heterodyne-interference signal,
+dramatically degrading the signal-to-noise ratio of the interferometer.
+These amplitude variations can be compensated
+with an automatic gain-control (AGC) amplifier, which
+monitors the amplitude of the input signal and
+dynamically adjusts its gain
+to maintain a constant-amplitude output signal.
+
+An AGC amplifier was graciously provided \emph{pro bono}
+by Palomar Scientific Instruments (San Marcos, CA USA).
+The AGC operates over a frequency range from
+$\SI{20}{\mega\hertz}$ to $\SI{100}{\mega\hertz}$.
+The AGC produces a $-6 \; \text{dBm}$ output signal for
+an input signal between $-24 \; \text{dBm}$ and $+6 \; \text{dBm}$;
+the input damage limit is $20 \, \text{dBm}$.
+The input and output impedances are both $\SI{50}{\ohm}$.
+The AGC draws $\SI{160}{\milli\amp}$
+from a DC power supply that can sit
+anywhere between $\SI{7}{V}$ and $\SI{15}{V}$;
+however, higher DC voltages produce significant heat dissipation, and
+operation at the upper limit of $\SI{15}{V}$ should be avoided, if possible.
+The AGC is shown in Fig.~\ref{fig:Implementation:AGC}.
+If the heterodyne interference signal falls
+below the lower limit of the AGC input range
+(e.g. due to long-term drift of the system alignment),
+a Mini-Circuits (Brooklyn, NY USA) {ZFL-$500$B} amplifier
+is added immediately upstream of the AGC.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = 0.5 \textwidth]{%
+    Chapters/Implementation/figs/AGC27.jpg}
+  \caption[Automatic gain-control (AGC) amplifier]{%
+    Automatic gain-control (AGC) amplifier.
+  }
+  \label{fig:Implementation:AGC}
+\end{figure}
+
+These signal-conditioning RF amplifiers
+are located in the PCI rack of the \diiid\space annex.
+A $\SI{12}{\volt}$ linear-regulated power supply
+($12EB40$, Acopian Technical Co.; Easton, PA USA)
+powers the amplifiers.
+A Mini-Circuits {FTB-$1$-$1$} ``balun'' transformer
+breaks the ground loop between
+the interferometer detector and the signal-conditioning RF amplifiers.
 
 
 \subsection{Demodulation electronics}
