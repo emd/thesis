@@ -1327,20 +1327,64 @@ the PCI rack (i.e.\ for operations).
 \end{figure}
 
 
-\subsection{High-power RF amplifier}
+\subsection{AOM RF driver}
 \label{sec:Implementation:Hardware:RF_driver}
+The LO signal must be amplified to several watts in order to drive the AOM.
+An ENI (Rochester, NY USA) $3100L$ performs this amplification.
+(Note that ENI no longer exists but that
+the closely related E\&I currently manufactures comparable amplifiers).
+The $3100L$ provides broadband power amplification between
+$\SI{250}{\kilo\hertz}$ to $\SI{105}{\mega\hertz}$.
+The $3100L$ has $\SI{50}{\decibel}$ gain
+and a rated power output above $\SI{100}{\watt}$
+(as the AOM is typically driven at $\sim \SI{1}{\watt}$,
+the $3100L$ greatly exceeds the drive requirements;
+note that the $3100L$ is on long-term loan from the $\diiid$ RF group,
+though, and they had no suitable, lower-power amplifiers).
+The harmonic distortion of the $3100L$ is $\leq -25 \; \text{dBc}$, and
+its noise figure is $\leq \SI{10}{\decibel}$.
+\graffito{\textcolor{red}{cite self-demodulation methodology}}
+Self-demodulation tests conducted with and without the $3100L$
+demonstrate that the $3100L$ does \emph{not} add appreciable
+noise into the interferometer measurements.
+The $3100L$ draws $\SI{1.1}{\kilo\watt}$ of $120$ VAC wall power;
+a $2.4 \; \text{kVA}$ Topaz isolation transformer
+isolates the $3100L$ from high-frequency wall-power noise.
+At a hefty $70 \; \text{lbs}$,
+the $3100L$ is mounted in the PCI rack
+adjacent to the PCI optical table in the \diiid\space pit;
+the Topaz isolation transformer is mounted
+to the pit wall behind the PCI rack.
+\graffito{\textcolor{red}{coax line length?}}
+The AOM drive level is adjusted by appropriately attenuating
+the LO signal just upstream of the $3100L$ input;
+this ``just-in-time'' attenuation minimizes the effect of electrical pickup
+during the signal transit from the annex to the pit
+(relative to e.g.\ attenuating the signal in the annex
+and then sending the signal to the pit).
+
+
 \subsection{Detector}
+\label{sec:Implementation:Hardware:detector}
 \begin{itemize}
   \item $Q_{\text{DC}} = \SI{50}{\milli\watt}$ with $100\%$ modulation depth
     at $\SI{10}{\kilo\hertz}$, but we measured
     $Q_{\text{DC}} \lesssim \SI{75}{\milli\watt}$ at $\SI{30}{\mega\hertz}$
 \end{itemize}
+
+
 \subsection{Coaxial cables to \diiid\space annex}
+\label{sec:Implementation:Hardware:coax}
+
+
 \subsection{Signal-conditioning RF amplifiers}
+\label{sec:Implementation:Hardware:RF_amps}
 \begin{itemize}
   \item AGC
   \item Additional RF amplifiers
 \end{itemize}
+
+
 \subsection{Demodulation electronics}
 \label{sec:Implementation:Hardware:demodulation_electronics}
 \begin{itemize}
@@ -1348,7 +1392,10 @@ the PCI rack (i.e.\ for operations).
   \item Demodulator
   \item Low-pass filters
 \end{itemize}
+
+
 \subsection{Audio amplifiers}
+\label{sec:Implementation:Hardware:audio_amps}
 
 
 \section{Noise}
