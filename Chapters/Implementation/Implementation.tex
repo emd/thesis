@@ -1127,7 +1127,7 @@ for $\SI{10.6}{\micro\meter}$ heterodyne interferometry typically have
 a saturation intensity
 $I_{\text{sat}} = \SI{100}{\milli\watt\per\square\milli\meter}$
 and a damage intensity
-$I_{\text{dam}} = \SI{1000}{\milli\watt\per\square\milli\meter}$.
+$I_{\text{dam}} = \SI{1}{\watt\per\square\milli\meter}$.
 Note that $I_{\text{DC}} + I_{\text{AC}}$
 is a strong function of $\eta_R$
 and that $I_{\text{DC}} + I_{\text{AC}} \sim I_{\text{sat}}$
@@ -1366,11 +1366,90 @@ and then sending the signal to the pit).
 
 \subsection{Detector}
 \label{sec:Implementation:Hardware:detector}
-\begin{itemize}
-  \item $Q_{\text{DC}} = \SI{50}{\milli\watt}$ with $100\%$ modulation depth
-    at $\SI{10}{\kilo\hertz}$, but we measured
-    $Q_{\text{DC}} \lesssim \SI{75}{\milli\watt}$ at $\SI{30}{\mega\hertz}$
-\end{itemize}
+\graffito{\textcolor{red}{cite VIGO}}
+Detection of $\SI{10.6}{\micro\meter}$ light
+is typically effected with Mercury Cadmium Telluride (HgCdTe),
+an alloy of HgTe and CdTe.
+The ratio of HgTe to CdTe is tuned to provide
+optimal detection at the device's intended operational temperature.
+Cooling the HgCdTe typically
+increases the cut-off wavelength,
+increases optical responsivity, and
+decreases device noise,
+but often at the expense of device speed.
+Device noise and speed also depend on whether
+the HgCdTe detector is photovoltaic (PV) or photoconductive (PC);
+in particular, PC detectors exhibit $1 / f$ noise and
+are often slower than their PV counterparts.
+
+Resolving the temporal dynamics
+of the heterodyne interferometer's $\SI{30}{\mega\hertz}$ signal
+requires a sufficiently fast detector.
+This immediately precludes the use of a liquid-nitrogen cooled detector,
+as is used for the PCI.
+Room-temperature HgCdTe detectors are sufficiently fast but
+also exhibit relatively low sensitivity.
+Modest thermoelectric (TE) cooling, however,
+can engender some of the positive aspects of cooling while
+maintaining sufficient time resolution.
+
+The $\SI{30}{\mega\hertz}$ heterodyne-interference signal is measured with
+a {PVM-$2$TE-$10.6$} detector element mounted on a MIPACv$2$ detection module,
+both procured from VIGO System S.A. (Ozarow Mazowiecki, Poland).
+The multiple-junction PV element provides superior speed
+($\SI{3}{\decibel}$ high-frequency cutoff $\sim \SI{50}{\mega\hertz}$) and
+sensitivity ($D^* \sim \SI{1.9e8}{\centi\meter \sqrt\hertz \per\watt}$)
+relative to a PC element or a single-junction PV element.
+The element is square with side length $s_x = \SI{1}{\milli\meter}$,
+in accordance with (\ref{eq:Implementation:detector_size}).
+The element has linear saturation intensity
+$I_{\text{sat}} = \SI{100}{\milli\watt\per\milli\meter\squared}$ and
+damage intensity
+$I_{\text{dam}} = \SI{1}{\watt\per\milli\meter\squared}$.
+The element and TE cooler are enclosed
+in TO-$8$ packaging with a BaF$_2$ window;
+care should be taken not to scratch the soft BaF$_2$ window or
+to subject the system to mechanical shocks, which
+may damage the TE cooler.
+The TE cooler is capable of maintaining the detector element
+at a constant $\SI{235}{\kelvin}$ temperature
+for incident DC optical fluxes $\lesssim \SI{75}{\milli\watt}$.
+The MIPACv$2$ detection module houses additional TE-cooling components
+as well as the detector preamplifier.
+The preamplifier is AC-coupled with
+a cut-on frequency of $\SI{1}{\kilo\hertz}$ and
+a cut-off frequency of $\SI{50}{\mega\hertz}$, and
+it is capable of producing a $\pm\SI{1}{\volt}$
+output-voltage swing into a $\SI{50}{\ohm}$ load.
+The MIPACv$2$ detection module is powered by
+VIGO's STCC-$04$ controller.
+The specific detectivity of the element and the detection module
+taken as an integrated unit is
+\begin{equation}
+  D^* = \SI{5.35e7}{\centi\meter \sqrt\hertz \per\watt}.
+  \label{eq:Implementation:Dstar}
+\end{equation}
+The detector module is pictured in
+Fig.~\ref{fig:Implementation:detector}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = 0.6 \textwidth]{%
+    Chapters/Implementation/figs/detector.jpg}
+  \caption[Detector module]{%
+    The heterodyne interferometer's detector module.
+    The detector element and thermoelectric (TE) cooler
+    are enclosed within the TO-$8$ silver ``can'' at middle left.
+    The blue housing encloses additional TE-cooling components and
+    the detector preamplifier.
+    A heat sink and small fan are located opposite of the detector face.
+    The female SMA connector (for detector output) and
+    the receptacle for a $9$-pin LEMO cable
+    (for communication with the module controller)
+    sit on the unpictured side of the detector module.
+  }
+\label{fig:Implementation:detector}
+\end{figure}
 
 
 \subsection{Coaxial cables to \diiid\space annex}
