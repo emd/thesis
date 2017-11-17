@@ -1562,6 +1562,11 @@ Fig.~\ref{fig:Implementation:demodulation_electronics}.
     Schematic for demodulation electronics.
     Note that the polarity of the bandpass filters
     is explicitly noted as M (male) and F (female).
+    The OCXO and the electronics downstream of the $I\&Q$ demodulator
+    are all grounded to the PCI rack in the \diiid\space annex;
+    the IF signal conditioning amplifiers
+    are \emph{not} grounded to the rack,
+    so a balun transformer breaks the ground loop.
     Measurements along any point in the circuit
     should be into $\SI{50}{\ohm}$.
   }
