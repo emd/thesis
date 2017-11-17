@@ -1551,6 +1551,22 @@ The theory of ideal and real-world demodulation is discussed in
 Section~\ref{sec:DesignConsiderations:demodulation}, and
 readers are encouraged to review that section
 if context for the hardware described below is desired.
+A schematic of the demodulation electronics is shown in
+Fig.~\ref{fig:Implementation:demodulation_electronics}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/Implementation/figs/demodulation_electronics.pdf}
+  \caption[Schematic for demodulation electronics]{%
+    Schematic for demodulation electronics.
+    Note that the polarity of the bandpass filters
+    is explicitly noted as M (male) and F (female).
+    Measurements along any point in the circuit
+    should be into $\SI{50}{\ohm}$.
+  }
+  \label{fig:Implementation:demodulation_electronics}
+\end{figure}
 
 Prior to demodulation, the LO and IF signals are each bandpass filtered
 with a Mini-Circuits (Brooklyn, NY USA) {BBP-$30$+}.
@@ -1575,21 +1591,21 @@ The resulting $-8.5 \; \text{dBm}$ IF and $8.5 \; \text{dBm}$ LO
 are now ready to be demodulated.
 
 Demodulation is performed with a
-Mini-Circuits MIQC-$60$WD+
+Mini-Circuits {MIQC-$60$WD+}
 analog $I\&Q$ demodulator.
-The MIQC-$60$WD+ can demodulate IF signals with frequencies between
+The {MIQC-$60$WD+} can demodulate IF signals with frequencies between
 $\SI{20}{\mega\hertz}$ and $\SI{60}{\mega\hertz}$, while
 the bandwidth of the resulting $I$ and $Q$ signals
 may span from DC up to $\SI{5}{\mega\hertz}$.
 \graffito{\textcolor{red}{reference for ``deadbug''?}}
 To minimize parasitic capacitances,
-the MIQC-$60$WD+ is soldered ``deadbug'' style
+the {MIQC-$60$WD+} is soldered ``deadbug'' style
 to a large grounding plane, and
 every electrical connection is soldered
 directly to its corresponding pin;
 the demodulator, wiring, and grounding plane
 are enclosed in a protective box with external BNC jacks.
-The MIQC-$60$WD+ conversion loss is $\SI{5.3}{\decibel}$.
+The {MIQC-$60$WD+} conversion loss is $\SI{5.3}{\decibel}$.
 The amplitude imbalance is $\leq \SI{0.6}{\decibel}$,
 the phase imbalance $\leq \SI{5}{\degree}$, and
 the DC offset is typically $\sim \SI{1}{\milli\volt}$.
@@ -1599,15 +1615,13 @@ were measured to be $\SI{53}{\decibel}$ and $\SI{64}{\decibel}$, respectively.
 The signals exiting the $I$ and $Q$ ports of the demodulator
 must be low-pass filtered
 to remove the $\SI{60}{\mega\hertz}$ ``sum'' components
-that results from mixing the LO and IF.
-Low-pass filtering each signal is performed
-with a Mini-Circuits BLP-$10.7$+, which
-has $\leq \SI{1}{\decibel}$ insertion loss
-over its DC to $\SI{11}{\mega\hertz}$ passband.
+that result from mixing the LO and IF.
+Low-pass filtering is performed
+with a pair of Mini-Circuits {BLP-$10.7$+} filters, which
+have $\leq \SI{1}{\decibel}$ insertion loss
+over their DC to $\SI{11}{\mega\hertz}$ passband.
 The resulting $I$ and $Q$ signals are each
 $-18 \; \text{dBm}$ (i.e.\ $\SI{28.2}{\milli\volt}$ RMS).
-
-\textcolor{red}{Schematic?}
 
 
 \subsection{Audio amplifiers}
@@ -1620,7 +1634,7 @@ $\SI{50}{\ohm}$ termination of I\&Q prior to audio amps
   \item Ellipse fitting
   \item atan$2$
   \item Filtering with zero-delay, Kaiser-designed FIR filter
-\end{itemize}<++>
+\end{itemize}
 
 \section{Noise}
 
