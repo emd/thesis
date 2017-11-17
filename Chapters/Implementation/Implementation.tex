@@ -1306,7 +1306,7 @@ the other LO signal is routed to the interferometer demodulation electronics
 (described in
 Section~\ref{sec:Implementation:Hardware:demodulation_electronics})
 located in the PCI rack of the \diiid\space annex.
-A Mini-Circuits {FTB-$1$-$1$} ``balun'' transformer
+A Mini-Circuits {FTB-$1$-$1$} balun transformer
 breaks the ground loop between the OCXO module and the AOM RF driver.
 A Mini-Circuits {ZSDR-$230$+} RF switch also enables amplitude modulation
 of the LO signal that is routed to the AOM RF driver;
@@ -1475,7 +1475,7 @@ this corresponds to a cable length of $\SI{63}{\meter}$.
 DC signals are negligibly attenuated along this cable length, but
 AC signals are subject to the skin effect
 \cite[Sec.~H.1.4]{horowitz_and_hill};
-the measured attenuation at $\SI{30}{\mega\hertz}$ is $\SI{-5.9}{\decibel}$.
+the measured attenuation at $\SI{30}{\mega\hertz}$ is $\SI{5.9}{\decibel}$.
 The DC signal between the AOM thermostat and
 the thermal interlock of the OCXO module
 travels along one of these coaxial cables.
@@ -1511,7 +1511,8 @@ $\SI{20}{\mega\hertz}$ to $\SI{100}{\mega\hertz}$.
 The AGC produces a $-6 \; \text{dBm}$ output signal for
 an input signal between $-24 \; \text{dBm}$ and $+6 \; \text{dBm}$;
 the input damage limit is $20 \, \text{dBm}$.
-The input and output impedances are both $\SI{50}{\ohm}$.
+The input and output impedances are both $\SI{50}{\ohm}$, and
+the input and output ports are female SMA.
 The AGC draws $\SI{160}{\milli\amp}$
 from a DC power supply that can sit
 anywhere between $\SI{7}{V}$ and $\SI{15}{V}$;
@@ -1539,23 +1540,87 @@ are located in the PCI rack of the \diiid\space annex.
 A $\SI{12}{\volt}$ linear-regulated power supply
 ($12EB40$, Acopian Technical Co.; Easton, PA USA)
 powers the amplifiers.
-A Mini-Circuits {FTB-$1$-$1$} ``balun'' transformer
+A Mini-Circuits {FTB-$1$-$1$} balun transformer
 breaks the ground loop between
 the interferometer detector and the signal-conditioning RF amplifiers.
 
 
 \subsection{Demodulation electronics}
 \label{sec:Implementation:Hardware:demodulation_electronics}
-\begin{itemize}
-  \item Bandpass filters
-  \item Demodulator
-  \item Low-pass filters
-\end{itemize}
+The theory of ideal and real-world demodulation is discussed in
+Section~\ref{sec:DesignConsiderations:demodulation}, and
+readers are encouraged to review that section
+if context for the hardware described below is desired.
+
+Prior to demodulation, the LO and IF signals are each bandpass filtered
+with a Mini-Circuits (Brooklyn, NY USA) {BBP-$30$+}.
+The {BBP-$30$+} has $\leq \SI{1.5}{\decibel}$ insertion loss over
+its $\SI{27}{\mega\hertz}$ to $\SI{33}{\mega\hertz}$ passband.
+Bandpass filtering the $\SI{30}{\mega\hertz}$ IF
+suppresses higher-order harmonics and out-of-band noise,
+both of which would degrade the heterodyne interferometer's phase measurement.
+Although Section~\ref{sec:DesignConsiderations:demodulation:nonideal_mixing}
+discusses the potential benefits of demodulating against a square LO,
+no such LO was available, so
+the LO is instead bandpass filtered
+to ensure that the IF is demodulated against a sinusoid.
+The {BBP-$30$+} is \emph{directional}, so
+care should be taken to install the filter
+with the correct orientation.
+Following the bandpass filter,
+a Mini-Circuits {FTB-$1$-$1$} breaks the ground loop between
+the IF signal-conditioning amplifiers and
+the audio amplifiers.
+The resulting $-8.5 \; \text{dBm}$ IF and $8.5 \; \text{dBm}$ LO
+are now ready to be demodulated.
+
+Demodulation is performed with a
+Mini-Circuits MIQC-$60$WD+
+analog $I\&Q$ demodulator.
+The MIQC-$60$WD+ can demodulate IF signals with frequencies between
+$\SI{20}{\mega\hertz}$ and $\SI{60}{\mega\hertz}$, while
+the bandwidth of the resulting $I$ and $Q$ signals
+may span from DC up to $\SI{5}{\mega\hertz}$.
+\graffito{\textcolor{red}{reference for ``deadbug''?}}
+To minimize parasitic capacitances,
+the MIQC-$60$WD+ is soldered ``deadbug'' style
+to a large grounding plane, and
+every electrical connection is soldered
+directly to its corresponding pin;
+the demodulator, wiring, and grounding plane
+are enclosed in a protective box with external BNC jacks.
+The MIQC-$60$WD+ conversion loss is $\SI{5.3}{\decibel}$.
+The amplitude imbalance is $\leq \SI{0.6}{\decibel}$,
+the phase imbalance $\leq \SI{5}{\degree}$, and
+the DC offset is typically $\sim \SI{1}{\milli\volt}$.
+The $3$\ts{rd}- and $5$\ts{th}-order harmonic suppressions
+were measured to be $\SI{53}{\decibel}$ and $\SI{64}{\decibel}$, respectively.
+
+The signals exiting the $I$ and $Q$ ports of the demodulator
+must be low-pass filtered
+to remove the $\SI{60}{\mega\hertz}$ ``sum'' components
+that results from mixing the LO and IF.
+Low-pass filtering each signal is performed
+with a Mini-Circuits BLP-$10.7$+, which
+has $\leq \SI{1}{\decibel}$ insertion loss
+over its DC to $\SI{11}{\mega\hertz}$ passband.
+The resulting $I$ and $Q$ signals are each
+$-18 \; \text{dBm}$ (i.e.\ $\SI{28.2}{\milli\volt}$ RMS).
+
+\textcolor{red}{Schematic?}
 
 
 \subsection{Audio amplifiers}
 \label{sec:Implementation:Hardware:audio_amps}
+$\SI{50}{\ohm}$ termination of I\&Q prior to audio amps
 
+
+\section{Phase computation}
+\begin{itemize}
+  \item Ellipse fitting
+  \item atan$2$
+  \item Filtering with zero-delay, Kaiser-designed FIR filter
+\end{itemize}<++>
 
 \section{Noise}
 
