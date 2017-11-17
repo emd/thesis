@@ -12,8 +12,8 @@
    id="svg14091"
    version="1.1"
    inkscape:version="0.91 r13725"
-   width="1563.9116"
-   height="334.75198"
+   width="1581.2554"
+   height="377.33261"
    xml:space="preserve"
    sodipodi:docname="demodulation_electronics.svg"><sodipodi:namedview
      pagecolor="#ffffff"
@@ -28,9 +28,9 @@
      inkscape:window-height="1002"
      id="namedview14093"
      showgrid="false"
-     inkscape:zoom="1.6183501"
-     inkscape:cx="856.2146"
-     inkscape:cy="91.113998"
+     inkscape:zoom="0.57217317"
+     inkscape:cx="858.573"
+     inkscape:cy="133.6946"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -139,7 +139,7 @@
          style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
          transform="matrix(0.4,0,0,0.4,2.96,0.4)"
          inkscape:connector-curvature="0" /></marker></defs><g
-     transform="matrix(1.25,0,0,-1.25,573.05962,-237.92194)"
+     transform="matrix(1.25,0,0,-1.25,575.41801,-237.92194)"
      inkscape:label="iqcircuit"
      inkscape:groupmode="layer"
      id="g14099"><text
@@ -335,7 +335,9 @@
          sodipodi:role="line"
          x="-370.74066"
          y="300.87839"
-         id="tspan5730">IF from AGC</tspan><tspan
+         id="tspan5730"><tspan
+   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans Bold'"
+   id="tspan6103">IF</tspan> from AGC</tspan><tspan
          sodipodi:role="line"
          x="-370.74066"
          y="330.87839"
@@ -356,7 +358,9 @@
          id="tspan5722"
          y="414.47839"
          x="-370.74066"
-         sodipodi:role="line">LO from OCXO</tspan><tspan
+         sodipodi:role="line"><tspan
+   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans Bold'"
+   id="tspan6105">LO</tspan> from OCXO</tspan><tspan
          id="tspan5724"
          y="444.47839"
          x="-370.74066"
@@ -589,7 +593,8 @@
          id="tspan5884"
          y="292.15005"
          x="695.89258"
-         sodipodi:role="line">I</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans Bold'">I</tspan><tspan
          id="tspan5886"
          y="322.15005"
          x="695.89258"
@@ -605,7 +610,8 @@
          sodipodi:role="line"
          x="695.89258"
          y="415.35004"
-         id="tspan5890">Q</tspan><tspan
+         id="tspan5890"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans Bold'">Q</tspan><tspan
          sodipodi:role="line"
          x="695.89258"
          y="445.35004"
@@ -621,5 +627,26 @@
          sodipodi:role="line"
          x="695.48242"
          y="366.7139"
-         id="tspan5898">(to audio amps)</tspan></text>
+         id="tspan5898"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans Bold'">(to audio amps)</tspan></text>
+<rect
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:2.4000001;stroke-miterlimit:4;stroke-dasharray:19.2, 19.2;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect6051"
+       width="193.64767"
+       height="273.34384"
+       x="174.68132"
+       y="213.65979"
+       transform="scale(1,-1)" /><text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;line-height:125%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="252.2825"
+       y="479.35004"
+       id="text6053"
+       sodipodi:linespacing="125%"
+       transform="scale(1,-1)"><tspan
+         sodipodi:role="line"
+         x="252.2825"
+         y="479.35004"
+         id="tspan6057"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans Bold'">closed box</tspan></text>
 </g></svg>
