@@ -2011,10 +2011,11 @@ to the corresponding angular equivalent.
 This unit conversion is accomplished by dividing
 (\ref{eq:DesignConsiderations:total_quantization_noise_autospectral_density})
 by the \emph{squared} radius of the $I\&Q$ Lissajous curve.
-Assuming that the $I$ and $Q$ signals occupy
-the digitizer's full dynamic range $V_{\text{dyn}}$,
+Let the $I$ and $Q$ signals occupy
+a fraction $\eta_{\text{dyn}} \leq 1$ of
+the digitizer's full dynamic range $V_{\text{dyn}}$ such that
 the squared radius of the Lissajous curve is
-$I^2 + Q^2 = (V_{\text{dyn}} / 2)^2$, and
+$I^2 + Q^2 = (\eta_{\text{dyn}} V_{\text{dyn}} / 2)^2$, and
 the total quantization noise
 (in angular units of $\SI{}{\radian\squared\per\Hz}$) is
 \begin{equation}
@@ -2022,8 +2023,8 @@ the total quantization noise
   +
   G_{\epsilon_Q,\epsilon_Q}(f)
   \approx
-  \frac{1}{3 \left[ 2^{2 (N_b - 1)} \right] f_s},
-  \qquad
+  \frac{1}{3 \left[ 2^{2 (N_b - 1)} \right] \eta_{\text{dyn}}^2 f_s},
+  \quad
   0 \leq f \leq \frac{f_s}{2},
   \label{eq:DesignConsiderations:total_quantization_noise_autospectral_density_angular_units}
 \end{equation}
@@ -2401,13 +2402,22 @@ are summarized below:
     \begin{equation}
       G(f)
       \approx
-      \frac{1}{3 \left[ 2^{2 (N_b - 1)} \right] f_s},
+      \frac{1}{3 \left[ 2^{2 (N_b - 1)} \right] \eta_{\text{dyn}}^2 f_s},
       \qquad
-      0 \leq f \leq \frac{f_s}{2}.
+      0 \leq f \leq \frac{f_s}{2},
       \label{eq:DesignConsiderations:summary:quantization_noise_autospectral_density}
     \end{equation}
-    Here, it is assumed that the $I$ and $Q$ signals each fully occupy
-    the digitizer's dynamic range $V_{\text{dyn}}$.
+    where $\eta_{\text{dyn}} \leq 1$ is the fraction
+    of the digitizers's dynamic range $V_{\text{dyn}}$
+    occupied by the $I$ and $Q$ signals, i.e.\
+    \begin{equation}
+      \eta_{\text{dyn}}
+      =
+      \frac{\text{max}(I) - \text{min}(I)}{V_{\text{dyn}}}
+      =
+      \frac{\text{max}(Q) - \text{min}(Q)}{V_{\text{dyn}}}.
+      \label{eq:DesignConsiderations:summary:eta_dynamic}
+    \end{equation}
     See Section~\ref{sec:DesignConsiderations:quantization}
     for more details.
 \end{itemize}
