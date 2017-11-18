@@ -1626,12 +1626,36 @@ with a pair of Mini-Circuits {BLP-$10.7$+} filters, which
 have $\leq \SI{1}{\decibel}$ insertion loss
 over their DC to $\SI{11}{\mega\hertz}$ passband.
 The resulting $I$ and $Q$ signals are each
-$-18 \; \text{dBm}$ (i.e.\ $\SI{28.2}{\milli\volt}$ RMS).
+$-18 \; \text{dBm}$
+(i.e.\ $\SI{28.2}{\milli\volt}$ RMS,
+\SI{80}{\milli\volt} peak-to-peak).
 
 
 \subsection{Audio amplifiers}
 \label{sec:Implementation:Hardware:audio_amps}
-$\SI{50}{\ohm}$ termination of I\&Q prior to audio amps
+\begin{itemize}
+  \item $\SI{1}{\micro\farad}$ bypass capacitors on op-amp power-supply rails
+    to avoid instability~\cite[Sec.~4.2.7]{horowitz_and_hill}
+  \item Input bias current -- causes a voltage drop across the resistors
+    in a feedback network~\cite[Sec.~4.4.1.C]{horowitz_and_hill}
+\end{itemize}
+
+OP37
+\begin{itemize}
+  \item Slew rate
+  \item GBw product
+  \item BJT, requiring balanced input impedances
+\end{itemize}
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/Implementation/figs/audio_amp_schematic.pdf}
+  \caption[Audio-amplifier schematic]{%
+    Audio-amplifier schematic.
+  }
+\label{fig:Implementation:audio_amplifier_schematic}
+\end{figure}
 
 
 \section{Phase computation}
