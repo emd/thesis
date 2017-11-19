@@ -1758,6 +1758,17 @@ in the PCI rack of the \diiid\space annex.
 
 \subsection{Anti-aliasing filters}
 \label{sec:Implementation:Hardware:anti_aliasing_filters}
+Passive anti-aliasing filters
+({J$3715$-$840$K-$50$-$720$B}, TTE Filters; Arcade, NY USA)
+sit immediately upstream of the digitizer.
+Each filter has $\SI{50}{\ohm}$ input and output impedance,
+a DC to $\SI{840}{\kilo\hertz}$ passband, and
+$\SI{3}{\decibel}$ frequency of just over $\SI{1}{\mega\hertz}$.
+These filters are reclaimed PCI components, but
+future procurement of filters with a larger passband
+($\lesssim \SI{2}{\mega\hertz}$ for
+typical $f_s = 4 \; \text{MSPS}$ sampling rates)
+would improve the interferometer's bandwidth.
 
 
 \section{Phase computation}
