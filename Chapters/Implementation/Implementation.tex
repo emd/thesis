@@ -1628,24 +1628,25 @@ over their DC to $\SI{11}{\mega\hertz}$ passband.
 The resulting $I$ and $Q$ signals are each
 $-18 \; \text{dBm}$
 (i.e.\ $\SI{28.2}{\milli\volt}$ RMS,
-\SI{80}{\milli\volt} peak-to-peak).
+$\SI{80}{\milli\volt}$ peak-to-peak).
 
 
 \subsection{Audio amplifiers}
 \label{sec:Implementation:Hardware:audio_amps}
-\begin{itemize}
-  \item $\SI{1}{\micro\farad}$ bypass capacitors on op-amp power-supply rails
-    to avoid instability~\cite[Sec.~4.2.7]{horowitz_and_hill}
-  \item Input bias current -- causes a voltage drop across the resistors
-    in a feedback network~\cite[Sec.~4.4.1.C]{horowitz_and_hill}
-\end{itemize}
-
-OP37
-\begin{itemize}
-  \item Slew rate
-  \item GBw product
-  \item BJT, requiring balanced input impedances
-\end{itemize}
+\graffito{\textcolor{red}{digitizer parameters?}}
+The demodulated $I$ and $Q$ signals are $\SI{80}{\milli\volt}$ peak-to-peak,
+while the digitizer dynamic range is $V_{\text{dyn}} = \SI{8}{\volt}$.
+Thus, direct digitization of the $I$ and $Q$ signals
+corresponds to a fractional use $\eta_{\text{dyn}} = 0.01$
+of the digitizer's dynamic range.
+When $\eta_{\text{dyn}} = 0.01$,
+the autospectral density of the corresponding quantization noise
+(\ref{eq:DesignConsiderations:summary:quantization_noise_autospectral_density})
+is $10^4$ \emph{larger} than when $\eta_{\text{dyn}} = 1$;
+the $\eta_{\text{dyn}} = 0.01$ quantization noise
+is shown to be unacceptably large in \textcolor{red}{Section XXX}.
+To minimize quantization noise, then, the $I$ and $Q$ signals
+must be amplified to $\eta_{\text{dyn}} \approx 1$ prior to digitization.
 
 \begin{figure}
   \centering
@@ -1653,9 +1654,110 @@ OP37
     Chapters/Implementation/figs/audio_amp_schematic.pdf}
   \caption[Audio-amplifier schematic]{%
     Audio-amplifier schematic.
+    The amplifier consists of
+    two high-gain, low-noise amplification stages
+    followed by a $\SI{50}{\ohm}$ line driver,
+    which is required to drive the digitizer's
+    $\SI{50}{\ohm}$ input impedance.
   }
 \label{fig:Implementation:audio_amplifier_schematic}
 \end{figure}
+
+A pair of custom ``audio amplifiers'' were built to
+perform the desired amplification of the $I$ and $Q$ signals.
+The ``audio'' qualifier indicates that
+these amplifiers are lower bandwidth
+than the upstream RF amplifiers discussed in
+Section~\ref{sec:Implementation:Hardware:RF_amps}
+(the {BBP-$30$+} bandpass filters
+restrict the bandwidth of the $I$ and $Q$ signals
+to $\lesssim \SI{3}{\mega\hertz}$, and
+plasma fluctuations above the interferometer noise floor
+are almost always $\lesssim \SI{1}{\mega\hertz}$).
+The required amplitude gain of the amplifier is $G \approx 100$.
+A schematic for a single channel of the amplifier is shown in
+Fig.~\ref{fig:Implementation:audio_amplifier_schematic}.
+The amplifier consists of two stages
+of high-gain, low-noise amplification
+followed by a $\SI{50}{\ohm}$ line driver,
+which is required to drive the digitizer's $\SI{50}{\ohm}$ input impedance.
+Each high-gain, low-noise amplification stage
+utilizes an {OP$37$} bipolar operational amplifier
+(Analog Devices; Norwood, MA USA)
+in an inverting configuration.
+The {OP$37$} is \emph{decompensated}~\cite[Sec.~4.9]{horowitz_and_hill},
+sacrificing low-gain stability for higher bandwidth
+(gain-bandwidth product of $\SI{63}{\mega\hertz}$), and
+it is stable for closed-loop gains $\geq 5$.
+The first stage has a fixed gain $|G_1| = 8$, and
+the second stage has a variable gain $8 \leq |G_2| \leq 16$
+that can be easily adjusted via a potentiometer
+(allowing quick ``on-the-fly'' optimization of the amplifier gain).
+The inverting and non-inverting inputs
+of each {OP$37$} see roughly balanced impedances,
+minimizing the non-ideal effect of input bias current
+\cite[Sec.~4.4.2.E]{horowitz_and_hill}.
+The $\SI{50}{\ohm}$ line driver
+utilizes an {AD$811$} current-feedback operational amplifier
+(Analog Devices; Norwood, MA USA)
+in a non-inverting configuration with an amplitude gain of two.
+The output impedance of each audio amplifier is
+$Z_{\text{out}} = \SI{50}{\ohm}$ such that
+the total gain when driving a $\SI{50}{\ohm}$ load
+is $64 \leq G \leq 128$.
+The measured bandwidth of each audio amplifier
+is in excess of $\SI{2}{\mega\hertz}$.
+The input impedance of each audio amplifier is
+$Z_{\text{in}} = \SI{125}{\ohm}$.
+Thus, there is a slight impedance mismatch between
+the audio amplifiers and the $\SI{50}{\ohm}$ demodulation components;
+this impedance mismatch decreases the signal-transmission efficiency, but
+more nefarious transmission-line effects are negligible
+for the $\lesssim \SI{1}{\mega\hertz}$ signals
+in the $\sim \SI{0.5}{\meter}$ coaxial cables
+connecting the demodulation electronics to the audio amplifiers.
+Impedance matching could be improved, for example,
+by utilizing a non-inverting amplifier in the first stage
+(effectively infinite input impedance) coupled with
+a parallel $\SI{50}{\ohm}$ resistor to ground at the amplifier input.
+The power-supply rails of each operational amplifier
+are bypassed with $\SI{1}{\micro\farad}$ ceramic capacitors
+to prevent coupling high-frequency power-supply noise
+into the amplifier~\cite[Sec.~4.2.7]{horowitz_and_hill}.
+\graffito{\textcolor{red}{deadbug ref?}}
+Feedback-loop parasitic capacitances,
+which can reduce the high-frequency, closed-loop gain and excite instability,
+are minimized via ``deadbug'' construction,
+as shown in Fig.~\ref{fig:Implementation:audio_amplifier_picture}.
+Although deadbug construction is ideal for prototyping,
+any future increase to the number of interferometer channels
+would call for a printed-circuit-board (PCB) construction.
+The audio amplifiers share $\SI{15}{\volt}$ power supplies
+with the PCI fiber-optic-link receivers
+in the PCI rack of the \diiid\space annex.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = 0.75 \textwidth]{%
+    Chapters/Implementation/figs/audio_amp_picture.jpg}
+  \caption[``Deadbug'' construction of audio amplifiers]{%
+    The ``deadbug'' construction of the audio amplifiers
+    minimizes parasitic capacitances that can produce instability.
+    The operational amplifiers sit upside down,
+    resembling ``dead bugs'', and
+    are held in place by their solder connections
+    to other components in the circuit.
+    An unetched printed circuit board
+    serves as the grounding plane.
+    The amplifiers are packaged within a protective box
+    (not pictured here).
+  }
+\label{fig:Implementation:audio_amplifier_picture}
+\end{figure}
+
+
+\subsection{Anti-aliasing filters}
+\label{sec:Implementation:Hardware:anti_aliasing_filters}
 
 
 \section{Phase computation}
