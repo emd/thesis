@@ -63,6 +63,9 @@ Section~\ref{sec:DesignConsiderations:geometric:finite_sampling_volume}
 reveals how the imaging system's magnification $M$ and
 the detector's size and shape
 influence the interferometer's wavenumber response.
+Finally, Section~\ref{sec:DesignConsiderations:geometric:depth_of_focus}
+examines the depth-of-focus effects that become manifest
+when the detector is displaced from the actual image plane.
 
 
 \subsection{Aperture diffraction}
@@ -353,13 +356,15 @@ Fig.~\ref{fig:DesignConsiderations:detector_array}
 consists of $N_{\text{el}}$ detector elements and
 that the inter-element spacing is negligible ($\delta_x \ll s_x$),
 the criterion for negligible curvature-induced phase shifts
-$\delta\phi_{\kappa, \text{max}}
+$\text{max}(\delta\phi_{\kappa})
 =
 \delta\phi_{\kappa}(\rho_{\image, \text{max}})
 \ll
 \pi$
 becomes
 \begin{equation}
+  \text{max}(\delta\phi_{\kappa})
+  =
   \frac{k_0}{8}
   \left[ (N_{\text{el}} s_x)^2 + s_y^2 \right]
   \left| \frac{1}{R_P(z_{\image})} - \frac{1}{R_R(z_R)}\right|
@@ -513,6 +518,171 @@ into the transfer functions of the homodyne interferometer and PCI.
   }
 \label{fig:DesignConsiderations:fsv_effects}
 \end{figure}
+
+
+\subsection{Depth of focus}
+\label{sec:DesignConsiderations:geometric:depth_of_focus}
+The derivations in
+Sections~\ref{sec:InterferometricMethods:imaging} through
+\ref{sec:InterferometricMethods:pci}
+assumed that the detector sits exactly at the image plane.
+Empirically, however, uncertainties in distances and focal lengths
+produce a corresponding uncertainty in the image-plane location.
+The axial distance by which the detector location may deviate
+from the image plane is referred to as the \emph{depth of focus}.
+Even if all components are perfectly positioned and
+all focal lengths are equal to their nominal values,
+the image plane still only maps to the tokamak midplane, and
+images from points above and below the tokamak midplane
+will be ``out of focus'';
+such depth-of-field considerations are closely related
+an imaging system's depth of focus.
+
+In order to investigate a heterodyne interferometer's depth of focus,
+it is necessary to generalize the derivation
+of the imaged electric field from
+Section~\ref{sec:InterferometricMethods:imaging}.
+In particular, let the detector be located
+an axial distance $\delta z_{\image}$ downstream of the image plane
+(i.e.\ $z_{\text{det}} = z_{\image} + \delta z_{\image}$ such that
+positive $\delta z_{\image}$ implies that
+the detector is downstream of the image plane, and
+negative $\delta z_{\image}$ implies that
+the detector is upstream of the image plane).
+Referencing the detector-plane coordinate transformation
+(\ref{eq:ImagingSystems:coordinate_transformation_detector_plane}),
+the imaged field at the detector
+(\ref{eq:InterferometricMethods:imaged_total_field_monochromatic_fluctuation_weak_coupling})
+readily generalizes to
+\begin{equation}
+  E(\vect{r}_{\text{det}}, t)
+  \approx
+  E_G(\vect{r}_{\text{det}}, t)
+  e^{i \bar{\phi}}
+  \left[%
+    1
+    +
+    i e^{-i \mu} (\tilde{\phi}_0 \cos\nu')
+  \right],
+  \label{eq:DesignConsiderations:imaged_total_field_at_detector_plane}
+\end{equation}
+where
+\begin{align}
+  \mu
+  &=
+  \left( \frac{k_{\image}^2}{2 k_0} \right) \delta z_{\image},
+  \\
+  \nu'
+  &=
+  \left\{
+    \left[ 1 - \frac{\delta z_{\image}}{R(z_{\text{det}})} \right]
+    k_{\image}
+  \right\}
+  x_{\text{det}}
+  -
+  \omega t,
+\end{align}
+$k_{\image} = k / M$ is the image of wavenumber $k$
+in a magnification-$M$ imaging system, and
+$x_{\text{det}}$ and $\delta z_{\image}$ are assumed to be small
+relative to the radius of curvature $R(z_{\text{det}})$
+of the probe beam at the detector.
+Relative to the image-plane field
+(\ref{eq:InterferometricMethods:imaged_total_field_monochromatic_fluctuation_weak_coupling}),
+the detector-plane field
+(\ref{eq:DesignConsiderations:imaged_total_field_at_detector_plane})
+has a wavenumber distortion
+$\{1 - [\delta z_{\image} / R(z_{\text{det}})]\}$.
+Additionally, the detector-plane field
+has a wavenumber-dependent phase shift $\mu$, which
+results from the ``out-of-focus'' interference of
+the upscattered beam with the downscattered beam;
+it has been empirically demonstrated that
+blocking one of these scattered beams
+eliminates this wavenumber-dependent phase shift
+\cite[Sec.~2.1]{dorris_phd}, albeit at the expense
+of reducing the amplitude of the fluctuating signal by a factor of two.
+
+Heterodyne detection is implemented by interfering the detector-plane field
+(\ref{eq:DesignConsiderations:imaged_total_field_at_detector_plane})
+with a frequency-shifted reference beam.
+In particular, assume a reference beam of the form
+$E_G(\vect{r}_{\text{det}}, t) e^{-i \Delta \omega_0 t}$ such that
+intensity (averaged over an optical cycle) becomes
+\begin{equation}
+  \begin{aligned}
+    I_{\text{het}}(\vect{r}_{\text{det}}, t)
+    =
+    2 I_G(\vect{r}_{\text{det}})
+    \bigl[%
+      1
+      &+
+      \cos(\Delta \omega_0 t + \bar{\phi})
+      \\
+      &-
+      \tilde{\phi}_0 \cos\nu'
+      \sin(\Delta \omega_0 t + \bar{\phi} - \mu)
+    \bigr].
+  \end{aligned}
+\end{equation}
+Demodulating this heterodyne intensity via the program in
+Section~\ref{sec:InterferometricMethods:interferometry},
+one obtains the equilibrium and fluctuating components
+of the in-phase and quadrature intensities
+\begin{align}
+  \bar{I}_{I}(\vect{r}_{\text{det}}, t)
+  &=
+  \frac{2 \sqrt{2}}{\pi}
+  I_G(\vect{r}_{\text{det}}) \cos\bar{\phi},
+  \\
+  \bar{I}_{Q}(\vect{r}_{\text{det}}, t)
+  &=
+  \frac{2 \sqrt{2}}{\pi}
+  I_G(\vect{r}_{\text{det}}) \sin\bar{\phi},
+  \\
+  \tilde{I}_{I}(\vect{r}_{\text{det}}, t)
+  &=
+  -\frac{2 \sqrt{2}}{\pi}
+  I_G(\vect{r}_{\text{det}})
+  \sin\left(\bar{\phi} - \mu\right)
+  \cdot
+  \tilde{\phi}_0 \cos\nu',
+  \\
+  \tilde{I}_{Q}(\vect{r}_{\text{det}}, t)
+  &=
+  \frac{2 \sqrt{2}}{\pi}
+  I_G(\vect{r}_{\text{det}})
+  \cos\left(\bar{\phi} - \mu\right)
+  \cdot
+  \tilde{\phi}_0 \cos\nu'.
+\end{align}
+It is possible to compute the autospectral density of the phase fluctuations
+by summing the autospectral densities of $\tilde{I}_I$ and $\tilde{I}_Q$ and
+then normalizing by $(\bar{I}_I^2 + \bar{I}_Q^2)$,
+which fortuitously \emph{eliminates} the $\mu$-dependence.
+However, it is \emph{not} readily apparent
+how to extend this method to the computation of e.g.\
+cross-spectral densities~\cite[Sec.~5.2]{bendat_and_piersol} and
+bispectral densities~\cite{young_and_powers_ieee79},
+for which the actual phase signal $\tilde{\phi}(x, t)$ is needed.
+For this reason, the phase is often computed
+via the inverse-tangent method discussed in
+Section~\ref{sec:DesignConsiderations:demodulation:ideal}.
+Unfortunately, this inverse-tangent method
+has reduced response when $\mu \neq 0$.
+To see this, first consider the case when $\mu = 0$:
+$\bar{I}_I$ and $\bar{I}_Q$ map out a circle, and
+the fluctuation $\tilde{\phi}_0 \cos\nu'$
+produces perturbations $\tilde{I}_I$ and $\tilde{I}_Q$
+that are always \emph{tangent} to this circle,
+producing angular deviations in the $(I, Q)$-plane
+that can be quantified by the inverse-tangent calculation.
+Now, if $\mu \neq 0$, the perturbations $\tilde{I}_I$ and $\tilde{I}_Q$
+are no longer tangent to the circle mapped out by $\bar{I}_I$ and $\bar{I}_Q$;
+in the extreme that $\mu = (2m + 1) \pi / 2$ for integer $m$,
+the fluctuations become purely \emph{radial} in the $(I, Q)$-plane, and
+the inverse-tangent calculation, sensitive only to angular displacements,
+fails to detect the fluctuations.
 
 
 \section{Intensity considerations}
@@ -1841,10 +2011,11 @@ to the corresponding angular equivalent.
 This unit conversion is accomplished by dividing
 (\ref{eq:DesignConsiderations:total_quantization_noise_autospectral_density})
 by the \emph{squared} radius of the $I\&Q$ Lissajous curve.
-Assuming that the $I$ and $Q$ signals occupy
-the digitizer's full dynamic range $V_{\text{dyn}}$,
+Let the $I$ and $Q$ signals occupy
+a fraction $\eta_{\text{dyn}} \leq 1$ of
+the digitizer's full dynamic range $V_{\text{dyn}}$ such that
 the squared radius of the Lissajous curve is
-$I^2 + Q^2 = (V_{\text{dyn}} / 2)^2$, and
+$I^2 + Q^2 = (\eta_{\text{dyn}} V_{\text{dyn}} / 2)^2$, and
 the total quantization noise
 (in angular units of $\SI{}{\radian\squared\per\Hz}$) is
 \begin{equation}
@@ -1852,8 +2023,8 @@ the total quantization noise
   +
   G_{\epsilon_Q,\epsilon_Q}(f)
   \approx
-  \frac{1}{3 (2^{N_b - 1}) f_s},
-  \qquad
+  \frac{1}{3 \left[ 2^{2 (N_b - 1)} \right] \eta_{\text{dyn}}^2 f_s},
+  \quad
   0 \leq f \leq \frac{f_s}{2},
   \label{eq:DesignConsiderations:total_quantization_noise_autospectral_density_angular_units}
 \end{equation}
@@ -1882,7 +2053,7 @@ which are summarized below:
     Aperture diffraction of a Gaussian beam is minimal if
     \begin{equation}
       a_{\text{eff}} \geq \frac{3}{2} w(z),
-      \label{eq:DesignConsiderations:aperture_radius_for_minimal_diffraction}
+      \label{eq:DesignConsiderations:summary:aperture_radius_for_minimal_diffraction}
     \end{equation}
     for each aperture, where
     $a_{\text{eff}}$ is the effective aperture radius and
@@ -1906,6 +2077,7 @@ which are summarized below:
       \frac{\lambda_0}{s_x}
       \approx
       0.6^{\circ},
+      \label{eq:DesignConsiderations:summary:coalignment_constraint}
     \end{equation}
     where $\lambda_0 = 2 \pi / k_0$ is the beam wavelength,
     and the typical values
@@ -1921,11 +2093,14 @@ which are summarized below:
     distorting the imaged wavenumbers.
     These detrimental curvature effects are negligible if
     \begin{equation}
+      \text{max}(\delta\phi_{\kappa})
+      =
       \frac{k_0}{8}
       \left[ (N_{\text{el}} s_x)^2 + s_y^2 \right]
       \left| \frac{1}{R_P(z_{\image})} - \frac{1}{R_R(z_R)}\right|
       \ll
       \pi.
+      \label{eq:DesignConsiderations:summary:radii_of_curvature_matching}
     \end{equation}
     where
     $R_P(z_{\image})$ is the radius of curvature
@@ -1946,6 +2121,49 @@ which are summarized below:
     for a summary of this effect;
     see Section~\ref{sec:DesignConsiderations:geometric:finite_sampling_volume}
     for additional details.
+  \item The \emph{depth of focus} is the axial distance by which
+    the detector location may deviate from the image plane.
+    If $\delta z_{\image}$ is the axial displacement
+    of the detector from the image plane
+    (i.e. $z_{\text{det}} = z_{\image} + \delta z_{\image}$),
+    a heterodyne interferometer will measure wavenumbers $k_{\text{meas}}$
+    that are biased away from their true values $k$ by
+    \begin{equation}
+      k_{\text{meas}}
+      =
+      \left[
+        1
+        -
+        \frac{\delta z_{\image}}{R(z_{\text{det}})}
+      \right]
+      k,
+      \label{eq:DesignConsiderations:summary:depth_of_focus_wavenumber_distortion}
+    \end{equation}
+    where $R(z_{\text{det}})$ is the radius of curvature of the probe beam
+    at the detector.
+    Additionally, the ``out-of-focus'' interference
+    of the upscattered and downscattered beams
+    produces a wavenumber-dependent phase shift
+    \begin{equation}
+      \mu
+      =
+      \left( \frac{k^2}{2 M^2 k_0} \right) \delta z_{\image},
+      \label{eq:DesignConsiderations:summary:depth_of_focus_wavenumber_dependent_phase_shift}
+    \end{equation}
+    where $M$ is the magnification of the imaging system and
+    $k_0$ is the wavenumber of the probe radiation.
+    Autospectral densities of the phase fluctuations
+    can be computed independent of $\mu$, but
+    it is less clear how to compute e.g.\
+    cross-spectral densities or bispectral densities
+    in a $\mu$-independent manner.
+    An imaging system should be designed
+    such that reasonable uncertainties in $\delta z_{\image}$
+    produce negligible wavenumber distortion
+    (i.e.\ $|\delta z_{\image} / R(z_{\text{det}})| \ll 1$) and
+    negligible wavenumber-dependent phase shifts (i.e. $|\mu| \ll 1$).
+    See Section~\ref{sec:DesignConsiderations:geometric:depth_of_focus}
+    for more details.
 \end{itemize}
 
 
@@ -1964,6 +2182,7 @@ is modified by several design decisions, becoming
   \frac{V_1}{V_1(I_{\text{max}} = I_{\text{sat}})}
   \cdot
   T_{\text{fsv}}(k),
+  \label{eq:DesignConsiderations:summary:heterodyne_interferometer_wavenumber_transfer_function}
 \end{equation}
 where
 \begin{itemize}
@@ -2023,14 +2242,17 @@ where
       T_{\text{fsv}}(k)
       =
       \sinc\left( \frac{k}{k_{\text{fsv}}} \right),
+      \label{eq:DesignConsiderations:summary:finite_sampling_volume_transfer_function}
     \end{equation}
     where
     \begin{equation}
       \sinc(x) = \frac{\sin(\pi x)}{\pi x}
+      \label{eq:DesignConsiderations:summary:normalized_sinc}
     \end{equation}
     is the normalized sinc function, and
     \begin{equation}
       k_{\text{fsv}} = \frac{2 \pi |M|}{s_x}
+      \label{eq:DesignConsiderations:summary:finite_sampling_volume_cutoff}
     \end{equation}
     is the first zero of $T_{\text{fsv}}(k)$.
     Wavenumbers $|k| \lesssim k_{\text{fsv}}$ are measurable, while
@@ -2051,6 +2273,7 @@ computed from a heterodyne interferometer's
 demodulated in-phase ($I$) and quadrature ($Q$) signals via
 \begin{equation}
   \phi_m = \atantwo\left(Q, I\right),
+  \label{eq:DesignConsiderations:summary:phase_from_arctangent}
 \end{equation}
 where $\atantwo\left(Q, I\right)$
 is the arctangent function of two arguments, which
@@ -2060,6 +2283,7 @@ Demodulator imperfections
 produce a systematic error $\delta \phi$ in the measured phase, i.e.\
 \begin{equation}
   \phi_m = \phi + \delta \phi,
+  \label{eq:DesignConsiderations:summary:phase_error}
 \end{equation}
 where $\phi$ is the true phase.
 This systematic error is a complicated,
@@ -2072,7 +2296,7 @@ the \emph{relative} error in the measured fluctuating phase is
   \frac{\delta\tilde{\phi}}{\tilde{\phi}}
   =
   \left. \frac{d(\delta\phi)}{d\phi} \right|_{\bar{\phi}}.
-  \label{eq:DesignConsiderations:relative_fluctuation_error}
+  \label{eq:DesignConsiderations:summary:relative_fluctuation_error}
 \end{equation}
 See Section~\ref{sec:DesignConsiderations:demodulation}
 for more details.
@@ -2095,6 +2319,7 @@ are summarized below:
       8 \sin^2(\pi f \tau) \mathcal{L}_{\omega_0}(f),
       \qquad
       f \geq 0,
+      \label{eq:DesignConsiderations:summary:laser_phase_noise_autospectral_density}
     \end{equation}
     where $\tau = L / c$ is the time delay
     associated with the optical path-length difference $L$
@@ -2111,6 +2336,7 @@ are summarized below:
       8 \sin^2(\pi f \tau) \mathcal{L}_{\Delta \omega_0}(f),
       \qquad
       f \geq 0,
+      \label{eq:DesignConsiderations:summary:LO_phase_noise_autospectral_density}
     \end{equation}
     where $\tau$ is the time required to couple the LO signal
     to the interferometer's Doppler-shifted beam.
@@ -2126,6 +2352,7 @@ are summarized below:
       \frac{A}{P_P P_R (D^*)^2},
       \qquad
       0 \leq f \ll \Delta f_0,
+      \label{eq:DesignConsiderations:summary:detector_noise_autospectral_density}
     \end{equation}
     where $A$ is the area of the detector element,
     $P_P$ is the optical power of the probe beam
@@ -2147,6 +2374,7 @@ are summarized below:
       2 h f_0 \left( \frac{P_P + P_R}{P_P P_R} \right),
       \qquad
       0 \leq f \ll \Delta f_0,
+      \label{eq:DesignConsiderations:summary:shot_noise_autospectral_density}
     \end{equation}
     where $h$ is the Planck constant,
     $f_0$ is the frequency of the incident photons,
@@ -2174,12 +2402,22 @@ are summarized below:
     \begin{equation}
       G(f)
       \approx
-      \frac{1}{3 (2^{N_b - 1}) f_s},
+      \frac{1}{3 \left[ 2^{2 (N_b - 1)} \right] \eta_{\text{dyn}}^2 f_s},
       \qquad
-      0 \leq f \leq \frac{f_s}{2}.
+      0 \leq f \leq \frac{f_s}{2},
+      \label{eq:DesignConsiderations:summary:quantization_noise_autospectral_density}
     \end{equation}
-    Here, it is assumed that the $I$ and $Q$ signals each fully occupy
-    the digitizer's dynamic range $V_{\text{dyn}}$.
+    where $\eta_{\text{dyn}} \leq 1$ is the fraction
+    of the digitizers's dynamic range $V_{\text{dyn}}$
+    occupied by the $I$ and $Q$ signals, i.e.\
+    \begin{equation}
+      \eta_{\text{dyn}}
+      =
+      \frac{\text{max}(I) - \text{min}(I)}{V_{\text{dyn}}}
+      =
+      \frac{\text{max}(Q) - \text{min}(Q)}{V_{\text{dyn}}}.
+      \label{eq:DesignConsiderations:summary:eta_dynamic}
+    \end{equation}
     See Section~\ref{sec:DesignConsiderations:quantization}
     for more details.
 \end{itemize}
