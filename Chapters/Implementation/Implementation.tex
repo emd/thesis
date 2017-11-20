@@ -1857,14 +1857,25 @@ displays an example of raw and compensated $I$ and $Q$ signals.
 \end{figure}
 
 
-\subsection{High-pass filtering}
+\subsection{High-pass filtering the measured phase $\phi_m$}
 \label{sec:Implementation:DataPreparation:high_pass_filtering}
-
-
 \begin{itemize}
-  \item Ellipse fitting
-  \item atan$2$
-  \item Filtering with zero-delay, Kaiser-designed FIR filter
+  \item Vibrations contaminate the low-frequency components
+    ($f \lesssim \SI{10}{\kilo\hertz}$)
+    of the measured phase $\phi_m$.
+    At the lowest frequencies,
+    vibrational contributions to $\phi_m$
+    \graffito{\textcolor{red}{spectral $\geq 10^5$}}
+    are often orders-of-magnitude larger
+    than the corresponding plasma contribution.
+  \item While time-history tapering with a Hanning window
+    does provide at least \textcolor{red}{$\SI{32}{\decibel}$}
+    of side-lobe suppression~\cite[Sec.~11.5.2.1]{bendat_and_piersol}\ldots
+  \item Kaiser-designed FIR filter
+    \begin{itemize}
+      \item Cite Kaiser's '77 RSI, which discusses zero-phase shift (?)
+      \item Cite Python implementation of Kaiser designed window
+    \end{itemize}
 \end{itemize}
 
 
