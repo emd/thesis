@@ -1241,6 +1241,7 @@ until the cooling capacity of the detector is reached.
 
 
 \section{Dedicated heterodyne-interferometer hardware}
+\label{sec:Implementation:Hardware}
 \graffito{\textcolor{red}{laser parameters?}}
 Utilizing a shared in-vessel probe beam implies that
 the PCI and the heterodyne interferometer share several components,
@@ -1804,12 +1805,68 @@ typical $f_s = 4 \; \text{MSPS}$ sampling rates)
 would improve the interferometer's bandwidth.
 
 
-\section{Phase computation}
+\section{Data preparation}
+\label{sec:Implementation:DataPreparation}
+The interferometer-measured phase $\phi_m$
+is computed from the in-phase $I$ and quadrature $Q$ signals
+via the two-argument arctangent function in
+(\ref{eq:DesignConsiderations:summary:phase_from_arctangent}).
+Before computing the measured phase $\phi_m$, however,
+the ellipticity of the $I$ and $Q$ signals is compensated, as described in
+Section~\ref{sec:Implementation:DataPreparation:ellipticity_compensation}.
+Then, before computing the autospectral density,
+a zero-delay, finite-impulse-response, high-pass filter
+is applied to the measured phase $\phi_m$, as described in
+Section~\ref{sec:Implementation:DataPreparation:high_pass_filtering}.
+
+
+\subsection{Ellipticity compensation of $I$ \& $Q$ signals}
+\label{sec:Implementation:DataPreparation:ellipticity_compensation}
+Demodulator imperfections produce a relative error
+in the measured fluctuating phase, as described in
+Section~\ref{sec:DesignConsiderations:demodulation:imperfection_implications}.
+Because the IF power entering the demodulator is sufficiently small,
+demodulator nonlinearities are negligible, and
+the $I$ and $Q$ signals possess negligible higher-order harmonics
+(i.e.\ $|I_3| \ll I_1$, $|Q_3| \ll Q_1$, etc.).
+Thus, a Lissajous figure of $Q$ from
+(\ref{eq:DesignConsiderations:Q_general})
+vs.\ $I$ from (\ref{eq:DesignConsiderations:I_general})
+is an ellipse.
+This ellipse is fitted with a direct, efficient, least-squares algorithm
+\cite{fitzgibbon_ieee99}.
+The resulting fit is then used to compensate
+any DC offsets, amplitude imbalance, and phase imbalance
+in the $I$ and $Q$ signals,
+minimizing the relative error
+(\ref{eq:DesignConsiderations:relative_fluctuation_error})
+in the measured fluctuating phase.
+Fig.~\ref{fig:Implementation:ellipticity_compensation}
+displays an example of raw and compensated $I$ and $Q$ signals.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/Implementation/figs/ellipticity_compensation.pdf}
+  \caption[Ellipticity compensation of the $I$ and $Q$ signals]{%
+    An example of the ellipticity compensation
+    applied to the $I$ and $Q$ signals
+    prior to computing the measured phase $\phi_m$.
+  }
+\label{fig:Implementation:ellipticity_compensation}
+\end{figure}
+
+
+\subsection{High-pass filtering}
+\label{sec:Implementation:DataPreparation:high_pass_filtering}
+
+
 \begin{itemize}
   \item Ellipse fitting
   \item atan$2$
   \item Filtering with zero-delay, Kaiser-designed FIR filter
 \end{itemize}
+
 
 \section{Noise}
 
