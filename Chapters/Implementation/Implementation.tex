@@ -291,7 +291,7 @@ of the PCI is
 
 \subsection{Temporal bandwidth}
 \label{sec:Implementation:PCI:temporal_bandwidth}
-PCI's detector (Infrared Associates MCT-16-32) and
+PCI's detector ({MCT-$16$-$32$}, Infrared Associates; Stuart, FL USA) and
 its associated preamplifiers (also through Infrared Associates)
 are the dominant constraint on the system's temporal bandwidth.
 The HgCdTe detector array
@@ -307,11 +307,11 @@ to incident $\SI{10.6}{\micro\meter}$ light
 $I_{\text{sat}} \sim \SI{1}{\milli\watt \per\milli\meter\squared}$).
 The benefits of cooling, however, come at the expense of reduced bandwidth:
 the detector-preamplifier combination has
-a high-frequency, 2-pole cutoff
+a high-frequency, $2$-pole cutoff
 at $\sim \SI{800}{\kilo\hertz}$~\cite{rost_pci_detector_response}.
 As the DC PCI signal is of little interest,
 the detector-preamplifier combination also has
-a low-frequency, 1-pole cutoff
+a low-frequency, $1$-pole cutoff
 at $\sim \SI{2}{\kilo\hertz}$~\cite{rost_pci_detector_response}.
 
 The components downstream of the detector and preamplifiers
@@ -319,16 +319,24 @@ have a small impact on the system bandwidth, but
 they are briefly summarized below for completeness.
 The Variable Gain and Filter (VGAF) circuits~\cite[Sec.~3.3.3]{dorris_phd}
 are located immediately downstream of the preamplifiers and
-have a low-frequency, 1-pole cutoff that can be easily switched between
+have a low-frequency, $1$-pole cutoff that can be easily switched between
 $\SI{10}{\kilo\hertz}$ and $\SI{100}{\kilo\hertz}$;
 the VGAFs are typically operated in the $\SI{10}{\kilo\hertz}$ configuration.
 Following the VGAFs,
-fiber optic links (Analog Modules 732 T/R-2.5-33k)
+fiber optic links ({$732$ T/R-$2.5$-$33$k}, Analog Modules; Longwood, FL USA)
 with an analog bandwidth of DC to $\SI{10}{\mega\hertz}$
-transmit the signal from the \diiid \space pit to the annex.
+transmit the signal from the \diiid\space pit to the annex for digitization.
+
+
+\subsection{Digitizer}
+\label{sec:Implementation:PCI:digitizer}
 Upon reaching the annex,
-the signals are digitized with two of D-tAcq's ACQ216CPCI boards,
-typically at a sampling rate of $f_s = 4 \, \text{MSPS}$.
+the PCI signals are digitized with two
+{ACQ$216$CPCI} boards (D-tAcq Solutions Ltd.; Glasgow, Scotland UK).
+The digitizer boards have bit depth $N_b = 14$,
+dynamic range $V_{\text{dyn}} = \SI{8}{\volt}$, and
+input impedance $Z_{\text{in}} = \SI{50}{\ohm}$.
+The digitizer sampling rate is typically $f_s = 4 \, \text{MSPS}$.
 
 
 \section{Optical layout of heterodyne interferometer}
