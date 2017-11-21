@@ -1898,34 +1898,41 @@ at the beginning and the end of the record
 are lost to the filter's boundary effects).
 
 
-\section{Noise}
+\section{Noise in heterodyne interferometer}
+\label{sec:Implementation:Noise}
+The sensitivity of the heterodyne interferometer
+is set by the noise in the system.
+Initially, the heterodyne interferometer
+was plagued by enormous noise that obscured
+all but the strongest coherent plasma fluctuations.
+Through substantial effort,
+this noise was found to be wholly attributable to
+LO phase noise and the finite coupling time of the AOM.
+The theory of noise generation via this mechanism was discussed in
+Section~\ref{sec:DesignConsiderations:phase_noise:LO}.
+Below, Section~\ref{sec:Implementation:Noise:LO}
+describes a simple, all-electrical means
+of characterizing LO phase noise that, in hindsight,
+would have saved a great deal of time and heartache.
+This section also discusses compensation
+of LO phase noise with a delay line,
+an approach that was empirically found to suffer from electrical pickup
+during \diiid\space operations.
+Ultimately, the heterodyne-interferometer noise issues
+were resolved by procuring the OCXO described in
+Section~\ref{sec:Implementation:Hardware:OCXO} and
+eliminating the pickup-prone delay line.
+Having solved the LO phase-noise issues,
+Section~\ref{sec:Implementation:Noise:interferometer}
+proceeds with a spectral characterization
+of the predicted and measured sources of noise
+in the heterodyne interferometer and
+compares the resulting noise floor
+to typical plasma-fluctuation spectra.
 
 
-\subsection{Realized system}
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/Implementation/figs/signal_and_noise.pdf}
-  \caption[Spectral characterization of interferometer noise]{%
-    Spectral characterization of interferometer noise and
-    comparison to typical plasma-fluctuation spectra.
-    Dashed lines indicate predicted (P) quantities, while
-    colored traces correspond to measured quantities
-    with shot numbers in parentheses
-    (4 digits indicate a diagnostic test shot, and
-    6 digits indicate a \diiid\space shot).
-    Importantly, the interferometer noise floor
-    (i.e.\ the ``full system'' trace)
-    is an order of magnitude smaller than
-    typical plasma fluctuations.
-    Vibrations dominate the interferometer spectrum
-    for $f \lesssim \SI{10}{\kilo\hertz}$.
-  }
-\label{fig:Implementation:signal_and_noise}
-\end{figure}
-
-
-\subsection{Initial problems with LO phase noise}
+\subsection{Quantification \& delay-line compensation of LO phase noise}
+\label{sec:Implementation:Noise:LO}
 \begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
@@ -1954,6 +1961,31 @@ are lost to the filter's boundary effects).
     Delay-line electrical pickup during \diiid\space operations.
   }
   \label{fig:Implementation:electrical_pickup}
+\end{figure}
+
+
+\subsection{Spectral characterization of heterodyne-interferometer noise}
+\label{sec:Implementation:Noise:interferometer}
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/Implementation/figs/signal_and_noise.pdf}
+  \caption[Spectral characterization of interferometer noise]{%
+    Spectral characterization of interferometer noise and
+    comparison to typical plasma-fluctuation spectra.
+    Dashed lines indicate predicted (P) quantities, while
+    colored traces correspond to measured quantities
+    with shot numbers in parentheses
+    (4 digits indicate a diagnostic test shot, and
+    6 digits indicate a \diiid\space shot).
+    Importantly, the interferometer noise floor
+    (i.e.\ the ``full system'' trace)
+    is an order of magnitude smaller than
+    typical plasma fluctuations.
+    Vibrations dominate the interferometer spectrum
+    for $f \lesssim \SI{10}{\kilo\hertz}$.
+  }
+\label{fig:Implementation:signal_and_noise}
 \end{figure}
 
 
