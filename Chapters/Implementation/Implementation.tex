@@ -1909,8 +1909,8 @@ all but the strongest coherent plasma fluctuations.
 Through substantial effort,
 this noise was found to be wholly attributable to
 LO phase noise and the finite coupling time of the AOM.
-The theory of noise generation via this mechanism was discussed in
-Section~\ref{sec:DesignConsiderations:phase_noise:LO}.
+The theory of noise generation via this mechanism was discussed
+in Section~\ref{sec:DesignConsiderations:phase_noise:LO}.
 Below, Section~\ref{sec:Implementation:Noise:LO}
 describes a simple, all-electrical means
 of characterizing LO phase noise that, in hindsight,
@@ -1934,6 +1934,42 @@ to typical plasma-fluctuation spectra.
 
 \subsection{Quantification \& delay-line compensation of LO phase noise}
 \label{sec:Implementation:Noise:LO}
+The finite coupling time of an AOM injects LO phase noise
+into the measurements of a heterodyne interferometer.
+This noise mechanism was thoroughly discussed
+in Section~\ref{sec:DesignConsiderations:phase_noise:LO}, and
+it can easily be the dominant source of noise in a heterodyne interferometer,
+potentially producing severe constraints on the system sensitivity.
+Thus, if LO phase noise is not known \emph{a priori},
+its effect on the measurements of a heterodyne interferometer
+should be measured.
+Often, the standard deviation of the oscillator frequency is specified
+(for example, the oscillator initially procured for this project
+was specified to be $0.01\%$ quartz stabilized);
+however, without knowledge of the corresponding spectral distribution,
+the specification of the standard deviation
+is insufficient to characterize the resulting
+heterodyne-interferometer noise.
+
+\begin{itemize}
+  \item
+  \item For example, the initial LO source was specified to be
+    $0.01\%$ quartz stabilized, but without knowledge
+    of the corresponding bandwidth, it is impossible
+    to make even an order-of-magnitude estimate of phase noise.
+  \item $\sim \SI{1.5}{\centi\meter}$ distance between
+    center of AOM BNC port (taken as nominal position of transducer)
+    and the optical axis of the AOM
+  \item With $\SI{5400}{\meter\per\second}$ sound-wave speed in Ge,
+    the corresponding coupling delay is $\tau \approx \SI{2.8}{\micro\second}$
+  \item From the sine weighting of the LO phase noise in
+    (\ref{eq:DesignConsiderations:summary:LO_phase_noise_autospectral_density}),
+    the interferometer spectrum should exhibit ``ringing'' with
+    nulls at harmonics of $1 / \tau \approx \SI{380}{\kilo\hertz}$;
+    in fact, the interferometer spectrum exhibited ringing
+    at harmonics of $\SI{400}{\kilo\hertz}$,
+    indicating an actual coupling time $\tau = \SI{2.5}{\micro\second}$
+\end{itemize}
 \begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
