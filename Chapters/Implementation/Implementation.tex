@@ -1834,7 +1834,7 @@ Thus, a Lissajous figure of $Q$ from
 vs.\ $I$ from (\ref{eq:DesignConsiderations:I_general})
 is an ellipse.
 This ellipse is fitted with a direct, efficient, least-squares algorithm
-\cite{fitzgibbon_ieee99}.
+\cite{fitzgibbon_ieee99,vanforeest_ellipse_fitting}.
 The resulting fit is then used to compensate
 any DC offsets, amplitude imbalance, and phase imbalance
 in the $I$ and $Q$ signals,
@@ -1859,24 +1859,41 @@ displays an example of raw and compensated $I$ and $Q$ signals.
 
 \subsection{High-pass filtering the measured phase $\phi_m$}
 \label{sec:Implementation:DataPreparation:high_pass_filtering}
-\begin{itemize}
-  \item Vibrations contaminate the low-frequency components
-    ($f \lesssim \SI{10}{\kilo\hertz}$)
-    of the measured phase $\phi_m$.
-    At the lowest frequencies,
-    vibrational contributions to $\phi_m$
-    \graffito{\textcolor{red}{spectral $\geq 10^5$}}
-    are often orders-of-magnitude larger
-    than the corresponding plasma contribution.
-  \item While time-history tapering with a Hanning window
-    does provide at least \textcolor{red}{$\SI{32}{\decibel}$}
-    of side-lobe suppression~\cite[Sec.~11.5.2.1]{bendat_and_piersol}\ldots
-  \item Kaiser-designed FIR filter
-    \begin{itemize}
-      \item Cite Kaiser's '77 RSI, which discusses zero-phase shift (?)
-      \item Cite Python implementation of Kaiser designed window
-    \end{itemize}
-\end{itemize}
+Vibrations contaminate the low-frequency components
+($f \lesssim \SI{10}{\kilo\hertz}$)
+of the measured phase $\phi_m$.
+At the lowest frequencies,
+vibrational contributions to $\phi_m$
+are orders-of-magnitude larger ($\gtrsim \SI{100}{\decibel}$)
+than the corresponding plasma contribution.
+Spectral estimates are often computed
+after time-history tapering with a Hanning window and
+with frequency resolution $\sim \SI{1}{\kilo\hertz}$.
+While the Hanning window provides at least
+$\SI{32}{\decibel}$ side-lobe suppression
+\cite[Sec.~11.5.2.1]{bendat_and_piersol},
+the vibrational component to $\phi_m$ is so large that
+substantial spectral leakage can still occur.
+To minimize spectral leakage, then,
+the measured phase is high-pass filtered in software
+to remove the large vibrational contributions.
+An \emph{odd}-order, \emph{even}-symmetry,
+finite-impulse-response (FIR) filter
+has the desirable property that it produces zero delay
+for all frequencies~\cite{kaiser_rsi77}.
+Such a filter can be easily designed via
+the Kaiser ``nearly equal ripple'' (NER) approximation
+\cite{kaiser_rsi77,scipy_kaiser_window}.
+Typically, such a Kaiser-designed, high-pass filter with
+$\SI{-120}{\decibel}$ ripple,
+$\SI{10}{\kilo\hertz}$ cut-on frequency, and
+$\SI{5}{\kilo\hertz}$ width
+performs sufficiently;
+for the typical $f_s = 4 \; \text{MSPS}$ digitization rate,
+such a filter has an order $12489$
+(corresponding to a $\sim \SI{3}{\milli\second}$ span), and
+only points free from the filter's boundary effects
+are included in subsequent analysis.
 
 
 \section{Noise}
