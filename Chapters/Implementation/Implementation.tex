@@ -1886,12 +1886,13 @@ the Kaiser window method
 Typically, a Kaiser-designed, high-pass filter with
 $\SI{-120}{\decibel}$ ripple,
 $\SI{10}{\kilo\hertz}$ cut-on frequency, and
-$\SI{5}{\kilo\hertz}$ width
+$\SI{5}{\kilo\hertz}$ transition-region width
 performs sufficiently;
 for the typical $f_s = 4 \; \text{MSPS}$ digitization rate,
-such a filter has a length $12489$
+such a filter has a length of $12489$ points
 (corresponding to $\sim \SI{3}{\milli\second}$), and
-only points free from the filter's boundary effects
+only points in the filtered phase
+that are free from the filter's boundary effects
 are included in subsequent analysis
 (that is, $\sim \SI{1.5}{\milli\second}$
 at the beginning and the end of the record
