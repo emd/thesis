@@ -2032,238 +2032,238 @@ to typical plasma-fluctuation spectra.
 \end{table}
 
 
-\section{Looking towards ITER\ldots}
-
-
-\section{Component replacement}
-Over the course of this work,
-several components crucial to the operation of the PCI
-(and the soon-to-be-described interferometer)
-failed.
-The failures and replacements are briefly described below.
-
-
-\subsection{Quadrature detector for beam-position feedback}
-A quadrature detector measures the position
-of the unscattered beam on the phase plate,
-providing the input to the feedback control system
-that dynamically centers the unscattered beam
-on the phase-plate groove~\cite[Sec.~3.5]{coda_phd}.
-As the quadrature detector
-cannot physically be co-located with the phase plate,
-a beam splitter samples the unscattered beam
-immediately upstream of the phase plate, and
-a single lens \emph{images} onto the quadrature detector
-the point in the sampled beam that corresponds to the phase-plate location.
-Thus, beam movement on the phase plate is mirrored
-by movement of the sampled beam on the quadrature detector.
-System response is maximized
-with imaging magnification $|M| \approx 1$
-(relative to the beam size at the phase plate) and
-incident optical intensities $I_{\text{opt}}$
-well beyond the linear saturation intensity
-(i.e. $I_{\text{sat}} \ll I_{\text{opt}} < I_{\text{dam}}$)
-~\cite{marinoni_FB_detector_report}~\cite[Sec.~3.5(b)]{coda_phd}.
-
-The old quadrature detector consisted of four
-photoconductive, liquid-nitrogen cooled, HgCdTe elements.
-Quadrature detectors for use at $\SI{10.6}{\micro\meter}$
-had only just become commercially available
-when this unit was procured from Belov Technology in the mid-1990s
-~\cite[Sec.~3.5(b)]{coda_phd}.
-Cooling HgCdTe can
-extend the long-wavelength cutoff beyond $\SI{10.6}{\micro\meter}$,
-reduces noise, and
-increases responsivity~\cite{vigo_catalog}.
-In particular, HgCdTe's responsivity increases by $\sim 10^3$
-when cooled to liquid-nitrogen temperatures such that
-that the incident optical signal
-exceeds the $1 / f$ noise
-characteristic of photoconductive detectors~\cite{vigo_catalog}.
-As the bandwidth requirements for the PCI feedback system
-extend from DC to $\lesssim \SI{10}{\kilo\hertz}$,
-$1 / f$ noise cannot be easily combated by
-e.g.\ mechanically chopping the beam.
-After $\sim 20$ years of operation,
-the old quadrature detector failed in December 2014,
-presumably having reached its expected lifetime.
-As Belov Technology no longer exists,
-it was not possible to procure a drop-in replacement.
-Fortunately, in the context of position sensing,
-HgCdTe technology has significantly improved since the mid-1990s.
-
-The new quadrature detector
-(four VIGO PVM-10.6 elements mounted on a VIGO QIP preamplifier)
-is in many ways superior to the old quadrature detector.
-This superiority stems from VIGO's use of
-``multiple heterojunction'' HgCdTe detector elements~\cite{vigo_catalog},
-which endow the detector with several advantageous properties.
-First, the detector is photovoltaic.
-Thus, the detector is \emph{not} plagued by the $1 / f$ noise
-characteristic of photoconductive detectors.
-Second, the detector's long-wavelength cutoff
-sits beyond $\SI{10.6}{\micro\meter}$ at room temperature.
-Taken together, the above two properties imply that
-the new quadrature detector can be operated at room temperature,
-i.e.\ it does \emph{not} need to be cooled by liquid nitrogen.
-Lacking a dewar, the new quadrature detector
-is much smaller than the old quadrature detector;
-the new detector can also be mounted with an arbitrary orientation,
-whereas the dewar of the old detector required an upright orientation.
-This new-found flexibility substantially opened
-the optical design space for the feedback arm and
-the plasma arm of the soon-to-be-described interferometer.
-Additionally, the dewar of the old quadrature detector
-only had a $\sim \SI{6}{\hour}$ hold time,
-which is not sufficient for a full day of \diiid \space operations;
-thus, the use of a room-temperature quadrature detector has
-eliminated the mid-day ``pit runs'' to refill the quadrature detector's dewar,
-allowing easier operation of the system.
-Although room-temperature operation reduces
-the detector's specific detectivity to
-$D^* \sim \SI{e7}{\centi\meter \sqrt\hertz \per\watt}$
-(roughly three orders of magnitude \emph{lower} than
-that of the old quadrature detector),
-the optical signal corresponds to the strong, unscattered probe beam
-(as opposed to e.g.\ weak beams
-scattered from small-amplitude plasma fluctuations), so
-the increase in noise negligibly influences operation of the feedback system.
-
-\begin{itemize}
-  \item When was new detector acquired?
-  \item \textcolor{red}{Picture}
-  \item \textcolor{red}{Table of properties (?)}
-\end{itemize}
-
-
-\subsection{CO$_2$ laser}
-The old CO$_2$ laser~\cite[Sec.~3.3]{coda_phd},
-manufactured by MPB Technologies,
-had been in service since
-the inception of the \diiid \space PCI system in the mid-1990s.
-Lasing occurred via high voltage, DC-excitation
-inside of a $\SI{2}{\meter}$-long, sealed-off glass tube
-to produce a TEM$_{00}$ (Gaussian) mode with linear polarization.
-The laser nominally had
-a $\lesssim \SI{300}{\kilo\hertz}$ frequency stability
-over short time windows ($\SI{0.1}{\second}$) and
-a $\lesssim \SI{3}{\mega\hertz}$ frequency stability
-over longer time windows ($\SI{e3}{\second}$).
-The laser's tube was replaced in late 1999
-when a precipitous drop in beam power indicated imminent failure.
-Following the tube's replacement,
-the measured beam power consistently hovered at $\sim\SI{14}{\watt}$
-for many years.
-However, in early 2016, the beam power again precipitously dropped.
-The laser's high voltage power supply,
-which was replaced in 2005 after failing,
-was tested and found to be operating nominally,
-suggesting that the drop in beam power
-was attributable to the laser's aging tube.
-Unfortunately, MPB Technologies has abandoned its efforts in CO$_2$ lasers
-and was unable to replace or repair the tube.
-Third-party tube repair was investigated but
-ultimately deemed unacceptable due to
-the required lead times and the lack of a guaranteed repair.
-Fortunately, the MPB laser continued operating, albeit at reduced power,
-throughout the 2016 campaign, allowing continued diagnostic development
-of the soon-to-be-described interferometer.
-
-After an exhaustive search of the CO$_2$-laser market,
-a water-cooled AL30ST CO$_2$ laser was procured
-from Access Laser Company (Everett, WA) in mid-2016.
-Lasing occurs via RF excitation at $\SI{40.68}{\mega\hertz}$;
-RF excitation requires far-lower voltages than DC excitation,
-eliminating the high-voltage safety risk and allowing more efficient lasing
-\cite{he_jap83}.
-As in the old MPB laser,
-the lasing cavity is supported by carbon fiber rods (rather than Invar)
-to mitigate any effects of the tokamak's large, ambient magnetic fields
-on the laser's performance.
-The laser oscillates on a TEM$_{00}$ (Gaussian) mode (spec'd $M^2 < 1.1$)
-with vertical polarization (spec'd extinction ratio $1 / 897$), and
-its $\SI{37}{\watt}$ power output is stable to within $\pm 1.1\%$
-\cite{marinoni_AL30ST_report}.
-Lasing occurs on the $P(20)$ line
-of the $00^{\circ}1 \rightarrow 10^{\circ}0$ transition
-to produce radiation with a vacuum wavelength of
-$\lambda_0 = \SI{10.591}{\micro\meter}$.
-Measurements with wavelength meter 621B
-from Bristol Instruments, Inc. (Victor, NY)
-indicate that the laser's wavelength stability over several seconds
-is characterized by a Voigt distribution with
-full width at half maximum of $\SI{0.0029}{\nano\meter}$, which
-corresponds to a frequency stability (over \emph{several seconds})
-of $\SI{3.8}{\mega\hertz}$ \cite{marinoni_AL30ST_report}.
-
-In the context of measuring plasma-density fluctuations
-with an external reference-beam interferometer,
-the relevant metric is the laser's frequency stability
-over much shorter time windows
-(i.e.\ the time difference corresponding to
-the difference in optical path length between
-the interferometer's plasma and reference arms).
-This is most easily evaluated empirically
-by deploying the laser in the given interferometric system
-and evaluating the corresponding phase noise.
-Successive test shots,
-the first with the old MPB laser and the second with the AL30ST,
-show comparable phase noise (and hence frequency stability)
-between the two lasers.
-Thus, the AL30ST frequency stability is deemed to be sufficient
-for measurement of plasma-density fluctuations
-with the soon-to-be-described external reference-beam interferometer.
-
-\begin{itemize}
-  \item \textcolor{red}{Picture}
-  \item \textcolor{red}{Fig. of new vs.\ old laser stability}
-\end{itemize}
-
-
-\subsection{In-vessel mirrors}
-Two of the PCI mirrors are located
-\emph{inside} of the \diiid \space vacuum vessel.
-As indicated in Fig.~\ref{fig:Implementation:d3d_port_locations}(b),
-the PCI probe beam enters the machine through the $285^{\circ}$ R+2 port,
-reflects off of the first in-vessel mirror,
-propagates vertically downwards through the machine (and the plasma),
-reflects off the second in-vessel mirror, and
-exits the machine through the $285^{\circ}$ R-2 port.
-The in-vessel mirrors are elongated
-along the axis parallel to the plane of incidence
-in order to increase the mirrors' apparent surface area.
-The mirrors were fabricated by Esco Optics, Inc. (Oak Ridge, NJ).
-The mirrors are made of fused quartz with
-a reflective aluminum surface and a protective SiO coating.
-
-In mid-2015 the beam quality of the CO$_2$ laser and the HeNe alignment laser
-after passing through the \diiid \space vessel was noted to be poor
-(i.e. substantially non-Gaussian).
-Numerous tests suggested that the poor beam quality was attributable
-damaged in-vessel mirrors;
-this hypothesis was confirmed via visual inspection
-during the next manned entry of the machine.
-``Drop-in'' replacements were ordered from Esco Optics
-and were installed in mid-2016.
-The removed, damaged mirrors are shown in
-Fig.~\ref{fig:Implementation:in_vessel_mirrors}.
-It is not known whether the mirrors were damaged
-during e.g. plasma operations or high-temperature bakes of the vessel.
-
-\begin{figure}
-  \centering
-  \includegraphics[width = 0.6 \textwidth]{%
-    Chapters/Implementation/figs/in_vessel_mirrors.jpg}
-  \caption[PCI's damaged in-vessel mirrors]{%
-    PCI's damaged in-vessel mirrors, sitting
-    in the \diiid \space ``Hi-Bay''
-    after removal from the vessel in mid-2016.
-    (Note that the reflectivity of each mirror at $\SI{10.6}{\micro\meter}$
-    cannot be gauged from this photograph in the visible spectrum).
-    ``Drop-in'' replacements were installed
-    before the resumption of plasma operations.}
-\label{fig:Implementation:in_vessel_mirrors}
-\end{figure}
+% \section{Looking towards ITER\ldots}
+%
+%
+% \section{Component replacement}
+% Over the course of this work,
+% several components crucial to the operation of the PCI
+% (and the soon-to-be-described interferometer)
+% failed.
+% The failures and replacements are briefly described below.
+%
+%
+% \subsection{Quadrature detector for beam-position feedback}
+% A quadrature detector measures the position
+% of the unscattered beam on the phase plate,
+% providing the input to the feedback control system
+% that dynamically centers the unscattered beam
+% on the phase-plate groove~\cite[Sec.~3.5]{coda_phd}.
+% As the quadrature detector
+% cannot physically be co-located with the phase plate,
+% a beam splitter samples the unscattered beam
+% immediately upstream of the phase plate, and
+% a single lens \emph{images} onto the quadrature detector
+% the point in the sampled beam that corresponds to the phase-plate location.
+% Thus, beam movement on the phase plate is mirrored
+% by movement of the sampled beam on the quadrature detector.
+% System response is maximized
+% with imaging magnification $|M| \approx 1$
+% (relative to the beam size at the phase plate) and
+% incident optical intensities $I_{\text{opt}}$
+% well beyond the linear saturation intensity
+% (i.e. $I_{\text{sat}} \ll I_{\text{opt}} < I_{\text{dam}}$)
+% ~\cite{marinoni_FB_detector_report}~\cite[Sec.~3.5(b)]{coda_phd}.
+%
+% The old quadrature detector consisted of four
+% photoconductive, liquid-nitrogen cooled, HgCdTe elements.
+% Quadrature detectors for use at $\SI{10.6}{\micro\meter}$
+% had only just become commercially available
+% when this unit was procured from Belov Technology in the mid-1990s
+% ~\cite[Sec.~3.5(b)]{coda_phd}.
+% Cooling HgCdTe can
+% extend the long-wavelength cutoff beyond $\SI{10.6}{\micro\meter}$,
+% reduces noise, and
+% increases responsivity~\cite{vigo_catalog}.
+% In particular, HgCdTe's responsivity increases by $\sim 10^3$
+% when cooled to liquid-nitrogen temperatures such that
+% that the incident optical signal
+% exceeds the $1 / f$ noise
+% characteristic of photoconductive detectors~\cite{vigo_catalog}.
+% As the bandwidth requirements for the PCI feedback system
+% extend from DC to $\lesssim \SI{10}{\kilo\hertz}$,
+% $1 / f$ noise cannot be easily combated by
+% e.g.\ mechanically chopping the beam.
+% After $\sim 20$ years of operation,
+% the old quadrature detector failed in December 2014,
+% presumably having reached its expected lifetime.
+% As Belov Technology no longer exists,
+% it was not possible to procure a drop-in replacement.
+% Fortunately, in the context of position sensing,
+% HgCdTe technology has significantly improved since the mid-1990s.
+%
+% The new quadrature detector
+% (four VIGO PVM-10.6 elements mounted on a VIGO QIP preamplifier)
+% is in many ways superior to the old quadrature detector.
+% This superiority stems from VIGO's use of
+% ``multiple heterojunction'' HgCdTe detector elements~\cite{vigo_catalog},
+% which endow the detector with several advantageous properties.
+% First, the detector is photovoltaic.
+% Thus, the detector is \emph{not} plagued by the $1 / f$ noise
+% characteristic of photoconductive detectors.
+% Second, the detector's long-wavelength cutoff
+% sits beyond $\SI{10.6}{\micro\meter}$ at room temperature.
+% Taken together, the above two properties imply that
+% the new quadrature detector can be operated at room temperature,
+% i.e.\ it does \emph{not} need to be cooled by liquid nitrogen.
+% Lacking a dewar, the new quadrature detector
+% is much smaller than the old quadrature detector;
+% the new detector can also be mounted with an arbitrary orientation,
+% whereas the dewar of the old detector required an upright orientation.
+% This new-found flexibility substantially opened
+% the optical design space for the feedback arm and
+% the plasma arm of the soon-to-be-described interferometer.
+% Additionally, the dewar of the old quadrature detector
+% only had a $\sim \SI{6}{\hour}$ hold time,
+% which is not sufficient for a full day of \diiid \space operations;
+% thus, the use of a room-temperature quadrature detector has
+% eliminated the mid-day ``pit runs'' to refill the quadrature detector's dewar,
+% allowing easier operation of the system.
+% Although room-temperature operation reduces
+% the detector's specific detectivity to
+% $D^* \sim \SI{e7}{\centi\meter \sqrt\hertz \per\watt}$
+% (roughly three orders of magnitude \emph{lower} than
+% that of the old quadrature detector),
+% the optical signal corresponds to the strong, unscattered probe beam
+% (as opposed to e.g.\ weak beams
+% scattered from small-amplitude plasma fluctuations), so
+% the increase in noise negligibly influences operation of the feedback system.
+%
+% \begin{itemize}
+%   \item When was new detector acquired?
+%   \item \textcolor{red}{Picture}
+%   \item \textcolor{red}{Table of properties (?)}
+% \end{itemize}
+%
+%
+% \subsection{CO$_2$ laser}
+% The old CO$_2$ laser~\cite[Sec.~3.3]{coda_phd},
+% manufactured by MPB Technologies,
+% had been in service since
+% the inception of the \diiid \space PCI system in the mid-1990s.
+% Lasing occurred via high voltage, DC-excitation
+% inside of a $\SI{2}{\meter}$-long, sealed-off glass tube
+% to produce a TEM$_{00}$ (Gaussian) mode with linear polarization.
+% The laser nominally had
+% a $\lesssim \SI{300}{\kilo\hertz}$ frequency stability
+% over short time windows ($\SI{0.1}{\second}$) and
+% a $\lesssim \SI{3}{\mega\hertz}$ frequency stability
+% over longer time windows ($\SI{e3}{\second}$).
+% The laser's tube was replaced in late 1999
+% when a precipitous drop in beam power indicated imminent failure.
+% Following the tube's replacement,
+% the measured beam power consistently hovered at $\sim\SI{14}{\watt}$
+% for many years.
+% However, in early 2016, the beam power again precipitously dropped.
+% The laser's high voltage power supply,
+% which was replaced in 2005 after failing,
+% was tested and found to be operating nominally,
+% suggesting that the drop in beam power
+% was attributable to the laser's aging tube.
+% Unfortunately, MPB Technologies has abandoned its efforts in CO$_2$ lasers
+% and was unable to replace or repair the tube.
+% Third-party tube repair was investigated but
+% ultimately deemed unacceptable due to
+% the required lead times and the lack of a guaranteed repair.
+% Fortunately, the MPB laser continued operating, albeit at reduced power,
+% throughout the 2016 campaign, allowing continued diagnostic development
+% of the soon-to-be-described interferometer.
+%
+% After an exhaustive search of the CO$_2$-laser market,
+% a water-cooled AL30ST CO$_2$ laser was procured
+% from Access Laser Company (Everett, WA) in mid-2016.
+% Lasing occurs via RF excitation at $\SI{40.68}{\mega\hertz}$;
+% RF excitation requires far-lower voltages than DC excitation,
+% eliminating the high-voltage safety risk and allowing more efficient lasing
+% \cite{he_jap83}.
+% As in the old MPB laser,
+% the lasing cavity is supported by carbon fiber rods (rather than Invar)
+% to mitigate any effects of the tokamak's large, ambient magnetic fields
+% on the laser's performance.
+% The laser oscillates on a TEM$_{00}$ (Gaussian) mode (spec'd $M^2 < 1.1$)
+% with vertical polarization (spec'd extinction ratio $1 / 897$), and
+% its $\SI{37}{\watt}$ power output is stable to within $\pm 1.1\%$
+% \cite{marinoni_AL30ST_report}.
+% Lasing occurs on the $P(20)$ line
+% of the $00^{\circ}1 \rightarrow 10^{\circ}0$ transition
+% to produce radiation with a vacuum wavelength of
+% $\lambda_0 = \SI{10.591}{\micro\meter}$.
+% Measurements with wavelength meter 621B
+% from Bristol Instruments, Inc. (Victor, NY)
+% indicate that the laser's wavelength stability over several seconds
+% is characterized by a Voigt distribution with
+% full width at half maximum of $\SI{0.0029}{\nano\meter}$, which
+% corresponds to a frequency stability (over \emph{several seconds})
+% of $\SI{3.8}{\mega\hertz}$ \cite{marinoni_AL30ST_report}.
+%
+% In the context of measuring plasma-density fluctuations
+% with an external reference-beam interferometer,
+% the relevant metric is the laser's frequency stability
+% over much shorter time windows
+% (i.e.\ the time difference corresponding to
+% the difference in optical path length between
+% the interferometer's plasma and reference arms).
+% This is most easily evaluated empirically
+% by deploying the laser in the given interferometric system
+% and evaluating the corresponding phase noise.
+% Successive test shots,
+% the first with the old MPB laser and the second with the AL30ST,
+% show comparable phase noise (and hence frequency stability)
+% between the two lasers.
+% Thus, the AL30ST frequency stability is deemed to be sufficient
+% for measurement of plasma-density fluctuations
+% with the soon-to-be-described external reference-beam interferometer.
+%
+% \begin{itemize}
+%   \item \textcolor{red}{Picture}
+%   \item \textcolor{red}{Fig. of new vs.\ old laser stability}
+% \end{itemize}
+%
+%
+% \subsection{In-vessel mirrors}
+% Two of the PCI mirrors are located
+% \emph{inside} of the \diiid \space vacuum vessel.
+% As indicated in Fig.~\ref{fig:Implementation:d3d_port_locations}(b),
+% the PCI probe beam enters the machine through the $285^{\circ}$ R+2 port,
+% reflects off of the first in-vessel mirror,
+% propagates vertically downwards through the machine (and the plasma),
+% reflects off the second in-vessel mirror, and
+% exits the machine through the $285^{\circ}$ R-2 port.
+% The in-vessel mirrors are elongated
+% along the axis parallel to the plane of incidence
+% in order to increase the mirrors' apparent surface area.
+% The mirrors were fabricated by Esco Optics, Inc. (Oak Ridge, NJ).
+% The mirrors are made of fused quartz with
+% a reflective aluminum surface and a protective SiO coating.
+%
+% In mid-2015 the beam quality of the CO$_2$ laser and the HeNe alignment laser
+% after passing through the \diiid \space vessel was noted to be poor
+% (i.e. substantially non-Gaussian).
+% Numerous tests suggested that the poor beam quality was attributable
+% damaged in-vessel mirrors;
+% this hypothesis was confirmed via visual inspection
+% during the next manned entry of the machine.
+% ``Drop-in'' replacements were ordered from Esco Optics
+% and were installed in mid-2016.
+% The removed, damaged mirrors are shown in
+% Fig.~\ref{fig:Implementation:in_vessel_mirrors}.
+% It is not known whether the mirrors were damaged
+% during e.g. plasma operations or high-temperature bakes of the vessel.
+%
+% \begin{figure}
+%   \centering
+%   \includegraphics[width = 0.6 \textwidth]{%
+%     Chapters/Implementation/figs/in_vessel_mirrors.jpg}
+%   \caption[PCI's damaged in-vessel mirrors]{%
+%     PCI's damaged in-vessel mirrors, sitting
+%     in the \diiid \space ``Hi-Bay''
+%     after removal from the vessel in mid-2016.
+%     (Note that the reflectivity of each mirror at $\SI{10.6}{\micro\meter}$
+%     cannot be gauged from this photograph in the visible spectrum).
+%     ``Drop-in'' replacements were installed
+%     before the resumption of plasma operations.}
+% \label{fig:Implementation:in_vessel_mirrors}
+% \end{figure}
 
 
 \bibliographystyle{plainurl}
