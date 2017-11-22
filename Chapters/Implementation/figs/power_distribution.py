@@ -124,6 +124,12 @@ if __name__ == '__main__':
             eta_R_design, eta_P_design,
             'D', c='darkred')
 
+    # Print total power in probe beam and reference beam
+    Pp = probe_beam_power(eta_R_design, eta_P_design)
+    Pr = reference_beam_power(eta_R_design)
+    print 'probe-beam power: %.1f mW' % Pp
+    print 'reference-beam power: %.1f mW' % Pr
+
     plt.tight_layout()
 
     plt.show()

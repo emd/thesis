@@ -1082,6 +1082,7 @@ is given through power conservation as
   \left( \frac{0.17}{0.5} \right) \mathcal{P}_P
   =
   \mathcal{P}_{\text{pci},0}.
+  \label{eq:Implementation:probe_beam_power_constraint}
 \end{equation}
 (Of course, some of the beam power is also diverted
 to the feedback system's quadrant detector, but
@@ -1109,6 +1110,7 @@ at the heterodyne-interferometer detector is
   \mathcal{P}_R
   =
   \left( \frac{0.9}{2} \right) \eta_R \mathcal{P}_S,
+  \label{eq:Implementation:reference_beam_power_constraint}
 \end{equation}
 where $\mathcal{P}_S \approx \SI{14}{\watt}$
 is the total beam power at the laser source.
@@ -2121,13 +2123,107 @@ the LO phase noise injected into the heterodyne interferometer
 is negligible for \emph{any} AOM coupling time $\tau$,
 allowing removal of the pickup-prone delay line.
 
-\begin{itemize}
-  \item Recreate autospectral density labels
-\end{itemize}
-
 
 \subsection{Spectral characterization of heterodyne-interferometer noise}
 \label{sec:Implementation:Noise:interferometer}
+Predicted noise:
+\begin{itemize}
+  \item Autospectral density of demodulated detector noise
+    (\ref{eq:DesignConsiderations:summary:detector_noise_autospectral_density})
+    and autospectral density of demodulated optical shot noise
+    (\ref{eq:DesignConsiderations:summary:shot_noise_autospectral_density})
+    both depend on the probe-beam and reference-beam optical powers
+    impinging on the detector element, $P_P$ and $P_R$, respectively.
+  \item Referencing
+    (\ref{eq:Implementation:Gaussian_beam_power_square_aperture}),
+    the probe-beam optical power impinging on the square detector element
+    of the heterodyne interferometer is
+    \begin{equation}
+      P_P
+      =
+      \mathcal{P}_P \left[
+        \erf\left( \frac{s_x}{\sqrt{2} w_P} \right)
+      \right]^2
+      \approx
+      \SI{25}{\milli\watt},
+      \label{eq:Implementation:probe_beam_power_on_detector_element}
+    \end{equation}
+    where $s_x = \SI{1}{\milli\meter}$ from
+    (\ref{eq:Implementation:detector_size}),
+    $w_P = \SI{2.7}{\milli\meter}$ from
+    (\ref{eq:Implementation:probe_beam_radius_at_detector}), and
+    $\mathcal{P}_P = \SI{315}{\milli\watt}$ from
+    (\ref{eq:Implementation:probe_beam_power_constraint}) and
+    the design point indicated in
+    Fig.~\ref{fig:Implementation:power_distribution}.
+  \item Similarly the reference-beam optical power
+    impinging on the square detector element
+    of the heterodyne interferometer is
+    \begin{equation}
+      P_R
+      =
+      \mathcal{P}_R \left[
+        \erf\left( \frac{s_x}{\sqrt{2} w_R} \right)
+      \right]^2
+      \approx
+      \SI{10}{\milli\watt},
+      \label{eq:Implementation:reference_beam_power_on_detector_element}
+    \end{equation}
+    where $s_x = \SI{1}{\milli\meter}$ from
+    (\ref{eq:Implementation:detector_size}),
+    $w_R = \SI{4.3}{\milli\meter}$ from
+    (\ref{eq:Implementation:reference_beam_radius_at_detector}), and
+    $\mathcal{P}_R = \SI{315}{\milli\watt}$ from
+    (\ref{eq:Implementation:reference_beam_power_constraint}) and
+    the design point indicated in
+    Fig.~\ref{fig:Implementation:power_distribution}.
+  \item Demodulated detector noise additionally depends on
+    specific detectivity (\ref{eq:Implementation:Dstar}) of detector module
+  \item Clearly, demodulated detector noise is predicted to be
+    the largest contribution to the system noise,
+    with quantization noise, OCXO phase noise, and
+    demodulated optical shot noise sitting roughly
+    one, two, and three orders of magnitude
+    below the predicted detector noise.
+\end{itemize}
+
+Measured noise:
+\begin{itemize}
+  \item Realized quantization noise measured by keeping $I$ and $Q$ channels
+    of digitizer \emph{open}; equivalent results obtained when terminating
+    with $\SI{50}{\ohm}$. Note that
+    realized quantization noise approximately $2 \times$ larger
+    than predicted detector noise and approximately $20 \times$ larger
+    than the predicted quantization noise.
+    In practice, aperture error, jitter, and nonlinearities
+    may reduce the effective bit depth by one or two bits
+    \cite[Sec.~10.2.4]{bendat_and_piersol},
+    increasing the realized quantization noise
+    relative to predictions by a factor of two to four;
+    however, the $20 \times$ factor seems a bit excessive\ldots
+    The explanation for this anomalously high bit noise is
+    not known, and it was not pursued any further.
+  \item All electronics correspond to LO self-demodulation
+    with OCXO, appropriate LO and IF levels, and
+    all remaining electronics (demodulator, audio amps, etc.)
+    configured as they are during operations.
+  \item Full system includes laser, detector, and vibrations.
+    Unknown if coherent peaks result from laser phase noise
+    due to unmatched beam paths or vibrations.
+    Establishes the noise floor at
+    $\sim \SI{e-10}{\radian\squared\per\kilo\hertz}$
+\end{itemize}
+
+Plasma fluctuations:
+\begin{itemize}
+  \item Fluctuations are typically one to two orders of magnitude
+    above system noise floor
+  \item Observe characteristic suppression of low-$f$ turbulence
+    and excitation of high-$f$ turbulence across H-mode transition
+  \item Is there a straightforward path for improving interferometer
+    sensitivity?
+\end{itemize}
+
 \begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
