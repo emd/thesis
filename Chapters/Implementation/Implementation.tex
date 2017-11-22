@@ -2126,66 +2126,134 @@ allowing removal of the pickup-prone delay line.
 
 \subsection{Spectral characterization of heterodyne-interferometer noise}
 \label{sec:Implementation:Noise:interferometer}
-Predicted noise:
+Intro
 \begin{itemize}
-  \item Autospectral density of demodulated detector noise
-    (\ref{eq:DesignConsiderations:summary:detector_noise_autospectral_density})
-    and autospectral density of demodulated optical shot noise
-    (\ref{eq:DesignConsiderations:summary:shot_noise_autospectral_density})
-    both depend on the probe-beam and reference-beam optical powers
-    impinging on the detector element, $P_P$ and $P_R$, respectively.
-  \item Referencing
-    (\ref{eq:Implementation:Gaussian_beam_power_square_aperture}),
-    the probe-beam optical power impinging on the square detector element
-    of the heterodyne interferometer is
-    \begin{equation}
-      P_P
-      =
-      \mathcal{P}_P \left[
-        \erf\left( \frac{s_x}{\sqrt{2} w_P} \right)
-      \right]^2
-      \approx
-      \SI{25}{\milli\watt},
-      \label{eq:Implementation:probe_beam_power_on_detector_element}
-    \end{equation}
-    where $s_x = \SI{1}{\milli\meter}$ from
-    (\ref{eq:Implementation:detector_size}),
-    $w_P = \SI{2.7}{\milli\meter}$ from
-    (\ref{eq:Implementation:probe_beam_radius_at_detector}), and
-    $\mathcal{P}_P = \SI{315}{\milli\watt}$ from
-    (\ref{eq:Implementation:probe_beam_power_constraint}) and
-    the design point indicated in
-    Fig.~\ref{fig:Implementation:power_distribution}.
-  \item Similarly the reference-beam optical power
-    impinging on the square detector element
-    of the heterodyne interferometer is
-    \begin{equation}
-      P_R
-      =
-      \mathcal{P}_R \left[
-        \erf\left( \frac{s_x}{\sqrt{2} w_R} \right)
-      \right]^2
-      \approx
-      \SI{10}{\milli\watt},
-      \label{eq:Implementation:reference_beam_power_on_detector_element}
-    \end{equation}
-    where $s_x = \SI{1}{\milli\meter}$ from
-    (\ref{eq:Implementation:detector_size}),
-    $w_R = \SI{4.3}{\milli\meter}$ from
-    (\ref{eq:Implementation:reference_beam_radius_at_detector}), and
-    $\mathcal{P}_R = \SI{315}{\milli\watt}$ from
-    (\ref{eq:Implementation:reference_beam_power_constraint}) and
-    the design point indicated in
-    Fig.~\ref{fig:Implementation:power_distribution}.
-  \item Demodulated detector noise additionally depends on
-    specific detectivity (\ref{eq:Implementation:Dstar}) of detector module
-  \item Clearly, demodulated detector noise is predicted to be
-    the largest contribution to the system noise,
-    with quantization noise, OCXO phase noise, and
-    demodulated optical shot noise sitting roughly
-    one, two, and three orders of magnitude
-    below the predicted detector noise.
+  \item Having solved the noise issue\ldots
+  \item Makes sense to characterize the noise in system
+    and identify what component(s) set the system noise floor
+  \item Fig.~\ref{fig:Implementation:signal_and_noise}
+    provides a spectral characterization of various noise sources
+    in the heterodyne interferometer and
+    compares them to typical plasma-fluctuation spectra.
 \end{itemize}
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/Implementation/figs/signal_and_noise.pdf}
+  \caption[Spectral characterization of interferometer noise]{%
+    Spectral characterization of interferometer noise and
+    comparison to typical plasma-fluctuation spectra.
+    Dashed lines indicate predicted (P) quantities, while
+    colored traces correspond to measured quantities
+    with shot numbers in parentheses
+    ($4$-digit numbers indicate a diagnostic test shot, and
+    $6$-digit numbers indicate a \diiid\space shot).
+    Importantly, the interferometer noise floor
+    (i.e.\ the ``full system'' trace)
+    sits at least an order of magnitude below
+    typical plasma fluctuations.
+    Vibrations dominate the interferometer spectrum
+    for $f \lesssim \SI{10}{\kilo\hertz}$.
+  }
+\label{fig:Implementation:signal_and_noise}
+\end{figure}
+
+Noise predictions establish a baseline for
+the expected performance of the heterodyne interferometer.
+Recall that Chapter~\ref{ch:DesignConsiderations}
+extensively discussed heterodyne-interferometer noise sources and
+their corresponding autospectral densities,
+with a concise summary provided in
+Section~\ref{sec:DesignConsiderations:summary:noise}.
+The dashed, annotated lines in
+Fig.~\ref{fig:Implementation:signal_and_noise}
+indicate the predicted (P) autospectral densities
+from these noise sources
+in the heterodyne-interferometer implementation
+described in this chapter.
+Clearly, the demodulated detector noise
+(\ref{eq:DesignConsiderations:summary:detector_noise_autospectral_density})
+is predicted to be the dominant source of noise.
+Note that the demodulated detector noise depends on
+the probe-beam and reference-beam optical powers
+impinging on the detector element, $P_P$ and $P_R$, respectively.
+Referencing (\ref{eq:Implementation:Gaussian_beam_power_square_aperture}),
+the probe-beam optical power impinging on the square detector element
+of the heterodyne interferometer is
+\begin{equation}
+  P_P
+  =
+  \mathcal{P}_P \left[
+    \erf\left( \frac{s_x}{\sqrt{2} w_P} \right)
+  \right]^2
+  \approx
+  \SI{25}{\milli\watt},
+  \label{eq:Implementation:probe_beam_power_on_detector_element}
+\end{equation}
+where $s_x = \SI{1}{\milli\meter}$ from
+(\ref{eq:Implementation:detector_size}),
+$w_P = \SI{2.7}{\milli\meter}$ from
+(\ref{eq:Implementation:probe_beam_radius_at_detector}), and
+$\mathcal{P}_P = \SI{315}{\milli\watt}$ from
+(\ref{eq:Implementation:probe_beam_power_constraint}) and
+the design point indicated in
+Fig.~\ref{fig:Implementation:power_distribution}.
+Similarly the reference-beam optical power
+impinging on the square detector element
+of the heterodyne interferometer is
+\begin{equation}
+  P_R
+  =
+  \mathcal{P}_R \left[
+    \erf\left( \frac{s_x}{\sqrt{2} w_R} \right)
+  \right]^2
+  \approx
+  \SI{10}{\milli\watt},
+  \label{eq:Implementation:reference_beam_power_on_detector_element}
+\end{equation}
+where $s_x = \SI{1}{\milli\meter}$ from
+(\ref{eq:Implementation:detector_size}),
+$w_R = \SI{4.3}{\milli\meter}$ from
+(\ref{eq:Implementation:reference_beam_radius_at_detector}), and
+$\mathcal{P}_R = \SI{315}{\milli\watt}$ from
+(\ref{eq:Implementation:reference_beam_power_constraint}) and
+the design point indicated in
+Fig.~\ref{fig:Implementation:power_distribution}.
+The demodulated detector noise also depends on
+the detector-element area $A = s_x^2 = \SI{1}{\milli\meter\squared}$ and
+the detector-module specific detectivity $D^*$ from
+(\ref{eq:Implementation:Dstar}).
+The predicted quantization noise
+(\ref{eq:DesignConsiderations:summary:quantization_noise_autospectral_density})
+corresponds to a bit depth $N_b = 14$ and
+a sample rate $f_s = 4 \, \text{MSPS}$,
+as described in Section~\ref{sec:Implementation:PCI:digitizer}, and
+an assumed use of the digitizer's full dynamic range
+($\eta_{\text{dyn}} = 1$).
+The OCXO phase noise $\mathcal{L}_{\Delta \omega_0}(f)$ from
+(\ref{eq:Implementation:OCXO_phase_noise})
+is injected into the interferometer by the
+$\tau = \SI{2.5}{\micro\second}$ AOM coupling time from
+(\ref{eq:Implementation:AOM_coupling_time});
+because the OCXO has very low phase noise,
+it makes a negligible contribution to the heterodyne-interferometer noise.
+The demodulated optical shot noise
+(\ref{eq:DesignConsiderations:summary:shot_noise_autospectral_density})
+is easily evaluated using the values of
+$P_P$ from (\ref{eq:Implementation:probe_beam_power_on_detector_element}) and
+$P_R$ from (\ref{eq:Implementation:reference_beam_power_on_detector_element}),
+and it also makes a negligible contribution
+to the heterodyne-interferometer noise.
+Unfortunately, the laser phase noise $\mathcal{L}_{\omega_0}(f)$
+is \emph{not} known, so
+the injection of laser phase noise
+(\ref{eq:DesignConsiderations:summary:laser_phase_noise_autospectral_density})
+into the heterodyne interferometer cannot be predicted
+(recall that the probe beam and the reference beam
+do \emph{not} have matched optical path lengths);
+thus, quantifying the effect of laser phase noise
+requires empirical investigation.
 
 Measured noise:
 \begin{itemize}
@@ -2223,28 +2291,6 @@ Plasma fluctuations:
   \item Is there a straightforward path for improving interferometer
     sensitivity?
 \end{itemize}
-
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/Implementation/figs/signal_and_noise.pdf}
-  \caption[Spectral characterization of interferometer noise]{%
-    Spectral characterization of interferometer noise and
-    comparison to typical plasma-fluctuation spectra.
-    Dashed lines indicate predicted (P) quantities, while
-    colored traces correspond to measured quantities
-    with shot numbers in parentheses
-    (4 digits indicate a diagnostic test shot, and
-    6 digits indicate a \diiid\space shot).
-    Importantly, the interferometer noise floor
-    (i.e.\ the ``full system'' trace)
-    is an order of magnitude smaller than
-    typical plasma fluctuations.
-    Vibrations dominate the interferometer spectrum
-    for $f \lesssim \SI{10}{\kilo\hertz}$.
-  }
-\label{fig:Implementation:signal_and_noise}
-\end{figure}
 
 
 \section{Alignment}
