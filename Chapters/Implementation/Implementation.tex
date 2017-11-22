@@ -1941,27 +1941,100 @@ in Section~\ref{sec:DesignConsiderations:phase_noise:LO}, and
 it can easily be the dominant source of noise in a heterodyne interferometer,
 potentially producing severe constraints on the system sensitivity.
 Thus, if LO phase noise is not known \emph{a priori},
-its effect on the measurements of a heterodyne interferometer
-should be measured.
+it should be measured.
 Often, the standard deviation of the oscillator frequency is specified
 (for example, the oscillator initially procured for this project
 was specified to be $0.01\%$ quartz stabilized);
-however, without knowledge of the corresponding spectral distribution,
+however, without knowledge of the corresponding spectrum,
 the specification of the standard deviation
 is insufficient to characterize the resulting
 heterodyne-interferometer noise.
 
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/Implementation/figs/LO_self_demodulation_schematic.pdf}
+  \caption[LO self-demodulation schematic for investigation of LO phase noise]{%
+    LO self-demodulation schematic for investigation of LO phase noise.
+    A small fraction of the LO is coupled and delayed to produce a mock IF.
+    The mock IF is demodulated and digitized, and
+    the autospectral density of the measured phase is compared
+    to the corresponding autospectral density with zero delay.
+  }
+\label{fig:Implementation:LO_self_demodulation_schematic}
+\end{figure}
+
+The injection of LO phase noise into the heterodyne interferometer
+can be empirically characterized by demodulating
+a delayed copy of the LO,
+as depicted schematically in
+Fig.~\ref{fig:Implementation:LO_self_demodulation_schematic}.
+A Mini-Circuits (Brooklyn, NY USA) {ZFBDC$20$-$61$HP+} bi-directional coupler
+provides adequate coupling for $\sim \SI{30}{\mega\hertz}$,
+moderate-power ($\lesssim \SI{25}{\watt}$) RF signals.
+The delay line should provide a delay comparable to the AOM coupling time.
+To lowest order, the AOM coupling time can be estimated
+as the time required for sound waves in the AOM Germanium crystal
+(sound speed $c_s = \SI{5400}{\meter\per\second}$)
+to propagate from the AOM RF port
+(assumed to be adjacent to the corresponding piezo-actuator)
+to the AOM optical axis;
+for the Gooch \& Housego AOM discussed in
+Section~\ref{sec:Implementation:OpticalLayout:reference_beam_generation},
+this distance is $\approx \SI{1.5}{\centi\meter}$,
+corresponding to a coupling time $\tau \approx \SI{2.8}{\micro\second}$ and
+an RG-$58$ coaxial-cable (index of refraction $\sim 3 / 2$)
+delay line of length $\approx \SI{560}{\meter}$.
+The mock IF signal may need to be amplified
+to combat attenuation along the delay line, but
+amplifier noise should be minimized
+to prevent corrupting the phase-noise measurement;
+Mini-Circuits {ZFL-$500$B} amplifiers
+were found to provide acceptable low-noise amplification.
+Additionally, because the bulk phase difference
+between the mock IF and the LO
+is fixed by the delay-line length,
+the demodulated $I$ and $Q$ signals
+do \emph{not} trace out a full Lissajous ellipse;
+for this reason, the ellipticity compensation discussed in
+Section~\ref{sec:Implementation:DataPreparation:ellipticity_compensation}
+should \emph{not} be performed prior to computing the measured phase $\phi_m$.
+Finally, the autospectral density of the measured phase
+should be estimated.
+If this autospectral density exceeds
+the corresponding autospectral density with zero delay,
+the injection of LO phase noise into the heterodyne interferometer
+will be significant.
+Results from such an LO self-demodulation test with
+the $0.01\%$ quartz-stabilized oscillator
+initially procured for this project are shown in
+Fig.~\ref{fig:Implementation:GnH_self_demodulation};
+clearly, the phase noise of this oscillator
+is unacceptably large.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/Implementation/figs/GnH_self_demodulation_varied_delay_lines.pdf}
+  \caption[Self-demodulation of a $0.1\%$ quartz-stabilized LO]{%
+    Self-demodulation of a $0.1\%$ quartz-stabilized LO
+    gauges the injection of LO phase noise
+    into a heterodyne interferometer
+    with various AOM coupling times $\tau$
+    (the $4$-digit numbers in parentheses indicate
+    the corresponding diagnostic test shot).
+    If the injection of LO phase noise were negligible,
+    the autospectral density $G_{\phi,\phi}(f)$
+    would be independent of the delay $\tau$;
+    clearly, the injection of phase noise with \emph{this} LO
+    is significant for finite $\tau$.
+    The coupling delay of the AOM used in this work is
+    $\tau \approx \SI{2.5}{\micro\second}$.
+  }
+\label{fig:Implementation:GnH_self_demodulation}
+\end{figure}
+
 \begin{itemize}
-  \item
-  \item For example, the initial LO source was specified to be
-    $0.01\%$ quartz stabilized, but without knowledge
-    of the corresponding bandwidth, it is impossible
-    to make even an order-of-magnitude estimate of phase noise.
-  \item $\sim \SI{1.5}{\centi\meter}$ distance between
-    center of AOM BNC port (taken as nominal position of transducer)
-    and the optical axis of the AOM
-  \item With $\SI{5400}{\meter\per\second}$ sound-wave speed in Ge,
-    the corresponding coupling delay is $\tau \approx \SI{2.8}{\micro\second}$
   \item From the sine weighting of the LO phase noise in
     (\ref{eq:DesignConsiderations:summary:LO_phase_noise_autospectral_density}),
     the interferometer spectrum should exhibit ``ringing'' with
@@ -1969,26 +2042,20 @@ heterodyne-interferometer noise.
     in fact, the interferometer spectrum exhibited ringing
     at harmonics of $\SI{400}{\kilo\hertz}$,
     indicating an actual coupling time $\tau = \SI{2.5}{\micro\second}$
+  \item Amplifiers needed to counteract attenuation in delay line,
+    but do not appreciably increase noise
+  \item $I$ and $Q$ \emph{not} fitted to an ellipse, as
+    they are confined to a small point on Lissajous curve
+  \item Delay lines discussed previously
+  \item Examples of varying delay line in
+    Fig.~\ref{fig:Implementation:GnH_self_demodulation};
+    note that $\tau = 0$ case is limited by quantization noise and
+    that this is for the unstable LO
+  \item The OCXO is limited by bit noise regardless of delay-line length
+    (maybe after discussion of electrical pickup?)
+  \item Recreate autospectral density labels
 \end{itemize}
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/Implementation/figs/LO_self_demodulation_schematic.pdf}
-  \caption[Methodology for investigating LO phase noise]{%
-    Methodology for investigating LO phase noise.
-  }
-  \label{fig:Implementation:LO_self_demodulation_schematic}
-\end{figure}
 
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/Implementation/figs/GnH_self_demodulation_varied_delay_lines.pdf}
-  \caption[Coupling of XO phase noise into interferometer measurements]{%
-    Coupling of XO phase noise into interferometer measurements.
-  }
-  \label{fig:Implementation:GnH_self_demodulation}
-\end{figure}
 
 \begin{figure}
   \centering
