@@ -2255,32 +2255,74 @@ do \emph{not} have matched optical path lengths);
 thus, quantifying the effect of laser phase noise
 requires empirical investigation.
 
-Measured noise:
-\begin{itemize}
-  \item Realized quantization noise measured by keeping $I$ and $Q$ channels
-    of digitizer \emph{open}; equivalent results obtained when terminating
-    with $\SI{50}{\ohm}$. Note that
-    realized quantization noise approximately $2 \times$ larger
-    than predicted detector noise and approximately $20 \times$ larger
-    than the predicted quantization noise.
-    In practice, aperture error, jitter, and nonlinearities
-    may reduce the effective bit depth by one or two bits
-    \cite[Sec.~10.2.4]{bendat_and_piersol},
-    increasing the realized quantization noise
-    relative to predictions by a factor of two to four;
-    however, the $20 \times$ factor seems a bit excessive\ldots
-    The explanation for this anomalously high bit noise is
-    not known, and it was not pursued any further.
-  \item All electronics correspond to LO self-demodulation
-    with OCXO, appropriate LO and IF levels, and
-    all remaining electronics (demodulator, audio amps, etc.)
-    configured as they are during operations.
-  \item Full system includes laser, detector, and vibrations.
-    Unknown if coherent peaks result from laser phase noise
-    due to unmatched beam paths or vibrations.
-    Establishes the noise floor at
-    $\sim \SI{e-10}{\radian\squared\per\kilo\hertz}$
-\end{itemize}
+While the noise predictions establish a baseline,
+the \emph{measured} noise floor actually sets the sensitivity
+of the heterodyne interferometer.
+Several of the colored traces in
+Fig.~\ref{fig:Implementation:signal_and_noise}
+display the noise contributions from various system components.
+The system quantization noise was measured
+with the $I$ and $Q$ channels of the digitizer \emph{open}, and
+equivalent results were obtained when closing both channels with
+resistors matching the $\SI{50}{\ohm}$ input impedance
+of each digitizer channel.
+The normalization of the quantization noise assumes
+full use of the digitizer's dynamic range ($\eta_{\text{dyn}} = 1$);
+utilizing less of the dynamic range increases the quantization noise
+(e.g.\ $\eta_{\text{dyn}} \sim 0.8$
+increases the quantization noise by $\sim 50\%$).
+Interestingly, the measured quantization noise
+exceeds the predicted quantization noise
+by more than an order of magnitude.
+While it is not uncommon for aperture error, jitter, and nonlinearities
+to reduce the effective bit depth by one or two bits
+(increasing the quantization noise by a factor of two to four)
+\cite[Sec.~10.2.4]{bendat_and_piersol},
+this discrepancy between the measured and predicted quantization noises
+is quite a bit larger.
+The origin of this anomalously high quantization noise is not understood, and
+it was not investigated any further in this work.
+The system electrical noise was measured
+during an LO self-demodulation test
+(shown schematically in
+Fig.~\ref{fig:Implementation:LO_self_demodulation_schematic})
+with the OCXO,
+a $\tau = \SI{2.5}{\micro\second}$ delay between the LO and mock IF
+in accordance with the AOM coupling time
+(\ref{eq:Implementation:AOM_coupling_time}),
+the appropriate LO and IF powers, and
+all the remaining electronics (filters, demodulator, audio amplifiers, etc.)
+configured as they are during operations.
+The electronics produce an approximately threefold increase
+in the system noise relative to the quantization noise.
+Finally, the full-system noise was measured
+by interfering the probe beam and the reference beam
+on the detector in the absence of plasma.
+Relative to the all-electrical noise measurement,
+the full-system test additionally includes the effects of
+laser phase noise, detector noise, and vibrations.
+Clearly, for frequencies $f \gtrsim \SI{10}{\kilo\hertz}$,
+the full-system, broadband noise is only marginally larger
+than the electrical noise
+(the coherent peaks at $f \lesssim \SI{30}{\kilo\hertz}$
+may correspond to vibrations or laser phase noise;
+however, without either implementing two-color detection
+to perform vibration subtraction~\cite{carlstrom_rsi88}, or
+matching the probe-beam and reference-beam optical path lengths
+to remove the injection of laser phase noise,
+it is impossible to determine the origin
+of these low-frequency coherent peaks).
+Note that the full-system broadband noise
+sets the heterodyne-interferometer noise floor at
+\begin{equation}
+  \text{min} \left[ G_{\phi,\phi}(f) \right]
+  \approx
+  7 \times 10^{-11} \; \text{rad}^2 / \, \text{kHz},
+  \label{eq:Implementation:noise_floor_rad2_per_Hz}
+\end{equation}
+corresponding to a sensitivity
+to line-integrated electron-density fluctuations of
+$3 \times 10^{14} \; \text{m}^{-2} / \, \sqrt{\text{kHz}}$.
 
 Plasma fluctuations:
 \begin{itemize}
