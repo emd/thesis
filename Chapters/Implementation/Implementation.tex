@@ -1981,10 +1981,10 @@ to propagate from the AOM RF port
 to the AOM optical axis;
 for the Gooch \& Housego AOM discussed in
 Section~\ref{sec:Implementation:OpticalLayout:reference_beam_generation},
-this distance is $\approx \SI{1.5}{\centi\meter}$,
+this distance is $d \approx \SI{1.5}{\centi\meter}$,
 corresponding to a coupling time $\tau \approx \SI{2.8}{\micro\second}$ and
 an RG-$58$ coaxial-cable (index of refraction $\sim 3 / 2$)
-delay line of length $\approx \SI{560}{\meter}$.
+delay line of length $L \approx \SI{560}{\meter}$.
 The mock IF signal may need to be amplified
 to combat attenuation along the delay line, but
 amplifier noise should be minimized
@@ -2034,28 +2034,61 @@ is unacceptably large.
 \label{fig:Implementation:GnH_self_demodulation}
 \end{figure}
 
-\begin{itemize}
-  \item From the sine weighting of the LO phase noise in
-    (\ref{eq:DesignConsiderations:summary:LO_phase_noise_autospectral_density}),
-    the interferometer spectrum should exhibit ``ringing'' with
-    nulls at harmonics of $1 / \tau \approx \SI{380}{\kilo\hertz}$;
-    in fact, the interferometer spectrum exhibited ringing
-    at harmonics of $\SI{400}{\kilo\hertz}$,
-    indicating an actual coupling time $\tau = \SI{2.5}{\micro\second}$
-  \item Amplifiers needed to counteract attenuation in delay line,
-    but do not appreciably increase noise
-  \item $I$ and $Q$ \emph{not} fitted to an ellipse, as
-    they are confined to a small point on Lissajous curve
-  \item Delay lines discussed previously
-  \item Examples of varying delay line in
-    Fig.~\ref{fig:Implementation:GnH_self_demodulation};
-    note that $\tau = 0$ case is limited by quantization noise and
-    that this is for the unstable LO
-  \item The OCXO is limited by bit noise regardless of delay-line length
-    (maybe after discussion of electrical pickup?)
-  \item Recreate autospectral density labels
-\end{itemize}
+The injection of LO phase noise into the heterodyne interferometer
+can be minimized by delaying the LO by the AOM coupling time
+such that the LO and IF are equally delayed
+(i.e.\ the time delay between the LO and IF vanishes;
+effectively, $\tau \rightarrow 0$).
+The rough estimate of the AOM coupling time in the previous paragraph
+can be refined by noting that the sine-squared weighting
+of the autospectral density corresponding to the injected LO phase noise
+(\ref{eq:DesignConsiderations:summary:LO_phase_noise_autospectral_density})
+exhibits ``ringing'', with nulls at
+frequencies that are integer multiples of $1 / \tau$.
+Such nulls were observed in the interferometer-measured spectrum
+at integer multiples of $f \approx \SI{400}{\kilo\hertz}$,
+implying that the AOM coupling time is
+\begin{equation}
+  \tau \approx \SI{2.5}{\micro\second},
+  \label{eq:Implementation:AOM_coupling_time}
+\end{equation}
+in reasonable agreement with the rough estimate
+from the previous paragraph.
+Delaying the LO by the AOM coupling time
+(\ref{eq:Implementation:AOM_coupling_time})
+can be easily accomplished with
+a $L \approx \SI{500}{\meter}$ {RG-$58$} coaxial-cable delay line.
+Such a delay line was constructed by
+stringing together eight of the pit-to-annex coaxial cables discussed in
+Section~\ref{sec:Implementation:Hardware:coax} and
+amplifying the signal to appropriately compensate for attenuation.
+As expected, the delay line eliminated the injection of LO phase noise
+into the heterodyne interferometer, and
+a whole host of coherent and broadband fluctuations
+were subsequently measured with the system.
 
+However, it was suspected that the use of a $\SI{500}{\meter}$ delay line
+increased the system's susceptibility to electrical pickup,
+particularly during \diiid\space operations.
+To quantify the electrical pickup attributable to the delay line,
+the LO self-demodulation tests schematically depicted in
+Fig.~\ref{fig:Implementation:LO_self_demodulation_schematic}
+were repeated with equal (but extended) LO and IF cable lengths
+during \diiid\space operations.
+Because a non-zero time delay between the LO and IF
+injects LO phase noise that greatly exceeds
+the delay-line electrical pickup,
+the LO and IF cable lengths were extended by equal amounts,
+with the total additional cable length
+acting as a proxy for the delay-line cable length $L$.
+The results of this test are shown in
+Fig.~\ref{fig:Implementation:electrical_pickup}.
+Clearly, even a $\SI{250}{\meter}$ delay line
+suffers from electrical pickup during \diiid\space operations;
+the broadband electrical pickup between
+$\sim \SI{100}{\kilo\hertz}$ and $\sim \SI{400}{\kilo\hertz}$
+is particularly constraining,
+as many plasma fluctuations occupy this frequency range.
 
 \begin{figure}
   \centering
@@ -2063,9 +2096,24 @@ is unacceptably large.
     Chapters/Implementation/figs/electrical_pickup.pdf}
   \caption[Delay-line electrical pickup during \diiid\space operations]{%
     Delay-line electrical pickup during \diiid\space operations.
+    Delay-line length $L$ is indicated.
+    Clearly, even a $\SI{250}{\meter}$ delay line
+    suffers from electrical pickup during \diiid\space operations.
+    With the $\SI{2.5}{\micro\second}$ AOM coupling time
+    (\ref{eq:Implementation:AOM_coupling_time}),
+    compensating for poor LO stability
+    requires a $\SI{500}{\meter}$ delay line.
+    The delay line can be eliminated ($L = 0$)
+    when a more stable LO is used.
   }
   \label{fig:Implementation:electrical_pickup}
 \end{figure}
+
+\begin{itemize}
+  \item The OCXO is limited by bit noise regardless of delay-line length
+    (maybe after discussion of electrical pickup?)
+  \item Recreate autospectral density labels
+\end{itemize}
 
 
 \subsection{Spectral characterization of heterodyne-interferometer noise}
