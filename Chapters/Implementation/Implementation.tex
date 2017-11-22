@@ -2028,7 +2028,8 @@ is unacceptably large.
     would be independent of the delay $\tau$;
     clearly, the injection of phase noise with \emph{this} LO
     is significant for finite $\tau$.
-    The coupling delay of the AOM used in this work is
+    The coupling time (\ref{eq:Implementation:AOM_coupling_time})
+    of the AOM used in this work is
     $\tau \approx \SI{2.5}{\micro\second}$.
   }
 \label{fig:Implementation:GnH_self_demodulation}
@@ -2088,7 +2089,7 @@ suffers from electrical pickup during \diiid\space operations;
 the broadband electrical pickup between
 $\sim \SI{100}{\kilo\hertz}$ and $\sim \SI{400}{\kilo\hertz}$
 is particularly constraining,
-as many plasma fluctuations occupy this frequency range.
+as many plasma fluctuations of interest occupy this frequency range.
 
 \begin{figure}
   \centering
@@ -2096,7 +2097,9 @@ as many plasma fluctuations occupy this frequency range.
     Chapters/Implementation/figs/electrical_pickup.pdf}
   \caption[Delay-line electrical pickup during \diiid\space operations]{%
     Delay-line electrical pickup during \diiid\space operations.
-    Delay-line length $L$ is indicated.
+    Delay-line length $L$ is indicated
+    (the $6$-digit numbers in parentheses indicate
+    the corresponding \diiid\space shot).
     Clearly, even a $\SI{250}{\meter}$ delay line
     suffers from electrical pickup during \diiid\space operations.
     With the $\SI{2.5}{\micro\second}$ AOM coupling time
@@ -2106,12 +2109,19 @@ as many plasma fluctuations occupy this frequency range.
     The delay line can be eliminated ($L = 0$)
     when a more stable LO is used.
   }
-  \label{fig:Implementation:electrical_pickup}
+\label{fig:Implementation:electrical_pickup}
 \end{figure}
 
+The above noise issues were resolved by procuring the OCXO described in
+Section~\ref{sec:Implementation:Hardware:OCXO}.
+The OCXO phase noise $\mathcal{L}_{\Delta \omega_0}(f)$
+is sufficiently small that
+the LO phase noise injected into the heterodyne interferometer
+(\ref{eq:DesignConsiderations:summary:LO_phase_noise_autospectral_density})
+is negligible for \emph{any} AOM coupling time $\tau$,
+allowing removal of the pickup-prone delay line.
+
 \begin{itemize}
-  \item The OCXO is limited by bit noise regardless of delay-line length
-    (maybe after discussion of electrical pickup?)
   \item Recreate autospectral density labels
 \end{itemize}
 
