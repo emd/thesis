@@ -2126,6 +2126,14 @@ allowing removal of the pickup-prone delay line.
 
 \subsection{Spectral characterization of heterodyne-interferometer noise}
 \label{sec:Implementation:Noise:interferometer}
+Having resolved the debilitating noise issues described in
+Section~\ref{sec:Implementation:Noise:LO},
+the noise floor of the heterodyne interferometer should be quantified.
+By comparing theoretical noise predictions to
+empirical noise contributions from various subsets of components,
+the dominant noise source can be identified and
+\ldots
+
 Intro
 \begin{itemize}
   \item Having solved the noise issue\ldots
@@ -2141,19 +2149,19 @@ Intro
   \centering
   \includegraphics[width = \textwidth]{%
     Chapters/Implementation/figs/signal_and_noise.pdf}
-  \caption[Spectral characterization of interferometer noise]{%
-    Spectral characterization of interferometer noise and
+  \caption[Spectral characterization of heterodyne-interferometer noise]{%
+    Spectral characterization of heterodyne-interferometer noise and
     comparison to typical plasma-fluctuation spectra.
     Dashed lines indicate predicted (P) quantities, while
     colored traces correspond to measured quantities
     with shot numbers in parentheses
     ($4$-digit numbers indicate a diagnostic test shot, and
     $6$-digit numbers indicate a \diiid\space shot).
-    Importantly, the interferometer noise floor
+    Importantly, the heterodyne-interferometer noise floor
     (i.e.\ the ``full system'' trace)
     sits at least an order of magnitude below
     typical plasma fluctuations.
-    Vibrations dominate the interferometer spectrum
+    Vibrations dominate the heterodyne-interferometer spectrum
     for $f \lesssim \SI{10}{\kilo\hertz}$.
   }
 \label{fig:Implementation:signal_and_noise}
@@ -2323,16 +2331,12 @@ sets the heterodyne-interferometer noise floor at
 corresponding to a sensitivity
 to line-integrated electron-density fluctuations of
 $3 \times 10^{14} \; \text{m}^{-2} / \, \sqrt{\text{kHz}}$.
-
-Plasma fluctuations:
-\begin{itemize}
-  \item Fluctuations are typically one to two orders of magnitude
-    above system noise floor
-  \item Observe characteristic suppression of low-$f$ turbulence
-    and excitation of high-$f$ turbulence across H-mode transition
-  \item Is there a straightforward path for improving interferometer
-    sensitivity?
-\end{itemize}
+For context, autospectral densities for typical plasma-density fluctuations
+in L-mode and H-mode are also shown in
+Fig.~\ref{fig:Implementation:signal_and_noise}.
+Importantly, the fluctuations are one to two
+orders of magnitude larger than the noise floor
+across most of the heterodyne interferometer's temporal bandwidth.
 
 
 \section{Alignment}
