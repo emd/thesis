@@ -97,7 +97,7 @@ if __name__ == '__main__':
 
     # Predictions:
     # ------------
-    ax.text(50., 6e-15, 'optical shot noise (P)', fontsize=fontsize)
+    ax.text(50., 6.5e-15, 'optical shot noise (P)', fontsize=fontsize)
     ax.loglog(
         f,
         Gxx_shot_noise,
@@ -105,10 +105,10 @@ if __name__ == '__main__':
         linestyle=predicted_linestyle,
         c='k')
 
-    ax.text(25., 1.75e-13,
-        'LO w/ $\mathregular{\\tau = 2.5 \, \mu s}$ (P)',
+    ax.text(22., 1.9e-13,
+        'OCXO w/ $\mathregular{\\tau = 2.5 \, \mu s}$ (P)',
         fontsize=fontsize,
-        rotation=22.5)
+        rotation=21.5)
     ax.loglog(
         f[find],
         Gxx_LO[find],
@@ -116,7 +116,7 @@ if __name__ == '__main__':
         linestyle=predicted_linestyle,
         c='k')
 
-    ax.text(11., 1.5e-12, 'bit noise (P)', fontsize=fontsize)
+    ax.text(11., 1.65e-12, 'quantization noise (P)', fontsize=fontsize)
     ax.loglog(
         f[find],
         Gxx_quant_expected[find],
@@ -124,7 +124,7 @@ if __name__ == '__main__':
         linestyle=predicted_linestyle,
         c='k')
 
-    ax.text(11., 7e-12, 'detector noise (P)', fontsize=fontsize)
+    ax.text(11., 6e-12, 'detector noise (P)', fontsize=fontsize)
     ax.loglog(
         f,
         Gxx_detector,
@@ -138,7 +138,7 @@ if __name__ == '__main__':
     ax.loglog(
         f[find],
         Gxx_quant[find],
-        label='bit noise (%i)' % shot_quant,
+        label='quantization noise (%i)' % shot_quant,
         linewidth=linewidth,
         linestyle=measured_linestyle,
         c=cols[cind])

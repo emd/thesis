@@ -128,7 +128,7 @@ if __name__ == '__main__':
         r'$\mathregular{f \; [kHz]}$',
         fontsize=(fontsize + 2))
     plt.ylabel(
-        r'$\mathregular{G_{\phi,\phi} \; [rad^2 / \, kHz]}$',
+        r'$\mathregular{G_{\phi,\phi}(f) \; [rad^2 / \, kHz]}$',
         fontsize=(fontsize + 2))
     plt.legend(loc='upper left')
 

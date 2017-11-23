@@ -43,7 +43,7 @@ fontsize = 12
 Hz_per_kHz = 1e3
 
 
-def detector_noise_spectral_density(Dstar=5e7, A=A, Pr=Pr, Pp=Pp, Nf=1):
+def detector_noise_spectral_density(Dstar=5.35e7, A=A, Pr=Pr, Pp=Pp, Nf=1):
     '''Get one-sided autospectral density of demodulated detector noise.
 
     Parameters:
