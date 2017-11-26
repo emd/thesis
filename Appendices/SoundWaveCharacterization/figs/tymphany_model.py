@@ -15,7 +15,7 @@ from matplotlib.colors import Normalize, LogNorm
 from scipy import interpolate as interp
 from distinct_colours import get_distinct
 
-from cross_calibration import wavenumber
+from wavenumber import wavenumber
 
 
 # Helper class for creating a diverging colormap with asymmetric limits;
@@ -159,10 +159,61 @@ class PressureField(object):
         return p0 * envelope * np.cos(theta)
 
 
-if __name__ == '__main__':
+def plot_example_pressure_field(f=15., cmap='RdBu', fontsize=12):
+    # Height above speaker face
+    # [z] = cm
     zmin = 2.5
     zmax = 8.5
     dz = 0.1
+    z = np.arange(zmin, zmax + dz, dz)
+
+    # Radial distance from symmetry axis
+    # [x] = cm
+    xmin = -5.
+    xmax = 5.
+    dx = 0.1
+    x = np.arange(xmin, xmax + dx, dx)
+
+    P = PressureField(f, z, x)
+
+    M = 0.6
+    figsize = (M * (xmax - xmin), M * (zmax - zmin))
+    fig, ax = plt.subplots(1, 1, figsize=figsize)
+
+    levels = np.arange(-6., 7., 1.)
+    C = ax.contourf(
+        P.xx,
+        P.zz,
+        P.getPressureField()[..., 0],
+        levels,
+        cmap=cmap)
+    cb = plt.colorbar(
+        C,
+        ax=ax,
+        shrink=0.825)
+    ax.set_aspect('equal')
+
+    ax.set_xlabel(
+        r'$\mathregular{\rho \; [cm]}$',
+        fontsize=fontsize)
+    ax.set_ylabel(
+        r'$\mathregular{z \; [cm]}$',
+        fontsize=fontsize)
+    ax.set_title(
+        r'$\mathregular{\widetilde{p} \; [Pa] \; @ \; f = %i \, kHz}$' % np.int(f),
+        fontsize=fontsize)
+    ax.set_xlim([xmin, xmax])
+
+    plt.tight_layout()
+    plt.show()
+
+    return
+
+
+def plot_phase_response():
+    zmin = 2.5
+    zmax = 8.5
+    dz = 0.25
     z = np.arange(zmin, zmax + dz, dz)
 
     xmin = -10.
@@ -176,7 +227,7 @@ if __name__ == '__main__':
     norm = MidpointNormalize(midpoint=0)
 
     # f = 10.
-    freqs = np.arange(2.5, 25., 0.1)
+    freqs = np.arange(2.5, 25., 1)
 
     varphi = np.zeros((len(freqs), len(z)))
     for find, f in enumerate(freqs):
@@ -236,3 +287,10 @@ if __name__ == '__main__':
         fontsize=16)
     # plt.legend(loc='best')
     plt.show()
+
+    return
+
+
+if __name__ == '__main__':
+    plot_example_pressure_field()
+    # plot_phase_response()

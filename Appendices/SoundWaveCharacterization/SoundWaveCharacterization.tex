@@ -228,6 +228,28 @@ results from free-space diffraction of the sound wave.
 
 \section{Sound-wave model}
 \label{sec:SoundWaveCharacterization:Model}
+Quantitatively assessing requires developing a model\ldots
+
+Model
+\begin{itemize}
+  \item Gaussian spatial envelope
+  \item Spherical wavefronts
+  \item Complicated amplitude dependence on $f$ and $z$
+  \item Radial-basis-function interpolation
+    \cite[Sec.~3.7]{numerical_recipes}
+    \cite{scipy_radial_basis_function,radial_basis_function_stackoverflow}
+    of amplitude and 1/e radius
+\end{itemize}
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Appendices/SoundWaveCharacterization/figs/model_pressure_field_15kHz.pdf}
+  \caption[Snapshot of modeled pressure fluctuation]{%
+    Snapshot of modeled pressure fluctuation $\widetilde{p}(\rho, z)$.
+  }
+\label{fig:SoundWaveCharacterization:model_pressure_field_15kHz}
+\end{figure}
 
 
 \section{Perturbed index of refraction}
