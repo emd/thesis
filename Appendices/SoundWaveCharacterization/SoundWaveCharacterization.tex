@@ -228,25 +228,67 @@ results from free-space diffraction of the sound wave.
 
 \section{Sound-wave model}
 \label{sec:SoundWaveCharacterization:Model}
-Quantitatively assessing requires developing a model\ldots
-
-Model
-\begin{itemize}
-  \item Gaussian spatial envelope
-  \item Spherical wavefronts
-  \item Complicated amplitude dependence on $f$ and $z$
-  \item Radial-basis-function interpolation
-    \cite[Sec.~3.7]{numerical_recipes}
-    \cite{scipy_radial_basis_function,radial_basis_function_stackoverflow}
-    of amplitude and 1/e radius
-\end{itemize}
+Quantitatively predicting the response of a heterodyne interferometer
+to sound-wave pressure fluctuations $\widetilde{p}(\vect{r}, t)$
+requires knowledge of $\widetilde{p}$ at each point along the beam path.
+Because the measurements described in
+Section~\ref{sec:SoundWaveCharacterization:Measurements}
+were made at discrete positions and frequencies,
+it is necessary to develop an approximate \emph{model} of $\widetilde{p}$.
+Recall that Section~\ref{sec:SoundWaveCharacterization:Measurements:phasing}
+shows that the wavefronts of the sound waves
+are approximately spherical, while
+Section~\ref{sec:SoundWaveCharacterization:Measurements:envelope}
+shows that the spatial envelope of the sound waves
+is approximately Gaussian.
+Thus, the sound-wave pressure fluctuation can be modeled as
+\begin{equation}
+  \widetilde{p}(\vect{r}, t)
+  =
+  \widetilde{p}_0(z, f)
+  \cdot
+  \exp\left[
+    \frac{-\rho^2}{w(z, f)^2}
+  \right]
+  \cdot
+  \cos(k r - \omega t),
+  \label{eq:SoundWaveCharacterization:sound_wave_model}
+\end{equation}
+where
+$z$ is the height above the speaker face,
+$\rho = (x^2 + y^2)$ is the radial distance from the symmetry axis,
+$\vect{r} = (x, y, z)$ is the spatial coordinate
+relative to the center of the speaker face,
+$r = |\vect{r}|$ is the corresponding distance
+from the center of the speaker face,
+$\omega = 2 \pi f$ is the angular frequency of the sound wave,
+\graffito{\textcolor{red}{dispersion relation?}}
+$k = \omega / c_s$ is the wavenumber of the sound wave, and
+$c_s$ is the sound speed.
+Additionally, $\widetilde{p}_0(z, f)$ is the on-axis sound-wave amplitude, and
+it is a complicated function of $z$ and $f$ that is computed
+via radial-basis-function (RBF) interpolation
+\cite[Sec.~3.7]{numerical_recipes}
+\cite{scipy_radial_basis_function,radial_basis_function_stackoverflow}
+\graffito{\textcolor{red}{mic calibration factor}}
+of the measured on-axis amplitude shown in
+Fig.~\ref{fig:SoundWaveCharacterization:tymphany_on_axis_amplitude}.
+Similarly, $w(z, f)$ is the 1/e Gaussian radius of the sound wave, and
+it is a complicated function of $z$ and $f$ that is computed
+via RBF interpolation of the measured 1/e Gaussian radii shown in
+Fig.~\ref{fig:SoundWaveCharacterization:tymphany_gaussian_widths}.
+As an example,
+a ``snapshot'' (i.e.\ at a single point in time) of the model's predicted
+$\SI{15}{\kilo\hertz}$ pressure fluctuation $\widetilde{p}$ is shown in
+Fig.~\ref{fig:SoundWaveCharacterization:model_pressure_field_15kHz}.
 
 \begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
     Appendices/SoundWaveCharacterization/figs/model_pressure_field_15kHz.pdf}
   \caption[Snapshot of modeled pressure fluctuation]{%
-    Snapshot of modeled pressure fluctuation $\widetilde{p}(\rho, z)$.
+    ``Snapshot'' (i.e.\ at a single point in time) of the model's predicted
+    $\SI{15}{\kilo\hertz}$ pressure fluctuation $\widetilde{p}$.
   }
 \label{fig:SoundWaveCharacterization:model_pressure_field_15kHz}
 \end{figure}
