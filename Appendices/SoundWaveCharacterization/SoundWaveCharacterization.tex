@@ -115,7 +115,7 @@ and identifying the extremum that occurs at the symmetry axis).
     Wavefront phasing of sound waves.
     The symbols show the measured time delay $\tau$
     between the wavefront at height $z$ and radial displacement $\rho$ and
-    the corresponding on-axis wavefront (i.e.\ same $z$ and $\rho = 0$),
+    the corresponding on-axis wavefront (i.e.\ same $z$ but $\rho = 0$),
     with each symbol shape corresponding to particular frequency.
     The traces correspond to the time delay
     (\ref{eq:SoundWaveCharacterization:time_delay})
@@ -153,6 +153,77 @@ over the spatial domain and frequencies probed.
 
 \subsection{Spatial envelope}
 \label{sec:SoundWaveCharacterization:Measurements:envelope}
+If the sound-wave amplitude is also measured
+during the radial scans described in
+Section~\ref{sec:SoundWaveCharacterization:Measurements:phasing},
+the spatial envelope of the sound waves can also be quantified.
+Fig.~\ref{fig:SoundWaveCharacterization:tymphany_spatial_envelope_z_5_5cm}
+displays the spatial envelopes of sound waves of various frequencies $f$
+at height $z = \SI{5.5}{\centi\meter}$ above the face of the speaker.
+Clearly, the width of the spatial envelope decreases
+with increasing frequency $f$.
+Measurements at other heights $z$
+exhibit qualitatively similar behavior.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Appendices/SoundWaveCharacterization/figs/tymphany_spatial_envelope_z_5_5cm.pdf}
+  \caption[Representative spatial envelopes of sound waves]{%
+    Sound-wave spatial envelopes for frequencies $f$
+    at height $z = \SI{5.5}{\centi\meter}$ above the face of the speaker.
+    Symbols indicate measurement points, while
+    the traces correspond to Gaussian fits of the form
+    (\ref{eq:SoundWaveCharacterization:Gaussian}).
+    Measurements and fits at other heights $z$
+    exhibit qualitatively similar trends.
+  }
+\label{fig:SoundWaveCharacterization:tymphany_spatial_envelope_z_5_5cm}
+\end{figure}
+
+The narrowing of the spatial envelope with increasing frequency
+can be quantified by fitting the measurements
+to an assumed functional form.
+To lowest order, the spatial envelopes are well approximated by a Gaussian
+\begin{equation}
+  V_{\text{mic}}(\rho)
+  =
+  V_0(z, f)
+  \exp\left[
+    \frac{-\rho^2}{w(z, f)^2}
+  \right],
+  \label{eq:SoundWaveCharacterization:Gaussian}
+\end{equation}
+where $w(z, f)$ is the 1/e radius, which
+is a function of the height $z$ and the sound-wave frequency $f$.
+Gaussian fits to the envelope measurements are also shown in
+Fig.~\ref{fig:SoundWaveCharacterization:tymphany_spatial_envelope_z_5_5cm}.
+Deviations from a Gaussian are most apparent at low frequencies;
+this may be attributable to baffle diffraction across the speaker face but
+was not further investigated.
+The approximation of a Gaussian envelope
+will be sufficiently accurate for the present work.
+Fig~\ref{fig:SoundWaveCharacterization:tymphany_gaussian_widths}
+displays the fitted 1/e Gaussian radii $w$ as a function of
+sound-wave wavenumber $k$ and
+height $z$ above the face of the speaker.
+As previously and anecdotally noted for $z = \SI{5.5}{\centi\meter}$,
+the width of the spatial envelope $w$
+decreases with increasing $k$ for each height $z$.
+Further, $w$ increases with increasing $z$, which
+results from free-space diffraction of the sound wave.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Appendices/SoundWaveCharacterization/figs/tymphany_gaussian_widths.pdf}
+  \caption[Gaussian widths of sound waves]{%
+    Fitted 1/e Gaussian radii $w$ of sound waves
+    as a function of sound-wave wavenumber $k$ and
+    height $z$ above the face of the speaker.
+  }
+\label{fig:SoundWaveCharacterization:tymphany_gaussian_widths}
+\end{figure}
 
 
 \section{Sound-wave model}

@@ -543,12 +543,12 @@ def plot_wavefront_phasing(fmin=5., fmax=25., df=5.):
 
 
 if __name__ == '__main__':
-    # plot_on_axis_amplitude()
+    plot_on_axis_amplitude()
 
     plot_wavefront_phasing()
 
-    # plot_spatial_envelope(z=2.5, fmin=5., fmax=25., df=5.)
-    # plot_spatial_envelope(z=5.5, fmin=5., fmax=25., df=5.)
-    # plot_spatial_envelope(z=8.5, fmin=5., fmax=25., df=5.)
+    plot_spatial_envelope(z=2.5, fmin=5., fmax=25., df=5.)
+    plot_spatial_envelope(z=5.5, fmin=5., fmax=25., df=5.)
+    plot_spatial_envelope(z=8.5, fmin=5., fmax=25., df=5.)
 
-    # plot_gaussian_widths()
+    plot_gaussian_widths()
