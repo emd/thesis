@@ -10,7 +10,7 @@ from scipy import interpolate as interp
 from scipy.optimize import curve_fit
 from distinct_colours import get_distinct
 
-from cross_calibration import wavenumber
+from wavenumber import wavenumber
 
 
 # Plotting parameters
