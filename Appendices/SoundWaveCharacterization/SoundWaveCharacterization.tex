@@ -382,5 +382,37 @@ for a $\SI{10.6}{\micro\meter}$ CO$_2$ probe beam becomes
 \end{equation}
 
 
+\section{Phase shift imparted to a CO2 probe beam}
+\label{sec:SoundWaveCharacterization:PhaseShift}
+A probe beam propagating through a pressure perturbation $\tilde{p}$
+will acquire a phase shift
+\begin{equation}
+  \tilde{\phi}
+  =
+  k_0 \int \tilde{N} dl,
+  \label{eq:SoundWaveCharacterization:phase_shift}
+\end{equation}
+where $k_0$ is the vacuum wavenumber of the probe beam,
+$\tilde{N}$ is the perturbed index of refraction
+(\ref{eq:SoundWaveCharacterization:RefractiveIndex:perturbed_N}), and
+the integration is performed along the beam path.
+This phase shift is, of course,
+the measurable quantity of a heterodyne interferometer.
+For a $\SI{10.6}{\micro\meter}$ probe beam,
+the phase shift (\ref{eq:SoundWaveCharacterization:phase_shift}) becomes
+\begin{equation}
+  \tilde{\phi} \, [\text{rad}]
+  =
+  (\SI{1.1e-5}{\per\centi\meter})
+  \int
+  (\tilde{p} \; [\text{Pa}])
+  dl,
+  \label{eq:SoundWaveCharacterization:phase_shift_units}
+\end{equation}
+where (\ref{eq:SoundWaveCharacterization:RefractiveIndex:perturbed_N_units})
+has been referenced and
+the differential path length $dl$ must have units of centimeters.
+
+
 \bibliographystyle{plainurl}
 \bibliography{references}

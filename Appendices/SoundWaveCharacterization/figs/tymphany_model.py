@@ -210,7 +210,14 @@ def plot_example_pressure_field(f=15., cmap='RdBu', fontsize=12):
     return
 
 
-def plot_phase_response():
+def plot_phase_shift_ideal_system(fontsize=12):
+    '''Plot bounds on sound-wave imparted phase shift to CO2 beam
+    for an ideal interferometer that has
+
+        (a) no noise, and
+        (b) no finite sampling-volume effects.
+
+    '''
     zmin = 2.5
     zmax = 8.5
     dz = 0.25
@@ -221,76 +228,43 @@ def plot_phase_response():
     dx = 0.1
     x = np.arange(xmin, xmax + dx, dx)
 
-    # From Chris' code
-    dNdp = 7.86e-7 / (1.4 * 300)
-
-    norm = MidpointNormalize(midpoint=0)
-
-    # f = 10.
-    freqs = np.arange(2.5, 25., 1)
+    freqs = np.arange(2.5, 25., 0.1)
 
     varphi = np.zeros((len(freqs), len(z)))
     for find, f in enumerate(freqs):
         # Compute pressure field and change to index of refraction
         P = PressureField(f, z, x)
-        dN = dNdp * P.getPressureField()
 
-        # plt.figure()
-        # plt.contourf(P.xx, P.zz, dN[..., 0], norm=norm, cmap='RdBu')
-        # plt.gca().set_aspect('equal')
-        # plt.colorbar()
-        # plt.show()
+        # Integrate along beam path assuming a CO2 probe beam;
+        # prefactor of 0.0011 derived in thesis.
+        phi = (1.1e-5) * np.sum(P.getPressureField(), axis=1) * dx
 
-        # Integrate along beam path
-        lambda0 = 10.6e-6 * 1e2   # [lambda0] = cm
-        k0 = 2 * np.pi / lambda0  # [k0] = cm^{-1}
-        phi = k0 * np.sum(dN, axis=1) * dx
-
+        # Compute variance in time, which is the quantity
+        # of experimental relevance
         varphi[find, :] = np.var(phi, axis=-1)
 
-        # plt.figure()
-        # plt.plot(z, np.var(phi, axis=-1))
-        # plt.show()
-
-    # plt.figure()
-    # plt.contourf(
-    #     wavenumber(freqs), z, varphi.T,
-    #     norm=LogNorm(vmin=1e-9, vmax=1e-7),
-    #     cmap='viridis')
-    # plt.colorbar()
-    # plt.show()
-
     plt.figure()
+    cols = get_distinct(1)
 
     k = wavenumber(freqs)
-    w = (np.sinc(k / 5.)) ** 2
+    ymin = np.min(varphi, axis=-1)
+    ymax = np.max(varphi, axis=-1)
+    plt.fill_between(k, ymin, ymax, color=cols[0])
 
-    # for zind in np.arange(0, len(z), 1):
-    #     plt.semilogy(
-    #         k,
-    #         (w * varphi[:, zind]) + 2e-9)
-
-    ymin = w * np.min(varphi, axis=-1)
-    ymax = w * np.max(varphi, axis=-1)
-
-    ymin += 2e-9
-    ymax += 2e-9
-
-    plt.fill_between(k, ymin, ymax)
     plt.yscale('log')
-
     plt.xlabel(
         r'$\mathregular{k \; [cm^{-1}]}$',
-        fontsize=16)
+        fontsize=fontsize)
     plt.ylabel(
         r'$\mathregular{\widetilde{\phi}^2 \; [rad^{2}]}$',
-        fontsize=16)
-    # plt.legend(loc='best')
+        fontsize=fontsize)
+
+    plt.xlim([k[0], k[-1]])
     plt.show()
 
     return
 
 
 if __name__ == '__main__':
-    plot_example_pressure_field()
-    # plot_phase_response()
+    # plot_example_pressure_field()
+    plot_phase_shift_ideal_system()
