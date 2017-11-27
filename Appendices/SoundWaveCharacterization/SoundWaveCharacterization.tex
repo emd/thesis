@@ -1,13 +1,52 @@
 \chapter{Sound-wave characterization}
 \label{app:SoundWaveCharacterization}
-\begin{itemize}
-  \item Principle behind interferometer calibration
-  \item Sound-wave dispersion relation
-\end{itemize}
+Sound waves have the well-known dispersion relation
+\begin{equation}
+  \omega = c_s k,
+  \label{eq:SoundWaveCharacterization:sound_wave_dispersion_relation}
+\end{equation}
+where
+$\omega$ is the angular frequency of the sound wave,
+$k$ is the wavenumber of the sound wave, and
+$c_s = \SI{343}{\meter\per\second}$ is the sound speed
+in dry air at sea level and $T = \SI{20}{\celsius}$.
+Further, the sound-wave pressure fluctuations
+produce corresponding fluctuations in the refractive index,
+making sound waves an ideal tool
+for probing the wavenumber response of an interferometer.
+A quantitative comparison between
+the predicted and observed interferometer responses, however,
+requires an accurate description of the sound-wave pressure fluctuations.
+
+It is the intent of this appendix
+to quantitatively characterize the sound-wave pressure fluctuations
+driven by the speaker used throughout this thesis.
+Below, Section~\ref{sec:SoundWaveCharacterization:Hardware}
+describes the speaker and
+the hardware used to measure the pressure fluctuations of its sound waves.
+Section~\ref{sec:SoundWaveCharacterization:Measurements}
+discusses the sound-wave measurements and their implications
+for the model of the sound-wave pressure fluctuations
+developed in Section~\ref{sec:SoundWaveCharacterization:Model}.
+Then, Section~\ref{sec:SoundWaveCharacterization:PerturbedIndexOfRefractiion}
+relates these sound-wave pressure fluctuations to
+the corresponding refractive-index variations.
+Finally, Section~\ref{sec:SoundWaveCharacterization:PhaseShift}
+computes the phase shift imparted to a CO$_2$ probe beam
+by the speaker's sound waves.
 
 
 \section{Hardware}
 \label{sec:SoundWaveCharacterization:Hardware}
+Section~\ref{sec:SoundWaveCharacterization:Hardware:speaker}
+describes the speaker used to drive sound waves
+through the interferometer probe beam, while
+Section~\ref{sec:SoundWaveCharacterization:Hardware:microphone}
+describes the calibrated microphone
+used to measure the absolute pressure fluctuations of the sound waves.
+The speaker and the microphone are mounted in the test stand described in
+Section~\ref{sec:SoundWaveCharacterization:Hardware:test_stand},
+allowing simple and accurate measurements of the sound waves.
 
 
 \subsection{Speaker}
@@ -94,6 +133,19 @@ All measurements were made with steady-state speaker drive.
 
 
 \subsection{On-axis amplitude}
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Appendices/SoundWaveCharacterization/figs/tymphany_on_axis_amplitude.pdf}
+  \caption[On-axis amplitude of sound waves]{%
+    On-axis amplitude of sound waves as a function of
+    wavenumber $k$ and height $z$ above the speaker face.
+    Note that the amplitude is specified
+    as a \emph{peak-to-peak} value.
+  }
+\label{fig:SoundWaveCharacterization:tymphany_on_axis_amplitude}
+\end{figure}
+
 \label{sec:SoundWaveCharacterization:Measurements:amlitude}
 After centering the microphone on the speaker's symmetry axis,
 the on-axis amplitude can be easily characterized by
@@ -126,19 +178,6 @@ increasing distance $z$ from the speaker face.
 Further, the on-axis amplitude has a complicated wavenumber dependence, but
 it is relatively flat for
 $\SI{1}{\per\centi\meter} \lesssim k \lesssim \SI{3.5}{\per\centi\meter}$.
-
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Appendices/SoundWaveCharacterization/figs/tymphany_on_axis_amplitude.pdf}
-  \caption[On-axis amplitude of sound waves]{%
-    On-axis amplitude of sound waves as a function of
-    wavenumber $k$ and height $z$ above the speaker face.
-    Note that the amplitude is specified
-    as a \emph{peak-to-peak} value.
-  }
-\label{fig:SoundWaveCharacterization:tymphany_on_axis_amplitude}
-\end{figure}
 
 
 \subsection{Wavefront phasing}
