@@ -125,7 +125,7 @@ To lowest order, the speaker is cylindrically symmetric.
 Thus, the sound waves are expected to have
 axial, radial, and frequency dependencies.
 Sections~\ref{sec:SoundWaveCharacterization:Measurements:amlitude} through
-\ref{sec:SoundWaveCharacterization:Measurements:phasing}
+\ref{sec:SoundWaveCharacterization:Measurements:envelope}
 summarize these measurements and their implications
 for the sound-wave model developed in
 Section~\ref{sec:SoundWaveCharacterization:Model}.
@@ -245,7 +245,6 @@ delayed by a time $\tau$
   \tau = \frac{r - z}{c_s},
   \label{eq:SoundWaveCharacterization:time_delay}
 \end{equation}
-\graffito{\textcolor{red}{value for $c_s$}}
 where $c_s$ is the sound speed.
 Fig.~\ref{fig:SoundWaveCharacterization:tymphany_wavefront_phasing}
 compares the measured time delay to
@@ -366,18 +365,20 @@ $\vect{r} = (x, y, z)$ is the spatial coordinate
 relative to the center of the speaker face,
 $r = |\vect{r}|$ is the corresponding distance
 from the center of the speaker face,
-$\omega = 2 \pi f$ is the angular frequency of the sound wave,
-\graffito{\textcolor{red}{dispersion relation?}}
-$k = \omega / c_s$ is the wavenumber of the sound wave, and
-$c_s$ is the sound speed.
+$\omega$ is the angular frequency of the sound wave, and
+$k$ is the wavenumber of the sound wave,
+as determined from the sound-wave dispersion relation
+(\ref{eq:SoundWaveCharacterization:sound_wave_dispersion_relation}).
 Additionally, $\widetilde{p}_0(z, f)$ is the on-axis sound-wave amplitude, and
 it is a complicated function of $z$ and $f$ that is computed
 via radial-basis-function (RBF) interpolation
 \cite[Sec.~3.7]{numerical_recipes}
 \cite{scipy_radial_basis_function,radial_basis_function_stackoverflow}
-\graffito{\textcolor{red}{mic calibration factor}}
 of the measured on-axis amplitude shown in
-Fig.~\ref{fig:SoundWaveCharacterization:tymphany_on_axis_amplitude}.
+Fig.~\ref{fig:SoundWaveCharacterization:tymphany_on_axis_amplitude}
+(after conversion from $\SI{}{\volt}$ to $\SI{}{\pascal}$
+using the absolute calibration of the microphone discussed in
+Section~\ref{sec:SoundWaveCharacterization:Hardware:microphone}).
 Similarly, $w(z, f)$ is the 1/e Gaussian radius of the sound wave, and
 it is a complicated function of $z$ and $f$ that is computed
 via RBF interpolation of the measured 1/e Gaussian radii shown in
@@ -547,6 +548,12 @@ Section~\ref{sec:Implementation:Calibration}.
     the maximum height considered is $z = \SI{8.5}{\centi\meter}$.
     The symmetry axes of the probe beam and the speaker
     are intersecting and orthogonal.
+    To make a quantitative comparison
+    with the corresponding heterodyne-interferometer measurements,
+    the interferometer wavenumber response and noise floor
+    must also be accounted for;
+    such a comparison is performed in
+    Section~\ref{sec:Implementation:Calibration}.
   }
 \label{fig:SoundWaveCharacterization:phase_shift}
 \end{figure}
