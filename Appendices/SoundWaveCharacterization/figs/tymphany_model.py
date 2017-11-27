@@ -18,23 +18,6 @@ from distinct_colours import get_distinct
 from wavenumber import wavenumber
 
 
-# Helper class for creating a diverging colormap with asymmetric limits;
-# taken from Joe Kington at:
-#
-#   https://stackoverflow.com/a/20146989/5469497
-#
-class MidpointNormalize(Normalize):
-    def __init__(self, vmin=None, vmax=None, midpoint=None, clip=False):
-        self.midpoint = midpoint
-        Normalize.__init__(self, vmin, vmax, clip)
-
-    def __call__(self, value, clip=None):
-        # I'm ignoring masked values and all kinds of edge cases to make a
-        # simple example...
-        x, y = [self.vmin, self.midpoint, self.vmax], [0, 0.5, 1]
-        return np.ma.masked_array(np.interp(value, x, y))
-
-
 class PressureField(object):
     def __init__(self, f, z, x):
         '''Create an instance of `PressureField`.
@@ -210,9 +193,9 @@ def plot_example_pressure_field(f=15., cmap='RdBu', fontsize=12):
     return
 
 
-def plot_phase_shift_ideal_system(fontsize=12):
-    '''Plot bounds on sound-wave imparted phase shift to CO2 beam
-    for an ideal interferometer that has
+def phase_shift_ideal_system(freqs=np.arange(2.5, 25., 0.1)):
+    '''Compute bounds on sound-wave imparted phase shift
+    to CO2 beam for an ideal interferometer that has
 
         (a) no noise, and
         (b) no finite sampling-volume effects.
@@ -228,8 +211,6 @@ def plot_phase_shift_ideal_system(fontsize=12):
     dx = 0.1
     x = np.arange(xmin, xmax + dx, dx)
 
-    freqs = np.arange(2.5, 25., 0.1)
-
     varphi = np.zeros((len(freqs), len(z)))
     for find, f in enumerate(freqs):
         # Compute pressure field and change to index of refraction
@@ -243,14 +224,24 @@ def plot_phase_shift_ideal_system(fontsize=12):
         # of experimental relevance
         varphi[find, :] = np.var(phi, axis=-1)
 
+    k = wavenumber(freqs)
+    varphi_min = np.min(varphi, axis=-1)
+    varphi_max = np.max(varphi, axis=-1)
+
+    return k, varphi_min, varphi_max
+
+
+def plot_phase_shift_ideal_system(fontsize=12):
+    # Compute expected phase shift and parse results
+    res = phase_shift_ideal_system()
+    k = res[0]
+    varphi_min = res[1]
+    varphi_max = res[2]
+
+    # Plot
     plt.figure()
     cols = get_distinct(1)
-
-    k = wavenumber(freqs)
-    ymin = np.min(varphi, axis=-1)
-    ymax = np.max(varphi, axis=-1)
-    plt.fill_between(k, ymin, ymax, color=cols[0])
-
+    plt.fill_between(k, varphi_min, varphi_max, color=cols[0])
     plt.yscale('log')
     plt.xlabel(
         r'$\mathregular{k \; [cm^{-1}]}$',
@@ -258,7 +249,6 @@ def plot_phase_shift_ideal_system(fontsize=12):
     plt.ylabel(
         r'$\mathregular{\widetilde{\phi}^2 \; [rad^{2}]}$',
         fontsize=fontsize)
-
     plt.xlim([k[0], k[-1]])
     plt.show()
 
@@ -266,5 +256,5 @@ def plot_phase_shift_ideal_system(fontsize=12):
 
 
 if __name__ == '__main__':
-    # plot_example_pressure_field()
+    plot_example_pressure_field()
     plot_phase_shift_ideal_system()
