@@ -296,6 +296,90 @@ Fig.~\ref{fig:SoundWaveCharacterization:model_pressure_field_15kHz}.
 
 \section{Perturbed index of refraction}
 \label{sec:SoundWaveCharacterization:PerturbedIndexOfRefractiion}
+Interferometric methods are sensitive to the index of refraction $N$.
+Thus, quantitatively predicting the response of a heterodyne interferometer
+requires computing the perturbed index of refraction $\tilde{N}$
+corresponding to the sound-wave pressure fluctuation $\tilde{p}$
+in (\ref{eq:SoundWaveCharacterization:sound_wave_model}).
+
+While the quantification of air's refractive index
+in the visible and infrared
+has been vigorously pursued by the metrology community
+\cite{young_refractivity_of_air, stone_index_of_refraction_of_air,
+marchetti_ipt06, mathar_N_IR_07},
+the lowest-order description will be sufficiently accurate
+for the present application.
+Specifically, an electric field in air induces a dipole moment
+that is proportional to the air's number density $n$.
+If the electric field varies in time,
+the induced dipole moment also varies,
+producing radiation that alters the incident electric field;
+it is precisely this interaction between
+the incident field and the induced dipole moment (proportional to $n$)
+that the refractive index $N$ quantifies.
+Thus, air's deviation from the vacuum refractive index of unity
+is proportional to $n$, i.e.\
+\begin{equation}
+  N - 1 = \alpha n,
+  \label{eq:SoundWaveCharacterization:RefractiveIndex:deviation_from_vacuum}
+\end{equation}
+where $\alpha$ is a complicated function of
+the atmospheric composition,
+the wavelength of the incident radiation, etc.
+Explicitly writing the refractive index and number density
+as sums of equilibrium and perturbed components
+(i.e.\ $N = \bar{N} + \tilde{N}$ and
+$n = \bar{n} + \tilde{n}$, respectively),
+one readily sees that the perturbed refractive index can be written as
+\begin{equation}
+  \tilde{N}
+  =
+  \left( \frac{\bar{N} - 1}{\bar{n}} \right)
+  \tilde{n}
+  \label{eq:SoundWaveCharacterization:RefractiveIndex:perturbed_N_prelim}.
+\end{equation}
+Now, the sound-wave compressions and rarefactions
+are approximately adiabatic such that
+the total pressure $p$ and the total number density $n$ are related via
+$p \propto n^{\gamma}$, where $\gamma$ is the ratio of specific heats.
+Thus, the density perturbation $\tilde{n}$
+corresponding to a small pressure perturbation $|\tilde{p}| \ll \bar{p}$
+(where $\bar{p}$ is the equilibrium pressure) is
+\begin{equation}
+  \tilde{n}
+  \approx
+  \left( \frac{\bar{n}}{\gamma \bar{p}} \right)
+  \tilde{p}
+\end{equation}
+such that the perturbed refractive index
+(\ref{eq:SoundWaveCharacterization:RefractiveIndex:perturbed_N_prelim})
+becomes
+\begin{equation}
+  \tilde{N}
+  \approx
+  \left( \frac{\bar{N} - 1}{\gamma \bar{p}} \right)
+  \tilde{p}.
+  \label{eq:SoundWaveCharacterization:RefractiveIndex:perturbed_N}
+\end{equation}
+As \diiid\space sits very nearly at sea level,
+the equilibrium pressure is $\bar{p} = \SI{101325}{\pascal}$.
+Further, for dry air at $T \sim \SI{300}{\kelvin}$,
+the ratio of specific heats is $\gamma = 1.4$, and
+the deviation from the vacuum index of refraction
+for $\SI{10.6}{\micro\meter}$ radiation is
+$\bar{N} - 1 = 2.7 \times 10^{-4}$
+\cite{marchetti_ipt06, mathar_N_IR_07, refractive_index_database}.
+Thus, the perturbed refractive index
+(\ref{eq:SoundWaveCharacterization:RefractiveIndex:perturbed_N})
+for a $\SI{10.6}{\micro\meter}$ CO$_2$ probe beam becomes
+\begin{equation}
+  \tilde{N}
+  \approx
+  (1.9 \times 10^{-9})
+  \,
+  \tilde{p} \; [\text{Pa}].
+  \label{eq:SoundWaveCharacterization:RefractiveIndex:perturbed_N_units}
+\end{equation}
 
 
 \bibliographystyle{plainurl}
