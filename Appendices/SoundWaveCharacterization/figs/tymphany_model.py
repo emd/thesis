@@ -247,7 +247,7 @@ def plot_phase_shift_ideal_system(fontsize=12):
         r'$\mathregular{k \; [cm^{-1}]}$',
         fontsize=fontsize)
     plt.ylabel(
-        r'$\mathregular{\widetilde{\phi}^2 \; [rad^{2}]}$',
+        r'$\mathregular{var\,(\widetilde{\phi}) \;\, [rad^{2}]}$',
         fontsize=fontsize)
     plt.xlim([k[0], k[-1]])
     plt.show()

@@ -1,6 +1,7 @@
 \chapter{Sound-wave characterization}
 \label{app:SoundWaveCharacterization}
 \begin{itemize}
+  \item Principle behind interferometer calibration
   \item Sound-wave dispersion relation
 \end{itemize}
 
@@ -398,7 +399,7 @@ $\tilde{N}$ is the perturbed index of refraction
 the integration is performed along the beam path.
 This phase shift is, of course,
 the measurable quantity of a heterodyne interferometer.
-For a $\SI{10.6}{\micro\meter}$ probe beam,
+For a $\SI{10.6}{\micro\meter}$ CO$_2$ probe beam,
 the phase shift (\ref{eq:SoundWaveCharacterization:phase_shift}) becomes
 \begin{equation}
   \tilde{\phi} \, [\text{rad}]
@@ -412,6 +413,40 @@ the phase shift (\ref{eq:SoundWaveCharacterization:phase_shift}) becomes
 where (\ref{eq:SoundWaveCharacterization:RefractiveIndex:perturbed_N_units})
 has been referenced and
 the differential path length $dl$ must have units of centimeters.
+The variance of the phase shift imparted
+by the sound-wave pressure fluctuation
+(\ref{eq:SoundWaveCharacterization:sound_wave_model})
+is shown in
+Fig.~\ref{fig:SoundWaveCharacterization:phase_shift}.
+To make a quantitative comparison
+with the corresponding heterodyne-interferometer measurements,
+the interferometer wavenumber response and noise floor
+must also be accounted for;
+such a comparison is performed in
+Section~\ref{sec:Implementation:Calibration}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Appendices/SoundWaveCharacterization/figs/model_phase_shift_to_CO2.pdf}
+  \caption[Variance of phase shift imparted to a CO$_2$ probe beam]{%
+    Variance of phase shift
+    (\ref{eq:SoundWaveCharacterization:phase_shift_units})
+    imparted to a $\SI{10.6}{\micro\meter}$ CO$_2$ probe beam
+    by the sound-wave pressure fluctuation
+    (\ref{eq:SoundWaveCharacterization:sound_wave_model}).
+    Because the probe beam has finite cross section and
+    the phase shift varies with the height $z$ above the speaker face,
+    the maximum and minimum values of the variance
+    are indicated by the upper and lower bounds of the shaded region,
+    respectively;
+    the minimum height considered is $z = \SI{2.5}{\centi\meter}$, and
+    the maximum height considered is $z = \SI{8.5}{\centi\meter}$.
+    The symmetry axes of the probe beam and the speaker
+    are intersecting and orthogonal.
+  }
+\label{fig:SoundWaveCharacterization:phase_shift}
+\end{figure}
 
 
 \bibliographystyle{plainurl}
