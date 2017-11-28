@@ -195,20 +195,20 @@ if __name__ == '__main__':
         varphi_min_expected,
         varphi_max_expected,
         color=cols[0],
-        label='expected signal')
+        label='predicted signal')
     plt.semilogy(
         k_prof[kind],
         Gxx_int_prof[kind],
         c='k',  # cols[1],
         linewidth=linewidth,
-        label='measured signal')
+        label='measured signal (%i)' % shot)
     plt.semilogy(
         k_prof[kind],
         Gxx_int_noise_prof[kind],
         c='k',  # cols[1],
         linewidth=linewidth,
         linestyle=noise_linestyle,
-        label='measured noise')
+        label='measured noise (%i)' % shot)
 
     plt.xlabel(
         r'$\mathregular{k \; [cm^{-1}]}$',

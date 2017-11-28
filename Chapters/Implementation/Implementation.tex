@@ -2331,30 +2331,171 @@ orders of magnitude larger than the noise floor
 across a large fraction of the heterodyne interferometer's temporal bandwidth.
 
 
-\section{Sound-wave calibration of combined PCI-interferometer}
+\section{Calibration of combined PCI-interferometer}
 \label{sec:Implementation:Calibration}
+
+\subsection{Verification of heterodyne-interferometer response}
+As discussed in
+Section~\ref{sec:InterferometricMethods:interferometry:heterodyne},
+an ideal heterodyne interferometer
+possesses a flat wavenumber response and
+measures absolute phase fluctuations,
+independent of any calibration factors.
+However, as discussed in
+Section~\ref{sec:DesignConsiderations:geometric:finite_sampling_volume},
+detection is always effected via finite-size detector elements, which
+effectively low-pass filter the spatial content of the signal;
+in particular, a square detector element
+weights the wavenumber transfer function
+of an ideal heterodyne-interferometer
+with a normalized sinc function, as shown in
+(\ref{eq:DesignConsiderations:summary:finite_sampling_volume_transfer_function}).
+The first zero of this normalized-sinc weighting
+sets the nominal high-$k$ cutoff of the system, and
+the design point for the heterodyne interferometer described in this work
+is $\SI{5}{\per\centi\meter}$, as specified in
+(\ref{eq:Implementation:kfsv_interferometer_design}).
+Of course, inadvertent clipping of the probe beam
+would alter the wavenumber response.
+Further, as demonstrated in
+Section~\ref{sec:DesignConsiderations:demodulation:imperfection_implications},
+demodulator imperfections produce relative errors
+in the measured phase fluctuations.
+For these reasons, it is desirable
+to verify the amplitude and wavenumber response
+of the heterodyne interferometer.
+
+Sound waves are ideal tools for verifying
+the wavenumber response of an interferometer.
+Sensitive to the index of refraction $N$,
+interferometers can detect the fluctuations in $N$
+corresponding to sound-wave pressure perturbations.
+Further, the well-known sound-wave dispersion relation
+allows one to infer the sound-wave wavenumber $k$
+from the measured sound-wave frequency $f$.
+Often, the sound-wave frequency is repeatedly swept in time,
+enabling verification of the interferometer response
+throughout its full wavenumber domain
+within a single diagnostic test shot.
+However, quantitatively comparing
+the predicted and the measured interferometer responses
+requires an accurate description of the sound-wave pressure fluctuations.
+The sound waves used throughout this work
+are characterized in detail with an absolutely calibrated microphone
+in Appendix~\ref{app:SoundWaveCharacterization}.
+
+The response of the heterodyne interferometer to the sound waves
+can be \emph{predicted} from the measurements
+of the sound-wave pressure perturbations.
+In particular,
+(\ref{eq:SoundWaveCharacterization:phase_shift_units})
+reveals that the phase shift $\tilde{\phi}_{\text{CO}_2}$
+imparted to a $\SI{10.6}{\micro\meter}$ CO$_2$ probe beam
+by a sound-wave pressure perturbation $\tilde{p}$ is
+\begin{equation}
+  \tilde{\phi}_{\text{CO}_2} \, [\text{rad}]
+  =
+  (\SI{1.1e-5}{\per\centi\meter})
+  \int
+  (\tilde{p} \; [\text{Pa}])
+  dl,
+  \label{eq:Implementation:predicted_sound_wave_phase_shift_ideal}
+\end{equation}
+where the differential path length $dl$ must have units of centimeters.
+However, to make a true ``apples-to-apples'' comparison
+with the interferometer measurements,
+finite sampling-volume effects and the system noise should be included
+such that the predicted phase fluctuation at each wavenumber $k$ becomes
+\begin{equation}
+  \tilde{\phi}(k)
+  =
+  T_{\text{fsv}}(k)
+  \cdot
+  \tilde{\phi}_{\text{CO}_2}(k)
+  +
+  \tilde{\phi}_{\text{noise}}(f),
+  \label{eq:Implementation:predicted_sound_wave_phase_shift_nonideal}
+\end{equation}
+where
+$T_{\text{fsv}}(k)$ is the finite sampling-volume transfer function
+(\ref{eq:DesignConsiderations:summary:finite_sampling_volume_transfer_function})
+and $\tilde{\phi}_{\text{noise}}(f)$ is the system noise.
+(Here, the noise is written as an explicit function of frequency $f$
+to emphasize that the noise is frequency dependent and
+\emph{not} wavenumber dependent;
+however, because the sound-wave wavenumber is inferred
+from the sound-wave frequency,
+this frequency-dependent noise
+has the \emph{appearance} of a wavenumber dependence
+in the ensuing figures).
+Because the sound-wave phase fluctuations and
+the system noise are uncorrelated,
+the predicted variance of the sound-wave phase fluctuations is simply
+\begin{equation}
+  \text{var}\left[
+    \tilde{\phi}(k)
+  \right]
+  =
+  T^2_{\text{fsv}}(k)
+  \cdot
+  \text{var}\left[
+    \tilde{\phi}_{\text{CO}_2}(k)
+  \right]
+  +
+  \text{var}\left[
+    \tilde{\phi}_{\text{noise}}(f)
+  \right].
+  \label{eq:Implementation:predicted_sound_wave_phase_shift_variance_nonideal}
+\end{equation}
+Fig.~\ref{fig:Implementation:interferometer_measured_vs_expected.pdf}
+compares the predicted variance
+(\ref{eq:Implementation:predicted_sound_wave_phase_shift_variance_nonideal})
+to the interferometer-measured variance,
+indicating very good agreement.
+
 \begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
-    Chapters/Implementation/figs/cross_calibration_spectrograms.pdf}
-  \caption[Sound-wave calibration of combined PCI-interferometer]{%
-    Sound-wave calibration of combined PCI-interferometer.
-    The diagnostic test shot is indicated by
-    the $4$ digit number in the bottom-right corner.
+    Chapters/Implementation/figs/interferometer_measured_vs_expected.pdf}
+  \caption[Sound-wave verification of heterodyne-interferometer response]{%
+    Sound-wave verification of heterodyne-interferometer response.
+    In diagnostic test shot $1152$,
+    a speaker was centered beneath the interferometer probe beam, and
+    swept-frequency sound waves were driven orthogonally through the beam.
+    The interferometer-measured variance of the resulting phase fluctuations
+    is indicated by the solid black trace.
+    The shaded blue region indicates the predicted variance
+    (\ref{eq:Implementation:predicted_sound_wave_phase_shift_variance_nonideal}),
+    where $\text{var}(\tilde{\phi}_{\text{CO}_2})$
+    is computed from Appendix~\ref{app:SoundWaveCharacterization}'s
+    measurements with a calibrated microphone
+    of the sound waves' absolute pressure perturbations.
+    Note that the variance predicted here differs from that in
+    Fig.~\ref{fig:SoundWaveCharacterization:phase_shift}
+    due to the inclusion of the interferometer's
+    finite sampling-volume effects and noise.
+    Further, the apparent increase in noise at low-$k$
+    actually corresponds to low-$f$ vibrational noise;
+    that is, low-$k$ \emph{plasma} fluctuations
+    at higher frequencies will not be plagued by this noise.
   }
-\label{fig:cross_calibration_spectrograms}
+\label{fig:Implementation:interferometer_measured_vs_expected.pdf}
 \end{figure}
 
 
-\subsection{Sound-wave characterization}
+\subsection{Cross-calibration of PCI}
+% \begin{figure}
+%   \centering
+%   \includegraphics[width = \textwidth]{%
+%     Chapters/Implementation/figs/cross_calibration_spectrograms.pdf}
+%   \caption[Sound-wave calibration of combined PCI-interferometer]{%
+%     Sound-wave calibration of combined PCI-interferometer.
+%     The diagnostic test shot is indicated by
+%     the $4$ digit number in the bottom-right corner.
+%   }
+% \label{fig:cross_calibration_spectrograms}
+% \end{figure}
 
-
-\subsection{Measurements}
-\begin{itemize}
-  \item Wavenumber range
-  \item Cross calibration
-  \item System sensitivity
-\end{itemize}
 
 
 \begin{table}[ht]
