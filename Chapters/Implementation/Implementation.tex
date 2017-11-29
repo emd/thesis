@@ -1,28 +1,73 @@
 \chapter{Implementation of a combined PCI-interferometer on \diiid}
 \label{ch:Implementation}
+The optical foundations in
+Chapter~\ref{ch:InterferometricMethods}
+reveal that heterodyne interferometry and PCI
+have complementary wavenumber capabilities,
+motivating the addition of a heterodyne interferometer
+to \diiid's pre-existing PCI system.
+With the intent of constructing a heterodyne interferometer,
+Chapter~\ref{ch:DesignConsiderations} extensively discusses
+the relevant design considerations.
 
-Section~\ref{sec:Implementation:d3d_ports} briefly reviews
+Heavily referencing both Chapters~\ref{ch:InterferometricMethods} and
+\ref{ch:DesignConsiderations},
+this chapter details the physical implementation
+of the heterodyne interferometer and
+its integration into \diiid's pre-existing PCI system.
+Below, Section~\ref{sec:Implementation:d3d_ports} briefly reviews
 optical-diagnostic access on \diiid, and
 Section~\ref{sec:Implementation:PCI} discusses
 the relevant hardware and capabilities
-of \diiid's pre-existing PCI system.
-Section~\ref{sec:Implementation:OpticalLayout} examines
+of the pre-existing PCI system.
+Section~\ref{sec:Implementation:OpticalLayout} then examines
 the heterodyne-interferometer optical layout, which
 sets the interferometer's wavenumber response and
 influences the interferometer's sensitivity
 to vibration-induced misalignment and
 small uncertainties in component placement.
-Section~\ref{sec:Implementation:PowerDistribution} then develops
+Next, Section~\ref{sec:Implementation:PowerDistribution} develops
 a simple model to investigate the distribution
 of the laser's finite optical power
 between the PCI and heterodyne-interferometer systems.
+While the PCI and heterodyne interferometer share several components,
+such as the CO$_2$ laser,
+the beam-delivery and beam-collection optics, and
+the digitizer,
+numerous other components
+are exclusively dedicated to the operation
+of the heterodyne interferometer;
+Section~\ref{sec:Implementation:Hardware} details
+this dedicated hardware.
+Section~\ref{sec:Implementation:DataPreparation} then describes
+the digital signal processing that is typically applied
+to the heterodyne interferometer's digital records
+prior to performing spectral analysis.
+Section~\ref{sec:Implementation:Noise} provides
+a detailed examination of
+the debilitating local-oscillator (LO) phase noise
+that initially plagued the heterodyne interferometer's measurements ---
+identifying this noise source was singularly
+the most time-consuming and difficult aspect
+of the diagnostic development pursued in this work.
+Ultimately, this noise was eliminated
+with the procurement and installation of a low phase-noise LO.
+Section~\ref{sec:Implementation:Noise} also characterizes
+the predicted and measured noise
+in the heterodyne interferometer (after the LO upgrade) and
+compares the resulting noise floor
+to typical plasma-fluctuation spectra.
+Finally, Section~\ref{sec:Implementation:Calibration} empirically verifies
+the predicted response of the heterodyne interferometer and
+cross-calibrates the PCI against the absolute phase measurements
+of the heterodyne interferometer.
 
-\begin{itemize}
-  \item Section~\ref{sec:Implementation:Hardware}
-  \item Section~\ref{sec:Implementation:DataPreparation}
-  \item Section~\ref{sec:Implementation:Noise}
-  \item Section~\ref{sec:Implementation:Calibration}
-\end{itemize}
+The robust response of the combined PCI-interferometer
+across the calibration wavenumber range
+demonstrates the complementary nature
+of the interferometer and PCI measurements and
+confirms the ability of the combined system
+to simultaneously monitor low-$k$ and high-$k$ instabilities.
 
 
 \section{Optical-diagnostic access on \diiid}
@@ -477,7 +522,6 @@ the curvature-matching constraint
 (\ref{eq:DesignConsiderations:summary:radii_of_curvature_matching}).
 The variation of detector noise and optical shot noise
 with $s_x$ (but fixed $|M| / s_x$) can also be examined.
-\graffito{\textcolor{red}{Why make this assumption?}}
 To proceed, assume that the interferometer image plane
 sits in the corresponding Rayleigh range
 (i.e.\ $|z_{\image}| \ll z_R$) such that
@@ -1269,13 +1313,11 @@ until the cooling capacity of the detector is reached.
 
 \section{Dedicated heterodyne-interferometer hardware}
 \label{sec:Implementation:Hardware}
-\graffito{\textcolor{red}{laser parameters?}}
 Utilizing a shared in-vessel probe beam implies that
 the PCI and the heterodyne interferometer share several components,
 including the CO$_2$ laser,
-the beam expansion optics, and
+the beam-expansion optics, and
 the beam-delivery and beam-collection optics.
-\graffito{\textcolor{red}{digitizer parameters?}}
 The two systems also share a digitizer.
 Numerous other components, however,
 are exclusively dedicated to the operation
@@ -1298,18 +1340,18 @@ dramatically reducing the XO phase noise.
 For technical reasons,
 ovens operated tens of degrees above the ambient temperature
 provide the most robust constant-temperature thermal baths.
-Such an oven-controlled crystal oscillator (OCXO)
-can achieve stabilities that are \textcolor{red}{orders-of-magnitude larger}
-than a comparable XO.
+The stability of such an oven-controlled crystal oscillator (OCXO)
+is typically enhanced by a factor $\geq 10^3$
+relative to that of a comparable XO~\cite[Table~7.2]{horowitz_and_hill}.
 
 The local oscillator (LO) of the heterodyne interferometer
 is derived from an OCXO.
-The OCXO was procured from Wenzel Associates, Inc. (Austin, TX USA)
+The OCXO was procured from Wenzel Associates, Inc. (Austin, TX, USA)
 and is enclosed in their Sprinter packaging.
 The OCXO has a $5$-minute warm-up time,
 during which it draws a maximum power of $\SI{5}{\watt}$;
 after warming up, it draws $\SI{2.2}{\watt}$.
-The OCXO output is a $13 \; \text{dBm}$ sinusoidal signal
+The OCXO output is a $13 \; \text{dBm}$ sinusoidal wave
 at a frequency of $\SI{30}{\mega\hertz}$
 (i.e.\ in the notation of
 Chapters~\ref{ch:InterferometricMethods} and \ref{ch:DesignConsiderations},
@@ -1336,10 +1378,10 @@ located in the \diiid\space annex.
 A schematic of this module is shown in
 Fig.~\ref{fig:Implementation:OCXO_module}.
 A $\SI{15}{\volt}$ linear-regulated power supply
-($15EB40$, Acopian Technical Co.; Easton, PA USA)
+($15EB40$, Acopian Technical Co.; Easton, PA, USA)
 powers the OCXO, while
 a $\SI{5}{\volt}$ linear-regulated power supply ($5EB50$, Acopian)
-powers the thermal-regulation and RF-modulation electronics.
+powers the AOM's thermal-regulation and RF-modulation electronics.
 Linear-regulated power supplies are less noisy than
 either switching-mode or unregulated power supplies, so
 it was deemed essential to power the OCXO
@@ -1347,7 +1389,7 @@ with a linear-regulated power supply.
 To prevent overheating the AOM
 (e.g.\ due to a water-cooling failure),
 a normally closed, creep-action thermostat
-(Pepi Model N, Portage Electric Products, Inc; North Canton, OH USA)
+(Pepi Model N, Portage Electric Products, Inc; North Canton, OH, USA)
 monitors the AOM temperature;
 if the AOM temperature exceeds $\SI{30}{\celsius}$,
 the thermostat opens.
@@ -1358,7 +1400,7 @@ produces a current that closes the normally open, non-latching relay
 that sits between the $\SI{15}{\volt}$ linear-regulated power supply
 and the OCXO, powering on the OCXO.
 The OCXO signal is evenly split via
-a Mini-Circuits (Brooklyn, NY USA) {ZFSC-$2$-$6$B} RF splitter
+a Mini-Circuits (Brooklyn, NY, USA) {ZFSC-$2$-$6$B} RF splitter
 to produce two LO signals;
 one of the LO signals is routed to the AOM RF driver
 (described in Section~\ref{sec:Implementation:Hardware:RF_driver})
@@ -1371,8 +1413,10 @@ A Mini-Circuits {FTB-$1$-$1$} balun transformer
 breaks the ground loop between the OCXO module and the AOM RF driver.
 A Mini-Circuits {ZSDR-$230$+} RF switch also enables amplitude modulation
 of the LO signal that is routed to the AOM RF driver;
-this capability is only used during system alignment, as described in
-Section~\ref{sec:Implementation:Alignment}.
+this capability is only used during system alignment
+to ``chop'' the reference and probe beams,
+allowing each beam to be separately centered
+on the interferometer's AC-coupled detector.
 Finally, a switch at the rear of the module
 allows one to easily toggle the module grounding between
 the electrical mains (i.e.\ for bench testing) and
@@ -1391,7 +1435,7 @@ the PCI rack (i.e.\ for operations).
 \subsection{AOM RF driver}
 \label{sec:Implementation:Hardware:RF_driver}
 The LO signal must be amplified to several watts in order to drive the AOM.
-An ENI (Rochester, NY USA) $3100L$ performs this amplification.
+An ENI (Rochester, NY, USA) $3100L$ performs this amplification.
 (Note that ENI no longer exists but that
 the closely related E\&I currently manufactures comparable amplifiers).
 The $3100L$ provides broadband power amplification between
@@ -1404,10 +1448,12 @@ note that the $3100L$ is on long-term loan from the $\diiid$ RF group,
 though, and they had no suitable, lower-power amplifiers).
 The harmonic distortion of the $3100L$ is $\leq -25 \; \text{dBc}$, and
 its noise figure is $\leq \SI{10}{\decibel}$.
-\graffito{\textcolor{red}{cite self-demodulation methodology}}
-Self-demodulation tests conducted with and without the $3100L$
+Self-demodulation tests
+(methodology shown schematically in
+Fig.~\ref{fig:Implementation:LO_self_demodulation_schematic})
+conducted with and without the $3100L$
 demonstrate that the $3100L$ does \emph{not} add appreciable
-noise into the interferometer measurements.
+noise to the interferometer measurements.
 The $3100L$ draws $\SI{1.1}{\kilo\watt}$ of $120$ VAC wall power;
 a $2.4 \; \text{kVA}$ Topaz isolation transformer
 isolates the $3100L$ from high-frequency wall-power noise.
@@ -1416,23 +1462,22 @@ the $3100L$ is mounted in the PCI rack
 adjacent to the PCI optical table in the \diiid\space pit;
 the Topaz isolation transformer is mounted
 to the pit wall behind the PCI rack.
-\graffito{\textcolor{red}{coax line length?}}
 The AOM drive level is adjusted by appropriately attenuating
 the LO signal just upstream of the $3100L$ input;
 this ``just-in-time'' attenuation minimizes the effect of electrical pickup
-during the signal transit from the annex to the pit
+during the $\sim \SI{60}{\meter}$ signal transit from the annex to the pit
 (relative to e.g.\ attenuating the signal in the annex
 and then sending the signal to the pit).
 
 
 \subsection{Detector}
 \label{sec:Implementation:Hardware:detector}
-\graffito{\textcolor{red}{cite VIGO}}
 Detection of $\SI{10.6}{\micro\meter}$ light
 is typically effected with Mercury Cadmium Telluride (HgCdTe),
-an alloy of HgTe and CdTe.
+an alloy of HgTe and CdTe~\cite{vigo_catalog}.
 The ratio of HgTe to CdTe is tuned to provide
-optimal detection at the device's intended operational temperature.
+optimal detection at the device's intended
+operational wavelength and temperature.
 Cooling the HgCdTe typically
 increases the cut-off wavelength,
 increases optical responsivity, and
@@ -1554,7 +1599,7 @@ to the signal-conditioning RF amplifiers.
 \label{sec:Implementation:Hardware:RF_amps}
 Despite feedback stabilization of the beam coalignment
 (discussed in
-Sections~\ref{sec:Implementation:OpticalLayout:coalignment_with_feedback})
+Sections~\ref{sec:Implementation:OpticalLayout:coalignment_with_feedback}
 and \ref{sec:Implementation:OpticalLayout:probe_beam}),
 vibration-induced misalignment can still substantially reduce
 the amplitude of the heterodyne-interference signal,
@@ -1566,7 +1611,7 @@ dynamically adjusts its gain
 to maintain a constant-amplitude output signal.
 
 An AGC amplifier was graciously provided \emph{pro bono}
-by Palomar Scientific Instruments (San Marcos, CA USA).
+by Palomar Scientific Instruments (San Marcos, CA, USA).
 The AGC operates over a frequency range from
 $\SI{20}{\mega\hertz}$ to $\SI{100}{\mega\hertz}$.
 The AGC produces a $-6 \; \text{dBm}$ output signal for
@@ -1579,11 +1624,11 @@ from a DC power supply that can sit
 anywhere between $\SI{7}{V}$ and $\SI{15}{V}$;
 however, higher DC voltages produce significant heat dissipation, and
 operation at the upper limit of $\SI{15}{V}$ should be avoided, if possible.
-The AGC is shown in Fig.~\ref{fig:Implementation:AGC}.
+The AGC is pictured in Fig.~\ref{fig:Implementation:AGC}.
 If the heterodyne interference signal falls
 below the lower limit of the AGC input range
 (e.g. due to long-term drift of the system alignment),
-a Mini-Circuits (Brooklyn, NY USA) {ZFL-$500$B} amplifier
+a Mini-Circuits (Brooklyn, NY, USA) {ZFL-$500$B} amplifier
 is added immediately upstream of the AGC.
 
 \begin{figure}
@@ -1599,7 +1644,7 @@ is added immediately upstream of the AGC.
 These signal-conditioning RF amplifiers
 are located in the PCI rack of the \diiid\space annex.
 A $\SI{12}{\volt}$ linear-regulated power supply
-($12EB40$, Acopian Technical Co.; Easton, PA USA)
+($12EB40$, Acopian Technical Co.; Easton, PA, USA)
 powers the amplifiers.
 A Mini-Circuits {FTB-$1$-$1$} balun transformer
 breaks the ground loop between
@@ -1635,7 +1680,7 @@ Fig.~\ref{fig:Implementation:demodulation_electronics}.
 \end{figure}
 
 Prior to demodulation, the LO and IF signals are each bandpass filtered
-with a Mini-Circuits (Brooklyn, NY USA) {BBP-$30$+}.
+with a Mini-Circuits (Brooklyn, NY, USA) {BBP-$30$+}.
 The {BBP-$30$+} has $\leq \SI{1.5}{\decibel}$ insertion loss over
 its $\SI{27}{\mega\hertz}$ to $\SI{33}{\mega\hertz}$ passband.
 Bandpass filtering the $\SI{30}{\mega\hertz}$ IF
@@ -1652,7 +1697,7 @@ with the correct orientation.
 Following the bandpass filter,
 a Mini-Circuits {FTB-$1$-$1$} breaks the ground loop between
 the IF signal-conditioning amplifiers and
-the audio amplifiers.
+the downstream electronics.
 The resulting $-8.5 \; \text{dBm}$ IF and $8.5 \; \text{dBm}$ LO
 are now ready to be demodulated.
 
@@ -1663,9 +1708,9 @@ The {MIQC-$60$WD+} can demodulate IF signals with frequencies between
 $\SI{20}{\mega\hertz}$ and $\SI{60}{\mega\hertz}$, while
 the bandwidth of the resulting $I$ and $Q$ signals
 may span from DC up to $\SI{5}{\mega\hertz}$.
-\graffito{\textcolor{red}{reference for ``deadbug''?}}
 To minimize parasitic capacitances,
 the {MIQC-$60$WD+} is soldered ``deadbug'' style
+\cite{linear_technology_high_speed_amplifier_tech}
 to a large grounding plane, and
 every electrical connection is soldered
 directly to its corresponding pin;
@@ -1689,12 +1734,12 @@ over their DC to $\SI{11}{\mega\hertz}$ passband.
 The resulting $I$ and $Q$ signals are each
 $-18 \; \text{dBm}$
 (i.e.\ $\SI{28.2}{\milli\volt}$ RMS,
-$\SI{80}{\milli\volt}$ peak-to-peak).
+$\SI{80}{\milli\volt}$ peak-to-peak,
+into $\SI{50}{\ohm}$).
 
 
 \subsection{Audio amplifiers}
 \label{sec:Implementation:Hardware:audio_amps}
-\graffito{\textcolor{red}{digitizer parameters?}}
 The demodulated $I$ and $Q$ signals are $\SI{80}{\milli\volt}$ peak-to-peak,
 while the digitizer dynamic range is $V_{\text{dyn}} = \SI{8}{\volt}$.
 Thus, direct digitization of the $I$ and $Q$ signals
@@ -1703,9 +1748,13 @@ of the digitizer's dynamic range.
 When $\eta_{\text{dyn}} = 0.01$,
 the autospectral density of the corresponding quantization noise
 (\ref{eq:DesignConsiderations:summary:quantization_noise_autospectral_density})
-is $10^4$ \emph{larger} than when $\eta_{\text{dyn}} = 1$;
-the $\eta_{\text{dyn}} = 0.01$ quantization noise
-is shown to be unacceptably large in \textcolor{red}{Section XXX}.
+is $10^4$ \emph{larger} than when $\eta_{\text{dyn}} = 1$.
+Fig.~\ref{fig:Implementation:signal_and_noise}
+compares the quantization noise for $\eta_{\text{dyn}} \approx 1$
+to typical plasma fluctuations
+-- clearly, $\eta_{\text{dyn}} = 0.01$
+would produce unacceptably large quantization noise
+that would mask all but the largest plasma fluctuations.
 To minimize quantization noise, then, the $I$ and $Q$ signals
 must be amplified to $\eta_{\text{dyn}} \approx 1$ prior to digitization.
 
@@ -1744,7 +1793,7 @@ followed by a $\SI{50}{\ohm}$ line driver,
 which is required to drive the digitizer's $\SI{50}{\ohm}$ input impedance.
 Each high-gain, low-noise amplification stage
 utilizes an {OP$37$} bipolar operational amplifier
-(Analog Devices; Norwood, MA USA)
+(Analog Devices; Norwood, MA, USA)
 in an inverting configuration.
 The {OP$37$} is \emph{decompensated}~\cite[Sec.~4.9]{horowitz_and_hill},
 sacrificing low-gain stability for higher bandwidth
@@ -1760,7 +1809,7 @@ minimizing the non-ideal effect of input bias current
 \cite[Sec.~4.4.2.E]{horowitz_and_hill}.
 The $\SI{50}{\ohm}$ line driver
 utilizes an {AD$811$} current-feedback operational amplifier
-(Analog Devices; Norwood, MA USA)
+(also from Analog Devices)
 in a non-inverting configuration with an amplitude gain of two.
 The output impedance of each audio amplifier is
 $Z_{\text{out}} = \SI{50}{\ohm}$ such that
@@ -1785,10 +1834,10 @@ The power-supply rails of each operational amplifier
 are bypassed with $\SI{1}{\micro\farad}$ ceramic capacitors
 to prevent coupling high-frequency power-supply noise
 into the amplifier~\cite[Sec.~4.2.7]{horowitz_and_hill}.
-\graffito{\textcolor{red}{deadbug ref?}}
 Feedback-loop parasitic capacitances,
 which can reduce the high-frequency, closed-loop gain and excite instability,
-are minimized via ``deadbug'' construction,
+are minimized via ``deadbug'' construction
+\cite{linear_technology_high_speed_amplifier_tech},
 as shown in Fig.~\ref{fig:Implementation:audio_amplifier_picture}.
 Although deadbug construction is ideal for prototyping,
 any future increase to the number of interferometer channels
@@ -1820,7 +1869,7 @@ in the PCI rack of the \diiid\space annex.
 \subsection{Anti-aliasing filters}
 \label{sec:Implementation:Hardware:anti_aliasing_filters}
 Passive anti-aliasing filters
-({J$3715$-$840$K-$50$-$720$B}, TTE Filters; Arcade, NY USA)
+({J$3715$-$840$K-$50$-$720$B}, TTE Filters; Arcade, NY, USA)
 sit immediately upstream of the digitizer.
 Each filter has $\SI{50}{\ohm}$ input and output impedance,
 a DC to $\SI{840}{\kilo\hertz}$ passband, and
@@ -1971,7 +2020,7 @@ Thus, if LO phase noise is not known \emph{a priori},
 it should be measured.
 Often, the standard deviation of the oscillator frequency is specified
 (for example, the oscillator initially procured for this project
-was specified to be $0.01\%$ quartz stabilized);
+was specified to be $0.01\%$ quartz-stabilized);
 however, without knowledge of the corresponding spectrum,
 the specification of the standard deviation
 is insufficient to characterize the resulting
@@ -1996,7 +2045,8 @@ can be empirically characterized by demodulating
 a delayed copy of the LO,
 as depicted schematically in
 Fig.~\ref{fig:Implementation:LO_self_demodulation_schematic}.
-A Mini-Circuits (Brooklyn, NY USA) {ZFBDC$20$-$61$HP+} bi-directional coupler
+A Mini-Circuits (Brooklyn, NY, USA)
+{ZFBDC$20$-$61$HP+} bi-directional coupler
 provides adequate coupling for $\sim \SI{30}{\mega\hertz}$,
 moderate-power ($\lesssim \SI{25}{\watt}$) RF signals.
 The delay line should provide a delay comparable to the AOM coupling time.
@@ -2085,14 +2135,14 @@ from the previous paragraph.
 Delaying the LO by the AOM coupling time
 (\ref{eq:Implementation:AOM_coupling_time})
 can be easily accomplished with
-a $L \approx \SI{500}{\meter}$ {RG-$58$} coaxial-cable delay line.
+an $L \approx \SI{500}{\meter}$ {RG-$58$} coaxial-cable delay line.
 Such a delay line was constructed by
 stringing together eight of the pit-to-annex coaxial cables discussed in
 Section~\ref{sec:Implementation:Hardware:coax} and
 amplifying the signal to appropriately compensate for attenuation.
 As expected, the delay line eliminated the injection of LO phase noise
 into the heterodyne interferometer, and
-a whole host of coherent and broadband fluctuations
+a whole host of coherent and broadband plasma fluctuations
 were subsequently measured with the system.
 
 However, it was suspected that the use of a $\SI{500}{\meter}$ delay line
@@ -2187,7 +2237,7 @@ compares them to typical plasma-fluctuation spectra.
 Noise predictions establish a baseline for
 the expected performance of the heterodyne interferometer.
 Recall that Chapter~\ref{ch:DesignConsiderations}
-extensively discussed heterodyne-interferometer noise sources and
+extensively discusses heterodyne-interferometer noise sources and
 their corresponding autospectral densities,
 with a concise summary provided in
 Section~\ref{sec:DesignConsiderations:summary:noise}.
@@ -2465,6 +2515,8 @@ such that the predicted phase fluctuation at each wavenumber $k$ becomes
 where
 $T_{\text{fsv}}(k)$ is the finite sampling-volume transfer function
 (\ref{eq:DesignConsiderations:summary:finite_sampling_volume_transfer_function})
+with $k_{\text{fsv}}^{\text{int}}$ from
+(\ref{eq:Implementation:kfsv_interferometer_design}),
 and $\tilde{\phi}_{\text{noise}}(f)$ is the system noise.
 (Here, the noise is written as an explicit function of frequency $f$
 to emphasize that the noise is frequency dependent and
