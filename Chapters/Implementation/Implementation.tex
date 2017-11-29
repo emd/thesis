@@ -1,6 +1,28 @@
 \chapter{Implementation of a combined PCI-interferometer on \diiid}
 \label{ch:Implementation}
 
+Section~\ref{sec:Implementation:d3d_ports}
+briefly reviews optical-diagnostic access on \diiid, and
+Section~\ref{sec:Implementation:PCI}
+discusses the relevant hardware and capabilities
+of \diiid's pre-existing PCI system.
+Section~\ref{sec:Implementation:OpticalLayout}
+examines the heterodyne-interferometer optical layout, which
+sets the interferometer's wavenumber response,
+governs the injection of laser phase noise
+into the interferometer's measurements, and
+influences the interferometer's sensitivity
+to vibration-induced misalignment and
+small uncertainties in component placement.
+
+\begin{itemize}
+  \item Section~\ref{sec:Implementation:PowerDistribution}
+  \item Section~\ref{sec:Implementation:Hardware}
+  \item Section~\ref{sec:Implementation:DataPreparation}
+  \item Section~\ref{sec:Implementation:Noise}
+  \item Section~\ref{sec:Implementation:Calibration}
+\end{itemize}
+
 
 \section{Optical-diagnostic access on \diiid}
 \label{sec:Implementation:d3d_ports}
@@ -18,18 +40,18 @@ when viewing the machine from above
 to geographic or magnetic north).
 The angular separation of adjacent toroidal ports is $15^{\circ}$.
 Port sightlines can be vertical or radial.
-Ports with vertical (V) sightlines
+Ports with vertical ($V$) sightlines
 are labeled sequentially in terms of increasing major radius,
 with $V1$ having the smallest major radius and
 $V3$ having the largest major radius.
-Radial ports (R) have sightlines
+Radial ports ($R$) have sightlines
 that are roughly aligned with the plasma's minor radius, and
 they are labeled according to their positions
 relative to the plasma midplane:
-R0 sits at the plasma midplane,
-R+1 and R+2 are the first and second ports
+$R0$ sits at the plasma midplane,
+{$R$+$1$} and {$R$+$2$} are the first and second ports
 \emph{above} the plasma midplane, respectively, and
-R-1 and R-2 are the first and second ports
+{$R$-$1$} and {$R$-$2$} are the first and second ports
 \emph{below} the plasma midplane, respectively.
 
 \begin{figure}
@@ -41,11 +63,11 @@ R-1 and R-2 are the first and second ports
     indicating the toroidal-labeling convention.
     (b) View of \diiid \space cross section,
     indicating the labeling convention
-    for vertical (V) and radial (R) sightlines.
-    The PCI beam enters the vessel through the $285^{\circ}$ R+2 port,
+    for vertical ($V$) and radial ($R$) sightlines.
+    The PCI beam enters the vessel through the $285^{\circ}$ {$R$+$2$} port,
     propagates vertically downwards through the plasma
     at a major radius of $R = \SI{1.98}{\meter}$, and
-    exits the vessel through the $285^{\circ}$ R-2 port.}
+    exits the vessel through the $285^{\circ}$ {$R$-$2$} port.}
 \label{fig:Implementation:d3d_port_locations}
 \end{figure}
 
@@ -62,7 +84,7 @@ are briefly summarized below for completeness.
 \label{sec:Implementation:PCI:laser}
 The PCI CO$_2$ laser~\cite[Sec.~3.3]{coda_phd}
 has been in service since
-the inception of the \diiid\space PCI project in the mid-1990s.
+the inception of the \diiid\space PCI project in the mid-$1990$s.
 Lasing occurs via high-voltage, DC excitation
 inside a $\SI{2}{\meter}$-long, sealed-off glass tube
 to produce a TEM$_{00}$ (Gaussian) mode with linear polarization.
@@ -72,14 +94,14 @@ Historically, the laser power has been relatively constant
 at $\mathcal{P}_s = \SI{14}{\watt}$, but
 the power has declined in the last year.
 The laser has
-a ``short''-term ($\SI{0.1}{\second}$) peak-to-peak frequency variation
+a ``short-term'' ($\SI{0.1}{\second}$) peak-to-peak frequency variation
 $\lesssim \SI{300}{\kilo\hertz}$ and
-a ``long''-term ($\SI{e3}{\second}$) peak-to-peak frequency variation
+a ``long-term'' ($\SI{e3}{\second}$) peak-to-peak frequency variation
 $\lesssim \SI{3}{\mega\hertz}$;
 unfortunately, without knowledge of the corresponding bandwidth,
 it is impossible to characterize the laser's phase noise.
 A ceiling on the laser phase noise is empirically established in
-\textcolor{red}{Section XXX}.
+Section~\ref{sec:Implementation:Noise:interferometer}.
 
 
 \subsection{System geometry}
@@ -87,15 +109,15 @@ A ceiling on the laser phase noise is empirically established in
 The system is currently configured
 in the ``Phase II'' geometry~\cite{dorris_rsi09},
 with the probe beam propagating vertically downwards
-from the $285^{\circ}$ R+2 port to the $285^{\circ}$ R-2 port.
-The beam center sits at $R = $ \SI{1.98}{\meter}.
-Both the toroidal and radial positions
+from the $285^{\circ}$ {$R$+$2$} port to the $285^{\circ}$ {$R$-$2$} port.
+The beam center sits at major radius $R = $ \SI{1.98}{\meter}.
+Both the toroidal and major radial positions
 of the PCI beam are shown in
 Fig.~\ref{fig:Implementation:d3d_port_locations}.
 
-The PCI system's vertical beam path constrains
-the types of fluctuations it can and cannot detect.
-Namely, the PCI-measured intensity fluctuations
+The vertical beam path of the PCI constrains
+which fluctuations it can and cannot detect.
+Specifically, the PCI-measured intensity fluctuations
 (\ref{eq:InterferometricMethods:pci_intensity})
 correspond to \emph{line-integrated} electron-density fluctuations, which
 are the physical origin of the phase fluctuations $\tilde{\phi}$ in
@@ -104,13 +126,12 @@ Because it is a line-integrated measurement,
 only fluctuations propagating perpendicular to the beam path are detected,
 as fluctuations propagating parallel to the beam path
 are effectively averaged out of the signal
-\graffito{\textcolor{red}{what about $\delta \omega$?}}
-(and, at a more fundamental level, fluctuations propagating
+(at a more fundamental level, fluctuations propagating
 parallel to the beam path do \emph{not} spatially scatter the probe beam).
-\graffito{\textcolor{red}{citation? Wesson?}}
-Now, electrostatic turbulence (e.g.\ ITG, ETG) tends to be field-aligned
-such that $k_{\perp} \gg k_{||}$, where
-the $\perp$ and $||$ subscripts are used here to indicate
+Now, electrostatic drift-wave turbulence (e.g.\ ITG, ETG)
+tends to be field-aligned
+such that $k_{\perp} \gg k_{||}$~\cite{horton_drift_waves, tynan_ppcf09},
+where the $\perp$ and $||$ subscripts are used here to indicate
 orientations that are perpendicular to and parallel to
 the local magnetic field, respectively.
 To lowest order, then, electrostatic fluctuations propagate
@@ -119,13 +140,13 @@ PCI's vertical beam path and
 the field-aligned constraint of electrostatic turbulence
 imply that PCI is predominantly sensitive to fluctuations
 with finite major-radial wavenumber $k_R$.
-Thus, PCI's 32-element, 1-dimensional detector array
+Thus, PCI's $32$-element, $1$-dimensional detector array
 is oriented in the image plane such that
 each detector element corresponds to a unique major radius in the plasma.
 
 In some situations, spatially filtering ``masks''
 \cite{dorris_rsi09, dorris_phd, lin_rsi06} or
-2-dimensional detector arrays
+$2$-dimensional detector arrays
 \cite{sanin_rsi04, tanaka_rsi16}
 can be used to localize measurements
 by exploiting the spatial variation
@@ -144,7 +165,7 @@ as shown schematically in
 Fig.~\ref{fig:Implementation:relating_kR_to_ktheta}.
 Of course, the fluctuation measurements must be localized,
 either via direct measurement
-(with 2-dimensional detector arrays or ``masks'')
+(with $2$-dimensional detector arrays or ``masks'')
 or via inference from other plasma properties,
 before (\ref{eq:Implementation:kR_to_ktheta})
 can be inverted to yield $k_{\theta}$
@@ -187,7 +208,7 @@ $w_0$ is the 1/e $E$ radius of the in-vessel probe beam.
 The maximum value of $w_0$ is set by the aperture diffraction criterion
 (\ref{eq:DesignConsiderations:summary:aperture_radius_for_minimal_diffraction}).
 After beam expansion and collimation,
-the $4"$-diameter $285^{\circ}$ R+2 port window
+the $4"$-diameter $285^{\circ}$ {$R$+$2$} port window
 is the smallest aperture seen by the beam
 prior to its interaction with the plasma.
 To satisfy the aperture diffraction criterion
@@ -245,7 +266,7 @@ assuming that the PCI beam and the local flux surface
 intersect at an angle $\alpha \sim 45^{\circ}$,
 (\ref{eq:Implementation:kg_realized})
 corresponds to detection of fluctuations from the pedestal with
-$k_{\theta} \rho \gtrsim 0.25$.
+$k_{\theta} \rho_i \gtrsim 0.25$.
 The higher-temperature core has larger $\rho_i$ but
 also typically has smaller $\alpha$, so
 the corresponding $k_{\theta} \rho_i$ cutoff in the core
@@ -261,7 +282,7 @@ such that the phase plate's high-$k$ cutoff
   k_D \approx \SI{75}{\per\centi\meter}.
   \label{eq:Implementation:kD}
 \end{equation}
-Although the $5"$ diameter $285^{\circ}$ R-2 exit window and
+Although the $5"$ diameter $285^{\circ}$ {$R$-$2$} exit window and
 the subsequent $12"$ diameter steering mirrors
 are large enough to accommodate beams scattered
 from fluctuations with wavenumbers $|k| \sim k_D$,
@@ -278,13 +299,12 @@ The PCI's 32-element, 1-dimensional detector array has elements
 of height $\SI{1}{\milli\meter}$,
 width $s_x^{\text{pci}} = \SI{0.5}{\milli\meter}$, and
 center-to-center element spacing of $\SI{0.55}{\milli\meter}$.
-\graffito{\textcolor{red}{Correct? Sign?}}
-Coupled with the system's magnification $|M^{\text{pci}}| \approx 0.5$,
+Coupled with the system's magnification $|M^{\text{pci}}| = 0.44$,
 the finite sampling-volume cutoff
 (\ref{eq:DesignConsiderations:finite_sampling_volume_cutoff})
 of the PCI is
 \begin{equation}
-  k_{\text{fsv}}^{\text{pci}} \approx \SI{63}{\per\centi\meter}.
+  k_{\text{fsv}}^{\text{pci}} = \SI{55}{\per\centi\meter}.
   \label{eq:Implementation:kfsv_pci}
 \end{equation}
 
@@ -403,9 +423,10 @@ the heterodyne interferometer's finite sampling-volume cutoff
   k_{\text{fsv}}^{\text{het}} = \SI{5}{\per\centi\meter}.
   \label{eq:Implementation:kfsv_interferometer_design}
 \end{equation}
-The heterodyne interferometer's desired transfer function
-is shown relative to the pre-existing PCI's transfer function in
-Fig.~\ref{fig:Implementation:transfer_function_comparison}.
+Fig.~\ref{fig:Implementation:transfer_function_comparison}
+displays the desired wavenumber transfer function
+of the heterodyne interferometer relative to
+that of the pre-existing PCI system.
 
 \begin{figure}
   \centering
@@ -453,8 +474,8 @@ the beam-coalignment constraint
 (\ref{eq:DesignConsiderations:summary:coalignment_constraint}) and
 the curvature-matching constraint
 (\ref{eq:DesignConsiderations:summary:radii_of_curvature_matching}).
-The variation of detector noise and shot noise
-with $s_x$ (but fixed $M / s_x$) can also be examined.
+The variation of detector noise and optical shot noise
+with $s_x$ (but fixed $|M| / s_x$) can also be examined.
 \graffito{\textcolor{red}{Why make this assumption?}}
 To proceed, assume that the interferometer image plane
 sits in the corresponding Rayleigh range
@@ -462,10 +483,11 @@ sits in the corresponding Rayleigh range
 $w(z_{\image}) \approx |M| w_{\object}$, where
 $w(z_{\image})$ is the 1/e $E$ radius of the probe beam at the image plane, and
 $w_{\object}$ is the 1/e $E$ radius of the probe beam at the object plane.
-The optical power of the probe beam impinging on the detector element is
-a function of $s_x / w(z_{\image})$, i.e.\
+For any given beam power,
+the probe-beam optical power $P_P$ impinging on the detector element
+is a function of the element size relative to the beam size, i.e.\
 $P_P = P_P(s_x / w(z_{\image})) \approx P_P(s_x / (|M| w_{\object}))$;
-because $M / s_x$ is fixed by the design-point finite sampling-volume cutoff
+because $|M| / s_x$ is fixed by the design-point finite sampling-volume cutoff
 (\ref{eq:Implementation:kfsv_interferometer_design}),
 $P_P$ is also approximately fixed.
 The optical power in the reference beam impinging on the detector element,
@@ -476,7 +498,7 @@ of the demodulated detector noise
 (\ref{eq:DesignConsiderations:summary:detector_noise_autospectral_density})
 is \emph{independent} of the element size.
 The one-sided autospectral density
-of the demodulated shot noise
+of the demodulated optical shot noise
 (\ref{eq:DesignConsiderations:summary:shot_noise_autospectral_density})
 is, in general, a function of the element size;
 in the extreme $P_R \gg P_P$,
@@ -492,7 +514,8 @@ a square detector element of intermediate linear size
 was chosen.
 Referencing the definition of the finite sampling-volume cutoff
 (\ref{eq:DesignConsiderations:summary:finite_sampling_volume_cutoff}) and
-the interferometer's corresponding design point
+the interferometer's corresponding design-point
+finite sampling-volume cutoff
 (\ref{eq:Implementation:kfsv_interferometer_design}),
 it naturally follows that the interferometer imaging system
 must have magnification
@@ -649,14 +672,16 @@ The operation of a typical AOM is described in
 in Section~\ref{sec:DesignConsiderations:phase_noise:LO}.
 
 The heterodyne interferometer's reference beam is generated
-with a Gooch \& Housego (Ilminster, UK) 37027-5 Germanium AOM,
+with a Gooch \& Housego (Ilminster, UK) {$37027$-$5$} Germanium AOM,
 pictured in Fig.~\ref{fig:Implementation:aom}.
 The resonant frequency of the AOM's piezo-actuator
 is $\SI{27.12}{\mega\hertz}$, but
 the AOM's deflection efficiency varies negligibly
 between $\SI{25}{\mega\hertz}$ and $\SI{30}{\mega\hertz}$.
-\graffito{\textcolor{red}{As will be discussed\ldots operate at $\SI{30}{\mega\hertz}$}}
-For operation at $\Delta f_0 = \SI{30}{\mega\hertz}$,
+For reasons discussed in
+Section~\ref{sec:Implementation:Noise:LO},
+the AOM is operated at $\Delta f_0 = \SI{30}{\mega\hertz}$.
+At this frequency,
 the deflected beam is separated from the undeflected beam by
 $2 \theta_B = \SI{59}{\milli\radian}$, where
 $\theta_B$ is the Bragg angle from
@@ -681,7 +706,6 @@ the aperture-diffraction constraint
 with the acoustic beam providing an ``effective aperture'')
 requires placement of the AOM $\sim15"$ downstream
 of the laser's beam waist.
-\graffito{\textcolor{red}{Need a section on source parameters}}
 
 \begin{figure}
   \centering
@@ -712,11 +736,11 @@ of the laser's beam waist.
 
 Due to space constraints, the reference-beam path length
 is \emph{not} matched to the probe-beam path length.
-This path-length discrepancy \textcolor{red}{$L \approx \SI{10}{\meter}$}
+This path-length discrepancy ($\sim \SI{10}{\meter}$)
 injects the laser's phase noise
 into the heterodyne interferometer's measurements, as quantified by
 (\ref{eq:DesignConsiderations:summary:laser_phase_noise_autospectral_density}).
-However, as shown in \textcolor{red}{Section~???},
+However, as shown in Section~\ref{sec:Implementation:Noise:interferometer},
 the laser's phase noise negligibly contributes
 to the heterodyne interferometer's noise floor.
 
@@ -725,18 +749,18 @@ substantially simplifies the optical design of the reference arm.
 Following its generation at the AOM,
 the reference beam is directed to the interferometer detector
 with four broadband metallic mirrors
-(ER.2 protected-silver coated from
-Newport Corporation, Irvine, CA USA) and
+({ER.$2$} protected-silver coated from
+Newport Corporation; Irvine, CA, USA) and
 is combined with the probe beam
-via a 50\% reflective, polarization-independent ZnSe beam splitter
-(II-VI Infrared, Saxonburg, PA USA).
+via a $50\%$ reflective, polarization-independent ZnSe beam splitter
+(II-VI Infrared; Saxonburg, PA, USA).
 No lenses are used to condition the reference beam.
-However, a multiple-order $\SI{10.6}{\micro\meter}$ half waveplate
-(II-VI Infrared, Saxonburg, PA USA)
-sits between the AOM and the polarization-independent beam combiner.
+However, a multiple-order $\SI{10.6}{\micro\meter}$ half-waveplate
+(also from II-VI Infrared)
+sits between the AOM and the polarization-independent beam splitter.
 As the probe beam is \emph{not} confined to a single plane,
 out-of-plane mirror reflections can rotate the probe-beam polarization;
-the half waveplate allows one to easily align the polarization
+the half-waveplate allows one to easily align the polarization
 of the reference beam with that of the probe beam,
 thereby maximizing the interference signal.
 From source to detector, the reference beam
@@ -762,23 +786,24 @@ the feedback steering mirrors~\cite[Sec.~3.5]{coda_phd}.
 Because the phase plate's spatial filtering
 produces the PCI's low-$k$ cutoff,
 a $2"$ diameter $S$-polarization ZnSe splitter
-(II-VI Infrared, Saxonburg, PA USA)
+(II-VI Infrared; Saxonburg, PA, USA)
 located $5\text{-}1/8"$ upstream of the phase plate
 diverts a fraction of the probe radiation
 to dedicated heterodyne-interferometer optics.
-\graffito{\textcolor{red}{What fraction??}}
-(This beam splitter also diverts a portion of the unscattered probe beam
+(The selection of the splitter reflectivity is discussed in
+Section~\ref{sec:Implementation:PowerDistribution:constraints}.
+This beam splitter also diverts a portion of the unscattered probe beam
 to the feedback system's quadrant detector;
-the heterodyne interferometer's probe beam and
+the heterodyne-interferometer probe beam and
 the feedback beam are separated with
 an additional $2"$ diameter $S$-polarization ZnSe splitter).
 Four broadband metallic mirrors
-(ER.2 protected-silver coated from
-Newport Corporation, Irvine, CA USA)
+({ER.$2$} protected-silver coated from
+Newport Corporation; Irvine, CA, USA)
 direct the probe radiation through the remainder
 of the heterodyne interferometer's imaging optics, which
 consist of two plano-convex ZnSe lenses
-(II-VI Infrared, Saxonburg, PA USA).
+(also from II-VI Infrared).
 The first lens $L1$ has a $7.5"$ focal length and a $2"$ diameter, and
 the second lens $L2$ has a $7.5"$ focal length and a $1.5"$ diameter.
 Then, under the constraint of imaging the plasma midplane,
