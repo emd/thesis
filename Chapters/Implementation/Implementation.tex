@@ -2333,6 +2333,25 @@ across a large fraction of the heterodyne interferometer's temporal bandwidth.
 
 \section{Calibration of combined PCI-interferometer}
 \label{sec:Implementation:Calibration}
+It is always desirable to perform an end-to-end calibration of a system
+to ensure the system is operating as desired.
+The combined PCI-interferometer can be end-to-end calibrated
+by injecting sound waves into the shared probe beam
+to produce well-known refractive-index fluctuations
+that are detectable by both systems.
+Below, Section~\ref{sec:Implementation:Calibration:interferometer}
+describes the sound-wave verification of
+the heterodyne interferometer's amplitude and wavenumber response.
+Section~\ref{sec:Implementation:Calibration:pci}
+then discusses the cross-calibration of the PCI
+against the absolute phase measurements
+of the heterodyne interferometer.
+The robust response of the combined system
+across the surveyed wavenumber range
+demonstrates the complementary nature
+of the interferometer and PCI measurements and
+confirms the ability of the combined system
+to simultaneously monitor low-$k$ and high-$k$ instabilities.
 
 
 \subsection{Verification of heterodyne-interferometer response}
@@ -2501,13 +2520,13 @@ the detector-to-digitizer electrical throughput.
 Of course, this calibration factor can be estimated
 from specified or measured system parameters.
 However, an independent and quite possibly more accurate approach
-is to cross calibrate the PCI measurements
+is to cross-calibrate the PCI measurements
 against the absolute phase measurements
 of the heterodyne interferometer.
 
 As the current heterodyne-interferometer implementation
 only utilizes a single detector element,
-cross calibrating the PCI requires a sound-wave test shot,
+cross-calibrating the PCI requires a sound-wave test shot,
 such as the test shot used in
 Section~\ref{sec:Implementation:Calibration:interferometer}
 to verify the heterodyne-interferometer response.
@@ -2534,7 +2553,7 @@ allows determination of the PCI calibration constant as
     \frac{%
       \text{var} \left[ \tilde{\phi}_{\text{het}}(k) \right]
     }{%
-      \text{var} \left[ \tilde{y}_{\text{pci}}(k) \right]
+      \text{var} \Bigl[ \tilde{y}_{\text{pci}}(k) \Bigr]
     }
   }
   =
@@ -2566,7 +2585,7 @@ of the \diiid\space PCI digitizer but that the numerical value
 in (\ref{eq:Implementation:pci_rad_per_bit_calibration_factor})
 corresponds to a unitary bit).
 Fig.~\ref{fig:Implementation:cross_calibration}
-displays the cross calibration,
+displays the cross-calibration,
 indicating very good agreement for sound-wave wavenumbers between
 $\SI{2}{\per\centi\meter}$ and $\SI{3.5}{\per\centi\meter}$.
 
@@ -2592,12 +2611,12 @@ $\SI{2}{\per\centi\meter}$ and $\SI{3.5}{\per\centi\meter}$.
     (note that the signal enters cutoff somewhat above
     the nominal low-$k$ cutoff of $\SI{1.5}{\per\centi\meter}$
     from (\ref{eq:Implementation:kg_realized})).
-    The strong response of the \emph{combined} system
+    The robust response of the combined system
     across the surveyed wavenumber range
     demonstrates the complementary nature
     of the interferometer and PCI measurements and
-    confirms the ability to simultaneously monitor
-    low-$k$ and high-$k$ instabilities.
+    confirms the ability of the combined system
+    to simultaneously monitor low-$k$ and high-$k$ instabilities.
     Also shown are the system noise floors;
     the enhanced signal-to-noise ratio of the PCI
     relative to the heterodyne interferometer
@@ -2610,16 +2629,16 @@ $\SI{2}{\per\centi\meter}$ and $\SI{3.5}{\per\centi\meter}$.
 
 Upgrading the heterodyne-interferometer detector
 from a single element to a multi-element array
-would allow comparable cross calibration of the PCI
+would allow comparable cross-calibration of the PCI
 with plasma fluctuations rather than sound waves.
-To see this, note that the cross calibration requires
+To see this, note that the cross-calibration requires
 accounting for the wavenumber transfer functions
 of both the PCI and the heterodyne interferometer.
-Sound waves are currently used for the cross calibration
+Sound waves are currently used for the cross-calibration
 because their wavenumber can be unambiguously inferred
 from their measured frequency via the sound-wave dispersion relation.
 However, a detector array can measure the wavenumber directly,
-allowing cross calibration with arbitrary
+allowing cross-calibration with arbitrary
 (albeit moderate-$k$) plasma fluctuations.
 Such a capability would allow robust and accurate evaluation
 of the PCI calibration on a shot-to-shot and an intra-shot basis.
