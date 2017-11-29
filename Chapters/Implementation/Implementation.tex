@@ -1,22 +1,23 @@
 \chapter{Implementation of a combined PCI-interferometer on \diiid}
 \label{ch:Implementation}
 
-Section~\ref{sec:Implementation:d3d_ports}
-briefly reviews optical-diagnostic access on \diiid, and
-Section~\ref{sec:Implementation:PCI}
-discusses the relevant hardware and capabilities
+Section~\ref{sec:Implementation:d3d_ports} briefly reviews
+optical-diagnostic access on \diiid, and
+Section~\ref{sec:Implementation:PCI} discusses
+the relevant hardware and capabilities
 of \diiid's pre-existing PCI system.
-Section~\ref{sec:Implementation:OpticalLayout}
-examines the heterodyne-interferometer optical layout, which
-sets the interferometer's wavenumber response,
-governs the injection of laser phase noise
-into the interferometer's measurements, and
+Section~\ref{sec:Implementation:OpticalLayout} examines
+the heterodyne-interferometer optical layout, which
+sets the interferometer's wavenumber response and
 influences the interferometer's sensitivity
 to vibration-induced misalignment and
 small uncertainties in component placement.
+Section~\ref{sec:Implementation:PowerDistribution} then develops
+a simple model to investigate the distribution
+of the laser's finite optical power
+between the PCI and heterodyne-interferometer systems.
 
 \begin{itemize}
-  \item Section~\ref{sec:Implementation:PowerDistribution}
   \item Section~\ref{sec:Implementation:Hardware}
   \item Section~\ref{sec:Implementation:DataPreparation}
   \item Section~\ref{sec:Implementation:Noise}
@@ -1096,8 +1097,8 @@ a fraction $\eta_P$ of the beam power is diverted
 to the probe arm of the interferometer.
 Recall that the phase-plate groove is uncoated ZnSe, which
 reflects only $17\%$ of the unscattered probe beam.
-Additionally, $50\%$ of the beam power is lost at the beam combiner
-that combines the probe beam and the reference beam.
+Additionally, $50\%$ of the probe beam's power is lost
+at the beam combiner that combines the probe beam and the reference beam.
 Thus, the total probe-beam power $\mathcal{P}_P$
 at the heterodyne-interferometer detector
 is given through power conservation as
@@ -1127,8 +1128,8 @@ at the heterodyne-interferometer detector is
 The AOM produces a static $\sim 10\%$ optical insertion loss and
 deflects a fraction $\eta_R$ of the remaining beam power
 to the reference arm of the interferometer.
-Additionally, $50\%$ of the beam power is lost at the beam combiner
-that combines the probe beam and the reference beam.
+Additionally, $50\%$ of the reference beam's power is lost
+at the beam combiner that combines the probe beam and the reference beam.
 Thus, the total reference-beam power $\mathcal{P}_R$
 at the heterodyne-interferometer detector is
 \begin{equation}
@@ -1209,7 +1210,6 @@ prevents operating the heterodyne interferometer
 with intensities above $I_{\text{sat}}$.
 This inability to operate above $I_{\text{sat}}$ can be compensated
 by actively cooling the detector to improve its sensitivity.
-\graffito{\textcolor{red}{Describe elsewhere?}}
 The interferometer described in this thesis
 uses two-stage thermoelectric cooling
 to cool the detector to $T \sim \SI{230}{\kelvin}$,
