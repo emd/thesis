@@ -154,8 +154,10 @@ where $\lambda_0 = 2 \pi / k_0$ is the beam wavelength, and
 $\lambda_0 = \SI{10.6}{\micro\meter}$ and
 $s_x = \SI{1}{\milli\meter}$
 have been used for the evaluation.
-Coalignment constraint (\ref{eq:DesignConsiderations:coalignment_constraint})
-has design implications for CO$_2$ interferometers
+While coalignment constraint
+(\ref{eq:DesignConsiderations:coalignment_constraint})
+is relatively easy to satisfy during a system alignment,
+it does have design implications for CO$_2$ interferometers
 that are built for magnetic fusion experiments, which
 are often characterized by large, pulsed electromagnets
 whose operation may contort the machine and produce vibrations,
@@ -403,8 +405,9 @@ is referred to as the finite sampling-volume effect~\cite{bravenec_rsi95}.
 Finite sampling-volume effects dictate
 a heterodyne interferometer's wavenumber response~\cite{davis_rsi16}.
 To see this, assume that measurements
-are made with the detector array shown in
-Fig.~\ref{fig:DesignConsiderations:detector_array}.
+are made with the array of rectangular detector elements shown in
+Fig.~\ref{fig:DesignConsiderations:detector_array}
+(for circular elements, see Coda's discussion~\cite[Sec.~3.7]{coda_phd}).
 Let the $j$\ts{th} detector element $D_j$ be centered on $x_{\image,j}$
 and $y_{\image} = 0$.
 Integrating the optical intensity $\tilde{I}_{IQ}(\vect{r}_{\image}, t)$
@@ -1146,8 +1149,8 @@ as defined in Appendix~\ref{app:OscillatorPhaseNoise}.
 
 \section{Amplitude noise: sources \& effects}
 \label{sec:DesignConsiderations:amplitude_noise}
-Detector noise and shot noise are typically
-the largest contributors to amplitude noise
+Detector noise and optical shot noise are
+omnipresent contributors to amplitude noise
 in the heterodyne interference signal, while
 a noisy amplifier can degrade the signal-to-noise ratio.
 The demodulation of such amplitude noise
@@ -1339,11 +1342,11 @@ Thus, the one-sided autospectral density of the demodulated detector noise
 \end{equation}
 
 
-\subsection{Shot noise}
+\subsection{Optical shot noise}
 \label{sec:DesignConsiderations:amplitude_noise:shot}
 The discrete nature of the arriving photons results in shot noise.
 Well-modeled as a Poisson process,
-the shot noise increases as $N_{\gamma}^{1/2}$, where
+the optical shot noise increases as $N_{\gamma}^{1/2}$, where
 $N_{\gamma}$ is the number of incident photons.
 Because the incident optical power (and hence the number of incident photons)
 in the heterodyne optical signal is modulated as a function of time,
@@ -1393,7 +1396,7 @@ Rakhmanov notes that
 corresponds to the well-known Schottky formula.
 
 Note that comparing the spectral density
-of the demodulated shot noise
+of the demodulated optical shot noise
 to the spectral density of the measured phase
 (with the phase having units of radians)
 requires converting
@@ -1411,7 +1414,8 @@ $P_P$ is the optical power of the probe beam impinging on the detector, and
 $P_R$ is the optical power of the reference beam impinging on the detector.
 Additionally, the DC optical power impinging upon the detector is
 $P_0 = P_P + P_R$.
-Thus, the one-sided autospectral density of the demodulated shot noise
+Thus, the one-sided autospectral density
+of the demodulated optical shot noise
 (in angular units of $\SI{}{\radian\squared\per\Hz}$) is
 \begin{equation}
   \left.
@@ -1863,7 +1867,7 @@ Thus, the \emph{relative} error in the measured fluctuating phase is
   \left. \frac{d(\delta\phi)}{d\phi} \right|_{\bar{\phi}}.
   \label{eq:DesignConsiderations:relative_fluctuation_error}
 \end{equation}
-The $I\&Q$ Lissajous curves and
+Synthetic $I\&Q$ Lissajous curves and
 the relative errors in the measured fluctuating phase
 that result from various demodulator imperfections
 are displayed in
@@ -1880,7 +1884,7 @@ in the measured fluctuating phase.
     Demodulator imperfections produce errors in the measured phase.
     The left column displays the Lissajous curves
     that result from plotting
-    the quadrature $Q$ vs.\ in-phase $I$ signals, while
+    synthetic quadrature $Q$ vs.\ in-phase $I$ signals, while
     the right column plots the relative error
     $\delta\tilde{\phi} / \tilde{\phi}$
     in the measured fluctuating phase
@@ -2365,9 +2369,10 @@ are summarized below:
     vary weakly over the face of the detector element.
     See Section~\ref{sec:DesignConsiderations:amplitude_noise:detector}
     for more details.
-  \item \emph{Shot noise} is demodulated and
+  \item \emph{Optical shot noise} is demodulated and
     contaminates a heterodyne interferometer's measurements.
-    The one-sided autospectral density of the demodulated shot noise
+    The one-sided autospectral density
+    of the demodulated optical shot noise
     (in angular units of $\SI{}{\radian\squared\per\Hz}$) is
     \begin{equation}
       G(f)

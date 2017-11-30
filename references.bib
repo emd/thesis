@@ -5,10 +5,12 @@
 @string{bstj = {Bell Sys. Tech. J.}}
 @string{fst = {Fusion Sci. Tech.}}
 @string{jap = {J. Appl. Phys.}}
+@string{joapao = {J. Opt. A: Pure Appl. Opt.}}
 @string{josa = {J. Opt. Soc. Am.}}
 @string{josaa = {J. Opt. Soc. Am. A}}
 @string{ieee_ps = {IEEE Trans. Plasma Sci.}}
 @string{ieee_pami = {IEEE Trans. Pattern Analysis \& Machine Intelligence}}
+@string{ipt = {Infrared Phys. Tech.}}
 @string{nf  = {Nucl. Fusion}}
 @string{pf  = {Phys. Fluids}}
 @string{pfb = {Phys. Fluids B}}
@@ -620,6 +622,31 @@
 }
 
 
+@manual{linear_technology_high_speed_amplifier_tech,
+  author = {J. Williams},
+  organization = {Linear Technology},
+  title = {High Speed Amplifier Techniques: A Designer’s Companion for Wideband Circuitry (AN47)},
+  number = {AN47},
+  year = {1991},
+  month = {Aug.},
+  note = {Rev.~A},
+  url = {http://cds.linear.com/docs/en/application-note/an47fa.pdf}
+}
+
+
+@article{marchetti_ipt06,
+  author = {S. Marchetti and R. Simili},
+  title = {Accurate measurement of the refractive index of {CO2}, {N2}, {He}, {O2}, and air at $10.57 \, \mu \text{m}$ and ${T} = 23^{\circ}\text{C}$},
+  journal = ipt,
+  volume = {47},
+  number = {3},
+  pages = {263-266},
+  year = {2006},
+  issn = {1350-4495},
+  url = {http://www.sciencedirect.com/science/article/pii/S1350449504001537}
+}
+
+
 @misc{marinoni_FB_detector_report,
   author = {Marinoni, A.},
   title = {{PCI} feedback detector report},
@@ -656,6 +683,19 @@
   title = {Plasma fluctuation studies in the {TCV} tokamak: modeling of shaping effects and advanced diagnostic development},
   school = {EPFL},
   year = {2009}
+}
+
+
+@article{mathar_N_IR_07,
+  author = {R. J. Mathar},
+  title = {Refractive index of humid air in the infrared: model fits},
+  journal = joapao,
+  volume = {9},
+  number = {5},
+  pages = {470},
+  url = {https://doi.org/10.1088/1464-4258/9/5/008},
+  year = {2007},
+  abstract = {The theory of summation of electromagnetic line transitions is summarized in terms of the Taylor expansion of the refractive index of humid air as a function of the basic independent parameters (temperature, pressure, humidity, wavelength) in five separate infrared regions from the H to the Q band at a fixed percentage of carbon dioxide. These are least-squares fits to raw, highly resolved spectra for a set of temperatures from 10 to 25 °C, a set of pressures from 500 to 1023 hPa and a set of relative humidities from 5 to 60%. These choices reflect the prospective application to characterize ambient air at mountain altitudes of astronomical telescopes.}
 }
 
 
@@ -806,6 +846,17 @@
 }
 
 
+@book{numerical_recipes,
+  author = {W. H. Press and S. A. Teukolsky and W. T. Vetterling and B. P. Flannery},
+  title = {Numerical Recipes: The Art of Scientific Computing},
+  publisher = {Cambridge University Press},
+  year = {2007},
+  address = {New York, NY, USA},
+  edition = {3rd},
+  isbn = {978-0-521-88068-8}
+}
+
+
 @book{oppenheim,
   author = {A. V. Oppenheim and R. W. Schafer},
   title = {Discrete-Time Signal Processing},
@@ -828,6 +879,13 @@
   doi = {10.1088/0029-5515/57/1/014001},
   year = {2017},
   abstract = {A first-ever demonstration of controlling power and torque injection through time evolution of neutral beam energy has been achieved in recent experiments at the DIII-D tokamak (Luxon 2002 Nucl. Fusion 42 614). Pre-programmed waveforms for the neutral beam energy produce power and torque inputs that can be separately and continuously controlled. Previously, these inputs were tailored using on/off modulation of neutral beams resulting in large perturbations (e.g. power swings of over 1 MW). The new method includes, importantly for experiments, the ability to maintain a fixed injected power while varying the torque. In another case, different beam energy waveforms (in the same plasma conditions) produce significant changes in the observed spectrum of beam ion-driven instabilities. Measurements of beam ion loss show that one energy waveform results in the complete avoidance of coherent losses due to Alfvénic instabilities. This new method of neutral beam operation is intended for further application in a variety of DIII-D experiments including those concerned with high-performance steady state scenarios, fast particle effects, and transport in the low torque regime. Developing this capability would provide similar benefits and improved plasma control for other magnetic confinement fusion facilities.}
+}
+
+
+@misc{radial_basis_function_stackoverflow,
+  title = {How can {I} perform two-dimensional interpolation using scipy?},
+  howpublished = {\url{https://stackoverflow.com/a/37872172/5469497}},
+  note = {Accessed: 2017-11-25}
 }
 
 
@@ -868,6 +926,14 @@
   pages = {75--84},
   url = {http://link.springer.com/article/10.1007/BF03046238},
   doi = {10.1007/BF03046238}
+}
+
+
+@misc{refractive_index_database,
+  author = {M. N. Polyanskiy},
+  title = {Refractive index database},
+  howpublished = {\url{https://refractiveindex.info/?shelf=other&book=air&page=Mathar-7.5}},
+  note = {Accessed on 2017-11-26}
 }
 
 
@@ -957,6 +1023,16 @@
 }
 
 
+@manual{scipy_radial_basis_function,
+  organization = {The Scipy community},
+  title = {scipy.interpolate.Rbf (v0.19.1)},
+  number = {0.19.1},
+  year = {2017},
+  month = {June},
+  url = {https://docs.scipy.org/doc/scipy-0.19.1/reference/generated/scipy.interpolate.Rbf.html}
+}
+
+
 @article{self83,
   author = {S. A. Self},
   journal = ao,
@@ -1004,6 +1080,14 @@
   year = {1992},
   address = {New York, NY, USA},
   isbn = {0-88318-859-7}
+}
+
+
+@misc{stone_index_of_refraction_of_air,
+  author = {J. A. Stone and J. H. Zimmerman},
+  title = {Refractive Index of Air Calculator},
+  howpublished = {\url{http://emtoolbox.nist.gov/Wavelength/Documentation.asp}},
+  note = {Accessed on 2017-11-26}
 }
 
 
@@ -1168,6 +1252,14 @@
   address = {Cambridge, UK},
   isbn = {9780521886710},
   http = {http://www.mit.bme.hu/books/quantization/},
+}
+
+
+@misc{young_refractivity_of_air,
+  author = {A. T. Young},
+  title = {Refractivity of Air},
+  howpublished = {\url{http://aty.sdsu.edu/explain/atmos_refr/air_refr.html}},
+  note = {Accessed on 2017-11-26}
 }
 
 
