@@ -1196,6 +1196,31 @@ at the heterodyne-interferometer detector is
 
 \subsection{Constraining the distribution of optical power}
 \label{sec:Implementation:PowerDistribution:constraints}
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/Implementation/figs/power_distribution.pdf}
+  \caption[Constraints on the distribution of optical power]{%
+    Constraints on the distribution of optical power
+    in the combined PCI-interferometer.
+    The AOM deflection efficiency,
+    which governs the fraction $\eta_R$
+    of beam power diverted to the interferometer reference arm,
+    is displayed along the $x$-axis.
+    The fraction $\eta_P$ of probe-beam power
+    (immediately upstream of the phase plate)
+    diverted to the interferometer probe arm
+    is displayed along the $y$-axis.
+    All intensities correspond to peak, on-axis values.
+    The design point is marked with a burgundy diamond;
+    note that $\eta_P = 0.25$ is fixed for the installed splitter, but
+    varying the AOM RF power readily changes $\eta_R$,
+    allowing easy movement along the horizontal dashed line.
+    See text for discussion.
+  }
+\label{fig:Implementation:power_distribution}
+\end{figure}
+
 Suitably distributing the optical power in the combined PCI-interferometer
 is an exercise in constrained optimization.
 The objective function is the optical power
@@ -1285,31 +1310,6 @@ of the ZnSe splitter located upstream of the phase plate
 then, during an alignment, $\eta_R$ is increased slowly
 until the cooling capacity of the detector is reached.
 
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/Implementation/figs/power_distribution.pdf}
-  \caption[Constraints on the distribution of optical power]{%
-    Constraints on the distribution of optical power
-    in the combined PCI-interferometer.
-    The AOM deflection efficiency,
-    which governs the fraction $\eta_R$
-    of beam power diverted to the interferometer reference arm,
-    is displayed along the $x$-axis.
-    The fraction $\eta_P$ of probe-beam power
-    (immediately upstream of the phase plate)
-    diverted to the interferometer probe arm
-    is displayed along the $y$-axis.
-    All intensities correspond to peak, on-axis values.
-    The design point is marked with a burgundy diamond;
-    note that $\eta_P = 0.25$ is fixed for the installed splitter, but
-    varying the AOM RF power readily changes $\eta_R$,
-    allowing easy movement along the horizontal dashed line.
-    See text for discussion.
-  }
-\label{fig:Implementation:power_distribution}
-\end{figure}
-
 
 \section{Dedicated heterodyne-interferometer hardware}
 \label{sec:Implementation:Hardware}
@@ -1333,7 +1333,6 @@ of the heterodyne interferometer's dedicated hardware.
 
 \subsection{Oven-controlled crystal oscillator (OCXO)}
 \label{sec:Implementation:Hardware:OCXO}
-\graffito{\textcolor{red}{cite AoE?}}
 Placing a crystal oscillator (XO) in a constant-temperature thermal bath
 substantially improves the XO stability,
 dramatically reducing the XO phase noise.
@@ -1368,6 +1367,15 @@ The OCXO phase noise is
 The conversion between $\text{dBc}$ and
 $\SI{}{\radian\squared\per\hertz}$ is discussed
 in Appendix~\ref{app:OscillatorPhaseNoise}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/Implementation/figs/OCXO_module.pdf}
+  \caption[Schematic for OCXO rack-mounted module]{%
+    Schematic for OCXO rack-mounted module. See text for details.}
+  \label{fig:Implementation:OCXO_module}
+\end{figure}
 
 A custom, rack-mounted module was built to house the OCXO.
 The module housing protects the OCXO from rough handling and
@@ -1421,15 +1429,6 @@ Finally, a switch at the rear of the module
 allows one to easily toggle the module grounding between
 the electrical mains (i.e.\ for bench testing) and
 the PCI rack (i.e.\ for operations).
-
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/Implementation/figs/OCXO_module.pdf}
-  \caption[Schematic for OCXO rack-mounted module]{%
-    Schematic for OCXO rack-mounted module. See text for details.}
-  \label{fig:Implementation:OCXO_module}
-\end{figure}
 
 
 \subsection{AOM RF driver}
@@ -1499,6 +1498,25 @@ Modest thermoelectric (TE) cooling, however,
 can engender some of the positive aspects of cooling while
 maintaining sufficient time resolution.
 
+\begin{figure}
+  \centering
+  \includegraphics[width = 0.6 \textwidth]{%
+    Chapters/Implementation/figs/detector.jpg}
+  \caption[Detector module]{%
+    The heterodyne interferometer's detector module.
+    The detector element and thermoelectric (TE) cooler
+    are enclosed within the TO-$8$ silver ``can'' at middle left.
+    The blue housing encloses additional TE-cooling components and
+    the detector preamplifier.
+    A heat sink and small fan are located opposite of the detector face.
+    The female SMA connector (for detector output) and
+    the receptacle for a $9$-pin LEMO cable
+    (for communication with the module controller)
+    sit on the unpictured side of the detector module.
+  }
+\label{fig:Implementation:detector}
+\end{figure}
+
 The $\SI{30}{\mega\hertz}$ heterodyne-interference signal is measured with
 a {PVM-$2$TE-$10.6$} detector element mounted on a MIPACv$2$ detection module,
 both procured from VIGO System S.A. (Ozarow Mazowiecki, Poland).
@@ -1537,25 +1555,6 @@ taken as an integrated unit is
 \end{equation}
 The detector module is pictured in
 Fig.~\ref{fig:Implementation:detector}.
-
-\begin{figure}
-  \centering
-  \includegraphics[width = 0.6 \textwidth]{%
-    Chapters/Implementation/figs/detector.jpg}
-  \caption[Detector module]{%
-    The heterodyne interferometer's detector module.
-    The detector element and thermoelectric (TE) cooler
-    are enclosed within the TO-$8$ silver ``can'' at middle left.
-    The blue housing encloses additional TE-cooling components and
-    the detector preamplifier.
-    A heat sink and small fan are located opposite of the detector face.
-    The female SMA connector (for detector output) and
-    the receptacle for a $9$-pin LEMO cable
-    (for communication with the module controller)
-    sit on the unpictured side of the detector module.
-  }
-\label{fig:Implementation:detector}
-\end{figure}
 
 
 \subsection{Coaxial cables to \diiid\space annex}
@@ -1752,7 +1751,7 @@ is $10^4$ \emph{larger} than when $\eta_{\text{dyn}} = 1$.
 Fig.~\ref{fig:Implementation:signal_and_noise}
 compares the quantization noise for $\eta_{\text{dyn}} \approx 1$
 to typical plasma fluctuations
--- clearly, $\eta_{\text{dyn}} = 0.01$
+--- clearly, $\eta_{\text{dyn}} = 0.01$
 would produce unacceptably large quantization noise
 that would mask all but the largest plasma fluctuations.
 To minimize quantization noise, then, the $I$ and $Q$ signals
@@ -2125,7 +2124,7 @@ exhibits ``ringing'', with nulls at
 frequencies that are integer multiples of $1 / \tau$.
 Such nulls were observed in the interferometer-measured spectrum
 at integer multiples of $f \approx \SI{400}{\kilo\hertz}$,
-implying that the AOM coupling time is
+implying an AOM coupling time of
 \begin{equation}
   \tau \approx \SI{2.5}{\micro\second},
   \label{eq:Implementation:AOM_coupling_time}
@@ -2144,6 +2143,27 @@ As expected, the delay line eliminated the injection of LO phase noise
 into the heterodyne interferometer, and
 a whole host of coherent and broadband plasma fluctuations
 were subsequently measured with the system.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/Implementation/figs/electrical_pickup.pdf}
+  \caption[Delay-line electrical pickup during \diiid\space operations]{%
+    Delay-line electrical pickup during \diiid\space operations.
+    Delay-line length $L$ is indicated
+    (the $6$-digit numbers in parentheses indicate
+    the corresponding \diiid\space shot).
+    Clearly, even a $\SI{250}{\meter}$ delay line
+    suffers from electrical pickup during \diiid\space operations.
+    With the $\SI{2.5}{\micro\second}$ AOM coupling time
+    (\ref{eq:Implementation:AOM_coupling_time}),
+    compensating for poor LO stability
+    requires a $\SI{500}{\meter}$ delay line.
+    The delay line can be eliminated ($L = 0$)
+    when a more stable LO is used.
+  }
+\label{fig:Implementation:electrical_pickup}
+\end{figure}
 
 However, it was suspected that the use of a $\SI{500}{\meter}$ delay line
 increased the system's susceptibility to electrical pickup,
@@ -2167,27 +2187,6 @@ the broadband electrical pickup between
 $\sim \SI{100}{\kilo\hertz}$ and $\sim \SI{400}{\kilo\hertz}$
 is particularly constraining,
 as many plasma fluctuations of interest occupy this frequency range.
-
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/Implementation/figs/electrical_pickup.pdf}
-  \caption[Delay-line electrical pickup during \diiid\space operations]{%
-    Delay-line electrical pickup during \diiid\space operations.
-    Delay-line length $L$ is indicated
-    (the $6$-digit numbers in parentheses indicate
-    the corresponding \diiid\space shot).
-    Clearly, even a $\SI{250}{\meter}$ delay line
-    suffers from electrical pickup during \diiid\space operations.
-    With the $\SI{2.5}{\micro\second}$ AOM coupling time
-    (\ref{eq:Implementation:AOM_coupling_time}),
-    compensating for poor LO stability
-    requires a $\SI{500}{\meter}$ delay line.
-    The delay line can be eliminated ($L = 0$)
-    when a more stable LO is used.
-  }
-\label{fig:Implementation:electrical_pickup}
-\end{figure}
 
 The above noise issues were resolved by procuring the OCXO described in
 Section~\ref{sec:Implementation:Hardware:OCXO}.
@@ -2480,6 +2479,35 @@ The sound waves used throughout this work
 are characterized in detail with an absolutely calibrated microphone
 in Appendix~\ref{app:SoundWaveCharacterization}.
 
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/Implementation/figs/interferometer_measured_vs_expected.pdf}
+  \caption[Sound-wave verification of heterodyne-interferometer response]{%
+    Sound-wave verification of heterodyne-interferometer response.
+    In diagnostic test shot $1152$,
+    a speaker was centered beneath the interferometer probe beam, and
+    swept-frequency sound waves were driven orthogonally through the beam.
+    The interferometer-measured variance of the resulting phase fluctuations
+    is indicated by the solid black trace.
+    The shaded blue region indicates the predicted variance
+    (\ref{eq:Implementation:predicted_sound_wave_phase_shift_variance_nonideal}),
+    where $\text{var}(\tilde{\phi}_{\text{CO}_2})$
+    is computed from Appendix~\ref{app:SoundWaveCharacterization}'s
+    measurements with a calibrated microphone
+    of the sound waves' absolute pressure perturbations.
+    Note that the variance predicted here differs from that in
+    Fig.~\ref{fig:SoundWaveCharacterization:phase_shift}
+    due to the inclusion of the interferometer's
+    finite sampling-volume effects and noise.
+    Further, the apparent increase in noise at low-$k$
+    actually corresponds to low-$f$ vibrational noise;
+    that is, low-$k$ \emph{plasma} fluctuations
+    at higher frequencies will not be plagued by this noise.
+  }
+\label{fig:Implementation:interferometer_measured_vs_expected}
+\end{figure}
+
 The response of the heterodyne interferometer to the sound waves
 can be \emph{predicted} from the measurements
 of the sound-wave pressure perturbations.
@@ -2551,35 +2579,6 @@ compares the predicted variance
 to the interferometer-measured variance,
 indicating very good agreement.
 
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/Implementation/figs/interferometer_measured_vs_expected.pdf}
-  \caption[Sound-wave verification of heterodyne-interferometer response]{%
-    Sound-wave verification of heterodyne-interferometer response.
-    In diagnostic test shot $1152$,
-    a speaker was centered beneath the interferometer probe beam, and
-    swept-frequency sound waves were driven orthogonally through the beam.
-    The interferometer-measured variance of the resulting phase fluctuations
-    is indicated by the solid black trace.
-    The shaded blue region indicates the predicted variance
-    (\ref{eq:Implementation:predicted_sound_wave_phase_shift_variance_nonideal}),
-    where $\text{var}(\tilde{\phi}_{\text{CO}_2})$
-    is computed from Appendix~\ref{app:SoundWaveCharacterization}'s
-    measurements with a calibrated microphone
-    of the sound waves' absolute pressure perturbations.
-    Note that the variance predicted here differs from that in
-    Fig.~\ref{fig:SoundWaveCharacterization:phase_shift}
-    due to the inclusion of the interferometer's
-    finite sampling-volume effects and noise.
-    Further, the apparent increase in noise at low-$k$
-    actually corresponds to low-$f$ vibrational noise;
-    that is, low-$k$ \emph{plasma} fluctuations
-    at higher frequencies will not be plagued by this noise.
-  }
-\label{fig:Implementation:interferometer_measured_vs_expected}
-\end{figure}
-
 
 \subsection{Cross-calibration of PCI}
 \label{sec:Implementation:Calibration:pci}
@@ -2600,6 +2599,44 @@ However, an independent and quite possibly more accurate approach
 is to cross-calibrate the PCI measurements
 against the absolute phase measurements
 of the heterodyne interferometer.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/Implementation/figs/cross_calibration.pdf}
+  \caption[Cross-calibration of PCI]{%
+    The PCI can be very accurately calibrated
+    against the absolute measurements of the heterodyne interferometer.
+    The results are demonstrated here for diagnostic test shot $1152$.
+    The interferometer signal corresponds to
+    the solid black trace in
+    Fig.~\ref{fig:Implementation:interferometer_measured_vs_expected}
+    \emph{after} compensating for the attenuation of the high-$k$ signal
+    by finite sampling-volume effects;
+    the corresponding dash-dot line for $k \geq \SI{3.5}{\per\centi\meter}$
+    is dominated by noise, so the finite sampling-volume compensation
+    fails to produce accurate values of the sound-wave variance
+    in this region.
+    The dash-dot line for $k \leq \SI{2}{\per\centi\meter}$
+    corresponds to the cutoff PCI signal
+    (note that the signal enters cutoff somewhat above
+    the nominal low-$k$ cutoff of $\SI{1.5}{\per\centi\meter}$
+    from (\ref{eq:Implementation:kg_realized})).
+    The robust response of the combined system
+    across the surveyed wavenumber range
+    demonstrates the complementary nature
+    of the interferometer and PCI measurements and
+    confirms the ability of the combined system
+    to simultaneously monitor low-$k$ and high-$k$ instabilities.
+    Also shown are the system noise floors;
+    the enhanced signal-to-noise ratio of the PCI
+    relative to the heterodyne interferometer
+    is in order-of-magnitude agreement with
+    the transfer-function predictions in
+    Fig.~\ref{fig:InterferometricMethods:interferometric_method_transfer_functions}.
+  }
+\label{fig:Implementation:cross_calibration}
+\end{figure}
 
 As the current heterodyne-interferometer implementation
 only utilizes a single detector element,
@@ -2666,44 +2703,6 @@ displays the cross-calibration,
 indicating very good agreement for sound-wave wavenumbers between
 $\SI{2}{\per\centi\meter}$ and $\SI{3.5}{\per\centi\meter}$.
 
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/Implementation/figs/cross_calibration.pdf}
-  \caption[Cross-calibration of PCI]{%
-    The PCI can be very accurately calibrated
-    against the absolute measurements of the heterodyne interferometer.
-    The results are demonstrated here for diagnostic test shot $1152$.
-    The interferometer signal corresponds to
-    the solid black trace in
-    Fig.~\ref{fig:Implementation:interferometer_measured_vs_expected}
-    \emph{after} compensating for the attenuation of the high-$k$ signal
-    by finite sampling-volume effects;
-    the corresponding dash-dot line for $k \geq \SI{3.5}{\per\centi\meter}$
-    is dominated by noise, so the finite sampling-volume compensation
-    fails to produce accurate values of the sound-wave variance
-    in this region.
-    The dash-dot line for $k \leq \SI{2}{\per\centi\meter}$
-    corresponds to the cutoff PCI signal
-    (note that the signal enters cutoff somewhat above
-    the nominal low-$k$ cutoff of $\SI{1.5}{\per\centi\meter}$
-    from (\ref{eq:Implementation:kg_realized})).
-    The robust response of the combined system
-    across the surveyed wavenumber range
-    demonstrates the complementary nature
-    of the interferometer and PCI measurements and
-    confirms the ability of the combined system
-    to simultaneously monitor low-$k$ and high-$k$ instabilities.
-    Also shown are the system noise floors;
-    the enhanced signal-to-noise ratio of the PCI
-    relative to the heterodyne interferometer
-    is in order-of-magnitude agreement with
-    the transfer-function predictions in
-    Fig.~\ref{fig:InterferometricMethods:interferometric_method_transfer_functions}.
-  }
-\label{fig:Implementation:cross_calibration}
-\end{figure}
-
 Upgrading the heterodyne-interferometer detector
 from a single element to a multi-element array
 would allow comparable cross-calibration of the PCI
@@ -2721,36 +2720,36 @@ Such a capability would allow robust and accurate evaluation
 of the PCI calibration on a shot-to-shot and an intra-shot basis.
 
 
-\begin{table}[ht]
-  \centering
-  \renewcommand{\arraystretch}{1.5}% Spread rows out...
-  \begin{tabular}{%
-    >{\centering}m{3.0cm} >{\centering}m{4.5cm} >{\centering}m{4.5cm}
-  }
-    \toprule%
-    \textbf{Parameter} & \textbf{PCI} & \textbf{Interferometer}
-    \tabularnewline%
-    \midrule
-    \textbf{probe beam} & single CO$_2$ beam & single CO$_2$ beam
-    \tabularnewline%
-    \textbf{frequency bandwidth}
-    & \SI{10}{\kilo\hertz} $ < f < $ \SI{2}{\mega\hertz}
-    & \SI{10}{\kilo\hertz} $ < f < $ \SI{2}{\mega\hertz}
-    \tabularnewline%
-    \textbf{spatial bandwidth}
-    & \SI{1.5}{\centi\meter}\ts{-1} $ < k < $ \SI{20}{\centi\meter}\ts{-1}
-    & \SI{0}{\centi\meter}\ts{-1} $ < k < $ \SI{5}{\centi\meter}\ts{-1}
-    \tabularnewline%
-    \toprule%
-  \end{tabular}
-  \caption[Parameters of \diiid's combined PCI-interferometer]{%
-    PCI and interferometry have compatible probe beams, comparable
-    frequency bandwidths, and \emph{complementary} spatial bandwidths.
-    All parameters are for DIII-D's currently implemented PCI--interferometer
-    system.
-  }%
-\label{table:Implementation:PCI_interferometer}
-\end{table}
+% \begin{table}[ht]
+%   \centering
+%   \renewcommand{\arraystretch}{1.5}% Spread rows out...
+%   \begin{tabular}{%
+%     >{\centering}m{3.0cm} >{\centering}m{4.5cm} >{\centering}m{4.5cm}
+%   }
+%     \toprule%
+%     \textbf{Parameter} & \textbf{PCI} & \textbf{Interferometer}
+%     \tabularnewline%
+%     \midrule
+%     \textbf{probe beam} & single CO$_2$ beam & single CO$_2$ beam
+%     \tabularnewline%
+%     \textbf{frequency bandwidth}
+%     & \SI{10}{\kilo\hertz} $ < f < $ \SI{2}{\mega\hertz}
+%     & \SI{10}{\kilo\hertz} $ < f < $ \SI{2}{\mega\hertz}
+%     \tabularnewline%
+%     \textbf{spatial bandwidth}
+%     & \SI{1.5}{\centi\meter}\ts{-1} $ < k < $ \SI{20}{\centi\meter}\ts{-1}
+%     & \SI{0}{\centi\meter}\ts{-1} $ < k < $ \SI{5}{\centi\meter}\ts{-1}
+%     \tabularnewline%
+%     \toprule%
+%   \end{tabular}
+%   \caption[Parameters of \diiid's combined PCI-interferometer]{%
+%     PCI and interferometry have compatible probe beams, comparable
+%     frequency bandwidths, and \emph{complementary} spatial bandwidths.
+%     All parameters are for DIII-D's currently implemented PCI--interferometer
+%     system.
+%   }%
+% \label{table:Implementation:PCI_interferometer}
+% \end{table}
 
 
 % \section{Looking towards ITER\ldots}
