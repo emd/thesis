@@ -1,5 +1,6 @@
 \newcommand{\nom}{\text{nom}}
 \newcommand{\trig}{\text{trig}}
+\newcommand{\meas}{\text{meas}}
 
 
 \chapter{Synchronization of digital records}
@@ -48,7 +49,7 @@ becomes paramount in importance.
 \label{app:DigitizerSynchronization:digitization_schemes}
 The digitization scheme determines
 whether or not digital records
-$\{x_j[n]\}$ and $\{x_k[n]\}$
+$\{x_j[m]\}$ and $\{x_k[m]\}$
 can be synchronized.
 The cleanest, simplest, and most problem-free scheme
 is to digitize $x_j(t)$ and $x_k(t)$ on the \emph{same} system
@@ -147,6 +148,63 @@ is valid even when $F_j^{\nom} \neq F_k^{\nom}$
 can be upconverted or downconverted~\cite[Sec.~4.6]{oppenheim}
 to the same nominal sampling rate, and
 then (\ref{eq:DigitizerSynchronization:trigger_offset}) applies).
+
+
+\subsection{Effect of the trigger offset}
+The trigger offset (\ref{eq:DigitizerSynchronization:trigger_offset})
+biases the phase of the digital record.
+To see this, let $x_j(t)$ be a coherent mode
+of angular frequency $\omega$ such that
+the corresponding digital record is
+\begin{align}
+  x_j[m]
+  &=
+  x_j(t_j[m])
+  \notag \\
+  &=
+  X_j(\omega) e^{-i \omega t_j[m]}
+  \notag \\
+  &=
+  |X_j(\omega)| e^{i \{ \alpha_j(\omega) - \omega t_j[m]\}},
+\end{align}
+where $|X_j(\omega)|$ is the Fourier amplitude and
+$\alpha_j(\omega)$ is the Fourier phase.
+Then, the \emph{measured} phase difference $\Delta \alpha_{\meas}$
+between digital records $\{x_j[m]\}$ and $\{x_k[m]\}$ is
+\begin{align}
+  \Delta \alpha_{\meas}
+  &=
+  \arg\left(
+    x_k^*[m]
+    \cdot
+    x_j[m]
+  \right)
+  \notag \\
+  &=
+  \left[
+    \alpha_j(\omega)
+    -
+    \alpha_k(\omega)
+  \right]
+  -
+  \omega
+  \left(
+    t_j[m] - t_k[m]
+  \right)
+  \notag \\
+  &=
+  \Delta \alpha(\omega)
+  -
+  \left( \omega \cdot \delta t_{\trig} \right)
+  \label{eq:DigitizerSynchronization:measured_phase_difference}
+\end{align}
+Thus, non-zero $\delta t_{\trig}$ biases
+the measured phase difference $\Delta \alpha_{\meas}$
+away from the true phase difference $\Delta \alpha$.
+The above argument readily extends to broadband signals.
+
+
+\subsection{Estimating the trigger offset}
 
 
 \bibliographystyle{plainurl}
