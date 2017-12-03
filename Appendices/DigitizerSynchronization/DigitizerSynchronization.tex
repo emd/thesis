@@ -205,6 +205,83 @@ The above argument readily extends to broadband signals.
 
 
 \subsection{Estimating the trigger offset}
+Clearly, a finite trigger offset is undesirable.
+In some situations, it is possible
+to estimate the trigger offset.
+Then, using standard techniques~\cite[Sec.~4.6]{oppenheim},
+the trigger offset can be easily compensated in post-processing,
+even if the offset is a non-integer multiple of the sample spacing.
+
+If the true phase difference $\Delta \alpha(\omega)$
+is known \emph{a priori} (from e.g.\ another measurement),
+solving for $\delta t_{\trig}$ in
+(\ref{eq:DigitizerSynchronization:measured_phase_difference})
+yields an estimated trigger offset
+\begin{equation}
+  \delta t_{\trig}
+  =
+  \frac{\Delta \alpha(\omega) - \Delta \alpha_{\meas}(\omega)}{\omega}.
+  \label{eq:DigitizerSynchronization:trigger_offset_estimate_apriori_phase}
+\end{equation}
+Although \emph{a priori} knowledge of $\Delta \alpha$ may make
+(\ref{eq:DigitizerSynchronization:trigger_offset_estimate_apriori_phase})
+seem rather academic,
+it does find real-world application.
+For example, imagine the signals from
+a regularly spaced array of channels
+are digitized across multiple digitizer boards.
+The intra-board trigger offsets are negligible
+such that the true phase difference $\Delta \alpha$
+can be accurately estimated from
+adjacent channels digitized on the same board;
+comparing this estimate of $\Delta \alpha$
+to the measured phase difference $\Delta \alpha_{\meas}$
+between adjacent channels digitized on different boards
+via (\ref{eq:DigitizerSynchronization:trigger_offset_estimate_apriori_phase})
+then yields an estimate of the trigger offset between the boards.
+This methodology is used to estimate the trigger offset
+between the two boards of the \diiid\space PCI digitizer.
+
+In addition to requiring \emph{a priori} knowledge
+of the true phase difference $\Delta \alpha$,
+trigger-offset estimate
+(\ref{eq:DigitizerSynchronization:trigger_offset_estimate_apriori_phase})
+also suffers from aliasing.
+That is, $\Delta \alpha_{\meas}$ is only measured modulo $2 \pi$ such that
+(\ref{eq:DigitizerSynchronization:trigger_offset_estimate_apriori_phase})
+specifies an infinite set of potential trigger offsets,
+with adjacent values spaced by $2 \pi / \omega$.
+This is particularly troublesome for ``large'' trigger offsets.
+
+Under certain circumstances, the trigger offset
+can be estimated alternatively in an alias-free manner.
+For example, consider a coherent mode
+with time-dependent angular frequency $\omega(t)$.
+If the angular frequency ramps linearly in time
+(i.e.\ constant $\dot{\omega} = d\omega / dt$) and
+the true phase difference $\Delta \alpha$
+does \emph{not} vary in time,
+taking the time derivative of
+(\ref{eq:DigitizerSynchronization:measured_phase_difference}) and
+solving for $\delta t_{\trig}$ yields
+\begin{equation}
+  \delta t_{\trig}
+  =
+  \frac{-1}{\dot{\omega}}
+  \frac{d\left[ \Delta \alpha_{\meas}(\omega) \right]}{dt}.
+  \label{eq:DigitizerSynchronization:trigger_offset_estimate_frequency_swept}
+\end{equation}
+Because
+(\ref{eq:DigitizerSynchronization:trigger_offset_estimate_frequency_swept})
+depends on the time derivative of $\Delta \alpha_{\meas}$,
+it is an alias-free estimate of the trigger offset.
+Further,
+(\ref{eq:DigitizerSynchronization:trigger_offset_estimate_frequency_swept})
+does \emph{not} require \emph{a priori} knowledge
+of the true phase difference $\Delta \alpha$
+(other than requiring that it be constant in time).
+This methodology is used to estimate the trigger offset
+between \diiid's two toroidally separated interferometers.
 
 
 \bibliographystyle{plainurl}
