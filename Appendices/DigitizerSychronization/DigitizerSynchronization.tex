@@ -1,0 +1,57 @@
+\newcommand{\nom}{\text{nom}}
+
+
+\chapter{Synchronization of digital records}
+\label{app:DigitizerSynchronization}
+\ldots
+Efficient conversion of an analog signal to a digital record requires
+quantization of the signal magnitude and
+temporal sampling of these quantized magnitudes~\cite{bennett_bstj48}.
+
+
+\section{Timebase of single digital record}
+Typically, temporal sampling of signal $x_j(t)$ occurs
+at a fixed sampling rate $F_j$ such that
+successive points in the digital record
+are separated in time by $1 / F_j$.
+Digitization begins at the ``trigger time'' $t_j[0]$ such that
+the time corresponding to the $m\ts{th}$ digitized point is
+\begin{equation}
+  t_j[m] = t_j[0] + \frac{m}{F_j}.
+  \label{eq:DigitizerSychronization:timebase_generic}
+\end{equation}
+Ideally, the \emph{realized} sampling rate $F_j$ and trigger time $t_j[0]$
+are equal to their \emph{nominal} values
+$F_j^{\nom}$ and $t_j^{\nom}[0]$, respectively.
+However, short-term jitter, long-term drifts, and constant offsets
+often plague real-world digitization such that
+$F_j \neq F_j^{\nom}$, $t_j[0] \neq t_j^{\nom}[0]$, and
+\begin{equation}
+  t_j[m] \neq t_j^{\nom}[0] + \frac{m}{F_j^{\nom}};
+\end{equation}
+that is, the actual time base of the digital record
+does \emph{not} equal the nominal timebase.
+In a properly operating digitizer,
+these discrepancies are typically small, and
+an autospectral-density estimate (for example)
+of $x_j(t)$ from its digital record
+will be negligibly compromised.
+When estimating the \emph{phasing}
+between $x_j(t)$ and $x_{j + k}(t)$, however,
+identifying and correcting such timebase discrepancies
+becomes paramount in importance.
+
+
+\section{Which digital records be synchronized?}
+
+
+\section{Synchronization of phase-locked digital records}
+\begin{itemize}
+  \item Trigger offset
+  \item Estimating trigger offset from constant-frequency mode
+  \item Estimating trigger offset from mode with linearly ramped frequency
+\end{itemize}
+
+
+\bibliographystyle{plainurl}
+\bibliography{references}
