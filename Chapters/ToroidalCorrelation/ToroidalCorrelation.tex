@@ -1,5 +1,6 @@
 \chapter{Correlation of \diiid's toroidally separated interferometers}
 \label{ch:ToroidalCorrelation}
+\graffito{\textcolor{red}{rephrase}}
 The toroidal structure of an MHD mode can strongly influence
 the mode's stability and its interaction with the surrounding plasma.
 A mode's toroidal structure is typically characterized
@@ -8,13 +9,14 @@ Historically, measurement of toroidal (and poloidal) mode numbers
 with magnetic loops has provided rich insight
 into the physics governing numerous operational regimes and stability limits.
 However, core-localized MHD produces weak signals outside of the plasma volume,
-making measurement of mode numbers via magnetic loops difficult or impossible.
+making measurement of the corresponding mode numbers
+via magnetic loops difficult or impossible.
 Recently, measurements from toroidally separated
 electron cyclotron emission imaging (ECEI) systems
 on the KSTAR tokamak have identified mode numbers of
 edge-localized modes~\cite{lee_rsi_2014} and
 sawteeth~\cite{choe_nf_2015},
-raising the question as to the utility of using more exotic measurements
+demonstrating the utility of using more exotic measurements
 to probe the structure of core-localized MHD.
 
 This chapter describes the use of toroidally separated interferometers
@@ -28,7 +30,7 @@ reviews the mathematics of the two-point correlation technique
 used to extract toroidal mode numbers and
 derives the resulting Nyquist mode number.
 Section~\ref{sec:ToroidalCorrelation:interferometer_measurements}
-examines the interferometer measurements in detail and
+examines the interferometric measurements in detail and
 develops a formula for the measured toroidal mode number.
 Section~\ref{sec:ToroidalCorrelation:implementation_details_and_nonideal_effects}
 describes the careful efforts to remove time-base discrepancies
@@ -45,7 +47,7 @@ The principle idea behind two-point correlation
 is to determine the spatial structure of a propagating wave
 by comparing two measurements made
 at distinct spatial locations $z_1$ and $z_2$.
-Ideally, other than a time delay, measurements 1 and 2 are identical, and
+Ideally, other than a time delay, measurements $1$ and $2$ are identical, and
 the wave's spatial structure can be determined from the measured time delay.
 If only one spectral feature is present in the signals and noise is minimal,
 a simple cross-correlation calculation may suffice to extract the time delay.
@@ -72,8 +74,8 @@ Random processes can be stationary or nonstationary.
 The statistical properties of a stationary random process
 do not vary in time, and
 the spectral tools discussed below
-were all developed for analysis of stationary random processes.
-Most of the discussion below was distilled from
+are all developed for analysis of stationary random processes.
+Most of the discussion below is distilled from
 the seminal work by Bendat and Piersol \cite{bendat_and_piersol}, and
 inquisitive readers are directed there
 for a more extensive treatment of the subject.
@@ -125,11 +127,12 @@ is a statistically consistent definition of the cross-spectral density
 (that is, ensemble averaging is needed for $G_{xy}(f)$
 to approach the true cross-spectral density
 as $T \rightarrow \infty$). % see pgs. 127, 128 of Bendat & Piersol, 4th ed.
-If, in addition to being stationary, the random process is also \emph{ergodic},
-the ensemble averaging operation can be replaced
-with an average of $X_k(f, T)$ from successive,
-potentially partially overlapping time slices
-of a single sample record.
+If, in addition to being stationary,
+the random process is also \emph{ergodic},
+the ensemble average can be replaced
+with a time average of $X_k(f, T)$
+over successive time slices.
+If desired, these time slices may partially overlap.
 Unless otherwise noted,
 all of the ensemble averages in this work are computed
 using this assumption of ergodicity, and
@@ -170,7 +173,7 @@ and it satisfies
 \end{equation}
 for $0 \leq f < \infty$.
 If $\gamma_{xy}^2(f) = 1$,
-$\{x_k(t)\}$ and $\{y_k(t)\}$ are 100\% correlated at frequency $f$, and
+$\{x_k(t)\}$ and $\{y_k(t)\}$ are $100\%$ correlated at frequency $f$, and
 if $\gamma_{xy}^2(f) = 0$,
 $\{x_k(t)\}$ and $\{y_k(t)\}$ are completely uncorrelated at frequency $f$.
 Note that the ensemble-averaging operation in
@@ -200,14 +203,17 @@ it is not uncommon to ``detrend'' realizations $x_k(t)$ and $y_k(t)$
 by subtracting the signal mean or linear trend
 prior to application of
 (\ref{eq:ToroidalCorrelation:cross_spectral_density_defn}).
-However, the author has empirically found that
+However, the author anecdotally notes that his experience with
 such detrending can lead to values of $\gamma_{xy}^2(f)$
 that unphysically exceed the bounds established in
 (\ref{eq:ToroidalCorrelation:magnitude_squared_coherence_bounds}).
-The author has not thoroughly investigated the subtleties of this discrepancy,
-nor has he explored more exotic means of detrending.
+\textcolor{red}{%
+The subtleties of such discrepancies were not investigated further,
+as all signals analyzed in this work
+are passed through the high-pass filter
+discussed in Section~XXXX.
 As a result, no detrending was applied to signals
-prior to spectral computations in this work.
+prior to spectral computations in this work.}
 
 \begin{table}[t]
   \centering
@@ -809,7 +815,7 @@ this is cleaner, simpler, and more easily extensible
 (i.e.\ easier to implement other sampling rates)
 than performing the division in hardware.
 Details of the signal routing and the clock division
-are provided in Appendix~\ref{app:ExternalClock}.
+are provided in \ldots % Appendix~\ref{app:ExternalClock}.
 Thus, as of June 2016,
 the $V2$ and PCI interferometer sampling rates
 are phase-locked.
