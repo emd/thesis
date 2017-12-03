@@ -85,14 +85,20 @@ from free-running digitizers.
 
 \section{Synchronization of phase-locked digital records}
 \label{app:DigitizerSynchronization:phase_locked_synchronization}
-\begin{itemize}
-  \item Trigger offset
-  \item Estimating trigger offset from constant-frequency mode
-  \item Estimating trigger offset from mode with linearly ramped frequency
-\end{itemize}
+This section details the synchronization of phase-locked digital records.
+Specifically, Section~\ref{app:DigitizerSynchronization:phase_locked_synchronization:trigger_offset}
+defines the ``trigger offset'' between phase-locked digital records, and
+Section~\ref{app:DigitizerSynchronization:phase_locked_synchronization:trigger_offset_effect}
+discusses the phase bias produced by a finite trigger offset.
+Section~\ref{app:DigitizerSynchronization:phase_locked_synchronization:trigger_offset_estimates}
+describes methods for estimating the trigger offset.
+Then, using standard techniques~\cite[Sec.~4.6]{oppenheim},
+the trigger offset can be compensated easily in post-processing,
+even if the offset is a non-integer multiple of the sample spacing.
 
 
 \subsection{The ``trigger offset''}
+\label{app:DigitizerSynchronization:phase_locked_synchronization:trigger_offset}
 Phase-locked digitizers can still suffer from trigger offsets.
 To see this, for digitizer $j$ define
 $\delta t_j = t_j[0] - t_j^{\nom}[0]$
@@ -151,6 +157,7 @@ then (\ref{eq:DigitizerSynchronization:trigger_offset}) applies).
 
 
 \subsection{Effect of the trigger offset}
+\label{app:DigitizerSynchronization:phase_locked_synchronization:trigger_offset_effect}
 The trigger offset (\ref{eq:DigitizerSynchronization:trigger_offset})
 biases the phase of the digital record.
 To see this, let $x_j(t)$ be a coherent mode
@@ -205,11 +212,12 @@ The above argument readily extends to broadband signals.
 
 
 \subsection{Estimating the trigger offset}
+\label{app:DigitizerSynchronization:phase_locked_synchronization:trigger_offset_estimates}
 Clearly, a finite trigger offset is undesirable.
 In some situations, it is possible
 to estimate the trigger offset.
 Then, using standard techniques~\cite[Sec.~4.6]{oppenheim},
-the trigger offset can be easily compensated in post-processing,
+the trigger offset can be compensated easily in post-processing,
 even if the offset is a non-integer multiple of the sample spacing.
 
 If the true phase difference $\Delta \alpha(\omega)$
