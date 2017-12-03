@@ -10,6 +10,7 @@ temporal sampling of these quantized magnitudes~\cite{bennett_bstj48}.
 
 
 \section{Timebase of single digital record}
+\label{app:DigitizerSynchronization:timebase_single_record}
 Typically, temporal sampling of signal $x_j(t)$ occurs
 at a fixed sampling rate $F_j$ such that
 successive points in the digital record
@@ -37,15 +38,51 @@ an autospectral-density estimate (for example)
 of $x_j(t)$ from its digital record
 will be negligibly compromised.
 When estimating the \emph{phasing}
-between $x_j(t)$ and $x_{j + k}(t)$, however,
+between $x_j(t)$ and $x_{k}(t)$ for $j \neq k$, however,
 identifying and correcting such timebase discrepancies
 becomes paramount in importance.
 
 
-\section{Which digital records be synchronized?}
+\section{Which digital records can be synchronized?}
+\label{app:DigitizerSynchronization:digitization_schemes}
+The digitization scheme determines
+whether or not digital records
+$\{x_j[n]\}$ and $\{x_k[n]\}$
+can be synchronized.
+The cleanest, simplest, and most problem-free scheme
+is to digitize $x_j(t)$ and $x_k(t)$ on the \emph{same} system
+such that the actual sample rates and trigger times
+of both digital records are identical
+(i.e.\ $F_j = F_k$ and $t_j[0] = t_k[0]$, respectively).
+However, such a scheme is not always feasible.
+Further, note that multiple digitizer boards
+operating in a master-slave configuration
+can still suffer from trigger-time offsets,
+despite nominally being part of the same digitization system.
+The next-best scheme is to use phase-locked digitizers
+such that $F_j / F_k = F_j^{\nom} / F_k^{\nom}$,
+regardless of any short-term jitter or long-term drift
+in the digitizer clocks.
+In general, phase-locked digitizers
+still suffer from trigger offsets, which result
+from the digitizers having different actual trigger times
+(i.e.\ $t_j[0] \neq t_k[0]$) and
+from each digitizer triggering at
+an actual time that differs from its nominal trigger time
+(e.g.\ $t_j[0] \neq t_j^{\nom}[0]$).
+As shown in
+Section~\ref{app:DigitizerSynchronization:phase_locked_synchronization},
+it \emph{is} possible to synchronize records
+from phase-locked digitizers.
+Finally, the least-desirable scheme
+is to use free-running digitizers
+such that $F_j / F_k \neq F_j^{\nom} / F_k^{\nom}$;
+it may be impossible to synchronize records
+from free-running digitizers.
 
 
 \section{Synchronization of phase-locked digital records}
+\label{app:DigitizerSynchronization:phase_locked_synchronization}
 \begin{itemize}
   \item Trigger offset
   \item Estimating trigger offset from constant-frequency mode
