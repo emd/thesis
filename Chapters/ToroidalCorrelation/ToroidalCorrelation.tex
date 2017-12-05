@@ -210,17 +210,21 @@ can be rewritten in terms of toroidal mode numbers as follows:
 
 \section{Toroidal correlation of interferometers}
 \label{sec:ToroidalCorrelation:Interferometers}
-% This section applies the machinery developed in
-% Section~\ref{sec:ToroidalCorrelation:TwoPointCorrelation}
-% to the measurement of toroidal mode numbers
-% with \diiid's toroidally separated, heterodyne CO$_2$ interferometers.
-% As the interferometers are capable of probing the plasma core,
-% their correlation allows direct measurement
-% of the toroidal structure of core-localized modes
-% --- a long-sought after and first-of-its-kind measurement at \diiid.
-% This novel measurement was enabled by
-% the addition of a heterodyne interferometer channel
-% to \diiid's pre-existing phase contrast imaging (PCI) system.
+This section applies two-point correlation
+to the measurement of toroidal mode numbers
+with \diiid's toroidally separated, heterodyne CO$_2$ interferometers.
+Section~\ref{sec:ToroidalCorrelation:Interferometers:diiid}
+describes the geometry of the interferometer probe beams,
+which establishes the Nyquist toroidal mode number.
+Sections~\ref{sec:ToroidalCorrelation:Interferometers:phase_fluctuations} and
+\ref{sec:ToroidalCorrelation:Interferometers:interferometer_measured_mode_number}
+then examine the relationship between
+the interferometer-measured phase fluctuations and
+the toroidal mode number.
+As the interferometers are capable of probing the plasma core,
+their correlation allows direct measurement
+of the toroidal structure of core-localized modes
+--- a long-sought after and first-of-its-kind measurement at \diiid.
 
 
 \subsection{\diiid's interferometers}
@@ -442,44 +446,44 @@ the measured mode number will be aliased away from the true mode number
 (i.e.\ $n_{\meas} \neq n$).
 
 
-\subsection{MHD plasma-density perturbations}
-\label{sec:ToroidalCorrelation:Interferometers:MHD_theory}
-An MHD mode displaces a plasma from it's equilibrium position
-by $\vect{\xi} = \vect{\xi}(\vect{r}, t)$.
-The perturbed velocity is given as
-$\vect{v}_1 = \partial \vect{\xi} / \partial t$
-and, assuming harmonic variations, reduces to
-\begin{equation}
-  \vect{v}_1
-  \equiv
-  \frac{\partial \vect{\xi}}{\partial t}
-  =
-  -i \omega \vect{\xi},
-  \notag
-\end{equation}
-where $\omega$ is the mode's angular frequency.
-The plasma density $n_i$ is given as
-\begin{equation}
-  n_i = \bar{n}_i + \tilde{n}_i,
-  \notag
-\end{equation}
-where $\bar{n}_i$ and $\tilde{n}_i$ are
-the equilibrium and fluctuating components, respectively.
-Assuming a stationary equilibrium ($\vect{v}_0 = 0$) and
-using the above relations,
-the linearized continuity equation reduces to
-\begin{equation}
-  \tilde{n}_i = -\nabla \cdot (\bar{n}_i \vect{\xi}).
-  \label{eq:ToroidalCorrelation:density_fluctuations}
-\end{equation}
-If we relax the assumption on $\vect{v}_0$ to allow
-finite equilibrium flow ($\vect{v}_0 \neq 0$),
-then the right-hand side of (\ref{eq:ToroidalCorrelation:density_fluctuations})
-is simply multiplied by the prefactor
-$[1
-- (\vect{v}_0 \cdot \vect{k} / \omega)
-+ i (\nabla \cdot \vect{v}_0 / \omega)]^{-1}$, where
-$\vect{k}$ is the mode wavevector.
+% \subsection{MHD plasma-density perturbations}
+% \label{sec:ToroidalCorrelation:Interferometers:MHD_theory}
+% An MHD mode displaces a plasma from it's equilibrium position
+% by $\vect{\xi} = \vect{\xi}(\vect{r}, t)$.
+% The perturbed velocity is given as
+% $\vect{v}_1 = \partial \vect{\xi} / \partial t$
+% and, assuming harmonic variations, reduces to
+% \begin{equation}
+%   \vect{v}_1
+%   \equiv
+%   \frac{\partial \vect{\xi}}{\partial t}
+%   =
+%   -i \omega \vect{\xi},
+%   \notag
+% \end{equation}
+% where $\omega$ is the mode's angular frequency.
+% The plasma density $n_i$ is given as
+% \begin{equation}
+%   n_i = \bar{n}_i + \tilde{n}_i,
+%   \notag
+% \end{equation}
+% where $\bar{n}_i$ and $\tilde{n}_i$ are
+% the equilibrium and fluctuating components, respectively.
+% Assuming a stationary equilibrium ($\vect{v}_0 = 0$) and
+% using the above relations,
+% the linearized continuity equation reduces to
+% \begin{equation}
+%   \tilde{n}_i = -\nabla \cdot (\bar{n}_i \vect{\xi}).
+%   \label{eq:ToroidalCorrelation:density_fluctuations}
+% \end{equation}
+% If we relax the assumption on $\vect{v}_0$ to allow
+% finite equilibrium flow ($\vect{v}_0 \neq 0$),
+% then the right-hand side of (\ref{eq:ToroidalCorrelation:density_fluctuations})
+% is simply multiplied by the prefactor
+% $[1
+% - (\vect{v}_0 \cdot \vect{k} / \omega)
+% + i (\nabla \cdot \vect{v}_0 / \omega)]^{-1}$, where
+% $\vect{k}$ is the mode wavevector.
 
 
 \section{Implementation details and non-ideal effects}
