@@ -517,7 +517,7 @@ from the correlation of two measurements
 requires that the sampling rates of the two measurements
 are \emph{phase-locked}.
 If the sampling rates are \emph{not} phase-locked,
-slippage between the sampling rates
+slippage between the sampling times
 will result in artificial evolution of the measured phase.
 
 Digitizing the two signals on a common digitizer
@@ -525,19 +525,19 @@ is the simplest method for ensuring phase-locked sampling.
 Unfortunately, such an approach is not suitable
 for the $V2$ and PCI interferometer signals.
 The $V2$ interferometer's
-$f_{\text{IF}} = \SI{40}{\mega\hertz}$ intermediate-frequency signal
+$\Delta f_0 = \SI{40}{\mega\hertz}$ intermediate-frequency signal
 is demodulated using an all-digital technique
 that mandates a use of a sampling rate
-$f_s = (4 / 3) f_{\text{IF}}$
+$f_s = (4 / 3) \Delta f_0$
 \cite{vanzeeland_rsi08}, and
 the baseband $I$ and $Q$ signals never exist in analog form.
 In contrast, as described in
 Chapter~\ref{ch:Implementation} and \cite{davis_rsi16},
 the PCI interferometer's
-$f_{\text{IF}} = \SI{27}{\mega\hertz}$ intermediate-frequency signal
+$\Delta f_0 = \SI{30}{\mega\hertz}$ intermediate-frequency signal
 is demodulated with analog electronics, and
 the analog baseband $I$ and $Q$ signals
-are then digitized on two channels of a D-tAcq ACQ216 CPCI board.
+are then digitized on two channels of a D-tAcq ACQ$216$ CPCI board.
 Because the $V2$ interferometer's baseband $I$ and $Q$ signals
 never exist in analog form,
 it is not possible to digitize the $V2$ $I$ and $Q$ signals
@@ -545,7 +545,7 @@ on the digitizer used by the PCI interferometer.
 Further, because of the intermediate-frequency mismatch
 between the $V2$ and PCI interferometers,
 it is also not possible digitally demodulate and digitize
-the PCI interferometer's $\SI{27}{\mega\hertz}$ intermediate-frequency signal
+the PCI interferometer's $\SI{30}{\mega\hertz}$ intermediate-frequency signal
 using the $V2$ interferometer's
 $\SI{40}{\mega\hertz}$ digital demodulation system.
 An alternative approach is to directly digitize
@@ -554,32 +554,30 @@ with a high-bandwidth digitizer and
 demodulate both signals in software,
 as has been done elsewhere~\cite{mlynek_fst12}.
 While \diiid's ion cyclotron emission (ICE) digitizer
-has a $200 \, \text{MS/s}$ sample rate,
+has a $200 \, \text{MSPS}$ sample rate,
 channels on the ICE digitizer are not consistently available.
 
 As sharing a common digitizer is not possible,
 phase-locked sampling between the $V2$ and PCI interferometers
 requires that the digitizers of both systems
-derive their clock from a common source.
+derive their clocks from a common source.
 The $V2$ interferometer derives its clock
-from a free-running, oven-controlled oscillator
-whose base frequency is $\SI{320}{\mega\hertz}$, and
-the digital demodulation system
-has two spare outputs that can be programmed
-to output LVCMOS-level, phase-locked clock signals
+from a $\SI{320}{\mega\hertz}$ oven-controlled crystal oscillator (OCXO), and
+its digital demodulation system
+has two auxiliary outputs that can be programmed
+to output phase-locked LVCMOS signals
 at $\SI{320}{\mega\hertz} / N$, where
 $N \in \{1, 2, 3, ..., 32\}$.
-Both outputs are currently programmed with a divisor $N = 20$
+Both outputs are currently programmed with divisor $N = 20$
 such that they each provide a $\SI{16}{\mega\hertz}$ clock signal.
-\graffito{\textcolor{red}{Picture? For posterity}}
 One of these $\SI{16}{\mega\hertz}$ clock signals
-is routed via coaxial cable
+is routed via an RG-$58$ coaxial cable
 from the $V2$ digital demodulation hardware
-in the first row of the \diiid\space ``annex''
-to the PCI's digitizer
-in the third row of the \diiid\space ``annex''.
+in the first row of the \diiid\space annex
+to the PCI digitizer
+in the third row of the \diiid\space annex.
 
-The PCI digitizer typically samples at $f_s = 4 \, \text{MS/s}$.
+The PCI digitizer typically samples at $f_s = 4 \, \text{MSPS}$.
 Thus, division of the $V2$ $\SI{16}{\mega\hertz}$ clock by four
 (in hardware or software) yields a clock appropriate for typical sampling.
 Each board can accept an external clock
@@ -591,19 +589,18 @@ in-house tests have demonstrated
 that the input clock frequency
 can actually exceed $\SI{16}{\mega\hertz}$.
 As a result, the $\SI{16}{\mega\hertz}$ signal
-is directly connected to the front panel CLK lemo input, and
+is directly connected to the front-panel CLK lemo input
+of the ``master'' digitizer board (``board $8$''), and
 the necessary division
-(e.g.\ divide by four to achieve typical $4 \, \text{MS/s}$ sampling rate)
-is performed within the digitizer;
-it is the author's opinion that
-this is cleaner, simpler, and more easily extensible
-(i.e.\ easier to implement other sampling rates)
+(i.e.\ divide by four to achieve typical $4 \, \text{MSPS}$ sampling rate)
+is performed within the digitizer board,
+which is cleaner, simpler, and more easily extensible
 than performing the division in hardware.
-Details of the signal routing and the clock division
-are provided in \ldots % Appendix~\ref{app:ExternalClock}.
-Thus, as of June 2016,
-the $V2$ and PCI interferometer sampling rates
-are phase-locked.
+The resulting $\SI{4}{\mega\hertz}$ clock
+is routed to the ``slave'' digitizer board (``board $7$'')
+via the PXI backplane.
+The phase-locked sampling of the $V2$ and PCI systems
+has been in place since June 2016.
 
 
 \subsection{Eliminating the time-base offset}
