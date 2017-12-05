@@ -209,25 +209,24 @@ can be rewritten in terms of toroidal mode numbers as follows:
 
 \section{Toroidal correlation of interferometers}
 \label{sec:ToroidalCorrelation:interferometer_measurements}
-This section applies the machinery developed in
-Section~\ref{sec:ToroidalCorrelation:TwoPointCorrelation}
-to the measurement of toroidal mode numbers
-with \diiid's toroidally separated, heterodyne CO$_2$ interferometers.
-As the interferometers are capable of probing the plasma core,
-their correlation allows direct measurement
-of the toroidal structure of core-localized modes
---- a long-sought after and first-of-its-kind measurement at \diiid.
-This novel measurement was enabled by
-the addition of a heterodyne interferometer channel
-to \diiid's pre-existing phase contrast imaging (PCI) system.
+% This section applies the machinery developed in
+% Section~\ref{sec:ToroidalCorrelation:TwoPointCorrelation}
+% to the measurement of toroidal mode numbers
+% with \diiid's toroidally separated, heterodyne CO$_2$ interferometers.
+% As the interferometers are capable of probing the plasma core,
+% their correlation allows direct measurement
+% of the toroidal structure of core-localized modes
+% --- a long-sought after and first-of-its-kind measurement at \diiid.
+% This novel measurement was enabled by
+% the addition of a heterodyne interferometer channel
+% to \diiid's pre-existing phase contrast imaging (PCI) system.
 
 
 \subsection{\diiid's interferometers}
 \diiid's multichannel, two-color, heterodyne CO$_2$ interferometer
-provides real-time control of the tokamak's line-integrated density
-\cite{carlstrom_rsi88} and
-compelling measurements of line-integrated density fluctuations
-\cite{vanzeeland_ppcf05,pace_nf17}.
+measures both the equilibrium~\cite{carlstrom_rsi88} and
+fluctuating~\cite{vanzeeland_ppcf05, pace_nf17} components
+of the line-integrated electron density.
 Each channel is configured as a Michelson interferometer,
 with each probe beam making a double-pass through the plasma.
 The three vertical chords pass through the $V1$, $V2$, and $V3$ ports
@@ -237,30 +236,52 @@ at a toroidal location of $225^{\circ}$.
 Of particular relevance to this work is the $V2$ interferometer,
 which has a major-radial location $R = \SI{1.94}{\meter}$ and
 is shown in Fig.~\ref{fig:ToroidalCorrelation:pci_interf_locs}.
-A chord's viewing geometry can influence
-its sensitivity to MHD instabilities,
-with vertical chords being more sensitive to
-toroidal Alfv\'{e}n eigenmodes (TAEs) and
-radial chords being more sensitive to
+The viewing geometry influences
+an interferometer's sensitivity to various MHD instabilities;
+for example, vertical chords are more sensitive to
+toroidal Alfv\'{e}n eigenmodes (TAEs), while
+radial chords are more sensitive to
 reversed-shear Alfv\'{e}n eigenmodes (RSAEs)
 \cite{vanzeeland_ppcf05}.
 
-The addition of a heterodyne interferometer channel
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/ToroidalCorrelation/figs/pci_interf_locs.pdf}
+  \caption[Locations of the $V2$ and PCI interferometer beams on \diiid]{%
+    (a) A top-down view of the \diiid\space vessel.
+    The toroidal location of the $V2$ interferometer beam
+    is $\zeta = 240^{\circ}$,
+    and the toroidal location of the PCI beam
+    is $\zeta = 285^{\circ}$.
+    The \diiid\space sign convention for toroidal mode numbers
+    is that $n > 0$ for modes that rotate counterclockwise
+    when viewing the torus from above,
+    as this corresponds to the direction of dominant torque injection.
+    (b) A poloidal cross section of the \diiid\space vessel.
+    The major-radial location of the $V2$ interferometer beam
+    is $R = \SI{1.94}{\meter}$, and
+    the major-radial location of the PCI beam
+    is $R = \SI{1.98}{\meter}$.}
+\label{fig:ToroidalCorrelation:pci_interf_locs}
+\end{figure}
+
+The addition of a heterodyne-interferometer channel
 to \diiid's pre-existing phase contrast imaging (PCI) system
-has already been extensively discussed in
+is discussed extensively in
 Chapter~\ref{ch:Implementation} and
 elsewhere~\cite{davis_rsi16}, but
-the details of relevance to the toroidal correlation measurement
+the details of relevance to the toroidal-correlation measurement
 are briefly reviewed here.
-The PCI probe beam sits at a toroidal location $285^{\circ}$ and
+The PCI probe beam sits at a toroidal location of $285^{\circ}$ and
 has a major-radial location $R = \SI{1.98}{\meter}$.
 The location of the PCI beampath relative to that of the $V2$ interferometer
 is shown in Fig.~\ref{fig:ToroidalCorrelation:pci_interf_locs}.
 
-The geometry of the V2 and PCI interferometers
-has consequences for the toroidal correlation measurement.
-The interferometer channels are
-toroidally spaced by $\Delta \zeta = 45^{\circ}$,
+The geometry of the $V2$ and PCI interferometers
+has consequences for the toroidal-correlation measurement.
+The interferometers are
+toroidally spaced by $\Delta \zeta = 45^{\circ}$
 such that the Nyquist toroidal mode number
 (\ref{eq:ToroidalCorrelation:Nyquist_modenumber}) becomes
 \begin{equation}
@@ -278,56 +299,30 @@ is indicated in Fig.~\ref{fig:ToroidalCorrelation:pci_interf_locs};
 that is, $n > 0$ for modes that rotate counterclockwise
 when viewing the torus from above,
 as this corresponds to the direction of dominant torque injection.
-\graffito{\textcolor{red}{Correct?}}
-Consistency with this sign convention requires that
-$1$: V2 interferometer signal and
-$2$: PCI interferometer signal
-\graffito{\textcolor{red}{Find way to not reference later eqn}}
-when using (\ref{eq:ToroidalCorrelation:toroidal_mode_number_ideal})
-to compute the mode number.
-Finally, the V2 and PCI interferometer beam paths have a slight radial offset
+Consistency with this sign convention requires
+that $x(t)$ corresponds to the $V2$ interferometer signal and
+that $y(t)$ corresponds to the PCI interferometer signal
+when computing the toroidal mode number via
+(\ref{eq:ToroidalCorrelation:modenumber_from_cross_phase}).
+Finally, the $V2$ and PCI interferometer beam paths have a slight radial offset
 ($\Delta R = \SI{4}{\centi\meter}$ with
-$R_{\text{V2}} = \SI{1.94}{\meter}$ and $R_{\text{PCI}} = \SI{1.98}{\meter}$);
+$R_{V2} = \SI{1.94}{\meter}$ and $R_{\text{PCI}} = \SI{1.98}{\meter}$);
 the consequences of this offset are discussed in
 Section~\ref{sec:ToroidalCorrelation:implementation_details_and_nonideal_effects:radial_offset}.
 
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/ToroidalCorrelation/figs/pci_interf_locs.pdf}
-  \caption[Beam locations of the V2 and PCI interferometers on \diiid]{%
-    (a) A top-down view of the \diiid\space vessel.
-    The V2 interferometer beam's toroidal location is $\zeta_1 = 240^{\circ}$,
-    and the PCI beam's toroidal location is $\zeta_2 = 285^{\circ}$.
-    The \diiid\space sign convention for toroidal mode numbers
-    is that $n > 0$ for modes that rotate counterclockwise
-    when viewing the torus from above,
-    as this corresponds to the direction of dominant torque injection.
-    (b) A view of the \diiid\space cross section.
-    The V2 interferometer beam's
-    major-radial location is $R_1 = \SI{1.94}{\meter}$, and
-    the PCI beam's major-radial location is $R_2 = \SI{1.98}{\meter}$.}
-\label{fig:ToroidalCorrelation:pci_interf_locs}
-\end{figure}
-
 For completeness, it should also be mentioned that
 a three-chord, radially viewing Faraday-effect polarimeter-interferometer
-was recently installed on \diiid~\cite{chen_rsi16}.
-While the primary impetus for this installation
-is diagnosis of core-localized magnetic fluctuations,
-it is also capable of making interferometric measurements
-of line-integrated electron-density fluctuations.
-The system sits at a toroidal location $285^{\circ}$ and
-the radially viewing chords enter the vessel through the $R0$ port.
-Presumably, these measurements could be correlated
-with the $R0$ CO$_2$ heterodyne interferometer measurements
-made at toroidal location $225^{\circ}$.
-\graffito{\textcolor{red}{But are they really?}}
+was recently installed on \diiid's $285^{\circ}$ $R0$ port~\cite{chen_rsi16}.
+While diagnosing core-localized magnetic fluctuations
+is the primary impetus for this installation,
+the system also measures line-integrated electron-density fluctuations.
+Presumably, these measurements could be correlated with those from
+the $225^{\circ}$ $R0$ CO$_2$ heterodyne interferometer.
 However, these two systems do not have phase-locked sampling rates
 (the necessity of which is discussed in
 Section~\ref{sec:ToroidalCorrelation:implementation_details_and_nonideal_effects:phase_locked_sampling}),
-so no attempts to correlate these interferometric measurements
-are made in this work.
+so no attempts to correlate their interferometric measurements
+are performed in this work.
 
 
 \subsection{MHD plasma-density perturbations}
@@ -395,7 +390,7 @@ these phase fluctuations reduce to
   \label{eq:ToroidalCorrelation:phase_fluctuations_from_displacement}
 \end{align}
 
-Now, \diiid's V2 and PCI interferometers have \emph{vertical} beam paths
+Now, \diiid's $V2$ and PCI interferometers have \emph{vertical} beam paths
 located at major radial ($R$) and toroidal ($\zeta$) coordinates
 $(R_1, \zeta_1) = (\SI{1.94}{\meter}, \; 240^{\circ})$ and
 $(R_2, \zeta_2) = (\SI{1.98}{\meter}, \; 285^{\circ})$, respectively.
@@ -443,7 +438,7 @@ $\Phi$ can be written explicitly
 as a complex value $\Phi = |\Phi| e^{i \sigma}$.
 
 For a given mode and plasma,
-the V2 and PCI interferometer beams see the \emph{same}
+the $V2$ and PCI interferometer beams see the \emph{same}
 $\{m, n, \vect{\xi}_0(r), \bar{n}_e(r), \vect{G}\}$, and
 $\Phi$ reduces to a one-dimensional function $\Phi = \Phi(R)$.
 Thus, (\ref{eq:ToroidalCorrelation:phase_fluctuations_vertical_beam1}) can
@@ -605,12 +600,12 @@ are phase-locked.
 
 
 \subsection{Eliminating the time-base offset}
-The V2 and PCI interferometer sampling rates are phase-locked,
+The $V2$ and PCI interferometer sampling rates are phase-locked,
 as both systems share a common clock.
 However, phase-locked sampling rates do \emph{not} guarantee
 identical/ideal \emph{triggering} of both systems, so
 there could very well be an offset between the
-V2 and PCI interferometer time bases.
+$V2$ and PCI interferometer time bases.
 
 Imagine that the time bases between $\tilde{\phi}_1$ and $\tilde{\phi}_2$
 are offset by constant $\delta t$ such that
@@ -699,7 +694,7 @@ Thus, (\ref{eq:ToroidalCorrelation:toroidal_mode_number_dt_ramp_rate}) becomes
 \graffito{\textcolor{red}{Improve discussion of two estimates}}
 Now, Fig.~\ref{fig:ToroidalCorrelation:uncompensated_time_delay} shows an example
 of the computed toroidal mode number spectrum
-when using the native time-bases of the V2 and PCI interferometers;
+when using the native time-bases of the $V2$ and PCI interferometers;
 the corresponding magnetics spectrum is shown for comparison.
 For $t \lesssim \SI{1.5}{\second}$
 the mode frequencies are ramping approximately linearly in time, and
@@ -743,11 +738,11 @@ in agreement with the time-delay estimate
 from the linearly ramping mode numbers!
 
 The above observations are all consistent with there being an offset
-between the native time-bases of the PCI and V2 interferometers, and
+between the native time-bases of the PCI and $V2$ interferometers, and
 the two \emph{independent} measurements of this time offset are in agreement,
 with each yielding an offset $\delta t \approx \SI{-30}{\micro\second}$.
 Indeed, delaying the PCI signal by $-\SI{30}{\micro\second}$
-relative to the V2 signal in software dramatically improves
+relative to the $V2$ signal in software dramatically improves
 the agreement between the interferometer and magnetics mode number spectra.
 By scanning $\delta t$ about $-\SI{30}{\micro\second}$ and
 noting when discrepancy with magnetics began to creep back into
@@ -760,9 +755,9 @@ between these upper and lower bounds, which was found to be
   \label{eq:ToroidalCorrelation:time_delay}
 \end{equation}
 That is, the native PCI-interferometer's time base \emph{leads}
-the native V2 time base by $\SI{32}{\micro\second}$.
+the native $V2$ time base by $\SI{32}{\micro\second}$.
 Delaying the PCI-interferometer by $\SI{32}{\micro\second}$ (in software)
-relative to the V2 interferometer yields the mode number spectrum
+relative to the $V2$ interferometer yields the mode number spectrum
 shown in Fig.~\ref{fig:ToroidalCorrelation:compensated_time_delay}.
 Note that both
 Fig.~\ref{fig:ToroidalCorrelation:uncompensated_time_delay} and
@@ -787,7 +782,7 @@ to determine the offset of our digitizer from the DIII-D clock.}
     Computed mode numbers from
     toroidally separated interferometers and magnetics.
     Here, the PCI-interferometer signal has been delayed by
-    $\SI{32}{\micro\second}$ relative to the V2 signal
+    $\SI{32}{\micro\second}$ relative to the $V2$ signal
     to account for the time offset between each system's native time base.
     Note that the agreement with magnetics is excellent and that
     the mode numbers of the ramping-frequency modes are no longer
@@ -805,7 +800,7 @@ to determine the offset of our digitizer from the DIII-D clock.}
   \item \textcolor{red}{ECE to confirm radial mode structure}
   \item \textcolor{red}{Correlate $V1$, $V2$, $V3$ to see just radial effect}
 \end{itemize}
-The V2 and PCI interferometer beam paths have a slight radial offset
+The $V2$ and PCI interferometer beam paths have a slight radial offset
 ($\Delta R = \SI{4}{\centi\meter}$ with
 $R_{\text{V2}} = \SI{1.94}{\meter}$ and $R_{\text{PCI}} = \SI{1.98}{\meter}$).
 Thus, $\alpha_{12} = n(\zeta_2 - \zeta_1) + [\sigma(R_2) - \sigma(R_1)]$,
@@ -860,7 +855,7 @@ via forward modeling.
   \caption[Mode-number ``flipping'' due to the small radial offset
       between the $V2$ and PCI interferometers]{%
     Due to the small radial offset ($\Delta R = \SI{4}{\centi\meter}$)
-    between the V2 and PCI interferometers,
+    between the $V2$ and PCI interferometers,
     changes in the radial structure of a mode
     can result in ``flipping'' of the interferometer-measured mode number.
     Here, the mode number flips from $n = 2$ to $n = -2$,
@@ -976,15 +971,15 @@ via forward modeling.
   \centering
   \includegraphics[width = 0.75 \textwidth]{%
     Chapters/ToroidalCorrelation/figs/interferometer_vs_PCI_coherence.eps}
-  \caption[Inability to correlate V2 and PCI]{%
+  \caption[Inability to correlate $V2$ and PCI]{%
     The magnitude-squared coherence $\gamma_{xy}^2$ between
-    the V2 and 285 interferometers (left) and
-    between the V2 interferometer and PCI (right).
-    The high coherence between the V2 and 285 interferometers
+    the $V2$ and 285 interferometers (left) and
+    between the $V2$ interferometer and PCI (right).
+    The high coherence between the $V2$ and 285 interferometers
     allows accurate measurement of toroidal mode numbers,
     as demonstrated by the corresponding mode number spectrum
     displayed in Fig.~\ref{fig:ToroidalCorrelation:compensated_time_delay},
-    whereas the poor coherence between the V2 and PCI
+    whereas the poor coherence between the $V2$ and PCI
     prevents such measurements.
     (Note that ``285 interferometer'' refers to
     the newly installed interferometer channel of the PCI).}
