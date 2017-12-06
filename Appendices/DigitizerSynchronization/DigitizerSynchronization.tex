@@ -76,7 +76,15 @@ operating in a master-slave configuration
 can still suffer from trigger-time offsets,
 despite nominally being part of the same digitization system.
 The next-best scheme is to use phase-locked digitizers
-such that $F_j / F_k = F_j^{\nom} / F_k^{\nom}$,
+such that
+\begin{equation}
+  \frac{F_j}{F_k}
+  =
+  \frac{F_j^{\nom}}{F_k^{\nom}}
+  =
+  \text{constant (for \emph{phase-locked} digitizers)},
+  \label{eq:DigitizerSynchronization:phase_locked_constraint}
+\end{equation}
 regardless of any short-term jitter or long-term drift
 in the digitizer clocks.
 As shown in
@@ -105,21 +113,60 @@ Section~\ref{app:DigitizerSynchronization:phase_locked_synchronization:trigger_o
 discusses the phase bias produced by a finite trigger offset.
 Section~\ref{app:DigitizerSynchronization:phase_locked_synchronization:trigger_offset_estimates}
 describes methods for estimating the trigger offset.
-Then, using standard techniques~\cite[Sec.~4.6]{oppenheim},
+Then, using standard techniques~\cite[Sec.~4.5]{oppenheim},
 the trigger offset can be compensated easily in post-processing,
 even if the offset is a non-integer multiple of the sample spacing.
 
 
 \subsection{The ``trigger offset''}
 \label{app:DigitizerSynchronization:phase_locked_synchronization:trigger_offset}
-Phase-locked digitizers may suffer from trigger offsets.
-To see this, for digitizer $j$ define
+Phase-locked digitizers may suffer from a deleterious ``trigger offset''.
+To see this, consider two digitizers $j$ and $k$.
+Assume that the digitizers have different nominal trigger times
+$t_j^{\nom}[0] \neq t_k^{\nom}[0]$ but
+the same nominal sampling rate
+$F_j^{\nom} = F_k^{\nom}$.
+(If the digitizers have different nominal sampling rates, however,
+the records from one of the digitizers
+can be digitally resampled~\cite[Sec.~4.6]{oppenheim}
+with the sampling rate of the other digitizer, and
+then the presentation below proceeds unchanged).
+Because the nominal trigger times of digitizers $j$ and $k$ differ,
+their $m\ts{th}$ nominal timestamps also differ,
+i.e.\ $t_j^{\nom}[m] \neq t_k^{\nom}[m]$.
+Instead, $t_j^{\nom}[m] = t_k^{\nom}[n]$, where
+\begin{equation}
+  n
+  =
+  m
+  +
+  F_j^{\nom}
+  \left(
+    t_j^{\nom}[0]
+    -
+    t_k^{\nom}[0]
+  \right)
+  \label{eq:DigitizerSynchronization:nominal_timebase_index_relation}
+\end{equation}
+and the equality of the nominal sampling rates has been utilized.
+Now, for digitizer $j$ define
 $\delta t_j = t_j[0] - t_j^{\nom}[0]$
 to be the difference between the actual and nominal trigger times,
 $\delta F_j = F_j - F_j^{\nom}$
 to be the difference between the actual and nominal sampling rates, and
 $\bar{\delta F_j} = \delta F_j / F_j^{\nom}$
 to be the normalized difference between the actual and nominal sampling rates.
+Similar definitions apply for digitizer $k$.
+Because the digitizers satisfy the phase-locked constraint
+(\ref{eq:DigitizerSynchronization:phase_locked_constraint}),
+\begin{equation}
+  \bar{\delta F_j} = \bar{\delta F_k}.
+  \label{eq:DigitizerSynchronization:phase_locked_normalized_sample_rate_deviations}
+\end{equation}
+(Note that equality
+(\ref{eq:DigitizerSynchronization:phase_locked_normalized_sample_rate_deviations})
+holds even if the nominal sampling rates are different).
+
 Then, to first order in $\bar{\delta F_j}$,
 the actual digitization times $t_j[m]$
 are related to the nominal digitization times $t_j^{\nom}[m]$ via
@@ -163,12 +210,6 @@ corresponds to the relative sampling-rate discrepancy
 weighted by the difference in nominal trigger times.
 Note that $\delta t_{\trig}$ is a single, constant value
 for any given pair of phase-locked digital records.
-Further, (\ref{eq:DigitizerSynchronization:trigger_offset})
-is valid even when $F_j^{\nom} \neq F_k^{\nom}$
-(i.e.\ measurements made at different nominal sampling rates
-can be upconverted or downconverted~\cite[Sec.~4.6]{oppenheim}
-to the same nominal sampling rate, and
-then (\ref{eq:DigitizerSynchronization:trigger_offset}) applies).
 
 
 \subsection{Effect of the trigger offset}
@@ -235,7 +276,7 @@ The above argument readily extends to broadband signals.
 Clearly, a finite trigger offset is undesirable.
 In some situations, it is possible
 to estimate the trigger offset.
-Then, using standard techniques~\cite[Sec.~4.6]{oppenheim},
+Then, using standard techniques~\cite[Sec.~4.5]{oppenheim},
 the trigger offset can be compensated easily in post-processing,
 even if the offset is a non-integer multiple of the sample spacing.
 
