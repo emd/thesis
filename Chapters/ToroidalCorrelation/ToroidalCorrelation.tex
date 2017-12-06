@@ -1,4 +1,5 @@
 \newcommand{\meas}{\text{meas}}
+\newcommand{\trig}{\text{trig}}
 \newcommand{\Ny}{\text{Ny}}
 
 
@@ -490,8 +491,8 @@ the measured mode number will be aliased away from the true mode number
 \label{sec:ToroidalCorrelation:implementation_details_and_nonideal_effects}
 Time-base discrepancies and offsets in major-radial position
 between the $V2$ and PCI interferometers
-can bias the measured mode number
-(\ref{eq:ToroidalCorrelation:toroidal_mode_number_ideal})
+can bias the measured mode number \ldots
+% (\ref{eq:ToroidalCorrelation:toroidal_mode_number_ideal})
 away from the true toroidal mode number $n$.
 As discussed below, time-base discrepancies have been eliminated
 by phase locking the interferometers' sampling rates
@@ -603,148 +604,175 @@ The phase-locked sampling of the $V2$ and PCI systems
 has been in place since June 2016.
 
 
-\subsection{Eliminating the time-base offset}
-The $V2$ and PCI interferometer sampling rates are phase-locked,
-as both systems share a common clock.
-However, phase-locked sampling rates do \emph{not} guarantee
-identical/ideal \emph{triggering} of both systems, so
-there could very well be an offset between the
-$V2$ and PCI interferometer time bases.
+\subsection{Estimating \& compensating the ``trigger offset''}
+As discussed in Appendix~\ref{app:DigitizerSynchronization},
+phase-locked digitizers can still suffer from
+a so-called ``trigger offset'', as defined by
+(\ref{eq:DigitizerSynchronization:trigger_offset}).
+A finite trigger offset results
+(a) when a digitizer triggers at a time $\delta t$ later
+than its nominal trigger time and
+(b) when the sampling rate deviates from the nominal sampling rate
+and the nominal trigger times of both digitizers differ.
 
-Imagine that the time bases between $\tilde{\phi}_1$ and $\tilde{\phi}_2$
-are offset by constant $\delta t$ such that
-$t_1 \equiv t$ and $t_2 \equiv t + \delta t$.
-Then, for \emph{constant} angular frequency ($\omega = \text{const}$),
-$\alpha_{12} = n \Delta \zeta - \omega \delta t$
-such that application of
-(\ref{eq:ToroidalCorrelation:toroidal_mode_number_ideal})
-yields a measured mode number
-\begin{equation}
-  n_{\text{meas}} = n - \frac{\omega \delta t}{\Delta \zeta}.
-  \label{eq:ToroidalCorrelation:toroidal_mode_number_dt_constant_omega}
-\end{equation}
-That is, the measured mode number will be biased away from
-the true mode number by a constant DC offset.
-If the true mode number $n$ is known,
-then (\ref{eq:ToroidalCorrelation:toroidal_mode_number_dt_constant_omega})
-can be used to determine the time-base offset $\delta t$.
-
-Now, in addition to constant time offset $\delta t$,
-imagine that the mode's angular frequency is ramping linearly in time
-($\dot{\omega} = \partial \omega / \partial t = \text{const}$) such that
-$\omega(t + \delta t) = \omega(t) + \dot{\omega} \delta t$.
-Then,
-$\alpha_{12}
-=
-n \Delta \zeta - [\omega(t)] \delta t - (\dot{\omega} \delta t) t$
-such that application of
-(\ref{eq:ToroidalCorrelation:toroidal_mode_number_ideal})
-yields a measured mode number that also ramps linearly in time
-\begin{equation}
-  \dot{n}_{\text{meas}}
-  =
-  - \left( \frac{2 \dot{\omega}}{\Delta \zeta} \right) \delta t.
-  \label{eq:ToroidalCorrelation:toroidal_mode_number_dt_ramp_rate}
-\end{equation}
-Note that (\ref{eq:ToroidalCorrelation:toroidal_mode_number_dt_ramp_rate}) is
-\emph{independent} of the true toroidal mode number $n$,
-unlike (\ref{eq:ToroidalCorrelation:toroidal_mode_number_dt_constant_omega}).
-Further, if $\delta t$ is ``large''
-(i.e.\ $|\omega \delta t / \Delta \zeta| > n_{\text{Ny}}$),
-$n_{\text{meas}}$ may be aliased and application of
-(\ref{eq:ToroidalCorrelation:toroidal_mode_number_dt_constant_omega})
-will give an incorrect value for $\delta t$.
-Thus, if the frequency of the mode is ramping \emph{and}
-the measured toroidal mode number $n_{\text{meas}}$ is also ramping in time,
-(\ref{eq:ToroidalCorrelation:toroidal_mode_number_dt_ramp_rate})
-can be used to determine the time-base offset $\delta t$ and
-is superior to application of
-(\ref{eq:ToroidalCorrelation:toroidal_mode_number_dt_constant_omega}).
-
-\graffito{\textcolor{red}{Improve explanation}}
-To make use of (\ref{eq:ToroidalCorrelation:toroidal_mode_number_dt_ramp_rate}),
-$\dot{\omega}$ must be computed from experimental measurements.
-Note that the \emph{measured} angular frequency is given as
-$\omega_{\text{meas}} \equiv \partial[\omega(t) \cdot t] / \partial t$.
-In the case where $\omega = \text{const}$,
-this yields the expected result that $\omega_{\text{meas}} = \omega$.
-However, if the angular frequency is ramping linearly in time
-($\omega(t) = \omega_0 + \dot{\omega} t$), then
-$\omega_{\text{meas}} = \omega_0 + 2 \dot{\omega} t$ and
-$\dot{\omega}_{\text{meas}} = 2 \dot{\omega}$.
-Thus, (\ref{eq:ToroidalCorrelation:toroidal_mode_number_dt_ramp_rate}) becomes
-\begin{equation}
-  \dot{n}_{\text{meas}}
-  =
-  - \left( \frac{\dot{\omega}_{\text{meas}}}{\Delta \zeta} \right) \delta t.
-  \label{eq:ToroidalCorrelation:toroidal_mode_number_dt_ramp_rate_lab_frame}
-\end{equation}
+% The $V2$ and PCI interferometer sampling rates are phase-locked,
+% as both systems share a common clock.
+% However, phase-locked sampling rates do \emph{not} guarantee
+% identical/ideal \emph{triggering} of both systems, so
+% there could very well be an offset between the
+% $V2$ and PCI interferometer time bases.
+% 
+% Imagine that the time bases between $\tilde{\phi}_1$ and $\tilde{\phi}_2$
+% are offset by constant $\delta t$ such that
+% $t_1 \equiv t$ and $t_2 \equiv t + \delta t$.
+% Then, for \emph{constant} angular frequency ($\omega = \text{const}$),
+% $\alpha_{12} = n \Delta \zeta - \omega \delta t$
+% such that application of
+% (\ref{eq:ToroidalCorrelation:toroidal_mode_number_ideal})
+% yields a measured mode number
+% \begin{equation}
+%   n_{\text{meas}} = n - \frac{\omega \delta t}{\Delta \zeta}.
+%   \label{eq:ToroidalCorrelation:toroidal_mode_number_dt_constant_omega}
+% \end{equation}
+% That is, the measured mode number will be biased away from
+% the true mode number by a constant DC offset.
+% If the true mode number $n$ is known,
+% then (\ref{eq:ToroidalCorrelation:toroidal_mode_number_dt_constant_omega})
+% can be used to determine the time-base offset $\delta t$.
+% 
+% Now, in addition to constant time offset $\delta t$,
+% imagine that the mode's angular frequency is ramping linearly in time
+% ($\dot{\omega} = \partial \omega / \partial t = \text{const}$) such that
+% $\omega(t + \delta t) = \omega(t) + \dot{\omega} \delta t$.
+% Then,
+% $\alpha_{12}
+% =
+% n \Delta \zeta - [\omega(t)] \delta t - (\dot{\omega} \delta t) t$
+% such that application of
+% (\ref{eq:ToroidalCorrelation:toroidal_mode_number_ideal})
+% yields a measured mode number that also ramps linearly in time
+% \begin{equation}
+%   \dot{n}_{\text{meas}}
+%   =
+%   - \left( \frac{2 \dot{\omega}}{\Delta \zeta} \right) \delta t.
+%   \label{eq:ToroidalCorrelation:toroidal_mode_number_dt_ramp_rate}
+% \end{equation}
+% Note that (\ref{eq:ToroidalCorrelation:toroidal_mode_number_dt_ramp_rate}) is
+% \emph{independent} of the true toroidal mode number $n$,
+% unlike (\ref{eq:ToroidalCorrelation:toroidal_mode_number_dt_constant_omega}).
+% Further, if $\delta t$ is ``large''
+% (i.e.\ $|\omega \delta t / \Delta \zeta| > n_{\text{Ny}}$),
+% $n_{\text{meas}}$ may be aliased and application of
+% (\ref{eq:ToroidalCorrelation:toroidal_mode_number_dt_constant_omega})
+% will give an incorrect value for $\delta t$.
+% Thus, if the frequency of the mode is ramping \emph{and}
+% the measured toroidal mode number $n_{\text{meas}}$ is also ramping in time,
+% (\ref{eq:ToroidalCorrelation:toroidal_mode_number_dt_ramp_rate})
+% can be used to determine the time-base offset $\delta t$ and
+% is superior to application of
+% (\ref{eq:ToroidalCorrelation:toroidal_mode_number_dt_constant_omega}).
+% 
+% \graffito{\textcolor{red}{Improve explanation}}
+% To make use of (\ref{eq:ToroidalCorrelation:toroidal_mode_number_dt_ramp_rate}),
+% $\dot{\omega}$ must be computed from experimental measurements.
+% Note that the \emph{measured} angular frequency is given as
+% $\omega_{\text{meas}} \equiv \partial[\omega(t) \cdot t] / \partial t$.
+% In the case where $\omega = \text{const}$,
+% this yields the expected result that $\omega_{\text{meas}} = \omega$.
+% However, if the angular frequency is ramping linearly in time
+% ($\omega(t) = \omega_0 + \dot{\omega} t$), then
+% $\omega_{\text{meas}} = \omega_0 + 2 \dot{\omega} t$ and
+% $\dot{\omega}_{\text{meas}} = 2 \dot{\omega}$.
+% Thus, (\ref{eq:ToroidalCorrelation:toroidal_mode_number_dt_ramp_rate}) becomes
+% \begin{equation}
+%   \dot{n}_{\text{meas}}
+%   =
+%   - \left( \frac{\dot{\omega}_{\text{meas}}}{\Delta \zeta} \right) \delta t.
+%   \label{eq:ToroidalCorrelation:toroidal_mode_number_dt_ramp_rate_lab_frame}
+% \end{equation}
 
 \begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
-    Chapters/ToroidalCorrelation/figs/mode_numbers_with_uncompensated_time_delay.eps}
-  \caption[Effect of uncompensated time delay on computed toroidal mode numbers]{%
-    Computed mode numbers from
-    toroidally separated interferometers and magnetics.
-    When there is an uncompensated time delay ($\delta t \neq 0$)
-    between the two interferometers, as there is here,
-    the interferometer-measured mode numbers
-    for both constant-frequency and ramping-frequency modes
-    are \emph{incorrectly} computed.}
-\label{fig:ToroidalCorrelation:uncompensated_time_delay}
+    Chapters/ToroidalCorrelation/figs/trigger_offset.pdf}
+  \caption[Effect of uncompensated ``trigger offset'']{%
+    Effect of uncompensated ``trigger offset''.
+    % Computed mode numbers from
+    % toroidally separated interferometers and magnetics.
+    % When there is an uncompensated time delay ($\delta t \neq 0$)
+    % between the two interferometers, as there is here,
+    % the interferometer-measured mode numbers
+    % for both constant-frequency and ramping-frequency modes
+    % are \emph{incorrectly} computed.
+  }
+\label{fig:ToroidalCorrelation:trigger_offset}
 \end{figure}
 
-\graffito{\textcolor{red}{Improve discussion of two estimates}}
-Now, Fig.~\ref{fig:ToroidalCorrelation:uncompensated_time_delay} shows an example
-of the computed toroidal mode number spectrum
-when using the native time-bases of the $V2$ and PCI interferometers;
-the corresponding magnetics spectrum is shown for comparison.
-For $t \lesssim \SI{1.5}{\second}$
-the mode frequencies are ramping approximately linearly in time, and
-the interferometer-measured mode number is (artificially) ramping in time,
-in contrast to the corresponding measurements from magnetics;
-application of
-(\ref{eq:ToroidalCorrelation:toroidal_mode_number_dt_ramp_rate_lab_frame})
-to the \emph{highest-frequency} mode observed by the interferometers yields
-$\delta t \approx \SI{-30}{\micro\second}$
-($\Delta n = 5$, $\Delta f \approx \SI{20}{\kilo\hertz}$,
-as indicated by the positions of the small circular annotations
-to the highest frequency mode in
-Fig.~\ref{fig:ToroidalCorrelation:uncompensated_time_delay}).
-Further, note that the mode number evolution \emph{reverses}
-after the mode reaches its peak frequency,
-in agreement with the behavior expected from
-(\ref{eq:ToroidalCorrelation:toroidal_mode_number_dt_ramp_rate_lab_frame}).
-Finally, for $t \gtrsim \SI{2}{\second}$
-the mode frequencies are constant, but
-the interferometer-measured mode numbers are in disagreement with magnetics.
-Naive application of
-(\ref{eq:ToroidalCorrelation:toroidal_mode_number_dt_constant_omega})
-to the \emph{lowest-frequency} mode at $f \approx \SI{20}{\kilo\hertz}$
-yields $\delta t \approx \SI{20}{\micro\second}$
-($n_{\text{meas}} = -2$, $n = 1$,
-$\omega \approx 2 \pi \cdot \SI{20}{\kilo\hertz}$),
-in contrast with the above time-delay estimate
-from the linearly ramping mode numbers.
-However, as warned above,
-$n_{\text{meas}}$ will be \emph{aliased} for ``large'' time delays:
-using the above parameters for the lowest-frequency mode,
-we see that $|\omega \delta t / \Delta \zeta| \approx 4.8 > n_{\text{Ny}}$,
-where $n_{\text{Ny}} = 4$ is the Nyquist mode number
-for the $\Delta \zeta = 45^{\circ}$ toroidal separation of the interferometers,
-confirming that aliasing has biased the time-delay estimate.
-To account for aliasing, take $n_{\text{meas}} = -2 \rightarrow 6$, and
-application of
-(\ref{eq:ToroidalCorrelation:toroidal_mode_number_dt_constant_omega}) yields
-$\delta t \approx -\SI{30}{\micro\second}$,
-in agreement with the time-delay estimate
-from the linearly ramping mode numbers!
+A finite trigger offset biases mode-number measurements.
+For example, Fig.~\ref{fig:ToroidalCorrelation:trigger_offset}(a)
+displays the toroidal mode numbers of two coherent modes
+as measured by the uncompensated interferometers.
+Note that the measured mode number of each mode
+(unphysically) evolves with the mode frequency,
+which is consistent
+(see (\ref{eq:DigitizerSynchronization:measured_phase_difference}))
+with the presence of a finite trigger offset
+between the interferometer measurements.
+Referencing
+(\ref{eq:DigitizerSynchronization:trigger_offset_estimate_frequency_swept}),
+the trigger offset can be estimated
+from the measured mode-number evolution
+during a linear frequency sweep as
+\begin{align}
+  \delta t_{\trig}
+  =
+  \frac{-1}{\dot{\omega}}
+  \frac{d \alpha_{xy}}{dt}
+  \approx
+  \frac{-\Delta \alpha_{xy}}{\Delta \omega}
+  \approx
+  \SI{-30}{\micro\second},
+\end{align}
+where
+$\Delta \alpha_{xy} = \Delta \zeta \cdot \Delta n_{\meas}$
+is the measured phase-angle change and
+$\Delta \zeta = \pi / 4$
+is the angular separation of the interferometers;
+here, the numerical value results from
+$\Delta n_{\meas} \approx 5$ and
+$\Delta \omega \approx 2 \pi \cdot \SI{20}{\kilo\hertz}$,
+as indicated by the red circular annotations
+to the lower-frequency mode in
+Fig.~\ref{fig:ToroidalCorrelation:trigger_offset}(a).
+Note that $\delta t_{\trig} < 0$
+implies that the sampling of the $V2$ interferometer \emph{lags}
+that of the PCI interferometer.
+Applying standard techniques~\cite[Sec.~4.6]{oppenheim}
+in post-processing software
+to delay the signal from the PCI interferometer
+by $\SI{30}{\micro\seconds}$
+dramatically reduces the unphysical mode-number evolution observed in
+Fig.~\ref{fig:ToroidalCorrelation:trigger_offset}(a).
 
-The above observations are all consistent with there being an offset
-between the native time-bases of the PCI and $V2$ interferometers, and
-the two \emph{independent} measurements of this time offset are in agreement,
-with each yielding an offset $\delta t \approx \SI{-30}{\micro\second}$.
+Indeed, delaying the signal from the PCI interferometer
+by $\SI{30}{\micro\second}$
+relative to that from the $V2$ interferometer
+signal in software dramatically improves
+the agreement between the interferometer and magnetics mode number spectra.
+
+\begin{itemize}
+  \item Meaning of negative
+  \item Scan for best value
+  \item Compensation
+  \item Show that compensation improves in (b)
+  \item Comparison to magnetics
+  \item Origin of trigger offset
+\end{itemize}
+
+% The above observations are all consistent with there being an offset
+% between the native time-bases of the PCI and $V2$ interferometers, and
+% the two \emph{independent} measurements of this time offset are in agreement,
+% with each yielding an offset $\delta t \approx \SI{-30}{\micro\second}$.
 Indeed, delaying the PCI signal by $-\SI{30}{\micro\second}$
 relative to the $V2$ signal in software dramatically improves
 the agreement between the interferometer and magnetics mode number spectra.
@@ -763,13 +791,20 @@ the native $V2$ time base by $\SI{32}{\micro\second}$.
 Delaying the PCI-interferometer by $\SI{32}{\micro\second}$ (in software)
 relative to the $V2$ interferometer yields the mode number spectrum
 shown in Fig.~\ref{fig:ToroidalCorrelation:compensated_time_delay}.
-Note that both
-Fig.~\ref{fig:ToroidalCorrelation:uncompensated_time_delay} and
+Note that both \ldots
+% Fig.~\ref{fig:ToroidalCorrelation:uncompensated_time_delay} and
 Fig.~\ref{fig:ToroidalCorrelation:compensated_time_delay}
 correspond to shot 167341, and
 the only difference in the interferometer-measured mode-number spectrum
 between the two figures results from the compensation of the time delay
 between the native time bases of the two interferometers.
+
+
+
+For comparison, the corresponding (but with zero trigger offset)
+poloidal magnetic-field fluctuation spectrum~\cite{strait_rsi06}
+is also shown.
+The two spectra very clearly differ.
 
 \textcolor{red}{Note that additional measurements are needed
 to determine which clock is correct in the \emph{absolute} sense.
@@ -782,7 +817,8 @@ to determine the offset of our digitizer from the DIII-D clock.}
   \includegraphics[width = \textwidth]{%
     Chapters/ToroidalCorrelation/figs/magnetics_and_interferometer_mode_numbers_167341.eps}
   \caption[Computed toroidal mode numbers \emph{after} removing time delay
-      from Fig.~\ref{fig:ToroidalCorrelation:uncompensated_time_delay}]{%
+      from \ldots  % Fig.~\ref{fig:ToroidalCorrelation:uncompensated_time_delay}
+    ]{%
     Computed mode numbers from
     toroidally separated interferometers and magnetics.
     Here, the PCI-interferometer signal has been delayed by
@@ -792,8 +828,9 @@ to determine the offset of our digitizer from the DIII-D clock.}
     the mode numbers of the ramping-frequency modes are no longer
     artificially ramping;
     this is an enormous improvement over the corresponding
-    uncompensated interferometer-measured spectrum in
-    Fig.~\ref{fig:ToroidalCorrelation:uncompensated_time_delay}.}
+    uncompensated interferometer-measured spectrum in\ldots
+    % Fig.~\ref{fig:ToroidalCorrelation:uncompensated_time_delay}.
+  }
 \label{fig:ToroidalCorrelation:compensated_time_delay}
 \end{figure}
 
@@ -821,10 +858,10 @@ where
 gives the relative phase of $\vect{\xi}$
 at $R_2$ relative to that at $R_1$.
 If $\vect{\xi}(R_1)$ and $\vect{\xi}(R_2)$ are in-phase,
-then application of (\ref{eq:ToroidalCorrelation:toroidal_mode_number_ideal})
+then application of \ldots  % (\ref{eq:ToroidalCorrelation:toroidal_mode_number_ideal})
 will yield the correct mode number.
 However, if $\vect{\xi}(R_1)$ and $\vect{\xi}(R_2)$ are out-of-phase,
-then application of (\ref{eq:ToroidalCorrelation:toroidal_mode_number_ideal})
+then application of\ldots  % (\ref{eq:ToroidalCorrelation:toroidal_mode_number_ideal})
 will yield a measured mode number $n_{\text{meas}}$
 \graffito{\textcolor{red}{Correct sign for alias??}}
 \begin{equation}
@@ -863,8 +900,8 @@ via forward modeling.
     changes in the radial structure of a mode
     can result in ``flipping'' of the interferometer-measured mode number.
     Here, the mode number flips from $n = 2$ to $n = -2$,
-    consistent with
-    (\ref{eq:ToroidalCorrelation:toroidal_mode_number_radially_out_of_phase}).
+    consistent with \ldots
+    % (\ref{eq:ToroidalCorrelation:toroidal_mode_number_radially_out_of_phase}).
     Lacking additional measurements or some type of forward modeling,
     it is impossible to determine if the mode is truly $n = 2$ or $n = -2$.
     Note that these modes exceed the typical bandwidth of magnetics, however,
