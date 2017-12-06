@@ -203,9 +203,11 @@ any remaining discrepancy between the \emph{actual} sampling times is
   &=
   \left( \delta t_j - \delta t_k \right)
   +
-  \bar{\delta F_j} \left( t_j^{\nom}[0] - t_k^{\nom}[0] \right).
+  \bar{\delta F_j} \left( t_j^{\nom}[0] - t_k^{\nom}[0] \right);
   \label{eq:DigitizerSynchronization:trigger_offset}
 \end{align}
+this situation is shown schematically in
+Fig.~\ref{fig:DigitizerSynchronization:trigger_offset_schematic}.
 Here, the first term on the right-hand side of
 (\ref{eq:DigitizerSynchronization:trigger_offset})
 corresponds to the difference between
@@ -218,6 +220,27 @@ this timestamp discrepancy is referred to as
 the ``trigger offset'' $\delta t_{\trig}$.
 Note that $\delta t_{\trig}$ is a single, constant value
 for any given pair of phase-locked digital records.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Appendices/DigitizerSynchronization/figs/trigger_offset_schematic.pdf}
+  \caption[``Trigger offset'' between phase-locked digitizers]{%
+    The ``trigger offset'' $\delta t_{\trig}$ between phase-locked digitizers.
+    Here, the $n\ts{th}$ nominal sampling time of digitizer $k$ equals
+    the $m\ts{th}$ nominal sampling time of digitizer $k$
+    (i.e.\ $t_j^{\nom}[m] = t_k^{\nom}[n]$), where
+    $n$ and $m$ are related via
+    (\ref{eq:DigitizerSynchronization:nominal_timebase_index_relation}).
+    However, a finite trigger offset
+    (\ref{eq:DigitizerSynchronization:trigger_offset})
+    produces a discrepancy between the \emph{actual} sampling times
+    of the two digitizers (i.e.\ $t_j[m] \neq t_k[n]$),
+    which can bias phase measurements, as discussed in
+    Section~\ref{app:DigitizerSynchronization:phase_locked_synchronization:trigger_offset_effect}.
+  }
+\label{fig:DigitizerSynchronization:trigger_offset_schematic}
+\end{figure}
 
 
 \subsection{Effect of the trigger offset}
@@ -233,13 +256,23 @@ the corresponding digital record is
   x_j(t_j[m])
   \notag \\
   &=
-  X_j(\omega) e^{-i \omega t_j[m]}
+  X_j(\omega) e^{i \omega t_j[m]}
   \notag \\
   &=
-  |X_j(\omega)| e^{i \{ \alpha_j(\omega) - \omega t_j[m]\}},
+  |X_j(\omega)| e^{i \{ \alpha_j(\omega) + \omega t_j[m]\}},
 \end{align}
 where $|X_j(\omega)|$ is the Fourier amplitude and
 $\alpha_j(\omega)$ is the Fourier phase.
+(Here, the Fourier-transform kernel is $\propto e^{-i \omega t}$ and
+the inverse Fourier-transform kernel is $\propto e^{i \omega t}$,
+in accord with the NumPy implementation
+of the fast Fourier transform (FFT)~\cite{numpy_fft};
+if the opposite convention is used for FFT computations,
+then the substitution $\delta t_{\trig} \rightarrow -\delta t_{\trig}$
+should be made in equations
+(\ref{eq:DigitizerSynchronization:measured_phase_difference}),
+(\ref{eq:DigitizerSynchronization:trigger_offset_estimate_apriori_phase}), and
+(\ref{eq:DigitizerSynchronization:trigger_offset_estimate_frequency_swept})).
 Then, after aligning \emph{nominal} sampling times via
 (\ref{eq:DigitizerSynchronization:nominal_timebase_index_relation}),
 the \emph{measured} phase difference $\Delta \alpha_{\meas}$
@@ -259,7 +292,7 @@ between digital records $\{x_j[m]\}$ and $\{x_k[n]\}$ is
     -
     \alpha_k(\omega)
   \right]
-  -
+  +
   \omega
   \left(
     t_j[m] - t_k[n]
@@ -267,7 +300,7 @@ between digital records $\{x_j[m]\}$ and $\{x_k[n]\}$ is
   \notag \\
   &=
   \Delta \alpha(\omega)
-  -
+  +
   \left( \omega \cdot \delta t_{\trig} \right),
   \label{eq:DigitizerSynchronization:measured_phase_difference}
 \end{align}
@@ -298,7 +331,7 @@ yields an estimated trigger offset
 \begin{equation}
   \delta t_{\trig}
   =
-  \frac{\Delta \alpha(\omega) - \Delta \alpha_{\meas}(\omega)}{\omega}.
+  \frac{\Delta \alpha_{\meas}(\omega) - \Delta \alpha(\omega)}{\omega}.
   \label{eq:DigitizerSynchronization:trigger_offset_estimate_apriori_phase}
 \end{equation}
 Although \emph{a priori} knowledge of $\Delta \alpha$ may make
@@ -345,10 +378,10 @@ solving for $\delta t_{\trig}$ yields
 \begin{align}
   \delta t_{\trig}
   =
-  \frac{-1}{\dot{\omega}}
+  \frac{1}{\dot{\omega}}
   \frac{d\left[ \Delta \alpha_{\meas}(\omega) \right]}{dt}
   =
-  \frac{-d\left[ \Delta \alpha_{\meas}(\omega) \right]}{d\omega}.
+  \frac{d\left[ \Delta \alpha_{\meas}(\omega) \right]}{d\omega}.
   \label{eq:DigitizerSynchronization:trigger_offset_estimate_frequency_swept}
 \end{align}
 Because
