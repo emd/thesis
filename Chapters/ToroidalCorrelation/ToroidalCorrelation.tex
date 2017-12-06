@@ -1,4 +1,5 @@
 \newcommand{\meas}{\text{meas}}
+\newcommand{\nom}{\text{nom}}
 \newcommand{\trig}{\text{trig}}
 \newcommand{\Ny}{\text{Ny}}
 
@@ -788,10 +789,67 @@ Fig.~\ref{fig:ToroidalCorrelation:trigger_offset}(b)
 is the compensation of trigger offset
 (\ref{eq:ToroidalCorrelation:trigger_offset_optimized}).
 
+Trigger offset (\ref{eq:ToroidalCorrelation:trigger_offset_optimized})
+has been robustly stable
+since phase-locking the $V2$ and PCI digitizers in June 2016,
+a timescale currently exceeding one year.
+It is interesting to examine the physical origin
+of this trigger offset to understand when it might change.
+Referencing the definition of $\delta t_{\trig}$ in
+(\ref{eq:DigitizerSynchronization:trigger_offset}),
+there are three distinct mechanisms contributing to the trigger offset.
+The first effect is the difference
+between the trigger-time discrepancies $\delta t_j$ of each digitizer;
+in a properly functioning digitizer,
+this is discrepancy is typically smaller than one or two sample times
+(i.e.\ $\lesssim \SI{1}{\micro\second}$ for the digitizers considered here),
+making it an unlikely source of the relatively large trigger offset
+(\ref{eq:ToroidalCorrelation:trigger_offset_optimized}).
+The second effect is
+the digitizers' normalized sampling-rate deviation $\bar{\delta F_j}$
+(phase-locked digitizers have \emph{equal}
+normalized sampling-rate deviations;
+see (\ref{eq:DigitizerSynchronization:phase_locked_normalized_sample_rate_deviations})).
+Because the trigger offset
+(\ref{eq:ToroidalCorrelation:trigger_offset_optimized})
+does \emph{not} appear to vary in time,
+temporal fluctuations in $\bar{\delta F_j}$ cannot be responsible;
+however, $\bar{\delta F_j}$ will be constant and finite
+if the sampling rate has a constant offset
+from the nominal sampling rate.
+The third effect is the weighting of $\bar{\delta F_j}$
+by the difference in nominal trigger times.
+Now, the $V2$ digitizer nominally triggers at
+$t_{\text{v2}}^{\nom}[0] \approx \SI{-1.5}{\second}$
+relative to plasma breakdown, while
+the PCI digitizer nominally triggers at
+$t_{\text{pci}}^{\nom}[0] = \SI{-0.05}{\second}$
+relative to plasma breakdown.
+Solving for the $\bar{\delta F_j}$ in
+(\ref{eq:DigitizerSynchronization:trigger_offset}) and
+neglecting the small trigger-time discrepancies $\delta t_j$ yields
+\begin{equation}
+  \bar{\delta F_j}
+  \approx
+  \frac{\delta t_{\trig}}{t_{\text{pci}}^{\nom}[0] - t_{\text{v2}}^{\nom}[0]}
+  \approx
+  2.2 \times 10^{-5},
+\end{equation}
+which is not an unreasonable precision
+for the digitizer sampling rates.
+Thus, digitizer offset
+(\ref{eq:ToroidalCorrelation:trigger_offset_optimized})
+appears to result from the combined effects of
+finite sampling-rate precision (i.e.\ nonzero $\bar{\delta F_j}$) and
+the difference between the nominal trigger times
+of the $V2$ and PCI digitizers.
+Importantly, if the nominal trigger times of
+the $V2$ or PCI digitizers are altered in the future,
+the trigger offset will also change and
+will need to be estimated from new measurements.
+
 \begin{itemize}
-  \item Explanation for $\Delta n_{\meas}$
   \item Comparison to magnetics
-  \item Origin of trigger offset
 \end{itemize}
 
 For comparison, the corresponding (but with zero trigger offset)
