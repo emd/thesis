@@ -10,14 +10,15 @@ Of course, application of such techniques
 requires converting an analog signal to a digital record.
 Efficient conversion requires
 both quantization of the signal magnitude and
-temporal sampling of these quantized magnitudes~\cite{bennett_bstj48}.
+temporal sampling~\cite{bennett_bstj48}.
 When examining the phasing between multiple digital records,
 the synchronization of this temporal sampling
 is of paramount importance.
 
 This appendix discusses post-processing synchronization of digital records.
-Below, Section~\ref{app:DigitizerSynchronization:timebase_single_record}
-defines the timebase of a single digital record.
+Below, Section~\ref{app:DigitizerSynchronization:temporal_sampling}
+defines temporal sampling and
+mentions caveats regarding nominal and actual sampling parameters.
 Section~\ref{app:DigitizerSynchronization:digitization_schemes}
 then discusses various digitization schemes,
 highlighting which schemes allow synchronization.
@@ -25,14 +26,14 @@ Finally, Section~\ref{app:DigitizerSynchronization:phase_locked_synchronization}
 details the synchronization of phase-locked digital records.
 
 
-\section{Timebase of single digital record}
-\label{app:DigitizerSynchronization:timebase_single_record}
+\section{Temporal sampling}
+\label{app:DigitizerSynchronization:temporal_sampling}
 Typically, temporal sampling of signal $x_j(t)$ occurs
 at a fixed sampling rate $F_j$ such that
 successive points in the digital record
 are separated in time by $1 / F_j$.
 Digitization begins at the ``trigger time'' $t_j[0]$ such that
-the time corresponding to the $m\ts{th}$ digitized point is
+the $m\ts{th}$ digitized point is sampled at time
 \begin{equation}
   t_j[m] = t_j[0] + \frac{m}{F_j}.
   \label{eq:DigitizerSynchronization:timebase_generic}
@@ -46,8 +47,8 @@ $F_j \neq F_j^{\nom}$, $t_j[0] \neq t_j^{\nom}[0]$, and
 \begin{equation}
   t_j[m] \neq t_j^{\nom}[0] + \frac{m}{F_j^{\nom}};
 \end{equation}
-that is, the actual time base of the digital record
-does \emph{not} equal the nominal timebase.
+that is, the actual sample times of the digital record
+differ from their nominal values.
 In a properly operating digitizer,
 these discrepancies are typically small, and
 an autospectral-density estimate (for example)
@@ -89,7 +90,7 @@ regardless of any short-term jitter or long-term drift
 in the digitizer clocks.
 As shown in
 Section~\ref{app:DigitizerSynchronization:phase_locked_synchronization},
-the timebases of phase-locked digital records
+the actual sampling times of phase-locked digital records
 differ (at most) by a constant ``trigger offset'',
 which can be compensated easily.
 Finally, the least-desirable scheme
@@ -145,7 +146,7 @@ Instead, $t_j^{\nom}[m] = t_k^{\nom}[n]$, where
     t_j^{\nom}[0]
     -
     t_k^{\nom}[0]
-  \right)
+  \right),
   \label{eq:DigitizerSynchronization:nominal_timebase_index_relation}
 \end{equation}
 and the equality of the nominal sampling rates has been utilized.
@@ -155,7 +156,8 @@ to be the difference between the actual and nominal trigger times,
 $\delta F_j = F_j - F_j^{\nom}$
 to be the difference between the actual and nominal sampling rates, and
 $\bar{\delta F_j} = \delta F_j / F_j^{\nom}$
-to be the normalized difference between the actual and nominal sampling rates.
+to be the normalized difference between the actual and nominal sampling rates
+($|\bar{\delta F_j}| \ll 1$).
 Similar definitions apply for digitizer $k$.
 Because the digitizers satisfy the phase-locked constraint
 (\ref{eq:DigitizerSynchronization:phase_locked_constraint}),
@@ -166,10 +168,9 @@ Because the digitizers satisfy the phase-locked constraint
 (Note that equality
 (\ref{eq:DigitizerSynchronization:phase_locked_normalized_sample_rate_deviations})
 holds even if the nominal sampling rates are different).
-
 Then, to first order in $\bar{\delta F_j}$,
-the actual digitization times $t_j[m]$
-are related to the nominal digitization times $t_j^{\nom}[m]$ via
+the actual sampling times $t_j[m]$
+are related to the nominal sampling times $t_j^{\nom}[m]$ via
 \begin{equation}
   t_j[m]
   \approx
@@ -182,18 +183,22 @@ are related to the nominal digitization times $t_j^{\nom}[m]$ via
 \end{equation}
 Thus, trigger-time discrepancy $\delta t_j$
 produces a constant offset
-between the actual and nominal timebases, while
+between the actual and nominal sampling times of digitizer $j$, while
 sampling-rate discrepancy $\delta F_j$
 produces a linear ramp
-between the actual and nominal timebases.
-Now, for phase-locked digitizers $j$ and $k$,
-$\bar{\delta F_j} = \bar{\delta F_k}$
-such that the corresponding ``trigger offset'' $\delta t_{\trig}$
-between digital records $j$ and $k$ is
+between the actual and nominal sampling times of digitizer $j$.
+
+Now, in some situations it is of the utmost importance
+that the actual sampling times of digitizers $j$ and $k$ align.
+(Inferring the spatial structure of a signal from its phasing
+between two spatially separated sensors is one such example).
+The \emph{nominal} sampling times are aligned via
+(\ref{eq:DigitizerSynchronization:nominal_timebase_index_relation}), but
+any remaining discrepancy between the \emph{actual} sampling times is
 \begin{align}
   \delta t_{\trig}
   &=
-  t_j[m] - t_k[m]
+  t_j[m] - t_k[n]
   \notag \\
   &=
   \left( \delta t_j - \delta t_k \right)
@@ -208,6 +213,9 @@ trigger-time discrepancies of each digitizer, while
 the second term on the right-hand side
 corresponds to the relative sampling-rate discrepancy
 weighted by the difference in nominal trigger times.
+As both effects are related to triggering,
+this timestamp discrepancy is referred to as
+the ``trigger offset'' $\delta t_{\trig}$.
 Note that $\delta t_{\trig}$ is a single, constant value
 for any given pair of phase-locked digital records.
 
@@ -215,7 +223,7 @@ for any given pair of phase-locked digital records.
 \subsection{Effect of the trigger offset}
 \label{app:DigitizerSynchronization:phase_locked_synchronization:trigger_offset_effect}
 The trigger offset (\ref{eq:DigitizerSynchronization:trigger_offset})
-biases the phase of the digital record.
+biases the measured phasing between the digital records.
 To see this, let $x_j(t)$ be a coherent mode
 of angular frequency $\omega$ such that
 the corresponding digital record is
@@ -232,13 +240,15 @@ the corresponding digital record is
 \end{align}
 where $|X_j(\omega)|$ is the Fourier amplitude and
 $\alpha_j(\omega)$ is the Fourier phase.
-Then, the \emph{measured} phase difference $\Delta \alpha_{\meas}$
-between digital records $\{x_j[m]\}$ and $\{x_k[m]\}$ is
+Then, after aligning \emph{nominal} sampling times via
+(\ref{eq:DigitizerSynchronization:nominal_timebase_index_relation}),
+the \emph{measured} phase difference $\Delta \alpha_{\meas}$
+between digital records $\{x_j[m]\}$ and $\{x_k[n]\}$ is
 \begin{align}
   \Delta \alpha_{\meas}
   &=
   \arg\left(
-    x_k^*[m]
+    x_k^*[n]
     \cdot
     x_j[m]
   \right)
@@ -252,7 +262,7 @@ between digital records $\{x_j[m]\}$ and $\{x_k[m]\}$ is
   -
   \omega
   \left(
-    t_j[m] - t_k[m]
+    t_j[m] - t_k[n]
   \right)
   \notag \\
   &=
@@ -326,22 +336,24 @@ can be estimated in an alternative, alias-free manner.
 For example, consider a coherent mode
 with time-dependent angular frequency $\omega(t)$.
 If the angular frequency ramps linearly in time
-(i.e.\ constant $\dot{\omega} = d\omega / dt$) and
+(i.e.\ $\dot{\omega} = d\omega / dt = \text{constant}$) and
 the true phase difference $\Delta \alpha$
 does \emph{not} vary in time,
 taking the time derivative of
 (\ref{eq:DigitizerSynchronization:measured_phase_difference}) and
 solving for $\delta t_{\trig}$ yields
-\begin{equation}
+\begin{align}
   \delta t_{\trig}
   =
   \frac{-1}{\dot{\omega}}
-  \frac{d\left[ \Delta \alpha_{\meas}(\omega) \right]}{dt}.
+  \frac{d\left[ \Delta \alpha_{\meas}(\omega) \right]}{dt}
+  =
+  \frac{-d\left[ \Delta \alpha_{\meas}(\omega) \right]}{d\omega}.
   \label{eq:DigitizerSynchronization:trigger_offset_estimate_frequency_swept}
-\end{equation}
+\end{align}
 Because
 (\ref{eq:DigitizerSynchronization:trigger_offset_estimate_frequency_swept})
-depends on the time derivative of $\Delta \alpha_{\meas}$,
+depends on the derivative of $\Delta \alpha_{\meas}$,
 it is an alias-free estimate of the trigger offset.
 Further,
 (\ref{eq:DigitizerSynchronization:trigger_offset_estimate_frequency_swept})
