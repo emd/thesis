@@ -695,15 +695,28 @@ and the nominal trigger times of both digitizers differ.
   \centering
   \includegraphics[width = \textwidth]{%
     Chapters/ToroidalCorrelation/figs/trigger_offset.pdf}
-  \caption[Effect of uncompensated ``trigger offset'']{%
-    Effect of uncompensated ``trigger offset''.
-    % Computed mode numbers from
-    % toroidally separated interferometers and magnetics.
-    % When there is an uncompensated time delay ($\delta t \neq 0$)
-    % between the two interferometers, as there is here,
-    % the interferometer-measured mode numbers
-    % for both constant-frequency and ramping-frequency modes
-    % are \emph{incorrectly} computed.
+  \caption[``Trigger offset'' compensation]{%
+    Interferometer-measured toroidal mode numbers
+    (a) \emph{without} compensation for the trigger offset and
+    (b) \emph{with} compensation for the trigger offset.
+    In (a), the finite trigger offset
+    (\ref{eq:ToroidalCorrelation:trigger_offset_optimized})
+    results in the unphysical evolution
+    of the measured toroidal mode numbers.
+    The trigger offset is roughly estimated
+    from the measured mode-number evolution
+    between the red circular annotations
+    to the lower-frequency mode
+    ($\Delta f \approx \SI{20}{\kilo\hertz}$ and
+    $\Delta n \approx 5$; note that $\Delta n_{\meas}$
+    refers to the total number of mode numbers evolved through,
+    i.e.\ it is path-dependent and is \emph{not} simply
+    the difference between the final and initial $n_{\meas}$).
+    In (b), the digital records of both interferometers
+    have been synchronized by compensating for the finite trigger offset
+    (\ref{eq:ToroidalCorrelation:trigger_offset_optimized}), and
+    the measured toroidal mode numbers are constant in time,
+    consistent with physical expectations.
   }
 \label{fig:ToroidalCorrelation:trigger_offset}
 \end{figure}
@@ -726,80 +739,60 @@ during a linear frequency sweep as
 \begin{align}
   \delta t_{\trig}
   =
-  \frac{-1}{\dot{\omega}}
-  \frac{d \alpha_{xy}}{dt}
+  \frac{d \alpha_{xy}}{d\omega}
   \approx
-  \frac{-\Delta \alpha_{xy}}{\Delta \omega}
+  \frac{\Delta \alpha_{xy}}{\Delta \omega}
   \approx
-  \SI{-30}{\micro\second},
+  \SI{30}{\micro\second},
 \end{align}
 where
 $\Delta \alpha_{xy} = \Delta \zeta \cdot \Delta n_{\meas}$
 is the measured phase-angle change and
 $\Delta \zeta = \pi / 4$
-is the angular separation of the interferometers;
+is the angular separation of the interferometers
+(consistent with
+(\ref{eq:ToroidalCorrelation:interferometer_measured_mode_number}));
 here, the numerical value results from
 $\Delta n_{\meas} \approx 5$ and
 $\Delta \omega \approx 2 \pi \cdot \SI{20}{\kilo\hertz}$,
 as indicated by the red circular annotations
 to the lower-frequency mode in
 Fig.~\ref{fig:ToroidalCorrelation:trigger_offset}(a).
-Note that $\delta t_{\trig} < 0$
-implies that the sampling of the $V2$ interferometer \emph{lags}
-that of the PCI interferometer.
+Note that $\delta t_{\trig} > 0$
+implies that the actual sampling times
+of the PCI interferometer lag (i.e.\ occur later than)
+those of the $V2$ interferometer, as shown schematically in
+Fig.~\ref{fig:DigitizerSynchronization:trigger_offset_schematic}.
 Applying standard techniques~\cite[Sec.~4.5]{oppenheim}
 in post-processing software
-to delay the signal from the PCI interferometer
-by $\SI{30}{\micro\seconds}$
+to eliminate this $\SI{30}{\micro\second}$ timebase discrepancy
 dramatically reduces the unphysical mode-number evolution observed in
 Fig.~\ref{fig:ToroidalCorrelation:trigger_offset}(a).
-
-Indeed, delaying the signal from the PCI interferometer
-by $\SI{30}{\micro\second}$
-relative to that from the $V2$ interferometer
-signal in software dramatically improves
-the agreement between the interferometer and magnetics mode number spectra.
+Scanning $\delta t_{\trig}$ about $\SI{30}{\micro\second}$
+shows that the unphysical mode-number evolution is minimized for
+\begin{equation}
+  \delta t_{\trig}
+  =
+  \SI{32.5}{\micro\second}.
+  \label{eq:ToroidalCorrelation:trigger_offset_optimized}
+\end{equation}
+Fig.~\ref{fig:ToroidalCorrelation:trigger_offset}(b)
+displays the interferometer-measured toroidal mode numbers
+after compensating for trigger offset
+(\ref{eq:ToroidalCorrelation:trigger_offset_optimized});
+note that the mode numbers are constant in time,
+consistent with physical expectations.
+It should be emphasized that the only difference between
+Fig.~\ref{fig:ToroidalCorrelation:trigger_offset}(a) and
+Fig.~\ref{fig:ToroidalCorrelation:trigger_offset}(b)
+is the compensation of trigger offset
+(\ref{eq:ToroidalCorrelation:trigger_offset_optimized}).
 
 \begin{itemize}
-  \item Meaning of negative
-  \item Scan for best value
-  \item Compensation
-  \item Show that compensation improves in (b)
+  \item Explanation for $\Delta n_{\meas}$
   \item Comparison to magnetics
   \item Origin of trigger offset
 \end{itemize}
-
-% The above observations are all consistent with there being an offset
-% between the native time-bases of the PCI and $V2$ interferometers, and
-% the two \emph{independent} measurements of this time offset are in agreement,
-% with each yielding an offset $\delta t \approx \SI{-30}{\micro\second}$.
-Indeed, delaying the PCI signal by $-\SI{30}{\micro\second}$
-relative to the $V2$ signal in software dramatically improves
-the agreement between the interferometer and magnetics mode number spectra.
-By scanning $\delta t$ about $-\SI{30}{\micro\second}$ and
-noting when discrepancy with magnetics began to creep back into
-the interferometer-measured mode spectrum,
-the upper and lower bounds of $\delta t$ were found;
-the best estimate for $\delta t$ was then taken as the midpoint
-between these upper and lower bounds, which was found to be
-\begin{equation}
-  \delta t = -\SI{32}{\micro\second}.
-  \label{eq:ToroidalCorrelation:time_delay}
-\end{equation}
-That is, the native PCI-interferometer's time base \emph{leads}
-the native $V2$ time base by $\SI{32}{\micro\second}$.
-Delaying the PCI-interferometer by $\SI{32}{\micro\second}$ (in software)
-relative to the $V2$ interferometer yields the mode number spectrum
-shown in Fig.~\ref{fig:ToroidalCorrelation:compensated_time_delay}.
-Note that both \ldots
-% Fig.~\ref{fig:ToroidalCorrelation:uncompensated_time_delay} and
-Fig.~\ref{fig:ToroidalCorrelation:compensated_time_delay}
-correspond to shot 167341, and
-the only difference in the interferometer-measured mode-number spectrum
-between the two figures results from the compensation of the time delay
-between the native time bases of the two interferometers.
-
-
 
 For comparison, the corresponding (but with zero trigger offset)
 poloidal magnetic-field fluctuation spectrum~\cite{strait_rsi06}
