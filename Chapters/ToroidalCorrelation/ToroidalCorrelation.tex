@@ -366,14 +366,14 @@ where
   =
   -r_e \lambda_0
   \int \tilde{n}_0(r) e^{i m \theta} dz
+  \label{eq:ToroidalCorrelation:line_integrated_radial_and_poloidal_structure}
 \end{equation}
 is a complex-valued function of
-the beam's major-radial location,
-the poloidal mode structure, and
-the plasma geometry.
-For a given mode and plasma,
+the beam's major-radial location and
+the radial and poloidal mode structure.
+For a given mode,
 the $V2$ and PCI interferometers see the same
-poloidal mode structure and plasma geometry such that
+radial and poloidal mode structure such that
 $\Phi$ effectively reduces to a one-dimensional function $\Phi = \Phi(R)$.
 Further, $\Phi$ can be written explicitly
 as a complex value $\Phi = |\Phi| e^{i \sigma}$.
@@ -420,6 +420,7 @@ Then the cross phase (\ref{eq:ToroidalCorrelation:cross_phase}) becomes
     -
     \sigma(R_{\text{v2}})
   \right],
+  \label{eq:ToroidalCorrelation:interferometer_measured_cross_phase}
 \end{equation}
 where $\Delta \zeta = \zeta_{\text{pci}} - \zeta_{\text{v2}} = 45^{\circ}$
 is the toroidal separation between the interferometer beams.
@@ -616,82 +617,6 @@ than its nominal trigger time and
 (b) when the sampling rate deviates from the nominal sampling rate
 and the nominal trigger times of both digitizers differ.
 
-% The $V2$ and PCI interferometer sampling rates are phase-locked,
-% as both systems share a common clock.
-% However, phase-locked sampling rates do \emph{not} guarantee
-% identical/ideal \emph{triggering} of both systems, so
-% there could very well be an offset between the
-% $V2$ and PCI interferometer time bases.
-% 
-% Imagine that the time bases between $\tilde{\phi}_1$ and $\tilde{\phi}_2$
-% are offset by constant $\delta t$ such that
-% $t_1 \equiv t$ and $t_2 \equiv t + \delta t$.
-% Then, for \emph{constant} angular frequency ($\omega = \text{const}$),
-% $\alpha_{12} = n \Delta \zeta - \omega \delta t$
-% such that application of
-% (\ref{eq:ToroidalCorrelation:toroidal_mode_number_ideal})
-% yields a measured mode number
-% \begin{equation}
-%   n_{\text{meas}} = n - \frac{\omega \delta t}{\Delta \zeta}.
-%   \label{eq:ToroidalCorrelation:toroidal_mode_number_dt_constant_omega}
-% \end{equation}
-% That is, the measured mode number will be biased away from
-% the true mode number by a constant DC offset.
-% If the true mode number $n$ is known,
-% then (\ref{eq:ToroidalCorrelation:toroidal_mode_number_dt_constant_omega})
-% can be used to determine the time-base offset $\delta t$.
-% 
-% Now, in addition to constant time offset $\delta t$,
-% imagine that the mode's angular frequency is ramping linearly in time
-% ($\dot{\omega} = \partial \omega / \partial t = \text{const}$) such that
-% $\omega(t + \delta t) = \omega(t) + \dot{\omega} \delta t$.
-% Then,
-% $\alpha_{12}
-% =
-% n \Delta \zeta - [\omega(t)] \delta t - (\dot{\omega} \delta t) t$
-% such that application of
-% (\ref{eq:ToroidalCorrelation:toroidal_mode_number_ideal})
-% yields a measured mode number that also ramps linearly in time
-% \begin{equation}
-%   \dot{n}_{\text{meas}}
-%   =
-%   - \left( \frac{2 \dot{\omega}}{\Delta \zeta} \right) \delta t.
-%   \label{eq:ToroidalCorrelation:toroidal_mode_number_dt_ramp_rate}
-% \end{equation}
-% Note that (\ref{eq:ToroidalCorrelation:toroidal_mode_number_dt_ramp_rate}) is
-% \emph{independent} of the true toroidal mode number $n$,
-% unlike (\ref{eq:ToroidalCorrelation:toroidal_mode_number_dt_constant_omega}).
-% Further, if $\delta t$ is ``large''
-% (i.e.\ $|\omega \delta t / \Delta \zeta| > n_{\text{Ny}}$),
-% $n_{\text{meas}}$ may be aliased and application of
-% (\ref{eq:ToroidalCorrelation:toroidal_mode_number_dt_constant_omega})
-% will give an incorrect value for $\delta t$.
-% Thus, if the frequency of the mode is ramping \emph{and}
-% the measured toroidal mode number $n_{\text{meas}}$ is also ramping in time,
-% (\ref{eq:ToroidalCorrelation:toroidal_mode_number_dt_ramp_rate})
-% can be used to determine the time-base offset $\delta t$ and
-% is superior to application of
-% (\ref{eq:ToroidalCorrelation:toroidal_mode_number_dt_constant_omega}).
-% 
-% \graffito{\textcolor{red}{Improve explanation}}
-% To make use of (\ref{eq:ToroidalCorrelation:toroidal_mode_number_dt_ramp_rate}),
-% $\dot{\omega}$ must be computed from experimental measurements.
-% Note that the \emph{measured} angular frequency is given as
-% $\omega_{\text{meas}} \equiv \partial[\omega(t) \cdot t] / \partial t$.
-% In the case where $\omega = \text{const}$,
-% this yields the expected result that $\omega_{\text{meas}} = \omega$.
-% However, if the angular frequency is ramping linearly in time
-% ($\omega(t) = \omega_0 + \dot{\omega} t$), then
-% $\omega_{\text{meas}} = \omega_0 + 2 \dot{\omega} t$ and
-% $\dot{\omega}_{\text{meas}} = 2 \dot{\omega}$.
-% Thus, (\ref{eq:ToroidalCorrelation:toroidal_mode_number_dt_ramp_rate}) becomes
-% \begin{equation}
-%   \dot{n}_{\text{meas}}
-%   =
-%   - \left( \frac{\dot{\omega}_{\text{meas}}}{\Delta \zeta} \right) \delta t.
-%   \label{eq:ToroidalCorrelation:toroidal_mode_number_dt_ramp_rate_lab_frame}
-% \end{equation}
-
 \begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
@@ -718,7 +643,7 @@ and the nominal trigger times of both digitizers differ.
     (\ref{eq:ToroidalCorrelation:trigger_offset_optimized}), and
     the measured toroidal mode numbers are constant in time,
     consistent with physical expectations.
-    The $6$-digit number in the lower right-hand corner
+    The $6$-digit number in the upper right-hand corner
     indicates the \diiid\space shot.
   }
 \label{fig:ToroidalCorrelation:trigger_offset}
@@ -908,79 +833,80 @@ is typical for large, robust tearing modes.
 \end{figure}
 
 
-\subsection{Effects of radial offset}
+\subsection{Effect of major-radial offset}
 \label{sec:ToroidalCorrelation:implementation_details_and_nonideal_effects:radial_offset}
-\begin{itemize}
-  \item \textcolor{red}{ECE to confirm radial mode structure}
-  \item \textcolor{red}{Correlate $V1$, $V2$, $V3$ to see just radial effect}
-\end{itemize}
-The $V2$ and PCI interferometer beam paths have a slight radial offset
-($\Delta R = \SI{4}{\centi\meter}$ with
-$R_{\text{V2}} = \SI{1.94}{\meter}$ and $R_{\text{PCI}} = \SI{1.98}{\meter}$).
-Thus, $\alpha_{12} = n(\zeta_2 - \zeta_1) + [\sigma(R_2) - \sigma(R_1)]$,
-where
-\begin{equation}
-  \sigma(R_2) - \sigma(R_1)
-  \approx
-  \begin{cases}
-    0, & \quad \text{$\vect{\xi}(R_1)$ and $\vect{\xi}(R_2)$ in-phase} \\
-    \pi, & \quad \text{$\vect{\xi}(R_1)$ and $\vect{\xi}(R_2)$ out-of-phase}
-  \end{cases},
-  \notag
-\end{equation}
-gives the relative phase of $\vect{\xi}$
-at $R_2$ relative to that at $R_1$.
-If $\vect{\xi}(R_1)$ and $\vect{\xi}(R_2)$ are in-phase,
-then application of \ldots  % (\ref{eq:ToroidalCorrelation:toroidal_mode_number_ideal})
-will yield the correct mode number.
-However, if $\vect{\xi}(R_1)$ and $\vect{\xi}(R_2)$ are out-of-phase,
-then application of\ldots  % (\ref{eq:ToroidalCorrelation:toroidal_mode_number_ideal})
-will yield a measured mode number $n_{\text{meas}}$
-\graffito{\textcolor{red}{Correct sign for alias??}}
-\begin{equation}
-  n_{\text{meas}}
-  =
-  \begin{cases}
-    n + n_{\text{Ny}}, & \quad n \leq 0 \\
-    n - n_{\text{Ny}}, & \quad n > 0
-  \end{cases},
-  \label{eq:ToroidalCorrelation:toroidal_mode_number_radially_out_of_phase}
-\end{equation}
-where $n_{\text{Ny}} \equiv \pi / \Delta \zeta$
-is the Nyquist toroidal mode number, and
-the $n > 0$ case results from \emph{aliasing}
-(that is, $n + n_{\text{Ny}} \rightarrow n - n_{\text{Ny}}$
-when $n > 0$ because of aliasing).
-Lacking additional measurements or some type of forward modeling,
-this incorrect mode-number identification may go undiagnosed.
-However, if $\vect{\xi}(R)$ evolves such that
-$\vect{\xi}(R_1)$ and $\vect{\xi}(R_2)$ transition
-from being in-phase to being out-of-phase (or vice versa),
-the measured mode number will ``flip'';
-an example of this mode-number ``flipping''
-is shown in Fig.~\ref{fig:ToroidalCorrelation:mode_number_flips}.
-Further effects of the radial offset can be investigated
-via forward modeling.
+As discussed in Section~\ref{sec:ToroidalCorrelation:Interferometers:diiid},
+the beams of the $V2$ and PCI interferometers have a
+$\Delta R = \SI{4}{\centi\meter}$ major-radial offset.
+This major-radial offset can bias the measured cross phase
+(\ref{eq:ToroidalCorrelation:interferometer_measured_cross_phase})
+between the two interferometer signals,
+which produces a corresponding bias
+in the interferometer-measured toroidal mode number
+(\ref{eq:ToroidalCorrelation:interferometer_measured_mode_number}).
+The cross-phase bias in
+(\ref{eq:ToroidalCorrelation:interferometer_measured_cross_phase})
+is $\sigma(R_{\text{pci}}) - \sigma(R_{\text{v2}})$, where
+$\sigma(R) = \arg[\Phi(R)]$ and $\Phi(R)$ is proportional to
+the line-integrated radial and poloidal mode structure
+at major radius $R$, as defined in
+(\ref{eq:ToroidalCorrelation:line_integrated_radial_and_poloidal_structure}).
+Now, if the mode structure is up-down symmetric about the midplane,
+$\Phi$ is real, and
+$\sigma(R_{\text{pci}}) - \sigma(R_{\text{v2}}) \in \{0, \pi\}$.
+The toroidal mode number is correctly identified
+when $\sigma(R_{\text{pci}}) - \sigma(R_{\text{v2}}) = 0$ but
+is aliased (and thus incorrectly identified)
+when $\sigma(R_{\text{pci}}) - \sigma(R_{\text{v2}}) = \pi$.
+If the radial mode structure evolves such that
+$\sigma(R_{\text{pci}}) - \sigma(R_{\text{v2}}) = 0 \rightarrow \pi$
+or vice versa,
+the measured mode number will ``jump'';
+an example of such mode-number ``jumping'' is shown in
+Fig.~\ref{fig:ToroidalCorrelation:mode_number_jumps}.
+If the mode structure is up-down asymmetric about the midplane, however,
+$\Phi$ is complex, and
+the bias to the measured mode number becomes continuous, rather than discrete.
+Fast-ion shearing of Alfv\'{e}n eigenmodes~\cite{tobias_prl11},
+for example, produces such up-down asymmetries.
 
 \begin{figure}
   \centering
-  \includegraphics[width = 0.5 \textwidth]{%
-    Chapters/ToroidalCorrelation/figs/phase_flips_167341.eps}
-  \caption[Mode-number ``flipping'' due to the small radial offset
-      between the $V2$ and PCI interferometers]{%
-    Due to the small radial offset ($\Delta R = \SI{4}{\centi\meter}$)
-    between the $V2$ and PCI interferometers,
-    changes in the radial structure of a mode
-    can result in ``flipping'' of the interferometer-measured mode number.
-    Here, the mode number flips from $n = 2$ to $n = -2$,
-    consistent with \ldots
-    % (\ref{eq:ToroidalCorrelation:toroidal_mode_number_radially_out_of_phase}).
-    Lacking additional measurements or some type of forward modeling,
-    it is impossible to determine if the mode is truly $n = 2$ or $n = -2$.
-    Note that these modes exceed the typical bandwidth of magnetics, however,
-    so even identification as $n = \pm 2$ \emph{is} an improvement!}
-\label{fig:ToroidalCorrelation:mode_number_flips}
+  \includegraphics[width = 0.85 \textwidth]{%
+    Chapters/ToroidalCorrelation/figs/mode_number_jumps.pdf}
+  \caption[Mode-number ``jumping'' due to major-radial offset of interferometers]{%
+    The $\Delta R = \SI{4}{\centi\meter}$ major-radial offset
+    between the $V2$ and PCI interferometers can produce
+    unphysical ``jumping'' of the measured toroidal mode number,
+    indicated here with red circular annotations,
+    when the radial mode structure evolves.
+    The $6$-digit number in the upper right-hand corner
+    indicates the \diiid\space shot.
+  }
+\label{fig:ToroidalCorrelation:mode_number_jumps}
 \end{figure}
+
+Unfortunately, there is not currently a tested, robust method
+for correcting the bias introduced by
+the major-radial offset of the interferometers
+(other than reducing the offset, i.e.\ $\Delta R \rightarrow 0$,
+which is not possible with current port allocations).
+Although external magnetic probes can corroborate
+the interferometer-measured mode numbers in some cases,
+such as in Fig.~\ref{fig:ToroidalCorrelation:magnetics_comparison},
+they are blind to core-localized fluctuations.
+It may be possible to account for the radial and poloidal mode structure
+via measurements from
+microwave imaging reflectometry (MIR)~\cite{muscatello_rsi14} or
+electron cyclotron emission imaging (ECEI)~\cite{tobias_rsi10}
+or via predictions from
+ideal MHD (e.g.\ NOVA~\cite{cheng_jcp87, cheng_pr92})
+or hybrid MHD-gyrofluid (e.g.\ TAEFL~\cite{spong_pfb92, spong_ps92}) codes,
+but such efforts were deemed beyond the scope of this work.
+If future modeling work is conducted to aid the interpretation
+of the interferometer-measured toroidal mode numbers,
+note that ideal MHD cannot capture the empirically relevant
+fast-ion shearing of Alfv\'{e}n eigenmodes~\cite{tobias_prl11}.
 
 
 \section{Example mode number spectra}

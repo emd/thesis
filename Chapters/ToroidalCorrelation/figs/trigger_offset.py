@@ -108,8 +108,8 @@ if __name__ == '__main__':
     ax[0].add_patch(e1)
     ax[0].add_patch(e2)
 
-    ax[0].text(1.39, 131., '%i' % shot, fontsize=(fontsize - 2))
-    ax[1].text(1.39, 131., '%i' % shot, fontsize=(fontsize - 2))
+    ax[0].text(1.39, 176.5, '%i' % shot, fontsize=(fontsize - 2))
+    ax[1].text(1.39, 176.5, '%i' % shot, fontsize=(fontsize - 2))
 
     ax[0].text(1.155, 176.5, '(a)', fontsize=fontsize)
     ax[1].text(1.155, 176.5, '(b)', fontsize=fontsize)
