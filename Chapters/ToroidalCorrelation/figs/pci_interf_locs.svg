@@ -23,10 +23,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.80217896"
-     inkscape:cx="319.2499"
+     inkscape:cx="473.40363"
      inkscape:cy="386.43528"
      inkscape:document-units="px"
-     inkscape:current-layer="g26023"
+     inkscape:current-layer="g74315"
      showgrid="false"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -190,7 +190,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -34218,9 +34218,9 @@
            id="text60629"
            y="748.48956"
            x="1080.5398"
-           style="font-size:28px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:28px;line-height:125%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:Sans;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
            xml:space="preserve"><tspan
-             style="font-weight:bold;text-align:center;text-anchor:middle;fill:#ff0000;-inkscape-font-specification:Bitstream Vera Sans Bold"
+             style="font-weight:bold;-inkscape-font-specification:'Bitstream Vera Sans Bold';text-align:center;text-anchor:middle;fill:#ff0000"
              y="748.48956"
              x="1080.5398"
              id="tspan60631"
@@ -34230,17 +34230,13 @@
              x="1080.5398"
              sodipodi:role="line"><tspan
    id="tspan60635"
-   style="font-style:normal;-inkscape-font-specification:Bitstream Vera Sans">ζ<tspan
-   style="font-size:65.00091553%;baseline-shift:sub"
-   id="tspan111195">1</tspan></tspan> = 240°</tspan><tspan
+   style="font-style:normal;-inkscape-font-specification:'Bitstream Vera Sans'">ζ</tspan> = 240°</tspan><tspan
              id="tspan60637"
              y="819.534"
              x="1080.5398"
              sodipodi:role="line"><tspan
    id="tspan60639"
-   style="font-style:oblique;-inkscape-font-specification:Bitstream Vera Sans Oblique">R</tspan><tspan
-   id="tspan111203"
-   style="font-size:65.00091553%;font-style:normal;baseline-shift:sub;-inkscape-font-specification:Bitstream Vera Sans">1</tspan> = 1.94 m</tspan></text>
+   style="font-style:oblique;-inkscape-font-specification:'Bitstream Vera Sans Oblique'">R</tspan> = 1.94 m</tspan></text>
         <path
            style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend)"
            d="M 1068.7502,719.59373 C 1014.0179,663.45071 956.28618,661.2967 896.8611,689.62332"
@@ -34252,7 +34248,7 @@
          id="g61865">
         <text
            xml:space="preserve"
-           style="font-size:28px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:28px;line-height:125%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:Sans;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
            x="1080.5398"
            y="292.48956"
            id="text60615"
@@ -34261,23 +34257,19 @@
              id="tspan60617"
              x="1080.5398"
              y="292.48956"
-             style="font-weight:bold;text-align:center;text-anchor:middle;fill:#ff0000;-inkscape-font-specification:Bitstream Vera Sans Bold">PCI beam:</tspan><tspan
+             style="font-weight:bold;-inkscape-font-specification:'Bitstream Vera Sans Bold';text-align:center;text-anchor:middle;fill:#ff0000">PCI beam:</tspan><tspan
              sodipodi:role="line"
              x="1080.5398"
              y="328.534"
              id="tspan60623"><tspan
-   style="font-style:normal;-inkscape-font-specification:Bitstream Vera Sans"
-   id="tspan60627">ζ<tspan
-   style="font-size:65.00091553%;baseline-shift:sub"
-   id="tspan111183">2</tspan></tspan> = 285°</tspan><tspan
+   style="font-style:normal;-inkscape-font-specification:'Bitstream Vera Sans'"
+   id="tspan60627">ζ</tspan> = 285°</tspan><tspan
              sodipodi:role="line"
              x="1080.5398"
              y="363.534"
              id="tspan60619"><tspan
-   style="font-style:oblique;-inkscape-font-specification:Bitstream Vera Sans Oblique"
-   id="tspan60625">R</tspan><tspan
-   id="tspan111191"
-   style="font-size:65.00091553%;font-style:normal;baseline-shift:sub;-inkscape-font-specification:Bitstream Vera Sans">2</tspan> = 1.98 m</tspan></text>
+   style="font-style:oblique;-inkscape-font-specification:'Bitstream Vera Sans Oblique'"
+   id="tspan60625">R</tspan> = 1.98 m</tspan></text>
         <path
            style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend)"
            d="m 757.19354,125.81858 c -41.20137,0.95072 -47.71952,23.57845 -52.00747,47.60006"

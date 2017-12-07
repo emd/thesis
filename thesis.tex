@@ -73,6 +73,10 @@
 \newcommand{\snr}{\text{SNR}}
 \renewcommand{\tilde}{\widetilde}
 \renewcommand{\bar}{\overline}
+\newcommand{\nom}{\text{nom}}
+\newcommand{\trig}{\text{trig}}
+\newcommand{\meas}{\text{meas}}
+\newcommand{\Ny}{\text{Ny}}
 
 
 % **************
@@ -93,25 +97,32 @@
 % \includeonly{Chapters/InterferometricMethods/InterferometricMethods}
 % \includeonly{Chapters/DesignConsiderations/DesignConsiderations}
 % \includeonly{Chapters/Implementation/Implementation}
-\includeonly{Chapters/TurbulenceMeasurements/TurbulenceMeasurements}
+% \includeonly{Chapters/ToroidalCorrelation/ToroidalCorrelation}
+% \includeonly{Chapters/TurbulenceMeasurements/TurbulenceMeasurements}
 % \includeonly{Appendices/GaussianBeamDiffraction/GaussianBeamDiffraction}
 % \includeonly{Appendices/ImagingSystems/ImagingSystems}
 % \includeonly{Appendices/PCIResponseIdentities/PCIResponseIdentities}
 % \includeonly{Appendices/OscillatorPhaseNoise/OscillatorPhaseNoise}
 % \includeonly{Appendices/SoundWaveCharacterization/SoundWaveCharacterization}
+% \includeonly{Appendices/SpectralEstimation/SpectralEstimation}
+% \includeonly{Appendices/DigitizerSynchronization/DigitizerSynchronization}
 
-% \includeonly{%
-%   FrontBackmatter/Contents,
-%   Chapters/Introduction/Introduction,
-%   Chapters/InterferometricMethods/InterferometricMethods,
-%   Chapters/DesignConsiderations/DesignConsiderations,
-%   Chapters/Implementation/Implementation,
-%   Appendices/GaussianBeamDiffraction/GaussianBeamDiffraction,
-%   Appendices/ImagingSystems/ImagingSystems,
-%   Appendices/PCIResponseIdentities/PCIResponseIdentities,
-%   Appendices/OscillatorPhaseNoise/OscillatorPhaseNoise,
-%   Appendices/SoundWaveCharacterization/SoundWaveCharacterization,
-% }
+\includeonly{%
+  FrontBackmatter/Contents,
+  Chapters/Introduction/Introduction,
+  Chapters/InterferometricMethods/InterferometricMethods,
+  Chapters/DesignConsiderations/DesignConsiderations,
+  Chapters/Implementation/Implementation,
+  Chapters/ToroidalCorrelation/ToroidalCorrelation,
+  Chapters/TurbulenceMeasurements/TurbulenceMeasurements,
+  Appendices/GaussianBeamDiffraction/GaussianBeamDiffraction,
+  Appendices/ImagingSystems/ImagingSystems,
+  Appendices/PCIResponseIdentities/PCIResponseIdentities,
+  Appendices/OscillatorPhaseNoise/OscillatorPhaseNoise,
+  Appendices/SoundWaveCharacterization/SoundWaveCharacterization,
+  Appendices/SpectralEstimation/SpectralEstimation,
+  Appendices/DigitizerSynchronization/DigitizerSynchronization
+}
 
 
 \begin{document}
@@ -129,36 +140,38 @@
 % ***********
 % Frontmatter
 % ***********
-\include{FrontBackmatter/Cover}
-\include{FrontBackmatter/Acknowledgements}
+\include{FrontBackmatter/Cover}%
+\include{FrontBackmatter/Acknowledgements}%
 \pagestyle{scrheadings}
-\cleardoublepage\include{FrontBackmatter/Contents}
+\cleardoublepage\include{FrontBackmatter/Contents}%
 
 
 % **********
 % Mainmatter
 % **********
-\cleardoublepage\pagenumbering{arabic}
-\include{Chapters/Introduction/Introduction}
-\include{Chapters/InterferometricMethods/InterferometricMethods}
-\include{Chapters/DesignConsiderations/DesignConsiderations}
-\include{Chapters/Implementation/Implementation}
-\include{Chapters/TurbulenceMeasurements/TurbulenceMeasurements}
-\include{Chapters/ToroidalCorrelation/ToroidalCorrelation}
-\include{Chapters/Conclusions/Conclusions}
+\cleardoublepage\pagenumbering{arabic}%
+\include{Chapters/Introduction/Introduction}%
+\include{Chapters/InterferometricMethods/InterferometricMethods}%
+\include{Chapters/DesignConsiderations/DesignConsiderations}%
+\include{Chapters/Implementation/Implementation}%
+\include{Chapters/ToroidalCorrelation/ToroidalCorrelation}%
+\include{Chapters/TurbulenceMeasurements/TurbulenceMeasurements}%
+\include{Chapters/Conclusions/Conclusions}%
 
 
 % **********
 % Backmatter
 % **********
-\appendix
-\cleardoublepage
-\include{Appendices/GaussianBeamDiffraction/GaussianBeamDiffraction}
-\include{Appendices/ImagingSystems/ImagingSystems}
-\include{Appendices/PCIResponseIdentities/PCIResponseIdentities}
-\include{Appendices/OscillatorPhaseNoise/OscillatorPhaseNoise}
-\include{Appendices/SoundWaveCharacterization/SoundWaveCharacterization}
-% \include{Appendices/ExternalClock/ExternalClock}
+\appendix%
+\cleardoublepage%
+\include{Appendices/GaussianBeamDiffraction/GaussianBeamDiffraction}%
+\include{Appendices/ImagingSystems/ImagingSystems}%
+\include{Appendices/PCIResponseIdentities/PCIResponseIdentities}%
+\include{Appendices/OscillatorPhaseNoise/OscillatorPhaseNoise}%
+\include{Appendices/SoundWaveCharacterization/SoundWaveCharacterization}%
+\include{Appendices/SpectralEstimation/SpectralEstimation}%
+\include{Appendices/DigitizerSynchronization/DigitizerSynchronization}%
+% \include{Appendices/ExternalClock/ExternalClock}%
 % \include{biblio}
 
 \cleardoublepage\include{FrontBackmatter/Colophon}
