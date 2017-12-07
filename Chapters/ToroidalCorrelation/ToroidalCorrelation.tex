@@ -38,7 +38,7 @@ derives the resulting Nyquist mode number.
 Section~\ref{sec:ToroidalCorrelation:Interferometers}
 examines the interferometric measurements in detail and
 develops a formula for the measured toroidal mode number.
-Section~\ref{sec:ToroidalCorrelation:implementation_details_and_nonideal_effects}
+Section~\ref{sec:ToroidalCorrelation:ImplementationDetails}
 describes the careful efforts to remove time-base discrepancies
 between the two interferometer systems and
 also discusses the effect of the interferometers' radial offset.
@@ -318,7 +318,7 @@ Finally, the $V2$ and PCI interferometer beam paths have a slight radial offset
 $R_{\text{v2}} = \SI{1.94}{\meter}$ and
 $R_{\text{pci}} = \SI{1.98}{\meter}$);
 the consequences of this offset are discussed in
-Section~\ref{sec:ToroidalCorrelation:implementation_details_and_nonideal_effects:radial_offset}.
+Section~\ref{sec:ToroidalCorrelation:ImplementationDetails:radial_offset}.
 
 For completeness, it should also be mentioned that
 a three-chord, radially viewing Faraday-effect polarimeter-interferometer
@@ -330,7 +330,7 @@ Presumably, these measurements could be correlated with those from
 the $225^{\circ}$ $R0$ CO$_2$ heterodyne interferometer.
 However, these two systems do not have phase-locked sampling rates
 (the necessity of which is discussed in
-Section~\ref{sec:ToroidalCorrelation:implementation_details_and_nonideal_effects:phase_locked_sampling}),
+Section~\ref{sec:ToroidalCorrelation:ImplementationDetails:phase_locked_sampling}),
 so no attempts to correlate their interferometric measurements
 are performed in this work.
 
@@ -490,31 +490,36 @@ the measured mode number will be aliased away from the true mode number
 
 
 \section{Implementation details and non-ideal effects}
-\label{sec:ToroidalCorrelation:implementation_details_and_nonideal_effects}
-Time-base discrepancies and offsets in major-radial position
+\label{sec:ToroidalCorrelation:ImplementationDetails}
+This section discusses various implementation details and non-ideal effects
+regarding the toroidal correlation of the $V2$ and PCI interferometers.
+Specifically, Section~\ref{sec:ToroidalCorrelation:ImplementationDetails:phase_locked_sampling}
+describes the modifications to the $V2$ and PCI digitizers
+that now enable phase-locked measurements.
+Section~\ref{sec:ToroidalCorrelation:ImplementationDetails:trigger_offset}
+unveils the presence of a deleterious ``trigger offset''
+between the phase-locked systems but
+also demonstrates an easy and robust methodology
+for estimating and compensating this offset
+in post-processing software.
+Section~\ref{sec:ToroidalCorrelation:ImplementationDetails:validation_agains_magnetics}
+then compares the interferometer-measured toroidal mode numbers
+with those measured by \diiid's array of midplane magnetic probes,
+typically resulting in good agreement for large, robust tearing modes.
+Finally, Section~\ref{sec:ToroidalCorrelation:ImplementationDetails:radial_offset}
+discusses how the $\Delta R = \SI{4}{\centi\meter}$ major-radial offset
 between the $V2$ and PCI interferometers
-can bias the measured mode number \ldots
-% (\ref{eq:ToroidalCorrelation:toroidal_mode_number_ideal})
-away from the true toroidal mode number $n$.
-As discussed below, time-base discrepancies have been eliminated
-by phase locking the interferometers' sampling rates
-(a hardware solution) and
-by post-processing the digitized data
-to remove the constant time-base offset
-that results from the discrepancy
-between each system's nominal and realized trigger times
-(a software solution).
-The major-radial offset of the interferometer probe beams
-can result in tell-tale, artificial mode-number ``flips''.
-Barring increased radial overlap (i.e.\ $\Delta R \rightarrow 0$),
-interpretation of toroidal mode number measurements
-from modes with substantial radial structure
-\graffito{\textcolor{red}{forward-modeling ref}}
-may require forward modeling.
+can bias the measured toroidal mode numbers;
+eliminating this radial offset is not possible
+with the current port allocations, but
+future work to empirically or computationally account
+for the radial and poloidal mode structures
+may aid the interpretation
+of the interferometer-measured toroidal mode numbers.
 
 
 \subsection{Phase-locked sampling}
-\label{sec:ToroidalCorrelation:implementation_details_and_nonideal_effects:phase_locked_sampling}
+\label{sec:ToroidalCorrelation:ImplementationDetails:phase_locked_sampling}
 Extracting useful information
 from the correlation of two measurements
 requires that the sampling rates of the two measurements
@@ -607,6 +612,7 @@ has been in place since June 2016.
 
 
 \subsection{Estimating \& compensating the ``trigger offset''}
+\label{sec:ToroidalCorrelation:ImplementationDetails:trigger_offset}
 As discussed in Appendix~\ref{app:DigitizerSynchronization},
 phase-locked digitizers can still suffer from
 a so-called ``trigger offset'', as defined by
@@ -777,6 +783,7 @@ will need to be estimated from new measurements.
 
 
 \subsection{Validation against magnetic measurements}
+\label{sec:ToroidalCorrelation:ImplementationDetails:validation_agains_magnetics}
 After compensating for the trigger offset
 (\ref{eq:ToroidalCorrelation:trigger_offset_optimized}),
 the interferometer-measured toroidal mode numbers can be validated against
@@ -834,7 +841,7 @@ is typical for large, robust tearing modes.
 
 
 \subsection{Effect of major-radial offset}
-\label{sec:ToroidalCorrelation:implementation_details_and_nonideal_effects:radial_offset}
+\label{sec:ToroidalCorrelation:ImplementationDetails:radial_offset}
 As discussed in Section~\ref{sec:ToroidalCorrelation:Interferometers:diiid},
 the beams of the $V2$ and PCI interferometers have a
 $\Delta R = \SI{4}{\centi\meter}$ major-radial offset.
