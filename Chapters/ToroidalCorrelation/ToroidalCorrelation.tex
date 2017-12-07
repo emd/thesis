@@ -718,6 +718,8 @@ and the nominal trigger times of both digitizers differ.
     (\ref{eq:ToroidalCorrelation:trigger_offset_optimized}), and
     the measured toroidal mode numbers are constant in time,
     consistent with physical expectations.
+    The $6$-digit number in the lower right-hand corner
+    indicates the \diiid\space shot.
   }
 \label{fig:ToroidalCorrelation:trigger_offset}
 \end{figure}
@@ -848,41 +850,61 @@ the $V2$ or PCI digitizers are altered in the future,
 the trigger offset will also change and
 will need to be estimated from new measurements.
 
-\begin{itemize}
-  \item Comparison to magnetics
-\end{itemize}
 
-For comparison, the corresponding (but with zero trigger offset)
-poloidal magnetic-field fluctuation spectrum~\cite{strait_rsi06}
-is also shown.
-The two spectra very clearly differ.
-
-\textcolor{red}{Note that additional measurements are needed
-to determine which clock is correct in the \emph{absolute} sense.
-For example, we can try digitizing a trigger signal and
-comparing the digitized time of the trigger to the ``nominal'' trigger time
-to determine the offset of our digitizer from the DIII-D clock.}
+\subsection{Validation against magnetic measurements}
+After compensating for the trigger offset
+(\ref{eq:ToroidalCorrelation:trigger_offset_optimized}),
+the interferometer-measured toroidal mode numbers can be validated against
+those measured by the \diiid\space midplane magnetic probes
+\cite{strait_rsi06}.
+The magnetic probes measure the
+poloidal magnetic-field perturbation $\tilde{B}_{\theta}$,
+as eddy currents in the wall tend to reinforce $\tilde{B}_{\theta}$
+(in contrast, eddy currents tend to shield
+the radial perturbations $\tilde{B}_{r}$).
+While toroidal mode numbers can be computed
+via two-point correlation of a single magnetic-probe pair,
+a more robust estimate can be made
+by correlating each unique magnetic-probe pair and
+then least-squares fitting
+the resulting cross-phase estimates vs.\
+the corresponding toroidal separations to a linear model;
+all of the magnetics-measured toroidal mode numbers
+presented in this work
+are computed via this more robust estimation method.
+Fig.~\ref{fig:ToroidalCorrelation:magnetics_comparison}
+compares the interferometer-measured and the magnetics-measured
+toroidal mode numbers;
+both measurements indicate the presence of an $n = 1$ tearing mode and
+several higher order harmonics.
+The good agreement between the interferometric and magnetic measurements
+is typical for large, robust tearing modes.
 
 \begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
-    Chapters/ToroidalCorrelation/figs/magnetics_and_interferometer_mode_numbers_167341.eps}
-  \caption[Computed toroidal mode numbers \emph{after} removing time delay
-      from \ldots  % Fig.~\ref{fig:ToroidalCorrelation:uncompensated_time_delay}
-    ]{%
-    Computed mode numbers from
-    toroidally separated interferometers and magnetics.
-    Here, the PCI-interferometer signal has been delayed by
-    $\SI{32}{\micro\second}$ relative to the $V2$ signal
-    to account for the time offset between each system's native time base.
-    Note that the agreement with magnetics is excellent and that
-    the mode numbers of the ramping-frequency modes are no longer
-    artificially ramping;
-    this is an enormous improvement over the corresponding
-    uncompensated interferometer-measured spectrum in\ldots
-    % Fig.~\ref{fig:ToroidalCorrelation:uncompensated_time_delay}.
+    Chapters/ToroidalCorrelation/figs/magnetics_comparison.pdf}
+  \caption[Interferometric \& magnetic measurement of toroidal mode numbers]{%
+    A comparison of interferometric (left) and magnetic (right)
+    measurements of toroidal mode numbers.
+    Here, cross-spectral densities are estimated
+    by averaging over $\approx \SI{14}{\milli\second}$ ``ensembles'',
+    each of which consists of $10$ ``realizations'';
+    adjacent realizations have $50\%$ overlap, and
+    a Hanning window is applied to each realization
+    prior to performing any spectral computations.
+    Only points with magnitude-squared coherence
+    $\gamma_{xy}^2 \geq 0.5$ are displayed
+    in the interferometer spectrum, while
+    only points with coefficient of determination
+    $R^2 \geq 0.9$ are displayed
+    in the magnetic spectrum.
+    See Appendix~\ref{app:SpectralEstimation}
+    for background regarding spectral estimation.
+    The $6$-digit number in the lower right-hand corner
+    indicates the \diiid\space shot.
   }
-\label{fig:ToroidalCorrelation:compensated_time_delay}
+\label{fig:ToroidalCorrelation:magnetics_comparison}
 \end{figure}
 
 
@@ -1070,7 +1092,7 @@ via forward modeling.
     The high coherence between the $V2$ and 285 interferometers
     allows accurate measurement of toroidal mode numbers,
     as demonstrated by the corresponding mode number spectrum
-    displayed in Fig.~\ref{fig:ToroidalCorrelation:compensated_time_delay},
+    displayed in Fig\ldots % ~\ref{fig:ToroidalCorrelation:compensated_time_delay},
     whereas the poor coherence between the $V2$ and PCI
     prevents such measurements.
     (Note that ``285 interferometer'' refers to
