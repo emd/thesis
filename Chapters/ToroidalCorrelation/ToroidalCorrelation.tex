@@ -42,7 +42,7 @@ Section~\ref{sec:ToroidalCorrelation:ImplementationDetails}
 describes the careful efforts to remove time-base discrepancies
 between the two interferometer systems and
 also discusses the effect of the interferometers' radial offset.
-Finally, Section~\ref{sec:ToroidalCorrelation:survey_of_spectra}
+Finally, Section\ldots  %~\ref{sec:ToroidalCorrelation:survey_of_spectra}
 surveys representative mode-number spectra
 from the toroidally correlated interferometers.
 
@@ -916,121 +916,64 @@ note that ideal MHD cannot capture the empirically relevant
 fast-ion shearing of Alfv\'{e}n eigenmodes~\cite{tobias_prl11}.
 
 
-\section{Example mode number spectra}
-\label{sec:ToroidalCorrelation:survey_of_spectra}
-\textcolor{red}{%
-  This section contains representative results
-  from the toroidal correlation measurement
-  obtained over the very brief ``metal-rings'' campaign (June 2016).
-  This is \emph{not} a complete section,
-  as it consists solely of figures and detailed captions.
-  This is intended to be a survey of current measurements.
-  In the final version of my thesis,
-  some of these figures (or variants thereof)
-  may be moved to other chapters, and
-  I may decide to only keep a few of the figures
-  in this section for detailed discussion.
-  Obviously, your insight will be helpful
-  for pruning and focusing this section.
-}
+\section{Diagnosis of core-localized MHD}
+\label{sec:ToroidalCorrelation:CoreLocalized}
+Directly measuring the toroidal mode numbers of core-localized MHD
+was one of the primary motivations for the addition
+of a heterodyne-interferometer channel to \diiid's pre-existing PCI system.
+As discussed in
+Section~\ref{sec:ToroidalCorrelation:ImplementationDetails:radial_offset},
+however, the $\Delta R = \SI{4}{\centi\meter}$ major-radial offset
+between the $V2$ and PCI beams
+introduces ambiguities in the interferometer-measured mode numbers.
+Further, because core-localized MHD is, by definition,
+invisible to external magnetic probes,
+the interferometer-measured mode numbers
+cannot be corroborated by magnetics.
+Although the interferometer-measured mode numbers
+may currently be biased away from their true values,
+the mere presence of core-localized MHD in the interferometer signals
+should still be considered an encouraging proof of principle,
+where future work to eliminate the major-radial offset
+would allow direct and accurate
+mode-number measurements of core-localized MHD.
+Fig.~\ref{fig:ToroidalCorrelation:core_localized}
+provides such a proof of principle.
+The top panel displays the fluctuating poloidal magnetic-field spectrum
+measured by a high-frequency magnetic probe~\cite{strait_rsi06}, while
+the second panel displays the toroidal mode numbers
+measured by the midplane array
+of lower-bandwidth magnetic probes~\cite{strait_rsi06}.
+The third panel shows the interferometer-measured toroidal mode numbers,
+indicating very good agreement with the low-bandwidth magnetic measurements;
+however, between $\SI{1.8}{\second}$ and $\SI{2.2}{\second}$,
+the interferometers measure a burst of fluctuations
+that are invisible to the low- and high-bandwidth magnetic probes,
+indicating that the modes are core-localized.
+The modes are triggered when
+the on-axis safety factor $q_0$ drops below unity.
+Unfortunately, additional observations of core-localized MHD
+proved to be surprisingly rare, and
+no systematic behavior could be identified
+linking the few-and-far-between occurrences.
 
-\begin{figure}[h!]
+\begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
-    Chapters/ToroidalCorrelation/figs/magnetics_and_interferometer_mode_numbers_167340.eps}
-  \caption[Another example of excellent agreement between the
-      interferometer and magnetics mode number spectra]{%
-    Another example of excellent agreement between the
-    interferometer and magnetics mode number spectra. Note that
-    the interferometers additionally see modes \emph{invisible} to magnetics.
-    Here,the modes were \emph{assumed} to be rotating
-    in the ``positive'' direction
-    (i.e.\ counterclockwise when viewing the torus from above,
-    as this corresponds to the direction of dominant torque injection)
-    such that we can discriminate $0 \leq n < 8$
-    (rather than the typical $-4 < n \leq 4$).}
-\label{fig:ToroidalCorrelation:magnetics_corroboration_2}
-\end{figure}
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width = 0.8 \textwidth]{%
     Chapters/ToroidalCorrelation/figs/core_localized_167342.eps}
   \caption[Toroidal mode numbers of \emph{core-localized} MHD]{%
-    Between $1.8 \leq t \, [\text{s}] \leq 2.2$,
-    the correlated interferometers measure fluctuations
-    (Alfv\'{e}n eigenmodes?) that are \emph{invisible} to magnetics.
+    Between $\SI{1.8}{\second}$ and $\SI{2.2}{\second}$,
+    the correlated interferometers ($3\ts{rd}$ panel) measure
+    a burst of fluctuations that are
+    \emph{invisible} to magnetics ($1\ts{st}$ and $2\ts{nd}$ panels).
     This suggests that the modes are \emph{core-localized} and
     that the correlated interferometers are indeed capable
-    of measuring core-localized MHD!
-    (Note that the fast magnetic probes have a \SI{1}{\mega\hertz} bandwidth,
-    but they do not have significant toroidal separation,
-    preventing accurate measurement of toroidal mode numbers).}
+    of measuring core-localized MHD.
+    Various plasma parameters of interest are shown in the lower panels;
+    the modes are triggered when
+    the on-axis safety factor $q_0$ drops below unity.
+  }
 \label{fig:ToroidalCorrelation:core_localized}
-\end{figure}
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/ToroidalCorrelation/figs/AEs_167550.eps}
-  \caption[Toroidal mode numbers of Alfv\'{e}n eigenmodes]{%
-    Alfv\'{e}n eigenmodes visible
-    on the correlated interferometers.
-    These modes are not readily visible on magnetics.}
-\label{fig:ToroidalCorrelation:AEs}
-\end{figure}
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width = 0.7 \textwidth]{%
-    Chapters/ToroidalCorrelation/figs/interELM_fast_167578.eps}
-  \caption[Toroidal mode numbers of inter-ELM fluctuations]{%
-    Inter-ELM fluctuations as measured by
-    the correlated interferometers and fast magnetics.
-    The mode frequency ramps early in the inter-ELM window before saturating;
-    the magnetic component of the fluctuation only appears \emph{after}
-    the mode frequency has saturated --- fascinating!
-    (Note that the fast magnetic probes have a \SI{1}{\mega\hertz} bandwidth,
-    but they do not have significant toroidal separation,
-    preventing accurate measurement of toroidal mode numbers).
-    The drive and significance of such fluctuations is not known, but
-    they do \emph{not} occur in every ELMy discharge.}
-\label{fig:ToroidalCorrelation:interELM_fast}
-\end{figure}
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width = 0.5 \textwidth]{%
-    Chapters/ToroidalCorrelation/figs/EHO_167587.eps}
-  \caption[Toroidal mode numbers of the edge harmonic oscillation (EHO)]{%
-    The magnetics and interferometers both see the
-    edge harmonic oscillation (EHO), which is responsible for
-    flushing impurities from quiescent H-mode (QH-mode) plasmas.
-    Below \SI{20}{\kilo\hertz}, the magnetics and interferometers
-    both measure the same toroidal mode numbers; however,
-    above \SI{20}{\kilo\hertz}, the measured mode numbers differ,
-    likely due to a combination of aliasing and the small radial offset
-    of the two interferometer beams.}
-\label{fig:ToroidalCorrelation:EHO}
-\end{figure}
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width = 0.75 \textwidth]{%
-    Chapters/ToroidalCorrelation/figs/interferometer_vs_PCI_coherence.eps}
-  \caption[Inability to correlate $V2$ and PCI]{%
-    The magnitude-squared coherence $\gamma_{xy}^2$ between
-    the $V2$ and 285 interferometers (left) and
-    between the $V2$ interferometer and PCI (right).
-    The high coherence between the $V2$ and 285 interferometers
-    allows accurate measurement of toroidal mode numbers,
-    as demonstrated by the corresponding mode number spectrum
-    displayed in Fig\ldots % ~\ref{fig:ToroidalCorrelation:compensated_time_delay},
-    whereas the poor coherence between the $V2$ and PCI
-    prevents such measurements.
-    (Note that ``285 interferometer'' refers to
-    the newly installed interferometer channel of the PCI).}
-\label{fig:ToroidalCorrelation:PCI_coherence}
 \end{figure}
 
 
