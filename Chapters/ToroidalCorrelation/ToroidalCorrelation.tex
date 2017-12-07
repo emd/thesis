@@ -6,45 +6,50 @@
 
 \chapter{Correlation of \diiid's toroidally separated interferometers}
 \label{ch:ToroidalCorrelation}
-\graffito{\textcolor{red}{rephrase}}
-The toroidal structure of an MHD mode can strongly influence
-the mode's stability and its interaction with the surrounding plasma.
+The toroidal structure of an MHD mode can have important implications
+for the mode's stability and its interaction with the surrounding plasma.
 A mode's toroidal structure is typically characterized
-via the toroidal mode number $n$.
+by its toroidal mode number $n$.
 Historically, measurement of toroidal (and poloidal) mode numbers
-with magnetic loops has provided rich insight
+with external magnetic probes has provided rich insight
 into the physics governing numerous operational regimes and stability limits.
 However, core-localized MHD produces weak signals outside of the plasma volume,
 making measurement of the corresponding mode numbers
-via magnetic loops difficult or impossible.
+via external magnetic probes difficult or impossible.
 Recently, measurements from toroidally separated
 electron cyclotron emission imaging (ECEI) systems
 on the KSTAR tokamak have identified mode numbers of
-edge-localized modes~\cite{lee_rsi_2014} and
 sawteeth~\cite{choe_nf_2015},
 demonstrating the utility of using more exotic measurements
 to probe the structure of core-localized MHD.
 
-This chapter describes the use of toroidally separated interferometers
+This chapter describes the correlation
+of toroidally separated interferometers
 to measure toroidal mode numbers.
-To the author's knowledge, this is the first such implementation in a tokamak.
-The addition of the heterodyne interferometer channel
-to \diiid's pre-existing phase contrast imaging (PCI) system
-enabled this novel measurement.
-Section~\ref{sec:ToroidalCorrelation:TwoPointCorrelation}
-reviews the mathematics of the two-point correlation technique
-used to extract toroidal mode numbers and
-derives the resulting Nyquist mode number.
+To the author's knowledge,
+this is the first such implementation in a tokamak.
+As the interferometers are capable of probing the plasma core,
+their correlation allows direct measurement
+of the toroidal structure of core-localized modes
+--- a long-sought after and first-of-its-kind measurement at \diiid.
+Below, Section~\ref{sec:ToroidalCorrelation:TwoPointCorrelation}
+reviews the two-point correlation technique,
+which allows inference of a propagating wave's
+spatial structure from measurements
+made at two distinct spatial locations.
 Section~\ref{sec:ToroidalCorrelation:Interferometers}
-examines the interferometric measurements in detail and
+then examines the geometry of the interferometers and
 develops a formula for the measured toroidal mode number.
 Section~\ref{sec:ToroidalCorrelation:ImplementationDetails}
-describes the careful efforts to remove time-base discrepancies
-between the two interferometer systems and
-also discusses the effect of the interferometers' radial offset.
-Finally, Section\ldots  %~\ref{sec:ToroidalCorrelation:survey_of_spectra}
-surveys representative mode-number spectra
-from the toroidally correlated interferometers.
+describes the careful efforts to eliminate timebase discrepancies
+between the two interferometer systems,
+validates the interferometer-measured toroidal mode numbers
+against those measured by external magnetic probes, and
+discusses the effect of the interferometers' radial offset.
+Finally, Section~\ref{sec:ToroidalCorrelation:CoreLocalized}
+provides an encouraging proof of principle
+regarding the ability of the correlated interferometers
+to diagnose core-localized MHD.
 
 
 \section{Two-point correlation}
@@ -57,7 +62,7 @@ Section~\ref{sec:ToroidalCorrelation:TwoPointCorrelation:wavenumber_measurement}
 details the two-point correlation technique.
 Section~\ref{sec:ToroidalCorrelation:TwoPointCorrelation:aliasing}
 then discusses the aliasing of large wavenumbers and
-establishes the Nyquist wavenumber of a given measurement,
+establishes a measurement's Nyquist wavenumber,
 below which wavenumbers are \emph{not} aliased.
 Finally,
 Section~\ref{sec:ToroidalCorrelation:TwoPointCorrelation:toroidal_mode_numbers}
@@ -442,7 +447,9 @@ Nonetheless, the measured toroidal mode number $n_{\meas}$ is defined as
 \end{equation}
 However, if $\sigma(R_{\text{pci}}) \neq \sigma(R_{\text{v2}})$,
 the measured mode number will not be equal to the true mode number
-(i.e.\ $n_{\meas} \neq n$).
+(i.e.\ $n_{\meas} \neq n$);
+this is discussed further in
+Section~\ref{sec:ToroidalCorrelation:ImplementationDetails:radial_offset}.
 Further, if the true mode number exceeds the Nyquist mode number
 (\ref{eq:ToroidalCorrelation:Nyquist_modenumber_interferometers}),
 the measured mode number will be aliased away from the true mode number
@@ -535,7 +542,7 @@ for the $V2$ and PCI interferometer signals.
 The $V2$ interferometer's
 $\Delta f_0 = \SI{40}{\mega\hertz}$ intermediate-frequency signal
 is demodulated using an all-digital technique
-that mandates a use of a sampling rate
+that mandates use of a sampling rate
 $f_s = (4 / 3) \Delta f_0$
 \cite{vanzeeland_rsi08}, and
 the baseband $I$ and $Q$ signals never exist in analog form.
@@ -588,7 +595,7 @@ in the third row of the \diiid\space annex.
 The PCI digitizer typically samples at $f_s = 4 \, \text{MSPS}$.
 Thus, division of the $V2$ $\SI{16}{\mega\hertz}$ clock by four
 (in hardware or software) yields a clock appropriate for typical sampling.
-Each board can accept an external clock
+Each board of the PCI digitizer can accept an external clock
 through the front panel's single-pin LEMO CLK input.
 The CLK signal passes through an optocoupler
 with a bandwidth $\sim \SI{10}{\mega\hertz}$
@@ -597,7 +604,7 @@ in-house tests have demonstrated
 that the input clock frequency
 can actually exceed $\SI{16}{\mega\hertz}$.
 As a result, the $\SI{16}{\mega\hertz}$ signal
-is directly connected to the front-panel CLK lemo input
+is directly connected to the front-panel LEMO CLK input
 of the ``master'' digitizer board (``board $8$''), and
 the necessary division
 (i.e.\ divide by four to achieve typical $4 \, \text{MSPS}$ sampling rate)
@@ -784,6 +791,33 @@ will need to be estimated from new measurements.
 
 \subsection{Validation against magnetic measurements}
 \label{sec:ToroidalCorrelation:ImplementationDetails:validation_agains_magnetics}
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/ToroidalCorrelation/figs/magnetics_comparison.pdf}
+  \caption[Interferometric \& magnetic measurement of toroidal mode numbers]{%
+    A comparison of interferometric (left) and magnetic (right)
+    measurements of toroidal mode numbers.
+    Here, cross-spectral densities are estimated
+    by averaging over $\approx \SI{14}{\milli\second}$ ``ensembles'',
+    each of which consists of $10$ ``realizations'';
+    adjacent realizations have $50\%$ overlap, and
+    a Hanning window is applied to each realization
+    prior to performing any spectral computations.
+    Only points with magnitude-squared coherence
+    $\gamma_{xy}^2 \geq 0.5$ are displayed
+    in the interferometer spectrum, while
+    only points with coefficient of determination
+    $R^2 \geq 0.9$ are displayed
+    in the magnetic spectrum.
+    See Appendix~\ref{app:SpectralEstimation}
+    for background regarding spectral estimation.
+    The $6$-digit number in the lower right-hand corner
+    indicates the \diiid\space shot.
+  }
+\label{fig:ToroidalCorrelation:magnetics_comparison}
+\end{figure}
+
 After compensating for the trigger offset
 (\ref{eq:ToroidalCorrelation:trigger_offset_optimized}),
 the interferometer-measured toroidal mode numbers can be validated against
@@ -811,33 +845,6 @@ both measurements indicate the presence of an $n = 1$ tearing mode and
 several higher order harmonics.
 The good agreement between the interferometric and magnetic measurements
 is typical for large, robust tearing modes.
-
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/ToroidalCorrelation/figs/magnetics_comparison.pdf}
-  \caption[Interferometric \& magnetic measurement of toroidal mode numbers]{%
-    A comparison of interferometric (left) and magnetic (right)
-    measurements of toroidal mode numbers.
-    Here, cross-spectral densities are estimated
-    by averaging over $\approx \SI{14}{\milli\second}$ ``ensembles'',
-    each of which consists of $10$ ``realizations'';
-    adjacent realizations have $50\%$ overlap, and
-    a Hanning window is applied to each realization
-    prior to performing any spectral computations.
-    Only points with magnitude-squared coherence
-    $\gamma_{xy}^2 \geq 0.5$ are displayed
-    in the interferometer spectrum, while
-    only points with coefficient of determination
-    $R^2 \geq 0.9$ are displayed
-    in the magnetic spectrum.
-    See Appendix~\ref{app:SpectralEstimation}
-    for background regarding spectral estimation.
-    The $6$-digit number in the lower right-hand corner
-    indicates the \diiid\space shot.
-  }
-\label{fig:ToroidalCorrelation:magnetics_comparison}
-\end{figure}
 
 
 \subsection{Effect of major-radial offset}
@@ -882,11 +889,11 @@ for example, produces such up-down asymmetries.
   \includegraphics[width = 0.85 \textwidth]{%
     Chapters/ToroidalCorrelation/figs/mode_number_jumps.pdf}
   \caption[Mode-number ``jumping'' due to major-radial offset of interferometers]{%
-    The $\Delta R = \SI{4}{\centi\meter}$ major-radial offset
+    When the radial mode structure evolves,
+    the $\Delta R = \SI{4}{\centi\meter}$ major-radial offset
     between the $V2$ and PCI interferometers can produce
     unphysical ``jumping'' of the measured toroidal mode number,
-    indicated here with red circular annotations,
-    when the radial mode structure evolves.
+    indicated here with red circular annotations.
     The $6$-digit number in the upper right-hand corner
     indicates the \diiid\space shot.
   }
@@ -937,6 +944,7 @@ should still be considered an encouraging proof of principle,
 where future work to eliminate the major-radial offset
 would allow direct and accurate
 mode-number measurements of core-localized MHD.
+
 Fig.~\ref{fig:ToroidalCorrelation:core_localized}
 provides such a proof of principle.
 The top panel displays the fluctuating poloidal magnetic-field spectrum
