@@ -153,13 +153,11 @@ However, the author anecdotally notes that his experience with
 such detrending can lead to values of $\gamma_{xy}^2(f)$
 that unphysically exceed the bounds established in
 (\ref{eq:SpectralEstimation:magnitude_squared_coherence_bounds}).
-\textcolor{red}{%
-The subtleties of such discrepancies were not investigated further,
-as all signals analyzed in this work
-are passed through the high-pass filter
-discussed in Section~XXXX.
-As a result, no detrending was applied to signals
-prior to spectral computations in this work.}
+The subtleties of such discrepancies were not investigated further, and
+no such detrending was applied to signals
+prior to spectral computations in this work;
+instead, if needed, signals are high-pass filtered as described in
+Section~\ref{sec:Implementation:DataPreparation:high_pass_filtering}.
 
 \begin{table}[t]
   \centering
