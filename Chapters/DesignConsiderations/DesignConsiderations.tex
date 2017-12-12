@@ -690,6 +690,46 @@ fails to detect the fluctuations.
 
 \section{Intensity considerations}
 \label{sec:DesignConsiderations:intensity}
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/DesignConsiderations/figs/nonlinear_heterodyne_detection.pdf}
+  \caption[Heterodyne detection beyond the saturation intensity]{%
+    Heterodyne detection beyond the saturation intensity with
+    $\Delta\omega_0 = 2\pi \cdot \SI{30}{\mega\hertz}$ and
+    $\omega = 2 \pi \cdot \SI{16}{\mega\hertz}$.
+    (Top panel): Various detector saturation models.
+    The linear model exhibits no saturation,
+    the hard saturation model limits the output voltage
+    to $V_{\text{sat}}$ when the incident optical intensity
+    exceeds $I_{\text{sat}}$, and
+    the arctangent saturation model exhibits $\SI{1}{\deci\bel}$ compression
+    when the incident optical intensity is $I_{\text{sat}}$.
+    (2\ts{nd} panel): The intermediate frequency (IF) waveforms
+    corresponding to each saturation model when
+    $I_{\text{max}} = 10 \, I_{\text{sat}}$.
+    The arctangent and hard saturation models distort the IF waveform,
+    producing numerous higher-order harmonics.
+    (3\ts{rd} panel): Autospectral densities of the IF waveforms.
+    The IF waveforms all exhibit peaks at
+    the $\SI{30}{\mega\hertz}$ fundamental and
+    its corresponding sidebands at
+    $\SI{30}{\mega\hertz} \pm \SI{16}{\mega\hertz}$.
+    However, the saturated IF waveforms
+    also exhibit peaks at the second harmonic ($\SI{60}{\mega\hertz}$)
+    and its corresponding sidebands
+    ($\SI{60}{\mega\hertz} \pm \SI{16}{\mega\hertz}$).
+    (Bottom panel): Autospectral densities of the demodulated phase.
+    Note that the $\SI{16}{\mega\hertz}$ fluctuation is correctly identified
+    when demodulating all of the IF waveforms.
+    However, the saturated IF waveforms also produce
+    a \emph{spurious} $\SI{14}{\mega\hertz}$ fluctuation,
+    which is attributable to the overlap of
+    the $\SI{30}{\mega\hertz}$ and $\SI{60}{\mega\hertz}$ sidebands.
+  }
+\label{fig:DesignConsiderations:nonlinear_heterodyne_detection}
+\end{figure}
+
 Ideally, a photovoltaic detector produces an output voltage
 \begin{equation}
   V(t) = \mathcal{R}_0 \cdot I(t),
@@ -760,46 +800,6 @@ when the system's maximum intensity is scaled to the saturation intensity
 are \emph{not} altered during this scaling;
 to account for changing the AC and DC fractions, see the discussion in
 Section~\ref{sec:DesignConsiderations:geometric:beam_mismatch}).
-
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/DesignConsiderations/figs/nonlinear_heterodyne_detection.pdf}
-  \caption[Heterodyne detection beyond the saturation intensity]{%
-    Heterodyne detection beyond the saturation intensity with
-    $\Delta\omega_0 = 2\pi \cdot \SI{30}{\mega\hertz}$ and
-    $\omega = 2 \pi \cdot \SI{16}{\mega\hertz}$.
-    (Top panel): Various detector saturation models.
-    The linear model exhibits no saturation,
-    the hard saturation model limits the output voltage
-    to $V_{\text{sat}}$ when the incident optical intensity
-    exceeds $I_{\text{sat}}$, and
-    the arctangent saturation model exhibits $\SI{1}{\deci\bel}$ compression
-    when the incident optical intensity is $I_{\text{sat}}$.
-    (2\ts{nd} panel): The intermediate frequency (IF) waveforms
-    corresponding to each saturation model when
-    $I_{\text{max}} = 10 \, I_{\text{sat}}$.
-    The arctangent and hard saturation models distort the IF waveform,
-    producing numerous higher-order harmonics.
-    (3\ts{rd} panel): Autospectral densities of the IF waveforms.
-    The IF waveforms all exhibit peaks at
-    the $\SI{30}{\mega\hertz}$ fundamental and
-    its corresponding sidebands at
-    $\SI{30}{\mega\hertz} \pm \SI{16}{\mega\hertz}$.
-    However, the saturated IF waveforms
-    also exhibit peaks at the second harmonic ($\SI{60}{\mega\hertz}$)
-    and its corresponding sidebands
-    ($\SI{60}{\mega\hertz} \pm \SI{16}{\mega\hertz}$).
-    (Bottom panel): Autospectral densities of the demodulated phase.
-    Note that the $\SI{16}{\mega\hertz}$ fluctuation is correctly identified
-    when demodulating all of the IF waveforms.
-    However, the saturated IF waveforms also produce
-    a \emph{spurious} $\SI{14}{\mega\hertz}$ fluctuation,
-    which is attributable to the overlap of
-    the $\SI{30}{\mega\hertz}$ and $\SI{60}{\mega\hertz}$ sidebands.
-  }
-\label{fig:DesignConsiderations:nonlinear_heterodyne_detection}
-\end{figure}
 
 
 \section{Phase noise: sources \& effects}
