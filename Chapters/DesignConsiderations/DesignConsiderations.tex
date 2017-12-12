@@ -338,7 +338,7 @@ a spatially dependent, curvature-induced phase shift
 \end{align}
 which can result in signal loss and distortion of the measured wavenumber.
 To see this, assume that the radiation is interfered on a detector array,
-as shown in Fig.~\ref{fig:DesignConsiderations:detector_array}.
+as shown in Figure~\ref{fig:DesignConsiderations:detector_array}.
 As a detector element produces a signal
 proportional to the average intensity across its face,
 there will be substantial signal loss
@@ -354,7 +354,7 @@ of the plasma fluctuation.
 The latter is the more conservative constraint
 on the curvature-induced phase shift.
 Assuming that the detector array shown in
-Fig.~\ref{fig:DesignConsiderations:detector_array}
+Figure~\ref{fig:DesignConsiderations:detector_array}
 consists of $N_{\text{el}}$ detector elements and
 that the inter-element spacing is negligible ($\delta_x \ll s_x$),
 the criterion for negligible curvature-induced phase shifts
@@ -406,7 +406,7 @@ Finite sampling-volume effects dictate
 a heterodyne interferometer's wavenumber response~\cite{davis_rsi16}.
 To see this, assume that measurements
 are made with the array of rectangular detector elements shown in
-Fig.~\ref{fig:DesignConsiderations:detector_array}
+Figure~\ref{fig:DesignConsiderations:detector_array}
 (for circular elements, see Coda's discussion~\cite[Sec.~3.7]{coda_phd}).
 Let the $j$\ts{th} detector element $D_j$ be centered on $x_{\image,j}$
 and $y_{\image} = 0$.
@@ -505,7 +505,7 @@ the heterodyne interferometer's wavenumber transfer function reduces to
 (\ref{eq:InterferometricMethods:heterodyne_interferometer_wavenumber_transfer_function}).
 Thus, finite sampling-volume effects
 introduce a wavenumber dependence into $T_{\text{het}}$,
-as shown in Fig.~\ref{fig:DesignConsiderations:fsv_effects}.
+as shown in Figure~\ref{fig:DesignConsiderations:fsv_effects}.
 Note that finite sampling-volume effects
 introduce similar wavenumber dependencies
 into the transfer functions of the homodyne interferometer and PCI.
@@ -739,7 +739,7 @@ However, for fluctuations with sufficiently high bandwidth
 the sidebands of adjacent harmonics begin to overlap,
 potentially corrupting the phase measurement,
 as demonstrated by the example in
-Fig.~\ref{fig:DesignConsiderations:nonlinear_heterodyne_detection}.
+Figure~\ref{fig:DesignConsiderations:nonlinear_heterodyne_detection}.
 By processing the bandpass-filtered voltage
 (\ref{eq:DesignConsiderations:bandpass_filtered_voltage})
 via a procedure similar to that outlined between
@@ -960,7 +960,7 @@ relative to the plasma beam.
 It is easy to Doppler shift $\SI{10.6}{\micro\meter}$ radiation
 by tens of $MHz$ with a Germanium acousto-optic modulator (AOM).
 The operation of a typical AOM is sketched in
-Fig.~\ref{fig:DesignConsiderations:aom_scattering_diagram}.
+Figure~\ref{fig:DesignConsiderations:aom_scattering_diagram}.
 A piezo-actuator drives sound waves
 of angular frequency $\Delta \omega_0$
 through the Germanium crystal, and
@@ -1475,7 +1475,7 @@ A typical analog $I\&Q$ demodulator consists of
 a $90^{\circ}$ splitter,
 two double-balanced mixers, and
 a $0^{\circ}$ splitter~\cite{minicircuits_modulators}, as shown in
-Fig.~\ref{fig:DesignConsiderations:analog_IQ_demodulator}(a).
+Figure~\ref{fig:DesignConsiderations:analog_IQ_demodulator}(a).
 The $90^{\circ}$ splitter divides the incident local oscillator (LO) signal
 \begin{equation}
   \text{LO}(t) = \frac{4 \sqrt{2}}{\pi} \cos(\Delta\omega_0 t)
@@ -1579,7 +1579,7 @@ to maximize the mixer's linear dynamic range and minimize its noise figure
 
 For example, a typical ring-diode double-balanced mixer
 \cite{analog_devices_mix_and_mod}
-is shown in Fig.~\ref{fig:DesignConsiderations:analog_IQ_demodulator}(b).
+is shown in Figure~\ref{fig:DesignConsiderations:analog_IQ_demodulator}(b).
 The balun transformers $T_1$ and $T_2$
 isolate the baseband port from the LO and IF ports.
 Typically, the LO power is $\sim \SI{20}{\deci\bel}$ larger than the IF power.
@@ -1605,11 +1605,25 @@ explaining why some manufacturers
 advocate the use of a square, rather than a sinusoidal, LO
 \cite{minicircuits_mixer_faqs}.
 
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/DesignConsiderations/figs/LO_switching_function.pdf}
+  \caption[LO switching functions]{%
+    The LO switching functions.
+    The top panel displays the incident sinusoidal LO signal, while
+    the bottom panel shows the \emph{sign} of
+    the in-phase ($\text{LO}_0$) and
+    the $\pi / 2$ phase-advanced ($\text{LO}_{\pi / 2}$)
+    copies of the LO signals.}
+  \label{fig:DesignConsiderations:LO_switching_function}
+\end{figure}
+
 This polarization modulation can alter the baseband spectrum.
 To see this, note that the sign of the in-phase LO signal
 is simply a zero-mean square wave with even symmetry about the origin,
 as shown in the lower pane of
-Fig.~\ref{fig:DesignConsiderations:LO_switching_function}.
+Figure~\ref{fig:DesignConsiderations:LO_switching_function}.
 The Fourier series of such a square wave
 consists of a sum over all of the LO's \emph{odd} harmonics:
 \begin{align}
@@ -1711,7 +1725,7 @@ Noting that $\text{sgn}(\text{LO}_{\pi / 2}(t))$
 is an inverted, zero-mean square wave
 with \emph{odd} symmetry about the origin,
 as shown in the lower pane of
-Fig.~\ref{fig:DesignConsiderations:LO_switching_function},
+Figure~\ref{fig:DesignConsiderations:LO_switching_function},
 a similar path of reasoning to that used above
 shows that the quadrature baseband signal is
 \begin{align}
@@ -1739,20 +1753,6 @@ if the IF power becomes comparable the LO power,
 say within $\SI{10}{\deci\bel}$,
 as the IF signal begins to contribute
 to the modulation of the diode conduction.
-
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/DesignConsiderations/figs/LO_switching_function.pdf}
-  \caption[LO switching functions]{%
-    The LO switching functions.
-    The top panel displays the incident sinusoidal LO signal, while
-    the bottom panel shows the \emph{sign} of
-    the in-phase ($\text{LO}_0$) and
-    the $\pi / 2$ phase-advanced ($\text{LO}_{\pi / 2}$)
-    copies of the LO signals.}
-  \label{fig:DesignConsiderations:LO_switching_function}
-\end{figure}
 
 Finally, the diodes of the mixers should be matched as closely as possible.
 If, for example, diodes $D_1$ and $D_2$
@@ -1871,7 +1871,7 @@ Synthetic $I\&Q$ Lissajous curves and
 the relative errors in the measured fluctuating phase
 that result from various demodulator imperfections
 are displayed in
-Fig.~\ref{fig:DesignConsiderations:effects_of_demodulator_imperfections}.
+Figure~\ref{fig:DesignConsiderations:effects_of_demodulator_imperfections}.
 Obviously, each demodulator imperfection should be minimized
 in order to minimize the relative error
 in the measured fluctuating phase.
