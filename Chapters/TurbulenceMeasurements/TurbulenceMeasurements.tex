@@ -97,33 +97,29 @@ Equilibrium profiles
   \item \textcolor{red}{How are ELMs handled?}
   \item Uncertainties
   \item Clear change in turbulent drives with ECH location
+  \item The profiles are shown in
+    Figure~\ref{fig:TurbulenceMeasurements:profiles}.
 \end{itemize}
 
 \begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
     Chapters/TurbulenceMeasurements/figs/profiles.pdf}
-  \caption[Profiles \& inverse scale lengths]{%
-    Profiles \& inverse scale lengths from
-    OMFIT['TGLF\_scan']['tgyro\_output']
-    used as input for TGLF simulations.
+  \caption[Equilibrium profiles, inverse scale lengths, \& $\ExB$ shearing rate]{%
+    Profiles, inverse scale lengths, and $\ExB$ shearing rate:
+    (a) electron density $n_e$,
+    (b) electron temperature $T_e$,
+    (c) deuterium temperature $T_i$,
+    (d) radial electric field $E_r$,
+    (e) normalized inverse $n_e$ scale length $a / L_{n_e}$,
+    (f) normalized inverse $T_e$ scale length $a / L_{T_e}$,
+    (g) normalized inverse $T_i$ scale length $a / L_{T_i}$,
+    (h) $\ExB$ shearing rate $\gamma_E$.
+    The ECH heating location was
+    at $\rho = 0.5$ in $171536$ and
+    at $\rho = 0.8$ in $171538$.
   }
 \label{fig:TurbulenceMeasurements:profiles}
-\end{figure}
-
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/TurbulenceMeasurements/figs/Er_profiles.pdf}
-  \caption[Radial electric field \& $E \times B$ shearing rate]{%
-    Radial electric field \& $E \times B$ shearing rate from
-    OMFIT['TGLF\_scan']['TGYRO']['PROFILES\_GEN']['OUTPUTS']['Er']
-    (note that there are no corresponding values from
-    OMFIT['TGLF\_scan']['tgyro\_output']
-    from which Figure~\ref{fig:TurbulenceMeasurements:profiles}
-    was generated, which is why this is a separate figure\ldots).
-  }
-\label{fig:TurbulenceMeasurements:Er_profiles}
 \end{figure}
 
 
