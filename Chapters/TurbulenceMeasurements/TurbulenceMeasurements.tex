@@ -12,6 +12,9 @@ to turbulent spectra when altering relative drive
 between electron-scale and ion-scale turbulence.
 
 
+\section{Overview of multiscale gyrokinetic predictions}
+
+
 \section{Experimental conditions}
 The experiment was run in the ITER-similar shape,
 with aspect ratio, elongation, and triangularity
@@ -56,7 +59,7 @@ of this experiment's reference discharge,
 indicate that the turbulent transport
 is intrinsically multiscale in nature~\cite{holland_nf17}.
 
-\begin{figure}[h!]
+\begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
     Chapters/TurbulenceMeasurements/figs/traces.png}
@@ -71,15 +74,57 @@ is intrinsically multiscale in nature~\cite{holland_nf17}.
     (g) confinement quality $H_{98,\text{y}2}$, and
     (h) divertor $D_{\alpha}$ light, indicating
     the presence of large and small edge localized modes (ELMs).
+    The ECH heating location was
+    at $\rho = 0.5$ in $171536$ and
+    at $\rho = 0.8$ in $171538$.
   }
 \label{fig:TurbulenceMeasurements:traces}
 \end{figure}
 
-Profiles
+Equilibrium profiles
 \begin{itemize}
-  \item
+  \item averaging over \textcolor{red}{XXX ms}
+  \item What types of fits? (splines, RBF, etc.)
+  \item Electron-density profiles -- Thomson w/ CO$_2$ normalization?
+    Reflectometer?
+  \item Electron-temperature profiles -- Thomson \& ECE (or ECE cutoff?)
+  \item Ion-temperature profiles -- \textcolor{red}{???}
+  \item CER provides C$^{6+}$ density, temperature, and rotation
+  \item $E_r$ computed using force balance for
+    C$^{6+}$ pressure and toroidal rotation.
+    \textcolor{red}{poloidal rotation neglected?}
+  \item \textcolor{red}{MSE-constrained EFIT? Kinetic?}
+  \item \textcolor{red}{How are ELMs handled?}
+  \item Uncertainties
+  \item Clear change in turbulent drives with ECH location
 \end{itemize}
 
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/TurbulenceMeasurements/figs/profiles.pdf}
+  \caption[Profiles \& inverse scale lengths]{%
+    Profiles \& inverse scale lengths from
+    OMFIT['TGLF\_scan']['tgyro\_output']
+    used as input for TGLF simulations.
+  }
+\label{fig:TurbulenceMeasurements:profiles}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/TurbulenceMeasurements/figs/Er_profiles.pdf}
+  \caption[Radial electric field \& $E \times B$ shearing rate]{%
+    Radial electric field \& $E \times B$ shearing rate from
+    OMFIT['TGLF\_scan']['TGYRO']['PROFILES\_GEN']['OUTPUTS']['Er']
+    (note that there are no corresponding values from
+    OMFIT['TGLF\_scan']['tgyro\_output']
+    from which Figure~\ref{fig:TurbulenceMeasurements:profiles}
+    was generated, which is why this is a separate figure\ldots).
+  }
+\label{fig:TurbulenceMeasurements:Er_profiles}
+\end{figure}
 
 
 \section{Measurements}
@@ -116,33 +161,6 @@ Profiles
 
 
 \section{TGLF modeling}
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/TurbulenceMeasurements/figs/profiles.pdf}
-  \caption[Profiles \& inverse scale lengths]{%
-    Profiles \& inverse scale lengths from
-    OMFIT['TGLF\_scan']['tgyro\_output']
-    used as input for TGLF simulations.
-  }
-\label{fig:TurbulenceMeasurements:profiles}
-\end{figure}
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/TurbulenceMeasurements/figs/Er_profiles.pdf}
-  \caption[Radial electric field \& $E \times B$ shearing rate]{%
-    Radial electric field \& $E \times B$ shearing rate from
-    OMFIT['TGLF\_scan']['TGYRO']['PROFILES\_GEN']['OUTPUTS']['Er']
-    (note that there are no corresponding values from
-    OMFIT['TGLF\_scan']['tgyro\_output']
-    from which Figure~\ref{fig:TurbulenceMeasurements:profiles}
-    was generated, which is why this is a separate figure\ldots).
-  }
-\label{fig:TurbulenceMeasurements:Er_profiles}
-\end{figure}
-
 \begin{figure}[h!]
   \centering
   \includegraphics[width = \textwidth]{%
