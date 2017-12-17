@@ -124,7 +124,79 @@ Equilibrium profiles
 
 
 \section{Measurements}
-\begin{figure}[h!]
+
+
+\subsection{ELM filtering}
+Edge localized modes (ELMs) expel impurities from the plasma but
+will also present severe challenges to plasma-facing components
+in future reactors~\cite[Sec.~7.17]{wesson}.
+Because of their virulence and their bursty nature,
+ELMs produce strong spiking in the interferometer and PCI measurements,
+whitening the measured spectra
+[Sec.~10.3.2.3]\cite{bendat_and_piersol}.
+Additionally, the temperature and density profiles relax during an ELM,
+altering the turbulent drives in the plasma edge.
+In order to accurately estimate
+the spectrum of the background turbulence, then,
+the ELM contributions to the interferometer and PCI measurements
+must be removed.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/TurbulenceMeasurements/figs/ELM_filtering_example.png}
+  \caption[ELM filtering]{%
+    Edge localized modes (ELMs) must be removed
+    from the PCI and interferometer measurements
+    prior to spectral analysis of the background turbulence.
+    (Upper panel): The interferometer-measured
+    fluctuating phase $\tilde{\phi}$,
+    with large, ELM-induced spiking.
+    (Lower panel): Divertor $D_{\alpha}$ emission.
+    Windows \emph{excluded} from spectral analysis are shown in gray.
+    The \diiid\space shot number is shown in the upper right
+    of the lower panel.
+  }
+\label{fig:TurbulenceMeasurements:ELM_filtering_example}
+\end{figure}
+
+In this work, ELMs are simply and automatically detected
+using measurements from the interferometer.
+After the high-pass filtering described in
+Section~\ref{sec:Implementation:DataPreparation:high_pass_filtering},
+the interferometer-measured fluctuating phase $\tilde{\phi}$
+is a zero-mean, random process,
+as shown in the upper panel of
+Figure~\ref{fig:TurbulenceMeasurements:ELM_filtering_example}.
+Large, intermittent spikes pepper $\tilde{\phi}(t)$ during ELMy H-mode, and
+the lower panel of
+Figure~\ref{fig:TurbulenceMeasurements:ELM_filtering_example}
+indicates that these spikes are well correlated
+with ELM-induced $D_{\alpha}$ emission in the divertor.
+While the $D_{\alpha}$ emission following large Type I ELMs
+exhibits a relatively slow decay,
+the interferometer-measured $\tilde{\phi}$
+returns to stationarity much more rapidly.
+Thus, it is desirable to identify
+stationary inter-ELM windows
+from the interferometer measurements
+rather than the $D_{\alpha}$ emission.
+Points in the interferometer-measured $\tilde{\phi}$
+exceeding $3 \times$ the RMS value
+are identified as ELMs, and
+successive ELMs are required to be separated
+by at least a $\SI{0.5}{\milli\second}$ ``debouncing time''
+(spikes separated by less than the debouncing time
+are classified as belonging to the same ELM).
+Subsequent spectral analysis is then performed
+using only the $20\%$ -- $80\%$ inter-ELM windows
+of the interferometer and PCI measurements.
+Figure~\ref{fig:TurbulenceMeasurements:ELM_filtering_example}
+shows the windows \emph{excluded} from spectral analysis in gray.
+
+
+\subsection{Frequency spectra}
+\begin{figure}
   \centering
   \includegraphics[width = 0.9 \textwidth]{%
     Chapters/TurbulenceMeasurements/figs/spectra_171521_quarterly_review.pdf}
@@ -134,7 +206,14 @@ Equilibrium profiles
 \label{fig:TurbulenceMeasurements:spectra_quarterly_review}
 \end{figure}
 
-\begin{figure}[h!]
+
+\subsection{Frequency-wavenumber spectra}
+\begin{itemize}
+  \item Complex-correlation function
+  \item $S(k,f)$
+\end{itemize}
+
+\begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
     Chapters/TurbulenceMeasurements/figs/Skf_annotated.png}
@@ -144,7 +223,9 @@ Equilibrium profiles
 \label{fig:TurbulenceMeasurements:Skf_annotated}
 \end{figure}
 
-\begin{figure}[h!]
+
+\subsection{Wavenumber spectra}
+\begin{figure}
   \centering
   \includegraphics[width = 0.6 \textwidth]{%
     Chapters/TurbulenceMeasurements/figs/Sk_power_law.pdf}
