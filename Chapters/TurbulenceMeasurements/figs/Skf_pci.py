@@ -13,11 +13,12 @@ p = 6
 Nk = 1000
 
 # Plotting parameters
-figsize = (12, 5)
+figsize = (10, 6)
 fontsize = 18
 mpl.rcParams['xtick.labelsize'] = fontsize - 3
 mpl.rcParams['ytick.labelsize'] = fontsize - 3
 cmap = 'viridis'
+cborientation = 'horizontal'
 flim = [10, 1600]  # [flim] = kHz
 vlim_Skf = [3e-10, 1e-4]
 annotation_linestyle = '--'
@@ -55,16 +56,16 @@ if __name__ == '__main__':
             corr,
             burg_params={'p': p, 'Nk': Nk})
 
-        xlabel = r'$\mathregular{k \; [cm^{-1}]}$'
+        xlabel = r'$\mathregular{k_R \; [cm^{-1}]}$'
 
         if ind == 0:
             ylabel = r'$\mathregular{f \; [kHz]}$'
-            cblabel = ''
         else:
             ylabel = ''
-            cbsymbol = r'$\mathregular{S_{\phi,\phi}(k,f)}$'
-            cbunits = r'$\mathregular{[rad^2 / \, (kHz \cdot cm^{-1})]}$'
-            cblabel = cbsymbol + ' ' + cbunits
+
+        cbsymbol = r'$\mathregular{S_{\phi,\phi}(k,f)}$'
+        cbunits = r'$\mathregular{[rad^2 / \, (kHz \cdot cm^{-1})]}$'
+        cblabel = cbsymbol + ' ' + cbunits
 
         asd2d.plotSpectralDensity(
             flim=flim,
@@ -73,6 +74,7 @@ if __name__ == '__main__':
             xlabel=xlabel,
             ylabel=ylabel,
             cblabel=cblabel,
+            cborientation=cborientation,
             fontsize=fontsize,
             ax=axs[ind])
 
@@ -80,14 +82,14 @@ if __name__ == '__main__':
         x0 = -24.5
         axs[ind].annotate(
             r'$\mathregular{ECH \; @ \; \rho = %.1f}$' % rho,
-            (x0, 1500),
+            (x0, 1475),
             fontsize=(fontsize - 1),
             color='white')
 
         # Add shot numbers and time windows
         axs[ind].annotate(
             '%i, [%.1f, %.1f] s' % (shot, tlim[0], tlim[1]),
-            (x0, 1400),
+            (x0, 1360),
             fontsize=(fontsize - 6),
             color='white')
 

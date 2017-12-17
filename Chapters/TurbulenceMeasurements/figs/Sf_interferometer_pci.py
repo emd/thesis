@@ -38,16 +38,12 @@ Tens = 0.5e-3       # Less than ELM spacing
 Nreal_per_ens = 1   # Do averaging after ELM-filtering
 
 # Plotting parameters
-# figsize = (12, 5)
 figsize = (10, 5)
 cols = get_distinct(2)
 linewidth = 2
-# fontsize = 15
-# mpl.rcParams['xtick.labelsize'] = fontsize - 1.5
-# mpl.rcParams['ytick.labelsize'] = fontsize - 1.5
-fontsize = 16
-mpl.rcParams['xtick.labelsize'] = fontsize - 2
-mpl.rcParams['ytick.labelsize'] = fontsize - 2
+fontsize = 18
+mpl.rcParams['xtick.labelsize'] = fontsize - 3
+mpl.rcParams['ytick.labelsize'] = fontsize - 3
 
 # Remove interferometer coherent pickup
 fcoherent = [
@@ -140,19 +136,19 @@ if __name__ == '__main__':
     axes[0].annotate(
         'noise floor',
         xy=(12, 1.2e-10),
-        fontsize=(fontsize - 1))
+        fontsize=(fontsize - 2))
     axes[1].annotate(
         'noise floor',
         xy=(12, 1.2e-12),
-        fontsize=(fontsize - 1))
+        fontsize=(fontsize - 2))
 
     # Labeling
     axes[0].set_title(
         r'$\mathregular{interferometer \; (|k_R| < 5 \; cm^{-1})}$',
-        fontsize=fontsize)
+        fontsize=(fontsize - 1))
     axes[1].set_title(
         r'$\mathregular{PCI \; (1.5 \; cm^{-1} < |k_R| \leq 25 \; cm^{-1})}$',
-        fontsize=fontsize)
+        fontsize=(fontsize - 1))
     axes[0].set_ylabel(
         r'$\mathregular{G_{\phi,\phi}(f) \; [rad^2 /\, kHz]}$',
         fontsize=fontsize)
@@ -172,7 +168,7 @@ if __name__ == '__main__':
     axes[0].legend(
         labels,
         loc='lower left',
-        fontsize=(fontsize - 1))
+        fontsize=(fontsize - 2))
 
     # Limits and tick marks
     plt.xlim([10, 2000])
@@ -196,26 +192,26 @@ if __name__ == '__main__':
         color='lightgray')
     axes[0].text(
         1.3e3,
-        2e-9,
+        2.5e-9,
         'anti-aliasing filters',
         rotation=90,
-        fontsize=(fontsize - 1))
+        fontsize=(fontsize - 2))
 
     # Add shot numbers & times
-    x0 = 2.7e2
+    x0 = 2.15e2
 
     sind = 0
     axes[1].annotate(
         '%i, [%.1f, %.1f] s' % (shots[sind], tlims[sind][0], tlims[sind][1]),
-        (x0, 5e-8),
+        (x0, 4.4e-8),
         color=cols[sind],
-        fontsize=(fontsize - 5))
+        fontsize=(fontsize - 6))
     sind = 1
     axes[1].annotate(
         '%i, [%.1f, %.1f] s' % (shots[sind], tlims[sind][0], tlims[sind][1]),
-        (x0, 3e-8),
+        (x0, 2.4e-8),
         color=cols[sind],
-        fontsize=(fontsize - 5))
+        fontsize=(fontsize - 6))
 
     plt.tight_layout()
 

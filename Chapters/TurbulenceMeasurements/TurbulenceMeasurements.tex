@@ -123,10 +123,12 @@ Equilibrium profiles
 \end{figure}
 
 
-\section{Measurements}
+\section{Combined PCI-interferometer measurements}
+\label{sec:TurbulenceMeasurements:Measurements}
 
 
 \subsection{ELM filtering}
+\label{sec:TurbulenceMeasurements:ELM_filtering}
 Edge localized modes (ELMs) expel impurities from the plasma but
 will also present severe challenges to plasma-facing components
 in future reactors~\cite[Sec.~7.17]{wesson}.
@@ -198,48 +200,51 @@ shows the windows \emph{excluded} from spectral analysis in gray.
 
 
 \subsection{Frequency spectra}
+\label{sec:TurbulenceMeasurements:Sf}
 \begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
     Chapters/TurbulenceMeasurements/figs/Sf_interferometer_pci.pdf}
-  \caption[Interferometer and PCI frequency spectra]{%
+  \caption[Interferometer \& PCI frequency spectra]{%
     Interferometer and PCI frequency spectra.
   }
 \label{fig:TurbulenceMeasurements:Sf_interferometer_pci}
 \end{figure}
+\begin{itemize}
+  \item Coherence
+  \item Collisionality
+\end{itemize}
 
 
 \subsection{Frequency-wavenumber spectra}
-\begin{itemize}
-  \item Complex-correlation function
-  \item $S(k,f)$
-\end{itemize}
+\label{sec:TurbulenceMeasurements:Skf}
 
 \begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
     Chapters/TurbulenceMeasurements/figs/Skf_pci.png}
   \caption[PCI frequency-wavenumber spectra]{%
-    PCI frequency-wavenumber spectra.
+    PCI frequency-wavenumber spectra. $p = 6$.
   }
 \label{fig:TurbulenceMeasurements:Skf_pci}
 \end{figure}
 
 
 \subsection{Wavenumber spectra}
+\label{sec:TurbulenceMeasurements:Sk}
 \begin{figure}
   \centering
-  \includegraphics[width = 0.6 \textwidth]{%
+  \includegraphics[width = 0.9 \textwidth]{%
     Chapters/TurbulenceMeasurements/figs/Sk_power_law.pdf}
   \caption[PCI-measured power law]{%
     PCI-measured power law from branches annotated in
-    Figure~\ref{fig:TurbulenceMeasurements:Skf_annotated}.
+    Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}.
   }
 \label{fig:TurbulenceMeasurements:Sk_power_law}
 \end{figure}
 
 
-\section{TGLF modeling}
+\subsection{Doppler-shift localization of high-$k$ turbulence}
 \begin{figure}[h!]
   \centering
   \includegraphics[width = \textwidth]{%
@@ -254,16 +259,8 @@ shows the windows \emph{excluded} from spectral analysis in gray.
 \label{fig:TurbulenceMeasurements:doppler_shift}
 \end{figure}
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/TurbulenceMeasurements/figs/TGLF_171536_vs_171538.png}
-  \caption[Qualitative presentation of TGLF results]{%
-    Qualitative presentation of TGLF results.
-  }
-\label{fig:TurbulenceMeasurements:TGLF_171536_vs_171538}
-\end{figure}
 
+\section{TGLF modeling}
 \begin{figure}[h!]
   \centering
   \includegraphics[width = \textwidth]{%
