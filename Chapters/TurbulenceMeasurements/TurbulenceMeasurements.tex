@@ -1,52 +1,85 @@
 \chapter{Multiscale turbulence measurements}
 \label{ch:TurbulenceMeasurements}
+Development of a first-principles understanding
+of turbulent transport in a tokamak
+requires multi-tiered validation\ldots
+comparing not just heat fluxes, but
+also turbulent spectra etc.
+\diiid's extensive suite of fluctuation diagnostics
+provides an ideal setting to validate
+predicted changes~\cite{howard_pp16}
+to turbulent spectra when altering relative drive
+between electron-scale and ion-scale turbulence.
 
 
 \section{Experimental conditions}
-
-Time traces
-\begin{itemize}
-  \item Leverage \diiid's fluctuation-diagnostic suite
-    to validate predicted changes~\cite{howard_pp16}
-    to turbulent spectra when altering relative drive
-    of ETG and ITG
-  \item ITER-similar shape, with aspect ratio, elongation, and triangularity
-    all closely matched to that expected it ITER-baseline scenario
-  \item Low-torque, as expected in ITER
-  \item Reference discharge $153523$ with ECH heating at $\rho = 0.5$
-    investigated via multiscale simulations~\cite{holland_nf17}
-  \item On-axis toroidal field $B_T = \SI{-1.7}{\tesla}$ and
-    plasma current $I_p = \SI{1.3}{\mega\ampere}$,
-    producing $q_{95} = 3.15$
-  \item Neutral beams are operated in a feedback mode to maintain
-    $\beta_N = 1.9$, where
-    $\beta_N$ is the normalized beta~\cite[Sec.~6.18]{wesson}
-  \item Although the reference discharge had injected torque
-    $T_{\text{inj}} = \SI{0.6}{\newton\meter}$
-    corresponding to approximately twice
-    the projected ITER-equivalent torque in \diiid~\cite{garofalo_nf11},
-    the torque needed to be increased to
-    $T_{\text{inj}} = \SI{1.5}{\newton\meter}$
-    to suppress tearing modes
-  \item The line-averaged density is
-    $\bar{n}_e = \SI{5.2e19}{\per\meter\cubed}$
-  \item Note further that the discharge is ELMy
-\end{itemize}
-
-Profiles
-\begin{itemize}
-  \item 
-\end{itemize}
+The experiment was run in the ITER-similar shape,
+with aspect ratio, elongation, and triangularity
+all closely matched to those of the ITER-baseline scenario
+\cite[Sec.~13.5 \& 13.6]{wesson}.
+The on-axis toroidal field $B_T = \SI{1.7}{\tesla}$ and
+plasma current $I_p = \SI{1.3}{\mega\ampere}$
+produced $q_{95} = 3.15$,
+where $q_{95}$ is the average value
+of the safety factor $q$~\cite[Sec.~3.4]{wesson}
+over the surface that encloses $95\%$
+of the poloidal flux within the last-closed flux surface.
+The neutral beams~\cite[Sec.~5.3-5.5]{wesson}
+were operated with feedback to maintain
+$\beta_N = 1.9$, where
+$\beta_N$ is the normalized plasma pressure~\cite[Sec.~6.18]{wesson}.
+In order to suppress core MHD,
+an average neutral-beam torque of $\sim \SI{1.5}{\newton \meter}$
+was injected into the plasma;
+note that this is $\sim 4\times$ larger than
+the projected ITER-equivalent torque~\cite{garofalo_nf11}.
+In order to alter the local electron-scale and ion-scale drives,
+the electron cyclotron resonance heating (ECH)~\cite[Sec.~5.10]{wesson}
+location was scanned between $\rho = 0.5$ and $\rho = 0.8$,
+where $\rho$ is the square root of the normalized toroidal flux
+(which scales as $r / a$, with
+$r$ being the minor-radial coordinate and
+$a$ being the minor radius of the plasma).
+Intra-shot scans of the ECH location
+were plagued with core MHD, so
+only shot-to-shot, MHD-free scans of the ECH location
+are considered here.
+The line-averaged density was
+$\bar{n}_e = \SI{5.2e19}{\per\meter\cubed}$.
+Impurities are removed from the plasma
+by both large and small edge localized modes (ELMs)~\cite[Sec.~7.17]{wesson}.
+The time histories of several actuators and plasma parameters
+are shown in Figure~\ref{fig:TurbulenceMeasurements:traces}.
+Note that multiscale gyrokinetic simulations
+of this experiment's reference discharge,
+\diiid\space shot $153523$ with ECH at $\rho = 0.5$,
+indicate that the turbulent transport
+is intrinsically multiscale in nature~\cite{holland_nf17}.
 
 \begin{figure}[h!]
   \centering
   \includegraphics[width = \textwidth]{%
     Chapters/TurbulenceMeasurements/figs/traces.png}
-  \caption[Plasma traces]{%
-    Plasma traces.
+  \caption[Time histories of various actuators \& plasma parameters]{%
+    Time histories of various actuators and plasma parameters:
+    (a) plasma current $I_p$,
+    (b) neutral beam injected (NBI) power $P_{\text{inj}}$,
+    (c) NBI torque $T_{\text{inj}}$,
+    (d) electron cyclotron resonance heating (ECH) power $P_{\text{ECH}}$,
+    (e) line-averaged density $\bar{n}_e$,
+    (f) normalized plasma pressure $\beta_N$,
+    (g) confinement quality $H_{98,\text{y}2}$, and
+    (h) divertor $D_{\alpha}$ light, indicating
+    the presence of large and small edge localized modes (ELMs).
   }
 \label{fig:TurbulenceMeasurements:traces}
 \end{figure}
+
+Profiles
+\begin{itemize}
+  \item
+\end{itemize}
+
 
 
 \section{Measurements}

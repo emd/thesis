@@ -59,7 +59,7 @@ tinj_label = (
     + r'$\;$'
     + r'$\mathregular{[N \cdot m]}$')
 echpwrc_label = (
-    r'$\mathregular{P_{EC}}$'
+    r'$\mathregular{P_{ECH}}$'
     # + '\n'
     + r'$\;$'
     + r'$\mathregular{[MW]}$')
@@ -84,6 +84,20 @@ point_names = [
     PointName('H_THH98Y2', H_THH98Y2_label, norm=1),
     PointName('fs04', fs04_label, norm=1e16, Nsmooth=10),
 ]
+
+subfig_labels = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+x0 = 1.075
+subfig_label_heights = [
+    1.3,
+    4.25,
+    1.70,
+    4.25,
+    5.15,
+    2.15,
+    1.28,
+    8.5
+]
+
 
 # List for ylims of each axis; for some reason, ax.get_ylim()
 # only gets the ylims of the most recently plotted trace but
@@ -160,7 +174,14 @@ if __name__ == '__main__':
                 linewidth=linewidth)
 
             if sind == 1:
+                # Enforce y-limit
                 ax[rowind, colind].set_ylim([0, ylims[pind]])
+
+                # Add subfigure label
+                ax[rowind, colind].annotate(
+                    '(%s)' % subfig_labels[pind],
+                    (x0, subfig_label_heights[pind]),
+                    fontsize=fontsize)
 
     for column in np.arange(Ncolumns):
         ax[-1, column].set_xlabel(
@@ -168,7 +189,6 @@ if __name__ == '__main__':
             fontsize=fontsize)
 
     for sind, shot in enumerate(shots):
-        x0 = 1.075
         y0 = 0.3
         dy = 0.2
         ax[0, 0].annotate(
