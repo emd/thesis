@@ -1,10 +1,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mpl
+from distinct_colours import get_distinct
+
 import random_data as rd
 import mitpci
 from gadata import gadata
-from distinct_colours import get_distinct
+import magnetics
 
 from noise_floor import (
     interferometer_noise_floor_model,
@@ -212,6 +214,57 @@ if __name__ == '__main__':
         (x0, 2.4e-8),
         color=cols[sind],
         fontsize=(fontsize - 6))
+
+    # Overlay fast magnetic probe high-f spectra
+    sind = 1
+    shot = shots[sind]
+
+    tlim = tlims[sind]
+
+    if tlim[1] >= 3.05:
+        tlim[1] = 3.05
+
+    # Load data
+    sig = magnetics.signal.Signal(
+        shot, 'b5', tlim=tlim)
+
+    # Detect spikes
+    SH = rd.signals.SpikeHandler(
+        sig.x, Fs=sig.Fs, t0=sig.t0,
+        sigma_mult=sigma_mult, debounce_dt=debounce_dt)
+
+    # Compute ELM-free spectrum
+    asd_b5 = rd.spectra.AutoSpectralDensity(
+        sig.x, Fs=sig.Fs, t0=sig.t0,
+        Tens=(0.5 * debounce_dt), Nreal_per_ens=1)
+
+    # Average only over `window_fraction` of spike-free windows
+    ind = SH.getSpikeFreeTimeIndices(
+        asd_b5.t,
+        window_fraction=window_fraction)
+    asd_b5_ELM_free = np.mean(
+        asd_b5.Gxx[:, ind],
+        axis=-1)
+
+    # Unit conversions
+    asd_b5.f /= Hz_per_kHz
+
+    # Only plot points between 300 kHz and 800 kHz
+    find_b5 = np.where(np.logical_and(
+        asd_b5.f >= 200,
+        asd_b5.f < 800))[0]
+
+    norm = 2e-8 / 1e-11
+
+    axes[0].loglog(
+        asd_b5.f[find_b5],
+        asd_b5_ELM_free[find_b5] / norm,
+        c=cols[sind],
+        linewidth=linewidth)
+    axes[0].annotate(
+        'fast magnetic\n  probe (a.u.)',
+        xy=(30, 1.4e-11),
+        fontsize=(fontsize - 3))
 
     plt.tight_layout()
 
