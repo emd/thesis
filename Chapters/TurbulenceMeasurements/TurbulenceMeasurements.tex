@@ -110,7 +110,7 @@ Equilibrium profiles
     (a) electron density $n_e$,
     (b) electron temperature $T_e$,
     (c) deuterium temperature $T_i$,
-    (d) radial electric field $E_r$,
+    (d) radial electric field $E_r$ along the outboard midplane,
     (e) normalized inverse $n_e$ scale length $a / L_{n_e}$,
     (f) normalized inverse $T_e$ scale length $a / L_{T_e}$,
     (g) normalized inverse $T_i$ scale length $a / L_{T_i}$,
@@ -245,19 +245,219 @@ shows the windows \emph{excluded} from spectral analysis in gray.
 
 
 \subsection{Doppler-shift localization of high-$k$ turbulence}
-\begin{figure}[h!]
+As a line-integrated measurement,
+PCI is sensitive to fluctuations with wavevectors $\vect{k}$
+that are perpendicular to the beam path
+(i.e.\ $\vect{k} \perp \zhat$
+for the vertical beam path of \diiid's PCI).
+Further, fluctuations are strongly field-aligned
+such that they are approximately perpendicular
+to the local magnetic field;
+assuming the fluctuations are electrostatic,
+the local magnetic field is well-represented
+by the equilibrium field $\Beq$ such that
+$\vect{k} \perp \Beq$.
+Thus, the wavevector satisfies
+\begin{equation}
+  \vect{k}
+  \propto
+  \zhat \cross \beq,
+  \label{eq:TurbulenceMeasurements:kpropto}
+\end{equation}
+where $\beq = \Beq / |\Beq|$ is the unit vector
+in the direction of the local equilibrium magnetic field.
+Thus, the PCI-measured fluctuations have wavevectors
+\begin{equation}
+  \vect{k}
+  =
+  (\vect{k} \cdot \khat) \khat,
+\end{equation}
+where
+\begin{equation}
+  \khat
+  =
+  \frac{\zhat \cross \beq}{|\zhat \cross \beq|}
+  \label{eq:TurbulenceMeasurements:khat}.
+\end{equation}
+For a tokamak with a dominant toroidal magnetic field,
+$\beq \sim \zetahat$ and
+$|\zhat \cross \beq| \sim 1$ such that
+(\ref{eq:TurbulenceMeasurements:khat}) is never singular.
+Noting the $(R, z, \zeta)$ and $(\rho, \theta, \zeta)$
+coordinate systems defined in
+Fig.~\ref{fig:TurbulenceMeasurements:coordinate_geometry} and
+explicitly writing the equilibrium magnetic field
+as the sum of its toroidal and poloidal components
+$\Beq = B_{\zeta} \zetahat + B_{\theta} \thetahat$,
+the unit vector (\ref{eq:TurbulenceMeasurements:khat})
+can be explicitly written as
+\begin{equation}
+  \khat
+  =
+  \frac{%
+    B_{\zeta} \Rhat + (B_{\theta} \sin\theta) \zetahat}{%
+    {\left[ B_{\zeta}^2 + {(B_{\theta} \sin\theta)}^2 \right]}^{1/2}}.
+  \label{eq:TurbulenceMeasurements:khat_explicit}
+\end{equation}
+Because $|B_{\theta}| \ll |B_{\zeta}|$,
+the wavevectors are predominantly in the major-radial direction,
+i.e.\ $\khat \sim \Rhat$.
+
+\begin{figure}
   \centering
-  \includegraphics[width = \textwidth]{%
+  \includegraphics[width = 0.5 \textwidth]{%
+    Chapters/TurbulenceMeasurements/figs/coordinate_geometry.pdf}
+  \caption[Measurement coordinate system]{%
+    Measurement coordinate system.
+    Here, $R$ is the major-radial direction,
+    $z$ is the lab-frame vertical direction,
+    $\zeta$ is the toroidal angle,
+    $\theta$ is the poloidal angle, and
+    $\rho$ is a flux-surface label
+    corresponding to the square root
+    of the normalized toroidal magnetic-field flux.
+  }
+\label{fig:TurbulenceMeasurements:coordinate_geometry}
+\end{figure}
+
+Now, assuming that $\ExB$ advection
+is the predominant contribution
+to the PCI-measured phase velocity,
+the line-integrated PCI measurements can be moderately localized.
+To see this, note that the PCI measurements are Doppler shifted by
+$\Delta \omega = \vect{k} \cdot \vect{v}$,
+where $\vect{v}$ is the lab-frame velocity of the plasma.
+Because $\vect{k} \perp \Beq$ by
+(\ref{eq:TurbulenceMeasurements:kpropto}),
+$\vect{k} \cdot \vect{v} = \vect{k} \cdot \vperp$, where
+$\vperp$ is the velocity
+perpendicular to the equilibrium magnetic field.
+Defining the plasma frame via the ideal-MHD relation
+$\vect{E} + \vperp \cross \Beq = 0$,
+the perpendicular velocity is simply the $\ExB$ velocity
+i.e.\ $\vperp = \vExB$.
+Now, the electrostatic potential $\varphi = \varphi(\rho)$
+is a flux function such that
+the corresponding electric field is
+$\vect{E} = -\nabla \varphi = E_r(\rho, \theta) \rhohat$.
+The resulting $\ExB$ velocity is
+\begin{align}
+  \vExB
+  =
+  \frac{\vect{E} \times \Beq}{B_0^2}
+  % \notag \\
+  =
+  \frac{E_r(\rho, \theta)}{B_0^2}
+  \left(%
+    B_{\theta} \zetahat
+    -
+    B_{\zeta} \thetahat
+  \right)
+  \label{eq:TurbulenceMeasurements:vExB}
+\end{align}
+such that the Doppler shift
+$\Delta \omega = \vect{k} \cdot \vExB$ becomes
+\begin{equation}
+  \Delta \omega
+  =
+  \frac{%
+    (\vect{k} \cdot \khat) E_r(\rho, \theta) \sin\theta}{%
+    {\left[ B_{\zeta}^2 + {(B_{\theta} \sin\theta)}^2 \right]}^{1/2}}.
+  \label{eq:TurbulenceMeasurements:Doppler_shift_from_ExB}
+\end{equation}
+Thus, the plasma's $\ExB$ rotation
+results in a PCI-measured phase velocity
+\begin{align}
+  \vpciE
+  =
+  \frac{\Delta \omega}{k}
+  =
+  \frac{%
+    \sgn(\vect{k} \cdot \khat) E_r(\rho, \theta) \sin\theta}{%
+    {\left[ B_{\zeta}^2 + {(B_{\theta} \sin\theta)}^2 \right]}^{1/2}},
+  \label{eq:TurbulenceMeasurements:PCI_phase_velocity_from_ExB}
+\end{align}
+where the sign function $\sgn(x)$
+returns the sign of argument $x$.
+Here, the plasma-frame phase velocity $v_{\text{ph}}$
+of the fluctuations have been neglected,
+which is valid when $|v_{\text{ph}}| \ll |\vpciE|$.
+Further, note that the polarity of $\sin\theta$
+switches at the plasma midplane (where $\theta = 0$) such that
+(\ref{eq:TurbulenceMeasurements:PCI_phase_velocity_from_ExB})
+switches signs when passing from above the plasma midplane
+to below the plasma midplane.
+Figure~\ref{fig:TurbulenceMeasurements:doppler_shift}
+compares $\vpciE$ from
+(\ref{eq:TurbulenceMeasurements:PCI_phase_velocity_from_ExB})
+to the measured phase velocity $\vpcimeas$
+of the high-$k$ turbulence observed in the left panel of
+Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = 0.9 \textwidth]{%
     Chapters/TurbulenceMeasurements/figs/doppler_shift.pdf}
-  \caption[Doppler shift]{%
-    Doppler shift. Positive \& negative values of $v_{\text{pci}}$
-    correspond to above \& below the midplane, respectively.
-    As the mask was not used, we cannot determine whether or not
-    $v_{\text{meas}}$ corresponds to above or below the midplane, however
-    (hence we plot $\pm v_{\text{meas}}$).
+  \caption[Doppler-shift localization of high-$k$ turbulence]{%
+    A comparison of the $\ExB$-induced phase velocity $\vpciE$ from
+    (\ref{eq:TurbulenceMeasurements:PCI_phase_velocity_from_ExB})
+    to the measured phase velocity $\vpcimeas$
+    of the high-$k$ turbulence observed in the left panel
+    of Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}.
+    The near degeneracy of $\vpciE$ with $\rho$
+    corresponds to propagation above and below the plasma midplane.
+    As the spatially filtering ``mask''~\cite{dorris_phd, dorris_rsi09}
+    was not used in this experiment,
+    it is not possible to determine whether
+    $\vpcimeas$ corresponds to propagation above or below the midplane, so
+    both $\vpcimeas$ and $-\vpcimeas$ are plotted.
   }
 \label{fig:TurbulenceMeasurements:doppler_shift}
 \end{figure}
+
+As a brief aside, it should be emphasized
+that the radial electric field $E_r$
+in (\ref{eq:TurbulenceMeasurements:PCI_phase_velocity_from_ExB})
+is \emph{not} a flux function.
+To see this, recall that
+the corresponding electrostatic potential
+\emph{is} a flux function,
+i.e.\ $\varphi = \varphi(\rho) = \varphi(\psi)$,
+where $\psi$ is the flux-surface label
+corresponding to the poloidal magnetic-field flux per radian.
+Now,
+\begin{align}
+  E_r(\rho, \theta)
+  &=
+  -\left( \frac{\partial\varphi}{\partial r} \right)
+  \notag \\
+  &=
+  -\left( \frac{d\varphi}{d\psi} \right)
+  \left( \frac{\partial\psi}{\partial r} \right)
+  \notag \\
+  &=
+  -\left( \frac{d\varphi}{d\psi} \right)
+  \left( R B_{\theta} \right),
+\end{align}
+where the last line follows from the definition
+of $\psi$ as the poloidal magnetic-field flux per radian.
+The derivative $d\varphi / d\psi$
+is a flux function because $\varphi$ is a flux function, and
+this implies that $E_r / (R B_{\theta})$ is also a flux function.
+Thus, the radial electric field at any point
+within the last closed flux surface can be computed
+from the radial electric field
+along the outboard midplane (where $\theta = 0$) as follows
+\begin{equation}
+  \left.
+  \frac{E_r}{R B_{\theta}}
+  \right|_{\rho, \theta}
+  =
+  \left.
+  \frac{E_r}{R B_{\theta}}
+  \right|_{\rho, \theta = 0}.
+  \label{eq:TurbulenceMeasurements:radial_electric_field}
+\end{equation}
 
 
 \section{TGLF modeling}
