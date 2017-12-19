@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import cPickle as pickle
 from distinct_colours import get_distinct
@@ -10,6 +11,11 @@ shots = np.array([
     171538
 ])
 
+rhos = np.array([
+    0.5,
+    0.8
+])
+
 # Corresponding analysis times
 # [times] = ms
 times = np.array([
@@ -17,12 +23,11 @@ times = np.array([
     2200
 ])
 
-
 # Plotting parameters
 rholim = [0.0, 1.0]
-figsize = (8, 8)
+figsize = (7, 4.5)
 linewidth = 2
-fontsize = 15
+fontsize = 16
 cols = get_distinct(2)
 ylim = [1, 100]
 
@@ -73,7 +78,7 @@ def vestar(r, TkeV, n20, B0=1.7, R0=1.7):
 if __name__ == '__main__':
     a = 0.56  # [a] = m
 
-    plt.figure()
+    plt.figure(figsize=figsize)
 
     for sind, shot in enumerate(shots):
         # Load spatial coordinate, rho
@@ -110,7 +115,7 @@ if __name__ == '__main__':
             nu[rhoind],
             c=cols[sind],
             linewidth=linewidth,
-            label=('%i' % shot))
+            label=(r'$\mathregular{\rho_{ECH} = %.1f}$' % rhos[sind]))
 
     plt.xlabel(
         r'$\mathregular{\rho}$',
@@ -128,9 +133,16 @@ if __name__ == '__main__':
     plt.annotate(
         r'$\mathregular{R < 1.98 \, m}$',
         (0.08, 2.5),
-        fontsize=fontsize)
+        fontsize=(fontsize - 3))
+
+    # Limits and tick marks
+    ax = plt.gca()
+    ax.yaxis.set_major_formatter(
+        mpl.ticker.FormatStrFormatter('%d'))
+    ax.set_yticks([1, 10, 100])
+    ax.set_ylim(ylim)
 
     plt.legend(loc='best')
-    plt.ylim(ylim)
+    plt.tight_layout()
 
     plt.show()
