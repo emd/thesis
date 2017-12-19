@@ -41,44 +41,35 @@ class PointName(object):
             return np.convolve(x, box, mode='same')
 
 
-Ip_label = (
-    r'$\mathregular{I_p}$'
-    #+ '\n'
-    + r'$\;$'
-    + r'$\mathregular{[MA]}$')
-H_THH98Y2_label = r'$\mathregular{H_{98,y2}}$'
-betan_label = r'$\mathregular{\beta_N}$'
 pinj_label = (
     r'$\mathregular{P_{inj}}$'
-    #+ '\n'
     + r'$\;$'
     + r'$\mathregular{[MW]}$')
 tinj_label = (
     r'$\mathregular{T_{inj}}$'
-    #+ '\n'
     + r'$\;$'
     + r'$\mathregular{[N \cdot m]}$')
 echpwrc_label = (
     r'$\mathregular{P_{ECH}}$'
-    # + '\n'
     + r'$\;$'
     + r'$\mathregular{[MW]}$')
+rho_ECH_label = r'$\mathregular{\rho_{ECH}}$'
 density_label = (
     r'$\mathregular{\overline{n}_e}$'
-    # + '\n'
     + r'$\;$'
     + r'$\mathregular{[10^{19} \, m^{-3}]}$')
+betan_label = r'$\mathregular{\beta_N}$'
+H_THH98Y2_label = r'$\mathregular{H_{98,y2}}$'
 fs04_label = (
     r'$\mathregular{D_{\alpha}}$'
-    # + '\n'
     + r'$\;$'
     + r'$\mathregular{[a.u.]}$')
 
 point_names = [
-    PointName('Ip', Ip_label, norm=1e6, Nsmooth=10),
     PointName('pinj', pinj_label, norm=1e3, Nsmooth=1000),
     PointName('tinj', tinj_label, norm=1, Nsmooth=1000),
     PointName('echpwrc', echpwrc_label, norm=1e6, Nsmooth=100),
+    PointName('rho_ECH', rho_ECH_label, norm=1),
     PointName('density', density_label, norm=1e13, Nsmooth=100),
     PointName('betan', betan_label, norm=1),
     PointName('H_THH98Y2', H_THH98Y2_label, norm=1),
@@ -88,10 +79,10 @@ point_names = [
 subfig_labels = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 x0 = 1.075
 subfig_label_heights = [
-    1.3,
     4.25,
     1.70,
     4.25,
+    0.85,
     5.15,
     2.15,
     1.28,
@@ -106,10 +97,10 @@ subfig_label_heights = [
 # Use this workaround for now... (wouldn't be necessary if
 # GA would actually FUCKING update matplotlib...)
 ylims = [
-    1.5,
     5.,
     2.,
     5.,
+    1.,
     6.,
     2.5,
     1.5,
@@ -189,9 +180,9 @@ if __name__ == '__main__':
             fontsize=fontsize)
 
     for sind, shot in enumerate(shots):
-        y0 = 0.3
-        dy = 0.2
-        ax[0, 0].annotate(
+        y0 = 1.0
+        dy = 0.7
+        ax[0, 1].annotate(
             '%i' % shot,
             (x0, y0 - (sind * dy)),
             color=cols[sind],

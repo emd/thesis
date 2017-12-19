@@ -229,13 +229,13 @@ if __name__ == '__main__':
     plt.loglog(
         k_prof_536[kind_536],
         Sxx_prof_536[kind_536],
-        label=r'$\mathregular{ECH \; @ \; \rho = 0.5}$',
+        label=r'$\mathregular{\rho_{ECH} = 0.5}$',
         linewidth=linewidth,
         c=cols[0])
     plt.loglog(
         k_prof_538[kind_538],
         Sxx_prof_538[kind_538],
-        label=r'$\mathregular{ECH \; @ \; \rho = 0.8}$',
+        label=r'$\mathregular{\rho_{ECH} = 0.8}$',
         linewidth=linewidth,
         c=cols[1])
 

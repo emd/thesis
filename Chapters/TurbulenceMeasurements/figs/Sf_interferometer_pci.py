@@ -169,8 +169,8 @@ if __name__ == '__main__':
         'f [kHz]',
         fontsize=fontsize)
     labels = [
-        r'$\mathregular{ECH \; @ \; \rho = 0.5}$',
-        r'$\mathregular{ECH \; @ \; \rho = 0.8}$'
+        r'$\mathregular{\rho_{ECH} = 0.5}$',
+        r'$\mathregular{\rho_{ECH} = 0.8}$'
     ]
     axes[0].legend(
         labels,

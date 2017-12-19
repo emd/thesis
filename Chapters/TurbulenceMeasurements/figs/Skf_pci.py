@@ -81,7 +81,7 @@ if __name__ == '__main__':
         # Add ECH heating location
         x0 = -24.5
         axs[ind].annotate(
-            r'$\mathregular{ECH \; @ \; \rho = %.1f}$' % rho,
+            r'$\mathregular{\rho_{ECH} = %.1f}$' % rho,
             (x0, 1475),
             fontsize=(fontsize - 1),
             color='white')
