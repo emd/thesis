@@ -21,9 +21,13 @@ rhos = [
     0.5,
     0.8
 ]
+# tlims = [
+#     [2.5, 3.2],
+#     [2.0, 2.8]
+# ]
 tlims = [
-    [2.5, 3.2],
-    [2.0, 2.8]
+    [2.65, 2.85],
+    [2.10, 2.30]
 ]
 pci_channel = 8
 
@@ -46,6 +50,7 @@ linewidth = 2
 fontsize = 18
 mpl.rcParams['xtick.labelsize'] = fontsize - 3
 mpl.rcParams['ytick.labelsize'] = fontsize - 3
+ylim = [3e-13, 1e-7]
 
 # Remove interferometer coherent pickup
 fcoherent = [
@@ -172,20 +177,6 @@ if __name__ == '__main__':
         loc='lower left',
         fontsize=(fontsize - 2))
 
-    # Limits and tick marks
-    plt.xlim([10, 2000])
-    axes[0].xaxis.set_major_formatter(
-        mpl.ticker.FormatStrFormatter('%d'))
-    axes[1].xaxis.set_major_formatter(
-        mpl.ticker.FormatStrFormatter('%d'))
-    axes[0].set_xticks([10, 100, 1000])
-    axes[1].set_xticks([10, 100, 1000])
-
-    ylim = [3e-13, 1e-7]
-    axes[0].set_ylim(ylim)
-    axes[1].set_ylim(ylim)
-    axes[0].set_yticks([1e-12, 1e-10, 1e-8])
-
     # Indicate anti-aliasing filters
     axes[0].fill_betweenx(
         ylim,
@@ -200,17 +191,17 @@ if __name__ == '__main__':
         fontsize=(fontsize - 2))
 
     # Add shot numbers & times
-    x0 = 2.15e2
+    x0 = 1.6e2
 
     sind = 0
     axes[1].annotate(
-        '%i, [%.1f, %.1f] s' % (shots[sind], tlims[sind][0], tlims[sind][1]),
+        '%i, [%.2f, %.2f] s' % (shots[sind], tlims[sind][0], tlims[sind][1]),
         (x0, 4.4e-8),
         color=cols[sind],
         fontsize=(fontsize - 6))
     sind = 1
     axes[1].annotate(
-        '%i, [%.1f, %.1f] s' % (shots[sind], tlims[sind][0], tlims[sind][1]),
+        '%i, [%.2f, %.2f] s' % (shots[sind], tlims[sind][0], tlims[sind][1]),
         (x0, 2.4e-8),
         color=cols[sind],
         fontsize=(fontsize - 6))
@@ -261,10 +252,35 @@ if __name__ == '__main__':
         asd_b5_ELM_free[find_b5] / norm,
         c=cols[sind],
         linewidth=linewidth)
+    axes[0].hlines(
+        asd_b5_ELM_free[find_b5[-1]] / norm,
+        asd_b5.f[find_b5][0],
+        asd_b5.f[find_b5][-1],
+        color='k',
+        linestyle='--',
+        linewidth=linewidth)
     axes[0].annotate(
         'fast magnetic\n  probe (a.u.)',
         xy=(30, 1.4e-11),
         fontsize=(fontsize - 3))
+    axes[0].fill_betweenx(
+        [1e-11, 7e-11],
+        27.5,
+        900,
+        color='beige')
+
+    # Limits and tick marks
+    plt.xlim([10, 2000])
+    axes[0].xaxis.set_major_formatter(
+        mpl.ticker.FormatStrFormatter('%d'))
+    axes[1].xaxis.set_major_formatter(
+        mpl.ticker.FormatStrFormatter('%d'))
+    axes[0].set_xticks([10, 100, 1000])
+    axes[1].set_xticks([10, 100, 1000])
+
+    axes[0].set_ylim(ylim)
+    axes[1].set_ylim(ylim)
+    axes[0].set_yticks([1e-12, 1e-10, 1e-8])
 
     plt.tight_layout()
 

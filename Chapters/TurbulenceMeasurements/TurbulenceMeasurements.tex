@@ -83,18 +83,18 @@ is intrinsically multiscale in nature~\cite{holland_nf17}.
 
 Equilibrium profiles
 \begin{itemize}
-  \item averaging over \textcolor{red}{XXX ms}
-  \item What types of fits? (splines, RBF, etc.)
-  \item Electron-density profiles -- Thomson w/ CO$_2$ normalization?
-    Reflectometer?
-  \item Electron-temperature profiles -- Thomson \& ECE (or ECE cutoff?)
-  \item Ion-temperature profiles -- \textcolor{red}{???}
-  \item CER provides C$^{6+}$ density, temperature, and rotation
-  \item $E_r$ computed using force balance for
-    C$^{6+}$ pressure and toroidal rotation.
-    \textcolor{red}{poloidal rotation neglected?}
-  \item \textcolor{red}{MSE-constrained EFIT? Kinetic?}
-  \item \textcolor{red}{How are ELMs handled?}
+  \item averaging over $\pm \SI{100}{\milli\second}$
+  \item $n_e$ and $T_e$ are fit to hyperbolic tangents, and
+    other profiles are fit with splines
+  \item $n_e$ and $T_e$ from Thomson
+  \item $n_i$ and $T_i$ are inferred from CER measurements of C$^{6+}$
+  \item $E_r$ computed using force balance for C$^{6+}$
+    (poloidal data for $\rho \geq 0.6)$
+  \item Power balance via ONETWO with
+    NUBEAM for neutral-beam heating and torque and
+    TORAY for ECH
+  \item MSE-constrained kinetic EFITs
+  \item Averaging over $50-99\%$ inter-ELM window
   \item Uncertainties
   \item Clear change in turbulent drives with ECH location
   \item The profiles are shown in

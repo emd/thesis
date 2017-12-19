@@ -88,7 +88,7 @@ if __name__ == '__main__':
 
         # Add shot numbers and time windows
         axs[ind].annotate(
-            '%i, [%.1f, %.1f] s' % (shot, tlim[0], tlim[1]),
+            '%i, [%.2f, %.2f] s' % (shot, tlim[0], tlim[1]),
             (x0, 1360),
             fontsize=(fontsize - 6),
             color='white')

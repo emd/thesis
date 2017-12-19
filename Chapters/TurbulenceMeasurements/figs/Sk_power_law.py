@@ -299,12 +299,12 @@ if __name__ == '__main__':
     tlim_538 = tlim_list[ind_538]
 
     ax.annotate(
-        '%i, [%.1f, %.1f] s' % (171536, tlim_536[0], tlim_536[1]),
+        '%i, [%.2f, %.2f] s' % (171536, tlim_536[0], tlim_536[1]),
         (x0, 1.6e-7),
         color=cols[0],
         fontsize=(fontsize - 4))
     ax.annotate(
-        '%i, [%.1f, %.1f] s' % (171538, tlim_538[0], tlim_538[1]),
+        '%i, [%.2f, %.2f] s' % (171538, tlim_538[0], tlim_538[1]),
         (x0, 1.15e-7),
         color=cols[1],
         fontsize=(fontsize - 4))

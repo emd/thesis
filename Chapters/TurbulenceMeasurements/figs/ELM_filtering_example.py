@@ -8,7 +8,9 @@ from gadata import gadata
 
 
 shot = 171536
-tlim_data = [2.9, 3.0]
+shot = 171538
+# tlim_data = [2.9, 3.0]
+tlim_data = [2.1, 2.3]
 
 # Divertor D-alpha parameters
 Dalpha_pointname = 'fs04'
@@ -21,7 +23,8 @@ window_fraction = [0.2, 0.8]
 
 # Plotting parameters
 figsize = (8, 5)
-tlim = [2.92, 2.98]
+# tlim = [2.92, 2.98]
+tlim = [2.13, 2.23]
 trace_color = get_distinct(1)[0]
 linewidth = 2
 fontsize = 15
@@ -84,7 +87,7 @@ if __name__ == '__main__':
 
     ax[1].annotate(
         '%i' % shot,
-        (2.9735, 9),
+        (2.219, 9),
         fontsize=(fontsize - 2))
 
     plt.tight_layout()
