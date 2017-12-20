@@ -41,6 +41,11 @@ class PointName(object):
             return np.convolve(x, box, mode='same')
 
 
+echpwrc_label = (
+    r'$\mathregular{P_{ECH}}$'
+    + r'$\;$'
+    + r'$\mathregular{[MW]}$')
+rho_ECH_label = r'$\mathregular{\rho_{ECH}}$'
 pinj_label = (
     r'$\mathregular{P_{inj}}$'
     + r'$\;$'
@@ -49,11 +54,6 @@ tinj_label = (
     r'$\mathregular{T_{inj}}$'
     + r'$\;$'
     + r'$\mathregular{[N \cdot m]}$')
-echpwrc_label = (
-    r'$\mathregular{P_{ECH}}$'
-    + r'$\;$'
-    + r'$\mathregular{[MW]}$')
-rho_ECH_label = r'$\mathregular{\rho_{ECH}}$'
 density_label = (
     r'$\mathregular{\overline{n}_e}$'
     + r'$\;$'
@@ -66,10 +66,10 @@ fs04_label = (
     + r'$\mathregular{[a.u.]}$')
 
 point_names = [
-    PointName('pinj', pinj_label, norm=1e3, Nsmooth=1000),
-    PointName('tinj', tinj_label, norm=1, Nsmooth=1000),
     PointName('echpwrc', echpwrc_label, norm=1e6, Nsmooth=100),
     PointName('rho_ECH', rho_ECH_label, norm=1),
+    PointName('pinj', pinj_label, norm=1e3, Nsmooth=1000),
+    PointName('tinj', tinj_label, norm=1, Nsmooth=1000),
     PointName('density', density_label, norm=1e13, Nsmooth=100),
     PointName('betan', betan_label, norm=1),
     PointName('H_THH98Y2', H_THH98Y2_label, norm=1),
@@ -80,9 +80,9 @@ subfig_labels = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 x0 = 1.075
 subfig_label_heights = [
     4.25,
-    1.70,
-    4.25,
     0.85,
+    4.25,
+    1.70,
     5.15,
     2.15,
     1.28,
@@ -98,9 +98,9 @@ subfig_label_heights = [
 # GA would actually FUCKING update matplotlib...)
 ylims = [
     5.,
-    2.,
-    5.,
     1.,
+    5.,
+    2.,
     6.,
     2.5,
     1.5,
