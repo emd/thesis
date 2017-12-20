@@ -25,7 +25,9 @@ linewidth = 2
 cols = get_distinct(2)
 linestyle_vpci = '-'
 linestyle_vmeas = '--'
-rholim = [0.3, 0.9]
+rholim = [0.3, 1.0]
+rholim_window = [0.3, 0.95]
+alpha = 0.5
 
 
 # Helper class for creating a diverging colormap with asymmetric limits;
@@ -46,7 +48,7 @@ class MidpointNormalize(Normalize):
 
 
 def load_Er_data(shot, time):
-    d = '%i/%i/' % (shot, time)
+    d = '%i/%ibis/' % (shot, time)
 
     # Load data
     fname = '%s/%s.pkl' % (d, 'rho')
@@ -265,19 +267,39 @@ if __name__ == '__main__':
     rho_536 = res_536[0]
     vpci_536 = res_536[1]
 
+    # Account for Er uncertainty
+    dname = '../profiles/171536/2750bis/uncertainties/gaprofiles'
+    fname = '%s/Er_relerr.pkl' % dname
+
+    with open(fname, 'rb') as f:
+        rho_Er = pickle.load(f)
+        Er_relerr = pickle.load(f)
+
+    Er_relerr = np.interp(rho_536, rho_Er, Er_relerr)
+
     # Plot:
     # -----
     plt.figure(figsize=figsize)
 
+    rhoind = np.where(np.logical_and(
+        rho_536 >= rholim[0],
+        rho_536 <= rholim[1]))[0]
+
     # 536
     col_536 = cols[0]
     plt.plot(
-        rho_536,   # [rhoind_536],
-        vpci_536,  # [rhoind_536],
+        rho_536[rhoind],
+        vpci_536[rhoind],
         c=col_536,
         linewidth=linewidth,
         linestyle=linestyle_vpci,
         label=r'$\mathregular{v_{pci}^E}$')
+    plt.fill_between(
+        rho_536[rhoind],
+        ((1 - Er_relerr) * vpci_536)[rhoind],
+        ((1 + Er_relerr) * vpci_536)[rhoind],
+        color=col_536,
+        alpha=alpha)
     plt.axhline(
         vmeas_536,
         c=col_536,
@@ -296,11 +318,16 @@ if __name__ == '__main__':
     plt.ylabel(r'$\mathregular{v \; [km / s]}$',
         fontsize=fontsize)
     plt.legend(loc='upper left', ncol=2, fontsize=fontsize)
+
+    tmid = time * 1e-3
+    dt = 0.1
     plt.annotate(
-        '%i, %.2f s' % (shot, time * 1e-3),
+        '%i, [%.2f, %.2f] s' % (shot, tmid - dt, tmid + dt),
         (0.31, -9.5),
         color=cols[0],
         fontsize=(fontsize - 4))
+
+    plt.xlim(rholim_window)
     plt.ylim([-10, 10])
 
     plt.show()

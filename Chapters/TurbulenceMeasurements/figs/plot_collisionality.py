@@ -3,6 +3,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import cPickle as pickle
 from distinct_colours import get_distinct
+from get_uncertainty import Uncertainty
 
 
 # Shots analyzed
@@ -30,6 +31,8 @@ linewidth = 2
 fontsize = 16
 cols = get_distinct(2)
 ylim = [1, 100]
+alpha = 0.5
+Nsmooth = None
 
 
 def vte(TkeV):
@@ -51,6 +54,27 @@ def nuei(TkeV, n20):
     num = 8.06e5 * (n20 * 1e20) * CoulombLog(TkeV, n20)
     den = (vte(TkeV)) ** 3
     return num / den
+
+
+def nuei_relerr(shot, rho=None):
+    # Don't have errors on ni, so use errors on ne
+    # as a proxy...
+    Un = Uncertainty('ne', shot, rho=rho)
+
+    Ute = Uncertainty('te', shot, rho=rho)
+
+    # Variation in Coulomb logarithm is very weak
+    # over the uncertainty scales we are considering,
+    # so neglect this contribution to uncertainty
+    # for simplicity...
+    term1 = Un.y_relerr ** 2
+    term2 = (1.5 * Ute.y_relerr) ** 2
+    relerr = np.sqrt(term1 + term2)
+
+    if rho is None:
+        rho = Un.rho
+
+    return rho, relerr
 
 
 def vestar(r, TkeV, n20, B0=1.7, R0=1.7):
@@ -75,14 +99,52 @@ def vestar(r, TkeV, n20, B0=1.7, R0=1.7):
     return dpdr / den
 
 
+def vestar_relerr(shot, rho=None, a=0.56):
+    Un = Uncertainty('ne', shot, rho=rho)
+    Ute = Uncertainty('te', shot, rho=rho)
+
+    # Unit conversions
+    r = Un.rho * a
+    Un.y *= 1e19
+    Ute.y *= 1e3
+    Ute.yerr *= 1e3
+    Un.yperr *= (1e19 / a)
+    Ute.yperr *= (1e3 / a)
+
+    dndr = np.gradient(Un.y) / np.gradient(r)
+    dtdr = np.gradient(Ute.y) / np.gradient(r)
+
+    p = Un.y * Ute.y
+    dpdr = np.gradient(p) / np.gradient(r)
+
+    term1 = (dndr * Ute.y * Un.y_relerr) ** 2
+    term2 = (Un.yperr * Ute.y) ** 2
+    term3 = (dndr * Ute.yerr) ** 2
+    term4 = (Un.y * Ute.yperr) ** 2
+
+    relerr = np.sqrt(term1 + term2 + term3 + term4) / np.abs(dpdr)
+
+    if rho is None:
+        rho = Un.rho
+
+    return rho, relerr
+
+
 if __name__ == '__main__':
     a = 0.56  # [a] = m
 
     plt.figure(figsize=figsize)
 
+    # Denote region inaccessible to PCI
+    plt.fill_betweenx(
+        ylim,
+        0,
+        x2=0.35,
+        color='lightgray')
+
     for sind, shot in enumerate(shots):
         # Load spatial coordinate, rho
-        fname = './%i/%i/rho.pkl' % (shot, times[sind])
+        fname = './%i/%ibis/rho.pkl' % (shot, times[sind])
         with open(fname, 'rb') as f:
             rho = pickle.load(f)[0, :]
 
@@ -91,24 +153,34 @@ if __name__ == '__main__':
             rho <= rholim[1]))[0]
 
         # Load spatial coordinate, rmin
-        fname = './%i/%i/rmin.pkl' % (shot, times[sind])
+        fname = './%i/%ibis/rmin.pkl' % (shot, times[sind])
         with open(fname, 'rb') as f:
             rmin = pickle.load(f)[0, :] * 1e-2  # [rmin] = m
 
         # Load profiles
-        fname = './%i/%i/%s.pkl' % (shot, times[sind], 'te')
+        fname = './%i/%ibis/%s.pkl' % (shot, times[sind], 'te')
         with open(fname, 'rb') as f:
             Te = pickle.load(f)[0, :]  # [Te] = keV
 
-        fname = './%i/%i/%s.pkl' % (shot, times[sind], 'ne')
+        fname = './%i/%ibis/%s.pkl' % (shot, times[sind], 'ne')
         with open(fname, 'rb') as f:
             ne = pickle.load(f)[0, :] / 1e14  # [ne] = 10^{20} m^{-3}
 
-        fname = './%i/%i/%s.pkl' % (shot, times[sind], 'ni1')
+        fname = './%i/%ibis/%s.pkl' % (shot, times[sind], 'ni1')
         with open(fname, 'rb') as f:
             ni = pickle.load(f)[0, :] / 1e14  # [ni] = 10^{20} m^{-3}
 
         nu = nuei(Te, ni) / (vestar(rmin, Te, ne) / a)
+
+        if Nsmooth is not None:
+            nu = np.convolve(
+                nu,
+                np.ones(Nsmooth, dtype='float') / Nsmooth,
+                mode='same')
+
+        term1 = (nuei_relerr(shot, rho=rho)[1]) ** 2
+        term2 = (vestar_relerr(shot, rho=rho, a=a)[1]) ** 2
+        nu_relerr = np.sqrt(term1 + term2)
 
         plt.semilogy(
             rho[rhoind],
@@ -116,6 +188,12 @@ if __name__ == '__main__':
             c=cols[sind],
             linewidth=linewidth,
             label=(r'$\mathregular{\rho_{ECH} = %.1f}$' % rhos[sind]))
+        plt.fill_between(
+            rho[rhoind],
+            ((1 - nu_relerr) * nu)[rhoind],
+            ((1 + nu_relerr) * nu)[rhoind],
+            color=cols[sind],
+            alpha=alpha)
 
     plt.xlabel(
         r'$\mathregular{\rho}$',
@@ -123,12 +201,6 @@ if __name__ == '__main__':
     plt.ylabel(
         r'$\mathregular{\nu_{ei} \; [v_{*e} \,/\, a]}$',
         fontsize=fontsize)
-
-    plt.fill_betweenx(
-        ylim,
-        0,
-        x2=0.35,
-        color='lightgray')
 
     plt.annotate(
         r'$\mathregular{R < 1.98 \, m}$',
@@ -141,6 +213,23 @@ if __name__ == '__main__':
         mpl.ticker.FormatStrFormatter('%d'))
     ax.set_yticks([1, 10, 100])
     ax.set_ylim(ylim)
+
+    # Shot and time annotations
+    for sind, shot in enumerate(shots):
+        tmid = times[sind] * 1e-3
+        dt = 0.1
+        t0 = tmid - dt
+        tf = tmid + dt
+
+        x0 = 0.725
+        y0 = 1.35
+        dy = 0.25
+
+        plt.annotate(
+            '%i, [%.2f, %.2f] s' % (shot, t0, tf),
+            (x0, y0 - (sind * dy)),
+            color=cols[sind],
+            fontsize=(fontsize - 6))
 
     plt.legend(loc='best')
     plt.tight_layout()

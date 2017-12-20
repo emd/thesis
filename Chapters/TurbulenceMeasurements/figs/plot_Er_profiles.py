@@ -18,7 +18,7 @@ times = np.array([
 ])
 
 # Plotting parameters
-rholim = [0.0, 1.0]
+rholim = [0.0, 0.95]
 gammaE_lim = (-10, 50)
 Nsmooth = 5
 figsize = (9, 3.5)
@@ -29,7 +29,7 @@ cols = get_distinct(len(shots))
 
 def get_Er_midplane(shot, time):
     # Load Er data
-    d = '../doppler_shift/%i/%i' % (shot, time)
+    d = '../doppler_shift/%i/%ibis' % (shot, time)
 
     fname = '%s/rho.pkl' % d
     with open(fname, 'rb') as f:
@@ -44,7 +44,7 @@ def get_Er_midplane(shot, time):
 
 def get_gammaE(shot, time, Nsmooth=5):
     # Load Er_RBpol data
-    d = '../doppler_shift/%i/%i' % (shot, time)
+    d = '../doppler_shift/%i/%ibis' % (shot, time)
 
     fname = '%s/rho.pkl' % d
     with open(fname, 'rb') as f:
@@ -55,7 +55,7 @@ def get_gammaE(shot, time, Nsmooth=5):
         Er_RBpol_midplane = pickle.load(f)
 
     # Load TGYRO geometry and profile data
-    d = './%i/%i' % (shot, time)
+    d = './%i/%ibis' % (shot, time)
 
     fname = '%s/rho.pkl' % d
     with open(fname, 'rb') as f:
