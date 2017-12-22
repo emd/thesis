@@ -49,7 +49,7 @@ figsize = (8, 8)
 linewidth = 1
 alpha = 0.5
 fontsize = 15
-Er_lim = [-30, 30]
+Er_lim = [-10, 20]
 Nsmooth_gammaE = 10
 rholim_gammaE = [0.1, 1.0]
 gammaE_lim = [0, 50]
@@ -267,7 +267,7 @@ if __name__ == '__main__':
     ax[0, 0].annotate('(a)', (x0, 0.35), fontsize=fontsize)
     ax[1, 0].annotate('(b)', (x0, 0.2), fontsize=fontsize)
     ax[2, 0].annotate('(c)', (x0, 0.2), fontsize=fontsize)
-    ax[3, 0].annotate('(d)', (x0, -27), fontsize=fontsize)
+    ax[3, 0].annotate('(d)', (x0, -8.5), fontsize=fontsize)
     ax[0, 1].annotate('(e)', (x0, -0.75), fontsize=fontsize)
     ax[1, 1].annotate('(f)', (x0, -0.75), fontsize=fontsize)
     ax[2, 1].annotate('(g)', (x0, -0.75), fontsize=fontsize)
