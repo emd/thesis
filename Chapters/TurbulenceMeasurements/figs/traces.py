@@ -21,7 +21,6 @@ linewidth = 2
 fontsize = 15
 rotation = 90
 alpha = 0.25
-profile_linestyle = '--'
 tlim = [1.0, 3.5]
 
 
@@ -148,21 +147,13 @@ if __name__ == '__main__':
                 fontsize=fontsize)
 
             # Annotate trace w/ stationary window used for
-            # spectral analysis and time slice corresponding
-            # to modeling work
+            # spectral analysis and modeling work
             ax[rowind, colind].fill_betweenx(
                 [0, ylims[pind]],
                 stationary_windows[sind][0],
                 x2=stationary_windows[sind][1],
                 color=cols[sind],
                 alpha=alpha)
-            ax[rowind, colind].vlines(
-                profile_times[sind],
-                0,
-                ylims[pind],
-                color=cols[sind],
-                linestyle=profile_linestyle,
-                linewidth=linewidth)
 
             if sind == 1:
                 # Enforce y-limit

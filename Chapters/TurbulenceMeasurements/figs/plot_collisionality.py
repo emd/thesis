@@ -57,9 +57,9 @@ def nuei(TkeV, n20):
 
 
 def nuei_relerr(shot, rho=None):
-    # Don't have errors on ni, so use errors on ne
-    # as a proxy...
-    Un = Uncertainty('ne', shot, rho=rho)
+    Une = Uncertainty('ne', shot, rho=rho)
+    UnC = Uncertainty('imp', shot, rho=rho)
+    Z = 6  # Carbon charge
 
     Ute = Uncertainty('te', shot, rho=rho)
 
@@ -67,9 +67,10 @@ def nuei_relerr(shot, rho=None):
     # over the uncertainty scales we are considering,
     # so neglect this contribution to uncertainty
     # for simplicity...
-    term1 = Un.y_relerr ** 2
-    term2 = (1.5 * Ute.y_relerr) ** 2
-    relerr = np.sqrt(term1 + term2)
+    term1 = Une.y_relerr ** 2
+    term2 = (Z * UnC.y_relerr) ** 2
+    term3 = (1.5 * Ute.y_relerr) ** 2
+    relerr = np.sqrt(term1 + term2 + term3)
 
     if rho is None:
         rho = Un.rho
@@ -188,10 +189,22 @@ if __name__ == '__main__':
             c=cols[sind],
             linewidth=linewidth,
             label=(r'$\mathregular{\rho_{ECH} = %.1f}$' % rhos[sind]))
+
+        # Lower bound must remain positive
+        lower_bound = np.maximum(
+            (1 - nu_relerr) * nu,
+            ylim[0])
+
+        # Upper bound must remain finite...
+        # Last point tends to go to infinity, so
+        # let's just make it equal to 2nd-to-last data point
+        upper_bound = (1 + nu_relerr) * nu
+        upper_bound[-1] = upper_bound[-22]
+
         plt.fill_between(
             rho[rhoind],
-            ((1 - nu_relerr) * nu)[rhoind],
-            ((1 + nu_relerr) * nu)[rhoind],
+            lower_bound[rhoind],
+            upper_bound[rhoind],
             color=cols[sind],
             alpha=alpha)
 
@@ -221,7 +234,7 @@ if __name__ == '__main__':
         t0 = tmid - dt
         tf = tmid + dt
 
-        x0 = 0.725
+        x0 = 0.665
         y0 = 1.35
         dy = 0.25
 

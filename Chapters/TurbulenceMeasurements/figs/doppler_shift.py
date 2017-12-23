@@ -296,8 +296,8 @@ if __name__ == '__main__':
         label=r'$\mathregular{v_{pci}^E}$')
     plt.fill_between(
         rho_536[rhoind],
-        ((1 - Er_relerr) * vpci_536)[rhoind],
-        ((1 + Er_relerr) * vpci_536)[rhoind],
+        ((1 - np.abs(Er_relerr)) * vpci_536)[rhoind],
+        ((1 + np.abs(Er_relerr)) * vpci_536)[rhoind],
         color=col_536,
         alpha=alpha)
     plt.axhline(

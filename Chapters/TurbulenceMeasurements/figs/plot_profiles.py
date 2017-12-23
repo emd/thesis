@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import cPickle as pickle
 from distinct_colours import get_distinct
 from plot_Er_profiles import get_Er_midplane, get_gammaE
-from get_uncertainty import Uncertainty
+from get_uncertainty import Uncertainty, Measurements
 from plot_Er_uncertainty_force_balance import (
     get_Er_uncertainty_force_balance,
     get_dEr_uncertainty_force_balance)
@@ -54,6 +54,10 @@ Nsmooth_gammaE = 10
 rholim_gammaE = [0.1, 1.0]
 gammaE_lim = [0, 50]
 fillcolor = 'lightgray'
+plot_measurements = True
+measurements_shot = shots[0]
+marker = 'o'
+markersize = 3
 
 
 if __name__ == '__main__':
@@ -118,6 +122,10 @@ if __name__ == '__main__':
 
             y /= normalizations[profile]
 
+            # Load measurement points, if requested
+            if plot_measurements and (shot == measurements_shot):
+                M = Measurements(profile, shot)
+
             # Plot
 
             # First, annotate region inaccessible by PCI
@@ -137,6 +145,15 @@ if __name__ == '__main__':
                         r'$\mathregular{R < 1.98 \; m}$',
                         (0.02, 3.1),
                         fontsize=(fontsize - 3))
+
+            # Plot measurement points & error bars, if requested
+            if plot_measurements and (shot == measurements_shot):
+                M.plot(
+                    rho_lim=rholim,
+                    ax=ax[pind, 0],
+                    color=cols[sind],
+                    marker=marker,
+                    markersize=markersize)
 
             ax[pind, 0].plot(
                 rho[rhoind],
@@ -193,10 +210,18 @@ if __name__ == '__main__':
             Er_midplane[rhoind],
             color=cols[sind],
             linewidth=linewidth)
+
+        # Enforce 8 kV/m maximum error...
+        # kinda jenky, but only place this comes into play
+        # is in rho > 0.9, where we don't care...
+        delta_Er = Er_relerr * Er_midplane
+        delta_Er = np.minimum(delta_Er, 8)
+        delta_Er = np.maximum(delta_Er, -8)
+
         ax[-1, 0].fill_between(
             rho[rhoind],
-            ((1 - Er_relerr) * Er_midplane)[rhoind],
-            ((1 + Er_relerr) * Er_midplane)[rhoind],
+            (Er_midplane - delta_Er)[rhoind],
+            (Er_midplane + delta_Er)[rhoind],
             color=cols[sind],
             alpha=alpha)
         ax[-1, 0].set_ylabel(
@@ -231,10 +256,22 @@ if __name__ == '__main__':
             gammaE[rhoind],
             color=cols[sind],
             linewidth=linewidth)
+
+        # Enforce 20 kHz maximum error...
+        # kinda jenky, but only place this comes into play
+        # rho > 0.9, where we don't care (off of plot range)
+        delta_gammaE = dEr_relerr * gammaE
+        delta_gammaE = np.minimum(delta_gammaE, 20)
+        delta_gammaE = np.maximum(delta_gammaE, -20)
+        delta_gammaE = np.convolve(
+            delta_gammaE,
+            np.ones(Nsmooth_gammaE, dtype='float') / Nsmooth_gammaE,
+            mode='same')
+
         ax[-1, 1].fill_between(
             rho[rhoind],
-            ((1 - dEr_relerr) * gammaE)[rhoind],
-            ((1 + dEr_relerr) * gammaE)[rhoind],
+            (gammaE - delta_gammaE)[rhoind],
+            (gammaE + delta_gammaE)[rhoind],
             color=cols[sind],
             alpha=alpha)
         ax[-1, 1].set_ylabel(
