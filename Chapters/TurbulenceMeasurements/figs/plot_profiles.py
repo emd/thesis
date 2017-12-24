@@ -61,6 +61,20 @@ markersize = 3
 
 
 if __name__ == '__main__':
+    exclude_view = {
+        'ne': 'T',  # tangential points are presumably unreliable
+        'te': 'T',  # tangential points are presumably unreliable
+        'ni1': None,
+        'ti1': None
+    }
+
+    drho = {
+        'ne': 0.02,  # apparently standard practice to make such shifts...
+        'te': 0.02,  # apparently standard practice to make such shifts...
+        'ni1': 0.,
+        'ti1': 0.
+    }
+
     normalizations = {
         'ne': 1e13,
         'te': 1.,
@@ -150,6 +164,8 @@ if __name__ == '__main__':
             if plot_measurements and (shot == measurements_shot):
                 M.plot(
                     rho_lim=rholim,
+                    drho=drho[profile],
+                    exclude_view=exclude_view[profile],
                     ax=ax[pind, 0],
                     color=cols[sind],
                     marker=marker,
