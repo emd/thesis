@@ -27,14 +27,14 @@ where $q_{95}$ is the average value
 of the safety factor $q$~\cite[Sec.~3.4]{wesson}
 over the surface that encloses $95\%$
 of the poloidal flux within the last-closed flux surface.
-The neutral beams~\cite[Sec.~5.3-5.5]{wesson}
-were operated with feedback to maintain
+Neutral beam injection (NBI)~\cite[Sec.~5.3-5.5]{wesson}
+was performed with feedback to maintain
 $\beta_N = 1.9$, where
 $\beta_N$ is the normalized plasma pressure~\cite[Sec.~6.18]{wesson}.
 In order to suppress core MHD,
-an average neutral-beam torque of $\sim \SI{1.5}{\newton \meter}$
+an average NBI torque of approximately $\SI{1.5}{\newton \meter}$
 was injected into the plasma;
-note that this is $\sim 4\times$ larger than
+note that this is approximately four times larger than
 the projected ITER-equivalent torque~\cite{garofalo_nf11}.
 In order to alter the local electron-scale and ion-scale drives,
 the electron cyclotron resonance heating (ECH)~\cite[Sec.~5.10]{wesson}
@@ -49,7 +49,7 @@ only shot-to-shot, MHD-free scans of the ECH location
 are considered here.
 The line-averaged density was
 $\bar{n}_e = \SI{5.2e19}{\per\meter\cubed}$.
-Impurities are removed from the plasma
+Impurities were removed from the plasma
 by both large and small edge localized modes (ELMs)~\cite[Sec.~7.17]{wesson}.
 The time histories of several actuators and plasma parameters
 are shown in Figure~\ref{fig:TurbulenceMeasurements:traces}.
@@ -82,31 +82,58 @@ Equilibrium profiles were obtained
 by averaging over $\SI{200}{\milli\second}$,
 as indicated by the shaded regions
 in Figure~\ref{fig:TurbulenceMeasurements:traces}.
+Magnetic equilibria were
+reconstructed with the \textcolor{red}{EFIT code} and
+were constrained to match the total plasma pressure and
+motional Stark effect (MSE) measurements
+of the local magnetic pitch angle.
 Electron densities and temperatures
-are measured via Thomson scattering, while
+were measured via Thomson scattering, while
 ion densities and temperatures
-are inferred from charge exchange recombination (CER) measurements
+were inferred from charge exchange recombination (CER) measurements
 of C$^{6+}$, the dominant impurity in \diiid.
-The radial electric field is computed
-by applying force balance to C$^{6+}$.
+The radial electric field was computed
+by invoking force balance on C$^{6+}$.
 % (poloidal data for $\rho \geq 0.6)$
-
-Power-balance analysis was performed with the ONETWO code,
-with NUBEAM calculations for NBI heating and torque and
-TORAY calculations for ECH;
+To minimize the impact of ELMs on the profile fits,
+only measurements falling
+within the last {$50\%$ -- $99\%$} of each inter-ELM window
+were included in the fitting.
+The fitted profiles and
+their corresponding gradients or
+\textcolor{red}{normalized inverse scale lengths}
+are shown in
+Figure~\ref{fig:TurbulenceMeasurements:profiles}.
+While it may seem counterintuitive
+that the central electron temperature $T_e(0)$
+increases when moving ECH from $\rho = 0.5$ to $\rho = 0.8$,
+maintaining constant $\beta_N$
+requires increased NBI heating
+(see Figure~\ref{fig:TurbulenceMeasurements:traces}(c)),
+which enhances the NBI electron heating density $q_{e,\text{NBI}}$
+across the full plasma profile,
+as shown in Figure~\ref{fig:TurbulenceMeasurements:electron_heating}(b).
+The $1\sigma$ uncertainties in the profile fits,
+indicated by the shaded bands in
+Figure~\ref{fig:TurbulenceMeasurements:profiles},
+were quantified by
+performing separate fits to $100$ distinct data sets
+generated via Monte Carlo variation
+of the measurements about their uncertainties.
+Clearly, moving ECH from $\rho = 0.5$ to $\rho = 0.8$
+produces large changes
+in the electron-scale and ion-scale drives,
+$a / L_{T_e}$ and $a / L_{T_i}$, respectively,
+in the region of the plasma accessible to the PCI probe beam
+($R \geq \SI{1.98}{\meter}$).
+Using these profiles,
+power-balance analysis was performed
+with the \textcolor{red}{ONETWO} code,
+with \textcolor{red}{NUBEAM} calculations
+for NBI heating and torque and
+\textcolor{red}{TORAY} calculations for ECH;
 the resulting loop voltages, stored energies, and neutron rates
 match their measured values to within $\pm 5\%$.
-
-\begin{itemize}
-  \item $n_e$ and $T_e$ are fit to hyperbolic tangents, and
-    other profiles are fit with splines
-  \item MSE-constrained kinetic EFITs
-  \item Averaging over $50-99\%$ inter-ELM window
-  \item Uncertainties
-  \item Clear change in turbulent drives with ECH location
-  \item The profiles are shown in
-    Figure~\ref{fig:TurbulenceMeasurements:profiles}.
-\end{itemize}
 
 \begin{figure}
   \centering
@@ -122,9 +149,15 @@ match their measured values to within $\pm 5\%$.
     (f) normalized inverse $T_e$ scale length $a / L_{T_e}$,
     (g) normalized inverse $T_i$ scale length $a / L_{T_i}$,
     (h) $\ExB$ shearing rate $\gamma_E$.
-    The ECH heating location was
-    at $\rho = 0.5$ in $171536$ and
-    at $\rho = 0.8$ in $171538$.
+    The shaded bands indicate the $1\sigma$ uncertainties in the profiles,
+    as determined by performing separate fits to $100$ distinct data sets
+    generated via Monte Carlo variation
+    of the measurements about their uncertainties.
+    Representative measurements and their uncertainties are indicated
+    for a $\SI{10}{\milli\second}$ window from a single shot.
+    The relatively large uncertainty on $\gamma_E$
+    is dominated by uncertainty in the curvature
+    of the $T_i$ profile.
   }
 \label{fig:TurbulenceMeasurements:profiles}
 \end{figure}
@@ -134,7 +167,14 @@ match their measured values to within $\pm 5\%$.
   \includegraphics[width = \textwidth]{%
     Chapters/TurbulenceMeasurements/figs/electron_heating.pdf}
   \caption[ECH \& NBI electron-heating profiles]{%
-    ECH and NBI electron-heating profiles.
+    (a) ECH electron heating density $q_{e,\text{ECH}}$ and
+    (b) NBI electron heating density $q_{e,\text{NBI}}$.
+    When moving ECH from $\rho = 0.5$ to $\rho = 0.8$,
+    maintaining constant $\beta_N$
+    requires increased NBI heating
+    (see Figure~\ref{fig:TurbulenceMeasurements:traces}(c)),
+    which enhances the NBI electron heating density $q_{e,\text{NBI}}$
+    across the full plasma profile.
     The radiated power and ohmic heating
     negligibly change between the two discharges.
   }
