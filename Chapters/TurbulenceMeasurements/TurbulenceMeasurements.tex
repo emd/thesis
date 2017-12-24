@@ -78,18 +78,28 @@ is intrinsically multiscale in nature~\cite{holland_nf17}.
 \label{fig:TurbulenceMeasurements:traces}
 \end{figure}
 
-Equilibrium profiles
+Equilibrium profiles were obtained
+by averaging over $\SI{200}{\milli\second}$,
+as indicated by the shaded regions
+in Figure~\ref{fig:TurbulenceMeasurements:traces}.
+Electron densities and temperatures
+are measured via Thomson scattering, while
+ion densities and temperatures
+are inferred from charge exchange recombination (CER) measurements
+of C$^{6+}$, the dominant impurity in \diiid.
+The radial electric field is computed
+by applying force balance to C$^{6+}$.
+% (poloidal data for $\rho \geq 0.6)$
+
+Power-balance analysis was performed with the ONETWO code,
+with NUBEAM calculations for NBI heating and torque and
+TORAY calculations for ECH;
+the resulting loop voltages, stored energies, and neutron rates
+match their measured values to within $\pm 5\%$.
+
 \begin{itemize}
-  \item averaging over $\pm \SI{100}{\milli\second}$
   \item $n_e$ and $T_e$ are fit to hyperbolic tangents, and
     other profiles are fit with splines
-  \item $n_e$ and $T_e$ from Thomson
-  \item $n_i$ and $T_i$ are inferred from CER measurements of C$^{6+}$
-  \item $E_r$ computed using force balance for C$^{6+}$
-    (poloidal data for $\rho \geq 0.6)$
-  \item Power balance via ONETWO with
-    NUBEAM for neutral-beam heating and torque and
-    TORAY for ECH
   \item MSE-constrained kinetic EFITs
   \item Averaging over $50-99\%$ inter-ELM window
   \item Uncertainties
@@ -117,6 +127,16 @@ Equilibrium profiles
     at $\rho = 0.8$ in $171538$.
   }
 \label{fig:TurbulenceMeasurements:profiles}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/TurbulenceMeasurements/figs/electron_heating.pdf}
+  \caption[ECH \& NBI electron-heating profiles]{%
+    ECH and NBI electron-heating profiles.
+  }
+\label{fig:TurbulenceMeasurements:electron_heating}
 \end{figure}
 
 
@@ -237,9 +257,15 @@ shows the windows \emph{excluded} from spectral analysis in gray.
 \label{fig:TurbulenceMeasurements:collisionality}
 \end{figure}
 
-\begin{itemize}
-  \item Coherence
-\end{itemize}
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/TurbulenceMeasurements/figs/coherence.pdf}
+  \caption[Magnitude-squared coherence]{%
+    Magnitude-squared coherence.
+  }
+  \label{fig:TurbulenceMeasurements:gamma2xy}
+\end{figure}
 
 
 \subsection{Frequency-wavenumber spectra}
