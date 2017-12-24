@@ -105,6 +105,10 @@ if __name__ == '__main__':
     axs[0].set_ylabel(
         r'$\mathregular{q_{e,ECH} \; [MW / m^3]}$',
         fontsize=fontsize)
+    axs[0].annotate(
+        '(a)',
+        (0.015, 0.1),
+        fontsize=fontsize)
 
     axs[1].set_xlabel(
         r'$\mathregular{\rho}$',
@@ -115,6 +119,27 @@ if __name__ == '__main__':
     axs[1].legend(
         loc='upper right',
         fontsize=(fontsize - 2))
+    axs[1].annotate(
+        '(b)',
+        (0.015, 4),
+        fontsize=fontsize)
+
+    x0 = 0.2
+    y0 = 12.5
+    dy = 8.5
+    dt = 0.1
+
+    for ind in np.arange(len(axs)):
+        t0 = (times[ind] / 1e3) - dt
+        tf = (times[ind] / 1e3) + dt
+
+        shot_label = '%i, [%.2f, %.2f] s' % (shots[ind], t0, tf)
+
+        axs[1].annotate(
+            shot_label,
+            (x0, y0 - (ind * dy)),
+            color=cols[ind],
+            fontsize=(fontsize - 6))
 
     plt.tight_layout()
     plt.show()
