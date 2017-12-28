@@ -40,7 +40,7 @@ is defined as
 where $w(t)$ is an arbitrary windowing function.
 Typically, the selected windowing function smoothly tapers
 as $|t| \rightarrow T / 2$
-to minimize side-lobe ``leakage''
+to minimize sidelobe leakage
 that results from discontinuities at the start and end of the sample record.
 Further, to prevent power loss, the windowing function
 is also typically normalized such that
@@ -90,14 +90,8 @@ This can be made explicit by writing
   G_{xy}(f) = \left| G_{xy}(f) \right| e^{i \alpha_{xy}(f)},
   \label{eq:SpectralEstimation:cross_spectral_density_explicit_complex}
 \end{equation}
-where $\alpha_{xy}(f)$ is the \emph{phase angle}.
-Note that if
-$\lim_{T \rightarrow \infty} E[X_k(f, T)] \propto e^{i \alpha_x}$ and
-$\lim_{T \rightarrow \infty} E[Y_k(f, T)] \propto e^{i \alpha_y}$, then
-\begin{equation}
-  \alpha_{xy} = \alpha_y - \alpha_x.
-\end{equation}
-Further, note that for the special case $\{x_k(t)\} = \{y_k(t)\}$,
+where $\alpha_{xy}(f)$ is the \emph{cross phase}.
+For the special case $\{x_k(t)\} = \{y_k(t)\}$,
 $G_{xx}(f)$ is real-valued (i.e.\ $G_{xx}(f) = |G_{xx}(f)|$) and
 is referred to as the one-sided \emph{autospectral density} function.
 
@@ -131,33 +125,6 @@ only single realizations of the random processes are used,
 $\gamma_{xy}^2(f) \equiv 1$ for all $f$,
 \emph{regardless} of the actual degree of coherence
 between between $\{x_k(t)\}$ and $\{y_k(t)\}$.
-
-Care should be taken when computing spectral density estimates.
-Table~\ref{table:ToroidalCorrelation:spectral_estimate_random_errors}
-summarizes the random errors associated with the estimates
-of various spectral properties.
-Note that the number of realizations $N_r$ used
-in the computation of the ensemble average
-is a parameter that can be specified
-at the time of analysis and that
-increasing $N_r$ reduces the random errors of each spectral estimate.
-(While increased $\gamma_{xy}^2(f)$ also reduces random errors,
-$\gamma_{xy}^2(f)$ is an intrinsic property of the data
-rather than a parameter that can be specified at the time of analysis).
-Further, in various programming languages,
-it is not uncommon to ``detrend'' realizations $x_k(t)$ and $y_k(t)$
-by subtracting the signal mean or linear trend
-prior to application of
-(\ref{eq:SpectralEstimation:cross_spectral_density_defn}).
-However, the author anecdotally notes that his experience with
-such detrending can lead to values of $\gamma_{xy}^2(f)$
-that unphysically exceed the bounds established in
-(\ref{eq:SpectralEstimation:magnitude_squared_coherence_bounds}).
-The subtleties of such discrepancies were not investigated further, and
-no such detrending was applied to signals
-prior to spectral computations in this work;
-instead, if needed, signals are high-pass filtered as described in
-Section~\ref{sec:Implementation:DataPreparation:high_pass_filtering}.
 
 \begin{table}[t]
   \centering
@@ -199,9 +166,213 @@ Section~\ref{sec:Implementation:DataPreparation:high_pass_filtering}.
 \label{table:ToroidalCorrelation:spectral_estimate_random_errors}
 \end{table}
 
+Care should be taken when computing spectral density estimates.
+Table~\ref{table:ToroidalCorrelation:spectral_estimate_random_errors}
+summarizes the random errors associated with the estimates
+of various spectral properties.
+Note that the number of realizations $N_r$ used
+in the computation of the ensemble average
+is a parameter that can be specified
+at the time of analysis and that
+increasing $N_r$ reduces the random errors of each spectral estimate.
+(While increased $\gamma_{xy}^2(f)$ also reduces random errors,
+$\gamma_{xy}^2(f)$ is an intrinsic property of the data
+rather than a parameter that can be specified at the time of analysis).
+Further, in various programming languages,
+it is not uncommon to ``detrend'' realizations $x_k(t)$ and $y_k(t)$
+by subtracting the signal mean or linear trend
+prior to application of
+(\ref{eq:SpectralEstimation:cross_spectral_density_defn}).
+As described in
+Section~\ref{sec:Implementation:DataPreparation:high_pass_filtering},
+signals are high-pass filtered prior to spectral analysis, and
+no further detrending is performed.
+
 
 \section{Parametric techniques}
 \label{app:SpectralEstimation:Parametric}
+Parametric techniques attempt to represent a signal
+with a mathematical model containing
+a limited number of predefined parameters.
+For a pedagogical overview of such techniques,
+the reader is directed to
+the work of Oppenheim and Schafer~\cite[Ch.~11]{oppenheim}
+The discussion here is largely synthesized
+from the discussion by Marple~\cite{marple_ieee89}.
+
+Many random processes are well approximated
+by rational transfer-function models.
+In such models,
+an input driving sequence $n_n$ and
+an output (i.e. data) sequence $x_n$
+are related via the linear difference equation
+\begin{equation}
+  x_n
+  =
+  \sum_{l = 0}^q b_l n_{n - l}
+  -
+  \sum_{k = 1}^p a_k x_{n - k};
+  \label{eq:SpectralEstimation:ARMA}
+\end{equation}
+each sequence has length $N$, and
+successive samples are separated in time by $\Delta t$.
+Such a model is termed an
+autoregressive-moving average (ARMA) model.
+Now, if $b_0 = 1$ and the remainder of the $b_l$ are zero,
+(\ref{eq:SpectralEstimation:ARMA}) reduces to
+\begin{equation}
+  x_n
+  =
+  -\sum_{k = 1}^p a_k x_{n - k}
+  +
+  n_n
+  \label{eq:SpectralEstimation:AR}
+\end{equation}
+such that $x_n$ is an autoregression of order $p$
+driven by white noise $n_n$.
+The autospectral density $G_{xx}(f)$ of such an autoregression is
+\begin{equation}
+  G_{xx}(f)
+  =
+  \frac{%
+    \sigma^2}{%
+    \left|
+      1
+      +
+      \sum\limits_{k = 1}^{p} a_k \exp(-2 \pi k f \Delta t)
+    \right|^2
+  },
+  \label{eq:SpectralEstimation:AR_autospectral_density}
+\end{equation}
+where $\sigma^2$ is the variance of noise term $n_n$.
+Because the only frequency dependence in spectral estimate
+(\ref{eq:SpectralEstimation:AR_autospectral_density})
+appears in the denominator,
+the AR model is often referred to as an all-pole model.
+Interestingly, AR spectra do \emph{not} suffer from
+traditional sidelobes due to windowing.
+
+The AR process is fully characterized
+by the $(p + 1)$ parameters $(a_1, a_2, \cdots, a_p, \sigma^2)$, and
+numerous techniques exist for their estimation.
+The $p + 1$ autocorrelations
+$\{R_{xx}(0)$, $R_{xx}(\Delta t)$, \ldots $R_{xx}(p \cdot \Delta t)\}$
+are related to $(a_1, a_2, \cdots, a_p, \sigma^2)$
+via the Yule-Walker normal equations,
+which the Levinson-Durbin recursion can efficiently solve
+\cite[Sec.~11.6]{oppenheim}.
+However, better AR estimates are often obtained
+via least-squares linear prediction
+applied directly to the data $x_n$.
+Such techniques may employ the forward-only linear prediction
+or some combination of the forward and reverse linear predictions.
+The covariance method~\cite[Sec.~11.3.2]{oppenheim}
+is perhaps the most well known forward-only algorithm,
+while the Burg method
+is perhaps the most well known forward and reverse algorithm.
+
+Here, the Burg method is briefly reviewed.
+The algorithm is iterative, so
+assume that the $p$\ts{th} order AR parameters are known.
+Then, the forward linear prediction is
+\begin{equation}
+  \hat{x}_n
+  =
+  -\sum_{k = 1}^p a_{p,k} x_{n - k},
+  \label{eq:SpectralEstimation:forward_linear_prediction}
+\end{equation}
+where $a_{p,k}$ is the $k$\ts{th} coefficient
+of the $p$-order AR model.
+The corresponding forward linear-prediction error is
+\begin{align}
+  e_{p,n}
+  &=
+  x_n - \hat{x}_n
+  \notag \\
+  &=
+  \sum_{k = 0}^p a_{p,k} x_{n - k},
+  \qquad
+  p \leq n < N,
+  \label{eq:SpectralEstimation:forward_linear_prediction_error}
+\end{align}
+where $a_{p,0} = 1$ by definition and
+the limits on $n$ are established
+such that the error is defined only over the available data.
+Note that $e_{p,n} = n_n$ such that
+$\sigma^2 = |e_{p,n}|^2$.
+For a stationary process,
+the coefficients of the backward linear-prediction error filter
+are simply conjugated and reversed in time
+relative to those of the forward linear-prediction error filter
+such that the backward linear-prediction error is
+\begin{equation}
+  b_{p,n}
+  =
+  \sum_{k = 0}^p a_{p,k}^* x_{n - p + k},
+  \qquad
+  p \leq n < N,
+  \label{eq:SpectralEstimation:backward_linear_prediction_error}
+\end{equation}
+where $z^*$ indicates the complex conjugate of $z$.
+The total forward and backward linear-prediction error is
+\begin{equation}
+  E_p
+  =
+  \sum_{n = p}^{N - 1} |e_{p,n}|^2
+  +
+  \sum_{n = p}^{N - 1} |b_{p,n}|^2.
+\end{equation}
+To estimate the AR parameters,
+the Burg method minimizes the total error $E_p$
+subject to the constraint that
+the AR parameters satisfy the Levinson-Durbin recursion
+\begin{equation}
+  a_{p,k}
+  =
+  a_{p - 1, k}
+  +
+  a_{p,p} a_{p - 1, p - k}^*,
+  \qquad
+  1 \leq k \leq p.
+  \label{eq:SpectralEstimation:Levinson_Durbin_recursion}
+\end{equation}
+The Levinson-Durbin constraint
+ensures that the AR filter is stable
+(i.e.\ all poles fall within the unit circle) and
+make $E_p$ a function solely of the unknown coefficient $a_{p,p}$.
+Setting the derivative of $E_p$
+with respect to $a_{p,p}$ to zero then yields
+\begin{equation}
+  a_{i,i}
+  =
+  \frac{%
+    -2 \sum\limits_{k = i}^{N - 1}
+    b_{i - 1, k - 1}^*
+    e_{i - 1, k}
+  }{%
+    \sum\limits_{k = i}^{N - 1}
+    \left(%
+      |b_{i - 1, k - 1}|^2
+      +
+      |e_{i - 1, k - 1}|^2
+    \right)
+  }.
+  \label{eq:SpectralEstimation:a_ii}
+\end{equation}
+
+Although the Burg method has satisfactory performance for the present work,
+it should be noted for completeness that
+the Burg method suffers from several problems,
+including spectral line splitting and biases in the frequency estimate.
+These problems can be corrected via
+a ``least-squares'' algorithm
+(independently developed by Ulrych-Clayton and Nuttall)
+in which $E_p$ is differentiated with respect to all of the $a_{p,k}$,
+not just $a_{p,p}$,
+to obtain a set of normal equations
+(the Levinson-Durbin constraint is no longer enforced).
+Application of this modified algorithm
+is relegated to future work.
 
 
 \bibliographystyle{plainurl}
