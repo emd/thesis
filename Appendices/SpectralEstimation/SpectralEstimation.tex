@@ -432,7 +432,12 @@ The trigger offset is estimated by defining
 and applying
 (\ref{eq:DigitizerSynchronization:trigger_offset_estimate_apriori_phase});
 here $\alpha_{i,j}(f)$ is the cross phase
-between channels $i$ and $j$.
+between channels $i$ and $j$
+during a stationary portion of the discharge.
+To minimize random error,
+at least $1000$ realizations are averaged over, and
+only frequencies with sufficiently high coherence
+(e.g.\ $\gamma^2_{i,j} \geq 0.1$) are considered.
 The offset is rarely larger than one or two timestamps, but
 even such small offsets can significantly bias spectral estimates.
 Then, using standard techniques~\cite[Sec.~4.5]{oppenheim},
@@ -441,13 +446,147 @@ even if the offset is a non-integer multiple of the sample spacing.
 
 
 \subsection{Two-dimensional autocorrelation function}
+The autocorrelation function $R_{x}$ and
+the autospectral density function $S_{x}$
+are Fourier transform pairs, i.e.\
+\begin{align}
+  S_{x}(\xi, f)
+  &=
+  \mathcal{F}[R_{x}(\delta, \tau)](\xi, f),
+  \label{eq:SpectralEstimation:autospectral_density_from_autocorrelation}
+  \\
+  R_{x}(\delta, \tau)
+  &=
+  \mathcal{F}^{-1}[S_{x}(\xi, f)](\delta, \tau),
+  \label{eq:SpectralEstimation:autocorrelation_from_autospectral_density}
+\end{align}
+where
+$\mathcal{F}$ is the Fourier transform,
+$\tau$ is the temporal lag,
+$\delta$ is the spatial lag,
+$f$ is the frequency, and
+$\xi$ is the spatial frequency
+(related to the wavenumber $k$ via $k = 2 \pi \xi$).
+If the measurements are uniformly sampled in space and time,
+it is most efficient to estimate
+the two-dimensional autospectral density $S_{xx}$
+using the FFT methods described in
+Section~\ref{app:SpectralEstimation:NonParametric} and
+then apply the inverse Fourier transform
+as in (\ref{eq:SpectralEstimation:autocorrelation_from_autospectral_density})
+to compute the two-dimensional autocorrelation function $R_{x}$.
+However, if the measurements are \emph{not} uniformly spaced,
+the two dimensional autocorrelation function
+can still be estimated via the definition
+\begin{equation}
+  R_{x}(\delta, \tau)
+  =
+  E[x_k(z, t) \cdot x_k(z + \delta, t + \tau)],
+  \label{eq:SpectralEstimation:autocorrelation_definition}
+\end{equation}
+where $E[\cdot]$ is the expectation-value operator and
+$x_k$ is the $k$\ts{th} realization
+of the real-valued random process $\{x_k(z, t)\}$.
+If needed, the autocorrelation can be interpolated onto a uniform grid, and
+the autospectral density $S_{x}$ can be computed
+by applying the Fourier transform,
+as in (\ref{eq:SpectralEstimation:autospectral_density_from_autocorrelation}).
+
+When temporal sampling is uniform but spatial sampling is nonuniform,
+as in the PCI,
+it is often convenient to define a
+``hybrid'' two-dimensional autocorrelation function $\tilde{R}_x$
+\begin{align}
+  \tilde{R}_{x}(\delta, f)
+  &=
+  \mathcal{F}^{-1}[S_{x}(\xi, f)](\delta)
+  \notag \\
+  &=
+  \int_{-\infty}^{\infty}
+  d\xi e^{i 2 \pi \xi \delta}
+  S_{x}(\xi, f)
+  \notag \\
+  &=
+  S_{x}(\delta, f),
+\end{align}
+where $S_x(\delta, f) = S_{x_i, x_j}(f)$ with $i - j = \delta$
+is the cross-spectral density function
+between $x_i(t) = x(z, t)$ and $x_j(t) = x(z + \delta, t)$.
+Note that $S_{x_i, x_j}(f)$ can be efficiently estimated
+via the FFT methods described in
+Section~\ref{app:SpectralEstimation:NonParametric}
+such that the ``hybrid'' autocorrelation function can be estimated as
+an ensemble average over all of the unique correlation pairs
+separated by $\delta$
+\begin{equation}
+  \tilde{R}_{x}(\delta, f)
+  =
+  \frac{%
+    \sum\limits_{i - j = \delta} S_{x_i, x_j}(f)
+  }{%
+    \sum\limits_{i - j = \delta} 1
+  };
+  \label{eq:SpectralEstimation:hybrid_autocorrelation_estimate}
+\end{equation}
+if there are no correlation pairs separated by $\delta$,
+then $\tilde{R}_x$ is undefined for this separation.
+If the variances of $x_i$ and $x_j$ are artificially biased
+e.g.\ due to the finite PCI beam width,
+the variances should be equalized prior to estimating $\tilde{R}_x$ with
+(\ref{eq:SpectralEstimation:hybrid_autocorrelation_estimate}).
+As discussed in Section~\ref{app:SpectralEstimation:2d_spectra:2d_spectra},
+the autospectral density can be computed
+from this $\tilde{R}_x$ estimate.
+
+Before proceeding, however, it is instructive
+to consider a few properties of $\tilde{R}_x$.
+In general, $\tilde{R}_x$ is complex-valued.
+For real-valued $x$, however,
+$\tilde{R}_x$ is Hermitian,
+i.e.\ $\tilde{R}_x(-\delta, -f) = [\tilde{R}_x(\delta, f)]^*$,
+where $z^*$ indicates the complex conjugate of $z$.
+At any given frequency $f$,
+$\tilde{R}_x(\delta, f)$ attains a maximum at $\tilde{R}_x(0, f)$.
+The variance of signal $x(z, t)$ is related to $\tilde{R}_x$ via
+\begin{equation}
+  \text{var}(x)
+  =
+  \int \tilde{R}_x(0, f) df.
+\end{equation}
+Because $|\tilde{R}_x|$ can vary by several orders of magnitude
+across the full temporal bandwidth of signal $x(z, t)$,
+visualizing the spatiotemporal structure of $\tilde{R}_x$
+can be aided by defining the normalized autocorrelation function
+\begin{equation}
+  \tilde{r}_x(\delta, f)
+  =
+  \frac{\tilde{R}_x(\delta, f)}{\tilde{R}_x(0, f)}.
+\end{equation}
+An example of the PCI-measured $\tilde{r}_x(\delta, f)$ is shown in
+Figure~\ref{fig:SpectralEstimation:corr_example}.
+
 \label{app:SpectralEstimation:2d_spectra:correlation_function}
 \begin{figure}
   \centering
   \includegraphics[width = 0.75 \textwidth]{%
     Appendices/SpectralEstimation/figs/corr_example.png}
-  \caption[Normalized two-dimensional autocorrelation function]{%
-    Example the normalized two-dimensional, complex autocorrelation function.
+  \caption[Normalized, $2$d, hybrid autocorrelation function]{%
+    Example of the (a) real and (b) imaginary components
+    of the PCI-measured normalized, two-dimensional, hybrid
+    autocorrelation function $\tilde{r}_x(\delta, f)$.
+    Note that $\delta = 0$ corresponds to the same detector element,
+    $\delta = 1$ corresponds to adjacent detector elements, etc.
+    The vertical white striations correspond to
+    non-existing element separations
+    (as established by the digitization layout shown in
+    Figure~\ref{fig:SpectralEstimation:pci_detector_array})
+    for which $\tilde{r}_x(\delta, f)$ is not defined.
+    To proceed with the autospectral density estimation
+    in Section~\ref{app:SpectralEstimation:2d_spectra:2d_spectra},
+    the computation must either be restricted
+    to the central, continuous domain, or
+    the autocorrelation function must be interpolated;
+    linear interpolation was found to be sufficient in this work.
   }
   \label{fig:SpectralEstimation:corr_example}
 \end{figure}
