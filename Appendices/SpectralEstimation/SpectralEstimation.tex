@@ -249,6 +249,8 @@ Because the only frequency dependence in spectral estimate
 (\ref{eq:SpectralEstimation:AR_autospectral_density})
 appears in the denominator,
 the AR model is often referred to as an all-pole model.
+In one dimension, AR spectra are equivalent
+to spectra computed via the maximum entropy method (MEM).
 Interestingly, AR spectra do \emph{not} suffer from
 traditional sidelobes due to windowing.
 
@@ -373,6 +375,95 @@ to obtain a set of normal equations
 (the Levinson-Durbin constraint is no longer enforced).
 Application of this modified algorithm
 is relegated to future work.
+
+
+\section{Hybrid two-dimensional spectral estimates}
+\label{app:SpectralEstimation:2d_spectra}
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Appendices/SpectralEstimation/figs/pci_detector_array.pdf}
+  \caption[Schematic of PCI detector array]{%
+    Schematic of PCI detector array.
+    Only the gray channels are digitized.
+  }
+  \label{fig:SpectralEstimation:pci_detector_array}
+\end{figure}
+
+The PCI detector consists of $32$ elements arranged in a linear array.
+However, due to digitization constraints,
+only a subset of the signals from the linear array are digitized.
+Further, to achieve reasonable mid-$k$ and high-$k$ response,
+this subset of channels is non-uniformly spaced, as indicated in
+Figure~\ref{fig:SpectralEstimation:pci_detector_array}.
+This immediately precludes direct application
+of the fast Fourier transform (FFT) in the spatial dimension, and
+more elaborate schemes must be utilized
+to quantify the spatial spectrum.
+Below, Section~\ref{app:SpectralEstimation:2d_spectra:trigger_offset}
+describes the estimation and compensation
+of the trigger offset between the two PCI digitizer boards.
+Then, Section~\ref{app:SpectralEstimation:2d_spectra:correlation_function}
+discusses estimation of the two-dimensional autocorrelation function,
+which can be computed even when channels are non-uniformly spaced.
+Finally, Section~\ref{app:SpectralEstimation:2d_spectra:2d_spectra}
+discusses calculation of the two-dimensional autospectral density
+from the two-dimensional autocorrelation function.
+
+
+\subsection{Estimation \& compensation of trigger offset}
+\label{app:SpectralEstimation:2d_spectra:trigger_offset}
+Prior to performing any spectral computations,
+the trigger offset between
+digitizer board $7$ and digitizer board $8$
+must be estimated and compensated.
+The general theory is discussed in
+Appendix~\ref{app:DigitizerSynchronization}.
+The trigger offset is estimated by defining
+\begin{align}
+  \Delta \alpha(f)
+  &=
+  \frac{\alpha_{15,16}(f) + \alpha_{17,18}(f)}{2}
+  \\
+  \Delta \alpha_{\meas}(f)
+  &=
+  \alpha_{16,17}(f),
+\end{align}
+and applying
+(\ref{eq:DigitizerSynchronization:trigger_offset_estimate_apriori_phase});
+here $\alpha_{i,j}(f)$ is the cross phase
+between channels $i$ and $j$.
+The offset is rarely larger than one or two timestamps, but
+even such small offsets can significantly bias spectral estimates.
+Then, using standard techniques~\cite[Sec.~4.5]{oppenheim},
+the trigger offset can be compensated easily in post-processing,
+even if the offset is a non-integer multiple of the sample spacing.
+
+
+\subsection{Two-dimensional autocorrelation function}
+\label{app:SpectralEstimation:2d_spectra:correlation_function}
+\begin{figure}
+  \centering
+  \includegraphics[width = 0.75 \textwidth]{%
+    Appendices/SpectralEstimation/figs/corr_example.png}
+  \caption[Normalized two-dimensional autocorrelation function]{%
+    Example the normalized two-dimensional, complex autocorrelation function.
+  }
+  \label{fig:SpectralEstimation:corr_example}
+\end{figure}
+
+
+\subsection{Two-dimensional autospectral density}
+\label{app:SpectralEstimation:2d_spectra:2d_spectra}
+\begin{figure}
+  \centering
+  \includegraphics[width = 0.75 \textwidth]{%
+    Appendices/SpectralEstimation/figs/Skf_example.png}
+  \caption[$2d$ autospectral density estimates]{%
+    $2d$ autospectral density estimates.
+  }
+  \label{fig:SpectralEstimation:Skf_example}
+\end{figure}
 
 
 \bibliographystyle{plainurl}
