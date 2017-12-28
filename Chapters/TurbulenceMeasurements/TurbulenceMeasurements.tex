@@ -259,6 +259,22 @@ shows the windows \emph{excluded} from spectral analysis in gray.
 
 
 \subsection{Frequency spectra}
+One-sided autospectral densities estimates $G_{\phi,\phi}(f)$
+of the phase fluctuations
+are calculated using the methodology
+described in \textcolor{red}{Appendix XXX}.
+\begin{itemize}
+  \item Window length
+  \item Number of points per realization
+  \item Number of realizations
+  \item Corresponding random error
+  \item Hanning window
+  \item Zero overlap for ease of ELM filtering
+  \item No detrending
+  \item Computed over the shaded windows
+    in Figure~\ref{fig:TurbulenceMeasurements:traces}
+\end{itemize}
+
 \label{sec:TurbulenceMeasurements:Sf}
 \begin{figure}
   \centering
@@ -268,6 +284,61 @@ shows the windows \emph{excluded} from spectral analysis in gray.
     Interferometer and PCI frequency spectra.
   }
 \label{fig:TurbulenceMeasurements:Sf_interferometer_pci}
+\end{figure}
+
+The interferometer- and PCI-measured frequency spectra
+reveal a rich set of plasma dynamics.
+Both systems measure a distinct increase \textcolor{red}{(how much?)}
+in low-frequency ($f \lesssim \SI{300}{\kilo\hertz}$) broadband fluctuations
+when moving ECH from $\rho = 0.5$ to $\rho = 0.8$,
+which may be responsible for the slightly reduced confinement
+in Figure~\ref{fig:TurbulenceMeasurements:traces}(g).
+The \textcolor{red}{magnitude-squared coherence $\gamma^2_{xy}$}
+between the interferometer and PCI measurements
+is shown in Figure~\ref{fig:TurbulenceMeasurements:gamma2xy}.
+The magnitude-squared coherence quantifies
+the overlap between the interferometer and PCI signals,
+with $\gamma^2_{xy} = 0$ indicating $0\%$ overlap and
+$\gamma^2_{xy} = 1$ indicating $100\%$ overlap.
+Interestingly, for $f \lesssim \SI{100}{\kilo\hertz}$,
+the coherence is low,
+indicating that the majority of this signal
+consists of low-$k$ fluctuations invisible to the PCI.
+Between $\SI{100}{\kilo\hertz} \lesssim f \lesssim \SI{300}{\kilo\hertz}$
+approximately \textcolor{red}{$65\%$}
+of the fluctuations sit in the mid-$k$ overlap
+of the interferometer and the PCI.
+\graffito{\textcolor{red}{better explanation}}
+Moving ECH from $\rho = 0.5$ to $\rho = 0.8$
+increases the coherence for $f \gtrsim \SI{200}{\kilo\hertz}$,
+suggesting that the wavenumbers are reduced.
+For $f \gtrsim \SI{300}{\kilo\hertz}$,
+there is no common signal between the interferometer and PCI.
+The PCI measures a small but physical fluctuation increase
+at $f \sim \SI{1}{\mega\hertz}$
+when ECH moves from $\rho = 0.5$ to $\rho = 0.8$;
+Section~\ref{sec:TurbulenceMeasurements:Skf}
+shows that this corresponds to a distinct turbulent branch.
+This turbulent branch sits
+below the noise floor of the interferometer and
+at the temporal-bandwidth limits of the interferometer's
+current anti-aliasing filters.
+The interferometers also measure
+a distinct turbulent branch at $f \sim \SI{400}{\kilo\hertz}$.
+This fluctuation is larger than
+the corresponding PCI-measured fluctuations,
+but it does not appear in the PCI measurements;
+this indicates that this is a low-$k$ fluctuation.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/TurbulenceMeasurements/figs/coherence.pdf}
+  \caption[Magnitude-squared coherence]{%
+    Magnitude-squared coherence $\gamma^2_{xy}$
+    between interferometer and PCI measurements.
+  }
+  \label{fig:TurbulenceMeasurements:gamma2xy}
 \end{figure}
 
 \begin{figure}
@@ -297,16 +368,6 @@ shows the windows \emph{excluded} from spectral analysis in gray.
     Collisionality variation with ECH location.
   }
 \label{fig:TurbulenceMeasurements:collisionality}
-\end{figure}
-
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/TurbulenceMeasurements/figs/coherence.pdf}
-  \caption[Magnitude-squared coherence]{%
-    Magnitude-squared coherence.
-  }
-  \label{fig:TurbulenceMeasurements:gamma2xy}
 \end{figure}
 
 
