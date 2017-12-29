@@ -14,9 +14,23 @@ the ensemble of all of the potential observations
 and is denoted as $\{x_k(t)\}$.
 Random processes can be stationary or nonstationary.
 The statistical properties of a stationary random process
-do not vary in time, and
-the spectral tools discussed below
+do not vary in time.
+
+The spectral tools discussed below
 are all developed for analysis of stationary random processes.
+Section~\ref{app:SpectralEstimation:NonParametric}
+discusses non-parametric spectral-estimation techniques,
+which find powerful and versatile application
+in the analysis of uniformly and richly sampled data.
+Section~\ref{app:SpectralEstimation:Parametric}
+discuses parametric spectral-estimation techniques,
+which find application
+in the analysis of data with sharp spectral features,
+particularly if the data is sparsely sampled.
+Finally, Section~\ref{app:SpectralEstimation:2d_spectra}
+discusses the hybrid non-parametric-in-time, parametric-in-space
+technique used to estimate the PCI-measured
+two-dimensional autospectral density function.
 
 
 \section{Non-parametric techniques}
@@ -204,7 +218,7 @@ Many random processes are well approximated
 by rational transfer-function models.
 In such models,
 an input driving sequence $n_n$ and
-an output (i.e. data) sequence $x_n$
+an output (i.e.\ data) sequence $x_n$
 are related via the linear difference equation
 \begin{equation}
   x_n
@@ -214,7 +228,7 @@ are related via the linear difference equation
   \sum_{k = 1}^p a_k x_{n - k};
   \label{eq:SpectralEstimation:ARMA}
 \end{equation}
-each sequence has length $N$, and
+sequence $x_n$ and $n_n$ each have length $N$, and
 successive samples are separated in time by $\Delta t$.
 Such a model is termed an
 autoregressive-moving average (ARMA) model.
@@ -228,9 +242,9 @@ Now, if $b_0 = 1$ and the remainder of the $b_l$ are zero,
   n_n
   \label{eq:SpectralEstimation:AR}
 \end{equation}
-such that $x_n$ is an autoregression of order $p$
+such that $x_n$ is an autoregression (AR) of order $p$
 driven by white noise $n_n$.
-The autospectral density $G_{xx}(f)$ of such an autoregression is
+The autospectral density $G_{xx}(f)$ of such an AR is
 \begin{equation}
   G_{xx}(f)
   =
@@ -489,7 +503,7 @@ where $E[\cdot]$ is the expectation-value operator and
 $x_k$ is the $k$\ts{th} realization
 of the real-valued random process $\{x_k(z, t)\}$.
 If needed, the autocorrelation can be interpolated onto a uniform grid, and
-the autospectral density $S_{xx}$ can be computed
+then the autospectral density $S_{xx}$ can be computed
 by applying the Fourier transform,
 as in (\ref{eq:SpectralEstimation:autospectral_density_from_autocorrelation}).
 
@@ -510,10 +524,10 @@ it is often convenient to define a
   &=
   S_{xx}(\delta, f),
 \end{align}
-where $S_{xx}(\delta, f) = S_{x_i, x_j}(f)$ with $i - j = \delta$
+where $S_{xx}(\delta, f) = S_{x_i, x_j}(f)$
 is the cross-spectral density function
 between $x_i(t) = x(z, t)$ and $x_j(t) = x(z + \delta, t)$.
-Note that $S_{x_i, x_j}(f)$ can be efficiently estimated
+Note that $S_{x_i, x_j}(f)$ can be efficiently computed
 via the FFT methods described in
 Section~\ref{app:SpectralEstimation:NonParametric}
 such that the ``hybrid'' autocorrelation function can be estimated as
@@ -538,6 +552,31 @@ the variances should be equalized prior to estimating $\tilde{R}_{xx}$ with
 As discussed in Section~\ref{app:SpectralEstimation:2d_spectra:2d_spectra},
 the autospectral density can be computed
 from this $\tilde{R}_{xx}$ estimate.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = 0.75 \textwidth]{%
+    Appendices/SpectralEstimation/figs/corr_example.png}
+  \caption[Normalized, $2$d, hybrid autocorrelation function]{%
+    Example of the (a) real and (b) imaginary components
+    of the PCI-measured normalized, two-dimensional, hybrid
+    autocorrelation function $\tilde{r}_{xx}(\delta, f)$.
+    Note that $\delta = 0$ corresponds to the same detector element,
+    $\delta = 1$ corresponds to adjacent detector elements, etc.
+    The vertical white striations correspond to
+    non-existing element separations
+    (as established by the digitization layout shown in
+    Figure~\ref{fig:SpectralEstimation:pci_detector_array})
+    for which $\tilde{r}_{xx}(\delta, f)$ is not defined.
+    To proceed with the autospectral density estimation
+    in Section~\ref{app:SpectralEstimation:2d_spectra:2d_spectra},
+    the computation must either be restricted
+    to the central, continuous domain, or
+    the autocorrelation function must be interpolated;
+    linear interpolation was found to be sufficient in this work.
+  }
+  \label{fig:SpectralEstimation:corr_example}
+\end{figure}
 
 Before proceeding, however, it is instructive
 to consider a few properties of $\tilde{R}_{xx}$.
@@ -567,31 +606,6 @@ can be aided by defining the normalized autocorrelation function
 An example of the PCI-measured $\tilde{r}_{xx}(\delta, f)$ is shown in
 Figure~\ref{fig:SpectralEstimation:corr_example}.
 
-\begin{figure}
-  \centering
-  \includegraphics[width = 0.75 \textwidth]{%
-    Appendices/SpectralEstimation/figs/corr_example.png}
-  \caption[Normalized, $2$d, hybrid autocorrelation function]{%
-    Example of the (a) real and (b) imaginary components
-    of the PCI-measured normalized, two-dimensional, hybrid
-    autocorrelation function $\tilde{r}_{xx}(\delta, f)$.
-    Note that $\delta = 0$ corresponds to the same detector element,
-    $\delta = 1$ corresponds to adjacent detector elements, etc.
-    The vertical white striations correspond to
-    non-existing element separations
-    (as established by the digitization layout shown in
-    Figure~\ref{fig:SpectralEstimation:pci_detector_array})
-    for which $\tilde{r}_{xx}(\delta, f)$ is not defined.
-    To proceed with the autospectral density estimation
-    in Section~\ref{app:SpectralEstimation:2d_spectra:2d_spectra},
-    the computation must either be restricted
-    to the central, continuous domain, or
-    the autocorrelation function must be interpolated;
-    linear interpolation was found to be sufficient in this work.
-  }
-  \label{fig:SpectralEstimation:corr_example}
-\end{figure}
-
 
 \subsection{Two-dimensional autospectral density}
 \label{app:SpectralEstimation:2d_spectra:2d_spectra}
@@ -613,7 +627,7 @@ Explicitly,
 \begin{align}
   S_{xx}(k, f)
   &=
-  \mathcal{F}[\tilde{R}_{xx}(\delta, f)](k)
+  \mathcal{F} \left[ \tilde{R}_{xx}(\delta, f) \right](k)
   \notag \\
   &=
   \int_{-\infty}^{\infty}
@@ -627,7 +641,7 @@ Explicitly,
   \label{eq:SpectralEstimation:autospectral_density_from_autocorrelation_explicit}
 \end{align}
 where $\Delta = 2 \cdot \text{max}(|\delta|)$
-is the full spatial span of the measurement.
+is the full span of spatial lags.
 Of course, for efficiency, the Fourier transform
 should be computed via the FFT.
 Further, to minimized sidelobe leakage,
@@ -641,6 +655,28 @@ autospectral density estimate is shown in
 Figure~\ref{fig:SpectralEstimation:Skf_example}(a).
 Clearly, the wavenumber resolution of the Fourier estimate
 is severely limited by the sparse spatial sampling.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = 0.75 \textwidth]{%
+    Appendices/SpectralEstimation/figs/Skf_example.png}
+  \caption[$2$d autospectral density estimates]{%
+    Two-dimensional autospectral density estimates $S_{xx}(k, f)$.
+    Here, (a) estimates the spatial spectrum
+    using conventional Fourier methods while
+    (b) estimates the spatial spectrum
+    using a $p = 4$ Burg AR evaluated
+    on a uniformly spaced, $1000$-element wavenumber grid.
+    It is important to note that
+    the autospectral density estimates in both (a) and (b)
+    correspond to the \emph{same} raw data and
+    the \emph{same} autocorrelation function $\tilde{R}_{xx}(\delta, f)$
+    from Figure~\ref{fig:SpectralEstimation:corr_example}.
+    However, the Burg AR produces substantially improved
+    wavenumber resolution.
+  }
+  \label{fig:SpectralEstimation:Skf_example}
+\end{figure}
 
 The parametric spectral-estimation techniques discussed in
 Section~\ref{app:SpectralEstimation:Parametric}
@@ -707,27 +743,6 @@ with an arbitrary resolution,
 the wavenumber resolution of the Burg AR estimate
 may be substantially better than that of the corresponding Fourier estimate,
 as shown in Figure~\ref{fig:SpectralEstimation:Skf_example}(b).
-
-\begin{figure}
-  \centering
-  \includegraphics[width = 0.75 \textwidth]{%
-    Appendices/SpectralEstimation/figs/Skf_example.png}
-  \caption[$2$d autospectral density estimates]{%
-    Two-dimensional autospectral density estimates $S_{xx}(k, f)$.
-    Here, (a) estimates the spatial spectrum
-    using conventional Fourier methods while
-    (b) estimates the spatial spectrum
-    using a $p = 4$ Burg AR evaluated
-    on a uniformly spaced, $1000$-element wavenumber grid.
-    It is important to note that both (a) and (b)
-    correspond to the \emph{same} raw data and
-    the \emph{same} autocorrelation function $\tilde{R}_{xx}(\delta, f)$
-    from Figure~\ref{fig:SpectralEstimation:corr_example}.
-    However, the Burg AR produces substantially improved
-    wavenumber resolution.
-  }
-  \label{fig:SpectralEstimation:Skf_example}
-\end{figure}
 
 
 \bibliographystyle{plainurl}
