@@ -35,7 +35,6 @@ window_fraction = [0.2, 0.8]
 
 # Spectral parameters
 Tens = 0.5e-3       # Less than ELM spacing
-Nreal_per_ens = 5
 
 # Plotting parameters
 cols = get_distinct(2)
@@ -95,7 +94,7 @@ if __name__ == '__main__':
 
     # Labeling
     ax.set_ylabel(
-        r'$\mathregular{\gamma^2_{xy}}$',
+        r'$\mathregular{\gamma^2_{xy}(f)}$',
         fontsize=fontsize)
     ax.set_xlabel(
         r'$\mathregular{f \; [kHz]}$',

@@ -23,6 +23,7 @@ flim = [10, 1600]  # [flim] = kHz
 vlim_Skf = [3e-10, 1e-4]
 annotation_linestyle = '--'
 annotation_linewidth = 0.5
+plot_labels = ['a', 'b']
 
 
 if __name__ == '__main__':
@@ -92,6 +93,14 @@ if __name__ == '__main__':
             (x0, 1360),
             fontsize=(fontsize - 6),
             color='white')
+
+        # Add plot label
+        axs[ind].annotate(
+            r'(%s)' % plot_labels[ind],
+            (x0, 50),
+            fontsize=(fontsize - 1),
+            color='white')
+
 
     # Add branch annotations:
     # -----------------------

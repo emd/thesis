@@ -116,6 +116,10 @@ if __name__ == '__main__':
         # Plot spectra
         ind = SH.getSpikeFreeTimeIndices(
             asd_int.t, window_fraction=window_fraction)
+
+        Nreal = len(ind)
+        print '\nNreal: %i' % Nreal
+
         axes[0].loglog(
             asd_int.f[find_int],
             np.mean(asd_int.Gxx[find_int, :][:, ind], axis=-1),
@@ -227,12 +231,16 @@ if __name__ == '__main__':
     # Compute ELM-free spectrum
     asd_b5 = rd.spectra.AutoSpectralDensity(
         sig.x, Fs=sig.Fs, t0=sig.t0,
-        Tens=(0.5 * debounce_dt), Nreal_per_ens=1)
+        Tens=Tens, Nreal_per_ens=1)
 
     # Average only over `window_fraction` of spike-free windows
     ind = SH.getSpikeFreeTimeIndices(
         asd_b5.t,
         window_fraction=window_fraction)
+
+    Nreal = len(ind)
+    print '\nNreal: %i' % Nreal
+
     asd_b5_ELM_free = np.mean(
         asd_b5.Gxx[:, ind],
         axis=-1)

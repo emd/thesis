@@ -278,9 +278,9 @@ are included in the ensemble averaging;
 the exact number of realizations $N_r$
 included in each ensemble
 depends on the details of the ELM dynamics, but
-$N_r \sim 900$ for the shots considered here,
+$N_r \sim 450$ for the shots considered here,
 corresponding to a relative random error
-in $G_{\phi,\phi}(f)$ of approximately $3\%$.
+in $G_{\phi,\phi}(f)$ of approximately $5\%$.
 A Hanning window is applied to each realization
 prior to computation of its fast Fourier transform (FFT).
 To simplify inter-ELM bookkeeping,
@@ -330,7 +330,7 @@ the PCI is more sensitive than the heterodyne interferometer.
     The subtle break in slope at $f \sim \SI{800}{\kilo\hertz}$
     in the PCI spectrum when $\rho_{\text{ECH}} = 0.8$
     is shown to be a distinct turbulent branch
-    in Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}.
+    in Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}(b).
   }
 \label{fig:TurbulenceMeasurements:Sf_interferometer_pci}
 \end{figure}
@@ -365,9 +365,9 @@ As with the interferometer and PCI autospectral-density estimates,
 only realizations of the magnetic signal falling within
 $20\%$ -- $80\%$ of each inter-ELM window
 are included in the ensemble average, and
-approximately $900$ realizations are averaged over,
+approximately $450$ realizations are averaged over,
 corresponding to a relative random error
-in the autospectral-density estimate of approximately $3\%$.
+in the autospectral-density estimate of approximately $5\%$.
 The autospectral density of the interferometer also
 indicates that the power in this fluctuation
 increases when moving from
@@ -460,34 +460,99 @@ in this experiment's reference discharge~\cite{holland_nf17}.
 \label{fig:TurbulenceMeasurements:collisionality}
 \end{figure}
 
-The interferometer- and PCI-measured frequency spectra
-reveal a rich set of plasma dynamics.
-Both systems measure a distinct increase \textcolor{red}{(how much?)}
-in low-frequency ($f \lesssim \SI{300}{\kilo\hertz}$) broadband fluctuations
-when moving ECH from $\rho = 0.5$ to $\rho = 0.8$,
+It is also interesting to examine
+the low-frequency ($f \lesssim \SI{300}{\kilo\hertz}$) fluctuations
+measured by both the interferometer and the PCI.
+Both systems measure a $2 - 4\times$ increase
+in the low-frequency fluctuation power
+when moving from $\rho_{\text{ECH}} = 0.5$ to $\rho_{\text{ECH}} = 0.8$,
 which may be responsible for the slightly reduced confinement
 in Figure~\ref{fig:TurbulenceMeasurements:traces}(g).
-The \textcolor{red}{magnitude-squared coherence $\gamma^2_{xy}$}
-between the interferometer and PCI measurements
-is shown in Figure~\ref{fig:TurbulenceMeasurements:gamma2xy}.
-The magnitude-squared coherence quantifies
-the overlap between the interferometer and PCI signals,
-with $\gamma^2_{xy} = 0$ indicating $0\%$ overlap and
-$\gamma^2_{xy} = 1$ indicating $100\%$ overlap.
-Interestingly, for $f \lesssim \SI{100}{\kilo\hertz}$,
-the coherence is low,
-indicating that the majority of this signal
-consists of low-$k$ fluctuations invisible to the PCI.
-Between $\SI{100}{\kilo\hertz} \lesssim f \lesssim \SI{300}{\kilo\hertz}$
-approximately \textcolor{red}{$65\%$}
-of the fluctuations sit in the mid-$k$ overlap
-of the interferometer and the PCI.
-\graffito{\textcolor{red}{better explanation}}
-Moving ECH from $\rho = 0.5$ to $\rho = 0.8$
-increases the coherence for $f \gtrsim \SI{200}{\kilo\hertz}$,
-suggesting that the wavenumbers are reduced.
-For $f \gtrsim \SI{300}{\kilo\hertz}$,
-there is no common signal between the interferometer and PCI.
+The spatial content of these fluctuations
+can be roughly characterized
+via the magnitude-squared coherence $\gamma^2_{xy}(f)$
+between the interferometer ($x$) and PCI ($y$) measurements.
+As discussed in Section~\ref{app:SpectralEstimation:NonParametric},
+$\gamma^2_{xy}(f)$ is bounded between $0$ and $1$, and
+it quantifies the linear correlation between signals $x$ and $y$,
+with $\gamma^2_{xy}(f) = 0$ indicating $0\%$ correlation at frequency $f$ and
+$\gamma^2_{xy}(f) = 1$ indicating $100\%$ correlation at frequency $f$.
+Thus, $\gamma^2_{xy}(f)$ quantifies the fraction of fluctuation power
+sitting in the mid-$k$ overlap of the interferometer and PCI.
+As with the autospectral-density estimates,
+the interferometer and PCI signals
+are split into realizations of $1024$ points
+(corresponding to roughly $\SI{250}{\micro\second}$)
+resulting in a frequency resolution
+of approximately $\SI{4}{\kilo\hertz}$, and
+only realizations falling within
+$20\%$ -- $80\%$ of each inter-ELM window
+are included in the ensemble averaging;
+the exact number of realizations $N_r$
+included in each ensemble
+depends on the details of the ELM dynamics, but
+$N_r \sim 450$ for the shots considered here.
+The resulting $\gamma^2_{xy}(f)$ estimates
+are shown in Figure~\ref{fig:TurbulenceMeasurements:gamma2xy}.
+As demonstrated in Section~\ref{sec:TurbulenceMeasurements:Skf},
+the frequency $f$ of a broadband fluctuation
+is often related to its wavenumber $k$ via
+$f = \vph k / (2 \pi)$,
+where $\vph$ is the lab-frame phase velocity of the fluctuation;
+that is, the lowest frequencies in a particular fluctuation branch
+are associated with the lowest wavenumbers, and
+the highest frequencies in a particular fluctuation branch
+are associated with the highest wavenumbers.
+Thus, the low values of $\gamma^2_{xy}(f)$
+for $f \lesssim \SI{100}{\kilo\hertz}$
+in Figure~\ref{fig:TurbulenceMeasurements:gamma2xy}
+can be interpreted as the interferometer measuring
+substantial power in low-$k$ fluctuations
+that sit below the PCI's low-$k$ cutoff
+(\ref{eq:Implementation:kg_realized}).
+Similarly, the low values of $\gamma^2_{xy}(f)$
+for $f \gtrsim \SI{300}{\kilo\hertz}$
+correspond to the PCI measuring
+substantial power in high-$k$ fluctuations
+that sit above the interferometer's high-$k$ cutoff
+(\ref{eq:Implementation:kfsv_interferometer_design})
+or below the interferometer's noise floor.
+Between $\SI{100}{\kilo\hertz}$ and $\SI{300}{\kilo\hertz}$,
+$0.25 \lesssim \gamma^2_{xy} \lesssim 0.5$,
+indicating between $25\%$ and $50\%$
+of the total fluctuation power
+sits in the mid-$k$ overlap of the interferometer and the PCI
+\cite[Sec.~5.2.6]{bendat_and_piersol}.
+Further, moving from $\rho_{\text{ECH}} = 0.5$ to $\rho_{\text{ECH}} = 0.8$
+produces a substantial increase in $\gamma^2_{xy}(f)$
+for $\SI{200}{\kilo\hertz} \lesssim f \lesssim \SI{300}{\kilo\hertz}$,
+suggesting that the wavenumbers of these fluctuations decrease
+when moving from $\rho_{\text{ECH}} = 0.5$ to $\rho_{\text{ECH}} = 0.8$;
+this is corroborated in
+Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = 0.85 \textwidth]{%
+    Chapters/TurbulenceMeasurements/figs/coherence.pdf}
+  \caption[Magnitude-squared coherence between interferometer \& PCI]{%
+    The magnitude-squared coherence $\gamma^2_{xy}(f)$
+    between the interferometer and the PCI measurements
+    characterizes the fraction of total fluctuation power
+    sitting in the mid-$k$ overlap of the interferometer and the PCI.
+    The increase in $\gamma^2_{xy}(f)$
+    between $\SI{200}{\kilo\hertz}$ and $\SI{300}{\kilo\hertz}$
+    when moving from
+    $\rho_{\text{ECH}} = 0.5$ to $\rho_{\text{ECH}} = 0.8$
+    suggests a wavenumber downshift in these fluctuations, which
+    is corroborated in Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}.
+  }
+  \label{fig:TurbulenceMeasurements:gamma2xy}
+\end{figure}
+
+
+\subsection{Frequency-wavenumber spectra}
+\label{sec:TurbulenceMeasurements:Skf}
 The PCI measures a small but physical fluctuation increase
 at $f \sim \SI{1}{\mega\hertz}$
 when ECH moves from $\rho = 0.5$ to $\rho = 0.8$;
@@ -497,21 +562,6 @@ This turbulent branch sits
 below the noise floor of the interferometer and
 at the temporal-bandwidth limits of the interferometer's
 current anti-aliasing filters.
-
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/TurbulenceMeasurements/figs/coherence.pdf}
-  \caption[Magnitude-squared coherence]{%
-    Magnitude-squared coherence $\gamma^2_{xy}$
-    between interferometer and PCI measurements.
-  }
-  \label{fig:TurbulenceMeasurements:gamma2xy}
-\end{figure}
-
-
-\subsection{Frequency-wavenumber spectra}
-\label{sec:TurbulenceMeasurements:Skf}
 
 \begin{figure}
   \centering
