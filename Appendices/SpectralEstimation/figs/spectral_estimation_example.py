@@ -58,18 +58,24 @@ if __name__ == '__main__':
         flim=flim,
         vlim=vlim,
         xlabel='',
-        title='Fourier',
+        title='Fourier in space',
         ax=ax[0])
     asd2d_burg.plotSpectralDensity(
         flim=flim,
         vlim=vlim,
-        title='Burg',
+        title='p = %i Burg AR in space' % p,
         ax=ax[1])
 
+    labels = ['a', 'b']
     for i in np.arange(2):
         ax[i].annotate(
+            '(%s)' % labels[i],
+            (-25, 1850),
+            fontsize=16,
+            color='white')
+        ax[i].annotate(
             '%i, [%.2f s, %.2f s]' % (shot, tlim_spec[0], tlim_spec[1]),
-            (-25, 1900),
+            (6, 1900),
             fontsize=10,
             color='white')
 
