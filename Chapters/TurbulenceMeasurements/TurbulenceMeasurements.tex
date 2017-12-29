@@ -259,23 +259,54 @@ shows the windows \emph{excluded} from spectral analysis in gray.
 
 
 \subsection{Frequency spectra}
+\label{sec:TurbulenceMeasurements:Sf}
 One-sided autospectral densities estimates $G_{\phi,\phi}(f)$
 of the phase fluctuations
 are calculated using the methodology
-described in \textcolor{red}{Appendix XXX}.
-\begin{itemize}
-  \item Window length
-  \item Number of points per realization
-  \item Number of realizations
-  \item Corresponding random error
-  \item Hanning window
-  \item Zero overlap for ease of ELM filtering
-  \item No detrending
-  \item Computed over the shaded windows
-    in Figure~\ref{fig:TurbulenceMeasurements:traces}
-\end{itemize}
+described in Section~\ref{app:SpectralEstimation:NonParametric}.
+The interferometer and PCI signals
+from the shaded windows in
+Figure~\ref{fig:TurbulenceMeasurements:traces}
+are split into realizations of $1024$ points
+(corresponding to roughly $\SI{250}{\micro\second}$)
+resulting in a frequency resolution
+of approximately $\SI{4}{\kilo\hertz}$ in the spectral estimates.
+As described in Section~\ref{sec:TurbulenceMeasurements:ELM_filtering},
+only realizations falling within
+$20\%$ -- $80\%$ of each inter-ELM window
+are included in the ensemble averaging;
+the exact number of realizations $N_r$
+included in each ensemble
+depends on the details of the ELM dynamics, but
+$N_r \sim 900$ for the shots considered here,
+corresponding to a relative random error
+in $G_{\phi,\phi}(f)$ of approximately $3\%$.
+A Hanning window is applied to each realization
+prior to computation of its fast Fourier transform (FFT).
+To simplify inter-ELM bookkeeping,
+adjacent realizations have zero overlap.
+As described in
+Section~\ref{sec:Implementation:DataPreparation:high_pass_filtering},
+the interferometer and PCI phase signals
+are high-pass filtered prior to spectral analysis, and
+no further detrending is performed.
+The resulting spectral estimates
+for $\rho_{\text{ECH}} = 0.5$ and $\rho_{\text{ECH}} = 0.8$
+are shown in
+Figure~\ref{fig:TurbulenceMeasurements:Sf_interferometer_pci}.
+The corresponding noise floors are estimated
+from $\SI{50}{\milli\second}$ of data
+prior to plasma breakdown;
+the knee in the PCI noise floor
+at approximately $\SI{500}{\kilo\hertz}$
+corresponds to the roll-off in the temporal bandwidth
+of the PCI detector and its preamplifiers.
+As expected theoretically
+(see Figure~\ref{fig:InterferometricMethods:interferometric_method_transfer_functions})
+and observed empirically in sound-wave calibrations
+(see Figure~\ref{fig:Implementation:cross_calibration}),
+the PCI is more sensitive than the heterodyne interferometer.
 
-\label{sec:TurbulenceMeasurements:Sf}
 \begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
@@ -284,6 +315,59 @@ described in \textcolor{red}{Appendix XXX}.
     Interferometer and PCI frequency spectra.
   }
 \label{fig:TurbulenceMeasurements:Sf_interferometer_pci}
+\end{figure}
+
+Interestingly, the autospectral density of the heterodyne interferometer
+indicates the presence of a distinct broadband fluctuation
+with a central frequency $f_0 \sim \SI{450}{\kilo\hertz}$ and
+a bandwidth $\Delta f \sim \SI{300}{\kilo\hertz}$.
+This fluctuation is larger than
+the corresponding PCI-measured fluctuations
+in this frequency range, but
+it is absent from the autospectral density of the PCI;
+this indicates that the fluctuation wavenumber
+is smaller than the PCI low-$k$ cutoff
+(\ref{eq:Implementation:kg_realized}).
+\begin{itemize}
+  \item Magnetic component, as shown in inset
+  \item Total power $\text{var}(\tilde{\phi})$ in fluctuation
+    robustly increases when moving $\rho_{\text{ECH}} = 0.5$ to
+    $\rho_{\text{ECH}} = 0.8$, as shown in
+    Figure~\ref{fig:TurbulenceMeasurements:interferometer_bump_integrated_power}
+  \item The collisionality increases (\textcolor{red}{how much?})
+    over the PCI measurable domain, as shown in
+    Figure~\ref{fig:TurbulenceMeasurements:collisionality}
+  \item Microtearing mode predicted to be marginally unstable
+    in reference discharge~\cite{holland_nf17}
+\end{itemize}
+
+\begin{figure}
+  \centering
+  \includegraphics[width = 0.75 \textwidth]{%
+    Chapters/TurbulenceMeasurements/figs/interferometer_bump_integrated_power.pdf}
+  \caption[Power in low-$k$, mid-$f$ turbulence vs. ECH location]{%
+    Power $\text{var}(\tilde{\phi})$ in interferometer-measured
+    low-$k$, mid-$f$ turbulence vs. ECH location $\rho_{\text{ECH}}$.
+    Powers are estimated by integrating the interferometer's
+    one-sided autospectral densities
+    (e.g.\ those shown in the left panel of
+    Figure~\ref{fig:TurbulenceMeasurements:Sf_interferometer_pci})
+    between $\SI{300}{\kilo\hertz}$ and $\SI{600}{\kilo\hertz}$.
+    Different points correspond to different shots
+    from the multiscale experiment, and
+    the dashed line is the linear least-squares fit to the points.
+  }
+\label{fig:TurbulenceMeasurements:interferometer_bump_integrated_power}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width = 0.9 \textwidth]{%
+    Chapters/TurbulenceMeasurements/figs/collisionality.pdf}
+  \caption[Collisionality variation with ECH location]{%
+    Collisionality variation with ECH location.
+  }
+\label{fig:TurbulenceMeasurements:collisionality}
 \end{figure}
 
 The interferometer- and PCI-measured frequency spectra
@@ -323,12 +407,6 @@ This turbulent branch sits
 below the noise floor of the interferometer and
 at the temporal-bandwidth limits of the interferometer's
 current anti-aliasing filters.
-The interferometers also measure
-a distinct turbulent branch at $f \sim \SI{400}{\kilo\hertz}$.
-This fluctuation is larger than
-the corresponding PCI-measured fluctuations,
-but it does not appear in the PCI measurements;
-this indicates that this is a low-$k$ fluctuation.
 
 \begin{figure}
   \centering
@@ -339,35 +417,6 @@ this indicates that this is a low-$k$ fluctuation.
     between interferometer and PCI measurements.
   }
   \label{fig:TurbulenceMeasurements:gamma2xy}
-\end{figure}
-
-\begin{figure}
-  \centering
-  \includegraphics[width = 0.75 \textwidth]{%
-    Chapters/TurbulenceMeasurements/figs/interferometer_bump_integrated_power.pdf}
-  \caption[Power in low-$k$, mid-$f$ turbulence vs. ECH location]{%
-    Power $\text{var}(\tilde{\phi})$ in interferometer-measured
-    low-$k$, mid-$f$ turbulence vs. ECH location $\rho_{\text{ECH}}$.
-    Powers are estimated by integrating the interferometer's
-    one-sided autospectral densities
-    (e.g.\ those shown in the left panel of
-    Figure~\ref{fig:TurbulenceMeasurements:Sf_interferometer_pci})
-    between $\SI{300}{\kilo\hertz}$ and $\SI{600}{\kilo\hertz}$.
-    Different points correspond to different shots
-    from the multiscale experiment, and
-    the dashed line is the linear least-squares fit to the points.
-  }
-\label{fig:TurbulenceMeasurements:interferometer_bump_integrated_power}
-\end{figure}
-
-\begin{figure}
-  \centering
-  \includegraphics[width = 0.9 \textwidth]{%
-    Chapters/TurbulenceMeasurements/figs/collisionality.pdf}
-  \caption[Collisionality variation with ECH location]{%
-    Collisionality variation with ECH location.
-  }
-\label{fig:TurbulenceMeasurements:collisionality}
 \end{figure}
 
 
