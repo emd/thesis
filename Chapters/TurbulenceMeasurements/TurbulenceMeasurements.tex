@@ -312,7 +312,25 @@ the PCI is more sensitive than the heterodyne interferometer.
   \includegraphics[width = \textwidth]{%
     Chapters/TurbulenceMeasurements/figs/Sf_interferometer_pci.pdf}
   \caption[Interferometer \& PCI frequency spectra]{%
-    Interferometer and PCI frequency spectra.
+    One-sided autospectral-density estimates $G_{\phi,\phi}(f)$ from
+    (a) the heterodyne interferometer and (b) the PCI.
+    The low-frequency ($f \lesssim \SI{300}{\kilo\hertz}$) dynamics
+    are comparable, with both the interferometer and the PCI
+    measuring a $2 - 4\times$ increase in fluctuation power
+    when moving from $\rho_{\text{ECH}} = 0.5$ to $\rho_{\text{ECH}} = 0.8$.
+    The higher-frequency ($f \gtrsim \SI{300}{\kilo\hertz}$) dynamics,
+    however, are distinct.
+    In particular, the interferometer-measured broadband fluctuation
+    between $\SI{300}{\kilo\hertz}$ and $\SI{600}{\kilo\hertz}$
+    is low-$k$ (due to its absence in the PCI spectrum),
+    electromagnetic (as seen by the beige inset to (a)), and
+    driven by collisionality
+    (as shown in Figure~\ref{fig:TurbulenceMeasurements:collisionality}),
+    suggesting that it may be a micro-tearing mode (MTM).
+    The subtle break in slope at $f \sim \SI{800}{\kilo\hertz}$
+    in the PCI spectrum when $\rho_{\text{ECH}} = 0.8$
+    is shown to be a distinct turbulent branch
+    in Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}.
   }
 \label{fig:TurbulenceMeasurements:Sf_interferometer_pci}
 \end{figure}
@@ -328,18 +346,69 @@ it is absent from the autospectral density of the PCI;
 this indicates that the fluctuation wavenumber
 is smaller than the PCI low-$k$ cutoff
 (\ref{eq:Implementation:kg_realized}).
-\begin{itemize}
-  \item Magnetic component, as shown in inset
-  \item Total power $\text{var}(\tilde{\phi})$ in fluctuation
-    robustly increases when moving $\rho_{\text{ECH}} = 0.5$ to
-    $\rho_{\text{ECH}} = 0.8$, as shown in
-    Figure~\ref{fig:TurbulenceMeasurements:interferometer_bump_integrated_power}
-  \item The collisionality increases (\textcolor{red}{how much?})
-    over the PCI measurable domain, as shown in
-    Figure~\ref{fig:TurbulenceMeasurements:collisionality}
-  \item Microtearing mode predicted to be marginally unstable
-    in reference discharge~\cite{holland_nf17}
-\end{itemize}
+Further, this fluctuation has a magnetic component,
+as shown by the beige inset to
+Figure~\ref{fig:TurbulenceMeasurements:Sf_interferometer_pci}(a).
+The red curve in the beige inset
+corresponds to the autospectral density (in arbitrary units)
+of the poloidal magnetic-field fluctuations
+measured by a high-frequency magnetic probe ($b5$)~\cite{strait_rsi06}
+during the $\rho_{\text{ECH}} = 0.8$ window, while
+the dashed line corresponds to the noise floor,
+as estimated from $\SI{50}{\milli\second}$
+of data prior to plasma breakdown.
+As with the interferometer and PCI autospectral-density estimates,
+only realizations of the magnetic signal falling within
+$20\%$ -- $80\%$ of each inter-ELM window
+are included in the ensemble average, and
+approximately $900$ realizations are averaged over,
+corresponding to a relative random error
+in the autospectral-density estimate of approximately $3\%$.
+The autospectral density of the interferometer also
+indicates that the power in this fluctuation
+increases when moving from
+$\rho_{\text{ECH}} = 0.5$ to $\rho_{\text{ECH}} = 0.8$.
+To prove that this is a robust trend,
+the total power in this fluctuation
+is computed for stationary windows
+from $7$ distinct shots with $\rho_{\text{ECH}} = 0.5$ and
+from $7$ distinct shots with $\rho_{\text{ECH}} = 0.8$,
+each of which are nominally identical
+to the corresponding discharges shown in
+Figures~\ref{fig:TurbulenceMeasurements:traces} and
+\ref{fig:TurbulenceMeasurements:profiles}.
+The total fluctuation power is quantified as
+\begin{equation}
+  \text{var}(\tilde{\phi})
+  =
+  \int_{\SI{300}{\kilo\hertz}}^{\SI{600}{\kilo\hertz}}
+  \left[%
+    G_{\phi,\phi}^{\text{int}}(f) - N.F.
+  \right] df,
+  \label{eq:TurbulenceMeasurements:MTM_power}
+\end{equation}
+where $G_{\phi,\phi}^{\text{int}}(f)$
+is the autospectral density of the heterodyne interferometer and
+$N.F. = \SI{e-10}{\radian\squared\per\kilo\hertz}$
+is the corresponding noise floor.
+Figure~\ref{fig:TurbulenceMeasurements:interferometer_bump_integrated_power}
+plots $\text{var}(\tilde{\phi})$ versus $\rho_{\text{ECH}}$;
+a linear least-squares fit
+indicates that the fluctuation power
+approximately doubles when moving
+from $\rho_{\text{ECH}} = 0.5$ to $\rho_{\text{ECH}} = 0.8$.
+Further, Figure~\ref{fig:TurbulenceMeasurements:collisionality}
+shows that the electron-ion collisionality $\nu_{ei}$
+in the region of the plasma accessible to the PCI probe
+($R \geq \SI{1.98}{\meter}$)
+also roughly doubles when moving
+from $\rho_{\text{ECH}} = 0.5$ to $\rho_{\text{ECH}} = 0.8$.
+Thus, this fluctuation is
+low-$k$, electromagnetic, and driven by collisionality,
+suggesting that this fluctuation
+may be a micro-tearing mode (MTM)~\cite[Sec.~8.5]{wesson}\cite{drake_pf77},
+which is predicted to be marginally unstable
+in this experiment's reference discharge~\cite{holland_nf17}.
 
 \begin{figure}
   \centering
@@ -348,14 +417,13 @@ is smaller than the PCI low-$k$ cutoff
   \caption[Power in low-$k$, mid-$f$ turbulence vs. ECH location]{%
     Power $\text{var}(\tilde{\phi})$ in interferometer-measured
     low-$k$, mid-$f$ turbulence vs. ECH location $\rho_{\text{ECH}}$.
-    Powers are estimated by integrating the interferometer's
-    one-sided autospectral densities
-    (e.g.\ those shown in the left panel of
-    Figure~\ref{fig:TurbulenceMeasurements:Sf_interferometer_pci})
-    between $\SI{300}{\kilo\hertz}$ and $\SI{600}{\kilo\hertz}$.
-    Different points correspond to different shots
-    from the multiscale experiment, and
-    the dashed line is the linear least-squares fit to the points.
+    Powers are estimated via
+    (\ref{eq:TurbulenceMeasurements:MTM_power}).
+    Different points correspond to distinct, nominally identical shots
+    from the same experimental run day;
+    the dashed line is the linear least-squares fit to the points,
+    indicating an approximate doubling in fluctuation power
+    when moving from $\rho_{\text{ECH}} = 0.5$ to $\rho_{\text{ECH}} = 0.8$.
   }
 \label{fig:TurbulenceMeasurements:interferometer_bump_integrated_power}
 \end{figure}
@@ -365,7 +433,25 @@ is smaller than the PCI low-$k$ cutoff
   \includegraphics[width = 0.9 \textwidth]{%
     Chapters/TurbulenceMeasurements/figs/collisionality.pdf}
   \caption[Collisionality variation with ECH location]{%
-    Collisionality variation with ECH location.
+    The electron-ion collisionality $\nu_{ei}$
+    in the region of the plasma
+    accessible to the PCI probe beam ($R \geq \SI{1.98}{\meter}$)
+    roughly doubles when moving
+    from $\rho_{\text{ECH}} = 0.5$ to $\rho_{\text{ECH}} = 0.8$.
+    The collisionality is computed from the profiles in
+    Figure~\ref{fig:TurbulenceMeasurements:profiles}, and
+    the shaded bands indicate the $1\sigma$ uncertainties.
+    The collisionality normalization is $\vmag_{*e} / a$, where
+    $\vmag_{*e}$ is the electron diamagnetic velocity and
+    $a$ is the minor radius of the plasma;
+    note that the angular electron diamagnetic frequency
+    $\omega_{*e} \propto \vmag_{*e} / a$~\cite[Sec.~8.2]{wesson} and
+    that micro-tearing mode (MTM) linear-stability calculations
+    are performed in expansions of $\nu_{ei} / \omega_{*e}$
+    \cite[Sec.~8.5]{wesson}\cite{drake_pf77}.
+    Unfortunately, without a wavenumber measurement,
+    the more theoretically relevant $\omega_{*e}$ normalization
+    cannot be performed.
   }
 \label{fig:TurbulenceMeasurements:collisionality}
 \end{figure}

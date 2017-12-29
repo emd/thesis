@@ -252,6 +252,11 @@ if __name__ == '__main__':
         asd_b5_ELM_free[find_b5] / norm,
         c=cols[sind],
         linewidth=linewidth)
+
+    # Note that we're "cheating" here a bit, but
+    # I've confirmed that the pre-breakdown and L-mode
+    # magnetic spectra in this frequency range are
+    # white with a value given by asd_b5_ELM_free[find_b5[-1]]
     axes[0].hlines(
         asd_b5_ELM_free[find_b5[-1]] / norm,
         asd_b5.f[find_b5][0],
@@ -281,6 +286,12 @@ if __name__ == '__main__':
     axes[0].set_ylim(ylim)
     axes[1].set_ylim(ylim)
     axes[0].set_yticks([1e-12, 1e-10, 1e-8])
+
+    # Add plot alphabetical labels
+    x0 = 11
+    y0 = 4e-8
+    axes[0].annotate('(a)', (x0, y0), fontsize=fontsize)
+    axes[1].annotate('(b)', (x0, y0), fontsize=fontsize)
 
     plt.tight_layout()
 
