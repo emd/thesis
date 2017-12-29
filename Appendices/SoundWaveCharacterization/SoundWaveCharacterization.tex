@@ -51,7 +51,14 @@ allowing simple and accurate measurements of the sound waves.
 
 \subsection{Speaker}
 \label{sec:SoundWaveCharacterization:Hardware:speaker}
-The speaker should be capable of driving sound waves
+Previous sound-wave calibrations were performed
+with high-frequency speakers
+suitable for characterizing the medium-$k$ to high-$k$
+response of the PCI.
+However, to quantify the low-$k$ to medium-$k$ response
+of the heterodyne interferometer
+(and simultaneously cross-calibrate the PCI),
+the speaker should be capable of driving sound waves
 throughout most of the heterodyne-interferometer wavenumber range.
 The interferometer high-$k$ cutoff of $\SI{5}{\per\centi\meter}$
 corresponds to a sound wave with frequency $\SI{27}{\kilo\hertz}$.
@@ -172,7 +179,7 @@ $z
 \{\SI{2.5}{\centi\meter}, \SI{5.5}{\centi\meter}, \SI{8.5}{\centi\meter}\}$.
 The on-axis amplitude of the sound waves as a function of
 wavenumber $k$ and height $z$ above the speaker face is shown in
-Fig.~\ref{fig:SoundWaveCharacterization:tymphany_on_axis_amplitude}.
+Figure~\ref{fig:SoundWaveCharacterization:tymphany_on_axis_amplitude}.
 As expected, the on-axis amplitude decreases with
 increasing distance $z$ from the speaker face.
 Further, the on-axis amplitude has a complicated wavenumber dependence, but
@@ -246,7 +253,7 @@ delayed by a time $\tau$
   \label{eq:SoundWaveCharacterization:time_delay}
 \end{equation}
 where $c_s$ is the sound speed.
-Fig.~\ref{fig:SoundWaveCharacterization:tymphany_wavefront_phasing}
+Figure~\ref{fig:SoundWaveCharacterization:tymphany_wavefront_phasing}
 compares the measured time delay to
 the time delay predicted for spherical waves
 (\ref{eq:SoundWaveCharacterization:time_delay})
@@ -261,7 +268,7 @@ If the sound-wave amplitude is also measured
 during the radial scans described in
 Section~\ref{sec:SoundWaveCharacterization:Measurements:phasing},
 the spatial envelope of the sound waves can also be quantified.
-Fig.~\ref{fig:SoundWaveCharacterization:tymphany_spatial_envelope_z_5_5cm}
+Figure~\ref{fig:SoundWaveCharacterization:tymphany_spatial_envelope_z_5_5cm}
 displays the spatial envelopes of sound waves of various frequencies $f$
 at height $z = \SI{5.5}{\centi\meter}$ above the face of the speaker.
 Clearly, the width of the spatial envelope decreases
@@ -301,13 +308,13 @@ To lowest order, the spatial envelopes are well approximated by a Gaussian
 where $w(z, f)$ is the 1/e radius, which
 is a function of the height $z$ and the sound-wave frequency $f$.
 Gaussian fits to the envelope measurements are also shown in
-Fig.~\ref{fig:SoundWaveCharacterization:tymphany_spatial_envelope_z_5_5cm}.
+Figure~\ref{fig:SoundWaveCharacterization:tymphany_spatial_envelope_z_5_5cm}.
 Deviations from a Gaussian are most apparent at low frequencies;
 this may be attributable to baffle diffraction across the speaker face but
 was not further investigated.
 The approximation of a Gaussian envelope
 will be sufficiently accurate for the present work.
-Fig~\ref{fig:SoundWaveCharacterization:tymphany_gaussian_widths}
+Figure~\ref{fig:SoundWaveCharacterization:tymphany_gaussian_widths}
 displays the fitted 1/e Gaussian radii $w$ as a function of
 sound-wave wavenumber $k$ and
 height $z$ above the face of the speaker.
@@ -375,18 +382,18 @@ via radial-basis-function (RBF) interpolation
 \cite[Sec.~3.7]{numerical_recipes}
 \cite{scipy_radial_basis_function,radial_basis_function_stackoverflow}
 of the measured on-axis amplitude shown in
-Fig.~\ref{fig:SoundWaveCharacterization:tymphany_on_axis_amplitude}
+Figure~\ref{fig:SoundWaveCharacterization:tymphany_on_axis_amplitude}
 (after conversion from $\SI{}{\volt}$ to $\SI{}{\pascal}$
 using the absolute calibration of the microphone discussed in
 Section~\ref{sec:SoundWaveCharacterization:Hardware:microphone}).
 Similarly, $w(z, f)$ is the 1/e Gaussian radius of the sound wave, and
 it is a complicated function of $z$ and $f$ that is computed
 via RBF interpolation of the measured 1/e Gaussian radii shown in
-Fig.~\ref{fig:SoundWaveCharacterization:tymphany_gaussian_widths}.
+Figure~\ref{fig:SoundWaveCharacterization:tymphany_gaussian_widths}.
 As an example,
 a ``snapshot'' (i.e.\ at a single point in time) of the model's predicted
 $\SI{15}{\kilo\hertz}$ pressure fluctuation $\widetilde{p}$ is shown in
-Fig.~\ref{fig:SoundWaveCharacterization:model_pressure_field_15kHz}.
+Figure~\ref{fig:SoundWaveCharacterization:model_pressure_field_15kHz}.
 
 \begin{figure}
   \centering
@@ -518,11 +525,11 @@ the phase shift (\ref{eq:SoundWaveCharacterization:phase_shift}) becomes
 where (\ref{eq:SoundWaveCharacterization:RefractiveIndex:perturbed_N_units})
 has been referenced and
 the differential path length $dl$ must have units of centimeters.
-The variance of the phase shift imparted
+The bounds on the variance of the phase shift imparted
 by the sound-wave pressure fluctuation
 (\ref{eq:SoundWaveCharacterization:sound_wave_model})
 is shown in
-Fig.~\ref{fig:SoundWaveCharacterization:phase_shift}.
+Figure~\ref{fig:SoundWaveCharacterization:phase_shift}.
 To make a quantitative comparison
 with the corresponding heterodyne-interferometer measurements,
 the interferometer wavenumber response and noise floor
@@ -535,7 +542,7 @@ Section~\ref{sec:Implementation:Calibration}.
   \includegraphics[width = \textwidth]{%
     Appendices/SoundWaveCharacterization/figs/model_phase_shift_to_CO2.pdf}
   \caption[Variance of phase shift imparted to a CO$_2$ probe beam]{%
-    Variance of phase shift
+    The bounds on the variance of the phase shift
     (\ref{eq:SoundWaveCharacterization:phase_shift_units})
     imparted to a $\SI{10.6}{\micro\meter}$ CO$_2$ probe beam
     by the sound-wave pressure fluctuation

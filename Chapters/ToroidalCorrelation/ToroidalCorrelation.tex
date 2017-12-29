@@ -242,7 +242,7 @@ the radial chord passes through the $R0$ port
 at a toroidal location of $225^{\circ}$.
 Of particular relevance to this work is the $V2$ interferometer,
 which has a major-radial location $R = \SI{1.94}{\meter}$ and
-is shown in Fig.~\ref{fig:ToroidalCorrelation:pci_interf_locs}.
+is shown in Figure~\ref{fig:ToroidalCorrelation:pci_interf_locs}.
 The viewing geometry influences
 an interferometer's sensitivity to various MHD instabilities;
 for example, vertical chords are more sensitive to
@@ -283,7 +283,7 @@ are briefly reviewed here.
 The PCI probe beam sits at a toroidal location of $285^{\circ}$ and
 has a major-radial location $R = \SI{1.98}{\meter}$.
 The location of the PCI beampath relative to that of the $V2$ interferometer
-is shown in Fig.~\ref{fig:ToroidalCorrelation:pci_interf_locs}.
+is shown in Figure~\ref{fig:ToroidalCorrelation:pci_interf_locs}.
 
 The geometry of the $V2$ and PCI interferometers
 has consequences for the toroidal-correlation measurement.
@@ -303,7 +303,7 @@ such that the Nyquist toroidal mode number
   \label{eq:ToroidalCorrelation:Nyquist_modenumber_interferometers}
 \end{equation}
 The \diiid\space sign convention for toroidal mode numbers
-is indicated in Fig.~\ref{fig:ToroidalCorrelation:pci_interf_locs};
+is indicated in Figure~\ref{fig:ToroidalCorrelation:pci_interf_locs};
 that is, $n > 0$ for modes that rotate counterclockwise
 when viewing the torus from above,
 as this corresponds to the direction of dominant torque injection.
@@ -624,40 +624,8 @@ than its nominal trigger time and
 (b) when the sampling rate deviates from the nominal sampling rate
 and the nominal trigger times of both digitizers differ.
 
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/ToroidalCorrelation/figs/trigger_offset.pdf}
-  \caption[``Trigger offset'' compensation]{%
-    Interferometer-measured toroidal mode numbers
-    (a) \emph{without} compensation for the trigger offset and
-    (b) \emph{with} compensation for the trigger offset.
-    In (a), the finite trigger offset
-    (\ref{eq:ToroidalCorrelation:trigger_offset_optimized})
-    results in the unphysical evolution
-    of the measured toroidal mode numbers.
-    The trigger offset is roughly estimated
-    from the measured mode-number evolution
-    between the red circular annotations
-    to the lower-frequency mode
-    ($\Delta f \approx \SI{20}{\kilo\hertz}$ and
-    $\Delta n \approx 5$; note that $\Delta n_{\meas}$
-    refers to the total number of mode numbers evolved through,
-    i.e.\ it is path-dependent and is \emph{not} simply
-    the difference between the final and initial $n_{\meas}$).
-    In (b), the digital records of both interferometers
-    have been synchronized by compensating for the finite trigger offset
-    (\ref{eq:ToroidalCorrelation:trigger_offset_optimized}), and
-    the measured toroidal mode numbers are constant in time,
-    consistent with physical expectations.
-    The $6$-digit number in the upper right-hand corner
-    indicates the \diiid\space shot.
-  }
-\label{fig:ToroidalCorrelation:trigger_offset}
-\end{figure}
-
 A finite trigger offset biases mode-number measurements.
-For example, Fig.~\ref{fig:ToroidalCorrelation:trigger_offset}(a)
+For example, Figure~\ref{fig:ToroidalCorrelation:trigger_offset}(a)
 displays the toroidal mode numbers of two coherent modes
 as measured by the uncompensated interferometers.
 Note that the measured mode number of each mode
@@ -692,17 +660,17 @@ $\Delta n_{\meas} \approx 5$ and
 $\Delta \omega \approx 2 \pi \cdot \SI{20}{\kilo\hertz}$,
 as indicated by the red circular annotations
 to the lower-frequency mode in
-Fig.~\ref{fig:ToroidalCorrelation:trigger_offset}(a).
+Figure~\ref{fig:ToroidalCorrelation:trigger_offset}(a).
 Note that $\delta t_{\trig} > 0$
 implies that the actual sampling times
 of the PCI interferometer lag (i.e.\ occur later than)
 those of the $V2$ interferometer, as shown schematically in
-Fig.~\ref{fig:DigitizerSynchronization:trigger_offset_schematic}.
+Figure~\ref{fig:DigitizerSynchronization:trigger_offset_schematic}.
 Applying standard techniques~\cite[Sec.~4.5]{oppenheim}
 in post-processing software
 to eliminate this $\SI{30}{\micro\second}$ timebase discrepancy
 dramatically reduces the unphysical mode-number evolution observed in
-Fig.~\ref{fig:ToroidalCorrelation:trigger_offset}(a).
+Figure~\ref{fig:ToroidalCorrelation:trigger_offset}(a).
 Scanning $\delta t_{\trig}$ about $\SI{30}{\micro\second}$
 shows that the unphysical mode-number evolution is minimized for
 \begin{equation}
@@ -711,17 +679,49 @@ shows that the unphysical mode-number evolution is minimized for
   \SI{32.5}{\micro\second}.
   \label{eq:ToroidalCorrelation:trigger_offset_optimized}
 \end{equation}
-Fig.~\ref{fig:ToroidalCorrelation:trigger_offset}(b)
+Figure~\ref{fig:ToroidalCorrelation:trigger_offset}(b)
 displays the interferometer-measured toroidal mode numbers
 after compensating for trigger offset
 (\ref{eq:ToroidalCorrelation:trigger_offset_optimized});
 note that the mode numbers are constant in time,
 consistent with physical expectations.
 It should be emphasized that the only difference between
-Fig.~\ref{fig:ToroidalCorrelation:trigger_offset}(a) and
-Fig.~\ref{fig:ToroidalCorrelation:trigger_offset}(b)
+Figure~\ref{fig:ToroidalCorrelation:trigger_offset}(a) and
+Figure~\ref{fig:ToroidalCorrelation:trigger_offset}(b)
 is the compensation of trigger offset
 (\ref{eq:ToroidalCorrelation:trigger_offset_optimized}).
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/ToroidalCorrelation/figs/trigger_offset.pdf}
+  \caption[``Trigger offset'' compensation]{%
+    Interferometer-measured toroidal mode numbers
+    (a) \emph{without} compensation for the trigger offset and
+    (b) \emph{with} compensation for the trigger offset.
+    In (a), the finite trigger offset
+    (\ref{eq:ToroidalCorrelation:trigger_offset_optimized})
+    results in the unphysical evolution
+    of the measured toroidal mode numbers.
+    The trigger offset is roughly estimated
+    from the measured mode-number evolution
+    between the red circular annotations
+    to the lower-frequency mode
+    ($\Delta f \approx \SI{20}{\kilo\hertz}$ and
+    $\Delta n \approx 5$; note that $\Delta n_{\meas}$
+    refers to the total number of mode numbers evolved through,
+    i.e.\ it is path-dependent and is \emph{not} simply
+    the difference between the final and initial $n_{\meas}$).
+    In (b), the digital records of both interferometers
+    have been synchronized by compensating for the finite trigger offset
+    (\ref{eq:ToroidalCorrelation:trigger_offset_optimized}), and
+    the measured toroidal mode numbers are constant in time,
+    consistent with physical expectations.
+    The $6$-digit number in the upper right-hand corner
+    indicates the \diiid\space shot.
+  }
+\label{fig:ToroidalCorrelation:trigger_offset}
+\end{figure}
 
 Trigger offset (\ref{eq:ToroidalCorrelation:trigger_offset_optimized})
 has been robustly stable
@@ -832,7 +832,7 @@ the corresponding toroidal separations to a linear model;
 all of the magnetics-measured toroidal mode numbers
 presented in this work
 are computed via this more robust estimation method.
-Fig.~\ref{fig:ToroidalCorrelation:magnetics_comparison}
+Figure~\ref{fig:ToroidalCorrelation:magnetics_comparison}
 compares the interferometer-measured and the magnetics-measured
 toroidal mode numbers;
 both measurements indicate the presence of an $n = 1$ tearing mode and
@@ -871,7 +871,7 @@ $\sigma(R_{\text{pci}}) - \sigma(R_{\text{v2}}) = 0 \rightarrow \pi$
 or vice versa,
 the measured mode number will ``jump'';
 an example of such mode-number ``jumping'' is shown in
-Fig.~\ref{fig:ToroidalCorrelation:mode_number_jumps}.
+Figure~\ref{fig:ToroidalCorrelation:mode_number_jumps}.
 If the mode structure is up-down asymmetric about the midplane, however,
 $\Phi$ is complex, and
 the bias to the measured mode number becomes continuous, rather than discrete.
@@ -894,14 +894,14 @@ for example, produces such up-down asymmetries.
 \label{fig:ToroidalCorrelation:mode_number_jumps}
 \end{figure}
 
-Unfortunately, there is not currently a tested, robust method
+Currently, there is not a tested, robust method
 for correcting the bias introduced by
 the major-radial offset of the interferometers
 (other than reducing the offset, i.e.\ $\Delta R \rightarrow 0$,
 which is not possible with current port allocations).
 Although external magnetic probes can corroborate
 the interferometer-measured mode numbers in some cases,
-such as in Fig.~\ref{fig:ToroidalCorrelation:magnetics_comparison},
+such as in Figure~\ref{fig:ToroidalCorrelation:magnetics_comparison},
 they are blind to core-localized fluctuations.
 It may be possible to account for the radial and poloidal mode structure
 via measurements from
@@ -911,10 +911,10 @@ or via predictions from
 ideal MHD (e.g.\ NOVA~\cite{cheng_jcp87, cheng_pr92})
 or hybrid MHD-gyrofluid (e.g.\ TAEFL~\cite{spong_pfb92, spong_ps92}) codes,
 but such efforts were deemed beyond the scope of this work.
-If future modeling work is conducted to aid the interpretation
-of the interferometer-measured toroidal mode numbers,
-note that ideal MHD cannot capture the empirically relevant
-fast-ion shearing of Alfv\'{e}n eigenmodes~\cite{tobias_prl11}.
+% If future modeling work is conducted to aid the interpretation
+% of the interferometer-measured toroidal mode numbers,
+% note that ideal MHD cannot capture the empirically relevant
+% fast-ion shearing of Alfv\'{e}n eigenmodes~\cite{tobias_prl11}.
 
 
 \section{Diagnosis of core-localized MHD}
@@ -939,7 +939,7 @@ where future work to eliminate the major-radial offset
 would allow direct and accurate
 mode-number measurements of core-localized MHD.
 
-Fig.~\ref{fig:ToroidalCorrelation:core_localized}
+Figure~\ref{fig:ToroidalCorrelation:core_localized}
 provides such a proof of principle.
 The top panel displays the fluctuating poloidal magnetic-field spectrum
 measured by a high-frequency magnetic probe~\cite{strait_rsi06}, while

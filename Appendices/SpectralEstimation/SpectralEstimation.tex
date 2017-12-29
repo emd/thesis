@@ -14,9 +14,23 @@ the ensemble of all of the potential observations
 and is denoted as $\{x_k(t)\}$.
 Random processes can be stationary or nonstationary.
 The statistical properties of a stationary random process
-do not vary in time, and
-the spectral tools discussed below
+do not vary in time.
+
+The spectral tools discussed below
 are all developed for analysis of stationary random processes.
+Section~\ref{app:SpectralEstimation:NonParametric}
+discusses non-parametric spectral-estimation techniques,
+which find powerful and versatile application
+in the analysis of uniformly and richly sampled data.
+Section~\ref{app:SpectralEstimation:Parametric}
+discuses parametric spectral-estimation techniques,
+which find application
+in the analysis of data with sharp spectral features,
+particularly if the data is sparsely sampled.
+Finally, Section~\ref{app:SpectralEstimation:2d_spectra}
+discusses the hybrid non-parametric-in-time, parametric-in-space
+technique used to estimate the PCI-measured
+two-dimensional autospectral density function.
 
 
 \section{Non-parametric techniques}
@@ -40,7 +54,7 @@ is defined as
 where $w(t)$ is an arbitrary windowing function.
 Typically, the selected windowing function smoothly tapers
 as $|t| \rightarrow T / 2$
-to minimize side-lobe ``leakage''
+to minimize sidelobe leakage
 that results from discontinuities at the start and end of the sample record.
 Further, to prevent power loss, the windowing function
 is also typically normalized such that
@@ -90,14 +104,8 @@ This can be made explicit by writing
   G_{xy}(f) = \left| G_{xy}(f) \right| e^{i \alpha_{xy}(f)},
   \label{eq:SpectralEstimation:cross_spectral_density_explicit_complex}
 \end{equation}
-where $\alpha_{xy}(f)$ is the \emph{phase angle}.
-Note that if
-$\lim_{T \rightarrow \infty} E[X_k(f, T)] \propto e^{i \alpha_x}$ and
-$\lim_{T \rightarrow \infty} E[Y_k(f, T)] \propto e^{i \alpha_y}$, then
-\begin{equation}
-  \alpha_{xy} = \alpha_y - \alpha_x.
-\end{equation}
-Further, note that for the special case $\{x_k(t)\} = \{y_k(t)\}$,
+where $\alpha_{xy}(f)$ is the \emph{cross phase}.
+For the special case $\{x_k(t)\} = \{y_k(t)\}$,
 $G_{xx}(f)$ is real-valued (i.e.\ $G_{xx}(f) = |G_{xx}(f)|$) and
 is referred to as the one-sided \emph{autospectral density} function.
 
@@ -131,33 +139,6 @@ only single realizations of the random processes are used,
 $\gamma_{xy}^2(f) \equiv 1$ for all $f$,
 \emph{regardless} of the actual degree of coherence
 between between $\{x_k(t)\}$ and $\{y_k(t)\}$.
-
-Care should be taken when computing spectral density estimates.
-Table~\ref{table:ToroidalCorrelation:spectral_estimate_random_errors}
-summarizes the random errors associated with the estimates
-of various spectral properties.
-Note that the number of realizations $N_r$ used
-in the computation of the ensemble average
-is a parameter that can be specified
-at the time of analysis and that
-increasing $N_r$ reduces the random errors of each spectral estimate.
-(While increased $\gamma_{xy}^2(f)$ also reduces random errors,
-$\gamma_{xy}^2(f)$ is an intrinsic property of the data
-rather than a parameter that can be specified at the time of analysis).
-Further, in various programming languages,
-it is not uncommon to ``detrend'' realizations $x_k(t)$ and $y_k(t)$
-by subtracting the signal mean or linear trend
-prior to application of
-(\ref{eq:SpectralEstimation:cross_spectral_density_defn}).
-However, the author anecdotally notes that his experience with
-such detrending can lead to values of $\gamma_{xy}^2(f)$
-that unphysically exceed the bounds established in
-(\ref{eq:SpectralEstimation:magnitude_squared_coherence_bounds}).
-The subtleties of such discrepancies were not investigated further, and
-no such detrending was applied to signals
-prior to spectral computations in this work;
-instead, if needed, signals are high-pass filtered as described in
-Section~\ref{sec:Implementation:DataPreparation:high_pass_filtering}.
 
 \begin{table}[t]
   \centering
@@ -199,9 +180,569 @@ Section~\ref{sec:Implementation:DataPreparation:high_pass_filtering}.
 \label{table:ToroidalCorrelation:spectral_estimate_random_errors}
 \end{table}
 
+Care should be taken when computing spectral density estimates.
+Table~\ref{table:ToroidalCorrelation:spectral_estimate_random_errors}
+summarizes the random errors associated with the estimates
+of various spectral properties.
+Note that the number of realizations $N_r$ used
+in the computation of the ensemble average
+is a parameter that can be specified
+at the time of analysis and that
+increasing $N_r$ reduces the random errors of each spectral estimate.
+(While increased $\gamma_{xy}^2(f)$ also reduces random errors,
+$\gamma_{xy}^2(f)$ is an intrinsic property of the data
+rather than a parameter that can be specified at the time of analysis).
+Further, in various programming languages,
+it is not uncommon to ``detrend'' realizations $x_k(t)$ and $y_k(t)$
+by subtracting the signal mean or linear trend
+prior to application of
+(\ref{eq:SpectralEstimation:cross_spectral_density_defn}).
+As described in
+Section~\ref{sec:Implementation:DataPreparation:high_pass_filtering},
+signals are high-pass filtered prior to spectral analysis, and
+no further detrending is performed.
+
 
 \section{Parametric techniques}
 \label{app:SpectralEstimation:Parametric}
+Parametric techniques attempt to represent a signal
+with a mathematical model containing
+a limited number of predefined parameters.
+For a pedagogical overview of such techniques,
+the reader is directed to
+the work of Oppenheim and Schafer~\cite[Ch.~11]{oppenheim}
+The discussion here is largely synthesized
+from the discussion by Marple~\cite{marple_ieee89}.
+
+Many random processes are well approximated
+by rational transfer-function models.
+In such models,
+an input driving sequence $n_n$ and
+an output (i.e.\ data) sequence $x_n$
+are related via the linear difference equation
+\begin{equation}
+  x_n
+  =
+  \sum_{l = 0}^q b_l n_{n - l}
+  -
+  \sum_{k = 1}^p a_k x_{n - k};
+  \label{eq:SpectralEstimation:ARMA}
+\end{equation}
+sequence $x_n$ and $n_n$ each have length $N$, and
+successive samples are separated in time by $\Delta t$.
+Such a model is termed an
+autoregressive-moving average (ARMA) model.
+Now, if $b_0 = 1$ and the remainder of the $b_l$ are zero,
+(\ref{eq:SpectralEstimation:ARMA}) reduces to
+\begin{equation}
+  x_n
+  =
+  -\sum_{k = 1}^p a_k x_{n - k}
+  +
+  n_n
+  \label{eq:SpectralEstimation:AR}
+\end{equation}
+such that $x_n$ is an autoregression (AR) of order $p$
+driven by white noise $n_n$.
+The autospectral density $G_{xx}(f)$ of such an AR is
+\begin{equation}
+  G_{xx}(f)
+  =
+  \frac{%
+    \sigma^2}{%
+    \left|
+      1
+      +
+      \sum\limits_{k = 1}^{p} a_k \exp(-2 \pi k f \Delta t)
+    \right|^2
+  },
+  \label{eq:SpectralEstimation:AR_autospectral_density}
+\end{equation}
+where $\sigma^2$ is the variance of noise term $n_n$.
+Because the only frequency dependence in spectral estimate
+(\ref{eq:SpectralEstimation:AR_autospectral_density})
+appears in the denominator,
+the AR model is often referred to as an all-pole model.
+In one dimension, AR spectra are equivalent
+to spectra computed via the maximum entropy method (MEM).
+Interestingly, AR spectra do \emph{not} suffer from
+traditional sidelobes due to windowing.
+
+The AR process is fully characterized
+by the $(p + 1)$ parameters $(a_1, a_2, \cdots, a_p, \sigma^2)$, and
+numerous techniques exist for their estimation.
+The $p + 1$ autocorrelations
+$\{R_{xx}(0)$, $R_{xx}(\Delta t)$, \ldots $R_{xx}(p \cdot \Delta t)\}$
+are related to $(a_1, a_2, \cdots, a_p, \sigma^2)$
+via the Yule-Walker normal equations,
+which the Levinson-Durbin recursion can efficiently solve
+\cite[Sec.~11.6]{oppenheim}.
+However, better AR estimates are often obtained
+via least-squares linear prediction
+applied directly to the data $x_n$.
+Such techniques may employ the forward-only linear prediction
+or some combination of the forward and reverse linear predictions.
+The covariance method~\cite[Sec.~11.3.2]{oppenheim}
+is perhaps the most well known forward-only algorithm,
+while the Burg method
+is perhaps the most well known forward and reverse algorithm.
+
+Here, the Burg method is briefly reviewed.
+The algorithm is iterative, so
+assume that the $p$\ts{th} order AR parameters are known.
+Then, the forward linear prediction is
+\begin{equation}
+  \hat{x}_n
+  =
+  -\sum_{k = 1}^p a_{p,k} x_{n - k},
+  \label{eq:SpectralEstimation:forward_linear_prediction}
+\end{equation}
+where $a_{p,k}$ is the $k$\ts{th} coefficient
+of the $p$-order AR model.
+The corresponding forward linear-prediction error is
+\begin{align}
+  e_{p,n}
+  &=
+  x_n - \hat{x}_n
+  \notag \\
+  &=
+  \sum_{k = 0}^p a_{p,k} x_{n - k},
+  \qquad
+  p \leq n < N,
+  \label{eq:SpectralEstimation:forward_linear_prediction_error}
+\end{align}
+where $a_{p,0} = 1$ by definition and
+the limits on $n$ are established
+such that the error is defined only over the available data.
+Note that $e_{p,n} = n_n$ such that
+$\sigma^2 = |e_{p,n}|^2$.
+For a stationary process,
+the coefficients of the backward linear-prediction error filter
+are simply conjugated and reversed in time
+relative to those of the forward linear-prediction error filter
+such that the backward linear-prediction error is
+\begin{equation}
+  b_{p,n}
+  =
+  \sum_{k = 0}^p a_{p,k}^* x_{n - p + k},
+  \qquad
+  p \leq n < N,
+  \label{eq:SpectralEstimation:backward_linear_prediction_error}
+\end{equation}
+where $z^*$ indicates the complex conjugate of $z$.
+The total forward and backward linear-prediction error is
+\begin{equation}
+  E_p
+  =
+  \sum_{n = p}^{N - 1} |e_{p,n}|^2
+  +
+  \sum_{n = p}^{N - 1} |b_{p,n}|^2.
+\end{equation}
+To estimate the AR parameters,
+the Burg method minimizes the total error $E_p$
+subject to the constraint that
+the AR parameters satisfy the Levinson-Durbin recursion
+\begin{equation}
+  a_{p,k}
+  =
+  a_{p - 1, k}
+  +
+  a_{p,p} a_{p - 1, p - k}^*,
+  \qquad
+  1 \leq k \leq p.
+  \label{eq:SpectralEstimation:Levinson_Durbin_recursion}
+\end{equation}
+The Levinson-Durbin constraint
+ensures that the AR filter is stable
+(i.e.\ all poles fall within the unit circle) and
+make $E_p$ a function solely of the unknown coefficient $a_{p,p}$.
+Setting the derivative of $E_p$
+with respect to $a_{p,p}$ to zero then yields
+\begin{equation}
+  a_{i,i}
+  =
+  \frac{%
+    -2 \sum\limits_{k = i}^{N - 1}
+    b_{i - 1, k - 1}^*
+    e_{i - 1, k}
+  }{%
+    \sum\limits_{k = i}^{N - 1}
+    \left(%
+      |b_{i - 1, k - 1}|^2
+      +
+      |e_{i - 1, k - 1}|^2
+    \right)
+  }.
+  \label{eq:SpectralEstimation:a_ii}
+\end{equation}
+
+Although the Burg method has satisfactory performance for the present work,
+it should be noted for completeness that
+the Burg method suffers from several problems,
+including spectral line splitting and biases in the frequency estimate.
+These problems can be corrected via
+a ``least-squares'' algorithm
+(independently developed by Ulrych-Clayton and Nuttall)
+in which $E_p$ is differentiated with respect to all of the $a_{p,k}$,
+not just $a_{p,p}$,
+to obtain a set of normal equations
+(the Levinson-Durbin constraint is no longer enforced).
+Application of this modified algorithm
+is relegated to future work.
+
+
+\section{Hybrid two-dimensional spectral estimates}
+\label{app:SpectralEstimation:2d_spectra}
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Appendices/SpectralEstimation/figs/pci_detector_array.pdf}
+  \caption[Schematic of PCI detector array]{%
+    Schematic of PCI detector array.
+    Only the gray channels are digitized.
+  }
+  \label{fig:SpectralEstimation:pci_detector_array}
+\end{figure}
+
+The PCI detector consists of $32$ elements arranged in a linear array.
+However, due to digitization constraints,
+only a subset of the signals from the linear array are digitized.
+Further, to achieve reasonable mid-$k$ and high-$k$ response,
+this subset of channels is non-uniformly spaced, as indicated in
+Figure~\ref{fig:SpectralEstimation:pci_detector_array}.
+This immediately precludes direct application
+of the fast Fourier transform (FFT) in the spatial dimension, and
+more elaborate schemes must be utilized
+to quantify the spatial spectrum.
+Below, Section~\ref{app:SpectralEstimation:2d_spectra:trigger_offset}
+describes the estimation and compensation
+of the trigger offset between the two PCI digitizer boards.
+Then, Section~\ref{app:SpectralEstimation:2d_spectra:correlation_function}
+discusses estimation of the two-dimensional autocorrelation function,
+which can be computed even when channels are non-uniformly spaced.
+Finally, Section~\ref{app:SpectralEstimation:2d_spectra:2d_spectra}
+discusses calculation of the two-dimensional autospectral density
+from the two-dimensional autocorrelation function.
+
+
+\subsection{Estimation \& compensation of trigger offset}
+\label{app:SpectralEstimation:2d_spectra:trigger_offset}
+Prior to performing any spectral computations,
+the trigger offset between
+digitizer board $7$ and digitizer board $8$
+must be estimated and compensated.
+The general theory is discussed in
+Appendix~\ref{app:DigitizerSynchronization}.
+The trigger offset is estimated by defining
+\begin{align}
+  \Delta \alpha(f)
+  &=
+  \frac{\alpha_{15,16}(f) + \alpha_{17,18}(f)}{2}
+  \\
+  \Delta \alpha_{\meas}(f)
+  &=
+  \alpha_{16,17}(f),
+\end{align}
+and applying
+(\ref{eq:DigitizerSynchronization:trigger_offset_estimate_apriori_phase});
+here $\alpha_{i,j}(f)$ is the cross phase
+between channels $i$ and $j$
+during a stationary portion of the discharge.
+To minimize random error,
+at least $1000$ realizations are averaged over, and
+only frequencies with sufficiently high coherence
+(e.g.\ $\gamma^2_{i,j} \geq 0.1$) are considered.
+The offset is rarely larger than one or two timestamps, but
+even such small offsets can significantly bias spectral estimates.
+Then, using standard techniques~\cite[Sec.~4.5]{oppenheim},
+the trigger offset can be compensated easily in post-processing,
+even if the offset is a non-integer multiple of the sample spacing.
+
+
+\subsection{Two-dimensional autocorrelation function}
+\label{app:SpectralEstimation:2d_spectra:correlation_function}
+The autocorrelation function $R_{xx}$ and
+the autospectral density function $S_{xx}$
+are Fourier transform pairs, i.e.\
+\begin{align}
+  S_{xx}(\xi, f)
+  &=
+  \mathcal{F}[R_{xx}(\delta, \tau)](\xi, f),
+  \label{eq:SpectralEstimation:autospectral_density_from_autocorrelation}
+  \\
+  R_{xx}(\delta, \tau)
+  &=
+  \mathcal{F}^{-1}[S_{xx}(\xi, f)](\delta, \tau),
+  \label{eq:SpectralEstimation:autocorrelation_from_autospectral_density}
+\end{align}
+where
+$\mathcal{F}$ is the Fourier transform,
+$\tau$ is the temporal lag,
+$\delta$ is the spatial lag,
+$f$ is the frequency, and
+$\xi$ is the spatial frequency
+(related to the wavenumber $k$ via $k = 2 \pi \xi$).
+If the measurements are uniformly sampled in space and time,
+it is most efficient to estimate
+the two-dimensional autospectral density $S_{xx}$
+using the FFT methods described in
+Section~\ref{app:SpectralEstimation:NonParametric} and
+then apply the inverse Fourier transform
+as in (\ref{eq:SpectralEstimation:autocorrelation_from_autospectral_density})
+to compute the two-dimensional autocorrelation function $R_{xx}$.
+However, if the measurements are \emph{not} uniformly spaced,
+the two dimensional autocorrelation function
+can still be estimated via the definition
+\begin{equation}
+  R_{xx}(\delta, \tau)
+  =
+  E[x_k(z, t) \cdot x_k(z + \delta, t + \tau)],
+  \label{eq:SpectralEstimation:autocorrelation_definition}
+\end{equation}
+where $E[\cdot]$ is the expectation-value operator and
+$x_k$ is the $k$\ts{th} realization
+of the real-valued random process $\{x_k(z, t)\}$.
+If needed, the autocorrelation can be interpolated onto a uniform grid, and
+then the autospectral density $S_{xx}$ can be computed
+by applying the Fourier transform,
+as in (\ref{eq:SpectralEstimation:autospectral_density_from_autocorrelation}).
+
+When temporal sampling is uniform but spatial sampling is nonuniform,
+as in the PCI,
+it is often convenient to define a
+``hybrid'' two-dimensional autocorrelation function $\tilde{R}_{xx}$
+\begin{align}
+  \tilde{R}_{xx}(\delta, f)
+  &=
+  \mathcal{F}^{-1}[S_{xx}(\xi, f)](\delta)
+  \notag \\
+  &=
+  \int_{-\infty}^{\infty}
+  d\xi e^{i 2 \pi \xi \delta}
+  S_{xx}(\xi, f)
+  \notag \\
+  &=
+  S_{xx}(\delta, f),
+\end{align}
+where $S_{xx}(\delta, f) = S_{x_i, x_j}(f)$
+is the cross-spectral density function
+between $x_i(t) = x(z, t)$ and $x_j(t) = x(z + \delta, t)$.
+Note that $S_{x_i, x_j}(f)$ can be efficiently computed
+via the FFT methods described in
+Section~\ref{app:SpectralEstimation:NonParametric}
+such that the ``hybrid'' autocorrelation function can be estimated as
+an ensemble average over all of the unique correlation pairs
+separated by $\delta$
+\begin{equation}
+  \tilde{R}_{xx}(\delta, f)
+  =
+  \frac{%
+    \sum\limits_{i - j = \delta} S_{x_i, x_j}(f)
+  }{%
+    \sum\limits_{i - j = \delta} 1
+  };
+  \label{eq:SpectralEstimation:hybrid_autocorrelation_estimate}
+\end{equation}
+if there are no correlation pairs separated by $\delta$,
+then $\tilde{R}_{xx}$ is undefined for this separation.
+If the variances of $x_i$ and $x_j$ are artificially biased
+e.g.\ due to the finite PCI beam width,
+the variances should be equalized prior to estimating $\tilde{R}_{xx}$ with
+(\ref{eq:SpectralEstimation:hybrid_autocorrelation_estimate}).
+As discussed in Section~\ref{app:SpectralEstimation:2d_spectra:2d_spectra},
+the autospectral density can be computed
+from this $\tilde{R}_{xx}$ estimate.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = 0.75 \textwidth]{%
+    Appendices/SpectralEstimation/figs/corr_example.png}
+  \caption[Normalized, $2$d, hybrid autocorrelation function]{%
+    Example of the (a) real and (b) imaginary components
+    of the PCI-measured normalized, two-dimensional, hybrid
+    autocorrelation function $\tilde{r}_{xx}(\delta, f)$.
+    Note that $\delta = 0$ corresponds to the same detector element,
+    $\delta = 1$ corresponds to adjacent detector elements, etc.
+    The vertical white striations correspond to
+    non-existing element separations
+    (as established by the digitization layout shown in
+    Figure~\ref{fig:SpectralEstimation:pci_detector_array})
+    for which $\tilde{r}_{xx}(\delta, f)$ is not defined.
+    To proceed with the autospectral density estimation
+    in Section~\ref{app:SpectralEstimation:2d_spectra:2d_spectra},
+    the computation must either be restricted
+    to the central, continuous domain, or
+    the autocorrelation function must be interpolated;
+    linear interpolation was found to be sufficient in this work.
+  }
+  \label{fig:SpectralEstimation:corr_example}
+\end{figure}
+
+Before proceeding, however, it is instructive
+to consider a few properties of $\tilde{R}_{xx}$.
+In general, $\tilde{R}_{xx}$ is complex-valued.
+For real-valued $x$, however,
+$\tilde{R}_{xx}$ is Hermitian,
+i.e.\ $\tilde{R}_{xx}(-\delta, -f) = [\tilde{R}_{xx}(\delta, f)]^*$,
+where $z^*$ indicates the complex conjugate of $z$.
+At any given frequency $f$,
+$|\tilde{R}_{xx}(\delta, f)|$ attains a maximum at $\delta = 0$.
+The variance of signal $x(z, t)$ is related to $\tilde{R}_{xx}$ via
+\begin{equation}
+  \text{var}(x)
+  =
+  \int \tilde{R}_{xx}(0, f) df.
+  \label{eq:SpectralEstimation:variance_relation_to_autocorrelation}
+\end{equation}
+Because $|\tilde{R}_{xx}|$ can vary by several orders of magnitude
+across the full temporal bandwidth of signal $x(z, t)$,
+visualizing the spatiotemporal structure of $\tilde{R}_{xx}$
+can be aided by defining the normalized autocorrelation function
+\begin{equation}
+  \tilde{r}_{xx}(\delta, f)
+  =
+  \frac{\tilde{R}_{xx}(\delta, f)}{\tilde{R}_{xx}(0, f)}.
+\end{equation}
+An example of the PCI-measured $\tilde{r}_{xx}(\delta, f)$ is shown in
+Figure~\ref{fig:SpectralEstimation:corr_example}.
+
+
+\subsection{Two-dimensional autospectral density}
+\label{app:SpectralEstimation:2d_spectra:2d_spectra}
+The two-dimensional autospectral density function
+$S_{xx}(k, f)$ can be computed from
+the hybrid two-dimensional autocorrelation function
+$\tilde{R}_{xx}(\delta, f)$.
+Below and throughout this work,
+if $\tilde{R}_{xx}(\delta, f)$ is not defined for a given $\delta$,
+it is linearly interpolated across the gap.
+Investigation of more sophisticated interpolation algorithms
+is relegated to future work.
+
+As suggested by
+(\ref{eq:SpectralEstimation:autospectral_density_from_autocorrelation}),
+computing the spatial Fourier transform of $\tilde{R}_{xx}(\delta, f)$
+produces an estimate of the autospectral density $S_{xx}(k, f)$.
+Explicitly,
+\begin{align}
+  S_{xx}(k, f)
+  &=
+  \mathcal{F} \left[ \tilde{R}_{xx}(\delta, f) \right](k)
+  \notag \\
+  &=
+  \int_{-\infty}^{\infty}
+  \tilde{R}_{xx}(\delta, f)
+  e^{-i k \delta} d\delta
+  \notag \\
+  &\approx
+  \int_{-\Delta / 2}^{\Delta / 2}
+  \tilde{R}_{xx}(\delta, f)
+  e^{-i k \delta} d\delta,
+  \label{eq:SpectralEstimation:autospectral_density_from_autocorrelation_explicit}
+\end{align}
+where $\Delta = 2 \cdot \text{max}(|\delta|)$
+is the full span of spatial lags.
+Of course, for efficiency, the Fourier transform
+should be computed via the FFT.
+Further, to minimized sidelobe leakage,
+$\tilde{R}_{xx}(\delta, f)$ should be windowed in $\delta$
+prior to computing the Fourier transform;
+here, only the Hanning window is considered.
+Using the $\tilde{R}_{xx}(\delta, f)$ corresponding to
+Figure~\ref{fig:SpectralEstimation:corr_example},
+the resulting Fourier-in-space
+autospectral density estimate is shown in
+Figure~\ref{fig:SpectralEstimation:Skf_example}(a).
+Clearly, the wavenumber resolution of the Fourier estimate
+is severely limited by the sparse spatial sampling.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = 0.75 \textwidth]{%
+    Appendices/SpectralEstimation/figs/Skf_example.png}
+  \caption[$2$d autospectral density estimates]{%
+    Two-dimensional autospectral density estimates $S_{xx}(k, f)$.
+    Here, (a) estimates the spatial spectrum
+    using conventional Fourier methods while
+    (b) estimates the spatial spectrum
+    using a $p = 4$ Burg AR evaluated
+    on a uniformly spaced, $1000$-element wavenumber grid.
+    It is important to note that
+    the autospectral density estimates in both (a) and (b)
+    correspond to the \emph{same} raw data and
+    the \emph{same} autocorrelation function $\tilde{R}_{xx}(\delta, f)$
+    from Figure~\ref{fig:SpectralEstimation:corr_example}.
+    However, the Burg AR produces substantially improved
+    wavenumber resolution.
+  }
+  \label{fig:SpectralEstimation:Skf_example}
+\end{figure}
+
+The parametric spectral-estimation techniques discussed in
+Section~\ref{app:SpectralEstimation:Parametric}
+present an alternative method for computing $S_{xx}(k, f)$.
+For each frequency $f$ in $\tilde{R}_{xx}(\delta, f)$,
+a $p$-order Burg AR can be performed in $\delta$
+to estimate the autospectral density
+of the \emph{autocorrelation function} $S_{\tilde{R}\tilde{R}}(k, f)$.
+Now, from the non-parametric methods discussed in
+Section~\ref{app:SpectralEstimation:NonParametric},
+the autospectral density of $\tilde{R}_{xx}$ is defined as
+\begin{equation}
+  S_{\tilde{R}\tilde{R}}(k, f)
+  =
+  \lim_{\Delta \rightarrow \infty}
+  \frac{1}{\Delta}
+  E\left[%
+    \left|
+      \int_{-\Delta / 2}^{\Delta / 2}
+      \tilde{R}_{xx}(\delta, f)
+      e^{-i k \delta} d\delta
+    \right|^2
+  \right]
+\end{equation}
+such that
+\begin{equation}
+  \int_{-\Delta / 2}^{\Delta / 2}
+  \tilde{R}_{xx}(\delta, f)
+  e^{-i k \delta} d\delta
+  \approx
+  \pm \left[ \Delta \cdot S_{\tilde{R}\tilde{R}}(k, f) \right]^{1 / 2},
+  \label{eq:SpectralEstimation:Fourier_transform_of_autocorrelation}
+\end{equation}
+which is real-valued because $S_{\tilde{R}\tilde{R}}$ and $\Delta$
+are real-valued.
+Substituting (\ref{eq:SpectralEstimation:Fourier_transform_of_autocorrelation})
+into (\ref{eq:SpectralEstimation:autospectral_density_from_autocorrelation_explicit})
+yields
+\begin{equation}
+  S_{xx}(k, f)
+  \approx
+  \left[
+    \Delta
+    \cdot
+    S_{\tilde{R}\tilde{R}}(k, f)
+  \right]^{1 / 2},
+  \label{eq:SpectralEstimation:autospectral_density_Burg}
+\end{equation}
+where the positive root has been selected
+because $S_{xx}(k, f)$ is positive semidefinite by definition.
+Power conservation is ensured by normalizing
+the spectral estimate to the signal variance, i.e.\
+\begin{equation}
+  \int S_{xx}(k, f) dk df
+  =
+  \text{var}(x),
+\end{equation}
+where $\text{var}(x)$ is related to $R_{xx}(\delta, f)$ via
+(\ref{eq:SpectralEstimation:variance_relation_to_autocorrelation}).
+Because the all-pole feature of an AR model
+is capable of fitting very sharp spectral features
+and the resulting spectral estimate can be evaluated
+with an arbitrary resolution,
+the wavenumber resolution of the Burg AR estimate
+may be substantially better than that of the corresponding Fourier estimate,
+as shown in Figure~\ref{fig:SpectralEstimation:Skf_example}(b).
 
 
 \bibliographystyle{plainurl}

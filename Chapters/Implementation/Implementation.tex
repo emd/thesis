@@ -2,19 +2,19 @@
 \label{ch:Implementation}
 The optical foundations in
 Chapter~\ref{ch:InterferometricMethods}
-reveal that heterodyne interferometry and PCI
+revealed that heterodyne interferometry and PCI
 have complementary wavenumber capabilities,
 motivating the addition of a heterodyne interferometer
 to \diiid's pre-existing PCI system.
 With the intent of constructing a heterodyne interferometer,
-Chapter~\ref{ch:DesignConsiderations} extensively discusses
+Chapter~\ref{ch:DesignConsiderations} extensively discussed
 the relevant design considerations.
-
 Heavily referencing both Chapters~\ref{ch:InterferometricMethods} and
 \ref{ch:DesignConsiderations},
 this chapter details the physical implementation
 of the heterodyne interferometer and
 its integration into \diiid's pre-existing PCI system.
+
 Below, Section~\ref{sec:Implementation:d3d_ports} briefly reviews
 optical-diagnostic access on \diiid, and
 Section~\ref{sec:Implementation:PCI} discusses
@@ -74,7 +74,7 @@ to simultaneously monitor low-$k$ and high-$k$ instabilities.
 \label{sec:Implementation:d3d_ports}
 \diiid \space provides optical access to its plasmas
 through a number of ports, as indicated in
-Fig.~\ref{fig:Implementation:d3d_port_locations}.
+Figure~\ref{fig:Implementation:d3d_port_locations}.
 The ports are labeled according to their
 toroidal positions and their sightlines, and
 an experimentalist should have at least
@@ -159,7 +159,7 @@ from the $285^{\circ}$ {$R$+$2$} port to the $285^{\circ}$ {$R$-$2$} port.
 The beam center sits at major radius $R = $ \SI{1.98}{\meter}.
 Both the toroidal and major radial positions
 of the PCI beam are shown in
-Fig.~\ref{fig:Implementation:d3d_port_locations}.
+Figure~\ref{fig:Implementation:d3d_port_locations}.
 
 The vertical beam path of the PCI constrains
 which fluctuations it can and cannot detect.
@@ -208,7 +208,7 @@ theoretically relevant poloidal wavenumber $k_{\theta}$ via
 where $\alpha(R, z)$ is the angle
 between the beam path and the local flux surface,
 as shown schematically in
-Fig.~\ref{fig:Implementation:relating_kR_to_ktheta}.
+Figure~\ref{fig:Implementation:relating_kR_to_ktheta}.
 Of course, the fluctuation measurements must be localized,
 either via direct measurement
 (with $2$-dimensional detector arrays or ``masks'')
@@ -334,25 +334,34 @@ are large enough to accommodate beams scattered
 from fluctuations with wavenumbers $|k| \sim k_D$,
 apertures in the imaging optics
 only allow beams scattered from fluctuations with
-\begin{equation}
-  |k| \lesssim \SI{20}{\per\centi\meter}
-\end{equation}
-to reach the PCI detector.
+$|k| \lesssim \SI{30}{\per\centi\meter}$
+to reach the PCI detector unclipped.
 Upon reaching the detector,
 the measured PCI signal is subject to finite sampling-volume effects,
 which result from spatial averaging over the face of a detector element.
-The PCI's 32-element, 1-dimensional detector array has elements
-of height $\SI{1}{\milli\meter}$,
-width $s_x^{\text{pci}} = \SI{0.5}{\milli\meter}$, and
-center-to-center element spacing of $\SI{0.55}{\milli\meter}$.
-Coupled with the system's magnification $|M^{\text{pci}}| = 0.44$,
+The PCI's $32$-element, $1$-dimensional detector array has elements
+of height $\SI{1}{\milli\meter}$ and
+width $s_x^{\text{pci}} = \SI{0.5}{\milli\meter}$.
+Coupled with the system's magnification $|M^{\text{pci}}| = 0.45$,
 the finite sampling-volume cutoff
 (\ref{eq:DesignConsiderations:finite_sampling_volume_cutoff})
 of the PCI is
 \begin{equation}
-  k_{\text{fsv}}^{\text{pci}} = \SI{55}{\per\centi\meter}.
+  k_{\text{fsv}}^{\text{pci}} \approx \SI{55}{\per\centi\meter}.
   \label{eq:Implementation:kfsv_pci}
 \end{equation}
+Further, the center-to-center element spacing
+of adjacent detector elements is $\Delta x = \SI{0.55}{\milli\meter}$
+such that the corresponding Nyquist wavenumber is
+\begin{equation}
+  k_{\text{Ny}}
+  =
+  \frac{\pi |M^{\text{pci}}|}{\Delta x}
+  \approx
+  \SI{25}{\per\centi\meter};
+  \label{eq:Implementation:Nyquist_wavenumber_pci}
+\end{equation}
+the measured wavenumber is aliased if $|k| > k_{\text{Ny}}$.
 
 
 \subsection{Temporal bandwidth}
@@ -469,7 +478,7 @@ the heterodyne interferometer's finite sampling-volume cutoff
   k_{\text{fsv}}^{\text{het}} = \SI{5}{\per\centi\meter}.
   \label{eq:Implementation:kfsv_interferometer_design}
 \end{equation}
-Fig.~\ref{fig:Implementation:transfer_function_comparison}
+Figure~\ref{fig:Implementation:transfer_function_comparison}
 displays the desired wavenumber transfer function
 of the heterodyne interferometer relative to
 that of the pre-existing PCI system.
@@ -499,7 +508,7 @@ that of the pre-existing PCI system.
     is indicated by the dash-dot curves instead.
     The depicted transfer functions should be compared
     to those without finite sampling-volume effects in
-    Fig.~\ref{fig:InterferometricMethods:interferometric_method_transfer_functions}.
+    Figure~\ref{fig:InterferometricMethods:interferometric_method_transfer_functions}.
   }
 \label{fig:Implementation:transfer_function_comparison}
 \end{figure}
@@ -599,12 +608,12 @@ relative to the nominal optical axis.
 The resulting focal-plane position and orientation of this beam are incorrect
 (i.e.\ the beam does not lie on the optical axis, but it should).
 This misalignment is depicted by the solid line in
-Fig.~\ref{fig:Implementation:feedback_effects}(a).
+Figure~\ref{fig:Implementation:feedback_effects}(a).
 In a perfectly aligned system,
 the focal-plane position and orientation of this beam
 would correspond to the ``effective'' beam path
 depicted by the dashed line in
-Fig.~\ref{fig:Implementation:feedback_effects}(a).
+Figure~\ref{fig:Implementation:feedback_effects}(a).
 The imaging optics image the object-plane ray
 corresponding to this effective beam path.
 
@@ -671,7 +680,7 @@ Now, add a steering mirror a distance $d'$ downstream of the focusing optic.
 This steering mirror is tasked with compensating for the titled mirror
 by returning the unscattered beam's focal-plane position
 to the nominal optical axis,
-as depicted in Fig.~\ref{fig:Implementation:feedback_effects}(b).
+as depicted in Figure~\ref{fig:Implementation:feedback_effects}(b).
 In the geometric-optics limit,
 a ray passing through the intersection of
 the optical axis and the focal plane
@@ -682,7 +691,7 @@ the focal-plane position and orientation
 of the feedback-compensated beam
 would correspond to the ``effective'' beam path,
 depicted by the dashed line in
-Fig.~\ref{fig:Implementation:feedback_effects}(b).
+Figure~\ref{fig:Implementation:feedback_effects}(b).
 Thus, upstream of the focusing optic,
 the effective beam path is displaced from but \emph{parallel}
 to the nominal optical axis.
@@ -716,9 +725,36 @@ by tens of $\SI{}{\mega\hertz}$ with an acousto-optic modulator (AOM).
 The operation of a typical AOM is described in
 in Section~\ref{sec:DesignConsiderations:phase_noise:LO}.
 
+\begin{figure}
+  \centering
+  \includegraphics[width = 0.6 \textwidth]{%
+    Chapters/Implementation/figs/aom.jpg}
+  \caption[Acousto-optic modulator (AOM)]{%
+    The heterodyne interferometer's Germanium acousto-optic modulator (AOM).
+    The AOM deflects and Doppler shifts ($\Delta f_0 = \SI{30}{\mega\hertz}$)
+    a fraction of the incident CO$_2$ beam ($f_0 = \SI{28.3}{\tera\hertz}$)
+    to produce a reference beam.
+    The $\SI{30}{\mega\hertz}$ RF signal is coupled to the AOM
+    through the upper-left BNC jack, and
+    the resulting sound waves propagate through the Germanium crystal
+    from left to right.
+    The CO$_2$ beam enters through the aperture on the AOM's face and
+    exits through a similar aperture on the AOM's rear.
+    The twin Swagelock fittings on the AOM's right
+    provide an inlet and outlet for water cooling, while
+    the lower-left SMC jack connects to
+    a normally closed, creep-action PEPI N thermostat
+    that provides a thermal interlock to the AOM's RF driver.
+    The AOM is mounted on a ``Bragg mount'', which
+    allows easy optimization of the beam's angle of incidence
+    (via the mount's adjustment screw, seen in black at the middle-right).
+  }
+\label{fig:Implementation:aom}
+\end{figure}
+
 The heterodyne interferometer's reference beam is generated
 with a Gooch \& Housego (Ilminster, UK) {$37027$-$5$} Germanium AOM,
-pictured in Fig.~\ref{fig:Implementation:aom}.
+pictured in Figure~\ref{fig:Implementation:aom}.
 The resonant frequency of the AOM's piezo-actuator
 is $\SI{27.12}{\mega\hertz}$, but
 the AOM's deflection efficiency varies negligibly
@@ -751,33 +787,6 @@ the aperture-diffraction constraint
 with the acoustic beam providing an ``effective aperture'')
 requires placement of the AOM $\sim15"$ downstream
 of the laser's beam waist.
-
-\begin{figure}
-  \centering
-  \includegraphics[width = 0.6 \textwidth]{%
-    Chapters/Implementation/figs/aom.jpg}
-  \caption[Acousto-optic modulator (AOM)]{%
-    The heterodyne interferometer's Germanium acousto-optic modulator (AOM).
-    The AOM deflects and Doppler shifts ($\Delta f_0 = \SI{30}{\mega\hertz}$)
-    a fraction of the incident CO$_2$ beam ($f_0 = \SI{28.3}{\tera\hertz}$)
-    to produce a reference beam.
-    The $\SI{30}{\mega\hertz}$ RF signal is coupled to the AOM
-    through the upper-left BNC jack, and
-    the resulting sound waves propagate through the Germanium crystal
-    from left to right.
-    The CO$_2$ beam enters through the aperture on the AOM's face and
-    exits through a similar aperture on the AOM's rear.
-    The twin Swagelock fittings on the AOM's right
-    provide an inlet and outlet for water cooling, while
-    the lower-left SMC jack connects to
-    a normally closed, creep-action PEPI N thermostat
-    that provides a thermal interlock to the AOM's RF driver.
-    The AOM is mounted on a ``Bragg mount'', which
-    allows easy optimization of the beam's angle of incidence
-    (via the mount's adjustment screw, seen in black at the middle-right).
-  }
-\label{fig:Implementation:aom}
-\end{figure}
 
 Due to space constraints, the reference-beam path length
 is \emph{not} matched to the probe-beam path length.
@@ -857,43 +866,23 @@ the distance $d_{P2,L1}$ between
 the focusing off-axis parabolic mirror and $L1$ and
 the distance $d_{L1,L2}$ between $L1$ and $L2$.
 
-% \begin{figure}[h!]
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/Implementation/figs/optical_design_sensitivity.pdf}
-  \caption[Sensitivity of optical design to placement of imaging optics]{%
-    Sensitivity of heterodyne-interferometer optical design
-    to the placement of lenses $L1$ and $L2$.
-    % The distance between the off-axis parabolic mirror $P2$
-    % (which focuses the collimated probe beam) and
-    % the first lens $L1$ of the imaging system
-    % is denoted by $d_{P2,L1}$ (along the $x$-axis), and
-    % the distance between $L1$ and the second lens $L2$
-    % is denoted by $d_{L1,L2}$ (along the $y$-axis).
-    The design point is marked with a burgundy diamond.
-    See text for discussion.
-  }
-\label{fig:Implementation:optical_design_sensitivity}
-\end{figure}
-
 The sensitivity of the heterodyne-interferometer optical layout
 to $d_{P2,L1}$ and $d_{L1,L2}$ is shown in
-Fig.~\ref{fig:Implementation:optical_design_sensitivity}, and
+Figure~\ref{fig:Implementation:optical_design_sensitivity}, and
 the resulting implications are discussed here in detail.
 The \emph{top-left} panel of
-Fig.~\ref{fig:Implementation:optical_design_sensitivity} displays
+Figure~\ref{fig:Implementation:optical_design_sensitivity} displays
 the distance from $L2$ to the image plane $\image$.
 The image-plane location is a strong function of $d_{L1,L2}$ and
 a weak function of $d_{P2,L2}$.
 The \emph{top-right} panel of
-Fig.~\ref{fig:Implementation:optical_design_sensitivity} displays
+Figure~\ref{fig:Implementation:optical_design_sensitivity} displays
 the imaging system's magnification $M$,
 with the design point in accord with
 (\ref{eq:Implementation:magnification_interferometer_design}).
 The magnification is a strong function of $d_{L1,L2}$.
 The \emph{middle-left} panel of
-Fig.~\ref{fig:Implementation:optical_design_sensitivity} displays
+Figure~\ref{fig:Implementation:optical_design_sensitivity} displays
 the $C$ parameter of the imaging system's $ABCD$ ray matrix.
 As discussed in Section~\ref{sec:Implementation:OpticalLayout:coalignment_with_feedback},
 the PCI feedback system will dynamically maintain
@@ -907,7 +896,7 @@ make it difficult to enforce $C = 0$.
 $C \neq 0$ and/or the action of the feedback system is not sufficient
 to maintain coalignment).
 The \emph{middle-right} panel of
-Fig.~\ref{fig:Implementation:optical_design_sensitivity} displays
+Figure~\ref{fig:Implementation:optical_design_sensitivity} displays
 the maximum curvature-induced phase shift
 (\ref{eq:DesignConsiderations:summary:radii_of_curvature_matching})
 for a single, $\SI{1}{\milli\meter\squared}$ square detector.
@@ -916,7 +905,7 @@ such that curvature-induced phase shifts
 minimally reduce the interference power and
 negligibly distort the imaged wavenumbers.
 The \emph{bottom-left} panel of
-Fig.~\ref{fig:Implementation:optical_design_sensitivity} displays
+Figure~\ref{fig:Implementation:optical_design_sensitivity} displays
 the axial distance $z$ from the waist of the probe beam to the image plane
 (this is the usual axial parameter used to characterize Gaussian beams, with
 $z > 0$ indicating that the waist is upstream of the image plane and
@@ -940,7 +929,7 @@ Thus, for moderate magnifications,
 the large size of $q_{\object}$ couples
 the $C = 0$ and the $z = 0$ curves to each other.
 Finally, the \emph{bottom right} panel of
-Fig.~\ref{fig:Implementation:optical_design_sensitivity} displays
+Figure~\ref{fig:Implementation:optical_design_sensitivity} displays
 the Rayleigh range $z_R$ of the image-plane probe beam.
 The discussion of detector noise and optical shot noise in
 Section~\ref{sec:Implementation:OpticalLayout:element_size}
@@ -963,6 +952,26 @@ the detector is well within $\pm\SI{20}{\centi\meter} \approx \pm8"$
 of the image plane,
 which is relatively easy to satisfy experimentally.
 
+% \begin{figure}[h!]
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/Implementation/figs/optical_design_sensitivity.pdf}
+  \caption[Sensitivity of optical design to placement of imaging optics]{%
+    Sensitivity of heterodyne-interferometer optical design
+    to the placement of lenses $L1$ and $L2$.
+    % The distance between the off-axis parabolic mirror $P2$
+    % (which focuses the collimated probe beam) and
+    % the first lens $L1$ of the imaging system
+    % is denoted by $d_{P2,L1}$ (along the $x$-axis), and
+    % the distance between $L1$ and the second lens $L2$
+    % is denoted by $d_{L1,L2}$ (along the $y$-axis).
+    The design point is marked with a burgundy diamond.
+    See text for discussion.
+  }
+\label{fig:Implementation:optical_design_sensitivity}
+\end{figure}
+
 The imaging system's depth of focus is additionally constrained by
 the ``out-of-focus'' interference of the upscattered and downscattered beams,
 which produces the wavenumber-dependent phase shift $\mu$ from
@@ -971,7 +980,7 @@ Because a heterodyne interferometer exhibits nulls in its response
 when $\mu = (2 m + 1) \pi / 2$ for integer $m$,
 it is desirable to have $|\mu| \ll 1$
 over the system's full wavenumber range.
-Fig.~\ref{fig:Implementation:wavenumber_dependent_phase_shift}
+Figure~\ref{fig:Implementation:wavenumber_dependent_phase_shift}
 displays $|\mu|$ for $\SI{10.6}{\micro\meter}$ probe radiation and
 the design-point magnification $M = 0.08$ from
 (\ref{eq:Implementation:magnification_interferometer_design}).
@@ -994,11 +1003,11 @@ if the detector is within $\pm 0.5"$ of the image plane.
 
 Axial profiles of the unscattered beam and a scattered beam
 in the design-point imaging system are shown in
-Fig.~\ref{fig:Implementation:axial_beam_profiles}.
+Figure~\ref{fig:Implementation:axial_beam_profiles}.
 Because scattering from density fluctuations with larger wavenumbers
 produces larger transverse deviations from the optical axis,
 the scattered beam plotted in
-Fig.~\ref{fig:Implementation:axial_beam_profiles}
+Figure~\ref{fig:Implementation:axial_beam_profiles}
 corresponds to a $k = \SI{5}{\per\centi\meter}$ fluctuation, which
 is the maximum measurable wavenumber
 (\ref{eq:Implementation:kfsv_interferometer_design})
@@ -1231,9 +1240,9 @@ the minimum required power in the PCI beam
 Because the PCI constraint is somewhat ``soft'',
 a graphical exploration of the design space is appropriate;
 such a graphical exploration is shown in
-Fig.~\ref{fig:Implementation:power_distribution}.
+Figure~\ref{fig:Implementation:power_distribution}.
 The \emph{top-left} panel of
-Fig.~\ref{fig:Implementation:power_distribution}
+Figure~\ref{fig:Implementation:power_distribution}
 displays the AC-to-DC multiplicative factor
 $2 I_{\text{AC}} / (I_{\text{DC}} + I_{\text{AC}})$
 from the heterodyne-interferometer transfer function
@@ -1250,7 +1259,7 @@ does \emph{not} guarantee optimal performance;
 the normalizing peak intensity $I_{\text{DC}} + I_{\text{AC}}$
 should also be maximized.
 The \emph{top-right} panel of
-Fig.~\ref{fig:Implementation:power_distribution}
+Figure~\ref{fig:Implementation:power_distribution}
 displays this peak intensity.
 The photovoltaic HgCdTe detectors that are often employed
 for $\SI{10.6}{\micro\meter}$ heterodyne interferometry typically have
@@ -1269,7 +1278,7 @@ $V_1 / V_1(I_{\text{max}} = I_{\text{sat}})$ multiplicative factor
 in the heterodyne-interferometer transfer function
 (\ref{eq:DesignConsiderations:summary:heterodyne_interferometer_wavenumber_transfer_function}).
 However, as the \emph{bottom-left} panel of
-Fig.~\ref{fig:Implementation:power_distribution} shows,
+Figure~\ref{fig:Implementation:power_distribution} shows,
 the constraint
 $\mathcal{P}_{\text{pci}}
 \gtrsim
@@ -1302,7 +1311,7 @@ such that the heat that must be dissipated reduces to
   \left[ 1 - \exp\left( \frac{-2 a^2}{w_R^2} \right) \right].
 \end{equation}
 The \emph{bottom-right} panel of
-Fig.~\ref{fig:Implementation:power_distribution}
+Figure~\ref{fig:Implementation:power_distribution}
 displays $Q_{\text{heat}}$.
 Now, in practice, $\eta_P$ is fixed by the reflectivity
 of the ZnSe splitter located upstream of the phase plate
@@ -1384,7 +1393,7 @@ the OCXO integration into the rest of the heterodyne-interferometer system.
 The OCXO module is installed in the PCI rack
 located in the \diiid\space annex.
 A schematic of this module is shown in
-Fig.~\ref{fig:Implementation:OCXO_module}.
+Figure~\ref{fig:Implementation:OCXO_module}.
 A $\SI{15}{\volt}$ linear-regulated power supply
 ($15EB40$, Acopian Technical Co.; Easton, PA, USA)
 powers the OCXO, while
@@ -1449,7 +1458,7 @@ The harmonic distortion of the $3100L$ is $\leq -25 \; \text{dBc}$, and
 its noise figure is $\leq \SI{10}{\decibel}$.
 Self-demodulation tests
 (methodology shown schematically in
-Fig.~\ref{fig:Implementation:LO_self_demodulation_schematic})
+Figure~\ref{fig:Implementation:LO_self_demodulation_schematic})
 conducted with and without the $3100L$
 demonstrate that the $3100L$ does \emph{not} add appreciable
 noise to the interferometer measurements.
@@ -1554,7 +1563,7 @@ taken as an integrated unit is
   \label{eq:Implementation:Dstar}
 \end{equation}
 The detector module is pictured in
-Fig.~\ref{fig:Implementation:detector}.
+Figure~\ref{fig:Implementation:detector}.
 
 
 \subsection{Coaxial cables to \diiid\space annex}
@@ -1623,7 +1632,7 @@ from a DC power supply that can sit
 anywhere between $\SI{7}{V}$ and $\SI{15}{V}$;
 however, higher DC voltages produce significant heat dissipation, and
 operation at the upper limit of $\SI{15}{V}$ should be avoided, if possible.
-The AGC is pictured in Fig.~\ref{fig:Implementation:AGC}.
+The AGC is pictured in Figure~\ref{fig:Implementation:AGC}.
 If the heterodyne interference signal falls
 below the lower limit of the AGC input range
 (e.g. due to long-term drift of the system alignment),
@@ -1657,7 +1666,7 @@ Section~\ref{sec:DesignConsiderations:demodulation}, and
 readers are encouraged to review that section
 if context for the hardware described below is desired.
 A schematic of the demodulation electronics is shown in
-Fig.~\ref{fig:Implementation:demodulation_electronics}.
+Figure~\ref{fig:Implementation:demodulation_electronics}.
 
 \begin{figure}
   \centering
@@ -1748,7 +1757,7 @@ When $\eta_{\text{dyn}} = 0.01$,
 the autospectral density of the corresponding quantization noise
 (\ref{eq:DesignConsiderations:summary:quantization_noise_autospectral_density})
 is $10^4$ \emph{larger} than when $\eta_{\text{dyn}} = 1$.
-Fig.~\ref{fig:Implementation:signal_and_noise}
+Figure~\ref{fig:Implementation:signal_and_noise}
 compares the quantization noise for $\eta_{\text{dyn}} \approx 1$
 to typical plasma fluctuations
 --- clearly, $\eta_{\text{dyn}} = 0.01$
@@ -1785,7 +1794,7 @@ plasma fluctuations above the interferometer noise floor
 are almost always $\lesssim \SI{1}{\mega\hertz}$).
 The required amplitude gain of the amplifier is $G \approx 100$.
 A schematic for a single channel of the amplifier is shown in
-Fig.~\ref{fig:Implementation:audio_amplifier_schematic}.
+Figure~\ref{fig:Implementation:audio_amplifier_schematic}.
 The amplifier consists of two stages
 of high-gain, low-noise amplification
 followed by a $\SI{50}{\ohm}$ line driver,
@@ -1837,7 +1846,7 @@ Feedback-loop parasitic capacitances,
 which can reduce the high-frequency, closed-loop gain and excite instability,
 are minimized via ``deadbug'' construction
 \cite{linear_technology_high_speed_amplifier_tech},
-as shown in Fig.~\ref{fig:Implementation:audio_amplifier_picture}.
+as shown in Figure~\ref{fig:Implementation:audio_amplifier_picture}.
 Although deadbug construction is ideal for prototyping,
 any future increase to the number of interferometer channels
 would call for a printed-circuit-board (PCB) construction.
@@ -1916,7 +1925,7 @@ in the $I$ and $Q$ signals,
 minimizing the relative error
 (\ref{eq:DesignConsiderations:relative_fluctuation_error})
 in the measured fluctuating phase.
-Fig.~\ref{fig:Implementation:ellipticity_compensation}
+Figure~\ref{fig:Implementation:ellipticity_compensation}
 displays an example of raw and compensated $I$ and $Q$ signals.
 
 \begin{figure}
@@ -2043,7 +2052,7 @@ The injection of LO phase noise into the heterodyne interferometer
 can be empirically characterized by demodulating
 a delayed copy of the LO,
 as depicted schematically in
-Fig.~\ref{fig:Implementation:LO_self_demodulation_schematic}.
+Figure~\ref{fig:Implementation:LO_self_demodulation_schematic}.
 A Mini-Circuits (Brooklyn, NY, USA)
 {ZFBDC$20$-$61$HP+} bi-directional coupler
 provides adequate coupling for $\sim \SI{30}{\mega\hertz}$,
@@ -2084,7 +2093,7 @@ will be significant.
 Results from such an LO self-demodulation test with
 the $0.01\%$ quartz-stabilized oscillator
 initially procured for this project are shown in
-Fig.~\ref{fig:Implementation:GnH_self_demodulation};
+Figure~\ref{fig:Implementation:GnH_self_demodulation};
 clearly, the phase noise of this oscillator
 is unacceptably large.
 
@@ -2170,7 +2179,7 @@ increased the system's susceptibility to electrical pickup,
 particularly during \diiid\space operations.
 To quantify the electrical pickup attributable to the delay line,
 the LO self-demodulation tests schematically depicted in
-Fig.~\ref{fig:Implementation:LO_self_demodulation_schematic}
+Figure~\ref{fig:Implementation:LO_self_demodulation_schematic}
 were repeated with equal (but extended) LO and IF cable lengths
 during \diiid\space operations.
 Because a non-zero time delay between the LO and IF
@@ -2180,7 +2189,7 @@ the LO and IF cable lengths were extended by equal amounts,
 with the total additional cable length
 acting as a proxy for the delay-line cable length $L$.
 The results of this test are shown in
-Fig.~\ref{fig:Implementation:electrical_pickup}.
+Figure~\ref{fig:Implementation:electrical_pickup}.
 Clearly, even a $\SI{250}{\meter}$ delay line
 suffers from electrical pickup during \diiid\space operations;
 the broadband electrical pickup between
@@ -2207,7 +2216,7 @@ should be quantified.
 By comparing noise measurements to theoretical predictions,
 the dominant source of noise can be identified and
 the potential for future sensitivity improvements can be evaluated.
-Fig.~\ref{fig:Implementation:signal_and_noise}
+Figure~\ref{fig:Implementation:signal_and_noise}
 spectrally characterizes both predicted and measured noise sources and
 compares them to typical plasma-fluctuation spectra.
 
@@ -2241,7 +2250,7 @@ their corresponding autospectral densities,
 with a concise summary provided in
 Section~\ref{sec:DesignConsiderations:summary:noise}.
 The dashed, annotated lines in
-Fig.~\ref{fig:Implementation:signal_and_noise}
+Figure~\ref{fig:Implementation:signal_and_noise}
 indicate the predicted (P) autospectral densities
 from these noise sources
 in the heterodyne-interferometer implementation
@@ -2272,7 +2281,7 @@ $w_P = \SI{2.7}{\milli\meter}$ from
 $\mathcal{P}_P = \SI{315}{\milli\watt}$ from
 (\ref{eq:Implementation:probe_beam_power_constraint}) and
 the design point indicated in
-Fig.~\ref{fig:Implementation:power_distribution}.
+Figure~\ref{fig:Implementation:power_distribution}.
 Similarly the reference-beam optical power
 impinging on the square detector element
 of the heterodyne interferometer is
@@ -2293,7 +2302,7 @@ $w_R = \SI{4.3}{\milli\meter}$ from
 $\mathcal{P}_R = \SI{315}{\milli\watt}$ from
 (\ref{eq:Implementation:reference_beam_power_constraint}) and
 the design point indicated in
-Fig.~\ref{fig:Implementation:power_distribution}.
+Figure~\ref{fig:Implementation:power_distribution}.
 The demodulated detector noise also depends on
 the detector-element area $A = s_x^2 = \SI{1}{\milli\meter\squared}$ and
 the detector-module specific detectivity $D^*$ from
@@ -2333,7 +2342,7 @@ While the noise predictions establish a baseline,
 the \emph{measured} noise floor actually sets the sensitivity
 of the heterodyne interferometer.
 Several of the colored traces in
-Fig.~\ref{fig:Implementation:signal_and_noise}
+Figure~\ref{fig:Implementation:signal_and_noise}
 display the noise contributions from various system components.
 The system quantization noise was measured
 with the $I$ and $Q$ channels of the digitizer \emph{open}, and
@@ -2359,7 +2368,7 @@ it was not investigated any further in this work.
 The system electrical noise was measured
 during an LO self-demodulation test
 (shown schematically in
-Fig.~\ref{fig:Implementation:LO_self_demodulation_schematic})
+Figure~\ref{fig:Implementation:LO_self_demodulation_schematic})
 with the OCXO,
 a $\tau = \SI{2.5}{\micro\second}$ delay between the LO and mock IF
 in accordance with the AOM coupling time
@@ -2399,7 +2408,7 @@ to line-integrated electron-density fluctuations of
 $3 \times 10^{14} \; \text{m}^{-2} / \, \sqrt{\text{kHz}}$.
 For context, autospectral densities for typical plasma-density fluctuations
 in L-mode and H-mode are also shown in
-Fig.~\ref{fig:Implementation:signal_and_noise}.
+Figure~\ref{fig:Implementation:signal_and_noise}.
 Importantly, the fluctuations are one to two
 orders of magnitude larger than the noise floor
 across a large fraction of the heterodyne interferometer's temporal bandwidth.
@@ -2497,7 +2506,7 @@ in Appendix~\ref{app:SoundWaveCharacterization}.
     measurements with a calibrated microphone
     of the sound waves' absolute pressure perturbations.
     Note that the variance predicted here differs from that in
-    Fig.~\ref{fig:SoundWaveCharacterization:phase_shift}
+    Figure~\ref{fig:SoundWaveCharacterization:phase_shift}
     due to the inclusion of the interferometer's
     finite sampling-volume effects and noise.
     Further, the apparent increase in noise at low-$k$
@@ -2573,7 +2582,7 @@ the predicted variance of the sound-wave phase fluctuations is simply
   \right].
   \label{eq:Implementation:predicted_sound_wave_phase_shift_variance_nonideal}
 \end{equation}
-Fig.~\ref{fig:Implementation:interferometer_measured_vs_expected}
+Figure~\ref{fig:Implementation:interferometer_measured_vs_expected}
 compares the predicted variance
 (\ref{eq:Implementation:predicted_sound_wave_phase_shift_variance_nonideal})
 to the interferometer-measured variance,
@@ -2610,7 +2619,7 @@ of the heterodyne interferometer.
     The results are demonstrated here for diagnostic test shot $1152$.
     The interferometer signal corresponds to
     the solid black trace in
-    Fig.~\ref{fig:Implementation:interferometer_measured_vs_expected}
+    Figure~\ref{fig:Implementation:interferometer_measured_vs_expected}
     \emph{after} compensating for the attenuation of the high-$k$ signal
     by finite sampling-volume effects;
     the corresponding dash-dot line for $k \geq \SI{3.5}{\per\centi\meter}$
@@ -2633,7 +2642,7 @@ of the heterodyne interferometer.
     relative to the heterodyne interferometer
     is in order-of-magnitude agreement with
     the transfer-function predictions in
-    Fig.~\ref{fig:InterferometricMethods:interferometric_method_transfer_functions}.
+    Figure~\ref{fig:InterferometricMethods:interferometric_method_transfer_functions}.
   }
 \label{fig:Implementation:cross_calibration}
 \end{figure}
@@ -2698,7 +2707,7 @@ additionally, note that $4$ is idiosyncratically the least-significant bit
 of the \diiid\space PCI digitizer but that the numerical value
 in (\ref{eq:Implementation:pci_rad_per_bit_calibration_factor})
 corresponds to a unitary bit).
-Fig.~\ref{fig:Implementation:cross_calibration}
+Figure~\ref{fig:Implementation:cross_calibration}
 displays the cross-calibration,
 indicating very good agreement for sound-wave wavenumbers between
 $\SI{2}{\per\centi\meter}$ and $\SI{3.5}{\per\centi\meter}$.
@@ -2904,14 +2913,14 @@ of the PCI calibration on a shot-to-shot and an intra-shot basis.
 %
 % \begin{itemize}
 %   \item \textcolor{red}{Picture}
-%   \item \textcolor{red}{Fig. of new vs.\ old laser stability}
+%   \item \textcolor{red}{Figure of new vs.\ old laser stability}
 % \end{itemize}
 %
 %
 % \subsection{In-vessel mirrors}
 % Two of the PCI mirrors are located
 % \emph{inside} of the \diiid \space vacuum vessel.
-% As indicated in Fig.~\ref{fig:Implementation:d3d_port_locations}(b),
+% As indicated in Figure~\ref{fig:Implementation:d3d_port_locations}(b),
 % the PCI probe beam enters the machine through the $285^{\circ}$ R+2 port,
 % reflects off of the first in-vessel mirror,
 % propagates vertically downwards through the machine (and the plasma),
@@ -2934,7 +2943,7 @@ of the PCI calibration on a shot-to-shot and an intra-shot basis.
 % ``Drop-in'' replacements were ordered from Esco Optics
 % and were installed in mid-2016.
 % The removed, damaged mirrors are shown in
-% Fig.~\ref{fig:Implementation:in_vessel_mirrors}.
+% Figure~\ref{fig:Implementation:in_vessel_mirrors}.
 % It is not known whether the mirrors were damaged
 % during e.g. plasma operations or high-temperature bakes of the vessel.
 %
