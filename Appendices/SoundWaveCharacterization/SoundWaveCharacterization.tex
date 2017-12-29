@@ -51,7 +51,14 @@ allowing simple and accurate measurements of the sound waves.
 
 \subsection{Speaker}
 \label{sec:SoundWaveCharacterization:Hardware:speaker}
-The speaker should be capable of driving sound waves
+Previous sound-wave calibrations were performed
+with high-frequency speakers
+suitable for characterizing the medium-$k$ to high-$k$
+response of the PCI.
+However, to quantify the low-$k$ to medium-$k$ response
+of the heterodyne interferometer
+(and simultaneously cross-calibrate the PCI),
+the speaker should be capable of driving sound waves
 throughout most of the heterodyne-interferometer wavenumber range.
 The interferometer high-$k$ cutoff of $\SI{5}{\per\centi\meter}$
 corresponds to a sound wave with frequency $\SI{27}{\kilo\hertz}$.
@@ -307,7 +314,7 @@ this may be attributable to baffle diffraction across the speaker face but
 was not further investigated.
 The approximation of a Gaussian envelope
 will be sufficiently accurate for the present work.
-Figure\ref{fig:SoundWaveCharacterization:tymphany_gaussian_widths}
+Figure~\ref{fig:SoundWaveCharacterization:tymphany_gaussian_widths}
 displays the fitted 1/e Gaussian radii $w$ as a function of
 sound-wave wavenumber $k$ and
 height $z$ above the face of the speaker.
@@ -518,7 +525,7 @@ the phase shift (\ref{eq:SoundWaveCharacterization:phase_shift}) becomes
 where (\ref{eq:SoundWaveCharacterization:RefractiveIndex:perturbed_N_units})
 has been referenced and
 the differential path length $dl$ must have units of centimeters.
-The variance of the phase shift imparted
+The bounds on the variance of the phase shift imparted
 by the sound-wave pressure fluctuation
 (\ref{eq:SoundWaveCharacterization:sound_wave_model})
 is shown in
@@ -535,7 +542,7 @@ Section~\ref{sec:Implementation:Calibration}.
   \includegraphics[width = \textwidth]{%
     Appendices/SoundWaveCharacterization/figs/model_phase_shift_to_CO2.pdf}
   \caption[Variance of phase shift imparted to a CO$_2$ probe beam]{%
-    Variance of phase shift
+    The bounds on the variance of the phase shift
     (\ref{eq:SoundWaveCharacterization:phase_shift_units})
     imparted to a $\SI{10.6}{\micro\meter}$ CO$_2$ probe beam
     by the sound-wave pressure fluctuation
