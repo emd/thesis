@@ -646,7 +646,7 @@ as well as during NBI-only ELMy H-mode
 (see Figure~\ref{fig:SpectralEstimation:Skf_example}).
 Second, and perhaps of more relevance to multiscale studies,
 is the turbulent branch
-bounded by the dashed white lines
+bounded by the annotating dashed white lines
 in Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}.
 When $\rhoech = 0.5$,
 this turbulent branch
@@ -671,16 +671,86 @@ in Section~\ref{sec:TurbulenceMeasurements:Sk}.
 
 \subsection{Wavenumber spectra}
 \label{sec:TurbulenceMeasurements:Sk}
+Because simulations are finely sampled in space
+but often have limited temporal histories,
+experimental wavenumber spectra
+are particularly valuable for validating
+theoretical models and computational predictions.
+The PCI wavenumber autospectral density $S_{\phi,\phi}(k)$
+corresponding to a given turbulent branch
+is computed by integrating the
+two-dimensional autospectral density $S_{\phi,\phi}(k, f)$
+from Section~\ref{sec:TurbulenceMeasurements:Skf}
+over the temporal bandwidth $\Delta f$ of the turbulent branch, i.e.\
+\begin{equation}
+  S_{\phi,\phi}(k)
+  =
+  \int_{f_0(k) - (\Delta f / 2)}^{f_0(k) + (\Delta f / 2)}
+  S_{\phi,\phi}(k, f) df,
+\end{equation}
+where $f_0(k) = k \vph / (2 \pi)$
+is the central frequency of the turbulent branch at wavenumber $k$, and
+$\vph$ is the lab-frame phase velocity of the turbulent branch.
+Note that restricting the integration domain in this manner
+minimizes contributions to $S_{\phi,\phi}(k)$
+from noise outside of the branch's bandwidth.
+For example, integrating between the bounds
+denoted by the annotating dashed white lines
+in Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}
+produces the $S_{\phi,\phi}(k)$ displayed
+in Figure~\ref{fig:TurbulenceMeasurements:Sk_power_law}.
+Note that the $\rhoech = 0.5$ spectrum
+is substantially flattened (i.e.\ decays more slowly)
+relative to the $\rhoech = 0.8$ spectrum.
+As shown in Figure~\ref{fig:TurbulenceMeasurements:profiles},
+relative to $\rhoech = 0.8$,
+$\rhoech = 0.5$ corresponds to
+increased $a / L_{Te}$ and decreased $a / L_{T_i}$
+over the majority of the plasma
+accessible to the PCI probe beam ($R \geq \SI{1.98}{\meter}$).
+This spectral flattening with
+enhanced electron-scale drive relative to ion-scale drive
+is reminiscent of results from
+multiscale gyrokinetic simulations~\cite{howard_pp16}
+of an ion cyclotron resonance heated (ICRH)~\cite[Sec.~5.8]{wesson}
+L-mode discharge in Alcator C-Mod~\cite[Sec.~11.5]{wesson}.
+While the only existing, realistic, multiscale gyrokinetic simulations
+of \diiid\space correspond to the reference discharge
+for the multiscale experiment discussed here,
+the $\ExB$ shearing rate $\gamma_E$ was varied
+rather than $a / L_{T_e}$ or $a / L_{T_i}$~\cite{holland_nf17}.
+Thus, the spectral flattening observed
+in Figure~\ref{fig:TurbulenceMeasurements:Sk_power_law}
+with increased $a / L_{T_e}$ and decreased $a / L_{T_i}$
+eagerly awaits quantitative comparison
+to corresponding multiscale gyrokinetic simulations,
+which are expected to be completed by Howard \emph{et al.}
+in roughly the next six months.
+
 \begin{figure}
   \centering
   \includegraphics[width = 0.9 \textwidth]{%
     Chapters/TurbulenceMeasurements/figs/Sk_power_law.pdf}
-  \caption[PCI-measured power law]{%
-    PCI-measured power law from branches annotated in
-    Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}.
+  \caption[PCI frequency-wavenumber spectra]{%
+    PCI wavenumber autospectral densities $S_{\phi,\phi}(k)$
+    obtained by integrating $S_{\phi,\phi}(k, f)$ in frequency
+    between the bounds denoted by the annotating dashed while lines
+    in Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}.
+    Here, the black dashed lines indicate least-squares power-law fits
+    to $S_{\phi,\phi}(k)$.
+    The flattening (i.e.\ slower decay) of $S_{\phi,\phi}(k)$
+    with $\rhoech = 0.5$ relative to that with $\rhoech = 0.8$
+    is reminiscent of results from multiscale gyrokinetic simulations
+    in Alcator C-Mod, but
+    quantitative comparisons await
+    completion of the corresponding multiscale gyrokinetic simulations
+    in \diiid.
   }
 \label{fig:TurbulenceMeasurements:Sk_power_law}
 \end{figure}
+
+
+\section{TGLF modeling}
 
 
 \subsection{Doppler-shift localization of high-$k$ turbulence}
@@ -898,8 +968,6 @@ along the outboard midplane (where $\theta = 0$) as follows
   \label{eq:TurbulenceMeasurements:radial_electric_field}
 \end{equation}
 
-
-\section{TGLF modeling}
 \begin{figure}[h!]
   \centering
   \includegraphics[width = \textwidth]{%
