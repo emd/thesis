@@ -66,7 +66,7 @@ is intrinsically multiscale in nature~\cite{holland_nf17}.
   \caption[Time histories of various actuators \& plasma parameters]{%
     Time histories of various actuators and plasma parameters:
     (a) electron cyclotron resonance heating (ECH) power $P_{\text{ECH}}$,
-    (b) ECH location $\rho_{\text{ECH}}$,
+    (b) ECH location $\rhoech$,
     (c) neutral beam injected (NBI) power $P_{\text{inj}}$,
     (d) NBI torque $T_{\text{inj}}$,
     (e) line-averaged density $\bar{n}_e$,
@@ -291,7 +291,7 @@ the interferometer and PCI phase signals
 are high-pass filtered prior to spectral analysis, and
 no further detrending is performed.
 The resulting spectral estimates
-for $\rho_{\text{ECH}} = 0.5$ and $\rho_{\text{ECH}} = 0.8$
+for $\rhoech = 0.5$ and $\rhoech = 0.8$
 are shown in
 Figure~\ref{fig:TurbulenceMeasurements:Sf_interferometer_pci}.
 The corresponding noise floors are estimated
@@ -317,7 +317,7 @@ the PCI is more sensitive than the heterodyne interferometer.
     The low-frequency ($f \lesssim \SI{300}{\kilo\hertz}$) dynamics
     are comparable, with both the interferometer and the PCI
     measuring a $2 - 4\times$ increase in fluctuation power
-    when moving from $\rho_{\text{ECH}} = 0.5$ to $\rho_{\text{ECH}} = 0.8$.
+    when moving from $\rhoech = 0.5$ to $\rhoech = 0.8$.
     The higher-frequency ($f \gtrsim \SI{300}{\kilo\hertz}$) dynamics,
     however, are distinct.
     In particular, the interferometer-measured broadband fluctuation
@@ -328,7 +328,7 @@ the PCI is more sensitive than the heterodyne interferometer.
     (as shown in Figure~\ref{fig:TurbulenceMeasurements:collisionality}),
     suggesting that it may be a micro-tearing mode (MTM).
     The subtle break in slope at $f \sim \SI{800}{\kilo\hertz}$
-    in the PCI spectrum when $\rho_{\text{ECH}} = 0.8$
+    in the PCI spectrum when $\rhoech = 0.8$
     is shown to be a distinct turbulent branch
     in Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}(b).
   }
@@ -357,26 +357,27 @@ The red curve in the beige inset
 corresponds to the autospectral density (in arbitrary units)
 of the poloidal magnetic-field fluctuations
 measured by a high-frequency magnetic probe ($b5$)~\cite{strait_rsi06}
-during the $\rho_{\text{ECH}} = 0.8$ window, while
+during the $\rhoech = 0.8$ window, while
 the dashed line corresponds to the noise floor,
 as estimated from $\SI{50}{\milli\second}$
 of data prior to plasma breakdown.
-As with the interferometer and PCI autospectral-density estimates,
-only realizations of the magnetic signal falling within
-$20\%$ -- $80\%$ of each inter-ELM window
-are included in the ensemble average, and
-approximately $450$ realizations are averaged over,
-corresponding to a relative random error
-in the autospectral-density estimate of approximately $5\%$.
+The magnetic autospectral density is estimated
+in a manner consistent with those of the interferometer and PCI
+(realization length of approximately $\SI{250}{\micro\second}$
+with zero overlap between adjacent realizations,
+application of Hanning window to each realization prior to FFT computation,
+ensemble averaging only over realizations falling within
+$20\%$ -- $80\%$ of each inter-ELM window, and
+a total number of realizations $N_r \sim 450$).
 The autospectral density of the interferometer also
 indicates that the power in this fluctuation
 increases when moving from
-$\rho_{\text{ECH}} = 0.5$ to $\rho_{\text{ECH}} = 0.8$.
+$\rhoech = 0.5$ to $\rhoech = 0.8$.
 To prove that this is a robust trend,
 the total power in this fluctuation
 is computed for stationary windows
-from $7$ distinct shots with $\rho_{\text{ECH}} = 0.5$ and
-from $7$ distinct shots with $\rho_{\text{ECH}} = 0.8$,
+from $7$ distinct shots with $\rhoech = 0.5$ and
+from $7$ distinct shots with $\rhoech = 0.8$,
 each of which are nominally identical
 to the corresponding discharges shown in
 Figures~\ref{fig:TurbulenceMeasurements:traces} and
@@ -396,17 +397,17 @@ is the autospectral density of the heterodyne interferometer and
 $N.F. = \SI{e-10}{\radian\squared\per\kilo\hertz}$
 is the corresponding noise floor.
 Figure~\ref{fig:TurbulenceMeasurements:interferometer_bump_integrated_power}
-plots $\text{var}(\tilde{\phi})$ versus $\rho_{\text{ECH}}$;
+plots $\text{var}(\tilde{\phi})$ versus $\rhoech$;
 a linear least-squares fit
 indicates that the fluctuation power
 approximately doubles when moving
-from $\rho_{\text{ECH}} = 0.5$ to $\rho_{\text{ECH}} = 0.8$.
+from $\rhoech = 0.5$ to $\rhoech = 0.8$.
 Further, Figure~\ref{fig:TurbulenceMeasurements:collisionality}
 shows that the electron-ion collisionality $\nu_{ei}$
 in the region of the plasma accessible to the PCI probe
 ($R \geq \SI{1.98}{\meter}$)
 also roughly doubles when moving
-from $\rho_{\text{ECH}} = 0.5$ to $\rho_{\text{ECH}} = 0.8$.
+from $\rhoech = 0.5$ to $\rhoech = 0.8$.
 Thus, this fluctuation is
 low-$k$, electromagnetic, and driven by collisionality,
 suggesting that this fluctuation
@@ -420,14 +421,14 @@ in this experiment's reference discharge~\cite{holland_nf17}.
     Chapters/TurbulenceMeasurements/figs/interferometer_bump_integrated_power.pdf}
   \caption[Power in low-$k$, mid-$f$ turbulence vs. ECH location]{%
     Power $\text{var}(\tilde{\phi})$ in interferometer-measured
-    low-$k$, mid-$f$ turbulence vs. ECH location $\rho_{\text{ECH}}$.
+    low-$k$, mid-$f$ turbulence vs. ECH location $\rhoech$.
     Powers are estimated via
     (\ref{eq:TurbulenceMeasurements:MTM_power}).
     Different points correspond to distinct, nominally identical shots
     from the same experimental run day;
     the dashed line is the linear least-squares fit to the points,
     indicating an approximate doubling in fluctuation power
-    when moving from $\rho_{\text{ECH}} = 0.5$ to $\rho_{\text{ECH}} = 0.8$.
+    when moving from $\rhoech = 0.5$ to $\rhoech = 0.8$.
   }
 \label{fig:TurbulenceMeasurements:interferometer_bump_integrated_power}
 \end{figure}
@@ -441,7 +442,7 @@ in this experiment's reference discharge~\cite{holland_nf17}.
     in the region of the plasma
     accessible to the PCI probe beam ($R \geq \SI{1.98}{\meter}$)
     roughly doubles when moving
-    from $\rho_{\text{ECH}} = 0.5$ to $\rho_{\text{ECH}} = 0.8$.
+    from $\rhoech = 0.5$ to $\rhoech = 0.8$.
     The collisionality is computed from the profiles in
     Figure~\ref{fig:TurbulenceMeasurements:profiles}, and
     the shaded bands indicate the $1\sigma$ uncertainties.
@@ -465,7 +466,7 @@ the low-frequency ($f \lesssim \SI{300}{\kilo\hertz}$) fluctuations
 measured by both the interferometer and the PCI.
 Both systems measure a $2 - 4\times$ increase
 in the low-frequency fluctuation power
-when moving from $\rho_{\text{ECH}} = 0.5$ to $\rho_{\text{ECH}} = 0.8$,
+when moving from $\rhoech = 0.5$ to $\rhoech = 0.8$,
 which may be responsible for the slightly reduced confinement
 in Figure~\ref{fig:TurbulenceMeasurements:traces}(g).
 The spatial content of these fluctuations
@@ -477,21 +478,18 @@ $\gamma^2_{xy}(f)$ is bounded between $0$ and $1$, and
 it quantifies the linear correlation between signals $x$ and $y$,
 with $\gamma^2_{xy}(f) = 0$ indicating $0\%$ correlation at frequency $f$ and
 $\gamma^2_{xy}(f) = 1$ indicating $100\%$ correlation at frequency $f$.
-Thus, $\gamma^2_{xy}(f)$ quantifies the fraction of fluctuation power
-sitting in the mid-$k$ overlap of the interferometer and PCI.
-As with the autospectral-density estimates,
+Thus, $\gamma^2_{xy}(f)$ characterizes the fraction of fluctuation power
+sitting in the mid-$k$ overlap of the interferometer and PCI
+\cite[Sec.~5.2.6]{bendat_and_piersol}.
+As with the auto-spectral density estimates,
 the interferometer and PCI signals
 are split into realizations of $1024$ points
-(corresponding to roughly $\SI{250}{\micro\second}$)
-resulting in a frequency resolution
-of approximately $\SI{4}{\kilo\hertz}$, and
-only realizations falling within
-$20\%$ -- $80\%$ of each inter-ELM window
-are included in the ensemble averaging;
-the exact number of realizations $N_r$
-included in each ensemble
-depends on the details of the ELM dynamics, but
-$N_r \sim 450$ for the shots considered here.
+with zero overlap between adjacent realizations,
+a Hanning window is applied to each realization
+prior to computing its FFT,
+the ensemble average is performed only over realizations falling within
+$20\%$ -- $80\%$ of each inter-ELM window, and
+the total number of realizations is $N_r \sim 450$.
 The resulting $\gamma^2_{xy}(f)$ estimates
 are shown in Figure~\ref{fig:TurbulenceMeasurements:gamma2xy}.
 As demonstrated in Section~\ref{sec:TurbulenceMeasurements:Skf},
@@ -521,13 +519,12 @@ Between $\SI{100}{\kilo\hertz}$ and $\SI{300}{\kilo\hertz}$,
 $0.25 \lesssim \gamma^2_{xy} \lesssim 0.5$,
 indicating between $25\%$ and $50\%$
 of the total fluctuation power
-sits in the mid-$k$ overlap of the interferometer and the PCI
-\cite[Sec.~5.2.6]{bendat_and_piersol}.
-Further, moving from $\rho_{\text{ECH}} = 0.5$ to $\rho_{\text{ECH}} = 0.8$
+sits in the mid-$k$ overlap of the interferometer and the PCI.
+Further, moving from $\rhoech = 0.5$ to $\rhoech = 0.8$
 produces a substantial increase in $\gamma^2_{xy}(f)$
 for $\SI{200}{\kilo\hertz} \lesssim f \lesssim \SI{300}{\kilo\hertz}$,
 suggesting that the wavenumbers of these fluctuations decrease
-when moving from $\rho_{\text{ECH}} = 0.5$ to $\rho_{\text{ECH}} = 0.8$;
+when moving from $\rhoech = 0.5$ to $\rhoech = 0.8$;
 this is corroborated in
 Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}.
 
@@ -543,7 +540,7 @@ Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}.
     The increase in $\gamma^2_{xy}(f)$
     between $\SI{200}{\kilo\hertz}$ and $\SI{300}{\kilo\hertz}$
     when moving from
-    $\rho_{\text{ECH}} = 0.5$ to $\rho_{\text{ECH}} = 0.8$
+    $\rhoech = 0.5$ to $\rhoech = 0.8$
     suggests a wavenumber downshift in these fluctuations, which
     is corroborated in Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}.
   }
@@ -553,15 +550,20 @@ Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}.
 
 \subsection{Frequency-wavenumber spectra}
 \label{sec:TurbulenceMeasurements:Skf}
-The PCI measures a small but physical fluctuation increase
-at $f \sim \SI{1}{\mega\hertz}$
-when ECH moves from $\rho = 0.5$ to $\rho = 0.8$;
-Section~\ref{sec:TurbulenceMeasurements:Skf}
-shows that this corresponds to a distinct turbulent branch.
-This turbulent branch sits
-below the noise floor of the interferometer and
-at the temporal-bandwidth limits of the interferometer's
-current anti-aliasing filters.
+As the PCI measurements are made
+with a multi-element detector array,
+the spatial content of the PCI signal
+can also be characterized.
+The two-dimensional autospectral density $S_{\phi,\phi}(k,f)$
+simultaneously quantifies the spatial and temporal content of a signal.
+(Unfortunately, as the interferometer measurements
+are currently made with a single-element detector,
+$S_{\phi,\phi}(k, f)$ cannot be estimated
+from the interferometer measurements;
+the only spatial knowledge about the interferometer signal
+is that the fluctuation wavenumbers $k$
+sit below the interferometer's high-$k$ cutoff
+(\ref{eq:Implementation:kfsv_interferometer_design})).
 
 \begin{figure}
   \centering
@@ -572,6 +574,90 @@ current anti-aliasing filters.
   }
 \label{fig:TurbulenceMeasurements:Skf_pci}
 \end{figure}
+
+The PCI $S_{\phi,\phi}(k, f)$ is estimated using the hybrid
+non-parametric-in-time, parametric-in-space technique
+discussed in Section~\ref{app:SpectralEstimation:2d_spectra:2d_spectra}.
+Specifically, the hybrid autocorrelation function
+$\tilde{R}_{\phi,\phi}(\delta, f)$ is estimated non-parametrically
+over the shaded windows in Figure~\ref{fig:TurbulenceMeasurements:traces}
+via (\ref{eq:SpectralEstimation:hybrid_autocorrelation_estimate})
+using the same spectral-estimation parameters as those
+in Section~\ref{sec:TurbulenceMeasurements:Sf}
+(i.e.\ realization length of $1024$ points with
+zero overlap between adjacent realizations,
+application of Hanning window to each realization prior to FFT computation,
+ensemble averaging only over realizations falling within
+$20\%$ -- $80\%$ of each inter-ELM window, and
+a total number of realizations $N_r \sim 450$).
+Then, a parametric $p = 6$ Burg autoregression (AR)
+in the spatial lag $\delta$
+estimates the autospectral density $S_{\tilde{R},\tilde{R}}(k,f)$
+of $\tilde{R}(\delta, f)$, and
+the autospectral density $S_{\phi,\phi}(k, f)$
+of the phase fluctuations is computed
+via (\ref{eq:SpectralEstimation:autospectral_density_Burg}).
+The Burg AR is evaluated
+on a uniformly spaced, $1000$-element wavenumber grid.
+Often, an AR model is referred to as an ``all-pole model''
+because the only frequency dependence in the spectral estimate
+appears in the denominator;
+this all-pole feature of an AR model
+allows fitting very sharp spectral features and
+substantially improves the wavenumber resolution
+of the sparsely sampled (in space) PCI data
+(see Figure~\ref{fig:SpectralEstimation:Skf_example}
+for a comparison to a conventional Fourier-in-space estimate).
+
+The PCI $S_{\phi,\phi}(k, f)$
+for $\rhoech = 0.5$ and $\rhoech = 0.8$ are shown in
+Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}(a) and
+Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}(b), respectively.
+The spectra indicate the existence of numerous turbulent branches,
+each of which may respond differently when $\rhoech$ is varied.
+Two of these branches are discussed here.
+First, perhaps one of the most surprising qualitative effects
+of moving $\rhoech = 0.5$ to $\rhoech = 0.8$
+is the excitation of a new, distinct turbulent mode
+at $k_R \sim \SI{-5}{\per\centi\meter}$
+with a central frequency $f_0 \sim \SI{1}{\mega\hertz}$ and
+a bandwidth $\Delta f \sim \SI{400}{\kilo\hertz}$.
+This mode corresponds to the subtle break in slope
+at $f \sim \SI{800}{\kilo\hertz}$ in the PCI $G_{\phi,\phi}(f)$
+in Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}.
+This mode straddles
+the current spatiotemporal limits of the interferometer and
+sits well below the interferometer noise floor;
+thus, this mode is invisible to the interferometer.
+It should be noted that
+the PCI observes a similar mode
+during ELM-free H-mode and
+wide-pedestal QH-mode~\cite{rost_med_k_high_f_mode}
+as well as during NBI-only ELMy H-mode
+(see Figure~\ref{fig:SpectralEstimation:Skf_example}).
+Second, and perhaps of more relevance to multiscale studies,
+is the turbulent branch
+bounded by the dashed white lines
+in Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}.
+When $\rhoech = 0.5$,
+this turbulent branch
+has a lab-frame phase velocity
+$\vph = \SI{5.6}{\kilo\meter\per\second}$
+with wavenumbers and frequencies extending to
+$\SI{14}{\per\centi\meter}$ and $\SI{1250}{\kilo\hertz}$, respectively;
+moving to $\rhoech = 0.8$
+increases the lab-frame phase velocity to
+$\vph = \SI{6.5}{\kilo\meter\per\second}$
+but reduces the spatiotemporal bandwidth to
+$\SI{7.2}{\per\centi\meter}$ and $\SI{750}{\kilo\hertz}$.
+Note that for a given frequency $f$,
+an increase in phase velocity
+corresponds to a wavenumber downshift
+such that the observed change in $\vph$ with $\rhoech$
+confirms the wavenumber-downshift speculation
+in Figure~\ref{fig:TurbulenceMeasurements:gamma2xy}.
+This turbulent branch will be investigated further
+in Section~\ref{sec:TurbulenceMeasurements:Sk}.
 
 
 \subsection{Wavenumber spectra}
