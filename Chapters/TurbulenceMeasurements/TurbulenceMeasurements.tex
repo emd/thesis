@@ -16,6 +16,7 @@ between electron-scale and ion-scale turbulence.
 
 
 \section{Experimental conditions}
+\label{sec:TurbulenceMeasurements:ExperimentalConditions}
 The experiment was run in the ITER-similar shape,
 with aspect ratio, elongation, and triangularity
 all closely matched to those of the ITER-baseline scenario
@@ -184,10 +185,35 @@ match their measured values to within $\pm 5\%$.
 
 \section{Combined PCI-interferometer measurements}
 \label{sec:TurbulenceMeasurements:Measurements}
+The experiment described in
+Section~\ref{sec:TurbulenceMeasurements:ExperimentalConditions}
+presents an ideal opportunity
+for multiscale turbulence investigations
+with the combined PCI-interferometer.
+Below, Section~\ref{sec:TurbulenceMeasurements:Measurements:ELM_filtering}
+discusses the automated filtering of transient bursts
+attributable to edge localized modes (ELMs)
+that would otherwise bias spectral estimates
+of the background turbulence.
+Section~\ref{sec:TurbulenceMeasurements:Measurements:Sf} then
+compares the interferometer and PCI frequency spectra
+for $\rhoech = 0.5$ and $\rhoech = 0.8$;
+interestingly, the interferometer identifies
+a novel turbulent branch with properties
+consistent with a micro-tearing mode (MTM).
+Next, Section~\ref{sec:TurbulenceMeasurements:Measurements:Skf}
+presents the PCI frequency-wavenumber spectra,
+which reveal the presence of several distinct turbulent branches.
+Finally, Section~\ref{sec:TurbulenceMeasurements:Measurements:Sk}
+demonstrates that the PCI wavenumber spectrum
+distinctly flattens with $\rhoech = 0.5$
+relative to that with $\rhoech = 0.8$,
+which is reminiscent of results
+from realistic multiscale gyrokinetic simulations.
 
 
 \subsection{ELM filtering}
-\label{sec:TurbulenceMeasurements:ELM_filtering}
+\label{sec:TurbulenceMeasurements:Measurements:ELM_filtering}
 Edge localized modes (ELMs) expel impurities from the plasma but
 will also present severe challenges to plasma-facing components
 in future reactors~\cite[Sec.~7.17]{wesson}.
@@ -259,7 +285,35 @@ shows the windows \emph{excluded} from spectral analysis in gray.
 
 
 \subsection{Frequency spectra}
-\label{sec:TurbulenceMeasurements:Sf}
+\label{sec:TurbulenceMeasurements:Measurements:Sf}
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/TurbulenceMeasurements/figs/Sf_interferometer_pci.pdf}
+  \caption[Interferometer \& PCI frequency spectra]{%
+    One-sided autospectral-density estimates $G_{\phi,\phi}(f)$ from
+    (a) the heterodyne interferometer and (b) the PCI.
+    The low-frequency ($f \lesssim \SI{300}{\kilo\hertz}$) dynamics
+    are comparable, with both the interferometer and the PCI
+    measuring a $2 - 4\times$ increase in fluctuation power
+    when moving from $\rhoech = 0.5$ to $\rhoech = 0.8$.
+    The higher-frequency ($f \gtrsim \SI{300}{\kilo\hertz}$) dynamics,
+    however, are distinct.
+    In particular, the interferometer-measured broadband fluctuation
+    between $\SI{300}{\kilo\hertz}$ and $\SI{600}{\kilo\hertz}$
+    is low-$k$ (due to its absence in the PCI spectrum),
+    electromagnetic (as seen by the beige inset to (a)), and
+    driven by collisionality
+    (as shown in Figure~\ref{fig:TurbulenceMeasurements:collisionality}),
+    suggesting that it may be a micro-tearing mode (MTM).
+    The subtle break in slope at $f \sim \SI{800}{\kilo\hertz}$
+    in the PCI spectrum when $\rhoech = 0.8$
+    is shown to be a distinct turbulent branch
+    in Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}(b).
+  }
+\label{fig:TurbulenceMeasurements:Sf_interferometer_pci}
+\end{figure}
+
 One-sided autospectral densities estimates $G_{\phi,\phi}(f)$
 of the phase fluctuations
 are calculated using the methodology
@@ -271,7 +325,8 @@ are split into realizations of $1024$ points
 (corresponding to roughly $\SI{250}{\micro\second}$)
 resulting in a frequency resolution
 of approximately $\SI{4}{\kilo\hertz}$ in the spectral estimates.
-As described in Section~\ref{sec:TurbulenceMeasurements:ELM_filtering},
+As described in
+Section~\ref{sec:TurbulenceMeasurements:Measurements:Measurements:ELM_filtering},
 only realizations falling within
 $20\%$ -- $80\%$ of each inter-ELM window
 are included in the ensemble averaging;
@@ -306,34 +361,6 @@ As expected theoretically
 and observed empirically in sound-wave calibrations
 (see Figure~\ref{fig:Implementation:cross_calibration}),
 the PCI is more sensitive than the heterodyne interferometer.
-
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/TurbulenceMeasurements/figs/Sf_interferometer_pci.pdf}
-  \caption[Interferometer \& PCI frequency spectra]{%
-    One-sided autospectral-density estimates $G_{\phi,\phi}(f)$ from
-    (a) the heterodyne interferometer and (b) the PCI.
-    The low-frequency ($f \lesssim \SI{300}{\kilo\hertz}$) dynamics
-    are comparable, with both the interferometer and the PCI
-    measuring a $2 - 4\times$ increase in fluctuation power
-    when moving from $\rhoech = 0.5$ to $\rhoech = 0.8$.
-    The higher-frequency ($f \gtrsim \SI{300}{\kilo\hertz}$) dynamics,
-    however, are distinct.
-    In particular, the interferometer-measured broadband fluctuation
-    between $\SI{300}{\kilo\hertz}$ and $\SI{600}{\kilo\hertz}$
-    is low-$k$ (due to its absence in the PCI spectrum),
-    electromagnetic (as seen by the beige inset to (a)), and
-    driven by collisionality
-    (as shown in Figure~\ref{fig:TurbulenceMeasurements:collisionality}),
-    suggesting that it may be a micro-tearing mode (MTM).
-    The subtle break in slope at $f \sim \SI{800}{\kilo\hertz}$
-    in the PCI spectrum when $\rhoech = 0.8$
-    is shown to be a distinct turbulent branch
-    in Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}(b).
-  }
-\label{fig:TurbulenceMeasurements:Sf_interferometer_pci}
-\end{figure}
 
 Interestingly, the autospectral density of the heterodyne interferometer
 indicates the presence of a distinct broadband fluctuation
@@ -491,7 +518,7 @@ $20\%$ -- $80\%$ of each inter-ELM window, and
 the total number of realizations is $N_r \sim 450$.
 The resulting $\gamma^2_{xy}(f)$ estimates
 are shown in Figure~\ref{fig:TurbulenceMeasurements:gamma2xy}.
-As demonstrated in Section~\ref{sec:TurbulenceMeasurements:Skf},
+As demonstrated in Section~\ref{sec:TurbulenceMeasurements:Measurements:Skf},
 the frequency $f$ of a broadband fluctuation
 is often related to its wavenumber $k$ via
 $f = \vph k / (2 \pi)$,
@@ -549,7 +576,7 @@ shown in Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}.
 
 
 \subsection{Frequency-wavenumber spectra}
-\label{sec:TurbulenceMeasurements:Skf}
+\label{sec:TurbulenceMeasurements:Measurements:Skf}
 As the PCI measurements are made
 with a multi-element detector array,
 the spatial content of the PCI signal
@@ -573,7 +600,7 @@ $\tilde{R}_{\phi,\phi}(\delta, f)$ is estimated non-parametrically
 over the shaded windows in Figure~\ref{fig:TurbulenceMeasurements:traces}
 via (\ref{eq:SpectralEstimation:hybrid_autocorrelation_estimate})
 using the same spectral-estimation parameters as those
-in Section~\ref{sec:TurbulenceMeasurements:Sf}
+in Section~\ref{sec:TurbulenceMeasurements:Measurements:Sf}
 (i.e.\ realization length of $1024$ points with
 zero overlap between adjacent realizations,
 application of Hanning window to each realization prior to FFT computation,
@@ -638,6 +665,11 @@ This mode straddles
 the current spatiotemporal limits of the interferometer and
 sits well below the interferometer noise floor;
 thus, this mode is invisible to the interferometer.
+The mode is robustly observed in all $7$
+of the steady-state $\rhoech = 0.8$ windows
+from this experimental run day, and
+it is robustly absent from all $7$
+of the corresponding $\rhoech = 0.5$ windows.
 It should be noted that
 the PCI observes a similar mode
 during ELM-free H-mode and
@@ -659,18 +691,22 @@ increases the lab-frame phase velocity to
 $\vph = \SI{6.5}{\kilo\meter\per\second}$
 but reduces the spatiotemporal bandwidth to
 $\SI{7.2}{\per\centi\meter}$ and $\SI{750}{\kilo\hertz}$.
+These observations are generic to all $7$
+of the steady-state $\rhoech = 0.5$ windows
+and all $7$ of the steady-state $\rhoech = 0.8$ windows
+from this experimental run day.
 Note that for a given frequency $f$,
 an increase in phase velocity
 corresponds to a wavenumber downshift
 such that the observed change in $\vph$ with $\rhoech$
 confirms the wavenumber-downshift speculation
-in Figure~\ref{fig:TurbulenceMeasurements:gamma2xy}.
+from Figure~\ref{fig:TurbulenceMeasurements:gamma2xy}.
 This turbulent branch will be investigated further
-in Section~\ref{sec:TurbulenceMeasurements:Sk}.
+in Section~\ref{sec:TurbulenceMeasurements:Measurements:Sk}.
 
 
 \subsection{Wavenumber spectra}
-\label{sec:TurbulenceMeasurements:Sk}
+\label{sec:TurbulenceMeasurements:Measurements:Sk}
 Because simulations are finely sampled in space
 but often have limited temporal histories,
 experimental wavenumber spectra
@@ -680,7 +716,7 @@ The PCI wavenumber autospectral density $S_{\phi,\phi}(k)$
 corresponding to a given turbulent branch
 is computed by integrating the
 two-dimensional autospectral density $S_{\phi,\phi}(k, f)$
-from Section~\ref{sec:TurbulenceMeasurements:Skf}
+from Section~\ref{sec:TurbulenceMeasurements:Measurements:Skf}
 over the temporal bandwidth $\Delta f$ of the turbulent branch, i.e.\
 \begin{equation}
   S_{\phi,\phi}(k)
