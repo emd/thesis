@@ -396,32 +396,13 @@ where $G_{\phi,\phi}^{\text{int}}(f)$
 is the autospectral density of the heterodyne interferometer and
 $N.F. = \SI{e-10}{\radian\squared\per\kilo\hertz}$
 is the corresponding noise floor.
-Figure~\ref{fig:TurbulenceMeasurements:interferometer_bump_integrated_power}
-plots $\text{var}(\tilde{\phi})$ versus $\rhoech$;
-a linear least-squares fit
-indicates that the fluctuation power
-approximately doubles when moving
-from $\rhoech = 0.5$ to $\rhoech = 0.8$.
-Further, Figure~\ref{fig:TurbulenceMeasurements:collisionality}
-shows that the electron-ion collisionality $\nu_{ei}$
-in the region of the plasma accessible to the PCI probe
-($R \geq \SI{1.98}{\meter}$)
-also roughly doubles when moving
-from $\rhoech = 0.5$ to $\rhoech = 0.8$.
-Thus, this fluctuation is
-low-$k$, electromagnetic, and driven by collisionality,
-suggesting that this fluctuation
-may be a micro-tearing mode (MTM)~\cite[Sec.~8.5]{wesson}\cite{drake_pf77},
-which is predicted to be marginally unstable
-in this experiment's reference discharge~\cite{holland_nf17}.
-
 \begin{figure}
   \centering
   \includegraphics[width = 0.75 \textwidth]{%
     Chapters/TurbulenceMeasurements/figs/interferometer_bump_integrated_power.pdf}
-  \caption[Power in low-$k$, mid-$f$ turbulence vs. ECH location]{%
+  \caption[Power in low-$k$, mid-$f$, electromagnetic turbulence vs. ECH location]{%
     Power $\text{var}(\tilde{\phi})$ in interferometer-measured
-    low-$k$, mid-$f$ turbulence vs. ECH location $\rhoech$.
+    low-$k$, mid-$f$, electromagnetic turbulence vs. ECH location $\rhoech$.
     Powers are estimated via
     (\ref{eq:TurbulenceMeasurements:MTM_power}).
     Different points correspond to distinct, nominally identical shots
@@ -432,6 +413,24 @@ in this experiment's reference discharge~\cite{holland_nf17}.
   }
 \label{fig:TurbulenceMeasurements:interferometer_bump_integrated_power}
 \end{figure}
+Figure~\ref{fig:TurbulenceMeasurements:interferometer_bump_integrated_power}
+plots $\text{var}(\tilde{\phi})$ versus $\rhoech$;
+a linear least-squares fit
+indicates that the fluctuation power
+approximately doubles when moving
+from $\rhoech = 0.5$ to $\rhoech = 0.8$.
+Further, Figure~\ref{fig:TurbulenceMeasurements:collisionality}
+shows that the electron-ion collisionality $\nu_{ei}$
+in the region of the plasma accessible to the PCI probe beam
+($R \geq \SI{1.98}{\meter}$)
+also roughly doubles when moving
+from $\rhoech = 0.5$ to $\rhoech = 0.8$.
+Thus, this fluctuation is
+low-$k$, electromagnetic, and driven by collisionality,
+suggesting that this fluctuation
+may be a micro-tearing mode (MTM)~\cite[Sec.~8.5]{wesson}\cite{drake_pf77},
+which is predicted to be marginally unstable
+in this experiment's reference discharge~\cite{holland_nf17}.
 
 \begin{figure}
   \centering
@@ -525,8 +524,8 @@ produces a substantial increase in $\gamma^2_{xy}(f)$
 for $\SI{200}{\kilo\hertz} \lesssim f \lesssim \SI{300}{\kilo\hertz}$,
 suggesting that the wavenumbers of these fluctuations decrease
 when moving from $\rhoech = 0.5$ to $\rhoech = 0.8$;
-this is corroborated in
-Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}.
+this is corroborated by the increase in the lab-frame phase velocity
+shown in Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}.
 
 \begin{figure}
   \centering
@@ -542,7 +541,8 @@ Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}.
     when moving from
     $\rhoech = 0.5$ to $\rhoech = 0.8$
     suggests a wavenumber downshift in these fluctuations, which
-    is corroborated in Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}.
+    is corroborated by the increase in the lab-frame phase velocity
+    shown in Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}.
   }
   \label{fig:TurbulenceMeasurements:gamma2xy}
 \end{figure}
@@ -561,19 +561,9 @@ are currently made with a single-element detector,
 $S_{\phi,\phi}(k, f)$ cannot be estimated
 from the interferometer measurements;
 the only spatial knowledge about the interferometer signal
-is that the fluctuation wavenumbers $k$
+is that the wavenumber magnitudes $|k|$
 sit below the interferometer's high-$k$ cutoff
 (\ref{eq:Implementation:kfsv_interferometer_design})).
-
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/TurbulenceMeasurements/figs/Skf_pci.png}
-  \caption[PCI frequency-wavenumber spectra]{%
-    PCI frequency-wavenumber spectra. $p = 6$.
-  }
-\label{fig:TurbulenceMeasurements:Skf_pci}
-\end{figure}
 
 The PCI $S_{\phi,\phi}(k, f)$ is estimated using the hybrid
 non-parametric-in-time, parametric-in-space technique
@@ -608,6 +598,25 @@ substantially improves the wavenumber resolution
 of the sparsely sampled (in space) PCI data
 (see Figure~\ref{fig:SpectralEstimation:Skf_example}
 for a comparison to a conventional Fourier-in-space estimate).
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/TurbulenceMeasurements/figs/Skf_pci.png}
+  \caption[PCI frequency-wavenumber spectra]{%
+    PCI two-dimensional autospectral densities $S_{\phi,\phi}(k, f)$
+    for (a) $\rhoech = 0.5$ and (b) $\rhoech = 0.8$.
+    Moving from $\rhoech = 0.5$ to $\rhoech = 0.8$
+    increases the lab-frame phase velocity but
+    decreases the spatiotemporal bandwidth
+    of the broadband turbulence bounded by
+    the annotating dashed white lines and
+    also excites a new turbulent branch
+    at $k \sim \SI{-5}{\per\centi\meter}$ and
+    $f \sim \SI{1}{\mega\hertz}$.
+  }
+\label{fig:TurbulenceMeasurements:Skf_pci}
+\end{figure}
 
 The PCI $S_{\phi,\phi}(k, f)$
 for $\rhoech = 0.5$ and $\rhoech = 0.8$ are shown in
