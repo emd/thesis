@@ -998,18 +998,14 @@ from (\ref{eq:TurbulenceMeasurements:vphpci_general}) to
   \vphpci
   =
   \left[%
-    \frac{E_r(\rho, \theta)}{B_{\zeta,0}}
+    \frac{E_r(\rho, \theta)}{B_0}
     -
-    \left( \frac{B_0}{B_{\zeta,0}} \right)
     \vphplasma
   \right]
+  \left( \frac{B_0}{B_{\zeta,0}} \right)
   \sin\theta.
   \label{eq:TurbulenceMeasurements:vphpci}
 \end{equation}
-Note that the first term corresponds to
-the major-radial projection of the $ExB$ velocity and
-that the second term corresponds to
-the major radial projection of the plasma-frame phase velocity.
 The sign convention for the plasma-frame phase velocity is such that
 $\vphplasma > 0$ for electron modes and
 $\vphplasma < 0$ for ion modes.
@@ -1019,6 +1015,13 @@ here, electron modes propagate against the $\ExB$ direction
 (decreasing $\vphpci$ relative to the $\ExB$ contribution alone), and
 ion modes propagate in the $\ExB$ direction
 (increasing $\vphpci$ relative to the $\ExB$ contribution alone).
+The $\sin\theta$ term in (\ref{eq:TurbulenceMeasurements:vphpci})
+provides the major-radial projection
+of the $\ExB$ velocity and the plasma-frame phase velocity
+required by the PCI's $\kpci \cdot \zhat = 0$ selection criterion, and
+the $B_0 / B_{\zeta,0}$ multiplicative enhancement
+results from $|k_R| < |\kpci|$
+when the magnetic field is not solely toroidal.
 
 As a brief aside, it should be emphasized
 that the radial electric field $E_r$
