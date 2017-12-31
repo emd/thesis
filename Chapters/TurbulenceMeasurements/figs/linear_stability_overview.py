@@ -1,81 +1,42 @@
 import numpy as np
-import matplotlib as mpl
-from matplotlib.colors import Normalize, LogNorm
 import matplotlib.pyplot as plt
-import cPickle as pickle
-from distinct_colours import get_distinct
+from matplotlib.colors import LogNorm
 
 from linear_stability import load_data as load_data_single_rho
 import normalization
 
 
 shots = [171536, 171538]
-# shots = [171536]
 times = [2750, 2200]
 rhos = np.arange(0.3, 0.95, 0.05)
-# rhos = np.arange(0.3, 0.8, 0.05)
-
 
 # Plotting parameters
 figsize = (8, 6.5)
 fontsize = 15
-cols = get_distinct(2)
 gamma_lim = [1, 2e3]   # [gamma_lim] = kHz
 vph_lim = [-1.8, 1.8]  # [vph_lim] = km / s
 
 
-# Helper class for creating a diverging colormap with asymmetric limits;
-# taken from Joe Kington at:
-#
-#   https://stackoverflow.com/a/20146989/5469497
-#
-class MidpointNormalize(Normalize):
-    def __init__(self, vmin=None, vmax=None, midpoint=None, clip=False):
-        self.midpoint = midpoint
-        Normalize.__init__(self, vmin, vmax, clip)
-
-    def __call__(self, value, clip=None):
-        # I'm ignoring masked values and all kinds of edge cases to make a
-        # simple example...
-        x, y = [self.vmin, self.midpoint, self.vmax], [0, 0.5, 1]
-        return np.ma.masked_array(np.interp(value, x, y))
-
-
-def load_data(shot, time, rhos):
+def load_data(shot, time, rhos, physical_units=True):
     data = load_data_single_rho(shot, time, rhos[0])
 
     Nky = len(data['ky'])
 
     ky = np.zeros((Nky, len(rhos)))
-    gamma1 = np.zeros((Nky, len(rhos)))
-    freq1 = np.zeros((Nky, len(rhos)))
+    gamma = np.zeros((Nky, len(rhos)))
+    omega = np.zeros((Nky, len(rhos)))
 
     for ind, rho in enumerate(rhos):
         data = load_data_single_rho(shot, time, rho)
 
-        freq1[:, ind] = data['freq1']
-        gamma1[:, ind] = data['gamma1']
-        ky[:, ind] = data['ky']
+        # Parse data
+        ky[:, ind] = data['ky']         # [ky] = 1 / rho_s
+        gamma[:, ind] = data['gamma1']  # [gamma] = c_s / a
+        omega[:, ind] = data['freq1']   # [omega] = c_s / a
 
-    # Package data
-    data = {
-        'freq1': freq1,
-        'gamma1': gamma1,
-        'ky': ky
-    }
+    vph = omega / ky                    # [vph] = c_s * (rho_s / a)
 
-    return data
-
-
-if __name__ == '__main__':
-    fig, axs = plt.subplots(
-        2, 2, sharex=True, sharey=True, figsize=figsize)
-
-    for sind, shot in enumerate(shots):
-        # Load data
-        time = times[sind]
-        data = load_data(shot, time, rhos)
-
+    if physical_units:
         # Load normalizations
         dmp, c_s = normalization.get_c_s(
             shot, time, rhointerp=rhos)
@@ -90,30 +51,41 @@ if __name__ == '__main__':
         # Convert a to m
         a *= 1e-2
 
-        # Parse data
-        ky = data['ky']         # [ky] = 1 / rho_s
-        gamma = data['gamma1']  # [gamma] = c_s / a
-        omega = data['freq1']   # [omega] = c_s / a
-        vph = omega / ky        # [vph] = c_s * (rho_s / a)
-
         # Convert to physical units
         gamma *= (c_s / a)      # [gamma] = kHz
+        omega *= (c_s / a)      # [omega] = kHz
         vph *= (c_s * rho_s_a)  # [vph] = km / s
 
-        # Mask stable modes
-        gamma = np.ma.masked_where(
-            gamma <= 0,
-            gamma)
+    # Package data
+    data = {
+        'ky': ky,
+        'gamma': gamma,
+        'omega': omega,
+        'vph': vph,
+    }
 
-        # Find maximum and (non-zero) minimum of growth rate
-        gamma_min = np.ma.min(gamma)
-        gamma_max = np.ma.max(gamma)
+    return data
 
-        # Find maximum absolute phase velocity
-        vphmax = np.max(np.abs(vph))
+
+if __name__ == '__main__':
+    fig, axs = plt.subplots(
+        2, 2, sharex=True, sharey=True, figsize=figsize)
+
+    for sind, shot in enumerate(shots):
+        # Load data
+        time = times[sind]
+        data = load_data(shot, time, rhos, physical_units=True)
+
+        # Parse data
+        ky = data['ky']        # [ky] = 1 / rho_s
+        gamma = data['gamma']  # [gamma] = kHz
+        vph = data['vph']      # [vph] = km / s
 
         # Plots
         kind = 0
+
+        gamma_cmap = plt.get_cmap('viridis')
+        gamma_cmap.set_bad('gray')
 
         m = axs[0, sind].pcolormesh(
             rhos,
@@ -121,8 +93,8 @@ if __name__ == '__main__':
             gamma,
             vmin=gamma_lim[0],
             vmax=gamma_lim[1],
-            norm=LogNorm(),
-            cmap='viridis')
+            norm=LogNorm(vmin=gamma_lim[0], vmax=gamma_lim[1]),
+            cmap=gamma_cmap)
         cb = plt.colorbar(m, ax=axs[0, sind] , extend='min')
         m.cmap.set_under('gray')
         m.set_edgecolor('face')  # avoid grid lines in PDF file
