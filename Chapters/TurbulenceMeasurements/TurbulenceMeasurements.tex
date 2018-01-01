@@ -792,8 +792,10 @@ in roughly the next six months.
   \item Section~\ref{sec:TurbulenceMeasurements:Modeling:TGLF_overview}
     provides an overview of the TGLF model.
   \item Section~\ref{sec:TurbulenceMeasurements:Modeling:linear_stability_overview}
-    discusses \ldots
-  \item Section~\ref{sec:TurbulenceMeasurements:Modeling:predicted_phase_velocity}
+    presents a global overview
+    of the TGLF-predicted linear-stability changes
+    when moving from $\rhoech = 0.5$ to $\rhoech = 0.8$
+  \item Section~\ref{sec:TurbulenceMeasurements:Modeling:phase_velocity_comparison}
     attempts \ldots
   \item Section~\ref{sec:TurbulenceMeasurements:Modeling:local}
     compares \ldots
@@ -897,21 +899,8 @@ are marginally enhanced
 relative to $\rhoech = 0.8$.
 
 
-\subsection{Relation of field-aligned \& PCI-measured wavevectors}
+\subsection{Relation between field-aligned \& PCI-measured wavevectors}
 \label{sec:TurbulenceMeasurements:Modeling:wavevectors}
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/TurbulenceMeasurements/figs/wavenumber_conversion.pdf}
-  \caption[Profiles of $k_y \rho_s$ for $k_R = \SI{1.5}{\per\centi\meter}$]{%
-    Profiles of $k_y \rho_s$ for $k_R = \SI{1.5}{\per\centi\meter}$.
-  }
-\label{fig:TurbulenceMeasurements:wavenumber_conversion}
-\end{figure}
-
-
-\subsection{Predicted PCI phase velocities}
-\label{sec:TurbulenceMeasurements:Modeling:predicted_phase_velocity}
 As transport parallel to the magnetic field $\vect{B}$
 is much more rapid than transport across the magnetic field,
 drift-wave turbulent fluctuations
@@ -924,7 +913,7 @@ by the equilibrium field $\Beq$ such that
 the field-aligned constraint reduces to
 $\vect{k}_0 \cdot \Beq \approx 0$.
 In the absence of velocity shear,
-the turbulent wavefronts propagate purely in the poloidal direction
+the wavefronts of this fluctuation propagate along flux surfaces
 ($k_{r,0} = 0$) such that the electrostatic field-aligned constraint requires
 \begin{equation}
   \vect{k}_0
@@ -941,59 +930,58 @@ where $k_{\theta,0}$ is the dominant poloidal wavenumber of the turbulence,
 $B_{\theta,0}$ is the equilibrium poloidal magnetic field, and
 $B_{\zeta,0}$ is the equilibrium toroidal magnetic field.
 (Note that large velocity shear produces finite $k_{r,0}$~\cite{rost_pp14}).
+Analytic theory and computation are often performed
+on field-aligned coordinate systems in which
+the $z$-coordinate is along $\Beq$,
+the $x$-coordinate is in the radial direction, and
+the $y$-coordinate is perpendicular to $\Beq$ but
+within a flux surface.
+In such a field-aligned coordinate system,
+$\vect{k}_0$ from (\ref{eq:TurbulenceMeasurements:k0})
+is aligned with the $y$-coordinate
+i.e.\ $\vect{k}_0 = |\vect{k}_0| \hat{\vect{y}}$
+such that one is led naturally to define $k_y = |\vect{k}_0|$.
+The wavenumber $k_y$ (or its dimensionless equivalent, $k_y \rho_s$)
+is an important parameter in the classification and understanding
+of turbulent fluctuations.
 
+To make contact with theory, then,
+it is important to understand the relation between $k_y$ and
+the PCI-measured wavevectors.
 As a line-integrated measurement,
-PCI is sensitive to fluctuations with wavevectors
+PCI is sensitive to fluctuations with wavevectors $\kpci$
 that are perpendicular to the beam path.
-For the vertical beam path of \diiid's PCI, then,
-the PCI measures wavevectors $\kpci$ satisfying $\kpci \cdot \zhat = 0$.
-Because turbulent fluctuations have
-finite wavenumber spread $\Delta \vect{k}$
-(typically with $|\Delta k_r| \sim |\Delta k_{\theta}|$)
-about their dominant wavevector $\vect{k}_0$,
-at least a portion of the turbulent spectrum
-satisfies the PCI's $\kpci \cdot \zhat = 0$ selection criterion.
-As these fluctuations are also field-aligned
-($\kpci \cdot \Beq \approx 0$),
-the wavevectors can be explicitly written as
+Thus, for the vertical beam path of \diiid's PCI,
 \begin{equation}
-  \kpci
-  =
-  (\kpci \cdot \kpcihat) \kpcihat,
-  \label{eq:TurbulenceMeasurements:kpci}
+  \kpci \cdot \Zhat = 0.
+  \label{eq:TurbulenceMeasurements:kpci_perp_to_Z}
 \end{equation}
-where
+As with $\vect{k}_0$, $\kpci$ is also field-aligned
+such that (for electrostatic fluctuations)
 \begin{equation}
-  \kpcihat
-  =
-  \frac{\zhat \cross \beq}{|\zhat \cross \beq|}
-  \label{eq:TurbulenceMeasurements:kpcihat}
+  \kpci \cdot \Beq \approx 0.
+  \label{eq:TurbulenceMeasurements:kpci_perp_to_B0}
 \end{equation}
-is a unit vector perpendicular to both $\zhat$ and $\Beq$, and
-$\beq = \Beq / |\Beq|$ is the unit vector
-in the direction of the local equilibrium magnetic field.
-For a tokamak with a dominant toroidal magnetic field,
-$|\zhat \cross \beq| \sim 1$ such that
-(\ref{eq:TurbulenceMeasurements:kpcihat}) is never singular.
-Noting the $(R, z, \zeta)$ and $(\rho, \theta, \zeta)$
-coordinate systems defined in
-Fig.~\ref{fig:TurbulenceMeasurements:coordinate_geometry} and
-explicitly writing the equilibrium magnetic field
-as the sum of its toroidal and poloidal components
-$\Beq = B_{\zeta,0} \zetahat + B_{\theta,0} \thetahat$,
-the unit vector (\ref{eq:TurbulenceMeasurements:kpcihat})
-can be explicitly written as
+In general, $\kpci \neq \vect{k}_0$.
+Instead, it is suitable to define
 \begin{equation}
-  \kpcihat
-  =
-  \frac{%
-    B_{\zeta,0} \Rhat + (B_{\theta,0} \sin\theta) \zetahat}{%
-    {\left[ B_{\zeta,0}^2 + {(B_{\theta,0} \sin\theta)}^2 \right]}^{1/2}}.
-  \label{eq:TurbulenceMeasurements:kpcihat_explicit}
+  \kpci = \vect{k}_0 + \delta \vect{k}
+  \label{eq:TurbulenceMeasurements:kpci_general}
 \end{equation}
-Because $|B_{\theta,0}| \ll |B_{\zeta,0}|$,
-the PCI wavevectors are predominantly in the major-radial direction.
-
+The PCI will measure finite signal only if
+there exists a $\delta\vect{k}$
+within the spatial bandwidth $\Delta\vect{k}$
+of the turbulence centered on $\vect{k}_0$
+such that the resulting $\kpci$ from
+(\ref{eq:TurbulenceMeasurements:kpci_general})
+satisfies both
+(\ref{eq:TurbulenceMeasurements:kpci_perp_to_Z}) and
+(\ref{eq:TurbulenceMeasurements:kpci_perp_to_B0}).
+(Note that the above reasoning also holds
+for any other vertically line-integrated measurement
+of field-aligned turbulence,
+such as those made by the heterodyne interferometer
+constructed in this work).
 \begin{figure}
   \centering
   \includegraphics[width = 0.5 \textwidth]{%
@@ -1001,7 +989,7 @@ the PCI wavevectors are predominantly in the major-radial direction.
   \caption[Measurement coordinate system]{%
     Measurement coordinate system.
     Here, $R$ is the major-radial direction,
-    $z$ is the lab-frame vertical direction,
+    $Z$ is the lab-frame vertical direction,
     $\zeta$ is the toroidal angle,
     $\theta$ is the poloidal angle, and
     $\rho$ is a flux-surface label
@@ -1010,48 +998,110 @@ the PCI wavevectors are predominantly in the major-radial direction.
   }
 \label{fig:TurbulenceMeasurements:coordinate_geometry}
 \end{figure}
+Decomposing $\delta\vect{k}$
+in the $(\rho, \theta, \zeta)$ coordinate system
+defined in Figure~\ref{fig:TurbulenceMeasurements:coordinate_geometry}
+such that
+$\delta\vect{k}
+=
+\delta k_{\rho} \rhohat
++
+\delta k_{\theta} \thetahat
++
+\delta k_{\zeta} \zetahat$,
+constraint (\ref{eq:TurbulenceMeasurements:kpci_perp_to_Z}) requires
+\begin{equation}
+  \delta k_{\rho}
+  =
+  -(k_{\theta,0} + \delta k_{\theta}) \cot\theta,
+  \label{eq:TurbulenceMeasurements:delta_krho}
+\end{equation}
+and constraint (\ref{eq:TurbulenceMeasurements:kpci_perp_to_B0}) requires
+\begin{equation}
+  \delta k_{\zeta}
+  =
+  -\left( \frac{B_{\theta,0}}{B_{\zeta,0}} \right) \delta k_{\theta}.
+  \label{eq:TurbulenceMeasurements:delta_kzeta}
+\end{equation}
+Using (\ref{eq:TurbulenceMeasurements:delta_krho}) and
+(\ref{eq:TurbulenceMeasurements:delta_kzeta}),
+$\kpci$ from (\ref{eq:TurbulenceMeasurements:kpci_general}) reduces to
+\begin{equation}
+  \kpci
+  =
+  -\left(%
+    \frac{k_{\theta,0} + \delta k_{\theta}}{\sin\theta}
+  \right)
+  \left[%
+    \Rhat
+    +
+    \left( \frac{B_{\theta,0} \sin\theta}{B_{\zeta,0}} \right) \zetahat
+  \right],
+  \label{eq:TurbulenceMeasurements:kpci_explicit}
+\end{equation}
+where $\Rhat$ is the unit vector in the major-radial direction and
+is related to $\rhohat$ and $\thetahat$
+as defined in Figure~\ref{fig:TurbulenceMeasurements:coordinate_geometry}.
+Because $|B_{\theta,0}| \ll |B_{\zeta,0}|$,
+the PCI is sensitive to fluctuations
+with wavevectors that are predominantly in the major-radial direction.
+If measurements are made with a one-dimensional detector array,
+only a projection of $\kpci$ can be reconstructed.
+The one-dimensional detector array of the \diiid\space PCI
+is nominally aligned in the major-radial direction
+such that the major-radial wavenumber $k_R$ of $\kpci$
+can be reconstructed, i.e.\
+\begin{equation}
+  k_R
+  =
+  \kpci \cdot \Rhat
+  =
+  -\left(%
+    \frac{k_{\theta,0} + \delta k_{\theta}}{\sin\theta}
+  \right)
+  \label{eq:TurbulenceMeasurements:kR}.
+\end{equation}
+In subsequent numerical evaluations,
+it is assumed that
+$|\delta k_{\theta}| \ll |k_{\theta,0}|$
+in order to relate the field-aligned $k_y$ from TGLF
+to the PCI-measured major radial wavenumber $k_R$.
 
-Now, the PCI-measured angular frequency is
-$\omegapci = \kpci \cdot \vect{v}$, where
-$\vect{v}$ is the lab-frame velocity of the fluctuation.
-Because $\kpci \cdot \Beq = 0$,
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/TurbulenceMeasurements/figs/wavenumber_conversion.pdf}
+  \caption[Profiles of $k_y \rho_s$ for $k_R = \SI{1.5}{\per\centi\meter}$]{%
+    Profiles of $k_y \rho_s$ for $k_R = \SI{1.5}{\per\centi\meter}$.
+  }
+\label{fig:TurbulenceMeasurements:wavenumber_conversion}
+\end{figure}
+
+
+\subsection{Comparison to PCI-measured phase velocities}
+\label{sec:TurbulenceMeasurements:Modeling:phase_velocity_comparison}
+In an attempt to localize analysis of the TGLF results,
+the advection of the TGLF-predicted instabilities by the $\ExB$ velocity
+can be compared to the PCI-measured phase velocities.
+The PCI-measured phase velocity is
+\begin{equation}
+  \vphpci
+  =
+  \frac{\omegapci}{k_R}
+  =
+  \frac{\kpci \cdot \vect{v}}{k_R},
+  \label{eq:TurbulenceMeasurements:vphpci_general}
+\end{equation}
+where $\omegapci$ is the PCI-measured angular frequency,
+$\kpci$ is the wavevector (\ref{eq:TurbulenceMeasurements:kpci_explicit}),
+$\vect{v}$ is the lab-frame velocity of the fluctuation, and
+$k_R$ is the reconstructed major-radial wavenumber
+(\ref{eq:TurbulenceMeasurements:kR}).
+By field-aligned constraint
+(\ref{eq:TurbulenceMeasurements:kpci_perp_to_B0}),
 $\kpci \cdot \vect{v} = \kpci \cdot \vperp$, where
 $\vperp$ is the velocity
 perpendicular to the equilibrium magnetic field.
-Further, the PCI-measured phase velocity is
-$\vphpci = \omegapci / k_R$, where
-$k_R = \kpci \cdot \Rhat$
-is the major radial component of wavevector $\kpci$.
-Thus,
-\begin{align}
-  \vphpci
-  &=
-  \frac{\omegapci}{k_R}
-  \notag \\
-  &=
-  \frac{%
-    (\kpci \cdot \kpcihat)(\kpcihat \cdot \vperp)}{%
-    (\kpci \cdot \kpcihat)(\kpcihat \cdot \Rhat)
-  }
-  \notag \\
-  &=
-  \sgn(B_{\zeta,0})
-  \left[%
-    1
-    +
-    \left( \frac{B_{\theta,0} \sin\theta}{B_{\zeta,0}} \right)^2
-  \right]^{1 / 2}
-  \left( \kpcihat \cdot \vperp \right),
-  \label{eq:TurbulenceMeasurements:vphpci_general}
-\end{align}
-where the last line follows from definition
-(\ref{eq:TurbulenceMeasurements:kpcihat_explicit}) and
-the sign function $\sgn(x)$
-returns the sign of argument $x$.
-Note that the magnitude of the multiplicative factor
-preceding $\kpcihat \cdot \vperp$
-in (\ref{eq:TurbulenceMeasurements:vphpci_general})
-results from $|k_R| \leq |\kpci|$.
 The perpendicular velocity $\vperp$ is simply the sum of
 the $\ExB$ velocity $\vExB$ and
 the plasma-frame phase velocity
@@ -1064,13 +1114,15 @@ $\vect{k}_0$ is the dominant wavevector defined in
 (\ref{eq:TurbulenceMeasurements:k0}).
 Thus, $\vperp \approx \vExB + \vphplasma \kzerohat$, and
 \begin{equation}
-  \kpcihat \cdot \vperp
+  \omegapci
+  =
+  \kpci \cdot \vperp
   \approx
-  \kpcihat \cdot \vExB
+  \kpci \cdot \vExB
   +
-  (\kpcihat \cdot \kzerohat)
+  (\kpci \cdot \kzerohat)
   \vphplasma.
-  \label{eq:TurbulenceMeasurements:kpcihat_dot_vperp}
+  \label{eq:TurbulenceMeasurements:omegapci}
 \end{equation}
 Now, the electrostatic potential $\varphi = \varphi(\rho)$
 is a flux function such that
@@ -1091,11 +1143,16 @@ The resulting $\ExB$ velocity is
   \right).
   \label{eq:TurbulenceMeasurements:vExB}
 \end{align}
-Using $\vExB$ from (\ref{eq:TurbulenceMeasurements:vExB}) and
-$\kpcihat \cdot \vperp$ from
-(\ref{eq:TurbulenceMeasurements:kpcihat_dot_vperp}),
-a bit of algebra readily reduces the PCI-measured phase velocity
-from (\ref{eq:TurbulenceMeasurements:vphpci_general}) to
+Using
+$\kpci$ from (\ref{eq:TurbulenceMeasurements:kpci_explicit}),
+$\vExB$ from (\ref{eq:TurbulenceMeasurements:vExB}),
+$\vect{k}_0$ from (\ref{eq:TurbulenceMeasurements:k0}),
+$\omegapci$ from (\ref{eq:TurbulenceMeasurements:omegapci}),
+$k_R$ from (\ref{eq:TurbulenceMeasurements:kR}), and
+a bit of algebra,
+the PCI-measured phase velocity
+(\ref{eq:TurbulenceMeasurements:vphpci_general})
+readily reduces to
 \begin{equation}
   \vphpci
   =
@@ -1119,8 +1176,8 @@ ion modes propagate in the $\ExB$ direction
 (increasing $\vphpci$ relative to the $\ExB$ contribution alone).
 The $\sin\theta$ term in (\ref{eq:TurbulenceMeasurements:vphpci})
 provides the major-radial projection
-of the $\ExB$ velocity and the plasma-frame phase velocity
-required by the PCI's $\kpci \cdot \zhat = 0$ selection criterion, and
+required by the constraint
+(\ref{eq:TurbulenceMeasurements:kpci_perp_to_Z}), and
 the $B_0 / B_{\zeta,0}$ multiplicative enhancement
 results from $|k_R| < |\kpci|$
 when the magnetic field is not solely toroidal.
@@ -1132,7 +1189,7 @@ when the magnetic field is not solely toroidal.
   \caption[Predicted PCI phase velocities]{%
     Predicted PCI phase velocities.
   }
-\label{fig:TurbulenceMeasurements:predicted_pci_phase_velocities.pdf}
+\label{fig:TurbulenceMeasurements:predicted_pci_phase_velocities}
 \end{figure}
 
 As a brief aside, it should be emphasized
@@ -1178,20 +1235,6 @@ along the outboard midplane (where $\theta = 0$) as follows
   \right|_{\rho, \theta = 0}.
   \label{eq:TurbulenceMeasurements:radial_electric_field}
 \end{equation}
-
-\textcolor{red}{%
-  Further, note that the polarity of $\sin\theta$
-  switches at the plasma midplane (where $\theta = 0$) such that
-  % (\ref{eq:TurbulenceMeasurements:PCI_phase_velocity_from_ExB})
-  switches signs when passing from above the plasma midplane
-  to below the plasma midplane.
-  % Figure~\ref{fig:TurbulenceMeasurements:doppler_shift}
-  compares $\vpciE$ from
-  % (\ref{eq:TurbulenceMeasurements:PCI_phase_velocity_from_ExB})
-  to the measured phase velocity $\vpcimeas$
-  of the high-$k$ turbulence observed in the left panel of
-  Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}.
-}
 
 
 \subsection{Quantitative local results}
