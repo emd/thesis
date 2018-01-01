@@ -126,7 +126,7 @@ produces large changes
 in the electron-scale and ion-scale drives,
 $a / L_{T_e}$ and $a / L_{T_i}$, respectively,
 in the region of the plasma accessible to the PCI probe beam
-($R \geq \SI{1.98}{\meter}$).
+\textcolor{red}{($R \geq \SI{1.98}{\meter}$)}.
 Using these profiles,
 power-balance analysis was performed
 with the \textcolor{red}{ONETWO} code,
@@ -449,7 +449,7 @@ from $\rhoech = 0.5$ to $\rhoech = 0.8$.
 Further, Figure~\ref{fig:TurbulenceMeasurements:collisionality}
 shows that the electron-ion collisionality $\nu_{ei}$
 in the region of the plasma accessible to the PCI probe beam
-($R \geq \SI{1.98}{\meter}$)
+\textcolor{red}{($R \geq \SI{1.98}{\meter}$)}
 also roughly doubles when moving
 from $\rhoech = 0.5$ to $\rhoech = 0.8$.
 Thus, this fluctuation is
@@ -466,7 +466,8 @@ in this experiment's reference discharge~\cite{holland_nf17}.
   \caption[Collisionality variation with ECH location]{%
     The electron-ion collisionality $\nu_{ei}$
     in the region of the plasma
-    accessible to the PCI probe beam ($R \geq \SI{1.98}{\meter}$)
+    accessible to the PCI probe beam
+    \textcolor{red}{($R \geq \SI{1.98}{\meter}$)}
     roughly doubles when moving
     from $\rhoech = 0.5$ to $\rhoech = 0.8$.
     The collisionality is computed from the profiles in
@@ -743,7 +744,8 @@ relative to $\rhoech = 0.8$,
 $\rhoech = 0.5$ corresponds to
 increased $a / L_{Te}$ and decreased $a / L_{T_i}$
 over the majority of the plasma
-accessible to the PCI probe beam ($R \geq \SI{1.98}{\meter}$).
+accessible to the PCI probe beam
+\textcolor{red}{($R \geq \SI{1.98}{\meter}$)}.
 This spectral flattening with
 enhanced electron-scale drive relative to ion-scale drive
 is reminiscent of results from
@@ -940,10 +942,21 @@ the $x$-coordinate is in the radial direction, and
 the $y$-coordinate is perpendicular to $\Beq$ but
 within a flux surface.
 In such a field-aligned coordinate system,
-$\vect{k}_0$ from (\ref{eq:TurbulenceMeasurements:k0})
+$\vect{k}_0 - k_{\rho,0}\rhohat$
 is aligned with the $y$-coordinate
-i.e.\ $\vect{k}_0 = |\vect{k}_0| \hat{\vect{y}}$
-such that one is led naturally to define $k_y = |\vect{k}_0|$.
+% i.e.\ $\vect{k}_0 = |\vect{k}_0| \hat{\vect{y}}$
+such that one is led naturally to define
+\begin{equation}
+  \vect{k}_y
+  =
+  k_{\theta,0}
+  \left[%
+    \thetahat
+    -
+    \left( \frac{B_{\theta,0}}{B_{\zeta,0}} \right) \zetahat
+  \right].
+  \label{eq:TurbulenceMeasurements:ky}
+\end{equation}
 The wavenumber $k_y$ (or its dimensionless equivalent, $k_y \rho_s$)
 is an important parameter in the classification and understanding
 of turbulent fluctuations.
@@ -1071,13 +1084,28 @@ it is assumed that
 $|\delta k_{\theta}| \ll |k_{\theta,0}|$
 in order to relate the field-aligned $k_y$ from TGLF
 to the PCI-measured major radial wavenumber $k_R$.
+Figure~\ref{fig:TurbulenceMeasurements:wavenumber_conversion}
+displays profiles of $|k_y \rho_s|$ for various $k_R$ of interest.
 
 \begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
     Chapters/TurbulenceMeasurements/figs/wavenumber_conversion.pdf}
   \caption[Profiles of $k_y \rho_s$ for $k_R = \SI{1.5}{\per\centi\meter}$]{%
-    Profiles of $k_y \rho_s$ for $k_R = \SI{1.5}{\per\centi\meter}$.
+    Profiles of $|k_y \rho_s|$ vs.\ radial coordinate $\rho$ for
+    the PCI low-$k$ cutoff $k_R = \SI{1.5}{\per\centi\meter}$,
+    the interferometer high-$k$ cutoff $k_R = \SI{5}{\per\centi\meter}$, and
+    the PCI high-$k$ cutoff $k_R = \SI{25}{\per\centi\meter}$
+    in the $\rhoech = 0.5$ and $\rhoech = 0.8$ discharges
+    shown in Figure~\ref{fig:TurbulenceMeasurements:profiles}.
+    The gray region $(\rho \lesssim 0.35)$
+    is inaccessible to the PCI probe beam,
+    which propagates vertically through the plasma
+    at major radius $R = \SI{1.98}{\meter}$.
+    The roll-off in $|ky \rho_s|$ for $\rho \lesssim 0.4$
+    is attributable to the $\sin\theta$ major-radial projection, while
+    the roll-off for $\rho \gtrsim 0.95$
+    is attributable to the edge pedestal.
   }
 \label{fig:TurbulenceMeasurements:wavenumber_conversion}
 \end{figure}
