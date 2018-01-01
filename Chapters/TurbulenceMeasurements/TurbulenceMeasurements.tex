@@ -911,13 +911,12 @@ For electrostatic fluctuations,
 the magnetic field $\vect{B}$ is well-represented
 by the equilibrium field $\Beq$ such that
 the field-aligned constraint reduces to
-$\vect{k}_0 \cdot \Beq \approx 0$.
-In the absence of velocity shear,
-the wavefronts of this fluctuation propagate along flux surfaces
-($k_{r,0} = 0$) such that the electrostatic field-aligned constraint requires
+$\vect{k}_0 \cdot \Beq \approx 0$, requiring
 \begin{equation}
   \vect{k}_0
   =
+  k_{\rho,0} \rhohat
+  +
   k_{\theta,0}
   \left[%
     \thetahat
@@ -926,10 +925,14 @@ the wavefronts of this fluctuation propagate along flux surfaces
   \right],
   \label{eq:TurbulenceMeasurements:k0}
 \end{equation}
-where $k_{\theta,0}$ is the dominant poloidal wavenumber of the turbulence,
-$B_{\theta,0}$ is the equilibrium poloidal magnetic field, and
-$B_{\zeta,0}$ is the equilibrium toroidal magnetic field.
-(Note that large velocity shear produces finite $k_{r,0}$~\cite{rost_pp14}).
+where
+$k_{\rho,0}$ is the dominant radial wavenumber of the turbulence
+(note that velocity shear produces finite $k_{\rho,0}$~\cite{rost_pp14}),
+$k_{\theta,0}$ is the dominant poloidal wavenumber of the turbulence,
+$B_{\theta,0}$ is the equilibrium poloidal magnetic field,
+$B_{\zeta,0}$ is the equilibrium toroidal magnetic field, and
+the $(\rho, \theta, \zeta)$ coordinate system
+is defined in Figure~\ref{fig:TurbulenceMeasurements:coordinate_geometry}.
 Analytic theory and computation are often performed
 on field-aligned coordinate systems in which
 the $z$-coordinate is along $\Beq$,
@@ -944,6 +947,23 @@ such that one is led naturally to define $k_y = |\vect{k}_0|$.
 The wavenumber $k_y$ (or its dimensionless equivalent, $k_y \rho_s$)
 is an important parameter in the classification and understanding
 of turbulent fluctuations.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = 0.5 \textwidth]{%
+    Chapters/TurbulenceMeasurements/figs/coordinate_geometry.pdf}
+  \caption[Measurement coordinate system]{%
+    Measurement coordinate system.
+    Here, $R$ is the major-radial direction,
+    $Z$ is the lab-frame vertical direction,
+    $\zeta$ is the toroidal angle,
+    $\theta$ is the poloidal angle, and
+    $\rho$ is a flux-surface label
+    corresponding to the square root
+    of the normalized toroidal magnetic-field flux.
+  }
+\label{fig:TurbulenceMeasurements:coordinate_geometry}
+\end{figure}
 
 To make contact with theory, then,
 it is important to understand the relation between $k_y$ and
@@ -965,13 +985,12 @@ such that (for electrostatic fluctuations)
 In general, $\kpci \neq \vect{k}_0$.
 Instead, it is suitable to define
 \begin{equation}
-  \kpci = \vect{k}_0 + \delta \vect{k}
+  \kpci = \vect{k}_0 + \delta \vect{k}.
   \label{eq:TurbulenceMeasurements:kpci_general}
 \end{equation}
 The PCI will measure finite signal only if
 there exists a $\delta\vect{k}$
-within the spatial bandwidth $\Delta\vect{k}$
-of the turbulence centered on $\vect{k}_0$
+within the spatial bandwidth $\Delta\vect{k}$ of the turbulence
 such that the resulting $\kpci$ from
 (\ref{eq:TurbulenceMeasurements:kpci_general})
 satisfies both
@@ -982,22 +1001,6 @@ for any other vertically line-integrated measurement
 of field-aligned turbulence,
 such as those made by the heterodyne interferometer
 constructed in this work).
-\begin{figure}
-  \centering
-  \includegraphics[width = 0.5 \textwidth]{%
-    Chapters/TurbulenceMeasurements/figs/coordinate_geometry.pdf}
-  \caption[Measurement coordinate system]{%
-    Measurement coordinate system.
-    Here, $R$ is the major-radial direction,
-    $Z$ is the lab-frame vertical direction,
-    $\zeta$ is the toroidal angle,
-    $\theta$ is the poloidal angle, and
-    $\rho$ is a flux-surface label
-    corresponding to the square root
-    of the normalized toroidal magnetic-field flux.
-  }
-\label{fig:TurbulenceMeasurements:coordinate_geometry}
-\end{figure}
 Decomposing $\delta\vect{k}$
 in the $(\rho, \theta, \zeta)$ coordinate system
 defined in Figure~\ref{fig:TurbulenceMeasurements:coordinate_geometry}
@@ -1013,7 +1016,9 @@ constraint (\ref{eq:TurbulenceMeasurements:kpci_perp_to_Z}) requires
 \begin{equation}
   \delta k_{\rho}
   =
-  -(k_{\theta,0} + \delta k_{\theta}) \cot\theta,
+  -\delta k_{\rho,0}
+  -
+  (k_{\theta,0} + \delta k_{\theta}) \cot\theta,
   \label{eq:TurbulenceMeasurements:delta_krho}
 \end{equation}
 and constraint (\ref{eq:TurbulenceMeasurements:kpci_perp_to_B0}) requires
