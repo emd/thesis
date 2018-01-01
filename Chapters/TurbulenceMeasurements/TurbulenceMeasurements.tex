@@ -788,6 +788,16 @@ in roughly the next six months.
 
 \section{TGLF modeling}
 \label{sec:TurbulenceMeasurements:Modeling}
+\begin{itemize}
+  \item Section~\ref{sec:TurbulenceMeasurements:Modeling:TGLF_overview}
+    provides an overview of the TGLF model.
+  \item Section~\ref{sec:TurbulenceMeasurements:Modeling:linear_stability_overview}
+    discusses \ldots
+  \item Section~\ref{sec:TurbulenceMeasurements:Modeling:predicted_phase_velocity}
+    attempts \ldots
+  \item Section~\ref{sec:TurbulenceMeasurements:Modeling:local}
+    compares \ldots
+\end{itemize}
 
 
 \subsection{TGLF overview}
@@ -1139,7 +1149,7 @@ along the outboard midplane (where $\theta = 0$) as follows
   % (\ref{eq:TurbulenceMeasurements:PCI_phase_velocity_from_ExB})
   switches signs when passing from above the plasma midplane
   to below the plasma midplane.
-  Figure~\ref{fig:TurbulenceMeasurements:doppler_shift}
+  % Figure~\ref{fig:TurbulenceMeasurements:doppler_shift}
   compares $\vpciE$ from
   % (\ref{eq:TurbulenceMeasurements:PCI_phase_velocity_from_ExB})
   to the measured phase velocity $\vpcimeas$
@@ -1147,27 +1157,9 @@ along the outboard midplane (where $\theta = 0$) as follows
   Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}.
 }
 
-\begin{figure}
-  \centering
-  \includegraphics[width = 0.9 \textwidth]{%
-    Chapters/TurbulenceMeasurements/figs/doppler_shift.pdf}
-  \caption[Doppler-shift localization of high-$k$ turbulence]{%
-    A comparison of the $\ExB$-induced phase velocity $\vpciE$ from
-    % (\ref{eq:TurbulenceMeasurements:PCI_phase_velocity_from_ExB})
-    to the measured phase velocity $\vpcimeas$
-    of the high-$k$ turbulence observed in the left panel
-    of Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}.
-    The near degeneracy of $\vpciE$ with $\rho$
-    corresponds to propagation above and below the plasma midplane.
-    As the spatially filtering ``mask''~\cite{dorris_phd, dorris_rsi09}
-    was not used in this experiment,
-    it is not possible to determine whether
-    $\vpcimeas$ corresponds to propagation above or below the midplane, so
-    both $\vpcimeas$ and $-\vpcimeas$ are plotted.
-  }
-\label{fig:TurbulenceMeasurements:doppler_shift}
-\end{figure}
 
+\subsection{Quantitative local results}
+\label{sec:TurbulenceMeasurements:Modeling:local}
 \begin{figure}[h!]
   \centering
   \includegraphics[width = \textwidth]{%
