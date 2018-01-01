@@ -8,7 +8,8 @@ import normalization
 
 shots = [171536, 171538]
 times = [2750, 2200]
-rhos = np.arange(0.3, 0.95, 0.05)
+drho = 0.05
+rhos = np.arange(0.3, 0.95, drho)
 
 # Plotting parameters
 figsize = (8, 6.5)
@@ -87,8 +88,22 @@ if __name__ == '__main__':
         gamma_cmap = plt.get_cmap('viridis')
         gamma_cmap.set_bad('gray')
 
+        # See pcolormesh description here:
+        #
+        #   https://stackoverflow.com/a/43129331/5469497
+        #
+        # to understand the grid. Also look at documentation
+        # for `plt.pcolor`. More important to get this right
+        # for coarsely spaced rho than for more finely space ky;
+        # also, its easier for the uniformly spaced rho grid
+        # than for the non-uniformly spaced ky grid.
+        rhogrid = np.arange(
+            rhos[0] - (0.5 * drho),
+            rhos[-1] + (1.5 * drho),
+            drho)
+
         m = axs[0, sind].pcolormesh(
-            rhos,
+            rhogrid,
             ky[:, kind],
             gamma,
             vmin=gamma_lim[0],
@@ -103,7 +118,7 @@ if __name__ == '__main__':
             fontsize=fontsize)
 
         m = axs[1, sind].pcolormesh(
-            rhos,
+            rhogrid,
             ky[:, kind],
             vph,
             cmap='BrBG',
@@ -116,7 +131,7 @@ if __name__ == '__main__':
             fontsize=fontsize)
 
     # Plot limits and scale
-    axs[0, 0].set_xlim([rhos[0], rhos[-1]])
+    axs[0, 0].set_xlim([rhogrid[0], rhogrid[-1]])
     axs[0, 0].set_ylim([ky[0, kind], ky[-1, kind]])
     axs[0, 0].set_yscale('log')
 

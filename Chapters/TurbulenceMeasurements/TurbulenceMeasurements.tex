@@ -797,6 +797,10 @@ in roughly the next six months.
     presents a global overview
     of the TGLF-predicted linear-stability changes
     when moving from $\rhoech = 0.5$ to $\rhoech = 0.8$
+  \item Section~\ref{sec:TurbulenceMeasurements:Modeling:wavevectors}
+    derives the relationship between
+    the theoretically relevant field-aligned wavenumber $k_y$ and
+    the PCI-measured major-radial wavenumber $k_R$.
   \item Section~\ref{sec:TurbulenceMeasurements:Modeling:phase_velocity_comparison}
     attempts \ldots
   \item Section~\ref{sec:TurbulenceMeasurements:Modeling:local}
@@ -1207,20 +1211,59 @@ here, electron modes propagate against the $\ExB$ direction
 (decreasing $\vphpci$ relative to the $\ExB$ contribution alone), and
 ion modes propagate in the $\ExB$ direction
 (increasing $\vphpci$ relative to the $\ExB$ contribution alone).
-The $\sin\theta$ term in (\ref{eq:TurbulenceMeasurements:vphpci})
+The $B_0 / B_{\zeta,0}$ multiplicative enhancement to $\vphpci$
+results from $|k_R| < |\kpci|$
+when the magnetic field is not solely toroidal, and
+the $\sin\theta$ term
 provides the major-radial projection
 required by the constraint
-(\ref{eq:TurbulenceMeasurements:kpci_perp_to_Z}), and
-the $B_0 / B_{\zeta,0}$ multiplicative enhancement
-results from $|k_R| < |\kpci|$
-when the magnetic field is not solely toroidal.
+(\ref{eq:TurbulenceMeasurements:kpci_perp_to_Z});
+note that $\vphpci$ changes sign about the midplane ($\theta = 0$)
+due to this major-radial projection.
+As the spatially filtering mask
+\cite{dorris_rsi09, dorris_phd}
+was not used in this experiment,
+the PCI measurements cannot be localized
+to above or below the midplane, and
+only the magnitude of $\vphpci$ will be considered here.
+Figure~\ref{fig:TurbulenceMeasurements:predicted_pci_phase_velocities}
+compares the magnitude of the predicted PCI phase velocity
+from (\ref{eq:TurbulenceMeasurements:vphpci})
+to the measured PCI phase velocities
+from the annotated turbulent branches
+in Figure~\ref{fig:TurbulenceMeasurements:Skf_pci} and
+infers that this turbulence is localized to
+$0.6 \leq \rho \leq 0.65$.
 
 \begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
     Chapters/TurbulenceMeasurements/figs/predicted_pci_phase_velocities.pdf}
-  \caption[Predicted PCI phase velocities]{%
-    Predicted PCI phase velocities.
+  \caption[Comparison of predicted and measured PCI phase velocities]{%
+    Comparison of predicted and measured PCI phase velocities.
+    Here, $\delta \vph$ is the difference between
+    the predicted phase velocity and
+    the measured phase velocity.
+    The predicted phase velocity
+    (\ref{eq:TurbulenceMeasurements:vphpci})
+    is computed using
+    the equilibrium profiles shown in
+    Figure~\ref{fig:TurbulenceMeasurements:profiles} and
+    the TGLF-predicted plasma-frame phase velocites shown in
+    Figure~\ref{fig:TurbulenceMeasurements:linear_stability_overview}.
+    The measured phase velocities correspond
+    to the annotated turbulent branches in
+    Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}.
+    The wavenumber range $k_y \rho_s$ considered here
+    is restricted to $k_R \leq \SI{15}{\per\centi\meter}$,
+    the maximum PCI-measured wavenumber in
+    Fig~\ref{fig:TurbulenceMeasurements:Skf_pci}.
+    The minimum discrepancy between
+    the predicted and measured PCI phase velocities
+    occurs between at $0.6 \leq \rho \leq 0.65$,
+    suggesting that the annotated turbulent branches in
+    Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}
+    are localized to $0.6 \leq \rho \leq 0.65$.
   }
 \label{fig:TurbulenceMeasurements:predicted_pci_phase_velocities}
 \end{figure}

@@ -11,13 +11,14 @@ from geometry import get_B0, get_rho_hat
 shots = [171536, 171538]
 times = [2750, 2200]
 vpci_meas = [5.6, 6.5]  # [vpci_meas] = km / s
-rhos = np.arange(0.35, 0.95, 0.05)
+drho = 0.05
+rhos = np.arange(0.35, 0.95, drho)
 
 # Plotting parameters
 figsize = (8, 4)
 fontsize = 15
 gamma_lim = [1, 2e3]   # [gamma_lim] = kHz
-ky_lim = [0.1, 2.5]    # generous limits on PCI-measured k of fluctuation
+ky_lim = [0.1, 3.0]    # generous limits on PCI-measured k of fluctuation
 dv_lim = [-4, 4]       # [dv_lim] = km / s
 
 
@@ -360,8 +361,22 @@ if __name__ == '__main__':
             ky >= ky_lim[0],
             ky <= ky_lim[1]))[0]
 
+        # See pcolormesh description here:
+        #
+        #   https://stackoverflow.com/a/43129331/5469497
+        #
+        # to understand the grid. Also look at documentation
+        # for `plt.pcolor`. More important to get this right
+        # for coarsely spaced rho than for more finely space ky;
+        # also, its easier for the uniformly spaced rho grid
+        # than for the non-uniformly spaced ky grid.
+        rhogrid = np.arange(
+            rhos[0] - (0.5 * drho),
+            rhos[-1] + (1.5 * drho),
+            drho)
+
         m = axs[sind].pcolormesh(
-            rhos,
+            rhogrid,
             ky[kind],
             dv[kind, :],
             vmin=dv_lim[0],
@@ -370,12 +385,12 @@ if __name__ == '__main__':
         cb = plt.colorbar(m, ax=axs[sind])
         m.set_edgecolor('face')  # avoid grid lines in PDF file
         cb.set_label(
-            r'$\mathregular{\delta v \; [km / s]}$',
+            r'$\mathregular{\delta v_{ph} \; [km / s]}$',
             fontsize=fontsize)
         cb.set_ticks([-4, -3, -2, -1, 0, 1, 2, 3, 4])
 
     # Plot limits and scale
-    axs[0].set_xlim([rhos[0], rhos[-1]])
+    axs[0].set_xlim([rhogrid[0], rhogrid[-1]])
     axs[0].set_ylim([ky[kind][0], ky[kind][-1]])
 
     # Labeling
