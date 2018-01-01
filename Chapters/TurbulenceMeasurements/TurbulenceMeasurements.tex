@@ -790,8 +790,39 @@ in roughly the next six months.
 \label{sec:TurbulenceMeasurements:Modeling}
 
 
+\subsection{TGLF overview}
+\label{sec:TurbulenceMeasurements:Modeling:TGLF_overview}
+TGLF is a gyro-Landau fluid (GLF) model
+that captures the dynamics of
+both trapped (T) and passing particles
+in shaped geometry with finite aspect ratio and $\ExB$ shear
+\cite{staebler_pp05, staebler_pp07}.
+A GLF model consists of velocity-moment equations
+of the gyroaveraged kinetic equation
+with moment closures selected
+to retain important kinetic effects,
+such as Landau damping.
+Due to their reduced dimensionality,
+GLF models are computationally less expensive
+than full gyrokinetic simulations.
+TGLF can solve for the linear eigenmodes of
+trapped ion and electron modes (TIM and TEM, respectively),
+ion and electron temperature gradient (ITG and ETG, respectively) modes,
+and kinetic ballooning modes (KBM).
+Unfortunately, the default eigenfunction basis
+of four Hermite polynomials is typically insufficient
+to resolve micro-tearing modes (MTMs)~\cite{staebler_MTM_question}, so
+there are no attempts to simulate the MTM in this work.
+TGLF additionally uses its eigenmodes
+to predict quasilinear transport
+using a saturation model fit to results
+from nonlinear gyrokinetic simulations~\cite{staebler_pp07},
+the most recent of which include
+realistic multiscale physics~\cite{staebler_nf17}.
+
+
 \subsection{Global overview of predicted linear stability}
-\label{sec:TurbulenceMeasurements:Modeling:overview}
+\label{sec:TurbulenceMeasurements:Modeling:linear_stability_overview}
 \begin{itemize}
   \item Contour plots of growth rates and plasma-frame phase velocities
   \item PCI and interferometer measurable regions
