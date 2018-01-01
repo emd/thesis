@@ -141,7 +141,7 @@ match their measured values to within $\pm 5\%$.
   \includegraphics[width = \textwidth]{%
     Chapters/TurbulenceMeasurements/figs/profiles.pdf}
   \caption[Equilibrium profiles, inverse scale lengths, \& $\ExB$ shearing rate]{%
-    Profiles, inverse scale lengths, and $\ExB$ shearing rate:
+    Profiles, normalized inverse scale lengths, and $\ExB$ shearing rate:
     (a) electron density $n_e$,
     (b) electron temperature $T_e$,
     (c) deuterium temperature $T_i$,
@@ -833,12 +833,7 @@ realistic multiscale physics~\cite{staebler_nf17}.
 
 \subsection{Global overview of predicted linear stability}
 \label{sec:TurbulenceMeasurements:Modeling:linear_stability_overview}
-\begin{itemize}
-  \item Contour plots of growth rates and plasma-frame phase velocities
-  \item PCI and interferometer measurable regions
-\end{itemize}
-
-\begin{figure}[h!]
+\begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
     Chapters/TurbulenceMeasurements/figs/linear_stability_overview.pdf}
@@ -852,10 +847,11 @@ realistic multiscale physics~\cite{staebler_nf17}.
     for $\rhoech = 0.5$ and $\rhoech = 0.8$.
     Electron modes have $\vph > 0$, and
     ion modes have $\vph < 0$.
-    Relative to $\rhoech = 0.8$,
-    $\rhoech = 0.5$ destabilizes
-    mid-$k$ ($0.5 \lesssim k_y \rho_s \lesssim 5$) electron modes
-    in the outer region ($\rho \gtrsim 0.6$) of the plasma.
+    The predicted change in linear stability
+    when moving from $\rhoech = 0.5$ to $\rhoech = 0.8$
+    is largely in accord with intuition
+    derived from the changes to the normalized inverse scale lengths
+    shown in Figure~\ref{fig:TurbulenceMeasurements:profiles}(e)-(g).
     Growth rates can be compared to
     the $\ExB$ shearing rates $\gamma_E$
     in Figure~\ref{fig:TurbulenceMeasurements:profiles}(h).
@@ -863,6 +859,46 @@ realistic multiscale physics~\cite{staebler_nf17}.
 \label{fig:TurbulenceMeasurements:linear_stability_overview}
 \end{figure}
 
+Using the TGLF\_scan module
+in the OMFIT integrated modeling framework~\cite{omfit_nf15},
+TGLF simulations were run
+to investigate the change in linear stability
+when moving from $\rhoech = 0.5$ to $\rhoech = 0.8$.
+The simulations span
+$0.1 \leq k_y \rho_s \leq 24$ and
+$0.3 \leq \rho \leq 0.9$
+(only $\rho \gtrsim 0.35$
+is accessible to the PCI probe beam, which
+propagates vertically through the plasma
+at major radius $R = \SI{1.98}{\meter}$).
+The equilibrium profiles shown
+in Figure~\ref{fig:TurbulenceMeasurements:profiles}
+were used as input to TGLF.
+Figure~\ref{fig:TurbulenceMeasurements:linear_stability_overview}
+displays the resulting linear growth rates $\gamma$ and
+plasma-frame phase velocities $\vph = \omega / k_y$
+as a function of radial position $\rho$ and
+normalized fluctuation wavenumber $k_y \rho_s$.
+The predicted change in linear stability
+when moving from $\rhoech = 0.5$ to $\rhoech = 0.8$
+is largely in accord with intuition
+derived from the changes to the normalized inverse scale lengths
+shown in Figure~\ref{fig:TurbulenceMeasurements:profiles}(e)-(g).
+Perhaps the most substantial change
+is that $\rhoech = 0.5$ robustly destabilizes
+mid-$k$ ($0.5 \lesssim k_y \rho_s \lesssim 5$) electron modes
+in the outer region ($\rho \gtrsim 0.6$) of the plasma
+that are predominantly stable when $\rhoech = 0.8$.
+Additionally, in the outer region of the plasma ($\rho \gtrsim 0.6$),
+the low-$k$ ion modes ($k_y \rho_s \lesssim 0.3$)
+are marginally suppressed and
+the high-$k$ electron modes ($k_y \rho_s \gtrsim 10$)
+are marginally enhanced
+relative to $\rhoech = 0.8$.
+
+
+\subsection{Relation of field-aligned \& PCI-measured wavevectors}
+\label{sec:TurbulenceMeasurements:Modeling:wavevectors}
 \begin{figure}[h!]
   \centering
   \includegraphics[width = \textwidth]{%
