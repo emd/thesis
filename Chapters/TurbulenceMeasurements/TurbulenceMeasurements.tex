@@ -102,7 +102,7 @@ within the last {$50\%$ -- $99\%$} of each inter-ELM window
 were included in the fitting.
 The fitted profiles and
 their corresponding gradients or
-\textcolor{red}{normalized inverse scale lengths}
+normalized inverse scale lengths
 are shown in
 Figure~\ref{fig:TurbulenceMeasurements:profiles}.
 While it may seem counterintuitive
@@ -126,10 +126,10 @@ produces large changes
 in the electron-scale and ion-scale drives,
 $a / L_{T_e}$ and $a / L_{T_i}$, respectively,
 in the region of the plasma accessible to the PCI probe beam
-\textcolor{red}{($R \geq \SI{1.98}{\meter}$)}.
+($R = \SI{1.98}{\meter}$).
 Using these profiles,
 power-balance analysis was performed
-with the \textcolor{red}{ONETWO} code,
+with the ONETWO code~\cite{pfeiffer_onetwo},
 with NUBEAM~\cite{pankin_cpc04} calculations
 for NBI heating and torque and
 TORAY~\cite{matsuda_ieee89} calculations for ECH;
@@ -449,7 +449,7 @@ from $\rhoech = 0.5$ to $\rhoech = 0.8$.
 Further, Figure~\ref{fig:TurbulenceMeasurements:collisionality}
 shows that the electron-ion collisionality $\nu_{ei}$
 in the region of the plasma accessible to the PCI probe beam
-\textcolor{red}{($R \geq \SI{1.98}{\meter}$)}
+($R = \SI{1.98}{\meter}$)
 also roughly doubles when moving
 from $\rhoech = 0.5$ to $\rhoech = 0.8$.
 Thus, this fluctuation is
@@ -467,7 +467,7 @@ in this experiment's reference discharge~\cite{holland_nf17}.
     The electron-ion collisionality $\nu_{ei}$
     in the region of the plasma
     accessible to the PCI probe beam
-    \textcolor{red}{($R \geq \SI{1.98}{\meter}$)}
+    ($R = \SI{1.98}{\meter}$)
     roughly doubles when moving
     from $\rhoech = 0.5$ to $\rhoech = 0.8$.
     The collisionality is computed from the profiles in
@@ -708,6 +708,28 @@ in Section~\ref{sec:TurbulenceMeasurements:Measurements:Sk}.
 
 \subsection{Wavenumber spectra}
 \label{sec:TurbulenceMeasurements:Measurements:Sk}
+\begin{figure}
+  \centering
+  \includegraphics[width = 0.9 \textwidth]{%
+    Chapters/TurbulenceMeasurements/figs/Sk_power_law.pdf}
+  \caption[PCI frequency-wavenumber spectra]{%
+    PCI wavenumber autospectral densities $S_{\phi,\phi}(k)$
+    obtained by integrating $S_{\phi,\phi}(k, f)$ in frequency
+    between the bounds denoted by the annotating dashed while lines
+    in Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}.
+    Here, the black dashed lines indicate least-squares power-law fits
+    to $S_{\phi,\phi}(k)$.
+    The flattening (i.e.\ slower decay) of $S_{\phi,\phi}(k)$
+    with $\rhoech = 0.5$ relative to that with $\rhoech = 0.8$
+    is reminiscent of results from multiscale gyrokinetic simulations
+    in Alcator C-Mod, but
+    quantitative comparisons await
+    completion of the corresponding multiscale gyrokinetic simulations
+    in \diiid.
+  }
+\label{fig:TurbulenceMeasurements:Sk_power_law}
+\end{figure}
+
 Because simulations are finely sampled in space
 but often have limited temporal histories,
 experimental wavenumber spectra
@@ -745,7 +767,7 @@ $\rhoech = 0.5$ corresponds to
 increased $a / L_{Te}$ and decreased $a / L_{T_i}$
 over the majority of the plasma
 accessible to the PCI probe beam
-\textcolor{red}{($R \geq \SI{1.98}{\meter}$)}.
+($R = \SI{1.98}{\meter}$).
 This spectral flattening with
 enhanced electron-scale drive relative to ion-scale drive
 is reminiscent of results from
@@ -765,47 +787,37 @@ to corresponding multiscale gyrokinetic simulations,
 which are expected to be completed by Howard \emph{et al.}
 in roughly the next six months.
 
-\begin{figure}
-  \centering
-  \includegraphics[width = 0.9 \textwidth]{%
-    Chapters/TurbulenceMeasurements/figs/Sk_power_law.pdf}
-  \caption[PCI frequency-wavenumber spectra]{%
-    PCI wavenumber autospectral densities $S_{\phi,\phi}(k)$
-    obtained by integrating $S_{\phi,\phi}(k, f)$ in frequency
-    between the bounds denoted by the annotating dashed while lines
-    in Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}.
-    Here, the black dashed lines indicate least-squares power-law fits
-    to $S_{\phi,\phi}(k)$.
-    The flattening (i.e.\ slower decay) of $S_{\phi,\phi}(k)$
-    with $\rhoech = 0.5$ relative to that with $\rhoech = 0.8$
-    is reminiscent of results from multiscale gyrokinetic simulations
-    in Alcator C-Mod, but
-    quantitative comparisons await
-    completion of the corresponding multiscale gyrokinetic simulations
-    in \diiid.
-  }
-\label{fig:TurbulenceMeasurements:Sk_power_law}
-\end{figure}
-
 
 \section{TGLF modeling}
 \label{sec:TurbulenceMeasurements:Modeling}
-\begin{itemize}
-  \item Section~\ref{sec:TurbulenceMeasurements:Modeling:TGLF_overview}
-    provides an overview of the TGLF model.
-  \item Section~\ref{sec:TurbulenceMeasurements:Modeling:linear_stability_overview}
-    presents a global overview
-    of the TGLF-predicted linear-stability changes
-    when moving from $\rhoech = 0.5$ to $\rhoech = 0.8$
-  \item Section~\ref{sec:TurbulenceMeasurements:Modeling:wavevectors}
-    derives the relationship between
-    the theoretically relevant field-aligned wavenumber $k_y$ and
-    the PCI-measured major-radial wavenumber $k_R$.
-  \item Section~\ref{sec:TurbulenceMeasurements:Modeling:phase_velocity_comparison}
-    attempts \ldots
-  \item Section~\ref{sec:TurbulenceMeasurements:Modeling:local}
-    compares \ldots
-\end{itemize}
+To aid the interpretation of the combined PCI-interferometer measurements
+described in Section~\ref{sec:TurbulenceMeasurements:Measurements},
+linear-stability analysis and quasilinear-transport modeling
+were performed with the TGLF code.
+Below, Section~\ref{sec:TurbulenceMeasurements:Modeling:TGLF_overview}
+provides a brief overview of the TGLF code, and
+Section~\ref{sec:TurbulenceMeasurements:Modeling:linear_stability_overview}
+presents a global overview
+of the TGLF-predicted linear stability
+for $\rhoech = 0.5$ to $\rhoech = 0.8$.
+In order to facilitate comparisons
+between theory and measurement,
+Section~\ref{sec:TurbulenceMeasurements:Modeling:wavevectors}
+then derives the relationship between
+the theoretically relevant field-aligned wavenumber $k_y$ and
+the PCI-measured major-radial wavenumber $k_R$.
+Next, in an attempt to localize analysis of the TGLF results,
+Section~\ref{sec:TurbulenceMeasurements:Modeling:phase_velocity_comparison}
+compares the advection of the TGLF-predicted instabilities
+by the $\ExB$ velocity
+to the PCI-measured phase velocities;
+the comparison suggests that
+the PCI-measured branch of interest is localized to
+$0.6 \leq \rho \leq 0.65$.
+Finally, Section~\ref{sec:TurbulenceMeasurements:Modeling:local}
+compares the TGLF-predicted electron-density fluctuation spectrum
+to the corresponding PCI measurements,
+finding qualitative agreement.
 
 
 \subsection{TGLF overview}
@@ -841,6 +853,42 @@ realistic multiscale physics~\cite{staebler_nf17}.
 
 \subsection{Global overview of predicted linear stability}
 \label{sec:TurbulenceMeasurements:Modeling:linear_stability_overview}
+Using the TGLF\_scan module
+in the OMFIT integrated modeling framework~\cite{omfit_nf15},
+TGLF simulations were run
+to investigate the change in linear stability
+when moving from $\rhoech = 0.5$ to $\rhoech = 0.8$.
+The simulations span
+$0.1 \leq k_y \rho_s \leq 24$ and
+$0.3 \leq \rho \leq 0.9$
+(only $\rho \gtrsim 0.35$
+is accessible to the PCI probe beam, which
+propagates vertically through the plasma
+at major radius $R = \SI{1.98}{\meter}$).
+The equilibrium profiles shown
+in Figure~\ref{fig:TurbulenceMeasurements:profiles}
+were used as input to TGLF.
+Figure~\ref{fig:TurbulenceMeasurements:linear_stability_overview}
+displays the resulting linear growth rates $\gamma$ and
+plasma-frame phase velocities $\vph = \omega / k_y$
+as a function of radial position $\rho$ and
+normalized fluctuation wavenumber $k_y \rho_s$.
+The predicted change in linear stability
+when moving from $\rhoech = 0.5$ to $\rhoech = 0.8$
+is largely in accord with intuition
+derived from the changes to the normalized inverse scale lengths
+shown in Figure~\ref{fig:TurbulenceMeasurements:profiles}(e)-(g).
+Perhaps the most substantial change
+is that $\rhoech = 0.5$ destabilizes a continuum of
+mid-$k$ ($0.5 \lesssim k_y \rho_s \lesssim 5$) electron modes
+in the outer region ($\rho \gtrsim 0.6$) of the plasma.
+Additionally, in the outer region of the plasma ($\rho \gtrsim 0.6$),
+the low-$k$ ion modes ($k_y \rho_s \lesssim 0.3$)
+are marginally suppressed and
+the high-$k$ electron modes ($k_y \rho_s \gtrsim 10$)
+are marginally enhanced
+relative to $\rhoech = 0.8$.
+
 \begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
@@ -868,43 +916,6 @@ realistic multiscale physics~\cite{staebler_nf17}.
   }
 \label{fig:TurbulenceMeasurements:linear_stability_overview}
 \end{figure}
-
-Using the TGLF\_scan module
-in the OMFIT integrated modeling framework~\cite{omfit_nf15},
-TGLF simulations were run
-to investigate the change in linear stability
-when moving from $\rhoech = 0.5$ to $\rhoech = 0.8$.
-The simulations span
-$0.1 \leq k_y \rho_s \leq 24$ and
-$0.3 \leq \rho \leq 0.9$
-(only $\rho \gtrsim 0.35$
-is accessible to the PCI probe beam, which
-propagates vertically through the plasma
-at major radius $R = \SI{1.98}{\meter}$).
-The equilibrium profiles shown
-in Figure~\ref{fig:TurbulenceMeasurements:profiles}
-were used as input to TGLF.
-Figure~\ref{fig:TurbulenceMeasurements:linear_stability_overview}
-displays the resulting linear growth rates $\gamma$ and
-plasma-frame phase velocities $\vph = \omega / k_y$
-as a function of radial position $\rho$ and
-normalized fluctuation wavenumber $k_y \rho_s$.
-The predicted change in linear stability
-when moving from $\rhoech = 0.5$ to $\rhoech = 0.8$
-is largely in accord with intuition
-derived from the changes to the normalized inverse scale lengths
-shown in Figure~\ref{fig:TurbulenceMeasurements:profiles}(e)-(g).
-Perhaps the most substantial change
-is that $\rhoech = 0.5$ robustly destabilizes
-mid-$k$ ($0.5 \lesssim k_y \rho_s \lesssim 5$) electron modes
-in the outer region ($\rho \gtrsim 0.6$) of the plasma
-that are predominantly stable when $\rhoech = 0.8$.
-Additionally, in the outer region of the plasma ($\rho \gtrsim 0.6$),
-the low-$k$ ion modes ($k_y \rho_s \lesssim 0.3$)
-are marginally suppressed and
-the high-$k$ electron modes ($k_y \rho_s \gtrsim 10$)
-are marginally enhanced
-relative to $\rhoech = 0.8$.
 
 
 \subsection{Relation between field-aligned \& PCI-measured wavevectors}
