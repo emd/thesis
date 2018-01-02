@@ -1329,6 +1329,29 @@ of the corresponding local TGLF predictions.
 Below, TGLF predictions are shown for $\rho = 0.6$, but
 comparable predictions are made at $\rho = 0.65$.
 
+Figure~\ref{fig:TurbulenceMeasurements:linear_stability_local}
+displays the TGLF-predicted linear stability
+at radial location $\rho = 0.6$
+for $\rhoech = 0.5$ and $\rhoech = 0.8$.
+Both operational scenarios are predicted
+to destabilize ion and electron modes
+across multiple spatiotemporal scales, but
+$\rhoech = 0.5$ is predicted
+to destabilize a continuum
+of mid-$k$ ($0.5 \lesssim k_y \rho_s \lesssim 5$) electron modes
+that bridge the gap between
+low-$k$ ($k_y \rho_s \lesssim 0.5$) ion modes and
+high-$k$ ($k_y \rho_s \gtrsim 5$) electron modes,
+potentially facilitating cross-scale coupling.
+Further, relative to $\rhoech = 0.8$,
+the $\rhoech = 0.5$ ion-mode growth rates
+are substantially reduced
+(becoming comparable to the $\ExB$ shearing rate
+shown in Figure~\ref{fig:TurbulenceMeasurements:profiles}(h)), and
+the high-$k$ electron-mode growth rates
+are marginally enhanced,
+both of which may also facilitate cross-scale coupling.
+
 \begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
@@ -1353,29 +1376,6 @@ comparable predictions are made at $\rho = 0.65$.
   }
 \label{fig:TurbulenceMeasurements:linear_stability_local}
 \end{figure}
-
-Figure~\ref{fig:TurbulenceMeasurements:linear_stability_local}
-displays the TGLF-predicted linear stability
-at radial location $\rho = 0.6$
-for $\rhoech = 0.5$ and $\rhoech = 0.8$.
-Both operational scenarios are predicted
-to destabilize ion and electron modes
-across multiple spatiotemporal scales, but
-$\rhoech = 0.5$ is predicted
-to destabilize a continuum
-of mid-$k$ ($0.5 \lesssim k_y \rho_s \lesssim 5$) electron modes
-that bridge the gap between
-low-$k$ ($k_y \rho_s \lesssim 0.5$) ion modes and
-high-$k$ ($k_y \rho_s \gtrsim 5$) electron modes,
-potentially facilitating cross-scale coupling.
-Further, relative to $\rhoech = 0.8$,
-the $\rhoech = 0.5$ ion-mode growth rates
-are substantially reduced
-(becoming comparable to the $\ExB$ shearing rate
-shown in Figure~\ref{fig:TurbulenceMeasurements:profiles}(h)), and
-the high-$k$ electron-mode growth rates
-are marginally enhanced,
-both of which may also facilitate cross-scale coupling.
 
 Howard \emph{et al.} suggest a linear-stability ``rule of thumb''
 for gauging the importance of cross-scale coupling~\cite{howard_pp16}.
@@ -1417,40 +1417,72 @@ $\gammahighk / \gammalowk = 42$;
 cross-scale coupling can be important in ELMy H-mode plasmas
 with this $\gammahighk / \gammalowk$~\cite{howard_ppcf18}.
 
-Density spectra
-\begin{itemize}
-  \item Computed using TGLF-SAT$1$ rule~\cite{staebler_nf17},
-    which is calibrated against multiscale gyrokinetic simulations
-  \item Results shown in
-    Figure~\ref{fig:TurbulenceMeasurements:density_spectra_local}
-  \item Noise floor is inferred from the noise floor
-    of Figure~\ref{fig:TurbulenceMeasurements:Sk_power_law}
-  \item In the PCI wavenumber domain and sensitivity,
-    the predicted spectra are qualitatively consistent
-    with Figure~\ref{fig:TurbulenceMeasurements:Sk_power_law}
-    and cross-scale flattening
-  \item The intersection of $\rhoech=0.5$ and $\rhoech = 0.8$
-    is in rough agreement with
-    Figure~\ref{fig:TurbulenceMeasurements:Sk_power_law}
-  \item However, TGLF-predicted power law
-    for $\rhoech = 0.5$ differs substantially from
-    Figure~\ref{fig:TurbulenceMeasurements:Sk_power_law};
-    it did not seem sensible to fit a power law
-    to the $\rho = 0.8$ TGLF predictions
-  \item It should be emphasized that the TGLF-SAT$1$ model
-    includes multiscale physics from only a few
-    realistic multiscale gyrokinetic simulations
-    of Alcator C-Mod L-mode plasmas~\cite{staebler_nf17}, so
-    agreement may be improved upon when more
-    multiscale runs are completed and added to the TGLF-SAT$1$ model
-\end{itemize}
+In addition to assessing linear stability,
+TGLF can predict the electron-density fluctuation spectrum
+using quasilinear transport and
+a model for the nonlinear saturation of the turbulence.
+This saturation model is fit to results
+from nonlinear gyrokinetic simulations~\cite{staebler_pp07},
+the most recent of which include
+realistic multiscale physics~\cite{staebler_nf17}.
+The multiscale saturation model is referred to as SAT$1$.
+The density fluctuation spectrum
+predicted by TGLF-SAT$1$ at $\rho = 0.6$
+is shown Figure~\ref{fig:TurbulenceMeasurements:density_spectra_local}.
+Within the PCI sensitivity and wavenumber domain,
+the predicted spectra are qualitatively consistent
+with the PCI-measured spectra
+in Figure~\ref{fig:TurbulenceMeasurements:Sk_power_law}.
+Specifically, the $\rhoech = 0.5$ spectrum
+is noticeably flatter (i.e.\ decays more slowly)
+than the $\rhoech = 0.8$ spectrum, which
+may be indicative of enhanced cross-scale coupling~\cite{howard_pp16}.
+Further, the intersection of the two predicted spectra
+is in rough agreement
+with that observed in the PCI-measured spectra.
+However, the predicted and measured power laws
+quantitatively disagree.
+Specifically, the $\rhoech = 0.5$ TGLF-SAT$1$ spectrum
+decays only about half as fast as the corresponding PCI-measured spectrum.
+There was no attempt to fit the $\rhoech = 0.8$ TGLF-SAT$1$ spectrum.
+It should be emphasized that the TGLF-SAT$1$ model
+is fit to just a handful~\cite{staebler_nf17}
+of realistic multiscale gyrokinetic simulations
+corresponding to Alcator C-Mod L-mode plasmas, so
+quantitative agreement may improve
+when additional multiscale simulations are completed, and
+the TGLF-SAT$1$ model is recalibrated.
 
 \begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
     Chapters/TurbulenceMeasurements/figs/density_spectra_local.pdf}
-  \caption[TGLF-predicted density-fluctuation spectra]{%
-    TGLF-predicted density-fluctuation spectra
+  \caption[TGLF-predicted electron-density fluctuation spectra]{%
+    Electron-density fluctuation spectra
+    predicted by TGLF-SAT$1$
+    at radial location $\rho = 0.6$
+    for $\rhoech = 0.5$ and $\rhoech = 0.8$.
+    The gray region exceeds the spatial bandwidth
+    of the combined PCI-interferometer
+    developed in this work.
+    The equivalent PCI noise floor,
+    indicated by the horizontal dash-dot line,
+    is inferred from the noise floor
+    in Figure~\ref{fig:TurbulenceMeasurements:Sk_power_law};
+    that is, for $\rhoech = 0.5$
+    the equivalent noise floor intersects $S(k_R)$
+    at $k_R \approx \SI{15}{\per\centi\meter}$,
+    which is roughly equivalent to the $\rhoech = 0.5$ noise floor
+    in Figure~\ref{fig:TurbulenceMeasurements:Sk_power_law}.
+    Within the PCI sensitivity and wavenumber domain,
+    the predicted spectra are qualitatively consistent
+    with the PCI-measured spectra
+    in Figure~\ref{fig:TurbulenceMeasurements:Sk_power_law}.
+    The black dashed line indicates a least-squares power-law fit
+    to the predicted $S(k_R)$ for $\rhoech = 0.5$;
+    the resulting power law quantitatively disagrees
+    with the PCI-measured power law in
+    Figure~\ref{fig:TurbulenceMeasurements:Sk_power_law}.
   }
 \label{fig:TurbulenceMeasurements:density_spectra_local}
 \end{figure}

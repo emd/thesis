@@ -23,7 +23,7 @@ rho_ECH = ([
     0.8
 ])
 
-rho = 0.60
+rho = 0.6
 Rpci = 1.98  # [Rpci] = m
 
 # Plotting parameters
@@ -186,9 +186,9 @@ if __name__ == '__main__':
         linestyle='-.',
         linewidth=linewidth)
     plt.annotate(
-        r'$\mathregular{inferred \, noise \, floor}$',
-        (1.1, 1.5e-2),
-        fontsize=fontsize)
+        r'$\mathregular{equivalent \: PCI \: noise \: floor}$',
+        (1.05, 1.7e-2),
+        fontsize=(fontsize - 2))
 
     # Annotate radial location
     plt.annotate(
