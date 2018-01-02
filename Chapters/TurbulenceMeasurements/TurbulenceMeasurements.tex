@@ -846,7 +846,9 @@ realistic multiscale physics~\cite{staebler_nf17}.
   \includegraphics[width = \textwidth]{%
     Chapters/TurbulenceMeasurements/figs/linear_stability_overview.pdf}
   \caption[Global overview of TGLF-predicted linear stability]{%
-    Global overview of TGLF-predicted linear stability.
+    Global overview of TGLF-predicted linear stability
+    for the profiles shown in
+    Figure~\ref{fig:TurbulenceMeasurements:profiles}.
     Linear growth rates $\gamma$ and
     plasma-frame phase velocities $\vph = \omega / k_y$
     are plotted as a function
@@ -1315,26 +1317,142 @@ along the outboard midplane (where $\theta = 0$) as follows
 
 \subsection{Quantitative local results}
 \label{sec:TurbulenceMeasurements:Modeling:local}
-\begin{figure}[h!]
+A global overview of the TGLF-predicted linear stability was presented in
+Section~\ref{sec:TurbulenceMeasurements:Modeling:linear_stability_overview}.
+In Section~\ref{sec:TurbulenceMeasurements:Modeling:phase_velocity_comparison},
+the annotated turbulent branches
+from Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}
+were localized to $0.6 \leq \rho \leq 0.65$.
+Thus, it is now suitable
+to perform a more quantitative assessment
+of the corresponding local TGLF predictions.
+Below, TGLF predictions are shown for $\rho = 0.6$, but
+comparable predictions are made at $\rho = 0.65$.
+
+\begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
-    Chapters/TurbulenceMeasurements/figs/linear_stability_rho070.pdf}
-  \caption[TGLF-predicted linear growth rates]{%
-    TGLF-predicted linear growth rates.
-    Filled symbols indicate electron modes, while
-    unfilled symbols indicate ion modes.
+    Chapters/TurbulenceMeasurements/figs/linear_stability_local.pdf}
+  \caption[TGLF-predicted linear stability at $\rho = 0.6$]{%
+    TGLF-predicted linear stability at $\rho = 0.6$
+    for the profiles shown in
+    Figure~\ref{fig:TurbulenceMeasurements:profiles}.
+    Linear growth rates $\gamma$ and
+    plasma-frame phase velocities $\vph = \omega / k_y$
+    are plotted as a function of
+    normalized fluctuation wavenumber $k_y \rho_s$
+    for $\rhoech = 0.5$ and $\rhoech = 0.8$.
+    Electron modes have $\vph > 0$, and
+    ion modes have $\vph < 0$.
+    The gray region exceeds the spatial bandwidth
+    of the combined PCI-interferometer
+    developed in this work.
+    Growth rates can be compared
+    to the $\ExB$ shearing rates $\gamma_E$
+    in Figure~\ref{fig:TurbulenceMeasurements:profiles}(h).
   }
-\label{fig:TurbulenceMeasurements:linear_stability}
+\label{fig:TurbulenceMeasurements:linear_stability_local}
 \end{figure}
 
-\begin{figure}[h!]
+Figure~\ref{fig:TurbulenceMeasurements:linear_stability_local}
+displays the TGLF-predicted linear stability
+at radial location $\rho = 0.6$
+for $\rhoech = 0.5$ and $\rhoech = 0.8$.
+Both operational scenarios are predicted
+to destabilize ion and electron modes
+across multiple spatiotemporal scales, but
+$\rhoech = 0.5$ is predicted
+to destabilize a continuum
+of mid-$k$ ($0.5 \lesssim k_y \rho_s \lesssim 5$) electron modes
+that bridge the gap between
+low-$k$ ($k_y \rho_s \lesssim 0.5$) ion modes and
+high-$k$ ($k_y \rho_s \gtrsim 5$) electron modes,
+potentially facilitating cross-scale coupling.
+Further, relative to $\rhoech = 0.8$,
+the $\rhoech = 0.5$ ion-mode growth rates
+are substantially reduced
+(becoming comparable to the $\ExB$ shearing rate
+shown in Figure~\ref{fig:TurbulenceMeasurements:profiles}(h)), and
+the high-$k$ electron-mode growth rates
+are marginally enhanced,
+both of which may also facilitate cross-scale coupling.
+
+Howard \emph{et al.} suggest a linear-stability ``rule of thumb''
+for gauging the importance of cross-scale coupling~\cite{howard_pp16}.
+The rule of thumb attempts to quantify the relative ``strength''
+of electron-scale to ion-scale turbulence
+by examining the ratio of
+the maximum electron-scale growth rate $\gammahighk$ to
+the maximum ion-scale growth rate $\gammalowk$,
+with larger values of $\gammahighk / \gammalowk$
+corresponding to increased cross-scale coupling.
+Howard \emph{et al.} constrain their search
+for $\gammahighk$ to $2 \leq k_y \rho_s \leq 48$ and
+for $\gammalowk$ to $0.25 \leq k_y \rho_s \leq 0.75$.
+For consistency, this same selection criterion is used below.
+For $\rhoech = 0.8$,
+Figure~\ref{fig:TurbulenceMeasurements:linear_stability_local} shows that
+$\gammahighk = \SI{540}{\kilo\hertz}$ at $k_y \rho_s = 14$ and
+$\gammalowk = \SI{43}{\kilo\hertz}$ at $k_y \rho_s = 0.4$ such that
+$\gammahighk / \gammalowk = 12.6$;
+with such a small value,
+the rule of thumb suggests that cross-scale coupling
+is insignificant.
+For $\rhoech = 0.5$,
+Figure~\ref{fig:TurbulenceMeasurements:linear_stability_local} shows that
+$\gammahighk = \SI{720}{\kilo\hertz}$ at $k_y \rho_s = 14$ and
+$\gammalowk = \SI{63}{\kilo\hertz}$ at $k_y \rho_s = 0.7$ such that
+$\gammahighk / \gammalowk = 11.4$,
+less than the $\rhoech = 0.8$ case.
+It should be noted, however,
+that the distinct mid-$k$ electron branch
+in Figure~\ref{fig:TurbulenceMeasurements:linear_stability_local}
+is \emph{absent} from the plasmas
+used to develop the rule of thumb;
+further, the above $\gammalowk$ for $\rhoech = 0.5$
+corresponds to this mid-$k$ electron branch.
+If $\gammalowk$ is instead restricted to an ion mode,
+$\gammalowk = \SI{17}{\kilo\hertz}$ at $k_y \rho_s = 0.35$ such that
+$\gammahighk / \gammalowk = 42$;
+cross-scale coupling can be important in ELMy H-mode plasmas
+with this $\gammahighk / \gammalowk$~\cite{howard_ppcf18}.
+
+Density spectra
+\begin{itemize}
+  \item Computed using TGLF-SAT$1$ rule~\cite{staebler_nf17},
+    which is calibrated against multiscale gyrokinetic simulations
+  \item Results shown in
+    Figure~\ref{fig:TurbulenceMeasurements:density_spectra_local}
+  \item Noise floor is inferred from the noise floor
+    of Figure~\ref{fig:TurbulenceMeasurements:Sk_power_law}
+  \item In the PCI wavenumber domain and sensitivity,
+    the predicted spectra are qualitatively consistent
+    with Figure~\ref{fig:TurbulenceMeasurements:Sk_power_law}
+    and cross-scale flattening
+  \item The intersection of $\rhoech=0.5$ and $\rhoech = 0.8$
+    is in rough agreement with
+    Figure~\ref{fig:TurbulenceMeasurements:Sk_power_law}
+  \item However, TGLF-predicted power law
+    for $\rhoech = 0.5$ differs substantially from
+    Figure~\ref{fig:TurbulenceMeasurements:Sk_power_law};
+    it did not seem sensible to fit a power law
+    to the $\rho = 0.8$ TGLF predictions
+  \item It should be emphasized that the TGLF-SAT$1$ model
+    includes multiscale physics from only a few
+    realistic multiscale gyrokinetic simulations
+    of Alcator C-Mod L-mode plasmas~\cite{staebler_nf17}, so
+    agreement may be improved upon when more
+    multiscale runs are completed and added to the TGLF-SAT$1$ model
+\end{itemize}
+
+\begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
-    Chapters/TurbulenceMeasurements/figs/density_spectra_rho070.pdf}
+    Chapters/TurbulenceMeasurements/figs/density_spectra_local.pdf}
   \caption[TGLF-predicted density-fluctuation spectra]{%
     TGLF-predicted density-fluctuation spectra
   }
-\label{fig:TurbulenceMeasurements:density_spectra}
+\label{fig:TurbulenceMeasurements:density_spectra_local}
 \end{figure}
 
 
