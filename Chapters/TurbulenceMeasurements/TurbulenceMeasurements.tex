@@ -2,7 +2,7 @@
 \label{ch:TurbulenceMeasurements}
 Development of a first-principles understanding
 of turbulent transport in a tokamak
-requires multi-tiered validation\ldots
+requires multi-tiered validation against experimental measurements
 comparing not just heat fluxes, but
 also turbulent spectra etc.
 \diiid's extensive suite of fluctuation diagnostics
@@ -10,6 +10,21 @@ provides an ideal setting to validate
 predicted changes~\cite{howard_pp16}
 to turbulent spectra when altering relative drive
 between electron-scale and ion-scale turbulence.
+
+\begin{itemize}
+  \item Section~\ref{sec:TurbulenceMeasurements:Background}
+    provides an overview of the drift-wave turbulence
+    often observed in tokamak plasmas;
+    the importance of recent results
+    from realistic multiscale simulations is emphasized
+  \item Section~\ref{sec:TurbulenceMeasurements:ExperimentalConditions}
+    describes a recent \diiid\space experiment
+    designed to probe the multiscale nature
+    of plasma turbulence.
+  \item Section~\ref{sec:TurbulenceMeasurements:Measurements}
+    details\ldots
+  \item Section~\ref{sec:TurbulenceMeasurements:Modeling}
+\end{itemize}
 
 
 \section{Overview of drift-wave turbulence}
@@ -58,10 +73,11 @@ evaluated at the ion sound speed,
 $c_s = (T_e / m_i)^{1/2}$ is the ion sound speed, and
 $\Omega_i = e B / m_i$ is the ion angular cyclotron frequency.
 The temporal ordering of ion-scale turbulence is usually expressed as
-$k_{||} v_{ti} \ll \omega \ll k_{||} v_{te}$~\cite[Sec.~8.3]{wesson},
+$k_{||} \text{v}_{ti} \ll \omega \ll k_{||} \text{v}_{te}$
+\cite[Sec.~8.3]{wesson},
 where $\omega$ is the angular frequency of the instability,
 $k_{||}$ is the instability wavenumber parallel to the magnetic field, and
-$v_{tj}$ is the thermal speed of species $j$;
+$\text{v}_{tj}$ is the thermal speed of species $j$;
 thus, the electrons respond rapidly (approximately adiabatically)
 to the electrostatic-potential fluctuations
 of the instability.
@@ -116,10 +132,9 @@ capable of driving experimentally relevant electron heat transport
 it was unknown whether or not
 such streamers would survive
 in the presence of ion-scale turbulence,
-as, until very recently,
-self-consistently and simultaneously simulating
+as self-consistently and simultaneously simulating
 both ion- and electron-scale turbulence with realistic mass ratios
-was computationally intractable.
+was computationally intractable until very recently.
 
 By exploiting the latest advances in high-performance computing,
 Howard \emph{et al.} have performed
@@ -697,6 +712,9 @@ in this experiment's reference discharge~\cite{holland_nf17}.
     Unfortunately, without a wavenumber measurement,
     the more theoretically relevant $\omega_{*e}$ normalization
     cannot be performed.
+    Both discharges are in the banana regime
+    ($\nu_{ei}^* < 1$)~\cite[Sec.~4.6]{wesson}
+    for $\rho \lesssim 0.95$.
   }
 \label{fig:TurbulenceMeasurements:collisionality}
 \end{figure}
@@ -1006,7 +1024,10 @@ in roughly the next six months.
 To aid the interpretation of the combined PCI-interferometer measurements
 described in Section~\ref{sec:TurbulenceMeasurements:Measurements},
 linear-stability analysis and quasilinear-transport modeling
-were performed with the TGLF code.
+were performed with the TGLF code~\footnote{%
+  TGLF simulations were graciously performed by Dr. Alessandro Marinoni, but
+  the subsequent analysis is the author's own.
+}.
 Below, Section~\ref{sec:TurbulenceMeasurements:Modeling:TGLF_overview}
 provides a brief overview of the TGLF code, and
 Section~\ref{sec:TurbulenceMeasurements:Modeling:linear_stability_overview}
@@ -1547,7 +1568,7 @@ In Section~\ref{sec:TurbulenceMeasurements:Modeling:phase_velocity_comparison},
 the annotated turbulent branches
 from Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}
 were localized to $0.6 \leq \rho \leq 0.65$.
-Thus, it is now suitable
+Thus, it is now reasonable
 to perform a more quantitative assessment
 of the corresponding local TGLF predictions.
 Below, TGLF predictions are shown for $\rho = 0.6$, but
