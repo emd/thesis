@@ -31,7 +31,8 @@ fontsize = 15
 cols = get_distinct(2)
 markers = ['o', 's']
 linewidth = 2
-kR_fit_lims = [4, 15]
+kR_536_fit_lims = [4, 15]
+kR_538_fit_lims = [2, 13]
 
 
 def load_data(shot, time, rho, sat_rule=1):
@@ -131,18 +132,34 @@ if __name__ == '__main__':
             linewidth=linewidth,
             label=r'$\mathregular{\rho_{ECH} = %.1f}$' % rho_ECH[sind])
 
-        # Fit data from 536 to a power law
+        # Fit data to power laws
         if shot == 171536:
-            c, alpha = power_law_fit(kR, Sk, xlim=kR_fit_lims)
+            c, alpha = power_law_fit(kR, Sk, xlim=kR_536_fit_lims)
             plt.loglog(
-                kR_fit_lims,
-                c * (kR_fit_lims ** alpha),
+                kR_536_fit_lims,
+                c * (kR_536_fit_lims ** alpha),
                 color='k',
                 linestyle='--',
                 linewidth=(2 * linewidth))
             plt.annotate(
                 r'$\mathregular{\propto k_R^{%.1f}}$' % alpha,
                 (8.25, 0.25),
+                color=cols[sind],
+                fontsize=fontsize)
+        elif shot == 171538:
+            # Don't include zeros...
+            kind = np.where(Sk > 0)[0]
+            c, alpha = power_law_fit(
+                kR[kind], Sk[kind], xlim=kR_538_fit_lims)
+            plt.loglog(
+                kR_538_fit_lims,
+                c * (kR_538_fit_lims ** alpha),
+                color='k',
+                linestyle='--',
+                linewidth=(2 * linewidth))
+            plt.annotate(
+                r'$\mathregular{\propto k_R^{%.1f}}$' % alpha,
+                (2.5, 1.7),
                 color=cols[sind],
                 fontsize=fontsize)
 
@@ -166,13 +183,13 @@ if __name__ == '__main__':
 
     # Annotate wavenumbers outside measurable range
     fillcolor = 'gray'
-    alpha = 0.5
+    fillalpha = 0.5
     plt.fill_betweenx(
         ylim,
         25,
         xlim[-1],
         color=fillcolor,
-        alpha=alpha)
+        alpha=fillalpha)
     plt.annotate(
         r'$\mathregular{k_R > 25 \, cm^{-1}}$',
         (45, 1e-1),
@@ -186,8 +203,8 @@ if __name__ == '__main__':
         linestyle='-.',
         linewidth=linewidth)
     plt.annotate(
-        r'$\mathregular{equivalent \: PCI \: noise \: floor}$',
-        (1.05, 1.7e-2),
+        'equivalent PCI\n   noise floor',
+        (1.05, 1e-2),
         fontsize=(fontsize - 2))
 
     # Annotate radial location
