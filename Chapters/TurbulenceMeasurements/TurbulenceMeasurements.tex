@@ -193,7 +193,7 @@ is intrinsically multiscale in nature~\cite{holland_nf17}.
 The experimental conditions are discussed
 in Section~\ref{sec:TurbulenceMeasurements:ExperimentalConditions}, and
 the combined PCI-interferometer measurements
-of the resulting electron density fluctuations are presented
+of the resulting electron-density fluctuations are presented
 in Section~\ref{sec:TurbulenceMeasurements:Measurements}.
 To aid the interpretation of these measurements,
 linear-stability analysis and quasilinear-transport modeling
@@ -330,6 +330,33 @@ is intrinsically multiscale in nature~\cite{holland_nf17}.
 \label{fig:TurbulenceMeasurements:traces}
 \end{figure}
 
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/TurbulenceMeasurements/figs/profiles.pdf}
+  \caption[Equilibrium profiles, inverse scale lengths, \& $\ExB$ shearing rate]{%
+    Profiles, normalized inverse scale lengths, and $\ExB$ shearing rate:
+    (a) electron density $n_e$,
+    (b) electron temperature $T_e$,
+    (c) deuterium temperature $T_i$,
+    (d) radial electric field $E_r$ along the outboard midplane,
+    (e) normalized inverse $n_e$ scale length $a / L_{n_e}$,
+    (f) normalized inverse $T_e$ scale length $a / L_{T_e}$,
+    (g) normalized inverse $T_i$ scale length $a / L_{T_i}$,
+    (h) $\ExB$ shearing rate $\gamma_E$.
+    The shaded bands indicate the $1\sigma$ uncertainties in the profiles,
+    as determined by performing separate fits to $100$ distinct data sets
+    generated via Monte Carlo variation
+    of the measurements about their uncertainties.
+    Representative measurements and their uncertainties are indicated
+    for a $\SI{10}{\milli\second}$ window from a single shot.
+    The relatively large uncertainty on $\gamma_E$
+    is dominated by uncertainty in the curvature
+    of the $T_i$ profile.
+  }
+\label{fig:TurbulenceMeasurements:profiles}
+\end{figure}
+
 Equilibrium profiles were obtained
 by averaging over $\SI{200}{\milli\second}$,
 as indicated by the shaded regions
@@ -386,33 +413,6 @@ for NBI heating and torque and
 TORAY~\cite{matsuda_ieee89} calculations for ECH;
 the resulting loop voltages, stored energies, and neutron rates
 match their measured values to within $\pm 5\%$.
-
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/TurbulenceMeasurements/figs/profiles.pdf}
-  \caption[Equilibrium profiles, inverse scale lengths, \& $\ExB$ shearing rate]{%
-    Profiles, normalized inverse scale lengths, and $\ExB$ shearing rate:
-    (a) electron density $n_e$,
-    (b) electron temperature $T_e$,
-    (c) deuterium temperature $T_i$,
-    (d) radial electric field $E_r$ along the outboard midplane,
-    (e) normalized inverse $n_e$ scale length $a / L_{n_e}$,
-    (f) normalized inverse $T_e$ scale length $a / L_{T_e}$,
-    (g) normalized inverse $T_i$ scale length $a / L_{T_i}$,
-    (h) $\ExB$ shearing rate $\gamma_E$.
-    The shaded bands indicate the $1\sigma$ uncertainties in the profiles,
-    as determined by performing separate fits to $100$ distinct data sets
-    generated via Monte Carlo variation
-    of the measurements about their uncertainties.
-    Representative measurements and their uncertainties are indicated
-    for a $\SI{10}{\milli\second}$ window from a single shot.
-    The relatively large uncertainty on $\gamma_E$
-    is dominated by uncertainty in the curvature
-    of the $T_i$ profile.
-  }
-\label{fig:TurbulenceMeasurements:profiles}
-\end{figure}
 
 \begin{figure}
   \centering
@@ -537,34 +537,6 @@ shows the windows \emph{excluded} from spectral analysis in gray.
 
 \subsection{Frequency spectra}
 \label{sec:TurbulenceMeasurements:Measurements:Sf}
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/TurbulenceMeasurements/figs/Sf_interferometer_pci.pdf}
-  \caption[Interferometer \& PCI frequency spectra]{%
-    One-sided autospectral-density estimates $G_{\phi,\phi}(f)$ from
-    (a) the heterodyne interferometer and (b) the PCI.
-    The low-frequency ($f \lesssim \SI{300}{\kilo\hertz}$) dynamics
-    are comparable, with both the interferometer and the PCI
-    measuring a $2 - 4\times$ increase in fluctuation power
-    when moving from $\rhoech = 0.5$ to $\rhoech = 0.8$.
-    The higher-frequency ($f \gtrsim \SI{300}{\kilo\hertz}$) dynamics,
-    however, are distinct.
-    In particular, the interferometer-measured broadband fluctuation
-    between $\SI{300}{\kilo\hertz}$ and $\SI{600}{\kilo\hertz}$
-    is low-$k$ (due to its absence in the PCI spectrum),
-    electromagnetic (as seen by the beige inset to (a)), and
-    driven by collisionality
-    (as shown in Figure~\ref{fig:TurbulenceMeasurements:collisionality}),
-    suggesting that it may be a micro-tearing mode (MTM).
-    The subtle break in slope at $f \sim \SI{800}{\kilo\hertz}$
-    in the PCI spectrum when $\rhoech = 0.8$
-    is shown to be a distinct turbulent branch
-    in Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}(b).
-  }
-\label{fig:TurbulenceMeasurements:Sf_interferometer_pci}
-\end{figure}
-
 One-sided autospectral densities estimates $G_{\phi,\phi}(f)$
 of the phase fluctuations
 are calculated using the methodology
@@ -612,6 +584,34 @@ As expected theoretically
 and observed empirically in sound-wave calibrations
 (see Figure~\ref{fig:Implementation:cross_calibration}),
 the PCI is more sensitive than the heterodyne interferometer.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/TurbulenceMeasurements/figs/Sf_interferometer_pci.pdf}
+  \caption[Interferometer \& PCI frequency spectra]{%
+    One-sided autospectral-density estimates $G_{\phi,\phi}(f)$ from
+    (a) the heterodyne interferometer and (b) the PCI.
+    The low-frequency ($f \lesssim \SI{300}{\kilo\hertz}$) dynamics
+    are comparable, with both the interferometer and the PCI
+    measuring a $2 - 4\times$ increase in fluctuation power
+    when moving from $\rhoech = 0.5$ to $\rhoech = 0.8$.
+    The higher-frequency ($f \gtrsim \SI{300}{\kilo\hertz}$) dynamics,
+    however, are distinct.
+    In particular, the interferometer-measured broadband fluctuation
+    between $\SI{300}{\kilo\hertz}$ and $\SI{600}{\kilo\hertz}$
+    is low-$k$ (due to its absence in the PCI spectrum),
+    electromagnetic (as seen by the beige inset to (a)), and
+    driven by collisionality
+    (as shown in Figure~\ref{fig:TurbulenceMeasurements:collisionality}),
+    suggesting that it may be a micro-tearing mode (MTM).
+    The subtle break in slope at $f \sim \SI{800}{\kilo\hertz}$
+    in the PCI spectrum when $\rhoech = 0.8$
+    is shown to be a distinct turbulent branch
+    in Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}(b).
+  }
+\label{fig:TurbulenceMeasurements:Sf_interferometer_pci}
+\end{figure}
 
 Interestingly, the autospectral density of the heterodyne interferometer
 indicates the presence of a distinct broadband fluctuation
@@ -962,28 +962,6 @@ in Section~\ref{sec:TurbulenceMeasurements:Measurements:Sk}.
 
 \subsection{Wavenumber spectra}
 \label{sec:TurbulenceMeasurements:Measurements:Sk}
-\begin{figure}
-  \centering
-  \includegraphics[width = 0.9 \textwidth]{%
-    Chapters/TurbulenceMeasurements/figs/Sk_power_law.pdf}
-  \caption[PCI frequency-wavenumber spectra]{%
-    PCI wavenumber autospectral densities $S_{\phi,\phi}(k)$
-    obtained by integrating $S_{\phi,\phi}(k, f)$ in frequency
-    between the bounds denoted by the annotating dashed while lines
-    in Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}.
-    Here, the black dashed lines indicate least-squares power-law fits
-    to $S_{\phi,\phi}(k)$.
-    The flattening (i.e.\ slower decay) of $S_{\phi,\phi}(k)$
-    with $\rhoech = 0.5$ relative to that with $\rhoech = 0.8$
-    is reminiscent of results from multiscale gyrokinetic simulations
-    in Alcator C-Mod, but
-    quantitative comparisons await
-    completion of the corresponding multiscale gyrokinetic simulations
-    in \diiid.
-  }
-\label{fig:TurbulenceMeasurements:Sk_power_law}
-\end{figure}
-
 Because simulations are finely sampled in space
 but often have limited temporal histories,
 experimental wavenumber spectra
@@ -1040,6 +1018,28 @@ eagerly awaits quantitative comparison
 to corresponding multiscale gyrokinetic simulations,
 which are expected to be completed by Howard \emph{et al.}
 in roughly the next six months.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = 0.9 \textwidth]{%
+    Chapters/TurbulenceMeasurements/figs/Sk_power_law.pdf}
+  \caption[PCI frequency-wavenumber spectra]{%
+    PCI wavenumber autospectral densities $S_{\phi,\phi}(k)$
+    obtained by integrating $S_{\phi,\phi}(k, f)$ in frequency
+    between the bounds denoted by the annotating dashed while lines
+    in Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}.
+    Here, the black dashed lines indicate least-squares power-law fits
+    to $S_{\phi,\phi}(k)$.
+    The flattening (i.e.\ slower decay) of $S_{\phi,\phi}(k)$
+    with $\rhoech = 0.5$ relative to that with $\rhoech = 0.8$
+    is reminiscent of results from multiscale gyrokinetic simulations
+    in Alcator C-Mod, but
+    quantitative comparisons await
+    completion of the corresponding multiscale gyrokinetic simulations
+    in \diiid.
+  }
+\label{fig:TurbulenceMeasurements:Sk_power_law}
+\end{figure}
 
 
 \section{TGLF modeling}
