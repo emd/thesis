@@ -72,7 +72,8 @@ passing-particle dynamics, however, are significant and
 produce the $\eta_i$ mode, which
 is driven linearly unstable
 above a critical value of $\eta_i$ ($\eta_i^{\text{crit}} \sim 1$)
-\cite[Sec.~8.3]{wesson}.
+\cite[Sec.~8.3]{wesson} and
+peaks about $k_{\theta} \rho_s \sim 0.3$~\cite[Sec.~1.2.1]{tynan_ppcf09}.
 For sufficiently flat density profiles
 ($a / L_{n_i} \lesssim 1$,
 which is valid across most of the radial domain
@@ -82,59 +83,72 @@ $\eta_{i}^{\text{crit}} = \eta_{i}^{\text{crit}}(L_{T_i})$,
 independent of $L_{n_i}$;
 for this reason, the $\eta_i$ mode is
 also often referred to as
-the ion temperature gradient (ITG) mode~\cite[Sec.8.3]{wesson}.
+the ion temperature gradient (ITG) mode~\cite[Sec.8.3]{wesson},
+driven more unstable by larger values of $a / L_{T_i}$.
 
-\begin{itemize}
-  \item ETG
-  \item Multiscale coupling predictions
-    \begin{itemize}
-      \item Howard -- C-Mod L-mode and ELMy H-mode
-      \item Insufficiency of reduced mass ratio simulations
-      \item Holland -- \diiid\space IBS ELMy H-mode
-    \end{itemize}
-  \item Multiscale experiment
-\end{itemize}
-
-ETG
-\begin{itemize}
-  \item Passing particle instability similar to ITG but with
-    roles of electrons and ions reversed (?)
-  \item $k_{\perp} \rho_i \gg 1$
-  \item Spatiotemporal scale? Drive?
-\end{itemize}
-
-Due to the relatively large size of its eddies,
-ion-scale ($k_{\theta} \rho_i \lesssim 1$) turbulence is often considered
-to be the most detrimental to confinement, but
-electron-scale ($k_{\theta} \rho_e \lesssim 1$) turbulence
+Despite having much smaller eddy size
+than its ion-scale counterparts,
+electron-scale ($k_{\theta} \rho_s > 1$) turbulence
+may still make large contributions to plasma transport.
+Of particular importance
+is the electron temperature gradient (ETG) mode.
+The physics of the ETG is comparable to that of the ITG,
+with the roles of the ions and electrons reversed, and
+it is driven more unstable by larger values of $a / L_{T_e}$
+\cite[Sec.~8.3]{wesson}.
+Relative to the ITG,
+the ETG spatial scales in a $T_e \sim T_i$ plasma
+are reduced by the square root
+of the electron-to-ion mass ratio
+$(m_e / m_i)^{1/2} \approx 60$ such that
+the ETG peaks at $k_{\theta} \rho_s \sim 20$
+in a deuterium plasma.
+While electron-scale simulations have long shown that the ETG
 may be capable of forming radially elongated ``streamers''
 \cite{dorland_prl00}
 capable of driving experimentally relevant electron heat transport
-\cite{jenko_prl02}.
-Here, $k_{\theta}$ is a typical poloidal wavenumber of the turbulent mode,
-$\rho_j = v_{tj} / |\Omega_j|$ is the gyroradius of species $j$,
-$v_{tj} = \sqrt{2 T_j / m_j}$ is the thermal speed of species $j$, and
-$\Omega_j = q_j B / m_j$ is the angular cyclotron frequency of species $j$.
-For the reactor-relevant scenario $T_e \sim T_i$,
-the characteristic length scale of ion-scale turbulence is a factor
-$\sqrt{m_D / m_e} \approx 60$ larger than
-the characteristic length scale of electron-scale turbulence,
-where the $m_D$ is the deuteron mass.
-Until the very recent work of Howard \emph{et al.}
-\cite{howard_pp14, howard_nf16, howard_pp16, holland_nf17, howard_ppcf18},
+\cite{jenko_prl02},
+it was unknown whether or not
+such streamers would survive
+in the presence of ion-scale turbulence,
+as, until very recently,
 self-consistently and simultaneously simulating
 both ion- and electron-scale turbulence with realistic mass ratios
 was computationally intractable.
-By exploiting the latest advances in high-performance computing,
-Howard \emph{et al.}'s multiscale simulations indicate
-that cross-scale coupling can drive
-experimentally relevant levels of electron heat flux
-\cite{howard_pp14, howard_ppcf18} and
-that this cross-scale coupling becomes stronger
-as the drive for the electron-scale turbulence increases
-relative to that for the ion-scale turbulence
-\cite{howard_nf16, howard_pp16}.
 
+By exploiting the latest advances in high-performance computing,
+Howard \emph{et al.} have performed
+multiscale gyrokinetic simulations
+with realistic mass ratios
+for both L-mode~\cite{howard_pp14, howard_nf16, howard_pp16} and
+H-mode plasmas~\cite{howard_ppcf18, holland_nf17}.
+Indeed, under certain realistic conditions,
+ETG streamers are predicted
+to coexist with the ITG and
+to drive empirically relevant levels
+of electron heat flux~\cite{howard_pp14}.
+Local and non-local energy cascades
+between the ion and electron scales
+are also predicted~\cite{howard_nf16},
+indicating the importance of cross-scale coupling.
+This cross-scale coupling becomes stronger
+as the ETG drive $a / L_{T_e}$ increases
+relative to the ITG drive $a / L_{T_i}$
+\cite{howard_pp16}.
+Further, flattening of the wavenumber spectrum
+is predicted to be a tell-tale signature
+of this enhanced cross-scale coupling~\cite{howard_pp16}.
+Seeking empirical validation of these predictions,
+Howard \emph{et al.} recently performed an experiment at \diiid\space
+to alter the local $a / L_{T_e}$ and $a / L_{T_i}$.
+The experimental conditions are discussed
+in Section~\ref{sec:TurbulenceMeasurements:ExperimentalConditions}, and
+the combined PCI-interferometer measurements
+of the resulting electron density fluctuations are presented
+in Section~\ref{sec:TurbulenceMeasurements:Measurements}.
+To aid the interpretation of these measurements,
+linear-stability analysis and quasilinear-transport modeling
+is performed in Section~\ref{sec:TurbulenceMeasurements:Modeling}.
 
 TEM
 \begin{itemize}
