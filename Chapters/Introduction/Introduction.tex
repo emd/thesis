@@ -108,7 +108,7 @@ allowing the establishment of an equilibrium;
 the large toroidal field $B_{\zeta}$ provides stability.
 Wesson provides a concise historical overview of tokamak research
 \cite[Sec.~1.10]{wesson}.
-Since the initial success of the USSR's T-3 tokamak in the 1960s,
+Since the initial success of the USSR's T-$3$ tokamak in the $1960$s,
 hundreds of tokamaks of numerous shapes, sizes, and field strengths
 have been built all over the world
 \cite[Ch.~11,12]{wesson}~\cite{tokamaks_of_the_world}.
@@ -123,7 +123,7 @@ a maximum achieved plasma current of $I_{\zeta} \leq \SI{3}{\mega\amp}$.
 Up to $\SI{20}{\mega\watt}$ of deuterium neutral beam injection (NBI) and
 $\SI{6}{\mega\watt}$ of electron cyclotron resonance heating (ECH)
 are available for auxiliary plasma heating.
-% The ECRH deposition location can be dynamically changed within a single shot,
+% The ECH deposition location can be dynamically changed within a single shot,
 % and the NBI system can be operated in $\beta$ feedback
 % in an attempt to maintain constant plasma $\beta$
 % as other plasma parameters change.
@@ -156,13 +156,13 @@ capable of driving experimentally relevant electron heat transport
 \cite{jenko_prl02}.
 Here, $k_{\theta}$ is a typical poloidal wavenumber of the turbulent mode,
 $\rho_j = v_{tj} / |\Omega_j|$ is the gyroradius of species $j$,
-$v_{tj} = \sqrt{2 T_j / m_j}$ is the thermal speed of species $j$, and
+$v_{tj} = \sqrt{T_j / m_j}$ is the thermal speed of species $j$, and
 $\Omega_j = q_j B / m_j$ is the angular cyclotron frequency of species $j$.
 For the reactor-relevant scenario $T_e \sim T_i$,
 the characteristic length scale of ion-scale turbulence is a factor
-$\sqrt{m_D / m_e} \approx 60$ larger than
+$(m_D / m_e)^{1/2} \approx 60$ larger than
 the characteristic length scale of electron-scale turbulence,
-where the $m_D$ is the deuteron mass.
+where $m_D$ is the deuteron mass.
 Until the very recent work of Howard \emph{et al.}
 \cite{howard_pp14, howard_nf16, howard_pp16, holland_nf17, howard_ppcf18},
 self-consistently and simultaneously simulating
@@ -651,17 +651,28 @@ The remainder of this thesis is organized as follows:
     the ability of the combined PCI-interferometer
     to measure multiscale, broadband fluctuations.
     During a recent \diiid\space experiment,
-    the location of electron cyclotron resonance heating (ECRH)
+    the location of electron cyclotron resonance heating (ECH)
     was moved from $\rho = 0.5 \rightarrow 0.8$,
-    altering $T_e / T_i$
+    altering the local $a / L_{T_e}$ and $a / L_{T_i}$
     in an attempt to change the coupling between
     the electron-scale and ion-scale turbulence.
-    At low frequencies ($f < \SI{200}{\kilo\hertz}$),
-    the low-$k$ and high-$k$ responses to the change in ECRH location
-    are similar;
-    however, at higher frequencies, they are \emph{distinct}.
-    Measurements are compared to linear predictions
-    from the gyro-Landau-fluid code TGLF.
+    As such, this experiment presents an ideal opportunity
+    for multiscale turbulence investigations
+    with the combined PCI-interferometer.
+    Numerous turbulent branches are observed.
+    In particular, the interferometer measures
+    a low-$k$ electromagnetic mode driven unstable by collisionality,
+    properties consistent with the micro-tearing mode (MTM), and
+    the PCI measures a wavenumber spectrum
+    that exhibits distinct flattening
+    when increasing $a / L_{T_e}$ relative to $a / L_{T_i}$,
+    reminiscent of results
+    from realistic multiscale gyrokinetic simulations~\cite{howard_pp16}.
+    To aid the interpretation of these measurements,
+    linear-stability analysis and quasilinear-transport modeling
+    are performed with the gyro-Landau fluid code TGLF, and
+    qualitative agreement with the PCI-measured wavenumber spectrum
+    is obtained.
   \item Chapter~\ref{ch:Conclusions} concludes the thesis
     with a summary and discussion of the primary results
     and suggests avenues of future work.
@@ -674,6 +685,8 @@ The one notable exception, of course,
 is the suppression of the Boltzmann constant
 in favor of expressing temperatures in units of energy
 (i.e.\ $\SI{}{eV}$).
+Additionally, engineering units of inches are used
+in Chapter~\ref{ch:Implementation}'s discussion of the optical layout.
 
 
 \bibliographystyle{plainurl}
