@@ -164,9 +164,10 @@ While the plasmas simulated in the above multiscale work
 were ITG-ETG dominant,
 Sections~\ref{sec:TurbulenceMeasurements:Measurements} and
 ~\ref{sec:TurbulenceMeasurements:Modeling}
-indicate the presence of additional modes, and
-it will be prudent to review basic properties
-of the candidate modes.
+indicate the presence of additional modes;
+the basic properties of candidate modes
+consistent with these observations
+are briefly reviewed below.
 
 The linear-stability analysis performed in
 Section~\ref{sec:TurbulenceMeasurements:Modeling}
@@ -199,37 +200,32 @@ the other parameters were introduced in the above ITG discussion.
 Both $a / L_{T_e}$ and $a / L_{n_e}$
 provide free energy to the TEM~\cite[Sec.~2.3.1]{fusion_physics_iaea}.
 
-MTM
-\begin{itemize}
-  \item Electromagnetic and can form small-scale magnetic islands,
-    with similarities to macroscopic tearing modes but with
-    short wavelength and high poloidal mode number $m$
-    \cite[Sec.~8.5]{wesson}
-  \item Standard tearing mode theory (resistive MHD)~\cite[Sec.~7.3]{wesson}
-    predicts stability due to high poloidal mode number
-    causing $\Delta'$ to be negative (stabilizing);
-    however, two additional effects compete and can
-    result in growth
-    \begin{itemize}
-      \item Nonlinear aspects that compete with linear $\Delta'$
-      \item Kinetic effects driven by electron temperature gradient
-        in a sufficiently collisional plasma
-    \end{itemize}
-  \item Stability in semi-collisional regime:
-    electron flow velocity $v_{||}$ along field lines
-    limited by collisions with ions;
-    competition between field-line bending $\Delta'$ and
-    electron gradient drive $\eta_e$
-  \item Expansion in $\omega_{*e} / \nu_{ei}$,
-    so invalid at low collisionality but
-    no collisions removes thermal force and stability expected;
-    MTM peaks at intermediate $\nu_{ei}$
-  \item Nonlinear effects important when width of magnetic island
-    exceeds the ``resistive layer''\ldots
-  \item Nonlinear drift effects again depend on $\eta_e$
-  \item ``\ldots identification of this regime is rather subtle.''
-  \item Spatiotemporal scale? Drive?
-\end{itemize}
+Finally, Section~\ref{sec:TurbulenceMeasurements:Measurements}
+identifies a low-$k$ ($k_R < \SI{1.5}{\per\centi\meter}$)
+electromagnetic mode driven unstable by collisionality.
+These properties are consistent with
+the micro-tearing mode (MTM)~\cite[Sec.~8.5]{wesson},
+which was predicted to be marginally unstable
+for $k_y \rho_s \sim 0.2$
+in this experiment's reference discharge~\cite{holland_nf17}.
+While the ITG, ETG, and TEM are electrostatic,
+the MTM is electromagnetic and
+can produce small-scale magnetic islands.
+Relative to conventional, macroscopic tearing modes,
+the MTM has short wavelength and
+high poloidal mode number $m$~\cite[Sec.~8.5]{wesson}.
+Tearing-mode linear stability is often quantified by $\Delta'$,
+a parameter derived from resistive MHD~\cite[Sec.~7.3]{wesson};
+for the large poloidal mode number of the MTM,
+the resulting $\Delta'$ predicts stability.
+However, resistive MHD is an inadequate model for the MTM, and
+both kinetic and nonlinear effects can compete with $\Delta'$
+to destabilize the MTM in the presence of finite $\eta_e$
+(i.e.\ finite electron temperature gradient).
+Importantly, via kinetic effects, the MTM is unstable
+at ``moderate'' $\nu_{ei} / \omega_{*e}$, where
+$\nu_{ei}$ is the electron-ion collision frequency and
+$\omega_{*e}$ is the electron diamagnetic frequency~\cite[Sec.~8.5]{wesson}.
 
 
 \section{Experimental conditions}
