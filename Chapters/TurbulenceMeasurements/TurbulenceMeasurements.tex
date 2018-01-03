@@ -93,8 +93,13 @@ may still make large contributions to plasma transport.
 Of particular importance
 is the electron temperature gradient (ETG) mode.
 The physics of the ETG is comparable to that of the ITG,
-with the roles of the ions and electrons reversed, and
-it is driven more unstable by larger values of $a / L_{T_e}$
+with the roles of the ions and electrons reversed.
+(Here, the ion response is approximately adiabatic
+because the electrostatic potential fluctuations
+occur on spatial scales much smaller than the ion gyroradius
+\cite[Sec.~2.3.4.2]{fusion_physics_iaea}).
+As the name suggests,
+the ETG is driven more unstable by larger values of $a / L_{T_e}$
 \cite[Sec.~8.3]{wesson}.
 Relative to the ITG,
 the ETG spatial scales in a $T_e \sim T_i$ plasma
@@ -138,9 +143,15 @@ relative to the ITG drive $a / L_{T_i}$
 Further, flattening of the wavenumber spectrum
 is predicted to be a tell-tale signature
 of this enhanced cross-scale coupling~\cite{howard_pp16}.
+
 Seeking empirical validation of these predictions,
 Howard \emph{et al.} recently performed an experiment at \diiid\space
 to alter the local $a / L_{T_e}$ and $a / L_{T_i}$.
+The reference discharge for this experiment,
+\diiid\space shot $153523$,
+was selected because multiscale gyrokinetic simulations
+indicate that its turbulent transport
+is intrinsically multiscale in nature~\cite{holland_nf17}.
 The experimental conditions are discussed
 in Section~\ref{sec:TurbulenceMeasurements:ExperimentalConditions}, and
 the combined PCI-interferometer measurements
@@ -149,28 +160,44 @@ in Section~\ref{sec:TurbulenceMeasurements:Measurements}.
 To aid the interpretation of these measurements,
 linear-stability analysis and quasilinear-transport modeling
 is performed in Section~\ref{sec:TurbulenceMeasurements:Modeling}.
+While the plasmas simulated in the above multiscale work
+were ITG-ETG dominant,
+Sections~\ref{sec:TurbulenceMeasurements:Measurements} and
+~\ref{sec:TurbulenceMeasurements:Modeling}
+indicate the presence of additional modes, and
+it will be prudent to review basic properties
+of the candidate modes.
 
-TEM
-\begin{itemize}
-  \item When mode frequency $\omega_j$
-    exceeds particle bounce frequency $\omega_{bj}$,
-    trapping can typically be neglected
-    for species $j$~\cite[Sec.~8.2]{wesson}
-  \item Passing particles effectively average out their parallel velocity
-    over a bounce period, reducing the importance of parallel dynamics
-    relative to passing instabilities~\cite[Sec.~8.4]{wesson}
-  \item Trapped particles also do not sample the full poloidal and toroidal
-    circumferences, remaining in the region of bad magnetic curvature,
-    introducing magnetic mirror-like instabilities
-    \cite[Sec.~8.4]{wesson}
-  \item TEM is dissipative, requiring collisions, but not
-    so frequent as to prevent the trapped particles
-    from completing a banana orbit~\cite[Sec.~8.4]{wesson}
-  \item Mode frequency $\omega \approx \omega_{*e}$ with
-    main drive being electron temperature gradient
-    \cite[Sec.~8.4]{wesson}
-  \item Spatiotemporal scale? Drive?
-\end{itemize}
+The linear-stability analysis performed in
+Section~\ref{sec:TurbulenceMeasurements:Modeling}
+indicates the presence of
+a mid-$k$ ($0.5 \lesssim k_{\theta} \rho_s \lesssim 5$) electron mode.
+The mode is destabilized with
+increasing $a / L_{T_e}$ (and decreasing $a / L_{T_i}$).
+It is conceivable that this mode is
+the trapped electron mode (TEM).
+In contrast to the passing-particle dynamics of the ITG and ETG,
+trapped-electron dynamics destabilize the TEM~\cite[Sec.~8.4]{wesson}.
+Trapped particles effectively average out their parallel velocities
+over a bounce period, but
+they also spend most of their time
+in regions of bad magnetic curvature,
+producing stability characteristics
+not unlike those seen in a magnetic mirror~\cite[Sec.~8.4]{wesson}.
+Of course, trapped-particle dynamics
+will only be important if
+trapped particles are able to execute one or more bounce orbits
+before being detrapped by collisions.
+Thus, the TEM requires that most of the trapped electrons
+are in the banana collisionality regime
+($\nu_e^* < 1$)~\cite[Sec.~2.3.4.3]{fusion_physics_iaea}.
+The spatiotemporal aspects of the TEM are characterized by
+$k_{\theta} \rho_s \sim 1$ and
+$\omega \sim \omega_{*e}$~\cite[Sec.~2.3.1]{fusion_physics_iaea},
+where $\omega_{*e}$ is the electron diamagnetic frequency and
+the other parameters were introduced in the above ITG discussion.
+Both $a / L_{T_e}$ and $a / L_{n_e}$
+provide free energy to the TEM~\cite[Sec.~2.3.1]{fusion_physics_iaea}.
 
 MTM
 \begin{itemize}
