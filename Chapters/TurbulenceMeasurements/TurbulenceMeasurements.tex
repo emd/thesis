@@ -1,30 +1,53 @@
 \chapter{Multiscale turbulence measurements}
 \label{ch:TurbulenceMeasurements}
-Development of a first-principles understanding
+The development of a first-principles understanding
 of turbulent transport in a tokamak
-requires multi-tiered validation against experimental measurements
-comparing not just heat fluxes, but
-also turbulent spectra etc.
-\diiid's extensive suite of fluctuation diagnostics
-provides an ideal setting to validate
-predicted changes~\cite{howard_pp16}
-to turbulent spectra when altering relative drive
-between electron-scale and ion-scale turbulence.
+is a long-standing goal of the fusion community.
+Such a model would allow accurate design and optimization of a tokamak.
+Before such a model is accepted, however,
+it must be validated against experimental measurements.
+Ideally, this validation should be multi-tiered,
+with the model accurately and robustly reproducing
+experimental observations at all scales,
+from macroscopic parameters such as the turbulent heat flux to
+the details of the turbulent spectrum
+(e.g.\ power spectral densities, cross phases, nonlinear couplings, etc.).
 
-\begin{itemize}
-  \item Section~\ref{sec:TurbulenceMeasurements:Background}
-    provides an overview of the drift-wave turbulence
-    often observed in tokamak plasmas;
-    the importance of recent results
-    from realistic multiscale simulations is emphasized
-  \item Section~\ref{sec:TurbulenceMeasurements:ExperimentalConditions}
-    describes a recent \diiid\space experiment
-    designed to probe the multiscale nature
-    of plasma turbulence.
-  \item Section~\ref{sec:TurbulenceMeasurements:Measurements}
-    details\ldots
-  \item Section~\ref{sec:TurbulenceMeasurements:Modeling}
-\end{itemize}
+Along these lines,
+this chapter presents measurements of electron-density turbulence
+made over a wide spatiotemporal bandwidth
+during a recent \diiid\space experiment.
+Section~\ref{sec:TurbulenceMeasurements:Background}
+begins with a brief overview of the drift-wave turbulence
+often observed in tokamak plasmas,
+emphasizing recent results
+from realistic multiscale simulations
+\cite{howard_pp14, howard_nf16, howard_pp16, howard_ppcf18, holland_nf17}.
+Section~\ref{sec:TurbulenceMeasurements:ExperimentalConditions}
+then describes the recent \diiid\space experiment,
+which was designed to probe the multiscale nature
+of plasma turbulence.
+As such, this experiment presents an ideal opportunity
+for multiscale turbulence investigations
+with the combined PCI-interferometer.
+Next, Section~\ref{sec:TurbulenceMeasurements:Measurements}
+details the measurements from the combined PCI-interferometer.
+Numerous turbulent branches are observed.
+In particular, the interferometer measures
+a low-$k$ electromagnetic mode driven unstable by collisionality,
+properties consistent with the micro-tearing mode (MTM), and
+the PCI measures a wavenumber spectrum
+that exhibits distinct flattening
+when increasing the electron-scale turbulent drive
+relative to the ion-scale turbulent drive,
+reminiscent of results
+from realistic multiscale gyrokinetic simulations~\cite{howard_pp16}.
+Finally, to aid the interpretation of these measurements,
+linear-stability analysis and quasilinear-transport modeling
+are performed with the TGLF code
+in Section~\ref{sec:TurbulenceMeasurements:Modeling}, and
+qualitative agreement with the PCI-measured wavenumber spectrum
+is obtained.
 
 
 \section{Overview of drift-wave turbulence}
