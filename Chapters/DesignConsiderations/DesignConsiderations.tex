@@ -1903,14 +1903,14 @@ temporal sampling of these quantized magnitudes~\cite{bennett_bstj48}.
 This analog-to-digital conversion
 is performed by an instrument known as a digitizer.
 If a digitizer has bit depth $N_b$ and
-an input-voltage dynamic range $V_{\text{dyn}}$,
+a peak-to-peak input-voltage range $V_{\text{in}}$,
 then its quantum of voltage $\Delta V$ is
 \begin{equation}
   \Delta V
   =
-  \frac{V_{\text{dyn}}}{2^{N_b} - 1}
+  \frac{V_{\text{in}}}{2^{N_b} - 1}
   \approx
-  \frac{V_{\text{dyn}}}{2^{N_b}},
+  \frac{V_{\text{in}}}{2^{N_b}},
   \label{eq:DesignConsiderations:digitizer_voltage_quantum}
 \end{equation}
 where the approximation is well-satisfied
@@ -1968,12 +1968,12 @@ of the large, slowly varying equilibrium phase $\bar{\phi}$
 in addition to measuring the fluctuating phase $\tilde{\phi}$.
 Because $\tilde{\phi} \ll \bar{\phi}$ in typical situations,
 the fluctuations only occupy a small portion
-of the digitizer's dynamic range; that is,
+of the digitizer's input-voltage range; that is,
 fluctuations effectively see a bit depth that
 is substantially smaller than the digitizer's nominal bit depth.
 Thus, to minimize the effect of quantization noise,
 it is absolutely imperative
-to utilize the full dynamic range of the digitizer.
+to utilize the full input-voltage range of the digitizer.
 
 The measured phase $\phi_m$ is computed from
 the in-phase ($I$) and quadrature ($Q$) signals via
@@ -2017,9 +2017,9 @@ This unit conversion is accomplished by dividing
 by the \emph{squared} radius of the $I\&Q$ Lissajous curve.
 Let the $I$ and $Q$ signals occupy
 a fraction $\eta_{\text{dyn}} \leq 1$ of
-the digitizer's full dynamic range $V_{\text{dyn}}$ such that
+the digitizer's full input-voltage range $V_{\text{in}}$ such that
 the squared radius of the Lissajous curve is
-$I^2 + Q^2 = (\eta_{\text{dyn}} V_{\text{dyn}} / 2)^2$, and
+$I^2 + Q^2 = (\eta_{\text{dyn}} V_{\text{in}} / 2)^2$, and
 the total quantization noise
 (in angular units of $\SI{}{\radian\squared\per\Hz}$) is
 \begin{equation}
@@ -2414,14 +2414,14 @@ are summarized below:
       \label{eq:DesignConsiderations:summary:quantization_noise_autospectral_density}
     \end{equation}
     where $\eta_{\text{dyn}} \leq 1$ is the fraction
-    of the digitizers's dynamic range $V_{\text{dyn}}$
+    of the digitizers's peak-to-peak input-voltage range $V_{\text{in}}$
     occupied by the $I$ and $Q$ signals, i.e.\
     \begin{equation}
       \eta_{\text{dyn}}
       =
-      \frac{\text{max}(I) - \text{min}(I)}{V_{\text{dyn}}}
+      \frac{\text{max}(I) - \text{min}(I)}{V_{\text{in}}}
       =
-      \frac{\text{max}(Q) - \text{min}(Q)}{V_{\text{dyn}}}.
+      \frac{\text{max}(Q) - \text{min}(Q)}{V_{\text{in}}}.
       \label{eq:DesignConsiderations:summary:eta_dynamic}
     \end{equation}
     See Section~\ref{sec:DesignConsiderations:quantization}
