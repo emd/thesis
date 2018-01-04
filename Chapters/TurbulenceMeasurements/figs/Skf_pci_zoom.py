@@ -13,17 +13,19 @@ p = 6
 Nk = 1000
 
 # Plotting parameters
-figsize = (10, 6)
+figsize = (10, 10.5)
 fontsize = 18
 mpl.rcParams['xtick.labelsize'] = fontsize - 3
 mpl.rcParams['ytick.labelsize'] = fontsize - 3
 cmap = 'viridis'
 cborientation = 'horizontal'
-flim = [10, 1600]  # [flim] = kHz
+flim = [10, 1600]           # [flim] = kHz
+flim_zoom = [500, 1600]     # [flim_zoom] = kHz
 vlim_Skf = [3e-10, 1e-4]
+vlim_Skf_zoom = [3e-10, 5e-8]
 annotation_linestyle = '--'
 annotation_linewidth = 0.5
-plot_labels = ['a', 'b']
+plot_labels = np.array([['a', 'b'], ['c', 'd']])
 
 
 if __name__ == '__main__':
@@ -40,7 +42,8 @@ if __name__ == '__main__':
     Nwin = len(corr_list)
 
     fig, axs = plt.subplots(
-        1, 2, sharex=True, sharey=True, figsize=figsize)
+        2, 2,
+        figsize=figsize)
 
     for ind, w in enumerate(np.arange(Nwin)):
         print 'Processing window %i of %i' % (w, Nwin - 1)
@@ -59,10 +62,11 @@ if __name__ == '__main__':
 
         xlabel = r'$\mathregular{k_R \; [cm^{-1}]}$'
 
-        if ind == 0:
-            ylabel = r'$\mathregular{f \; [kHz]}$'
-        else:
-            ylabel = ''
+        # if ind == 0:
+        #     ylabel = r'$\mathregular{f \; [kHz]}$'
+        # else:
+        #     ylabel = ''
+        ylabel = r'$\mathregular{f \; [kHz]}$'
 
         cbsymbol = r'$\mathregular{S_{\phi,\phi}(k,f)}$'
         cbunits = r'$\mathregular{[rad^2 / \, (kHz \cdot cm^{-1})]}$'
@@ -77,27 +81,53 @@ if __name__ == '__main__':
             cblabel=cblabel,
             cborientation=cborientation,
             fontsize=fontsize,
-            ax=axs[ind])
+            ax=axs[0, ind])
+
+        asd2d.plotSpectralDensity(
+            flim=flim_zoom,
+            vlim=vlim_Skf_zoom,
+            cmap=cmap,
+            xlabel=xlabel,
+            ylabel=ylabel,
+            cblabel=cblabel,
+            cborientation=cborientation,
+            fontsize=fontsize,
+            ax=axs[1, ind])
 
         # Add ECH heating location
         x0 = -24.5
-        axs[ind].annotate(
+        axs[0, ind].annotate(
             r'$\mathregular{\rho_{ECH} = %.1f}$' % rho,
             (x0, 1475),
             fontsize=(fontsize - 1),
             color='white')
+        axs[1, ind].annotate(
+            r'$\mathregular{\rho_{ECH} = %.1f}$' % rho,
+            (x0, 1510),
+            fontsize=(fontsize - 1),
+            color='white')
 
         # Add shot numbers and time windows
-        axs[ind].annotate(
+        axs[0, ind].annotate(
             '%i, [%.2f, %.2f] s' % (shot, tlim[0], tlim[1]),
             (x0, 1360),
             fontsize=(fontsize - 6),
             color='white')
+        axs[1, ind].annotate(
+            '%i, [%.2f, %.2f] s' % (shot, tlim[0], tlim[1]),
+            (x0, 1430),
+            fontsize=(fontsize - 6),
+            color='white')
 
         # Add plot label
-        axs[ind].annotate(
-            r'(%s)' % plot_labels[ind],
+        axs[0, ind].annotate(
+            r'(%s)' % plot_labels[0, ind],
             (x0, 50),
+            fontsize=(fontsize - 1),
+            color='white')
+        axs[1, ind].annotate(
+            r'(%s)' % plot_labels[1, ind],
+            (x0, 535),
             fontsize=(fontsize - 1),
             color='white')
 
@@ -143,34 +173,43 @@ if __name__ == '__main__':
     coord_lines_538 = rd.utilities.line_profile_coordinates(
         src_538, dst_538, **lpc_kwargs)
 
-    axs[0].plot(
+    axs[0, 0].plot(
         coord_lines_536[0, :, 0],
         coord_lines_536[1, :, 0],
         c='white',
         linestyle=annotation_linestyle,
         linewidth=annotation_linewidth)
-    axs[0].plot(
+    axs[0, 0].plot(
         coord_lines_536[0, :, -1],
         coord_lines_536[1, :, -1],
         c='white',
         linestyle=annotation_linestyle,
         linewidth=annotation_linewidth)
 
-    axs[1].plot(
+    axs[0, 1].plot(
         coord_lines_538[0, :, 0],
         coord_lines_538[1, :, 0],
         c='white',
         linestyle=annotation_linestyle,
         linewidth=annotation_linewidth)
-    axs[1].plot(
+    axs[0, 1].plot(
         coord_lines_538[0, :, -1],
         coord_lines_538[1, :, -1],
         c='white',
         linestyle=annotation_linestyle,
         linewidth=annotation_linewidth)
 
-    axs[1].set_xlim(asd2d.k[0] / 1e2, asd2d.k[-1] / 1e2)
-    axs[1].set_ylim(flim)
+
+    for rind in np.arange(2):
+        for cind in np.arange(2):
+            axs[rind, cind].set_xlim(
+                asd2d.k[0] / 1e2,
+                asd2d.k[-1] / 1e2)
+
+            if rind == 0:
+                axs[rind, cind].set_ylim(flim)
+            else:
+                axs[rind, cind].set_ylim(flim_zoom)
 
     plt.tight_layout()
     plt.show()

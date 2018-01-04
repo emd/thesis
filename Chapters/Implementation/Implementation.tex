@@ -139,7 +139,7 @@ the corresponding 1/e $E$ radius is $w_0 = \SI{1.25}{\milli\meter}$.
 Historically, the laser power has been relatively constant
 at $\mathcal{P}_s = \SI{14}{\watt}$, but
 the power has declined in the last year.
-The laser has
+The manufacturer's specifications state that the laser has
 a ``short-term'' ($\SI{0.1}{\second}$) peak-to-peak frequency variation
 $\lesssim \SI{300}{\kilo\hertz}$ and
 a ``long-term'' ($\SI{e3}{\second}$) peak-to-peak frequency variation
@@ -160,21 +160,11 @@ The beam center sits at major radius $R = $ \SI{1.98}{\meter}.
 Both the toroidal and major radial positions
 of the PCI beam are shown in
 Figure~\ref{fig:Implementation:d3d_port_locations}.
-
-The vertical beam path of the PCI constrains
-which fluctuations it can and cannot detect.
-Specifically, the PCI-measured intensity fluctuations
-(\ref{eq:InterferometricMethods:pci_intensity})
-correspond to \emph{line-integrated} electron-density fluctuations, which
-are the physical origin of the phase fluctuations $\tilde{\phi}$ in
-(\ref{eq:InterferometricMethods:phase_fluctuation}).
 Because it is a line-integrated measurement,
 only fluctuations propagating perpendicular to the beam path are detected,
 as fluctuations propagating parallel to the beam path
-are effectively averaged out of the signal
-(at a more fundamental level, fluctuations propagating
-parallel to the beam path do \emph{not} spatially scatter the probe beam).
-Now, electrostatic drift-wave turbulence (e.g.\ ITG, ETG)
+are effectively averaged out of the signal.
+Additionally, electrostatic drift-wave turbulence (e.g.\ ITG, ETG)
 tends to be field-aligned
 such that $k_{\perp} \gg k_{||}$~\cite{horton_drift_waves, tynan_ppcf09},
 where the $\perp$ and $||$ subscripts are used here to indicate
@@ -184,12 +174,14 @@ To lowest order, then, electrostatic fluctuations propagate
 perpendicular to a tokamak's toroidal field.
 PCI's vertical beam path and
 the field-aligned constraint of electrostatic turbulence
-imply that PCI is predominantly sensitive to fluctuations
-with finite major-radial wavenumber $k_R$.
+imply that PCI is sensitive to fluctuations
+with $k_Z = 0$ and finite major-radial wavenumber $k_R$.
+(For a more exacting discussion
+of the wavevectors that PCI is sensitive to,
+see Section~\ref{sec:TurbulenceMeasurements:Modeling:wavevectors}).
 Thus, PCI's $32$-element, $1$-dimensional detector array
 is oriented in the image plane such that
 each detector element corresponds to a unique major radius in the plasma.
-
 In some situations, spatially filtering ``masks''
 \cite{dorris_rsi09, dorris_phd, lin_rsi06} or
 $2$-dimensional detector arrays
@@ -199,36 +191,6 @@ by exploiting the spatial variation
 in the magnetic field's orientation along the beam path.
 These localization techniques typically work best
 for high-$k$ measurements.
-Note that $k_R$ is related to the
-theoretically relevant poloidal wavenumber $k_{\theta}$ via
-\begin{equation}
-  k_R = k_{\theta} \csc[\alpha(R, z)],
-  \label{eq:Implementation:kR_to_ktheta}
-\end{equation}
-where $\alpha(R, z)$ is the angle
-between the beam path and the local flux surface,
-as shown schematically in
-Figure~\ref{fig:Implementation:relating_kR_to_ktheta}.
-Of course, the fluctuation measurements must be localized,
-either via direct measurement
-(with $2$-dimensional detector arrays or ``masks'')
-or via inference from other plasma properties,
-before (\ref{eq:Implementation:kR_to_ktheta})
-can be inverted to yield $k_{\theta}$
-from measured values of $k_R$.
-
-\begin{figure}
-  \centering
-  \includegraphics[width = 0.9 \textwidth]{%
-    Chapters/Implementation/figs/kR_to_ktheta.pdf}
-  \caption[Relating $k_R$ to $k_{\theta}$]{%
-    The major-radial wavenumber $k_R = 2 \pi / \lambda_R$ and
-    the poloidal wavenumber $k_{\theta} = 2 \pi / \lambda_{\theta}$
-    are related via $\alpha(R, z)$, which
-    is the angle between PCI's vertical probe beam and
-    the local flux surface.}
-\label{fig:Implementation:relating_kR_to_ktheta}
-\end{figure}
 
 
 \subsection{Spatial bandwidth}
@@ -409,9 +371,10 @@ Upon reaching the annex,
 the PCI signals are digitized with two
 {ACQ$216$CPCI} boards (D-tAcq Solutions Ltd.; Glasgow, Scotland UK).
 The digitizer boards have bit depth $N_b = 14$,
-dynamic range $V_{\text{dyn}} = \SI{8}{\volt}$, and
+$\SI{8}{\volt}$ peak-to-peak input voltage range, and
 input impedance $Z_{\text{in}} = \SI{50}{\ohm}$.
-The digitizer sampling rate is typically $f_s = 4 \, \text{MSPS}$.
+The digitizer sampling rate is typically
+$f_s = 4$ mega-samples/second (MSPS).
 
 
 \section{Optical layout of heterodyne interferometer}
@@ -602,7 +565,7 @@ from the plasma midplane to a focusing optic with focal length $f$, and
 let the focused beam come to a waist a distance $l'$ from the focusing optic.
 Now, let a single mirror,
 located a distance $d$ upstream from the focusing optic,
-be titled away from its nominal position (e.g.\ from machine vibrations),
+be tilted away from its nominal position (e.g.\ from machine vibrations),
 deflecting the unscattered beam by angle $\beta_1$
 relative to the nominal optical axis.
 The resulting focal-plane position and orientation of this beam are incorrect
@@ -725,33 +688,6 @@ by tens of $\SI{}{\mega\hertz}$ with an acousto-optic modulator (AOM).
 The operation of a typical AOM is described in
 in Section~\ref{sec:DesignConsiderations:phase_noise:LO}.
 
-\begin{figure}
-  \centering
-  \includegraphics[width = 0.6 \textwidth]{%
-    Chapters/Implementation/figs/aom.jpg}
-  \caption[Acousto-optic modulator (AOM)]{%
-    The heterodyne interferometer's Germanium acousto-optic modulator (AOM).
-    The AOM deflects and Doppler shifts ($\Delta f_0 = \SI{30}{\mega\hertz}$)
-    a fraction of the incident CO$_2$ beam ($f_0 = \SI{28.3}{\tera\hertz}$)
-    to produce a reference beam.
-    The $\SI{30}{\mega\hertz}$ RF signal is coupled to the AOM
-    through the upper-left BNC jack, and
-    the resulting sound waves propagate through the Germanium crystal
-    from left to right.
-    The CO$_2$ beam enters through the aperture on the AOM's face and
-    exits through a similar aperture on the AOM's rear.
-    The twin Swagelock fittings on the AOM's right
-    provide an inlet and outlet for water cooling, while
-    the lower-left SMC jack connects to
-    a normally closed, creep-action PEPI N thermostat
-    that provides a thermal interlock to the AOM's RF driver.
-    The AOM is mounted on a ``Bragg mount'', which
-    allows easy optimization of the beam's angle of incidence
-    (via the mount's adjustment screw, seen in black at the middle-right).
-  }
-\label{fig:Implementation:aom}
-\end{figure}
-
 The heterodyne interferometer's reference beam is generated
 with a Gooch \& Housego (Ilminster, UK) {$37027$-$5$} Germanium AOM,
 pictured in Figure~\ref{fig:Implementation:aom}.
@@ -788,6 +724,33 @@ with the acoustic beam providing an ``effective aperture'')
 requires placement of the AOM $\sim15"$ downstream
 of the laser's beam waist.
 
+\begin{figure}
+  \centering
+  \includegraphics[width = 0.6 \textwidth]{%
+    Chapters/Implementation/figs/aom.jpg}
+  \caption[Acousto-optic modulator (AOM)]{%
+    The heterodyne interferometer's Germanium acousto-optic modulator (AOM).
+    The AOM deflects and Doppler shifts ($\Delta f_0 = \SI{30}{\mega\hertz}$)
+    a fraction of the incident CO$_2$ beam ($f_0 = \SI{28.3}{\tera\hertz}$)
+    to produce a reference beam.
+    The $\SI{30}{\mega\hertz}$ RF signal is coupled to the AOM
+    through the upper-left BNC jack, and
+    the resulting sound waves propagate through the Germanium crystal
+    from left to right.
+    The CO$_2$ beam enters through the aperture on the AOM's face and
+    exits through a similar aperture on the AOM's rear.
+    The twin Swagelock fittings on the AOM's right
+    provide an inlet and outlet for water cooling, while
+    the lower-left SMC jack connects to
+    a normally closed, creep-action PEPI N thermostat
+    that provides a thermal interlock to the AOM's RF driver.
+    The AOM is mounted on a ``Bragg mount'', which
+    allows easy optimization of the beam's angle of incidence
+    (via the mount's adjustment screw, seen in black at the middle-right).
+  }
+\label{fig:Implementation:aom}
+\end{figure}
+
 Due to space constraints, the reference-beam path length
 is \emph{not} matched to the probe-beam path length.
 This path-length discrepancy ($\sim \SI{10}{\meter}$)
@@ -823,7 +786,36 @@ propagates a total distance $59\text{-}3/8"$.
 
 \subsection{Probe-beam generation \& imaging}
 \label{sec:Implementation:OpticalLayout:probe_beam}
-The heterodyne interferometer and the pre-existing PCI system
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/Implementation/figs/table_layout.pdf}
+  \caption[Combined PCI-interferometer optical table]{%
+    Combined PCI-interferometer optical table.
+    Salmon: shared probe beam;
+    green: interferometer plasma arm;
+    blue: interferometer reference arm;
+    fuchsia: PCI beam;
+    yellow: feedback beam.
+    AOM: Ge acousto-optic modulator.
+    BC: beam combiner.
+    D1: LN$_{2}$-cooled PCI detector array;
+    D2: room-temperature quadrant detector for beam steering;
+    D3: thermoelectrically-cooled interferometer detector.
+    L0, L1, L2: ZnSe lenses.
+    P1, P2: off-axis parabolic mirrors.
+    PP: phase plate.
+    RM: rotatable mask.
+    S1, S2: ZnSe beam splitters.
+    SM: steering mirrors.
+    $\lambda / 2$: half-wave plate.
+  }
+\label{fig:Implementation:table_layout}
+\end{figure}
+
+A schematic of the combined-PCI interferometer optical table
+is shown in Figure~\ref{fig:Implementation:table_layout}.
+The interferometer and PCI
 \emph{share} the in-vessel probe beam.
 The only modification to the beam-generation optics
 was the addition of the AOM, discussed extensively in
@@ -952,7 +944,6 @@ the detector is well within $\pm\SI{20}{\centi\meter} \approx \pm8"$
 of the image plane,
 which is relatively easy to satisfy experimentally.
 
-% \begin{figure}[h!]
 \begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
@@ -960,16 +951,27 @@ which is relatively easy to satisfy experimentally.
   \caption[Sensitivity of optical design to placement of imaging optics]{%
     Sensitivity of heterodyne-interferometer optical design
     to the placement of lenses $L1$ and $L2$.
-    % The distance between the off-axis parabolic mirror $P2$
-    % (which focuses the collimated probe beam) and
-    % the first lens $L1$ of the imaging system
-    % is denoted by $d_{P2,L1}$ (along the $x$-axis), and
-    % the distance between $L1$ and the second lens $L2$
-    % is denoted by $d_{L1,L2}$ (along the $y$-axis).
+    The distance between the focusing off-axis parabolic mirror $P2$ and
+    the first lens $L1$ of the imaging system
+    is denoted by $d_{P2,L1}$ (along the $x$-axis), and
+    the distance between $L1$ and the second lens $L2$
+    is denoted by $d_{L1,L2}$ (along the $y$-axis).
     The design point is marked with a burgundy diamond.
-    See text for discussion.
   }
 \label{fig:Implementation:optical_design_sensitivity}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width = 0.75 \textwidth]{%
+    Chapters/Implementation/figs/wavenumber_dependent_phase_shift.pdf}
+  \caption[Wavenumber-dependent phase shift from ``out-of-focus'' scattered beams]{%
+    The wavenumber-dependent phase shift $\mu$ that occurs when
+    the upscattered and downscattered $\SI{10.6}{\micro\meter}$ beams
+    interfere a distance $\delta z_{\image}$ away from the image plane
+    of an $M = 0.08$ imaging system; $|\mu| \ll 1$ is desirable.
+  }
+\label{fig:Implementation:wavenumber_dependent_phase_shift}
 \end{figure}
 
 The imaging system's depth of focus is additionally constrained by
@@ -987,19 +989,6 @@ the design-point magnification $M = 0.08$ from
 Clearly, the power loss from this ``out-of-focus'' interference effect
 will be small for $|k| \lesssim \SI{5}{\per\centi\meter}$
 if the detector is within $\pm 0.5"$ of the image plane.
-
-\begin{figure}
-  \centering
-  \includegraphics[width = 0.75 \textwidth]{%
-    Chapters/Implementation/figs/wavenumber_dependent_phase_shift.pdf}
-  \caption[Wavenumber-dependent phase shift from ``out-of-focus'' scattered beams]{%
-    The wavenumber-dependent phase shift $\mu$ that occurs when
-    the upscattered and downscattered $\SI{10.6}{\micro\meter}$ beams
-    interfere a distance $\delta z_{\image}$ away from the image plane
-    of an $M = 0.08$ imaging system; $|\mu| \ll 1$ is desirable.
-  }
-\label{fig:Implementation:wavenumber_dependent_phase_shift}
-\end{figure}
 
 Axial profiles of the unscattered beam and a scattered beam
 in the design-point imaging system are shown in
@@ -1382,7 +1371,7 @@ in Appendix~\ref{app:OscillatorPhaseNoise}.
   \includegraphics[width = \textwidth]{%
     Chapters/Implementation/figs/OCXO_module.pdf}
   \caption[Schematic for OCXO rack-mounted module]{%
-    Schematic for OCXO rack-mounted module. See text for details.}
+    Schematic for OCXO rack-mounted module.}
   \label{fig:Implementation:OCXO_module}
 \end{figure}
 
@@ -1749,7 +1738,7 @@ into $\SI{50}{\ohm}$).
 \subsection{Audio amplifiers}
 \label{sec:Implementation:Hardware:audio_amps}
 The demodulated $I$ and $Q$ signals are $\SI{80}{\milli\volt}$ peak-to-peak,
-while the digitizer dynamic range is $V_{\text{dyn}} = \SI{8}{\volt}$.
+while the digitizer input voltage range is $\SI{8}{\volt}$ peak-to-peak.
 Thus, direct digitization of the $I$ and $Q$ signals
 corresponds to a fractional use $\eta_{\text{dyn}} = 0.01$
 of the digitizer's dynamic range.

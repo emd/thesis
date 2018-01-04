@@ -1,2 +1,324 @@
-\chapter{Conclusions}
+\chapter{Conclusions \& future work}
 \label{ch:Conclusions}
+
+
+\section{Summary \& conclusions}
+\label{sec:Conclusions:summary_and_conclusions}
+The work described in this thesis can be summarized as follows:
+\begin{itemize}
+  \item Chapter~\ref{ch:InterferometricMethods} discusses
+    the theory of optical interferometric methods
+    in the context of measuring tokamak plasma-density fluctuations.
+    The laser-plasma interaction is quantified via
+    Fraunhofer scalar-diffraction theory, and
+    the resulting diffracted field is imaged onto a square-law detector.
+    Interfering the imaged field with a known reference field
+    produces measurable intensity fluctuations;
+    the specification of this reference field
+    defines the interferometric method.
+    Details of two particular interferometric methods ---
+    external-reference-beam interferometry and
+    phase contrast imaging (PCI) ---
+    are discussed, with an emphasis on
+    their sensitivity to fluctuations and their spatiotemporal bandwidths.
+    Significantly, while PCI can measure fluctuations more sensitively
+    than an external-reference-beam interferometer,
+    PCI suffers from a low-$k$ cutoff;
+    an external-reference-beam interferometer
+    does \emph{not} suffer from such a low-$k$ cutoff.
+  \item Chapter~\ref{ch:DesignConsiderations} considers the design of an
+    external-reference-beam, heterodyne interferometer
+    (hereafter referred to as a heterodyne interferometer).
+    A criterion for satisfactory wavefront matching
+    between the probe beam and the reference beam is developed, and
+    finite-sampling-volume effects are shown
+    to constrain the heterodyne interferometer's spatial bandwidth.
+    The effects of phase noise, amplitude noise, and digitizer bit noise
+    are each discussed in the context of
+    the heterodyne interferometer's signal-to-noise ratio, and
+    the systematic errors resulting from
+    imperfect demodulation of the heterodyne interference signal
+    are quantified.
+  \item Chapter~\ref{ch:Implementation} details
+    the addition of a heterodyne interferometer
+    to the pre-existing PCI system on the \diiid\space tokamak.
+    Both systems operate simultaneously,
+    sharing a single $\SI{10.6}{\micro\meter}$ probe beam through the plasma.
+    Optical-diagnostic access on \diiid\space and the capabilities
+    of the pre-existing PCI system are briefly reviewed.
+    Referencing the design considerations
+    in Chapter~\ref{ch:DesignConsiderations} and
+    adopting the philosophy
+    that the pre-existing PCI system should be minimally perturbed,
+    the optical layout for the heterodyne interferometer is developed;
+    the magnification of the interferometer's imaging system
+    is selected such that the spatial bandwidths
+    of the PCI and interferometer have a mid-$k$ overlap.
+    The design, procurement, and installation
+    of the new optical and electrical components
+    required to make the heterodyne interferometric measurement
+    are summarized.
+    Of note is the interferometer's radio-frequency local oscillator:
+    the phase noise of a crystal oscillator (XO)
+    was empirically found to be \emph{too large}
+    to make meaningful fluctuation measurements in most tokamak plasmas, but
+    the substantially lower phase noise of an
+    oven-controlled crystal oscillator (OCXO)
+    allows measurements of a whole zoo
+    of coherent and broadband plasma fluctuations.
+    The interferometer response and
+    the multiscale capabilities of the combined PCI-interferometer
+    are empirically verified via sound-wave calibrations.
+    Specifically, the PCI is shown to measure high-$k$
+    ($\SI{1.5}{\per\centi\meter} < |k_R| \leq \SI{25}{\per\centi\meter}$)
+    fluctuations with
+    sensitivity $3 \times 10^{13} \; \text{m}^{-2} / \sqrt{\text{kHz}}$,
+    while the interferometer simultaneously measures low-$k$
+    ($|k_R| < \SI{5}{\per\centi\meter}$) fluctuations with
+    sensitivity $3 \times 10^{14} \; \text{m}^{-2} / \sqrt{\text{kHz}}$.
+    Both systems have temporal bandwidths in excess of $\SI{1}{\mega\hertz}$.
+  \item Chapter~\ref{ch:TurbulenceMeasurements} demonstrates
+    the multiscale capabilities of the combined PCI-interferometer.
+    During a recent \diiid\space experiment,
+    the location of electron cyclotron resonance heating (ECH)
+    was moved from $\rhoech = 0.5$ to $\rho_{ECH} = 0.8$,
+    altering the local $a / L_{T_e}$ and $a / L_{T_i}$
+    in an attempt to change the coupling between
+    the electron-scale and ion-scale turbulence.
+    As such, this experiment presents an ideal opportunity
+    for multiscale turbulence investigations
+    with the combined PCI-interferometer.
+    Numerous turbulent branches are observed.
+    In particular, the interferometer measures
+    a low-$k$ electromagnetic mode driven unstable by collisionality,
+    properties consistent with the micro-tearing mode (MTM), and
+    the PCI measures a wavenumber spectrum
+    that exhibits distinct flattening
+    when $a / L_{T_e}$ is increased relative to $a / L_{T_i}$,
+    reminiscent of results
+    from realistic multiscale gyrokinetic simulations~\cite{howard_pp16}.
+    To aid the interpretation of these measurements,
+    linear-stability analysis and quasilinear-transport modeling
+    are performed with the gyro-Landau fluid code TGLF, and
+    qualitative agreement with the PCI-measured wavenumber spectrum
+    is obtained.
+  \item Chapter~\ref{ch:ToroidalCorrelation} discusses the correlation
+    of the newly installed interferometer with
+    \diiid's toroidally separated, pre-existing $V2$ interferometer.
+    Capable of probing the core plasma,
+    the interferometers are shown to be sensitive
+    to core-localized fluctuations
+    that are \emph{invisible} to external magnetic probes.
+    The chapter begins with a brief review
+    of the two-point correlation technique and
+    shows how toroidal mode numbers can be extracted
+    from a pair of toroidally separated measurements.
+    Meaningful correlation requires that
+    the two measurements share the same timebase.
+    The digitizers of both interferometers were modified
+    to phase lock their clocks, and
+    a residual ``trigger offset'' was measured
+    and is compensated in software.
+    Where comparisons can be made with magnetic probes,
+    the interferometer-measured toroidal mode numbers
+    are in good agreement.
+    Currently, there is not a tested, robust method
+    for correcting the bias introduced by
+    the $\SI{4}{\centi\meter}$ major-radial offset
+    between the interferometer beam centers,
+    which unfortunately limits the
+    deployment of this system for physics studies
+    of core-localized MHD.
+\end{itemize}
+
+
+\section{Future work}
+\label{sec:Conclusions:future_work}
+The combined PCI-interferometer developed in this work
+has a clear application in the burgeoning study
+of multiscale turbulence and cross-scale coupling, which
+may be significant in the reactor relevant $T_e \approx T_i$ regime.
+In roughly the next six months,
+Howard \emph{et al.} expects to complete
+realistic multiscale gyrokinetic simulations
+for the experiment described in
+Chapter~\ref{ch:TurbulenceMeasurements}.
+It will be very interesting
+to see if the predicted wavenumber spectrum
+matches the PCI-measured wavenumber spectrum.
+It should be noted that a synthetic PCI diagnostic
+already exists for the interpretation
+of such gyrokinetic simulations~\cite{rost_pp10}.
+Small modifications to the synthetic PCI
+should also allow a synthetic interferometer diagnostic.
+Previous multiscale simulations predict
+significant local and non-local energy cascades
+between the ion and electron scales~\cite{howard_pp16}, so
+it is desirable to investigate such coupling empirically.
+With its large spatiotemporal bandwidth,
+the combined PCI-interferometer may be ideally suited
+for measurement of such coupling, which
+may be suitably quantified by
+the bicoherence~\cite{young_and_powers_ieee79}
+between various channels of the system or
+some other suitable measure of nonlinear processes.
+(Note that the author has performed preliminary bispectral analysis
+of the measurements discussed in
+Chapter~\ref{ch:TurbulenceMeasurements};
+interestingly, the $|k_R| \sim \SI{5}{\per\centi\meter}$ and
+$f \sim \SI{1}{\mega\hertz}$ mode observed in
+Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}(b)
+has an exceptionally large autobicoherence).
+
+The interferometer-measured, low-$k$, electromagnetic modes
+that are destabilized by collisionality
+are also deserving of further study.
+The properties of this mode are consistent
+with the micro-tearing mode, which
+was predicted to be marginally unstable
+in the multiscale experiment's reference discharge~\cite{holland_nf17}.
+Unfortunately, TGLF's default eigenfunction basis
+of four Hermite polynomials is typically insufficient
+to resolve micro-tearing modes (MTMs)~\cite{staebler_MTM_question}, so
+there are no attempts to simulate the MTM in this work.
+However, it may be conceivable that
+increasing the number of Hermite polynomials
+will allow identification of the MTM in TGLF.
+Alternatively, linear simulations with
+the gyrokinetic code GYRO~\cite{candy_jcp03}
+could be pursued.
+(Note that the reference-discharge simulations
+indicating marginal MTM instability were performed with GYRO).
+Experimentally, it is desirable to map out the parametric dependencies
+of this mode, particularly its response
+to the plasma $\beta$ and collisionality.
+If dedicated experiments cannot be performed,
+it should be noted that the relevant experimental conditions
+(i.e.\ ITER-baseline scenario) are fairly typical at \diiid, and
+a fair amount may still be learned
+by ``piggybacking'' on other experiments.
+
+With regards to the combined PCI-interferometer,
+the most substantial improvement to the system
+would be upgrading the heterodyne-interferometer detector
+from a single element to a multi-element array.
+This would allow reconstruction of $k_R$
+from the interferometer measurements,
+enabling estimates of
+frequency-wavenumber spectra $S_{\phi,\phi}(k,f)$ and
+wavenumber spectra $S_{\phi,\phi}(k)$
+much like with the PCI.
+This capability is desirable for several reasons.
+First and foremost,
+interferometric measurements across a multi-element array
+would allow accurate estimates of $S_{\phi,\phi}(k)$
+below the PCI low-$k$ cutoff
+(\ref{eq:Implementation:kg_realized}), which
+may have important implications for
+validation of spectral-flattening predictions
+from multiscale gyrokinetic predictions.
+Further, as discussed in
+Section~\ref{sec:Implementation:Calibration:pci},
+interferometric measurements across a multi-element array
+would allow robust and accurate
+cross-calibration of the PCI
+on a shot-to-shot and an intra-shot basis.
+Note that each additional detector element
+would require its own set of electronics
+(e.g.\ signal conditioning RF amplifiers,
+demodulation electronics, and
+audio amplifiers) and
+two additional digitizer channels
+(to digitize both the in-phase $I$ and quadrature $Q$ signals).
+While the ``deadbug'' circuit construction utilized in this work
+is ideal for prototyping,
+any future increase to the number of interferometer channels
+would call for a printed-circuit-board (PCB) construction
+of the electronics.
+Thus, increasing the number of interferometer channels
+is not a small undertaking.
+
+A simpler, cheaper, and faster performance improvement
+would be the procurement of anti-aliasing filters
+with a higher cutoff frequency.
+The current anti-aliasing filters
+limit the bandwidth of the interferometer to
+approximately $\SI{1}{\mega\hertz}$, but
+the upstream components have bandwidths
+in excess of $\SI{2}{\mega\hertz}$.
+Thus, new anti-aliasing filters could,
+quite literally overnight,
+nearly double the temporal bandwidth of the interferometer.
+
+Finally, there is not currently a tested, robust method
+for correcting the bias introduced by
+the major-radial offset of the toroidally correlated interferometers
+(other than reducing the offset, i.e.\ $\Delta R \rightarrow 0$,
+which is not possible with current port allocations).
+It may be possible to account for the radial and poloidal mode structure
+via e.g.\ measurements from
+microwave imaging reflectometry (MIR)~\cite{muscatello_rsi14} or
+electron cyclotron emission imaging (ECEI)~\cite{tobias_rsi10}.
+
+Looking towards ITER and other next-step devices,
+the combined PCI-interferometer may allow
+sensitive, high spatiotemporal bandwidth measurements
+of multiscale turbulence.
+The diagnostic development pursued in this thesis
+proves that heterodyne-interferometric detection and PCI detection
+can be simultaneously implemented
+using a shared probe beam and
+a shared set of ports.
+The addition of PCI detection to
+e.g.\ the ITER interferometer~\cite{vanzeeland_TIP_rsi13}, however,
+is not without its challenges.
+For example, the ITER interferometer
+employs a Michelson configuration,
+with the beam making a second pass through the plasma
+after bouncing off of a retroreflector inside the vacuum vessel.
+In contrast,
+at least to the author's knowledge,
+all previous PCI implementations
+have employed a Mach-Zehnder configuration,
+with the probe beam making a single pass through the plasma.
+In principle, PCI can use a Michelson configuration, but
+the double pass and retroreflector
+may complicate interpretation of the measurements,
+particularly if attempting to localize the measurements
+with a spatially filtering mask~\cite{dorris_rsi09, dorris_phd, lin_rsi06} or
+with $2$-dimensional detector arrays~\cite{sanin_rsi04, tanaka_rsi16}.
+
+Regardless, the spatial bandwidth of a PCI system
+that shares its probe beam
+with the ITER interferometer can be considered.
+The 1/e $E$ waist of the ITER interferometer's
+$\SI{10.6}{\micro\meter}$ probe beam is
+$w_0 \approx \SI{8}{\milli\meter}$~\cite{vanzeeland_TIP_rsi13}
+such that a PCI system using this probe beam
+would have a diffraction-limited low-$k$ cutoff
+(\ref{eq:InterferometricMethods:pci_kmin_physics})
+of $\SI{2.5}{\per\centi\meter}$.
+(However, recall that the \diiid\space PCI
+is operated two to three times above the diffraction limit
+to give some leeway to the PCI feedback system).
+Of course, as demonstrated in this thesis,
+simultaneous heterodyne-interferometric and PCI detection
+can obviate the PCI's low-$k$ cutoff.
+A somewhat larger problem, however, may be the limited collection volumes
+and long path lengths
+between the vacuum vessel and the detector, which
+may impose severe constraints
+on the high-$k$ cutoff of a $\SI{10.6}{\micro\meter}$ PCI or interferometer.
+One potential solution is to use a smaller probe wavelength
+(i.e.\ larger $k_0$) to decrease the scattering angle $\theta_m$ from
+(\ref{eq:GaussianBeamDiffraction:scattering_angles}).
+As the burning plasma regime will be predominantly electron heated
+(i.e.\ via fusion alpha particles slowing down on electrons),
+it is extremely important that
+both high-$k$ electron turbulence and
+any cross-scale coupling with low-$k$ ion turbulence
+is accurately diagnosed and understood.
+
+
+\bibliographystyle{plainurl}
+\bibliography{references}

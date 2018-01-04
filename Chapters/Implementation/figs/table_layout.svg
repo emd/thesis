@@ -19,7 +19,7 @@
    viewBox="-2354 -4004 10735.871 7298.1532"
    id="svg2985"
    version="1.1"
-   inkscape:version="0.48.5 r10040"
+   inkscape:version="0.91 r13725"
    sodipodi:docname="table_layout.svg">
   <sodipodi:namedview
      pagecolor="#ffffff"
@@ -314,8 +314,7 @@
        sodipodi:cx="0"
        sodipodi:cy="0"
        sodipodi:rx="19"
-       sodipodi:ry="18"
-       d="M 19,0 C 19,9.9411255 10.49341,18 0,18 -10.49341,18 -19,9.9411255 -19,0 c 0,-9.9411255 8.50659,-18 19,-18 10.49341,0 19,8.0588745 19,18 z" />
+       sodipodi:ry="18" />
     <ellipse
        transform="translate(-1365.9342,-3364.72)"
        rx="46"
@@ -327,8 +326,7 @@
        sodipodi:cx="0"
        sodipodi:cy="0"
        sodipodi:rx="46"
-       sodipodi:ry="45"
-       d="M 46,0 C 46,24.852814 25.405098,45 0,45 -25.405098,45 -46,24.852814 -46,0 c 0,-24.852814 20.594902,-45 46,-45 25.405098,0 46,20.147186 46,45 z" />
+       sodipodi:ry="45" />
     <polyline
        transform="translate(-2124.9342,-3872.72)"
        points="811,508 704,508 "
@@ -867,12 +865,12 @@
      id="text20251"
      y="-2531.1694"
      x="-103.22803"
-     style="font-size:267.12017822px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:267.12017822px;line-height:125%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
      xml:space="preserve"><tspan
        y="-2531.1694"
        x="-103.22803"
        id="tspan20253"
-       sodipodi:role="line">L1</tspan></text>
+       sodipodi:role="line">L0</tspan></text>
   <text
      sodipodi:linespacing="125%"
      id="text20255"
@@ -931,7 +929,7 @@
        y="-1168.8571">S2</tspan></text>
   <text
      xml:space="preserve"
-     style="font-size:267.12017822px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:267.12017822px;line-height:125%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
      x="4517.9502"
      y="-394.20782"
      id="text20310"
@@ -939,18 +937,18 @@
        sodipodi:role="line"
        id="tspan20312"
        x="4517.9502"
-       y="-394.20782">L2</tspan></text>
+       y="-394.20782">L1</tspan></text>
   <text
      sodipodi:linespacing="125%"
      id="text20314"
      y="-260.64783"
      x="2567.9741"
-     style="font-size:267.12017822px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:267.12017822px;line-height:125%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
      xml:space="preserve"><tspan
        y="-260.64783"
        x="2567.9741"
        id="tspan20316"
-       sodipodi:role="line">L3</tspan></text>
+       sodipodi:role="line">L2</tspan></text>
   <text
      xml:space="preserve"
      style="font-size:267.12017822px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"

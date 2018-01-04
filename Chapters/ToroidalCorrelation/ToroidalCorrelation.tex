@@ -337,7 +337,7 @@ are performed in this work.
 \subsection{Interferometer-measured phase fluctuations}
 \label{sec:ToroidalCorrelation:Interferometers:phase_fluctuations}
 Consider a tokamak electron density fluctuation with
-amplitude $\tilde{n}_0(r)$,
+complex amplitude $\tilde{n}_0(r)$,
 toroidal mode number $n$,
 poloidal mode number $m$, and
 angular frequency $\omega$
@@ -860,7 +860,7 @@ the line-integrated radial and poloidal mode structure
 at major radius $R$, as defined in
 (\ref{eq:ToroidalCorrelation:line_integrated_radial_and_poloidal_structure}).
 Now, if the mode structure is up-down symmetric about the midplane,
-$\Phi$ is real, and
+$\Phi$ is real, and, modulo $2 \pi$,
 $\sigma(R_{\text{pci}}) - \sigma(R_{\text{v2}}) \in \{0, \pi\}$.
 The toroidal mode number is correctly identified
 when $\sigma(R_{\text{pci}}) - \sigma(R_{\text{v2}}) = 0$ but
@@ -872,7 +872,8 @@ or vice versa,
 the measured mode number will ``jump'';
 an example of such mode-number ``jumping'' is shown in
 Figure~\ref{fig:ToroidalCorrelation:mode_number_jumps}.
-If the mode structure is up-down asymmetric about the midplane, however,
+If the mode structure is \emph{not} up-down symmetric
+about the midplane, however,
 $\Phi$ is complex, and
 the bias to the measured mode number becomes continuous, rather than discrete.
 Fast-ion shearing of Alfv\'{e}n eigenmodes~\cite{tobias_prl11},

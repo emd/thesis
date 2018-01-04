@@ -81,17 +81,28 @@
 \newcommand{\ExB}{E \times B}
 \newcommand{\Beq}{\vect{B}_0}
 \newcommand{\beq}{\hat{\vect{b}}_0}
-\newcommand{\zhat}{\hat{\vect{z}}}
+\newcommand{\Zhat}{\hat{\vect{Z}}}
 \newcommand{\Rhat}{\hat{\vect{R}}}
 \newcommand{\phihat}{\hat{\vect{\phi}}}
 \newcommand{\zetahat}{\hat{\vect{\zeta}}}
 \newcommand{\rhohat}{\hat{\vect{\rho}}}
 \newcommand{\thetahat}{\hat{\vect{\theta}}}
 \newcommand{\khat}{\hat{\vect{k}}}
+\newcommand{\kzerohat}{\hat{\vect{k}}_0}
+\newcommand{\kpci}{\vect{k}_{\text{pci}}}
+\newcommand{\kpcihat}{\hat{\vect{k}}_{\text{pci}}}
+\newcommand{\omegapci}{\omega_{\text{pci}}}
+\newcommand{\vmag}{\text{v}}
+\newcommand{\vph}{\vmag_{\text{ph}}}
+\newcommand{\vphpci}{\vmag_{\text{ph}}^{\text{pci}}}
+\newcommand{\vphplasma}{\vmag_{\text{ph}}^{\text{plasma}}}
 \newcommand{\vperp}{\vect{v}_{\perp}}
 \newcommand{\vExB}{\vect{v}_{E}}
 \newcommand{\vpciE}{v_{\text{pci}}^E}
 \newcommand{\vpcimeas}{v_{\text{pci}}^{\text{meas}}}
+\newcommand{\rhoech}{\rho_{\text{ECH}}}
+\newcommand{\gammahighk}{\gamma_{\text{high-k}}}
+\newcommand{\gammalowk}{\gamma_{\text{low-k}}}
 
 
 % **************
@@ -107,6 +118,8 @@
 %\hyphenation{put special hyphenation here}
 
 
+% \includeonly{FrontBackmatter/Cover}%
+% \includeonly{FrontBackmatter/Acknowledgements}%
 % \includeonly{FrontBackmatter/Contents}
 % \includeonly{Chapters/Introduction/Introduction}
 % \includeonly{Chapters/InterferometricMethods/InterferometricMethods}
@@ -114,6 +127,7 @@
 % \includeonly{Chapters/Implementation/Implementation}
 % \includeonly{Chapters/ToroidalCorrelation/ToroidalCorrelation}
 % \includeonly{Chapters/TurbulenceMeasurements/TurbulenceMeasurements}
+% \includeonly{Chapters/Conclusions/Conclusions}
 % \includeonly{Appendices/GaussianBeamDiffraction/GaussianBeamDiffraction}
 % \includeonly{Appendices/ImagingSystems/ImagingSystems}
 % \includeonly{Appendices/PCIResponseIdentities/PCIResponseIdentities}
@@ -122,23 +136,23 @@
 % \includeonly{Appendices/SpectralEstimation/SpectralEstimation}
 % \includeonly{Appendices/DigitizerSynchronization/DigitizerSynchronization}
 
-\includeonly{%
-  FrontBackmatter/Contents,
-  Chapters/Introduction/Introduction,
-  Chapters/InterferometricMethods/InterferometricMethods,
-  Chapters/DesignConsiderations/DesignConsiderations,
-  Chapters/Implementation/Implementation,
-  Chapters/ToroidalCorrelation/ToroidalCorrelation,
-  Chapters/TurbulenceMeasurements/TurbulenceMeasurements,
-  Chapters/Conclusions/Conclusions,
-  Appendices/GaussianBeamDiffraction/GaussianBeamDiffraction,
-  Appendices/ImagingSystems/ImagingSystems,
-  Appendices/PCIResponseIdentities/PCIResponseIdentities,
-  Appendices/OscillatorPhaseNoise/OscillatorPhaseNoise,
-  Appendices/SoundWaveCharacterization/SoundWaveCharacterization,
-  Appendices/SpectralEstimation/SpectralEstimation,
-  Appendices/DigitizerSynchronization/DigitizerSynchronization
-}
+% \includeonly{%
+%   FrontBackmatter/Contents,
+%   Chapters/Introduction/Introduction,
+%   Chapters/InterferometricMethods/InterferometricMethods,
+%   Chapters/DesignConsiderations/DesignConsiderations,
+%   Chapters/Implementation/Implementation,
+%   Chapters/ToroidalCorrelation/ToroidalCorrelation,
+%   Chapters/TurbulenceMeasurements/TurbulenceMeasurements,
+%   Chapters/Conclusions/Conclusions,
+%   Appendices/GaussianBeamDiffraction/GaussianBeamDiffraction,
+%   Appendices/ImagingSystems/ImagingSystems,
+%   Appendices/PCIResponseIdentities/PCIResponseIdentities,
+%   Appendices/OscillatorPhaseNoise/OscillatorPhaseNoise,
+%   Appendices/SoundWaveCharacterization/SoundWaveCharacterization,
+%   Appendices/SpectralEstimation/SpectralEstimation,
+%   Appendices/DigitizerSynchronization/DigitizerSynchronization
+% }
 
 
 \begin{document}
@@ -170,8 +184,8 @@
 \include{Chapters/InterferometricMethods/InterferometricMethods}%
 \include{Chapters/DesignConsiderations/DesignConsiderations}%
 \include{Chapters/Implementation/Implementation}%
-\include{Chapters/ToroidalCorrelation/ToroidalCorrelation}%
 \include{Chapters/TurbulenceMeasurements/TurbulenceMeasurements}%
+\include{Chapters/ToroidalCorrelation/ToroidalCorrelation}%
 \include{Chapters/Conclusions/Conclusions}%
 
 

@@ -54,9 +54,9 @@ by the fusion triple product
 \begin{equation}
   n_{i} T_{i} \tau_E
   \geq
-  5 \times 10^{21} \, \text{m}^{-3} \cdot \text{keV} \cdot \text{s}
+  5 \times 10^{21} \, m^{-3} \cdot keV \cdot s
   =
-  8 \, \text{atm} \cdot \text{s},
+  8 \, atm \cdot s,
   \label{eq:Introduction:fusion_triple_product}
 \end{equation}
 where
@@ -108,7 +108,7 @@ allowing the establishment of an equilibrium;
 the large toroidal field $B_{\zeta}$ provides stability.
 Wesson provides a concise historical overview of tokamak research
 \cite[Sec.~1.10]{wesson}.
-Since the initial success of the USSR's T-3 tokamak in the 1960s,
+Since the initial success of the USSR's T-$3$ tokamak in the $1960$s,
 hundreds of tokamaks of numerous shapes, sizes, and field strengths
 have been built all over the world
 \cite[Ch.~11,12]{wesson}~\cite{tokamaks_of_the_world}.
@@ -121,9 +121,9 @@ diverted tokamak with
 maximum toroidal field $B_{\zeta} \leq \SI{2.2}{\tesla}$ and
 a maximum achieved plasma current of $I_{\zeta} \leq \SI{3}{\mega\amp}$.
 Up to $\SI{20}{\mega\watt}$ of deuterium neutral beam injection (NBI) and
-$\SI{6}{\mega\watt}$ of electron cyclotron resonance heating (ECRH)
+$\SI{6}{\mega\watt}$ of electron cyclotron resonance heating (ECH)
 are available for auxiliary plasma heating.
-% The ECRH deposition location can be dynamically changed within a single shot,
+% The ECH deposition location can be dynamically changed within a single shot,
 % and the NBI system can be operated in $\beta$ feedback
 % in an attempt to maintain constant plasma $\beta$
 % as other plasma parameters change.
@@ -143,7 +143,7 @@ to the diagnostic development pursued in this thesis.
 The radial transport of particles, heat, and momentum in a tokamak plasma is
 often larger than that predicted by collisional (i.e.\ neoclassical) theory.
 There is strong evidence that this ``anomalous'' transport
-results from electrostatic drift-wave turbulence
+results from drift-wave turbulence
 driven by the free energy in the plasma gradients
 \cite{horton_drift_waves,tynan_ppcf09}.
 Due to the relatively large size of its eddies,
@@ -156,13 +156,13 @@ capable of driving experimentally relevant electron heat transport
 \cite{jenko_prl02}.
 Here, $k_{\theta}$ is a typical poloidal wavenumber of the turbulent mode,
 $\rho_j = v_{tj} / |\Omega_j|$ is the gyroradius of species $j$,
-$v_{tj} = \sqrt{2 T_j / m_j}$ is the thermal speed of species $j$, and
+$v_{tj} = \sqrt{T_j / m_j}$ is the thermal speed of species $j$, and
 $\Omega_j = q_j B / m_j$ is the angular cyclotron frequency of species $j$.
 For the reactor-relevant scenario $T_e \sim T_i$,
 the characteristic length scale of ion-scale turbulence is a factor
-$\sqrt{m_D / m_e} \approx 60$ larger than
+$(m_D / m_e)^{1/2} \approx 60$ larger than
 the characteristic length scale of electron-scale turbulence,
-where the $m_D$ is the deuteron mass.
+where $m_D$ is the deuteron mass.
 Until the very recent work of Howard \emph{et al.}
 \cite{howard_pp14, howard_nf16, howard_pp16, holland_nf17, howard_ppcf18},
 self-consistently and simultaneously simulating
@@ -489,8 +489,8 @@ allows detection even at $k = 0$.
     & $\SI{0}{\per\centi\meter} \leq k < \SI{5}{\per\centi\meter}$
     \tabularnewline%
     \textbf{sensitivity}
-    & $3 \times 10^{13} \, \text{m}^{-2} / \sqrt{\text{kHz}}$
-    & $3 \times 10^{14} \, \text{m}^{-2} / \sqrt{\text{kHz}}$
+    & $3 \times 10^{13} \, m^{-2} / \sqrt{kHz}$
+    & $3 \times 10^{14} \, m^{-2} / \sqrt{kHz}$
     \tabularnewline%
     \toprule%
   \end{tabular}
@@ -560,111 +560,29 @@ The remainder of this thesis is organized as follows:
 
 \begin{itemize}
   \item Chapter~\ref{ch:InterferometricMethods} discusses
-    the theory of optical interferometric methods
-    in the context of measuring tokamak plasma-density fluctuations.
-    The laser-plasma interaction is quantified via
-    Fraunhofer scalar-diffraction theory, and
-    the resulting diffracted field is imaged onto a square-law detector.
-    Interfering the imaged field with a known reference field
-    produces measurable intensity fluctuations;
-    the specification of this reference field
-    defines the interferometric method.
-    Details of two particular interferometric methods ---
-    external-reference-beam interferometry and
-    phase contrast imaging (PCI) ---
-    are discussed, with an emphasis on
-    their sensitivity to fluctuations and their spatiotemporal bandwidths.
-    Significantly, while PCI can measure fluctuations more sensitively
-    than an external-reference-beam interferometer,
-    PCI suffers from a low-$k$ cutoff;
-    an external-reference-beam interferometer
-    does \emph{not} suffer from such a low-$k$ cutoff.
-  \item Chapter~\ref{ch:DesignConsiderations} considers the design of an
-    external-reference-beam, heterodyne interferometer
-    (hereafter referred to as a heterodyne interferometer).
-    A criterion for satisfactory wavefront matching
-    between the probe beam and the reference beam is developed, and
-    finite-sampling-volume effects are shown
-    to constrain the heterodyne interferometer's spatial bandwidth.
-    The effects of phase noise, amplitude noise, and digitizer bit noise
-    are each discussed in the context of
-    the heterodyne interferometer's signal-to-noise ratio, and
-    the systematic errors resulting from
-    imperfect demodulation of the heterodyne interference signal
-    are quantified.
+    the optical foundations of interferometry and
+    phase contrast imaging (PCI),
+    with an emphasis on sensitivity and spatiotemporal bandwidths.
+  \item Chapter~\ref{ch:DesignConsiderations} provides
+    an exhaustive set of design considerations for
+    a heterodyne interferometer.
   \item Chapter~\ref{ch:Implementation} details
     the addition of a heterodyne interferometer
     to the pre-existing PCI system on the \diiid\space tokamak;
     both systems operate simultaneously,
     sharing a single $\SI{10.6}{\micro\meter}$ probe beam through the plasma.
-    Optical-diagnostic access on \diiid\space and the capabilities
-    of the pre-existing PCI system are briefly reviewed.
-    Referencing the design considerations
-    in Chapter~\ref{ch:DesignConsiderations} and
-    adopting the philosophy
-    that the pre-existing PCI system should be minimally perturbed,
-    the optical layout for the heterodyne interferometer is developed;
-    the magnification of the interferometer's imaging system
-    is selected such that the spatial bandwidths
-    of the PCI and interferometer have a mid-$k$ overlap.
-    The design, procurement, and installation
-    of the new optical and electrical components
-    required to make the heterodyne interferometric measurement
-    are summarized.
-    Of note is the interferometer's radio-frequency local oscillator:
-    the phase noise of a crystal oscillator (XO)
-    was empirically found to be \emph{too large}
-    to make meaningful fluctuation measurements in most tokamak plasmas, but
-    the substantially lower phase noise of an
-    oven-controlled crystal oscillator (OCXO)
-    allows measurements of a whole zoo
-    of coherent and broadband plasma fluctuations.
-    The interferometer response and
-    the multiscale capabilities of the combined PCI-interferometer
-    are empirically verified via sound-wave calibrations.
-    % Finally, some remarks are made regarding
-    % the use of such a combined PCI-interferometer
-    % on next-step devices, such as ITER.
-  \item Chapter~\ref{ch:ToroidalCorrelation} discusses the correlation
-    of the newly installed interferometer with
-    \diiid's toroidally separated, pre-existing V2 interferometer.
-    Capable of probing the core plasma,
-    the interferometers are shown to be sensitive
-    to core-localized fluctuations
-    that are \emph{invisible} to external magnetic probes.
-    The chapter begins with a brief review
-    of the two-point correlation technique and
-    shows how toroidal mode numbers can be extracted
-    from a pair of toroidally separated measurements.
-    Meaningful correlation requires that
-    the two measurements share the same timebase.
-    The digitizers of both interferometers were modified
-    to phase lock their clocks, and
-    a residual ``trigger offset'' was measured
-    and is compensated in software.
-    Where comparisons can be made with magnetic probes,
-    the interferometer-measured toroidal mode numbers
-    are in good agreement.
-    Implications of the \SI{4}{\centi\meter} radial offset
-    between the beam centers of each interferometer are discussed.
-  \item Chapter~\ref{ch:TurbulenceMeasurements} demonstrates
-    the ability of the combined PCI-interferometer
-    to measure multiscale, broadband fluctuations.
-    During a recent \diiid\space experiment,
-    the location of electron cyclotron resonance heating (ECRH)
-    was moved from $\rho = 0.5 \rightarrow 0.8$,
-    altering $T_e / T_i$
-    in an attempt to change the coupling between
-    the electron-scale and ion-scale turbulence.
-    At low frequencies ($f < \SI{200}{\kilo\hertz}$),
-    the low-$k$ and high-$k$ responses to the change in ECRH location
-    are similar;
-    however, at higher frequencies, they are \emph{distinct}.
-    Measurements are compared to linear predictions
-    from the gyro-Landau-fluid code TGLF.
+  \item Chapter~\ref{ch:TurbulenceMeasurements} discusses
+    the measurement of multiscale turbulent fluctuations
+    with the combined PCI-interferometer;
+    linear-stability analysis and quasilinear-transport modeling
+    are performed to help interpret these measurements.
+  \item Chapter~\ref{ch:ToroidalCorrelation} demonstrates
+    toroidal mode-number measurement of core-localized MHD
+    via correlation of the newly installed interferometer
+    with \diiid's toroidally separated, pre-existing $V2$ interferometer.
   \item Chapter~\ref{ch:Conclusions} concludes the thesis
-    with a summary and discussion of the primary results
-    and suggests avenues of future work.
+    with a summary of the primary results
+    and suggestions for future work.
 \end{itemize}
 
 

@@ -31,6 +31,10 @@ fcoherent = [
 
 bump_bandwdith = [300e3, 600e3]
 
+# Remove noise floor?
+subtract_noise_floor = True
+noise_floor = 1e-13  # [rad^2 / kHz]
+
 # Plotting parameters
 figsize = (6, 4)
 fontsize = 15
@@ -129,7 +133,13 @@ if __name__ == '__main__':
         find_bump = np.where(np.logical_and(
             asd_int.f >= bump_bandwdith[0],
             asd_int.f <= bump_bandwdith[1]))[0]
-        varphi[window_index] = np.sum(Gxx_int[find_bump]) * asd_int.df
+
+        if subtract_noise_floor:
+            varphi[window_index] = np.sum(
+                Gxx_int[find_bump] - noise_floor) * asd_int.df
+        else:
+            varphi[window_index] = np.sum(Gxx_int[find_bump]) * asd_int.df
+
         rho_ECH[window_index] = rho
 
     # Convert varphi to mrad^2
@@ -175,7 +185,7 @@ if __name__ == '__main__':
         fontsize=fontsize)
 
     plt.xlim([0, 1])
-    plt.ylim([0, 0.1])
+    plt.ylim([0, 0.06])
 
     plt.tight_layout()
 
