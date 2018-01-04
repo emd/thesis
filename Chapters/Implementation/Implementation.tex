@@ -160,21 +160,11 @@ The beam center sits at major radius $R = $ \SI{1.98}{\meter}.
 Both the toroidal and major radial positions
 of the PCI beam are shown in
 Figure~\ref{fig:Implementation:d3d_port_locations}.
-
-The vertical beam path of the PCI constrains
-which fluctuations it can and cannot detect.
-Specifically, the PCI-measured intensity fluctuations
-(\ref{eq:InterferometricMethods:pci_intensity})
-correspond to \emph{line-integrated} electron-density fluctuations, which
-are the physical origin of the phase fluctuations $\tilde{\phi}$ in
-(\ref{eq:InterferometricMethods:phase_fluctuation}).
 Because it is a line-integrated measurement,
 only fluctuations propagating perpendicular to the beam path are detected,
 as fluctuations propagating parallel to the beam path
-are effectively averaged out of the signal
-(at a more fundamental level, fluctuations propagating
-parallel to the beam path do \emph{not} spatially scatter the probe beam).
-Now, electrostatic drift-wave turbulence (e.g.\ ITG, ETG)
+are effectively averaged out of the signal.
+Additionally, electrostatic drift-wave turbulence (e.g.\ ITG, ETG)
 tends to be field-aligned
 such that $k_{\perp} \gg k_{||}$~\cite{horton_drift_waves, tynan_ppcf09},
 where the $\perp$ and $||$ subscripts are used here to indicate
@@ -184,12 +174,14 @@ To lowest order, then, electrostatic fluctuations propagate
 perpendicular to a tokamak's toroidal field.
 PCI's vertical beam path and
 the field-aligned constraint of electrostatic turbulence
-imply that PCI is predominantly sensitive to fluctuations
-with finite major-radial wavenumber $k_R$.
+imply that PCI is sensitive to fluctuations
+with $k_Z = 0$ and finite major-radial wavenumber $k_R$.
+(For a more exacting discussion
+of the wavevectors that PCI is sensitive to,
+see Section~\ref{sec:TurbulenceMeasurements:Modeling:wavevectors}).
 Thus, PCI's $32$-element, $1$-dimensional detector array
 is oriented in the image plane such that
 each detector element corresponds to a unique major radius in the plasma.
-
 In some situations, spatially filtering ``masks''
 \cite{dorris_rsi09, dorris_phd, lin_rsi06} or
 $2$-dimensional detector arrays
@@ -199,36 +191,6 @@ by exploiting the spatial variation
 in the magnetic field's orientation along the beam path.
 These localization techniques typically work best
 for high-$k$ measurements.
-Note that $k_R$ is related to the
-theoretically relevant poloidal wavenumber $k_{\theta}$ via
-\begin{equation}
-  k_R = k_{\theta} \csc[\alpha(R, z)],
-  \label{eq:Implementation:kR_to_ktheta}
-\end{equation}
-where $\alpha(R, z)$ is the angle
-between the beam path and the local flux surface,
-as shown schematically in
-Figure~\ref{fig:Implementation:relating_kR_to_ktheta}.
-Of course, the fluctuation measurements must be localized,
-either via direct measurement
-(with $2$-dimensional detector arrays or ``masks'')
-or via inference from other plasma properties,
-before (\ref{eq:Implementation:kR_to_ktheta})
-can be inverted to yield $k_{\theta}$
-from measured values of $k_R$.
-
-\begin{figure}
-  \centering
-  \includegraphics[width = 0.9 \textwidth]{%
-    Chapters/Implementation/figs/kR_to_ktheta.pdf}
-  \caption[Relating $k_R$ to $k_{\theta}$]{%
-    The major-radial wavenumber $k_R = 2 \pi / \lambda_R$ and
-    the poloidal wavenumber $k_{\theta} = 2 \pi / \lambda_{\theta}$
-    are related via $\alpha(R, z)$, which
-    is the angle between PCI's vertical probe beam and
-    the local flux surface.}
-\label{fig:Implementation:relating_kR_to_ktheta}
-\end{figure}
 
 
 \subsection{Spatial bandwidth}
@@ -602,7 +564,7 @@ from the plasma midplane to a focusing optic with focal length $f$, and
 let the focused beam come to a waist a distance $l'$ from the focusing optic.
 Now, let a single mirror,
 located a distance $d$ upstream from the focusing optic,
-be titled away from its nominal position (e.g.\ from machine vibrations),
+be tilted away from its nominal position (e.g.\ from machine vibrations),
 deflecting the unscattered beam by angle $\beta_1$
 relative to the nominal optical axis.
 The resulting focal-plane position and orientation of this beam are incorrect
