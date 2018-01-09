@@ -68,8 +68,8 @@ whether or not it is electrostatic
 
 The plasma gradients are often quantified in terms of scale lengths.
 The scale length of quantity $x$ is defined as
-$L_x = x / \nabla x = (\nabla \ln x)^{-1}$.
-Smaller values of $|L_x|$ indicate
+$L_x = x / |\nabla x| = |\nabla \ln x|^{-1}$.
+Smaller values of $L_x$ indicate
 more rapid spatial variation
 (i.e.\ steeper gradient) of quantity $x$.
 Thus, the free energy in profile $x$ increases with
@@ -141,12 +141,11 @@ As the name suggests,
 the ETG is driven more unstable by larger values of $a / L_{T_e}$
 \cite[Sec.~8.3]{wesson}.
 Relative to the ITG,
-the ETG spatial scales in a $T_e \sim T_i$ plasma
+the ETG spatial scales in a $T_e \sim T_i$ deuterium plasma
 are reduced by the square root
 of the electron-to-ion mass ratio
 $(m_e / m_i)^{1/2} \approx 60$ such that
-the ETG peaks at $k_{\theta} \rho_s \sim 20$
-in a deuterium plasma.
+the ETG peaks at $k_{\theta} \rho_s \sim 20$.
 While electron-scale simulations have long shown that the ETG
 may be capable of forming radially elongated ``streamers''
 \cite{dorland_prl00}
@@ -274,10 +273,10 @@ $\omega_{*e}$ is the electron diamagnetic frequency~\cite[Sec.~8.5]{wesson}.
 
 \section{Experimental conditions}
 \label{sec:TurbulenceMeasurements:ExperimentalConditions}
-The experiment was run in the ITER-similar shape,
-with aspect ratio, elongation, and triangularity
+The experiment was run in H-mode with the ITER-similar shape
+(i.e.\ aspect ratio, elongation, and triangularity
 all closely matched to those of the ITER-baseline scenario
-\cite[Sec.~13.5 \& 13.6]{wesson}.
+\cite[Sec.~13.5 \& 13.6]{wesson}).
 The on-axis toroidal field $B_T = \SI{-1.7}{\tesla}$ and
 plasma current $I_p = \SI{1.3}{\mega\ampere}$
 produced $q_{95} = 3.15$,
@@ -779,12 +778,12 @@ $20\%$ -- $80\%$ of each inter-ELM window, and
 the total number of realizations is $N_r \sim 450$.
 The resulting $\gamma^2_{xy}(f)$ estimates
 are shown in Figure~\ref{fig:TurbulenceMeasurements:gamma2xy}.
-As demonstrated in Section~\ref{sec:TurbulenceMeasurements:Measurements:Skf},
-the frequency $f$ of a broadband fluctuation
-is often related to its wavenumber $k$ via
-$f = \vph k / (2 \pi)$,
-where $\vph$ is the lab-frame phase velocity of the fluctuation;
-that is, the lowest frequencies in a particular fluctuation branch
+From the definition of
+the lab-frame phase velocity $\vph = 2 \pi f / k$,
+where $f$ is the lab-frame frequency and
+$k$ is the wavenumber,
+it can be seen that the lowest frequencies
+in a particular fluctuation branch
 are associated with the lowest wavenumbers, and
 the highest frequencies in a particular fluctuation branch
 are associated with the highest wavenumbers.
@@ -1714,23 +1713,25 @@ Specifically, the $\rhoech = 0.5$ spectrum
 is noticeably flatter (i.e.\ decays more slowly)
 than the $\rhoech = 0.8$ spectrum, which
 may be indicative of enhanced cross-scale coupling~\cite{howard_pp16}.
-Further, the intersection of the two predicted spectra
-is in rough agreement
-with that observed in the PCI-measured spectra.
-However, the predicted and measured power laws
-quantitatively disagree.
-It should be emphasized that the TGLF-SAT$1$ model
+Note that the PCI spectrum
+also depends on $k_{\rho,0}$ and $\Delta \vect{k}$,
+as discussed in Section~\ref{sec:TurbulenceMeasurements:Modeling:wavevectors},
+so quantitative comparison with the PCI measurements
+requires a full-physics simulation
+(i.e.\ beyond the abilities of a reduced model like TGLF) and
+a synthetic diagnostic~\cite{rost_pp10}.
+It should also be emphasized that the TGLF-SAT$1$ model
 is fit to just a handful~\cite{staebler_nf17}
 of realistic multiscale gyrokinetic simulations
 corresponding to Alcator C-Mod L-mode plasmas, so
-quantitative agreement may improve
+the model may improve
 when additional multiscale simulations are completed and
 the TGLF-SAT$1$ model is recalibrated.
 
 \begin{figure}
   \centering
   \includegraphics[width = \textwidth]{%
-    Chapters/TurbulenceMeasurements/figs/density_spectra_local.pdf}
+    Chapters/TurbulenceMeasurements/figs/density_spectra_local_ky_rhos.pdf}
   \caption[TGLF-predicted electron-density fluctuation spectra]{%
     Electron-density fluctuation spectra
     predicted by TGLF-SAT$1$
@@ -1744,19 +1745,25 @@ the TGLF-SAT$1$ model is recalibrated.
     is inferred from the noise floor
     in Figure~\ref{fig:TurbulenceMeasurements:Sk_power_law};
     that is, for $\rhoech = 0.5$
-    the equivalent noise floor intersects $S(k_R)$
-    at $k_R \approx \SI{15}{\per\centi\meter}$,
-    which is roughly equivalent to the $\rhoech = 0.5$ noise floor
+    the equivalent noise floor intersects $S(k_y)$
+    at $k_y \rho_s \approx 2.7$, and
+    $k_y \rho_s \approx \SI{2.7}
+    \leftrightarrow
+    k_R \approx \SI{15}{\per\centi\meter}$ at $\rho = 0.6$,
+    which is where the corresponding $S(k_R)$
+    intersects the noise floor
     in Figure~\ref{fig:TurbulenceMeasurements:Sk_power_law}.
     Within the PCI sensitivity and wavenumber domain,
     the predicted spectra are qualitatively consistent
     with the PCI-measured spectra
     in Figure~\ref{fig:TurbulenceMeasurements:Sk_power_law}.
     The black dashed lines indicate least-squares power-law fits
-    to the predicted $S(k_R)$;
-    the resulting power laws quantitatively disagree
-    with the PCI-measured power laws in
-    Figure~\ref{fig:TurbulenceMeasurements:Sk_power_law}.
+    to the predicted $S(k_R)$.
+    Note that the PCI spectrum
+    also depends on $k_{\rho,0}$ and $\Delta \vect{k}$,
+    as discussed in Section~\ref{sec:TurbulenceMeasurements:Modeling:wavevectors},
+    so quantitative comparison with the PCI measurements
+    requires a full-physics simulation and a synthetic diagnostic.
   }
 \label{fig:TurbulenceMeasurements:density_spectra_local}
 \end{figure}
