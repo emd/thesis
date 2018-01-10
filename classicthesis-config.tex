@@ -18,7 +18,7 @@
 %				 pdfspacing,%floatperchapter,%linedheaders,%
 %				 subfig,beramono,eulermath}{classicthesis}		
 
-\PassOptionsToPackage{eulerchapternumbers,drafting,%
+\PassOptionsToPackage{eulerchapternumbers,%drafting,%
 				 pdfspacing,%floatperchapter,%linedheaders,%
 				 subfig,eulermath}{classicthesis}									
 % ********************************************************************
@@ -52,7 +52,7 @@
 \newcommand{\myUni}{Massachusetts Institute of Technology\xspace}
 \newcommand{\myLocation}{Boston, MA\xspace}
 \newcommand{\myTime}{January 2018\xspace}
-\newcommand{\myVersion}{version 7.1\xspace}
+\newcommand{\myVersion}{version 7.5\xspace}
 \usepackage{stmaryrd}
 
 % ********************************************************************
@@ -486,7 +486,8 @@ reserved.\par\permission}}
 % Occacionally you will need to exactly specify the text of the
 % copyright notice.  The \copyrightnoticetext command is then useful.
 \long\def\copyrightnoticetext#1{\gdef\@copyrightnotice{#1}}
-\def\@copyrightnotice{\copyright\ \Mit\ \@degreeyear.  All rights reserved.}
+% \def\@copyrightnotice{\copyright\ \Mit\ \@degreeyear.  All rights reserved.}
+\def\@copyrightnotice{\copyright\ \@degreeyear~\Mit.  All rights reserved.}
 
 %% `vi' documentclass option: Specifying this option automatically
 %% copyrights the thesis to the author and gives MIT permission to copy and
