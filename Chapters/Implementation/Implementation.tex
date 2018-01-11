@@ -580,7 +580,7 @@ Figure~\ref{fig:Implementation:feedback_effects}(a).
 The imaging optics image the object-plane ray
 corresponding to this effective beam path.
 
-\begin{figure}
+\begin{figure}[t!]
   \centering
   \includegraphics[width = 0.85 \textwidth]{%
     Chapters/Implementation/figs/feedback_effects.pdf}
@@ -858,6 +858,23 @@ the distance $d_{P2,L1}$ between
 the focusing off-axis parabolic mirror and $L1$ and
 the distance $d_{L1,L2}$ between $L1$ and $L2$.
 
+\begin{figure}[t!]
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/Implementation/figs/optical_design_sensitivity.pdf}
+  \caption[Sensitivity of optical design to placement of imaging optics]{%
+    Sensitivity of heterodyne-interferometer optical design
+    to the placement of lenses $L1$ and $L2$.
+    The distance between the focusing off-axis parabolic mirror $P2$ and
+    the first lens $L1$ of the imaging system
+    is denoted by $d_{P2,L1}$ (along the $x$-axis), and
+    the distance between $L1$ and the second lens $L2$
+    is denoted by $d_{L1,L2}$ (along the $y$-axis).
+    The design point is marked with a burgundy diamond.
+  }
+\label{fig:Implementation:optical_design_sensitivity}
+\end{figure}
+
 The sensitivity of the heterodyne-interferometer optical layout
 to $d_{P2,L1}$ and $d_{L1,L2}$ is shown in
 Figure~\ref{fig:Implementation:optical_design_sensitivity}, and
@@ -943,23 +960,6 @@ wavenumber distortion is minimal as long as
 the detector is well within $\pm\SI{20}{\centi\meter} \approx \pm8"$
 of the image plane,
 which is relatively easy to satisfy experimentally.
-
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/Implementation/figs/optical_design_sensitivity.pdf}
-  \caption[Sensitivity of optical design to placement of imaging optics]{%
-    Sensitivity of heterodyne-interferometer optical design
-    to the placement of lenses $L1$ and $L2$.
-    The distance between the focusing off-axis parabolic mirror $P2$ and
-    the first lens $L1$ of the imaging system
-    is denoted by $d_{P2,L1}$ (along the $x$-axis), and
-    the distance between $L1$ and the second lens $L2$
-    is denoted by $d_{L1,L2}$ (along the $y$-axis).
-    The design point is marked with a burgundy diamond.
-  }
-\label{fig:Implementation:optical_design_sensitivity}
-\end{figure}
 
 \begin{figure}
   \centering
@@ -1194,32 +1194,8 @@ at the heterodyne-interferometer detector is
 
 \subsection{Constraining the distribution of optical power}
 \label{sec:Implementation:PowerDistribution:constraints}
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/Implementation/figs/power_distribution.pdf}
-  \caption[Constraints on the distribution of optical power]{%
-    Constraints on the distribution of optical power
-    in the combined PCI-interferometer.
-    The AOM deflection efficiency,
-    which governs the fraction $\eta_R$
-    of beam power diverted to the interferometer reference arm,
-    is displayed along the $x$-axis.
-    The fraction $\eta_P$ of probe-beam power
-    (immediately upstream of the phase plate)
-    diverted to the interferometer probe arm
-    is displayed along the $y$-axis.
-    All intensities correspond to peak, on-axis values.
-    The design point is marked with a burgundy diamond;
-    note that $\eta_P = 0.25$ is fixed for the installed splitter, but
-    varying the AOM RF power readily changes $\eta_R$,
-    allowing easy movement along the horizontal dashed line.
-    See text for discussion.
-  }
-\label{fig:Implementation:power_distribution}
-\end{figure}
-
-Suitably distributing the optical power in the combined PCI-interferometer
+Suitably distributing the optical power in the combined PCI and
+interferometer system
 is an exercise in constrained optimization.
 The objective function is the optical power
 in the heterodyne-interference signal, while the constraints are
@@ -1266,6 +1242,30 @@ may improve the system performance, as quantified by the
 $V_1 / V_1(I_{\text{max}} = I_{\text{sat}})$ multiplicative factor
 in the heterodyne-interferometer transfer function
 (\ref{eq:DesignConsiderations:summary:heterodyne_interferometer_wavenumber_transfer_function}).
+\begin{figure}[t!]
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/Implementation/figs/power_distribution.pdf}
+  \caption[Constraints on the distribution of optical power]{%
+    Constraints on the distribution of optical power
+    in the combined PCI-interferometer.
+    The AOM deflection efficiency,
+    which governs the fraction $\eta_R$
+    of beam power diverted to the interferometer reference arm,
+    is displayed along the $x$-axis.
+    The fraction $\eta_P$ of probe-beam power
+    (immediately upstream of the phase plate)
+    diverted to the interferometer probe arm
+    is displayed along the $y$-axis.
+    All intensities correspond to peak, on-axis values.
+    The design point is marked with a burgundy diamond;
+    note that $\eta_P = 0.25$ is fixed for the installed splitter, but
+    varying the AOM RF power readily changes $\eta_R$,
+    allowing easy movement along the horizontal dashed line.
+    See text for discussion.
+  }
+\label{fig:Implementation:power_distribution}
+\end{figure}
 However, as the \emph{bottom-left} panel of
 Figure~\ref{fig:Implementation:power_distribution} shows,
 the constraint
@@ -1755,21 +1755,6 @@ that would mask all but the largest plasma fluctuations.
 To minimize quantization noise, then, the $I$ and $Q$ signals
 must be amplified to $\eta_{\text{dyn}} \approx 1$ prior to digitization.
 
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/Implementation/figs/audio_amp_schematic.pdf}
-  \caption[Audio-amplifier schematic]{%
-    Audio-amplifier schematic.
-    The amplifier consists of
-    two high-gain, low-noise amplification stages
-    followed by a $\SI{50}{\ohm}$ line driver,
-    which is required to drive the digitizer's
-    $\SI{50}{\ohm}$ input impedance.
-  }
-\label{fig:Implementation:audio_amplifier_schematic}
-\end{figure}
-
 A pair of custom ``audio amplifiers'' were built to
 perform the desired amplification of the $I$ and $Q$ signals.
 The ``audio'' qualifier indicates that
@@ -1784,6 +1769,20 @@ are almost always $\lesssim \SI{1}{\mega\hertz}$).
 The required amplitude gain of the amplifier is $G \approx 100$.
 A schematic for a single channel of the amplifier is shown in
 Figure~\ref{fig:Implementation:audio_amplifier_schematic}.
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/Implementation/figs/audio_amp_schematic.pdf}
+  \caption[Audio-amplifier schematic]{%
+    Audio-amplifier schematic.
+    The amplifier consists of
+    two high-gain, low-noise amplification stages
+    followed by a $\SI{50}{\ohm}$ line driver,
+    which is required to drive the digitizer's
+    $\SI{50}{\ohm}$ input impedance.
+  }
+\label{fig:Implementation:audio_amplifier_schematic}
+\end{figure}
 The amplifier consists of two stages
 of high-gain, low-noise amplification
 followed by a $\SI{50}{\ohm}$ line driver,

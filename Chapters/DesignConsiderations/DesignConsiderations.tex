@@ -1557,16 +1557,6 @@ Note that in the ideal case the measured phase is
 equal to the true phase, i.e.\ $\phi_m = \phi$, and
 that $\phi_m$ is independent of the power in the incident IF signal.
 
-\begin{figure}
-  \centering
-  \includegraphics[width = \textwidth]{%
-    Chapters/DesignConsiderations/figs/analog_IQ_demodulator.pdf}
-  \caption[Components of a typical analog $I\&Q$ demodulator]{%
-    (a) A typical analog $I\&Q$ demodulator and
-    (b) a typical diode-ring double-balanced mixer.}
-  \label{fig:DesignConsiderations:analog_IQ_demodulator}
-\end{figure}
-
 
 \subsection{Nonideal mixing}
 \label{sec:DesignConsiderations:demodulation:nonideal_mixing}
@@ -1576,6 +1566,16 @@ by a sinusoidal LO signal.
 However, in practice, more complex processes are used
 to maximize the mixer's linear dynamic range and minimize its noise figure
 \cite{analog_devices_mix_and_mod,bryant_mult_vs_mod}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = \textwidth]{%
+    Chapters/DesignConsiderations/figs/analog_IQ_demodulator.pdf}
+  \caption[Components of a typical analog $I\&Q$ demodulator]{%
+    (a) A typical analog $I\&Q$ demodulator and
+    (b) a typical diode-ring double-balanced mixer.}
+  \label{fig:DesignConsiderations:analog_IQ_demodulator}
+\end{figure}
 
 For example, a typical ring-diode double-balanced mixer
 \cite{analog_devices_mix_and_mod}
@@ -1872,13 +1872,9 @@ the relative errors in the measured fluctuating phase
 that result from various demodulator imperfections
 are displayed in
 Figure~\ref{fig:DesignConsiderations:effects_of_demodulator_imperfections}.
-Obviously, each demodulator imperfection should be minimized
-in order to minimize the relative error
-in the measured fluctuating phase.
-
-\begin{figure}
+\begin{figure}[h!]
   \centering
-  \includegraphics[width = \textwidth]{%
+  \includegraphics[width = 0.95\textwidth]{%
     Chapters/DesignConsiderations/figs/demodulator_imperfections.pdf}
   \caption[Effects of demodulator imperfections]{%
     Demodulator imperfections produce errors in the measured phase.
@@ -1893,6 +1889,9 @@ in the measured fluctuating phase.
   }
   \label{fig:DesignConsiderations:effects_of_demodulator_imperfections}
 \end{figure}
+Obviously, each demodulator imperfection should be minimized
+in order to minimize the relative error
+in the measured fluctuating phase.
 
 
 \section{Quantization noise}

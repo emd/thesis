@@ -316,7 +316,7 @@ of this experiment's reference discharge,
 indicate that the turbulent transport
 is intrinsically multiscale in nature~\cite{holland_nf17}.
 
-\begin{figure}
+\begin{figure}[t!]
   \centering
   \includegraphics[width = \textwidth]{%
     Chapters/TurbulenceMeasurements/figs/traces.png}
@@ -335,7 +335,7 @@ is intrinsically multiscale in nature~\cite{holland_nf17}.
 \label{fig:TurbulenceMeasurements:traces}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[t!]
   \centering
   \includegraphics[width = \textwidth]{%
     Chapters/TurbulenceMeasurements/figs/profiles.pdf}
@@ -886,7 +886,7 @@ of the sparsely sampled (in space) PCI data
 (see Figure~\ref{fig:SpectralEstimation:Skf_example}
 for a comparison to a conventional Fourier-in-space estimate).
 
-\begin{figure}
+\begin{figure}[t!]
   \centering
   \includegraphics[width = \textwidth]{%
     Chapters/TurbulenceMeasurements/figs/Skf_pci_zoom.png}
@@ -970,6 +970,27 @@ in Section~\ref{sec:TurbulenceMeasurements:Measurements:Sk}.
 
 \subsection{Wavenumber spectra}
 \label{sec:TurbulenceMeasurements:Measurements:Sk}
+\begin{figure}
+  \centering
+  \includegraphics[width = 0.9 \textwidth]{%
+    Chapters/TurbulenceMeasurements/figs/Sk_power_law.pdf}
+  \caption[PCI wavenumber spectra]{%
+    PCI wavenumber autospectral densities $S_{\phi,\phi}(k)$
+    obtained by integrating $S_{\phi,\phi}(k, f)$ in frequency
+    between the bounds denoted by the annotating dashed while lines
+    in Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}.
+    Here, the black dashed lines indicate least-squares power-law fits
+    to $S_{\phi,\phi}(k)$.
+    The flattening (i.e.\ slower decay) of $S_{\phi,\phi}(k)$
+    with $\rhoech = 0.5$ relative to that with $\rhoech = 0.8$
+    is reminiscent of results from multiscale gyrokinetic simulations
+    in Alcator C-Mod, but
+    quantitative comparisons await
+    completion of the corresponding multiscale gyrokinetic simulations
+    in \diiid.
+  }
+\label{fig:TurbulenceMeasurements:Sk_power_law}
+\end{figure}
 Because simulations are finely sampled in space
 but often have limited temporal histories,
 experimental wavenumber spectra
@@ -1026,28 +1047,6 @@ eagerly awaits quantitative comparison
 to corresponding multiscale gyrokinetic simulations,
 which are expected to be completed by Howard \emph{et al.}
 in roughly the next six months.
-
-\begin{figure}
-  \centering
-  \includegraphics[width = 0.9 \textwidth]{%
-    Chapters/TurbulenceMeasurements/figs/Sk_power_law.pdf}
-  \caption[PCI wavenumber spectra]{%
-    PCI wavenumber autospectral densities $S_{\phi,\phi}(k)$
-    obtained by integrating $S_{\phi,\phi}(k, f)$ in frequency
-    between the bounds denoted by the annotating dashed while lines
-    in Figure~\ref{fig:TurbulenceMeasurements:Skf_pci}.
-    Here, the black dashed lines indicate least-squares power-law fits
-    to $S_{\phi,\phi}(k)$.
-    The flattening (i.e.\ slower decay) of $S_{\phi,\phi}(k)$
-    with $\rhoech = 0.5$ relative to that with $\rhoech = 0.8$
-    is reminiscent of results from multiscale gyrokinetic simulations
-    in Alcator C-Mod, but
-    quantitative comparisons await
-    completion of the corresponding multiscale gyrokinetic simulations
-    in \diiid.
-  }
-\label{fig:TurbulenceMeasurements:Sk_power_law}
-\end{figure}
 
 
 \section{TGLF modeling}
