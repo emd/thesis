@@ -217,7 +217,7 @@ def phase_shift_ideal_system(freqs=np.arange(2.5, 25., 0.1)):
         P = PressureField(f, z, x)
 
         # Integrate along beam path assuming a CO2 probe beam;
-        # prefactor of 0.0011 derived in thesis.
+        # prefactor of 1.1e-5 derived in thesis.
         phi = (1.1e-5) * np.sum(P.getPressureField(), axis=1) * dx
 
         # Compute variance in time, which is the quantity
