@@ -19,7 +19,7 @@ from wavenumber import wavenumber
 
 
 class PressureField(object):
-    def __init__(self, f, z, x):
+    def __init__(self, f, z, x, b=0):
         '''Create an instance of `PressureField`.
 
         Input parameters:
@@ -33,13 +33,23 @@ class PressureField(object):
             [z] = cm
 
         x - array_like, (`M`,)
-            The transverse distance from the speaker's symmetry axis.
+            The x-coordinate of the (x, z) slice of pressure field.
+            Note that the transverse radial coordinate is thus
+            rho = sqrt((b ** 2) + (x ** 2)).
             [x] = cm
+
+        b - float
+            The impact parameter of (x, z) slice of pressure field.
+            Note that b = 0 implies that the slice passes through
+            the symmetry axis of the speaker.
+            [b] = cm
 
         '''
         self.f = f
         self.k = wavenumber(f)  # [self.k] = cm^{-1}
         self.xx, self.zz = np.meshgrid(x, z)
+        self.b = b
+        self.rhorho = np.sqrt((self.xx ** 2) + (self.b ** 2))
 
     def getAmplitude(self):
         '''Get single-sided amplitude (in Pa) of pressure fluctuation
@@ -114,14 +124,14 @@ class PressureField(object):
             self.f * np.ones(self.zz.shape),
             self.zz)
 
-        return np.exp(-((self.xx / w) ** 2))
+        return np.exp(-((self.rhorho / w) ** 2))
 
     def getPhase(self):
         '''To good approximation, the sound waves are spherical.
         Get the corresponding phase.
 
         '''
-        return self.k * np.sqrt((self.xx ** 2) + (self.zz ** 2))
+        return self.k * np.sqrt((self.rhorho ** 2) + (self.zz ** 2))
 
     def getPressureField(self):
         p0 = self.getAmplitude()
@@ -142,7 +152,7 @@ class PressureField(object):
         return p0 * envelope * np.cos(theta)
 
 
-def plot_example_pressure_field(f=15., cmap='RdBu', fontsize=12):
+def plot_example_pressure_field(f=15., b=0, cmap='RdBu', fontsize=12):
     # Height above speaker face
     # [z] = cm
     zmin = 2.5
@@ -157,7 +167,7 @@ def plot_example_pressure_field(f=15., cmap='RdBu', fontsize=12):
     dx = 0.1
     x = np.arange(xmin, xmax + dx, dx)
 
-    P = PressureField(f, z, x)
+    P = PressureField(f, z, x, b=b)
 
     M = 0.6
     figsize = (M * (xmax - xmin), M * (zmax - zmin))
@@ -177,13 +187,13 @@ def plot_example_pressure_field(f=15., cmap='RdBu', fontsize=12):
     ax.set_aspect('equal')
 
     ax.set_xlabel(
-        r'$\mathregular{\rho \; [cm]}$',
+        r'$\mathregular{x \; [cm]}$',
         fontsize=fontsize)
     ax.set_ylabel(
         r'$\mathregular{z \; [cm]}$',
         fontsize=fontsize)
     ax.set_title(
-        r'$\mathregular{\widetilde{p} \; [Pa] \; @ \; f = %i \, kHz}$' % np.int(f),
+        r'$\mathregular{\widetilde{p} \; [Pa] \; @ \; f = %i \, kHz \; and \; b = %.1f \, cm}$' % (np.int(f), b),
         fontsize=fontsize)
     ax.set_xlim([xmin, xmax])
 
@@ -193,7 +203,11 @@ def plot_example_pressure_field(f=15., cmap='RdBu', fontsize=12):
     return
 
 
-def phase_shift_ideal_system(freqs=np.arange(2.5, 25., 0.1)):
+def phase_shift_ideal_system(
+        freqs=np.arange(2.5, 25., 0.1),
+        bs=np.array([0]),
+        z=np.arange(2.5, 8.5, 0.25),
+        x=np.arange(-10, 10, 0.1)):
     '''Compute bounds on sound-wave imparted phase shift
     to CO2 beam for an ideal interferometer that has
 
@@ -201,39 +215,40 @@ def phase_shift_ideal_system(freqs=np.arange(2.5, 25., 0.1)):
         (b) no finite sampling-volume effects.
 
     '''
-    zmin = 2.5
-    zmax = 8.5
-    dz = 0.25
-    z = np.arange(zmin, zmax + dz, dz)
+    dx = x[1] - x[0]
 
-    xmin = -10.
-    xmax = 10.
-    dx = 0.1
-    x = np.arange(xmin, xmax + dx, dx)
+    if not np.allclose(np.diff(x), dx):
+        raise ValueError('`x` must be monotonic and uniform')
 
-    varphi = np.zeros((len(freqs), len(z)))
+    varphi = np.zeros((len(freqs), len(bs), len(z)))
+
     for find, f in enumerate(freqs):
-        # Compute pressure field and change to index of refraction
-        P = PressureField(f, z, x)
+        for bind, b in enumerate(bs):
+            # Compute pressure field and change to index of refraction
+            P = PressureField(f, z, x, b=b)
 
-        # Integrate along beam path assuming a CO2 probe beam;
-        # prefactor of 1.1e-5 derived in thesis.
-        phi = (1.1e-5) * np.sum(P.getPressureField(), axis=1) * dx
+            # Integrate along beam path assuming a CO2 probe beam;
+            # prefactor of 1.1e-5 derived in thesis.
+            phi = (1.1e-5) * np.sum(P.getPressureField(), axis=1) * dx
 
-        # Compute variance in time, which is the quantity
-        # of experimental relevance
-        varphi[find, :] = np.var(phi, axis=-1)
+            # Compute variance in time, which is the quantity
+            # of experimental relevance
+            varphi[find, bind, :] = np.var(phi, axis=-1)
 
     k = wavenumber(freqs)
-    varphi_min = np.min(varphi, axis=-1)
-    varphi_max = np.max(varphi, axis=-1)
+    varphi_min = np.min(np.min(varphi, axis=-1), axis=-1)
+    varphi_max = np.max(np.max(varphi, axis=-1), axis=-1)
 
     return k, varphi_min, varphi_max
 
 
-def plot_phase_shift_ideal_system(fontsize=12):
+def plot_phase_shift_ideal_system(
+        bs=np.array([0]),
+        z=np.arange(2.5, 8.5, 0.25),
+        x=np.arange(-10, 10, 0.1),
+        fontsize=12):
     # Compute expected phase shift and parse results
-    res = phase_shift_ideal_system()
+    res = phase_shift_ideal_system(bs=bs, z=z, x=x)
     k = res[0]
     varphi_min = res[1]
     varphi_max = res[2]
@@ -256,5 +271,5 @@ def plot_phase_shift_ideal_system(fontsize=12):
 
 
 if __name__ == '__main__':
-    plot_example_pressure_field()
-    plot_phase_shift_ideal_system()
+    plot_example_pressure_field(f=15., b=0)
+    plot_phase_shift_ideal_system(bs=np.array([0]))
